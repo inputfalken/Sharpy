@@ -12,8 +12,8 @@ namespace DataGenerator.Types
         ///     Will run once to populate lists which will contain random data reed from text files
         /// </summary>
         static Name() {
-            FirstNames = ReadFromFile("data/firstNames.txt");
-            LastNames = ReadFromFile("data/lastNames.txt");
+            FirstNames = ReadFromFile("Data/Types/Name/firstNames.txt");
+            LastNames = ReadFromFile("Data/Types/Name/lastNames.txt");
         }
 
         /// <summary>

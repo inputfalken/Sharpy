@@ -51,10 +51,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Data\firstNames.txt">
+    <Content Include="Data\Types\Name\firstNames.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\lastNames.txt">
+    <Content Include="Data\Types\Name\lastNames.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
