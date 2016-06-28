@@ -2,15 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace DataGenerator
+namespace DataGenerator.Types
 {
     internal class Name
     {
         private static readonly Random Random = new Random();
-        private static IReadOnlyList<string> FirstNames { get; }
-        private static IReadOnlyList<string> LastNames { get; }
-        private string FirstName { get; }
-        private string LastName { get; }
 
         /// <summary>
         ///     Will run once to populate lists which will contain random data reed from text files
@@ -29,6 +25,11 @@ namespace DataGenerator
             lock (Random)
                 LastName = LastNames[Random.Next(LastNames.Count)];
         }
+
+        private static IReadOnlyList<string> FirstNames { get; }
+        private static IReadOnlyList<string> LastNames { get; }
+        private string FirstName { get; }
+        private string LastName { get; }
 
 
         private static IReadOnlyList<string> ReadFromFile(string filePath) {
