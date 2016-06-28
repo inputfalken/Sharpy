@@ -7,10 +7,11 @@ namespace DataGenerator
     internal class Name
     {
         private static readonly Random Random = new Random();
-        private static List<string> FirstNames { get; }
-        private static List<string> LastNames { get; }
+        private static IReadOnlyList<string> FirstNames { get; }
+        private static IReadOnlyList<string> LastNames { get; }
         private string FirstName { get; }
         private string LastName { get; }
+
         /// <summary>
         ///     Will run once to populate lists which will contain random data reed from text files
         /// </summary>
@@ -30,7 +31,7 @@ namespace DataGenerator
         }
 
 
-        private static List<string> ReadFromFile(string filePath) {
+        private static IReadOnlyList<string> ReadFromFile(string filePath) {
             var list = new List<string>();
             using (var reader = new StreamReader(filePath)) {
                 string line;
@@ -40,6 +41,7 @@ namespace DataGenerator
                 return list;
             }
         }
+
         public override string ToString() => $"{FirstName} {LastName}";
     }
 }

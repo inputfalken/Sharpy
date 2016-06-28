@@ -13,6 +13,7 @@ namespace DataGenerator
     {
         private static void Main(string[] args) {
             var name = new Name();
+            
         }
     }
 }
