@@ -22,6 +22,8 @@ namespace DataGenerator
             }
             stopwatch.Stop();
 
+
+            names.ForEach(Console.WriteLine);
             Console.WriteLine(stopwatch.Elapsed);
         }
     }
