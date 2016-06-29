@@ -53,7 +53,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Data\Types\Country\country.txt" />
+    <Content Include="Data\Types\Country\country.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Data\Types\Name\firstNames.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
