@@ -11,9 +11,9 @@ namespace DataGenerator.Types
         private static IReadOnlyList<string> Titles { get; }
 
         private static IReadOnlyList<string> Initials { get; }
-        public string Title { get; private set; }
+        public string Title { get; }
 
-        public string IsoCode { get; private set; }
+        public string IsoCode { get; }
 
         static Country() {
             Titles = DataGenHelperClass.ReadFromFile("Country/country.txt");
