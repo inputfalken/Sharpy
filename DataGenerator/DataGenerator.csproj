@@ -43,11 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Types\Name\NameType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Factory.cs" />
     <Compile Include="Types\Country.cs" />
+    <Compile Include="Types\Name\Name.cs" />
     <Compile Include="Types\DataGenHelperClass.cs" />
-    <Compile Include="Types\Name.cs" />
+    <Compile Include="Types\Name\FirstName.cs" />
+    <Compile Include="Types\Name\LastName.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
