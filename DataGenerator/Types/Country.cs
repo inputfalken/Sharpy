@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace DataGenerator.Types
 {
-    class Country
+    //TODO CREATE HELPER CLASS
+    internal class Country
     {
+        private static IReadOnlyList<string> ReadOnlyList { get; set; }
+        static Country() {
+            ReadOnlyList = DataGenHelperClass.ReadFromFile("Country/country.txt");
+        }
     }
 }

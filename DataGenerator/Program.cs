@@ -7,7 +7,7 @@ namespace DataGenerator
 {
     internal static class Program
     {
-        //TODO ADD A CONTAINER CLASS NAMES DataGen Which name and other data can be called from
+        //TODO ADD A CONTAINER CLASS NAMES DataGenHelperClass Which name and other data can be called from
         private static void Main(string[] args) {
             var names = new List<Name>();
             var stopwatch = new Stopwatch();
