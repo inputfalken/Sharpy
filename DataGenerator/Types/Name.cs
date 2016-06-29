@@ -22,8 +22,8 @@ namespace DataGenerator.Types
 
         private static IReadOnlyList<string> FirstNames { get; }
         private static IReadOnlyList<string> LastNames { get; }
-        private string FirstName { get; }
-        private string LastName { get; }
+        public string FirstName { get; }
+        public string LastName { get; }
 
         public override string ToString() => $"{FirstName} {LastName}";
     }
