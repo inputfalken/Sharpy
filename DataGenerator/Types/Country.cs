@@ -6,26 +6,18 @@ using System.Threading.Tasks;
 
 namespace DataGenerator.Types
 {
-    internal class Country
+    public class Country
     {
-        private static List<string> Titles { get; set; }
+        private static IReadOnlyList<string> Titles { get; }
 
-        private static List<string> Initials { get; set; }
+        private static IReadOnlyList<string> Initials { get; }
         public string Title { get; private set; }
 
         public string Initial { get; private set; }
 
         static Country() {
-            var readFromFile = DataGenHelperClass.ReadFromFile("Country/country.txt");
-            //foreach (var line in readFromFile) {
-            //    var strings = line.Split('|');
-            //    Initials.Add(strings[0]);
-            //    Titles.Add(strings[1]);
-            //}
-            var strings = readFromFile[0].Split('|');
-            //PROGRAMS DIES HERE
-            Titles.Add(strings[1]);
-            Initials.Add(strings[0]);
+            Titles = DataGenHelperClass.ReadFromFile("Country/country.txt");
+            Initials = DataGenHelperClass.ReadFromFile("Country/inital.txt");
         }
 
         public Country() {

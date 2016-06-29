@@ -21,8 +21,6 @@ namespace DataGenerator
 
             //names.ForEach(Console.WriteLine);
             //Console.WriteLine(stopwatch.Elapsed);
-            var country = new Country();
-            Console.WriteLine(country.Title);
         }
     }
 }
