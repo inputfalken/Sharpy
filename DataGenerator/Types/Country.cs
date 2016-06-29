@@ -17,7 +17,7 @@ namespace DataGenerator.Types
 
         static Country() {
             Titles = DataGenHelperClass.ReadFromFile("Country/country.txt");
-            Initials = DataGenHelperClass.ReadFromFile("Country/inital.txt");
+            Initials = DataGenHelperClass.ReadFromFile("Country/seoCode.txt");
         }
 
         public Country() {
