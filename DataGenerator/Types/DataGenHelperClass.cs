@@ -26,6 +26,11 @@ namespace DataGenerator.Types
         public static T FetchRandomItem<T>(IReadOnlyList<T> iReadOnlyList)
             => iReadOnlyList[Randomer(iReadOnlyList.Count)];
 
+        public static Tuple<T, int> FetchRandomBundledWithIndex<T>(IReadOnlyList<T> iReadOnlyList) {
+            var currentIndex = Randomer(iReadOnlyList.Count);
+            return new Tuple<T, int>(iReadOnlyList[currentIndex], currentIndex);
+        }
+
         private static int Randomer(int limit) {
             lock (Random)
                 return Random.Next(limit);

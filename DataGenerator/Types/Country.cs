@@ -13,7 +13,7 @@ namespace DataGenerator.Types
         private static IReadOnlyList<string> Initials { get; }
         public string Title { get; private set; }
 
-        public string Initial { get; private set; }
+        public string IsoCode { get; private set; }
 
         static Country() {
             Titles = DataGenHelperClass.ReadFromFile("Country/country.txt");
@@ -21,8 +21,9 @@ namespace DataGenerator.Types
         }
 
         public Country() {
-            Title = DataGenHelperClass.FetchRandomItem(Titles);
-            Initial = DataGenHelperClass.FetchRandomItem(Initials);
+            var fetchRandomItem = DataGenHelperClass.FetchRandomBundledWithIndex(Titles);
+            Title = fetchRandomItem.Item1;
+            IsoCode = Initials[fetchRandomItem.Item2];
         }
     }
 }
