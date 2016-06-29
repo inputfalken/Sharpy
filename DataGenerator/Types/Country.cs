@@ -6,18 +6,18 @@ namespace DataGenerator.Types
     {
         static Country() {
             Titles = DataGenHelperClass.ReadFromFile("Country/country.txt");
-            Initials = DataGenHelperClass.ReadFromFile("Country/seoCode.txt");
+            SeoCodes = DataGenHelperClass.ReadFromFile("Country/seoCode.txt");
         }
 
         public Country() {
             var fetchRandomItem = DataGenHelperClass.FetchRandomBundledWithIndex(Titles);
             Title = fetchRandomItem.Item1;
-            IsoCode = Initials[fetchRandomItem.Item2];
+            IsoCode = SeoCodes[fetchRandomItem.Item2];
         }
 
         private static IReadOnlyList<string> Titles { get; }
 
-        private static IReadOnlyList<string> Initials { get; }
+        private static IReadOnlyList<string> SeoCodes { get; }
         public string Title { get; }
 
         public string IsoCode { get; }
