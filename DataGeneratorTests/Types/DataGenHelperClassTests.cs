@@ -4,13 +4,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DataGeneratorTests.Types
 {
-    [TestClass()]
+    [TestClass]
     public class DataGenHelperClassTests
     {
-        [TestMethod()]
+        [TestMethod]
         public void ReadFromFileCountryTest() {
             const int expectedCount = 241;
-            var dictionary = new Dictionary<int, string>() {
+            var dictionary = new Dictionary<int, string> {
                 {207, "Sweden"},
                 {43, "China"},
                 {103, "Ireland"},
