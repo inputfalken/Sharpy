@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataGenerator.Types
 {
-    internal static class DataGenHelperClass
+    public static class DataGenHelperClass
     {
         private static readonly Random Random = new Random();
         private static string Path { get; } = "Data/Types/";
