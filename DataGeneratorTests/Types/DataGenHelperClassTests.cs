@@ -45,7 +45,7 @@ namespace DataGeneratorTests.Types
                 //Make sure the seocode is not bigger than 2 chars
                 Assert.IsTrue(seocode.Length == 2);
                 //Make sure everything is uppercased
-                Assert.IsTrue(seocode.Any(char.IsUpper));
+                Assert.IsTrue(seocode.All(char.IsUpper));
             }
 
             //Check that the order is as expected
