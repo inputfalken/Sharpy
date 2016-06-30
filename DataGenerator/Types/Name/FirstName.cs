@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DataGenerator.Types.Name
 {
@@ -13,8 +14,7 @@ namespace DataGenerator.Types.Name
         private static readonly IReadOnlyList<string> Female =
             DataGenHelperClass.ReadFromFile($"{Directory}/femaleNames.txt");
 
-        private static readonly IReadOnlyList<string> Mixed =
-            DataGenHelperClass.ReadFromFile($"{Directory}/firstNames.txt");
+        private static readonly IReadOnlyList<string> Mixed = Male.Concat(Female).ToList();
 
         public FirstName(Gender gender) {
             switch (gender) {

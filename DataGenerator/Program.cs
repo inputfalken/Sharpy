@@ -11,9 +11,8 @@ namespace DataGenerator
             var names = new List<string>();
 
             stopwatch.Start();
-            for (var i = 0; i < 10000; i++) {
-                names.Add(Factory.GetLastName());
-            }
+            for (var i = 0; i < 10000; i++)
+                names.Add(Factory.GetFirstName(Gender.Female));
             stopwatch.Stop();
             Console.WriteLine(stopwatch.Elapsed);
         }
