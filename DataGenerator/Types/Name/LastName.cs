@@ -6,6 +6,5 @@
             NameList = DataGenHelperClass.ReadFromFile("Name/lastnames.txt");
         }
 
-        public override string ToString() => Data;
     }
 }

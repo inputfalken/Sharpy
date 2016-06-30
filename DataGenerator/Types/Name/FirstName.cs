@@ -6,7 +6,5 @@
         static FirstName() {
             NameList = DataGenHelperClass.ReadFromFile("Name/firstNames.txt");
         }
-
-        public override string ToString() => Data;
     }
 }
