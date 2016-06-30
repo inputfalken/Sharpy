@@ -4,11 +4,9 @@ namespace DataGenerator.Types.Name
 {
     internal class LastName : Name
     {
-        private IReadOnlyList<string> LastNames { get; }
+        private static readonly IReadOnlyList<string> LastNames = DataGenHelperClass.ReadFromFile("Name/lastnames.txt");
 
         public LastName() {
-            if (LastNames == null)
-                LastNames = DataGenHelperClass.ReadFromFile("Name/lastnames.txt");
             Data = DataGenHelperClass.FetchRandomItem(LastNames);
         }
     }

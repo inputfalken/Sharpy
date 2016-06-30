@@ -10,15 +10,12 @@ namespace DataGenerator.Types.Name
         public FirstName(Gender gender) {
             switch (gender) {
                 case Gender.Female:
-                    Female = Female ?? DataGenHelperClass.ReadFromFile($"{Directory}/femaleNames.txt");
                     Data = DataGenHelperClass.FetchRandomItem(Female);
                     break;
                 case Gender.Male:
-                    Male = Male ?? DataGenHelperClass.ReadFromFile($"{Directory}/maleNames.txt");
                     Data = DataGenHelperClass.FetchRandomItem(Male);
                     break;
                 case Gender.Mixed:
-                    Mixed = Mixed ?? DataGenHelperClass.ReadFromFile($"{Directory}/firstNames.txt");
                     Data = DataGenHelperClass.FetchRandomItem(Mixed);
                     break;
                 default:
@@ -26,8 +23,13 @@ namespace DataGenerator.Types.Name
             }
         }
 
-        private static IReadOnlyList<string> Male { get; set; }
-        private static IReadOnlyList<string> Female { get; set; }
-        private static IReadOnlyList<string> Mixed { get; set; }
+        private static readonly IReadOnlyList<string> Male =
+            DataGenHelperClass.ReadFromFile($"{Directory}/maleNames.txt");
+
+        private static readonly IReadOnlyList<string> Female =
+            DataGenHelperClass.ReadFromFile($"{Directory}/femaleNames.txt");
+
+        private static readonly IReadOnlyList<string> Mixed =
+            DataGenHelperClass.ReadFromFile($"{Directory}/firstNames.txt");
     }
 }
