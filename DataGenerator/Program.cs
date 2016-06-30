@@ -13,7 +13,7 @@ namespace DataGenerator
             
             stopwatch.Start();
             for (var i = 0; i < 10000; i++) {
-                names.Add(Factory.GetFirstName(Gender.Mixed));
+                names.Add(Factory.GetLastName());
 
             }
             stopwatch.Stop();
