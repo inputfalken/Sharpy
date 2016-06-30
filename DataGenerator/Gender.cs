@@ -4,6 +4,5 @@
     {
         Female,
         Male,
-        Mixed
     }
 }

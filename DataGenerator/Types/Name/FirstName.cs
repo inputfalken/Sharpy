@@ -14,7 +14,6 @@ namespace DataGenerator.Types.Name
         private static readonly IReadOnlyList<string> Female =
             DataGenHelperClass.ReadFromFile($"{Directory}/femaleNames.txt");
 
-        private static readonly IReadOnlyList<string> Mixed = Male.Concat(Female).ToList();
 
         public FirstName(Gender gender) {
             switch (gender) {
@@ -23,9 +22,6 @@ namespace DataGenerator.Types.Name
                     break;
                 case Gender.Male:
                     Data = DataGenHelperClass.FetchRandomItem(Male);
-                    break;
-                case Gender.Mixed:
-                    Data = DataGenHelperClass.FetchRandomItem(Mixed);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(gender), gender, null);
