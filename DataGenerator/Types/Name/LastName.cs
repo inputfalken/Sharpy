@@ -1,10 +1,15 @@
-﻿namespace DataGenerator.Types.Name
+﻿using System.Collections.Generic;
+
+namespace DataGenerator.Types.Name
 {
     internal class LastName : Name
     {
-        static LastName() {
-            NameList = DataGenHelperClass.ReadFromFile("Name/lastnames.txt");
-        }
+        private IReadOnlyList<string> LastNames { get; }
 
+        public LastName() {
+            if (LastNames == null)
+                LastNames = DataGenHelperClass.ReadFromFile("Name/lastnames.txt");
+            Data = DataGenHelperClass.FetchRandomItem(LastNames);
+        }
     }
 }
