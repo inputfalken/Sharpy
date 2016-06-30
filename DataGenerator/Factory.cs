@@ -6,8 +6,8 @@ namespace DataGenerator
 {
     internal static class Factory
     {
-        public static Name Name(NameType dataType) {
-            switch (dataType) {
+        public static Name Name(NameType nameType) {
+            switch (nameType) {
                 case NameType.First:
                     return new FirstName();
                 case NameType.Last:
