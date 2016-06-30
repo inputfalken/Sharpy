@@ -7,6 +7,15 @@ namespace DataGenerator.Types.Name
     {
         private const string Directory = "Name";
 
+        private static readonly IReadOnlyList<string> Male =
+            DataGenHelperClass.ReadFromFile($"{Directory}/maleNames.txt");
+
+        private static readonly IReadOnlyList<string> Female =
+            DataGenHelperClass.ReadFromFile($"{Directory}/femaleNames.txt");
+
+        private static readonly IReadOnlyList<string> Mixed =
+            DataGenHelperClass.ReadFromFile($"{Directory}/firstNames.txt");
+
         public FirstName(Gender gender) {
             switch (gender) {
                 case Gender.Female:
@@ -22,14 +31,5 @@ namespace DataGenerator.Types.Name
                     throw new ArgumentOutOfRangeException(nameof(gender), gender, null);
             }
         }
-
-        private static readonly IReadOnlyList<string> Male =
-            DataGenHelperClass.ReadFromFile($"{Directory}/maleNames.txt");
-
-        private static readonly IReadOnlyList<string> Female =
-            DataGenHelperClass.ReadFromFile($"{Directory}/femaleNames.txt");
-
-        private static readonly IReadOnlyList<string> Mixed =
-            DataGenHelperClass.ReadFromFile($"{Directory}/firstNames.txt");
     }
 }

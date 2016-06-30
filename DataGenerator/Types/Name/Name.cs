@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace DataGenerator.Types.Name
+﻿namespace DataGenerator.Types.Name
 {
     internal abstract class Name
     {

@@ -1,6 +1,4 @@
-﻿using System;
-using DataGenerator.Types;
-using DataGenerator.Types.Name;
+﻿using DataGenerator.Types.Name;
 
 namespace DataGenerator
 {
