@@ -48,9 +48,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Factory.cs" />
     <Compile Include="Types\Country.cs" />
-    <Compile Include="Types\RandomFetcher.cs" />
-    <Compile Include="Types\IFetchable.cs" />
-    <Compile Include="Types\Name\Name.cs" />
+    <Compile Include="Types\RandomGenerator.cs" />
+    <Compile Include="Types\IGenerator.cs" />
+    <Compile Include="Types\Name\Data.cs" />
     <Compile Include="Types\HelperClass.cs" />
     <Compile Include="Types\Name\FirstName.cs" />
     <Compile Include="Types\Name\LastName.cs" />

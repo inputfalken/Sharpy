@@ -13,13 +13,13 @@ namespace DataGenerator.Types.Name
 
         public string Name { get; }
 
-        public FirstName(Gender gender, IFetchable<string> iFetchable) : base(iFetchable) {
+        public FirstName(Gender gender, IGenerator<string> iGenerator) : base(iGenerator) {
             switch (gender) {
                 case Gender.Female:
-                    Name = IfFetchable.Fetch(Female);
+                    Name = Generator.Generate(Female);
                     break;
                 case Gender.Male:
-                    Name = IfFetchable.Fetch(Male);
+                    Name = Generator.Generate(Male);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(gender), gender, null);

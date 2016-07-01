@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace DataGenerator.Types
 {
-    public class RandomFetcher : IFetchable<string>
+    public class RandomGenerator : IGenerator<string>
     {
-        public string Fetch(List<string> list)
+        public string Generate(List<string> list)
             => list[HelperClass.Randomer(list.Count)];
 
-        public Tuple<string, int> FetchWithIndex(List<string> list) {
+        public Tuple<string, int> GenerateWithIndex(List<string> list) {
             var currentIndex = HelperClass.Randomer(list.Count);
             return new Tuple<string, int>(list[currentIndex], currentIndex);
         }

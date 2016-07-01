@@ -14,7 +14,7 @@ namespace DataGenerator
             stopwatch.Start();
 
             for (var i = 0; i < 10000; i++)
-                names.Add(Factory.GetFirstName(Gender.Female, new RandomFetcher()));
+                names.Add(Factory.GetFirstName(Gender.Female, new RandomGenerator()));
             stopwatch.Stop();
             Console.WriteLine(stopwatch.Elapsed);
         }

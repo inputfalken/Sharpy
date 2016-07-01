@@ -7,8 +7,8 @@ namespace DataGenerator.Types.Name
         private static readonly List<string> LastNames = ReadFromFile("Name/lastnames.txt");
         public string Name { get; }
 
-        public LastName(IFetchable<string> iFetchable) : base(iFetchable) {
-            Name = IfFetchable.Fetch(LastNames);
+        public LastName(IGenerator<string> iGenerator) : base(iGenerator) {
+            Name = Generator.Generate(LastNames);
         }
     }
 }

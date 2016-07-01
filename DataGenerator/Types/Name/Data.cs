@@ -5,10 +5,10 @@ namespace DataGenerator.Types.Name
 {
     public abstract class Data<T>
     {
-        protected readonly IFetchable<T> IfFetchable;
+        protected readonly IGenerator<T> Generator;
 
-        protected Data(IFetchable<T> ifFetchable) {
-            IfFetchable = ifFetchable;
+        protected Data(IGenerator<T> generator) {
+            Generator = generator;
         }
 
         protected static List<string> ReadFromFile(string filePath) {

@@ -12,8 +12,8 @@ namespace DataGenerator.Types
             ReadFromFile("Data/Types/Country/seoCode.txt");
 
 
-        public Country(IFetchable<string> ifFetchable) : base(ifFetchable) {
-            var fetchWithIndex = IfFetchable.FetchWithIndex(Titles);
+        public Country(IGenerator<string> generator) : base(generator) {
+            var fetchWithIndex = Generator.GenerateWithIndex(Titles);
             Title = fetchWithIndex.Item1;
             IsoCode = SeoCodes[fetchWithIndex.Item2];
         }
