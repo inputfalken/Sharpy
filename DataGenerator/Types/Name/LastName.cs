@@ -2,12 +2,13 @@
 
 namespace DataGenerator.Types.Name
 {
-    internal class LastName : Name
+    internal class LastName : Data<string>
     {
         private static readonly List<string> LastNames = ReadFromFile("Name/lastnames.txt");
+        public string Name { get; }
 
         public LastName(IFetchable<string> iFetchable) : base(iFetchable) {
-            Data = Fetchable.Fetch(LastNames);
+            Name = IfFetchable.Fetch(LastNames);
         }
     }
 }

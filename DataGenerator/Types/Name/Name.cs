@@ -3,17 +3,14 @@ using System.IO;
 
 namespace DataGenerator.Types.Name
 {
-    internal abstract class Name
+    public abstract class Data<T>
     {
-        protected readonly IFetchable<string> Fetchable;
+        protected readonly IFetchable<T> IfFetchable;
 
-        protected Name(IFetchable<string> fetchable) {
-            Fetchable = fetchable;
+        protected Data(IFetchable<T> ifFetchable) {
+            IfFetchable = ifFetchable;
         }
 
-        protected string Data { private get; set; }
-
-        //TODO DRY UP READFROMFILE, CURRENTLY DUPLICATED
         protected static List<string> ReadFromFile(string filePath) {
             var list = new List<string>();
             using (var reader = new StreamReader(filePath)) {
@@ -24,7 +21,5 @@ namespace DataGenerator.Types.Name
                 return list;
             }
         }
-
-        public override string ToString() => Data;
     }
 }

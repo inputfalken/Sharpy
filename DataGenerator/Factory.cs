@@ -5,12 +5,13 @@ namespace DataGenerator
 {
     internal static class Factory
     {
-        public static Name GetLastName() => new LastName(new RandomFetcher());
+        //public static Data<string> GetLastName() => new LastName(new RandomFetcher());
 
-        public static Name GetFirstName(Gender gender) => new FirstName(gender, new RandomFetcher());
+        public static Data<string> GetFirstName(Gender gender, IFetchable<string> iFetchable)
+            => new FirstName(gender, iFetchable);
 
-        public static Country GetCountry() {
-            return new Country(new RandomFetcher());
+        public static Country GetCountry(IFetchable<string> iFetchable) {
+            return new Country(iFetchable);
         }
     }
 }
