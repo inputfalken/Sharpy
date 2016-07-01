@@ -18,7 +18,7 @@ namespace DataGeneratorTests.Types
                 {103, "Ireland"},
                 {240, "Zimbabwe"}
             };
-            var result = DataGenHelperClass.ReadFromFile("Country/country.txt");
+            var result = HelperClass.ReadFromFile("Country/country.txt");
 
             //Check that every country starts with uppercase
             foreach (var s in result)
@@ -40,7 +40,7 @@ namespace DataGeneratorTests.Types
                 {103, "IE"},
                 {240, "ZW"}
             };
-            var result = DataGenHelperClass.ReadFromFile("Country/seoCode.txt");
+            var result = HelperClass.ReadFromFile("Country/seoCode.txt");
             foreach (var seocode in result) {
                 //Make sure the seocode is not bigger than 2 chars
                 Assert.IsTrue(seocode.Length == 2);

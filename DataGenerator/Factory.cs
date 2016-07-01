@@ -1,11 +1,16 @@
-﻿using DataGenerator.Types.Name;
+﻿using DataGenerator.Types;
+using DataGenerator.Types.Name;
 
 namespace DataGenerator
 {
     internal static class Factory
     {
-        public static string GetLastName() => new LastName().ToString();
+        public static Name GetLastName() => new LastName(new RandomFetcher());
 
-        public static string GetFirstName(Gender gender) => new FirstName(gender).ToString();
+        public static Name GetFirstName(Gender gender) => new FirstName(gender, new RandomFetcher());
+
+        public static Country GetCountry() {
+            return new Country(new RandomFetcher());
+        }
     }
 }

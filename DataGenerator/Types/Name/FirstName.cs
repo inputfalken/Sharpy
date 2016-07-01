@@ -1,27 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DataGenerator.Types.Name
 {
     internal class FirstName : Name
     {
-        private const string Directory = "Name";
+        private static readonly List<string> Male =
+            ReadFromFile("Data/Types/Name/maleNames.txt");
 
-        private static readonly IReadOnlyList<string> Male =
-            DataGenHelperClass.ReadFromFile($"{Directory}/maleNames.txt");
-
-        private static readonly IReadOnlyList<string> Female =
-            DataGenHelperClass.ReadFromFile($"{Directory}/femaleNames.txt");
+        private static readonly List<string> Female =
+            ReadFromFile("Data/Types/Name/femaleNames.txt");
 
 
-        public FirstName(Gender gender) {
+        public FirstName(Gender gender, IFetchable<string> iFetchable) : base(iFetchable) {
             switch (gender) {
                 case Gender.Female:
-                    Data = DataGenHelperClass.FetchRandomItem(Female);
+                    Data = Fetchable.Fetch(Female);
                     break;
                 case Gender.Male:
-                    Data = DataGenHelperClass.FetchRandomItem(Male);
+                    Data = Fetchable.Fetch(Male);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(gender), gender, null);
