@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using DataGenerator.Types.Name;
 
@@ -8,17 +9,11 @@ namespace DataGenerator.Types
     {
         private static readonly List<string> Titles = ReadFromFile("Data/Types/Country/country.txt");
 
-        private static readonly IReadOnlyList<string> SeoCodes =
-            ReadFromFile("Data/Types/Country/seoCode.txt");
-
-
-        public Country(IGenerator<string> generator, WorldRegion worldRegion) : base(generator) {
-            var fetchWithIndex = Generator.GenerateWithIndex(Titles);
-            Title = fetchWithIndex.Item1;
-            IsoCode = SeoCodes[fetchWithIndex.Item2];
+        public Country(IGenerator<string> generator) : base(generator) {
+            Title = Generator.Generate(Titles);
         }
 
         private string Title { get; }
-        private string IsoCode { get; }
+        public override string ToString() => Title;
     }
 }

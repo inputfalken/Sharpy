@@ -6,13 +6,22 @@ namespace DataGenerator
     //TODO Make factory non static and use generator as a constructor and everythign will return Data<T>
     internal static class Factory
     {
-        //public static Data<string> GetLastName() => new LastName(new RandomGenerator());
-
-        public static Data<string> GetFirstName(Gender gender, IGenerator<string> iGenerator)
-            => new FirstName(gender, iGenerator);
-
-        public static Country GetCountry(IGenerator<string> iGenerator) {
-            return new Country(iGenerator, WorldRegion.Africa);
+        public static StringGenerator StringGenerator(IGenerator<string> iGenerator) {
+            return new StringGenerator(iGenerator);
         }
+    }
+
+    internal class StringGenerator
+    {
+        private readonly IGenerator<string> _dataGenerator;
+
+        public StringGenerator(IGenerator<string> dataGenerator) {
+            _dataGenerator = dataGenerator;
+        }
+
+        public Data<string> FirstName(Gender gender)
+            => new FirstName(gender, _dataGenerator);
+
+        public Data<string> Country() => new Country(_dataGenerator);
     }
 }
