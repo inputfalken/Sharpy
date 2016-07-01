@@ -3,11 +3,11 @@ using System.IO;
 
 namespace DataGenerator.Types.Name
 {
-    public abstract class Data<T>
+    public abstract class Data
     {
-        protected readonly IGenerator<T> Generator;
+        protected readonly IGenerator<string> Generator;
 
-        protected Data(IGenerator<T> generator) {
+        protected Data(IGenerator<string> generator) {
             Generator = generator;
         }
 

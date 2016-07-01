@@ -2,7 +2,7 @@
 
 namespace DataGenerator.Types.Name
 {
-    internal class LastName : Data<string>
+    internal class LastName : Data
     {
         private static readonly List<string> LastNames = ReadFromFile("Name/lastnames.txt");
         public string Name { get; }

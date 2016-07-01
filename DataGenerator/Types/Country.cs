@@ -5,7 +5,7 @@ using DataGenerator.Types.Name;
 
 namespace DataGenerator.Types
 {
-    public class Country : Data<string>
+    public class Country : Data
     {
         private static readonly List<string> Titles = ReadFromFile("Data/Types/Country/country.txt");
 

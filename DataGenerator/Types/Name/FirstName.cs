@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DataGenerator.Types.Name
 {
-    internal class FirstName : Data<string>
+    internal class FirstName : Data
     {
         private static readonly List<string> Male =
             ReadFromFile("Data/Types/Name/maleNames.txt");

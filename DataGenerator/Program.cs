@@ -10,7 +10,7 @@ namespace DataGenerator
     {
         private static void Main(string[] args) {
             var stopwatch = new Stopwatch();
-            var names = new List<Data<string>>();
+            var names = new List<Data>();
             var dataFactory = new DataFactory(new RandomGenerator());
 
             stopwatch.Start();
