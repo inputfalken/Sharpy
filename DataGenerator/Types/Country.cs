@@ -12,7 +12,7 @@ namespace DataGenerator.Types
             ReadFromFile("Data/Types/Country/seoCode.txt");
 
 
-        public Country(IGenerator<string> generator) : base(generator) {
+        public Country(IGenerator<string> generator, WorldRegion worldRegion) : base(generator) {
             var fetchWithIndex = Generator.GenerateWithIndex(Titles);
             Title = fetchWithIndex.Item1;
             IsoCode = SeoCodes[fetchWithIndex.Item2];

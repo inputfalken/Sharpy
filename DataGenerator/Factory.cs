@@ -12,7 +12,7 @@ namespace DataGenerator
             => new FirstName(gender, iGenerator);
 
         public static Country GetCountry(IGenerator<string> iGenerator) {
-            return new Country(iGenerator);
+            return new Country(iGenerator, WorldRegion.Africa);
         }
     }
 }

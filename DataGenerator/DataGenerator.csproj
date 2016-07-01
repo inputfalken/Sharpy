@@ -54,6 +54,7 @@
     <Compile Include="Types\HelperClass.cs" />
     <Compile Include="Types\Name\FirstName.cs" />
     <Compile Include="Types\Name\LastName.cs" />
+    <Compile Include="WorldRegion.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
