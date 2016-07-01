@@ -3,6 +3,7 @@ using DataGenerator.Types.Name;
 
 namespace DataGenerator
 {
+    //TODO Make factory non static and use generator as a constructor and everythign will return Data<T>
     internal static class Factory
     {
         //public static Data<string> GetLastName() => new LastName(new RandomGenerator());
