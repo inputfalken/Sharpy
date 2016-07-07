@@ -1,25 +1,62 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using DataGenerator.Types;
-using DataGenerator.Types.Name;
+using System.IO;
+using System.Linq;
+using Newtonsoft.Json;
 
 namespace DataGenerator
 {
     internal static class Program
     {
         private static void Main(string[] args) {
-            var stopwatch = new Stopwatch();
-            var names = new List<Data>();
-            var dataFactory = new DataFactory(new RandomGenerator());
+            var deserializeObject = JsonConvert.DeserializeObject<NameData>(File.ReadAllText("Data/Types/Name/data.json"));
 
-            stopwatch.Start();
-            for (var i = 0; i < 10000; i++)
-                names.Add(dataFactory.FirstName(Gender.Female));
-            stopwatch.Stop();
-            //TODO OVERRIDE TOSTRING
-            Console.WriteLine(names[0].ToString());
-            Console.WriteLine(stopwatch.Elapsed);
+            var count = deserializeObject.Regions.Count;
+            Console.WriteLine(count);
         }
+    }
+
+    internal class NameData
+    {
+        public NameData(List<Region> regions) {
+            Regions = regions;
+        }
+
+        public List<Region> Regions { get; }
+    }
+
+    internal class Region
+    {
+        public Region(List<Country> countries, string name) {
+            Countries = countries;
+            Name = name;
+        }
+
+        public string Name { get; }
+        public List<Country> Countries { get; }
+    }
+
+    internal class Country
+    {
+        public Country(string name, CommonName commonName) {
+            Name = name;
+            CommonName = commonName;
+        }
+
+        public string Name { get; }
+        public CommonName CommonName { get; }
+    }
+
+    internal class CommonName
+    {
+        public CommonName(List<string> female, List<string> male, List<string> lastName) {
+            Female = female;
+            Male = male;
+            LastName = lastName;
+        }
+
+        public List<string> Female { get; }
+        public List<string> Male { get; }
+        public List<string> LastName { get; }
     }
 }

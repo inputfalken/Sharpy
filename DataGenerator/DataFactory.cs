@@ -16,6 +16,6 @@ namespace DataGenerator
         public Data FirstName(Gender gender)
             => new FirstName(gender, _dataGenerator);
 
-        public Data Country() => new Country(_dataGenerator);
+        //public Data Country() => new Country(_dataGenerator);
     }
 }
