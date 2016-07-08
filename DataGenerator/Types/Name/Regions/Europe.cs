@@ -5,27 +5,34 @@ namespace DataGenerator.Types.Name.Regions
 {
     internal class Europe : IRegion
     {
-        private readonly EuropeanCountries _country;
-        private List<Country> Countries { get; set; } = new List<Country>();
+        private readonly Country _country;
+        private List<Name.Country> CountryList { get; set; } = new List<Name.Country>();
 
-        public Europe(EuropeanCountries country) {
+        public Europe(Country country) {
             _country = country;
         }
 
         public void SetCountries(NameData nameData)
-            => Countries = nameData.Regions.First(region => region.Name == "europe").Countries;
+            => CountryList = nameData.Regions.First(region => region.Name == "europe").Countries;
 
-        public Country GetCountry() {
+        public Name.Country GetCountry() {
             switch (_country) {
-                case EuropeanCountries.Sweden:
-                    return Countries.First(country => country.Name == "sweden");
-                case EuropeanCountries.Norway:
+                case Country.Sweden:
+                    return CountryList.First(country => country.Name == "sweden");
+                case Country.Norway:
                     return null;
-                case EuropeanCountries.Denmark:
+                case Country.Denmark:
                     return null;
                 default:
                     return null;
             }
+        }
+
+        internal enum Country
+        {
+            Sweden,
+            Norway,
+            Denmark
         }
     }
 }

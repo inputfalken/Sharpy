@@ -51,7 +51,6 @@
     <Compile Include="Types\Name\Country.cs" />
     <Compile Include="Types\Name\CountryName.cs" />
     <Compile Include="Types\Name\Regions\IRegion.cs" />
-    <Compile Include="Types\Name\Regions\EuropeanCountries.cs" />
     <Compile Include="Types\Name\Regions\Europe.cs" />
     <Compile Include="Types\Name\Gender.cs" />
     <Compile Include="Types\Name\NameData.cs" />
