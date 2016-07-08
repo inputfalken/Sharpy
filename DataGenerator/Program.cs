@@ -12,10 +12,12 @@ namespace DataGenerator
             var nameFactory = new NameFactory(new RandomGenerator());
 
             
-            var s = nameFactory.GetFirstName(RegionName.Europe)(CountryName.Norway)(Gender.Male);
+            //var s = nameFactory.GetFirstName(RegionName.Europe)(CountryName.Norway)(Gender.Male);
 
 
-            nameFactory.GetFirstNameWithInterface(new Europe(Europe.Country.Denmark));
+            var firstNameWithInterface = nameFactory.GetFirstNameWithInterface(new Europe(Europe.Country.Sweden));
+            var name = firstNameWithInterface(Gender.Male);
+            Console.WriteLine(name);
             //for (var i = 0; i < 10; i++) {
             //    //Console.WriteLine(firstName(Gender.Male));
             //    Console.WriteLine(nameFactory.GetLastName(CountryName.Norway));

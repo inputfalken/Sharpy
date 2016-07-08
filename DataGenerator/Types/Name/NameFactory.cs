@@ -18,64 +18,62 @@ namespace DataGenerator.Types.Name
         private NameData NameData { get; }
 
         public Func<Gender, string> GetFirstNameWithInterface(IRegion iRegion) {
-            iRegion.SetCountries(NameData);
+            iRegion.SetCountries(NameData.Regions);
             return SelectName(iRegion.GetCountry());
         }
 
-        public Func<CountryName, Func<Gender, string>> GetFirstName(RegionName regionName) {
-            switch (regionName) {
-                case RegionName.CentralAmerica:
-                    return SelectCountry(NameData.Regions.First(region => region.Name == "centralAmerica"));
-                case RegionName.NorthAmerica:
-                    return SelectCountry(NameData.Regions.First(region => region.Name == "northAmerica"));
-                case RegionName.Europe:
-                    return SelectCountry(NameData.Regions.First(region => region.Name == "europe"));
-                case RegionName.SouthAmerica:
-                    return SelectCountry(NameData.Regions.First(region => region.Name == "southAmerica"));
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(regionName), regionName, null);
-            }
-        }
-
-        //How do i throw exception if no country was found in a dry way without out mutating a variable?
-        private Func<CountryName, Func<Gender, string>> SelectCountry(Region region) {
-            return countryEnum => {
-                switch (countryEnum) {
-                    case CountryName.Sweden:
-                        return SelectName(region.Countries.FirstOrDefault(country => country.Name == "sweden"));
-                    case CountryName.Norway:
-                        return SelectName(region.Countries.FirstOrDefault(country => country.Name == "norway"));
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(countryEnum), countryEnum, null);
-                }
-            };
-        }
-
-
-        private Func<Gender, string> SelectName(Country country) {
-            return
+        private Func<Gender, string> SelectName(Country country)
+            =>
                 gender =>
                     gender == Gender.Female
                         ? Generator.Generate(country.CommonName.Female)
                         : Generator.Generate(country.CommonName.Male);
-        }
+
+        //public Func<CountryName, Func<Gender, string>> GetFirstName(RegionName regionName) {
+        //    switch (regionName) {
+        //        case RegionName.CentralAmerica:
+        //            return SelectCountry(NameData.Regions.First(region => region.Name == "centralAmerica"));
+        //        case RegionName.NorthAmerica:
+        //            return SelectCountry(NameData.Regions.First(region => region.Name == "northAmerica"));
+        //        case RegionName.Europe:
+        //            return SelectCountry(NameData.Regions.First(region => region.Name == "europe"));
+        //        case RegionName.SouthAmerica:
+        //            return SelectCountry(NameData.Regions.First(region => region.Name == "southAmerica"));
+        //        default:
+        //            throw new ArgumentOutOfRangeException(nameof(regionName), regionName, null);
+        //    }
+        //}
+
+        ////How do i throw exception if no country was found in a dry way without out mutating a variable?
+        //private Func<CountryName, Func<Gender, string>> SelectCountry(Region region) {
+        //    return countryEnum => {
+        //        switch (countryEnum) {
+        //            case CountryName.Sweden:
+        //                return SelectName(region.Countries.FirstOrDefault(country => country.Name == "sweden"));
+        //            case CountryName.Norway:
+        //                return SelectName(region.Countries.FirstOrDefault(country => country.Name == "norway"));
+        //            default:
+        //                throw new ArgumentOutOfRangeException(nameof(countryEnum), countryEnum, null);
+        //        }
+        //    };
+        //}
 
 
-        private Country FindCountryByName(string countryName, string regionName)
-            =>
-                NameData.Regions.First(region => region.Name == regionName)
-                    .Countries.First(country => country.Name == countryName);
+        //private Country FindCountryByName(string countryName, string regionName)
+        //    =>
+        //        NameData.Regions.First(region => region.Name == regionName)
+        //            .Countries.First(country => country.Name == countryName);
 
-        public string GetLastName(CountryName countryName) {
-            switch (countryName) {
-                case CountryName.Sweden:
-                    return Generator.Generate(FindCountryByName("sweden", "europe").CommonName.LastName);
+        //public string GetLastName(CountryName countryName) {
+        //    switch (countryName) {
+        //        case CountryName.Sweden:
+        //            return Generator.Generate(FindCountryByName("sweden", "europe").CommonName.LastName);
 
-                case CountryName.Norway:
-                    return Generator.Generate(FindCountryByName("norway", "europe").CommonName.LastName);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(countryName), countryName, null);
-            }
-        }
+        //        case CountryName.Norway:
+        //            return Generator.Generate(FindCountryByName("norway", "europe").CommonName.LastName);
+        //        default:
+        //            throw new ArgumentOutOfRangeException(nameof(countryName), countryName, null);
+        //    }
+        //}
     }
 }

@@ -4,10 +4,10 @@ namespace DataGenerator.Types.Name
 {
     internal class NameData
     {
-        public NameData(List<Region> regions) {
+        public NameData(IEnumerable<Region> regions) {
             Regions = regions;
         }
 
-        public List<Region> Regions { get; }
+        public IEnumerable<Region> Regions { get; }
     }
 }

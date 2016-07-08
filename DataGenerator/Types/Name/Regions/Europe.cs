@@ -6,14 +6,15 @@ namespace DataGenerator.Types.Name.Regions
     internal class Europe : IRegion
     {
         private readonly Country _country;
-        private List<Name.Country> CountryList { get; set; } = new List<Name.Country>();
+        //TODO find way to make this get initated in constructor so the data can be inmutable
+        private IEnumerable<Name.Country> CountryList { get; set; } = new List<Name.Country>();
 
         public Europe(Country country) {
             _country = country;
         }
 
-        public void SetCountries(NameData nameData)
-            => CountryList = nameData.Regions.First(region => region.Name == "europe").Countries;
+        public void SetCountries(IEnumerable<Region> regions)
+            => CountryList = regions.First(region => region.Name == "europe").Countries;
 
         public Name.Country GetCountry() {
             switch (_country) {
