@@ -17,41 +17,31 @@ namespace DataGenerator.Types.Name
         private NameData NameData { get; }
 
         public Func<CountryName, Func<Gender, string>> GetFirstName(RegionName regionName) {
-            Region selectedRegion;
             switch (regionName) {
                 case RegionName.CentralAmerica:
-                    selectedRegion = NameData.Regions.First(region => region.Name == "centralAmerica");
-                    break;
+                    return SelectCountry(NameData.Regions.First(region => region.Name == "centralAmerica"));
                 case RegionName.NorthAmerica:
-                    selectedRegion = NameData.Regions.First(region => region.Name == "europe");
-                    break;
+                    return SelectCountry(NameData.Regions.First(region => region.Name == "northAmerica"));
                 case RegionName.Europe:
-                    selectedRegion = NameData.Regions.First(region => region.Name == "europe");
-                    break;
+                    return SelectCountry(NameData.Regions.First(region => region.Name == "europe"));
                 case RegionName.SouthAmerica:
-                //return GetFirstName;
+                    return SelectCountry(NameData.Regions.First(region => region.Name == "southAmerica"));
                 default:
                     throw new ArgumentOutOfRangeException(nameof(regionName), regionName, null);
             }
-            return SelectCountry(selectedRegion);
         }
 
+        //How do i throw exception if no country was found in a dry way without out mutating a variable?
         private Func<CountryName, Func<Gender, string>> SelectCountry(Region region) {
-            Country selectedCountry;
             return countryEnum => {
                 switch (countryEnum) {
                     case CountryName.Sweden:
-                        selectedCountry = region.Countries.FirstOrDefault(country => country.Name == "sweden");
-                        break;
+                        return SelectName(region.Countries.FirstOrDefault(country => country.Name == "sweden"));
                     case CountryName.Norway:
-                        selectedCountry = region.Countries.FirstOrDefault(country => country.Name == "norway");
-                        break;
+                        return SelectName(region.Countries.FirstOrDefault(country => country.Name == "norway"));
                     default:
                         throw new ArgumentOutOfRangeException(nameof(countryEnum), countryEnum, null);
                 }
-                if (selectedCountry == null)
-                    throw new Exception("selectedCountry does not exist in selected region");
-                return SelectName(selectedCountry);
             };
         }
 
