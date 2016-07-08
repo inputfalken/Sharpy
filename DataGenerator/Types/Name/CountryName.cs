@@ -1,6 +1,6 @@
 ﻿namespace DataGenerator.Types.Name
 {
-    internal enum CountryEnum
+    internal enum CountryName
     {
         Sweden,
         Norway

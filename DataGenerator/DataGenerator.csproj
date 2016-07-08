@@ -49,7 +49,7 @@
   <ItemGroup>
     <Compile Include="Types\Name\CommonName.cs" />
     <Compile Include="Types\Name\Country.cs" />
-    <Compile Include="Types\Name\CountryEnum.cs" />
+    <Compile Include="Types\Name\CountryName.cs" />
     <Compile Include="Types\Name\Gender.cs" />
     <Compile Include="Types\Name\NameData.cs" />
     <Compile Include="Types\Name\NameFactory.cs" />
@@ -59,7 +59,7 @@
     <Compile Include="Types\RandomGenerator.cs" />
     <Compile Include="Types\IGenerator.cs" />
     <Compile Include="Types\HelperClass.cs" />
-    <Compile Include="Types\Name\WorldRegion.cs" />
+    <Compile Include="Types\Name\RegionName.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

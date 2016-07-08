@@ -1,6 +1,6 @@
 ﻿namespace DataGenerator.Types.Name
 {
-    public enum WorldRegion
+    public enum RegionName
     {
         CentralAmerica,
         NorthAmerica,
