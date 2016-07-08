@@ -52,13 +52,15 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Types\DataGenHelperClassTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataGenerator\DataGenerator.csproj">
       <Project>{41AF4616-9A26-424B-B639-52BD2A6A4475}</Project>
       <Name>DataGenerator</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Types\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
