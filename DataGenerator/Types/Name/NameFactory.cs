@@ -35,8 +35,22 @@ namespace DataGenerator.Types.Name
         };
 
 
-        public string GetLastName() {
-            return "lastName";
+        public string GetLastName(CountryEnum countryEnum) {
+            switch (countryEnum) {
+                case CountryEnum.Sweden:
+                    return
+                        Generator.Generate(
+                            NameData.Regions.First(region => region.Name == "europe")
+                                .Countries.First(country1 => country1.Name == "sweden")
+                                .CommonName.LastName);
+                case CountryEnum.Norway:
+                    return Generator.Generate(
+                        NameData.Regions.First(region => region.Name == "europe")
+                            .Countries.First(country1 => country1.Name == "norway")
+                            .CommonName.LastName);
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(countryEnum), countryEnum, null);
+            }
         }
     }
 }
