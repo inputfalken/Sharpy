@@ -3,7 +3,6 @@ using System.Linq;
 using DataGenerator.Types;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-
 namespace DataGeneratorTests.Types
 {
     [TestClass]
@@ -31,7 +30,7 @@ namespace DataGeneratorTests.Types
             Assert.IsTrue(result.Count == expectedCount);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ReadFromFileSeoCodeTest() {
             const int expectedCount = 241;
             var dictionary = new Dictionary<int, string> {

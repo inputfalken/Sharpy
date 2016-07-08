@@ -1,4 +1,4 @@
-﻿namespace DataGenerator
+﻿namespace DataGenerator.Types.Name
 {
     public enum Gender
     {

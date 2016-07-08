@@ -47,9 +47,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Gender.cs" />
+    <Compile Include="Types\Name\CommonName.cs" />
+    <Compile Include="Types\Name\Country.cs" />
+    <Compile Include="Types\Name\CountryEnum.cs" />
+    <Compile Include="Types\Name\Gender.cs" />
+    <Compile Include="Types\Name\NameData.cs" />
+    <Compile Include="Types\Name\NameFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Types\Name\Region.cs" />
     <Compile Include="Types\RandomGenerator.cs" />
     <Compile Include="Types\IGenerator.cs" />
     <Compile Include="Types\HelperClass.cs" />
@@ -70,9 +76,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Types\Name\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

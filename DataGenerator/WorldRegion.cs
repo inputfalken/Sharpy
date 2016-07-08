@@ -11,6 +11,6 @@
         NorthAmerica,
         Oceania,
         SouthAmerica,
-        TheCaribbean,
+        TheCaribbean
     }
 }
