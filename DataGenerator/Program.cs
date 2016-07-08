@@ -10,6 +10,7 @@ namespace DataGenerator
     {
         private static void Main(string[] args) {
             var nameFactory = new NameFactory(new RandomGenerator());
+
         }
     }
 
@@ -24,8 +25,12 @@ namespace DataGenerator
 
         private NameData NameData { get; }
 
-        public string GetName() {
+        public string GetFirstName() {
             return "name";
+        }
+
+        public string GetLastName() {
+            return "lastName";
         }
     }
 
