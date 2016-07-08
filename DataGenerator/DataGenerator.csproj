@@ -59,7 +59,7 @@
     <Compile Include="Types\RandomGenerator.cs" />
     <Compile Include="Types\IGenerator.cs" />
     <Compile Include="Types\HelperClass.cs" />
-    <Compile Include="WorldRegion.cs" />
+    <Compile Include="Types\Name\WorldRegion.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
