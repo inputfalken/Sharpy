@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
+using DataGenerator.Types;
 using Newtonsoft.Json;
 
 namespace DataGenerator
@@ -9,10 +9,23 @@ namespace DataGenerator
     internal static class Program
     {
         private static void Main(string[] args) {
-            var deserializeObject = JsonConvert.DeserializeObject<NameData>(File.ReadAllText("Data/Types/Name/data.json"));
+            var nameFactory = new NameFactory(new RandomGenerator());
+        }
+    }
 
-            var count = deserializeObject.Regions.Count;
-            Console.WriteLine(count);
+    internal class NameFactory
+    {
+        private IGenerator<string> Generator { get; }
+
+        public NameFactory(IGenerator<string> generator) {
+            Generator = generator;
+            NameData = JsonConvert.DeserializeObject<NameData>(File.ReadAllText("Data/Types/Name/data.json"));
+        }
+
+        private NameData NameData { get; }
+
+        public string GetName() {
+            return "name";
         }
     }
 
