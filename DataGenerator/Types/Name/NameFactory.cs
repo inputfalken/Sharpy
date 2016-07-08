@@ -20,9 +20,7 @@ namespace DataGenerator.Types.Name
         public Func<Gender, string> GetFirstName(CountryEnum countryEnum) => gender => {
             switch (countryEnum) {
                 case CountryEnum.Sweden:
-                    var sweden =
-                        NameData.Regions.First(region => region.Name == "europe")
-                            .Countries.First(country => country.Name == "sweden");
+                    var sweden = FindCountryByName("sweden", "europe");
                     return
                         Generator.Generate(gender == Gender.Female
                             ? sweden.CommonName.Female
@@ -34,19 +32,20 @@ namespace DataGenerator.Types.Name
             }
         };
 
+        private Country FindCountryByName(string countryName, string regionName)
+            => NameData.Regions.First(region => region.Name == regionName)
+                .Countries.First(country => country.Name == countryName);
 
         public string GetLastName(CountryEnum countryEnum) {
             switch (countryEnum) {
                 case CountryEnum.Sweden:
                     return
                         Generator.Generate(
-                            NameData.Regions.First(region => region.Name == "europe")
-                                .Countries.First(country1 => country1.Name == "sweden")
-                                .CommonName.LastName);
+                            FindCountryByName("sweden", "europe").CommonName.LastName);
+
                 case CountryEnum.Norway:
                     return Generator.Generate(
-                        NameData.Regions.First(region => region.Name == "europe")
-                            .Countries.First(country1 => country1.Name == "norway")
+                        FindCountryByName("norway", "europe")
                             .CommonName.LastName);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(countryEnum), countryEnum, null);

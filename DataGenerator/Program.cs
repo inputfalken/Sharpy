@@ -12,7 +12,8 @@ namespace DataGenerator
 
             var firstName = nameFactory.GetFirstName(CountryEnum.Sweden);
             for (var i = 0; i < 10; i++) {
-                Console.WriteLine(firstName(Gender.Male));
+                //Console.WriteLine(firstName(Gender.Male));
+                Console.WriteLine(nameFactory.GetLastName(CountryEnum.Norway)); 
             }
         }
     }
