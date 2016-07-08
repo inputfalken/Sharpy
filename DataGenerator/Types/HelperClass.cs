@@ -8,7 +8,7 @@ namespace DataGenerator.Types
     {
         private static readonly Random Random = new Random();
 
-        public static int Randomer(int limit) {
+        public static int Randomizer(int limit) {
             lock (Random)
                 return Random.Next(limit);
         }
