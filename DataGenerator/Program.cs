@@ -9,9 +9,8 @@ namespace DataGenerator
     internal static class Program
     {
         private static void Main(string[] args) {
-            var nameFactory = new NameFactory(new RandomGenerator());
+            var nameFactory = new NameFunctionFactory(new RandomGenerator());
             var generateName = nameFactory.GenerateName();
-            Console.WriteLine(generateName);
         }
     }
 }
