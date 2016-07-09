@@ -43,9 +43,7 @@ namespace DataGenerator.Types.Name {
                 default:
                     throw new ArgumentOutOfRangeException(nameof(country), country, null);
             }
-            //assumes no gender specifik argument is given
-            var names = commonName.Male.Concat(commonName.Female).ToList();
-            return () => Generator.Generate(names);
+            return Name(commonName.Female.Concat(commonName.Male).ToList());
         }
 
 
@@ -54,12 +52,22 @@ namespace DataGenerator.Types.Name {
         ///     TODO Find a way to make this function not pick up repeated names
         /// </summary>
         /// <returns>string</returns>
-        public Func<string> GenerateName() {
-            var names = new List<string>();
-            foreach (var commonName in Names)
-                names.AddRange(commonName.Female.Concat(commonName.Male));
-            return () => Generator.Generate(names);
+        public Func<string> GenerateName() => Name(Names.SelectMany(name => name.Female.Concat(name.Male)).ToList());
+
+        /// <summary>
+        /// gives a function which randoms a name filtered by gender
+        /// </summary>
+        /// <param name="gender"></param>
+        /// <returns></returns>
+        public Func<string> GenerateName(Gender gender) => Name(gender == Gender.Female
+            ? Names.SelectMany(name => name.Female).ToList()
+            : Names.SelectMany(name => name.Male).ToList());
+
+        public Func<string> GenerateName(Gender gender, Country country) {
+            return Name(new List<string>());
         }
+
+        private Func<string> Name(List<string> names) => () => Generator.Generate(names);
 
         // ReSharper disable once ClassNeverInstantiated.Local
         // Is generated from json

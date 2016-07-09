@@ -1,4 +1,6 @@
-﻿using DataGenerator.Types;
+﻿using System;
+using System.Diagnostics;
+using DataGenerator.Types;
 using DataGenerator.Types.Name;
 
 namespace DataGenerator {
@@ -6,6 +8,9 @@ namespace DataGenerator {
         private static void Main(string[] args) {
             var nameFactory = new NameFunctionFactory(new RandomGenerator());
             var generateName = nameFactory.GenerateName();
+            for (int i = 0; i < 100; i++) {
+                Console.WriteLine(generateName());
+            }
         }
     }
 }
