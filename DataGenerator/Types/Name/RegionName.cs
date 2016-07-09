@@ -1,10 +1,8 @@
-﻿namespace DataGenerator.Types.Name
-{
-    public enum RegionName
-    {
+﻿namespace DataGenerator.Types.Name {
+    public enum RegionName {
         CentralAmerica,
         NorthAmerica,
         Europe,
-        SouthAmerica,
+        SouthAmerica
     }
 }

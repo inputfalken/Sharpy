@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 
-namespace DataGenerator.Types
-{
-    public static class HelperClass
-    {
+namespace DataGenerator.Types {
+    public static class HelperClass {
         private static readonly Random Random = new Random();
 
         public static int Randomizer(int limit) {

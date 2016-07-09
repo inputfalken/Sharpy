@@ -4,10 +4,8 @@ using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
 
-namespace DataGenerator.Types.Name
-{
-    internal class NameFunctionFactory
-    {
+namespace DataGenerator.Types.Name {
+    internal class NameFunctionFactory {
         private const string FilePath = "Data/Types/Name/data.json";
         private const string Sweden = "sweden";
         private const string Norway = "norway";
@@ -26,7 +24,7 @@ namespace DataGenerator.Types.Name
         //TODO Make methods return named methods which can be overloaded with aditional filters 
 
         /// <summary>
-        /// Gives a function that returns names based on country
+        ///     Gives a function that returns names based on country
         /// </summary>
         /// <param name="country"></param>
         /// <returns></returns>
@@ -52,8 +50,8 @@ namespace DataGenerator.Types.Name
 
 
         /// <summary>
-        /// Gives a functions that returns names from a huge collection of names
-        /// TODO Find a way to make this function not pick up repeated names
+        ///     Gives a functions that returns names from a huge collection of names
+        ///     TODO Find a way to make this function not pick up repeated names
         /// </summary>
         /// <returns>string</returns>
         public Func<string> GenerateName() {
@@ -65,8 +63,7 @@ namespace DataGenerator.Types.Name
 
         // ReSharper disable once ClassNeverInstantiated.Local
         // Is generated from json
-        private class CommonName
-        {
+        private class CommonName {
             public readonly string Country;
             public readonly List<string> Female;
             public readonly List<string> LastName;
@@ -84,14 +81,12 @@ namespace DataGenerator.Types.Name
         }
     }
 
-    internal enum NameType
-    {
+    internal enum NameType {
         Firstname,
         LastName
     }
 
-    internal enum Country
-    {
+    internal enum Country {
         Sweden,
         Norway,
         Denmark
