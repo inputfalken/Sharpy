@@ -7,5 +7,8 @@ namespace DataGenerator.Types
     {
         public string Generate(List<string> list)
             => list[HelperClass.Randomizer(list.Count)];
+
+        public TF Generate<TF>(List<TF> list)
+            => list[HelperClass.Randomizer(list.Count)];
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
@@ -9,73 +10,68 @@ namespace DataGenerator.Types.Name
     {
         public NameFactory(IGenerator<string> generator) {
             Generator = generator;
-            NameData = JsonConvert.DeserializeObject<NameData>(File.ReadAllText("Data/Types/Name/data.json"));
+            Names =
+                JsonConvert.DeserializeObject<IEnumerable<CommonName>>(
+                    File.ReadAllText("Data/Types/Name/data.json"));
         }
 
+        private IEnumerable<CommonName> Names { get; }
         private IGenerator<string> Generator { get; }
 
-        private NameData NameData { get; }
-
-
-        private Func<Gender, string> SelectName(Country country)
-            =>
-                gender =>
-                    gender == Gender.Female
-                        ? Generator.Generate(country.CommonName.Female)
-                        : Generator.Generate(country.CommonName.Male);
-
-        public Func<CountryName, Func<Gender, string>> GetFirstName(RegionName regionName)
-        {
-            switch (regionName)
-            {
-                case RegionName.CentralAmerica:
-                    return SelectCountry(NameData.Regions.First(region => region.Name == "centralAmerica"));
-                case RegionName.NorthAmerica:
-                    return SelectCountry(NameData.Regions.First(region => region.Name == "northAmerica"));
-                case RegionName.Europe:
-                    return SelectCountry(NameData.Regions.First(region => region.Name == "europe"));
-                case RegionName.SouthAmerica:
-                    return SelectCountry(NameData.Regions.First(region => region.Name == "southAmerica"));
+        public string GenerateName(Country country) {
+            switch (country) {
+                case Country.Sweden:
+                    return Generator.Generate(Names.First(name => name.Country == "sweden").Male);
+                case Country.Norway:
+                    return Generator.Generate(Names.First(name => name.Country == "norway").Male);
+                case Country.Denmark:
+                    return Generator.Generate(Names.First(name => name.Country == "denmark").Male);
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(regionName), regionName, null);
+                    throw new ArgumentOutOfRangeException(nameof(country), country, null);
             }
         }
 
-        //How do i throw exception if no country was found in a dry way without out mutating a variable?
-        private Func<CountryName, Func<Gender, string>> SelectCountry(Region region)
-        {
-            return countryEnum =>
-            {
-                switch (countryEnum)
-                {
-                    case CountryName.Sweden:
-                        return SelectName(region.Countries.FirstOrDefault(country => country.Name == "sweden"));
-                    case CountryName.Norway:
-                        return SelectName(region.Countries.FirstOrDefault(country => country.Name == "norway"));
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(countryEnum), countryEnum, null);
-                }
-            };
+        /// <summary>
+        /// Generates a random Name without any filtering
+        /// </summary>
+        /// <returns>string</returns>
+        public string GenerateName() {
+            var commonName = Generator.Generate(Names.ToList());
+            var enumerable = commonName.Female.Concat(commonName.Male).ToList();
+            return Generator.Generate(enumerable);
         }
 
-
-        private Country FindCountryByName(string countryName, string regionName)
-            =>
-                NameData.Regions.First(region => region.Name == regionName)
-                    .Countries.First(country => country.Name == countryName);
-
-        public string GetLastName(CountryName countryName)
+        // ReSharper disable once ClassNeverInstantiated.Local
+        // Is generated to json
+        private class CommonName
         {
-            switch (countryName)
-            {
-                case CountryName.Sweden:
-                    return Generator.Generate(FindCountryByName("sweden", "europe").CommonName.LastName);
+            public readonly string Country;
+            public readonly List<string> Female;
+            public readonly List<string> LastName;
+            public readonly List<string> Male;
+            public readonly string Region;
 
-                case CountryName.Norway:
-                    return Generator.Generate(FindCountryByName("norway", "europe").CommonName.LastName);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(countryName), countryName, null);
+            public CommonName(List<string> female, List<string> male, List<string> lastName, string country,
+                string region) {
+                Female = female;
+                Male = male;
+                LastName = lastName;
+                Country = country;
+                Region = region;
             }
         }
+    }
+
+    internal enum NameType
+    {
+        Firstname,
+        LastName
+    }
+
+    internal enum Country
+    {
+        Sweden,
+        Norway,
+        Denmark
     }
 }
