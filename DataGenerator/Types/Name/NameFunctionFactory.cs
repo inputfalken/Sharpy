@@ -13,10 +13,10 @@ namespace DataGenerator.Types.Name {
 
         public NameFunctionFactory(IGenerator<string> generator) {
             Generator = generator;
-            Names = JsonConvert.DeserializeObject<IEnumerable<CommonName>>(File.ReadAllText(FilePath));
+            Names = JsonConvert.DeserializeObject<IEnumerable<Name>>(File.ReadAllText(FilePath));
         }
 
-        private IEnumerable<CommonName> Names { get; }
+        private IEnumerable<Name> Names { get; }
         private IGenerator<string> Generator { get; }
 
         //TODO Make methods return named methods which can be overloaded with aditional filters 
@@ -26,12 +26,12 @@ namespace DataGenerator.Types.Name {
         /// </summary>
         /// <param name="country"></param>
         /// <returns></returns>
-        public Func<string> GenerateName(Country country) {
+        public Func<string> NameFunctionCreator(Country country) {
             var commonName = GetCountry(country);
-            return Name(commonName.Female.Concat(commonName.Male).ToList());
+            return GenerateName(commonName.Female.Concat(commonName.Male).ToList());
         }
 
-        private CommonName GetCountry(Country country) {
+        private Name GetCountry(Country country) {
             switch (country) {
                 case Country.Sweden:
                     return Names.First(name => name.Country == Sweden);
@@ -49,8 +49,8 @@ namespace DataGenerator.Types.Name {
         ///     TODO Find a way to make this function not pick up repeated names
         /// </summary>
         /// <returns>string</returns>
-        public Func<string> GenerateName()
-            => Name(Names.SelectMany(name => name.Female
+        public Func<string> NameFunctionCreator()
+            => GenerateName(Names.SelectMany(name => name.Female
                 .Concat(name.Male))
                 .ToList());
 
@@ -59,28 +59,28 @@ namespace DataGenerator.Types.Name {
         /// </summary>
         /// <param name="gender"></param>
         /// <returns></returns>
-        public Func<string> GenerateName(Gender gender)
-            => Name(gender == Gender.Female
+        public Func<string> NameFunctionCreator(Gender gender)
+            => GenerateName(gender == Gender.Female
                 ? Names.SelectMany(name => name.Female).ToList()
                 : Names.SelectMany(name => name.Male).ToList());
 
-        public Func<string> GenerateName(Country country, Gender gender)
-            => Name(gender == Gender.Female
+        public Func<string> NameFunctionCreator(Country country, Gender gender)
+            => GenerateName(gender == Gender.Female
                 ? GetCountry(country).Female
                 : GetCountry(country).Male);
 
-        private Func<string> Name(List<string> names) => () => Generator.Generate(names);
+        private Func<string> GenerateName(List<string> names) => () => Generator.Generate(names);
 
         // ReSharper disable once ClassNeverInstantiated.Local
         // Is generated from json
-        private class CommonName {
+        private class Name {
             public readonly string Country;
             public readonly List<string> Female;
             public readonly List<string> LastName;
             public readonly List<string> Male;
             public readonly string Region;
 
-            public CommonName(List<string> female, List<string> male, List<string> lastName, string country,
+            public Name(List<string> female, List<string> male, List<string> lastName, string country,
                 string region) {
                 Female = female;
                 Male = male;
