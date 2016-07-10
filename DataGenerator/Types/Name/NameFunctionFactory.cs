@@ -10,6 +10,8 @@ namespace DataGenerator.Types.Name {
         private const string Sweden = "sweden";
         private const string Norway = "norway";
         private const string Denmark = "denmark";
+        private const string Russia = "russia";
+        private const string Finland = "finland";
 
         public NameFunctionFactory(IGenerator<string> generator) {
             Generator = generator;
@@ -31,18 +33,6 @@ namespace DataGenerator.Types.Name {
             return GenerateName(commonName.Female.Concat(commonName.Male).ToList());
         }
 
-        private Name GetCountry(Country country) {
-            switch (country) {
-                case Country.Sweden:
-                    return Names.First(name => name.Country == Sweden);
-                case Country.Norway:
-                    return Names.First(name => name.Country == Norway);
-                case Country.Denmark:
-                    return Names.First(name => name.Country == Denmark);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(country), country, null);
-            }
-        }
 
         /// <summary>
         ///     Gives a functions that returns names from a huge collection of names
@@ -55,7 +45,7 @@ namespace DataGenerator.Types.Name {
                 .ToList());
 
         /// <summary>
-        /// gives a function which randoms a name filtered by gender
+        /// Gives a function which randoms a name filtered by gender
         /// </summary>
         /// <param name="gender"></param>
         /// <returns></returns>
@@ -69,7 +59,35 @@ namespace DataGenerator.Types.Name {
                 ? GetCountry(country).Female
                 : GetCountry(country).Male);
 
-        private Func<string> GenerateName(List<string> names) => () => Generator.Generate(names);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="names"></param>
+        /// <returns></returns>
+        private Func<string> GenerateName(List<string> names)
+            => () => Generator.Generate(names);
+
+        /// <summary>
+        /// Returns an Name object based on the country enum
+        /// </summary>
+        /// <param name="country"></param>
+        /// <returns></returns>
+        private Name GetCountry(Country country) {
+            switch (country) {
+                case Country.Sweden:
+                    return Names.First(name => name.Country == Sweden);
+                case Country.Norway:
+                    return Names.First(name => name.Country == Norway);
+                case Country.Denmark:
+                    return Names.First(name => name.Country == Denmark);
+                case Country.Russia:
+                    return Names.First(name => name.Country == Russia);
+                case Country.Finland:
+                    return Names.First(name => name.Country == Finland);
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(country), country, null);
+            }
+        }
 
         // ReSharper disable once ClassNeverInstantiated.Local
         // Is generated from json
@@ -94,6 +112,8 @@ namespace DataGenerator.Types.Name {
     internal enum Country {
         Sweden,
         Norway,
-        Denmark
+        Denmark,
+        Russia,
+        Finland
     }
 }
