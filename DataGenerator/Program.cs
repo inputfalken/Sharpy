@@ -6,10 +6,11 @@ using DataGenerator.Types.Name;
 namespace DataGenerator {
     internal static class Program {
         private static void Main(string[] args) {
-            var nameFactory = new NameFunctionFactory(new RandomGenerator());
-            var generateName = nameFactory.NameFunctionCreator(Country.Sweden, Gender.Female);
+            var nameFunctionFactory = new NameFunctionFactory(new RandomGenerator());
+
+            var nameFunctionCreator = nameFunctionFactory.NameFunctionCreator();
             for (int i = 0; i < 100; i++) {
-                Console.WriteLine(generateName());
+                Console.WriteLine(nameFunctionCreator());
             }
         }
     }
