@@ -35,6 +35,10 @@ namespace DataGenerator.Types.Name {
 
 
         /// <summary>
+<<<<<<< HEAD
+=======
+        ///     Returns a function will will generate a random name without any filtering
+>>>>>>> 2d5fb8c6ba6d87087d1bc9ac097fece72d5911bd
         /// </summary>
         /// <returns>
         ///     Returns a function will will generate a random name without any filtering
@@ -45,7 +49,11 @@ namespace DataGenerator.Types.Name {
                 .ToList());
 
         /// <summary>
+<<<<<<< HEAD
         ///     Creates a function who's data is filtered by gender
+=======
+        ///     Returns a function which will generate names filtered by gender
+>>>>>>> 2d5fb8c6ba6d87087d1bc9ac097fece72d5911bd
         /// </summary>
         /// <param name="gender"></param>
         /// <returns>
@@ -57,6 +65,7 @@ namespace DataGenerator.Types.Name {
                 : Names.SelectMany(name => name.Male).ToList());
 
         /// <summary>
+<<<<<<< HEAD
         ///     Creates a function which generates names based on Gender & Country
         /// </summary>
         /// <param name="country"></param>
@@ -64,13 +73,24 @@ namespace DataGenerator.Types.Name {
         /// <returns>
         ///     Returns a function which will generate names filtered by gender & country
         /// </returns>
+=======
+        ///     Returns a function which will generate names filtered by gender & country
+        /// </summary>
+        /// <param name="country"></param>
+        /// <param name="gender"></param>
+        /// <returns></returns>
+>>>>>>> 2d5fb8c6ba6d87087d1bc9ac097fece72d5911bd
         public Func<string> NameFunctionCreator(Country country, Gender gender)
             => GenerateName(gender == Gender.Female
                 ? GetCountry(country).Female
                 : GetCountry(country).Male);
 
         /// <summary>
+<<<<<<< HEAD
         ///     Generates Name
+=======
+        ///     Returns the Generator
+>>>>>>> 2d5fb8c6ba6d87087d1bc9ac097fece72d5911bd
         /// </summary>
         /// <param name="names"></param>
         /// <returns>
@@ -80,6 +100,10 @@ namespace DataGenerator.Types.Name {
             => () => Generator.Generate(names);
 
         /// <summary>
+<<<<<<< HEAD
+=======
+        ///     Returns the correct an object pointing at the correct country
+>>>>>>> 2d5fb8c6ba6d87087d1bc9ac097fece72d5911bd
         /// </summary>
         /// <param name="country"></param>
         /// <returns>
