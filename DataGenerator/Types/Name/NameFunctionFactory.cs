@@ -22,13 +22,12 @@ namespace DataGenerator.Types.Name {
         private IEnumerable<Name> Names { get; }
         private IGenerator<string> Generator { get; }
 
-        //TODO Make methods return named methods which can be overloaded with aditional filters 
-
         /// <summary>
-        ///     Gives a function that returns names based on country
         /// </summary>
         /// <param name="country"></param>
-        /// <returns></returns>
+        /// <returns>
+        ///     Returns a function that returns names based on country
+        /// </returns>
         public Func<string> NameFunctionCreator(Country country) {
             var commonName = GetCountry(country);
             return GenerateName(commonName.Female.Concat(commonName.Male).ToList());
@@ -36,43 +35,56 @@ namespace DataGenerator.Types.Name {
 
 
         /// <summary>
-        ///     Gives a functions that returns names from a huge collection of names
-        ///     TODO Find a way to make this function not pick up repeated names
         /// </summary>
-        /// <returns>string</returns>
+        /// <returns>
+        ///     Returns a function will will generate a random name without any filtering
+        /// </returns>
         public Func<string> NameFunctionCreator()
             => GenerateName(Names.SelectMany(name => name.Female
                 .Concat(name.Male))
                 .ToList());
 
         /// <summary>
-        /// Gives a function which randoms a name filtered by gender
+        ///     Creates a function who's data is filtered by gender
         /// </summary>
         /// <param name="gender"></param>
-        /// <returns></returns>
+        /// <returns>
+        ///     Returns a function which will generate names filtered by gender
+        /// </returns>
         public Func<string> NameFunctionCreator(Gender gender)
             => GenerateName(gender == Gender.Female
                 ? Names.SelectMany(name => name.Female).ToList()
                 : Names.SelectMany(name => name.Male).ToList());
 
+        /// <summary>
+        ///     Creates a function which generates names based on Gender & Country
+        /// </summary>
+        /// <param name="country"></param>
+        /// <param name="gender"></param>
+        /// <returns>
+        ///     Returns a function which will generate names filtered by gender & country
+        /// </returns>
         public Func<string> NameFunctionCreator(Country country, Gender gender)
             => GenerateName(gender == Gender.Female
                 ? GetCountry(country).Female
                 : GetCountry(country).Male);
 
         /// <summary>
-        /// 
+        ///     Generates Name
         /// </summary>
         /// <param name="names"></param>
-        /// <returns></returns>
+        /// <returns>
+        ///     Returns the Generator
+        /// </returns>
         private Func<string> GenerateName(List<string> names)
             => () => Generator.Generate(names);
 
         /// <summary>
-        /// Returns an Name object based on the country enum
         /// </summary>
         /// <param name="country"></param>
-        /// <returns></returns>
+        /// <returns>
+        ///     Returns the correct object pointing at the correct country
+        /// </returns>
         private Name GetCountry(Country country) {
             switch (country) {
                 case Country.Sweden:
@@ -112,6 +124,9 @@ namespace DataGenerator.Types.Name {
         }
     }
 
+    /// <summary>
+    ///     Used as argument in case if you want a name generated from a specifik country
+    /// </summary>
     internal enum Country {
         Sweden,
         Norway,
