@@ -117,7 +117,7 @@ namespace DataGenerator.Types.Name {
         Norway,
         Denmark,
         Russia,
-        Finland,
-        Spain
+        Spain,
+        Finland
     }
 }
