@@ -22,8 +22,6 @@ namespace DataGenerator.Types.Name {
         private IEnumerable<Name> Names { get; }
         private IGenerator<string> Generator { get; }
 
-        //TODO Make methods return named methods which can be overloaded with aditional filters 
-
         /// <summary>
         ///     Gives a function that returns names based on country
         /// </summary>
@@ -36,8 +34,7 @@ namespace DataGenerator.Types.Name {
 
 
         /// <summary>
-        ///     Gives a functions that returns names from a huge collection of names
-        ///     TODO Find a way to make this function not pick up repeated names
+        ///     Returns a function will will generate a random name without any filtering
         /// </summary>
         /// <returns>string</returns>
         public Func<string> NameFunctionCreator()
@@ -46,7 +43,7 @@ namespace DataGenerator.Types.Name {
                 .ToList());
 
         /// <summary>
-        /// Gives a function which randoms a name filtered by gender
+        ///     Returns a function which will generate names filtered by gender
         /// </summary>
         /// <param name="gender"></param>
         /// <returns></returns>
@@ -55,13 +52,19 @@ namespace DataGenerator.Types.Name {
                 ? Names.SelectMany(name => name.Female).ToList()
                 : Names.SelectMany(name => name.Male).ToList());
 
+        /// <summary>
+        ///     Returns a function which will generate names filtered by gender & country
+        /// </summary>
+        /// <param name="country"></param>
+        /// <param name="gender"></param>
+        /// <returns></returns>
         public Func<string> NameFunctionCreator(Country country, Gender gender)
             => GenerateName(gender == Gender.Female
                 ? GetCountry(country).Female
                 : GetCountry(country).Male);
 
         /// <summary>
-        /// 
+        ///     Returns the Generator
         /// </summary>
         /// <param name="names"></param>
         /// <returns></returns>
@@ -69,7 +72,7 @@ namespace DataGenerator.Types.Name {
             => () => Generator.Generate(names);
 
         /// <summary>
-        /// Returns an Name object based on the country enum
+        ///     Returns the correct an object pointing at the correct country
         /// </summary>
         /// <param name="country"></param>
         /// <returns></returns>
@@ -112,6 +115,9 @@ namespace DataGenerator.Types.Name {
         }
     }
 
+    /// <summary>
+    ///     Used as argument in case if you want a name generated from a specifik country
+    /// </summary>
     internal enum Country {
         Sweden,
         Norway,
