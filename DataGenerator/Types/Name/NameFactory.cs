@@ -78,9 +78,9 @@ namespace DataGenerator.Types.Name {
         ///     Returns a function that returns names based on Country.
         /// </returns>
         public Func<string> FirstNameInitialiser(Country country) {
-            var commonName = GetNameBasedOnCountry(country);
-            return GenerateName(commonName.Female
-                .Concat(commonName.Male)
+            var nameBasedOnCountry = GetNameBasedOnCountry(country);
+            return GenerateName(nameBasedOnCountry.Female
+                .Concat(nameBasedOnCountry.Male)
                 .ToList());
         }
 
@@ -146,17 +146,17 @@ namespace DataGenerator.Types.Name {
         private Name GetNameBasedOnCountry(Country country) {
             switch (country) {
                 case Country.Sweden:
-                    return _names.First(name => name.Country == Sweden);
+                    return _names.Single(name => name.Country == Sweden);
                 case Country.Norway:
-                    return _names.First(name => name.Country == Norway);
+                    return _names.Single(name => name.Country == Norway);
                 case Country.Denmark:
-                    return _names.First(name => name.Country == Denmark);
+                    return _names.Single(name => name.Country == Denmark);
                 case Country.Russia:
-                    return _names.First(name => name.Country == Russia);
+                    return _names.Single(name => name.Country == Russia);
                 case Country.Finland:
-                    return _names.First(name => name.Country == Finland);
+                    return _names.Single(name => name.Country == Finland);
                 case Country.Spain:
-                    return _names.First(name => name.Country == Spain);
+                    return _names.Single(name => name.Country == Spain);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(country), country, null);
             }
