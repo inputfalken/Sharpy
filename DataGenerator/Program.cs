@@ -6,9 +6,9 @@ using DataGenerator.Types.Name;
 namespace DataGenerator {
     internal static class Program {
         private static void Main(string[] args) {
-            var nameFunctionFactory = new NameFunctionFactory(new RandomGenerator());
+            var nameFunctionFactory = new NameFactory(new RandomGenerator());
 
-            var nameFunctionCreator = nameFunctionFactory.NameFunctionCreator();
+            var nameFunctionCreator = nameFunctionFactory.FirstNameInitialiser();
             for (int i = 0; i < 100; i++) {
                 Console.WriteLine(nameFunctionCreator());
             }

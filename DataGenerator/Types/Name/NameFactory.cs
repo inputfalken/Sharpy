@@ -5,7 +5,7 @@ using System.Linq;
 using Newtonsoft.Json;
 
 namespace DataGenerator.Types.Name {
-    public class NameFunctionFactory {
+    public class NameFactory {
         private const string FilePath = "Data/Types/Name/data.json";
         private const string Sweden = "sweden";
         private const string Norway = "norway";
@@ -13,71 +13,72 @@ namespace DataGenerator.Types.Name {
         private const string Russia = "russia";
         private const string Finland = "finland";
         private const string Spain = "spain";
+        private readonly IGenerator<string> _generator;
 
-        public NameFunctionFactory(IGenerator<string> generator) {
+        private readonly IEnumerable<Name> _names;
+
+        public NameFactory(IGenerator<string> generator) {
             _generator = generator;
             _names = JsonConvert.DeserializeObject<IEnumerable<Name>>(File.ReadAllText(FilePath));
         }
 
-        private readonly IEnumerable<Name> _names;
-        private readonly IGenerator<string> _generator;
-
-        public Func<string> LastNameFunctionCreator()
-            => GenerateName(_names.SelectMany(name => name.LastName)
+        public Func<string> LastNameInitialiser()
+                    => GenerateName(_names.SelectMany(name => name.LastName)
                 .ToList());
 
-        public Func<string> LastNameFunctionCreator(Country country) =>
-            GenerateName(_names
+        public Func<string> LastNameInitialiser(Country country)
+            => GenerateName(_names
                 .Where(name => name == GetCountry(country))
-                .SelectMany(name => name.LastName).ToList());
+                .SelectMany(name => name.LastName)
+                .ToList());
+
 
         /// <summary>
-        ///     Creates a function whose data is filtered by Country 
+        ///     Initialises a function to generate firstnames whose data is not filtered at all
+        /// </summary>
+        /// <returns>
+        ///     Returns a function will will generate a random name without any filtering
+        /// </returns>
+        public Func<string> FirstNameInitialiser()
+            => GenerateName(_names.SelectMany(name => name.Female
+                .Concat(name.Male))
+                .ToList());
+
+        /// <summary>
+        ///     Creates a function whose data is filtered by Country
         /// </summary>
         /// <param name="country"></param>
         /// <returns>
         ///     Returns a function that returns names based on country
         /// </returns>
-        public Func<string> NameFunctionCreator(Country country) {
+        public Func<string> FirstNameInitialiser(Country country) {
             var commonName = GetCountry(country);
             return GenerateName(commonName.Female
                 .Concat(commonName.Male)
                 .ToList());
         }
 
-
         /// <summary>
-        ///     Creates a function whose data is not filtered at all
-        /// </summary>
-        /// <returns>
-        ///     Returns a function will will generate a random name without any filtering
-        /// </returns>
-        public Func<string> NameFunctionCreator()
-            => GenerateName(_names.SelectMany(name => name.Female
-                .Concat(name.Male))
-                .ToList());
-
-        /// <summary>
-        ///     Creates a function whose data is filtered by gender
+        ///     Initialises a function to generate firstnames whose data is filtered by Gender
         /// </summary>
         /// <param name="gender"></param>
         /// <returns>
-        ///     Returns a function which will generate names filtered by gender
+        ///     Returns a function which will generate names filtered by Gender
         /// </returns>
-        public Func<string> NameFunctionCreator(Gender gender)
+        public Func<string> FirstNameInitialiser(Gender gender)
             => GenerateName(gender == Gender.Female
                 ? _names.SelectMany(name => name.Female).ToList()
                 : _names.SelectMany(name => name.Male).ToList());
 
         /// <summary>
-        ///     Creates a funcion whose data is filtered by Country & Gender
+        ///     Initialises a function to generate firstnames whose data is filtered by Gender & Country
         /// </summary>
         /// <param name="country"></param>
         /// <param name="gender"></param>
         /// <returns>
         ///     Returns a function which will generate names filtered by Gender & Country
         /// </returns>
-        public Func<string> NameFunctionCreator(Country country, Gender gender)
+        public Func<string> FirstNameInitialiser(Country country, Gender gender)
             => GenerateName(gender == Gender.Female
                 ? GetCountry(country).Female
                 : GetCountry(country).Male);
@@ -93,7 +94,7 @@ namespace DataGenerator.Types.Name {
             => () => _generator.Generate(names);
 
         /// <summary>
-        /// Finds the correct Object based on country
+        ///     Finds the correct Object based on country
         /// </summary>
         /// <param name="country"></param>
         /// <returns>

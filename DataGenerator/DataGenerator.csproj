@@ -50,7 +50,7 @@
     <Compile Include="Types\Name\Gender.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Types\Name\NameFunctionFactory.cs" />
+    <Compile Include="Types\Name\NameFactory.cs" />
     <Compile Include="Types\RandomGenerator.cs" />
     <Compile Include="Types\IGenerator.cs" />
     <Compile Include="Types\HelperClass.cs" />
