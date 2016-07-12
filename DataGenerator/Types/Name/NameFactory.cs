@@ -47,7 +47,7 @@ namespace DataGenerator.Types.Name {
         /// </returns>
         public Func<string> LastNameInitialiser(Country country)
             => GenerateName(_names
-                .Where(name => name == GetCountry(country))
+                .Where(name => name == GetNameBasedOnCountry(country))
                 .SelectMany(name => name.LastName)
                 .ToList());
 
@@ -59,20 +59,16 @@ namespace DataGenerator.Types.Name {
         ///     Returns a function will will generate a random name without any filtering.
         /// </returns>
         public Func<string> FirstNameInitialiser()
-            => GenerateName(_names.SelectMany(name => name.Female
-                .Concat(name.Male))
-                .ToList());
+            => GenerateName(_names
+                .SelectMany(name => name.Female
+                    .Concat(name.Male)).ToList());
 
 
         //contains repeated data need to filter out
-        public Func<string> FirstNameInitialiser(Region region) {
-            var names = GetCountriesBasedOnRegion(region);
-            var enumerable = names as Name[] ?? names.ToArray();
-            return
-                GenerateName(enumerable.SelectMany(name => name.Male)
-                    .Concat(enumerable.SelectMany(name => name.Female))
-                    .ToList());
-        }
+        public Func<string> FirstNameInitialiser(Region region)
+            => GenerateName(GetNamesBasedOnRegion(region)
+                .SelectMany(name => name.Female
+                    .Concat(name.Male)).ToList());
 
         /// <summary>
         ///     Creates a function whose data is filtered by Country.
@@ -82,7 +78,7 @@ namespace DataGenerator.Types.Name {
         ///     Returns a function that returns names based on Country.
         /// </returns>
         public Func<string> FirstNameInitialiser(Country country) {
-            var commonName = GetCountry(country);
+            var commonName = GetNameBasedOnCountry(country);
             return GenerateName(commonName.Female
                 .Concat(commonName.Male)
                 .ToList());
@@ -111,8 +107,8 @@ namespace DataGenerator.Types.Name {
         /// </returns>
         public Func<string> FirstNameInitialiser(Country country, Gender gender)
             => GenerateName(gender == Gender.Female
-                ? GetCountry(country).Female
-                : GetCountry(country).Male);
+                ? GetNameBasedOnCountry(country).Female
+                : GetNameBasedOnCountry(country).Male);
 
 
         /// <summary>
@@ -125,7 +121,7 @@ namespace DataGenerator.Types.Name {
         private Func<string> GenerateName(List<string> names)
             => () => _generator.Generate(names);
 
-        private IEnumerable<Name> GetCountriesBasedOnRegion(Region region) {
+        private IEnumerable<Name> GetNamesBasedOnRegion(Region region) {
             switch (region) {
                 case Region.Europe:
                     return _names.Where(name => name.Region == Europe);
@@ -147,7 +143,7 @@ namespace DataGenerator.Types.Name {
         /// <returns>
         ///     Returns the correct object pointing at the correct Country.
         /// </returns>
-        private Name GetCountry(Country country) {
+        private Name GetNameBasedOnCountry(Country country) {
             switch (country) {
                 case Country.Sweden:
                     return _names.First(name => name.Country == Sweden);
