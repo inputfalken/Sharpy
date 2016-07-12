@@ -13,10 +13,10 @@ namespace DataGenerator.Types.Name {
         private const string Russia = "russia";
         private const string Finland = "finland";
         private const string Spain = "spain";
-        private readonly IGenerator<string> _generator;
+        private readonly IGenerator _generator;
         private readonly IEnumerable<Name> _names;
 
-        public NameFactory(IGenerator<string> generator) {
+        public NameFactory(IGenerator generator) {
             _generator = generator;
             _names = JsonConvert.DeserializeObject<IEnumerable<Name>>(File.ReadAllText(FilePath));
         }
