@@ -15,12 +15,21 @@ namespace DataGenerator.Types.Name {
         private const string Spain = "spain";
 
         public NameFunctionFactory(IGenerator<string> generator) {
-            Generator = generator;
-            Names = JsonConvert.DeserializeObject<IEnumerable<Name>>(File.ReadAllText(FilePath));
+            _generator = generator;
+            _names = JsonConvert.DeserializeObject<IEnumerable<Name>>(File.ReadAllText(FilePath));
         }
 
-        private IEnumerable<Name> Names { get; }
-        private IGenerator<string> Generator { get; }
+        private readonly IEnumerable<Name> _names;
+        private readonly IGenerator<string> _generator;
+
+        public Func<string> LastNameFunctionCreator()
+            => GenerateName(_names.SelectMany(name => name.LastName)
+                .ToList());
+
+        public Func<string> LastNameFunctionCreator(Country country) =>
+            GenerateName(_names
+                .Where(name => name == GetCountry(country))
+                .SelectMany(name => name.LastName).ToList());
 
         /// <summary>
         ///     Creates a function whose data is filtered by Country 
@@ -31,7 +40,9 @@ namespace DataGenerator.Types.Name {
         /// </returns>
         public Func<string> NameFunctionCreator(Country country) {
             var commonName = GetCountry(country);
-            return GenerateName(commonName.Female.Concat(commonName.Male).ToList());
+            return GenerateName(commonName.Female
+                .Concat(commonName.Male)
+                .ToList());
         }
 
 
@@ -42,7 +53,7 @@ namespace DataGenerator.Types.Name {
         ///     Returns a function will will generate a random name without any filtering
         /// </returns>
         public Func<string> NameFunctionCreator()
-            => GenerateName(Names.SelectMany(name => name.Female
+            => GenerateName(_names.SelectMany(name => name.Female
                 .Concat(name.Male))
                 .ToList());
 
@@ -55,8 +66,8 @@ namespace DataGenerator.Types.Name {
         /// </returns>
         public Func<string> NameFunctionCreator(Gender gender)
             => GenerateName(gender == Gender.Female
-                ? Names.SelectMany(name => name.Female).ToList()
-                : Names.SelectMany(name => name.Male).ToList());
+                ? _names.SelectMany(name => name.Female).ToList()
+                : _names.SelectMany(name => name.Male).ToList());
 
         /// <summary>
         ///     Creates a funcion whose data is filtered by Country & Gender
@@ -79,7 +90,7 @@ namespace DataGenerator.Types.Name {
         ///     Returns the Generator
         /// </returns>
         private Func<string> GenerateName(List<string> names)
-            => () => Generator.Generate(names);
+            => () => _generator.Generate(names);
 
         /// <summary>
         /// Finds the correct Object based on country
@@ -91,17 +102,17 @@ namespace DataGenerator.Types.Name {
         private Name GetCountry(Country country) {
             switch (country) {
                 case Country.Sweden:
-                    return Names.First(name => name.Country == Sweden);
+                    return _names.First(name => name.Country == Sweden);
                 case Country.Norway:
-                    return Names.First(name => name.Country == Norway);
+                    return _names.First(name => name.Country == Norway);
                 case Country.Denmark:
-                    return Names.First(name => name.Country == Denmark);
+                    return _names.First(name => name.Country == Denmark);
                 case Country.Russia:
-                    return Names.First(name => name.Country == Russia);
+                    return _names.First(name => name.Country == Russia);
                 case Country.Finland:
-                    return Names.First(name => name.Country == Finland);
+                    return _names.First(name => name.Country == Finland);
                 case Country.Spain:
-                    return Names.First(name => name.Country == Spain);
+                    return _names.First(name => name.Country == Spain);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(country), country, null);
             }
