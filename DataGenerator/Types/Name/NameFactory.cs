@@ -22,18 +22,22 @@ namespace DataGenerator.Types.Name {
         }
 
         /// <summary>
-        /// Initialises a function that generates last names whose data is not filtered at all.
+        ///     Initialises a function that generates last names whose data is not filtered at all.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        ///     Returns a function which will generate a random last name without any filtering
+        /// </returns>
         public Func<string> LastNameInitialiser()
-                    => GenerateName(_names.SelectMany(name => name.LastName)
+            => GenerateName(_names.SelectMany(name => name.LastName)
                 .ToList());
 
         /// <summary>
-        /// Initialises a function that generates last names whose data is filtered by country.
+        ///     Initialises a function that generates last names whose data is filtered by country.
         /// </summary>
         /// <param name="country"></param>
-        /// <returns></returns>
+        /// <returns>
+        ///     Returns a function which will generate last names filtered by country
+        /// </returns>
         public Func<string> LastNameInitialiser(Country country)
             => GenerateName(_names
                 .Where(name => name == GetCountry(country))
@@ -78,6 +82,7 @@ namespace DataGenerator.Types.Name {
                 ? _names.SelectMany(name => name.Female).ToList()
                 : _names.SelectMany(name => name.Male).ToList());
 
+
         /// <summary>
         ///     Initialises a function to generate firstnames whose data is filtered by Gender & Country.
         /// </summary>
@@ -90,6 +95,7 @@ namespace DataGenerator.Types.Name {
             => GenerateName(gender == Gender.Female
                 ? GetCountry(country).Female
                 : GetCountry(country).Male);
+
 
         /// <summary>
         ///     Generates Name from list
@@ -111,6 +117,7 @@ namespace DataGenerator.Types.Name {
         private Name GetCountry(Country country) {
             switch (country) {
                 case Country.Sweden:
+                    /// Returns a function which will generate last names filtered by country
                     return _names.First(name => name.Country == Sweden);
                 case Country.Norway:
                     return _names.First(name => name.Country == Norway);
@@ -145,17 +152,5 @@ namespace DataGenerator.Types.Name {
                 Region = region;
             }
         }
-    }
-
-    /// <summary>
-    ///     Used as argument in case if you want a name generated from a specifik country.
-    /// </summary>
-    public enum Country {
-        Sweden,
-        Norway,
-        Denmark,
-        Russia,
-        Spain,
-        Finland
     }
 }
