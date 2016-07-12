@@ -5,7 +5,7 @@ using System.Linq;
 using Newtonsoft.Json;
 
 namespace DataGenerator.Types.Name {
-    internal class NameFunctionFactory {
+    public class NameFunctionFactory {
         private const string FilePath = "Data/Types/Name/data.json";
         private const string Sweden = "sweden";
         private const string Norway = "norway";
@@ -130,7 +130,7 @@ namespace DataGenerator.Types.Name {
     /// <summary>
     ///     Used as argument in case if you want a name generated from a specifik country
     /// </summary>
-    internal enum Country {
+    public enum Country {
         Sweden,
         Norway,
         Denmark,
