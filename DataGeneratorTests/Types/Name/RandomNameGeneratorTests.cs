@@ -35,9 +35,34 @@ namespace DataGeneratorTests.Types.Name {
                 "Irina",
                 "Yulia"
             };
+            var russianLastNames = new[] {
+                "Smirnov",
+                "Ivanov",
+                "Kuznetsov",
+                "Popov",
+                "Sokolov",
+                "Lebedev",
+                "Kozlov",
+                "Novikov",
+                "Morozov",
+                "Petrov",
+                "Volkov",
+                "Solovyov",
+                "Vasilyev",
+                "Zaytsev",
+                "Pavlov",
+                "Semyonov",
+                "Golubev",
+                "Vinogradov",
+                "Bogdanov",
+                "Vorobyov"
+            };
+
             var russianMaleGenerator = _nameFactory.FirstNameInitialiser(Country.Russia, Gender.Male);
             var russianFemaleGenerator = _nameFactory.FirstNameInitialiser(Country.Russia, Gender.Female);
+            var russianLastNameGenerator = _nameFactory.LastNameInitialiser(Country.Russia);
             for (var i = 0; i < 1000; i++) {
+                Assert.IsTrue(russianLastNames.Contains(russianLastNameGenerator()));
                 Assert.IsTrue(russianMaleNames.Contains(russianMaleGenerator()));
                 Assert.IsTrue(russianFemaleNames.Contains(russianFemaleGenerator()));
             }
