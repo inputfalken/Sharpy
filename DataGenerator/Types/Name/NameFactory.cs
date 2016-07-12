@@ -6,7 +6,8 @@ using Newtonsoft.Json;
 
 namespace DataGenerator.Types.Name {
     public class NameFactory {
-        //Countries
+        #region Countries
+
         private const string FilePath = "Data/Types/Name/data.json";
         private const string Sweden = "sweden";
         private const string Norway = "norway";
@@ -14,12 +15,16 @@ namespace DataGenerator.Types.Name {
         private const string Russia = "russia";
         private const string Finland = "finland";
         private const string Spain = "spain";
-        //Regions
+
+        #endregion
+        #region Regions
+
         private const string Europe = "europe";
         private const string NorthAmerica = "northAmerica";
         private const string SouthAmerica = "southAmerica";
         private const string CentralAmerica = "centralAmerica";
 
+        #endregion
         private readonly IGenerator _generator;
         private readonly IEnumerable<Name> _names;
 
@@ -32,7 +37,7 @@ namespace DataGenerator.Types.Name {
         ///     Initialises a function that generates last names whose data is not filtered at all.
         /// </summary>
         /// <returns>
-        ///     Returns a function which will generate a random last name without any filtering
+            ///     Returns a function which will generate a random last name without any filtering
         /// </returns>
         public Func<string> LastNameInitialiser()
             => GenerateName(_names.SelectMany(name => name.LastName)
