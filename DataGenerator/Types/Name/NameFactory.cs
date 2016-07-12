@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 
 namespace DataGenerator.Types.Name {
     public class NameFactory {
+        //Countries
         private const string FilePath = "Data/Types/Name/data.json";
         private const string Sweden = "sweden";
         private const string Norway = "norway";
@@ -13,6 +14,12 @@ namespace DataGenerator.Types.Name {
         private const string Russia = "russia";
         private const string Finland = "finland";
         private const string Spain = "spain";
+        //Regions
+        private const string Europe = "europe";
+        private const string NorthAmerica = "northAmerica";
+        private const string SouthAmerica = "southAmerica";
+        private const string CentralAmerica = "centralAmerica";
+
         private readonly IGenerator _generator;
         private readonly IEnumerable<Name> _names;
 
@@ -32,11 +39,11 @@ namespace DataGenerator.Types.Name {
                 .ToList());
 
         /// <summary>
-        ///     Initialises a function that generates last names whose data is filtered by country.
+        ///     Initialises a function that generates last names whose data is filtered by Country.
         /// </summary>
         /// <param name="country"></param>
         /// <returns>
-        ///     Returns a function which will generate last names filtered by country
+        ///     Returns a function which will generate last names filtered by Country
         /// </returns>
         public Func<string> LastNameInitialiser(Country country)
             => GenerateName(_names
@@ -56,12 +63,23 @@ namespace DataGenerator.Types.Name {
                 .Concat(name.Male))
                 .ToList());
 
+
+        //contains repeated data need to filter out
+        public Func<string> FirstNameInitialiser(Region region) {
+            var names = GetCountriesBasedOnRegion(region);
+            var enumerable = names as Name[] ?? names.ToArray();
+            return
+                GenerateName(enumerable.SelectMany(name => name.Male)
+                    .Concat(enumerable.SelectMany(name => name.Female))
+                    .ToList());
+        }
+
         /// <summary>
         ///     Creates a function whose data is filtered by Country.
         /// </summary>
         /// <param name="country"></param>
         /// <returns>
-        ///     Returns a function that returns names based on country.
+        ///     Returns a function that returns names based on Country.
         /// </returns>
         public Func<string> FirstNameInitialiser(Country country) {
             var commonName = GetCountry(country);
@@ -107,17 +125,31 @@ namespace DataGenerator.Types.Name {
         private Func<string> GenerateName(List<string> names)
             => () => _generator.Generate(names);
 
+        private IEnumerable<Name> GetCountriesBasedOnRegion(Region region) {
+            switch (region) {
+                case Region.Europe:
+                    return _names.Where(name => name.Region == Europe);
+                case Region.CentralAmerika:
+                    return _names.Where(name => name.Region == CentralAmerica);
+                case Region.NorthAmerica:
+                    return _names.Where(name => name.Region == NorthAmerica);
+                case Region.SouthAmerica:
+                    return _names.Where(name => name.Region == SouthAmerica);
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(region), region, null);
+            }
+        }
+
         /// <summary>
         ///     Finds the correct Object based on country.
         /// </summary>
         /// <param name="country"></param>
         /// <returns>
-        ///     Returns the correct object pointing at the correct country.
+        ///     Returns the correct object pointing at the correct Country.
         /// </returns>
         private Name GetCountry(Country country) {
             switch (country) {
                 case Country.Sweden:
-                    /// Returns a function which will generate last names filtered by country
                     return _names.First(name => name.Country == Sweden);
                 case Country.Norway:
                     return _names.First(name => name.Country == Norway);
@@ -143,8 +175,7 @@ namespace DataGenerator.Types.Name {
             public readonly List<string> Male;
             public readonly string Region;
 
-            public Name(List<string> female, List<string> male, List<string> lastName, string country,
-                string region) {
+            public Name(List<string> female, List<string> male, List<string> lastName, string country, string region) {
                 Female = female;
                 Male = male;
                 LastName = lastName;
