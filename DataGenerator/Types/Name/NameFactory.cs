@@ -14,7 +14,6 @@ namespace DataGenerator.Types.Name {
         private const string Finland = "finland";
         private const string Spain = "spain";
         private readonly IGenerator<string> _generator;
-
         private readonly IEnumerable<Name> _names;
 
         public NameFactory(IGenerator<string> generator) {
@@ -22,10 +21,19 @@ namespace DataGenerator.Types.Name {
             _names = JsonConvert.DeserializeObject<IEnumerable<Name>>(File.ReadAllText(FilePath));
         }
 
+        /// <summary>
+        /// Initialises a function that generates last names whose data is not filtered at all.
+        /// </summary>
+        /// <returns></returns>
         public Func<string> LastNameInitialiser()
                     => GenerateName(_names.SelectMany(name => name.LastName)
                 .ToList());
 
+        /// <summary>
+        /// Initialises a function that generates last names whose data is filtered by country.
+        /// </summary>
+        /// <param name="country"></param>
+        /// <returns></returns>
         public Func<string> LastNameInitialiser(Country country)
             => GenerateName(_names
                 .Where(name => name == GetCountry(country))
@@ -34,10 +42,10 @@ namespace DataGenerator.Types.Name {
 
 
         /// <summary>
-        ///     Initialises a function to generate firstnames whose data is not filtered at all
+        ///     Initialises a function to generate firstnames whose data is not filtered at all.
         /// </summary>
         /// <returns>
-        ///     Returns a function will will generate a random name without any filtering
+        ///     Returns a function will will generate a random name without any filtering.
         /// </returns>
         public Func<string> FirstNameInitialiser()
             => GenerateName(_names.SelectMany(name => name.Female
@@ -45,11 +53,11 @@ namespace DataGenerator.Types.Name {
                 .ToList());
 
         /// <summary>
-        ///     Creates a function whose data is filtered by Country
+        ///     Creates a function whose data is filtered by Country.
         /// </summary>
         /// <param name="country"></param>
         /// <returns>
-        ///     Returns a function that returns names based on country
+        ///     Returns a function that returns names based on country.
         /// </returns>
         public Func<string> FirstNameInitialiser(Country country) {
             var commonName = GetCountry(country);
@@ -59,7 +67,7 @@ namespace DataGenerator.Types.Name {
         }
 
         /// <summary>
-        ///     Initialises a function to generate firstnames whose data is filtered by Gender
+        ///     Initialises a function to generate firstnames whose data is filtered by Gender.
         /// </summary>
         /// <param name="gender"></param>
         /// <returns>
@@ -71,12 +79,12 @@ namespace DataGenerator.Types.Name {
                 : _names.SelectMany(name => name.Male).ToList());
 
         /// <summary>
-        ///     Initialises a function to generate firstnames whose data is filtered by Gender & Country
+        ///     Initialises a function to generate firstnames whose data is filtered by Gender & Country.
         /// </summary>
         /// <param name="country"></param>
         /// <param name="gender"></param>
         /// <returns>
-        ///     Returns a function which will generate names filtered by Gender & Country
+        ///     Returns a function which will generate names filtered by Gender & Country.
         /// </returns>
         public Func<string> FirstNameInitialiser(Country country, Gender gender)
             => GenerateName(gender == Gender.Female
@@ -94,11 +102,11 @@ namespace DataGenerator.Types.Name {
             => () => _generator.Generate(names);
 
         /// <summary>
-        ///     Finds the correct Object based on country
+        ///     Finds the correct Object based on country.
         /// </summary>
         /// <param name="country"></param>
         /// <returns>
-        ///     Returns the correct object pointing at the correct country
+        ///     Returns the correct object pointing at the correct country.
         /// </returns>
         private Name GetCountry(Country country) {
             switch (country) {
@@ -140,7 +148,7 @@ namespace DataGenerator.Types.Name {
     }
 
     /// <summary>
-    ///     Used as argument in case if you want a name generated from a specifik country
+    ///     Used as argument in case if you want a name generated from a specifik country.
     /// </summary>
     public enum Country {
         Sweden,
