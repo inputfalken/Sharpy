@@ -8,11 +8,22 @@ namespace DataGenerator.Types.Name {
     public class NameFactory {
         private readonly IGenerator _generator;
         private readonly IEnumerable<NameRepository> _nameRepositories;
+        private const string FilePath = "Data/Types/Name/data.json";
 
         public NameFactory(IGenerator generator) {
             _generator = generator;
             _nameRepositories = JsonConvert.DeserializeObject<IEnumerable<NameRepository>>(File.ReadAllText(FilePath));
         }
+
+        /// <summary>
+        /// Filters repeated strings from argument
+        /// </summary>
+        /// <param name="enumerable"></param>
+        /// <returns></returns>
+        public static IEnumerable<string> RemoveDuplicatedData(IEnumerable<string> enumerable)
+            => enumerable.GroupBy(s => s)
+                .Where(g => g.Any())
+                .Select(grouping => grouping.Key);
 
         /// <summary>
         ///     Initialises a function that generates last names whose data is not filtered at all.
@@ -148,18 +159,6 @@ namespace DataGenerator.Types.Name {
                 Region = region;
             }
         }
-
-        #region Countries
-
-        private const string FilePath = "Data/Types/Name/data.json";
-        private const string Sweden = "sweden";
-        private const string Norway = "norway";
-        private const string Denmark = "denmark";
-        private const string Russia = "russia";
-        private const string Finland = "finland";
-        private const string Spain = "spain";
-
-        #endregion
 
         #region Regions
 
