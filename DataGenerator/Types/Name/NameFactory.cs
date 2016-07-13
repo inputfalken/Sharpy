@@ -32,12 +32,11 @@ namespace DataGenerator.Types.Name {
         /// <returns>
         ///     Returns a function which will generate last names filtered by Country
         /// </returns>
-        public Func<string> LastNameInitialiser(Country country)
+        public Func<string> LastNameInitialiser(string country)
             => GenerateName(_nameRepositories
-                .Where(name => name == GetNameRepositoryBasedOnCountry(country))
+                .Where(name => name.Origin.Country == country)
                 .SelectMany(name => name.LastNames)
                 .ToList());
-
 
         /// <summary>
         ///     Initialises a function to generate firstnames whose data is not filtered at all.
@@ -53,7 +52,7 @@ namespace DataGenerator.Types.Name {
 
         //contains repeated data need to filter out
         public Func<string> FirstNameInitialiser(Region region)
-            => GenerateName(GetNameRepositoryBasedOnRegion(region)
+            => GenerateName(GetNameRepositorysBasedOnRegion(region)
                 .SelectMany(name => name.MixedFirstNames)
                 .ToList());
 
@@ -64,8 +63,9 @@ namespace DataGenerator.Types.Name {
         /// <returns>
         ///     Returns a function that returns names based on Country.
         /// </returns>
-        public Func<string> FirstNameInitialiser(Country country)
-            => GenerateName(GetNameRepositoryBasedOnCountry(country).MixedFirstNames);
+        public Func<string> FirstNameInitialiser(string country)
+            => GenerateName(_nameRepositories
+                .Single(repository => repository.Origin.Country == country).MixedFirstNames);
 
         /// <summary>
         ///     Initialises a function to generate firstnames whose data is filtered by Gender.
@@ -88,10 +88,10 @@ namespace DataGenerator.Types.Name {
         /// <returns>
         ///     Returns a function which will generate names filtered by Gender & Country.
         /// </returns>
-        public Func<string> FirstNameInitialiser(Country country, Gender gender)
+        public Func<string> FirstNameInitialiser(string country, Gender gender)
             => GenerateName(gender == Gender.Female
-                ? GetNameRepositoryBasedOnCountry(country).FemaleFirstNames
-                : GetNameRepositoryBasedOnCountry(country).MaleFirstNames);
+                ? _nameRepositories.Single(repository => repository.Origin.Country == country).FemaleFirstNames
+                : _nameRepositories.Single(repository => repository.Origin.Country == country).MaleFirstNames);
 
 
         /// <summary>
@@ -102,10 +102,9 @@ namespace DataGenerator.Types.Name {
         ///     Returns the Generator
         /// </returns>
         private Func<string> GenerateName(List<string> names)
-            =>
-                () => _generator.Generate(names);
+            => () => _generator.Generate(names);
 
-        private IEnumerable<NameRepository> GetNameRepositoryBasedOnRegion(Region region) {
+        private IEnumerable<NameRepository> GetNameRepositorysBasedOnRegion(Region region) {
             switch (region) {
                 case Region.Europe:
                     return _nameRepositories.Where(name => name.Origin.Region == Europe);
@@ -117,32 +116,6 @@ namespace DataGenerator.Types.Name {
                     return _nameRepositories.Where(name => name.Origin.Region == SouthAmerica);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(region), region, null);
-            }
-        }
-
-        /// <summary>
-        ///     Finds the correct Object based on country.
-        /// </summary>
-        /// <param name="country"></param>
-        /// <returns>
-        ///     Returns the correct object pointing at the correct Country.
-        /// </returns>
-        private NameRepository GetNameRepositoryBasedOnCountry(Country country) {
-            switch (country) {
-                case Country.Sweden:
-                    return _nameRepositories.Single(name => name.Origin.Country == Sweden);
-                case Country.Norway:
-                    return _nameRepositories.Single(name => name.Origin.Country == Norway);
-                case Country.Denmark:
-                    return _nameRepositories.Single(name => name.Origin.Country == Denmark);
-                case Country.Russia:
-                    return _nameRepositories.Single(name => name.Origin.Country == Russia);
-                case Country.Finland:
-                    return _nameRepositories.Single(name => name.Origin.Country == Finland);
-                case Country.Spain:
-                    return _nameRepositories.Single(name => name.Origin.Country == Spain);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(country), country, null);
             }
         }
 

@@ -8,7 +8,7 @@ namespace DataGenerator {
     internal static class Program {
         private static void Main(string[] args) {
             var nameFunctionFactory = new NameFactory(new RandomGenerator());
-            Console.WriteLine(nameFunctionFactory.LastNameInitialiser(Country.Sweden)());
+            Console.WriteLine(nameFunctionFactory.LastNameInitialiser("unitedKingdom")());
         }
     }
 }
