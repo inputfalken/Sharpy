@@ -7,11 +7,11 @@ using Newtonsoft.Json;
 namespace DataGenerator.Types.Name {
     public class NameFactory {
         private readonly IGenerator _generator;
-        private readonly IEnumerable<NameRepository> _names;
+        private readonly IEnumerable<NameRepository> _nameRepositories;
 
         public NameFactory(IGenerator generator) {
             _generator = generator;
-            _names = JsonConvert.DeserializeObject<IEnumerable<NameRepository>>(File.ReadAllText(FilePath));
+            _nameRepositories = JsonConvert.DeserializeObject<IEnumerable<NameRepository>>(File.ReadAllText(FilePath));
         }
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace DataGenerator.Types.Name {
         ///     Returns a function which will generate a random last name without any filtering
         /// </returns>
         public Func<string> LastNameInitialiser()
-            => GenerateName(_names
+            => GenerateName(_nameRepositories
                 .SelectMany(name => name.LastNames)
                 .ToList());
 
@@ -33,8 +33,8 @@ namespace DataGenerator.Types.Name {
         ///     Returns a function which will generate last names filtered by Country
         /// </returns>
         public Func<string> LastNameInitialiser(Country country)
-            => GenerateName(_names
-                .Where(name => name == GetNameBasedOnCountry(country))
+            => GenerateName(_nameRepositories
+                .Where(name => name == GetNameRepositoryBasedOnCountry(country))
                 .SelectMany(name => name.LastNames)
                 .ToList());
 
@@ -46,14 +46,14 @@ namespace DataGenerator.Types.Name {
         ///     Returns a function will will generate a random name without any filtering.
         /// </returns>
         public Func<string> FirstNameInitialiser()
-            => GenerateName(_names
+            => GenerateName(_nameRepositories
                 .SelectMany(name => name.MixedFirstNames)
                 .ToList());
 
 
         //contains repeated data need to filter out
         public Func<string> FirstNameInitialiser(Region region)
-            => GenerateName(GetNamesBasedOnRegion(region)
+            => GenerateName(GetNameRepositoryBasedOnRegion(region)
                 .SelectMany(name => name.MixedFirstNames)
                 .ToList());
 
@@ -65,7 +65,7 @@ namespace DataGenerator.Types.Name {
         ///     Returns a function that returns names based on Country.
         /// </returns>
         public Func<string> FirstNameInitialiser(Country country)
-            => GenerateName(GetNameBasedOnCountry(country).MixedFirstNames);
+            => GenerateName(GetNameRepositoryBasedOnCountry(country).MixedFirstNames);
 
         /// <summary>
         ///     Initialises a function to generate firstnames whose data is filtered by Gender.
@@ -76,8 +76,8 @@ namespace DataGenerator.Types.Name {
         /// </returns>
         public Func<string> FirstNameInitialiser(Gender gender)
             => GenerateName(gender == Gender.Female
-                ? _names.SelectMany(name => name.FemaleFirstNames).ToList()
-                : _names.SelectMany(name => name.MaleFirstNames).ToList());
+                ? _nameRepositories.SelectMany(name => name.FemaleFirstNames).ToList()
+                : _nameRepositories.SelectMany(name => name.MaleFirstNames).ToList());
 
 
         /// <summary>
@@ -90,12 +90,12 @@ namespace DataGenerator.Types.Name {
         /// </returns>
         public Func<string> FirstNameInitialiser(Country country, Gender gender)
             => GenerateName(gender == Gender.Female
-                ? GetNameBasedOnCountry(country).FemaleFirstNames
-                : GetNameBasedOnCountry(country).MaleFirstNames);
+                ? GetNameRepositoryBasedOnCountry(country).FemaleFirstNames
+                : GetNameRepositoryBasedOnCountry(country).MaleFirstNames);
 
 
         /// <summary>
-        ///     Generates NameRepository from list
+        ///     Generates a name from from list
         /// </summary>
         /// <param name="names"></param>
         /// <returns>
@@ -105,16 +105,16 @@ namespace DataGenerator.Types.Name {
             =>
                 () => _generator.Generate(names);
 
-        private IEnumerable<NameRepository> GetNamesBasedOnRegion(Region region) {
+        private IEnumerable<NameRepository> GetNameRepositoryBasedOnRegion(Region region) {
             switch (region) {
                 case Region.Europe:
-                    return _names.Where(name => name.Origin.Region == Europe);
+                    return _nameRepositories.Where(name => name.Origin.Region == Europe);
                 case Region.CentralAmerika:
-                    return _names.Where(name => name.Origin.Region == CentralAmerica);
+                    return _nameRepositories.Where(name => name.Origin.Region == CentralAmerica);
                 case Region.NorthAmerica:
-                    return _names.Where(name => name.Origin.Region == NorthAmerica);
+                    return _nameRepositories.Where(name => name.Origin.Region == NorthAmerica);
                 case Region.SouthAmerica:
-                    return _names.Where(name => name.Origin.Region == SouthAmerica);
+                    return _nameRepositories.Where(name => name.Origin.Region == SouthAmerica);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(region), region, null);
             }
@@ -127,20 +127,20 @@ namespace DataGenerator.Types.Name {
         /// <returns>
         ///     Returns the correct object pointing at the correct Country.
         /// </returns>
-        private NameRepository GetNameBasedOnCountry(Country country) {
+        private NameRepository GetNameRepositoryBasedOnCountry(Country country) {
             switch (country) {
                 case Country.Sweden:
-                    return _names.Single(name => name.Origin.Country == Sweden);
+                    return _nameRepositories.Single(name => name.Origin.Country == Sweden);
                 case Country.Norway:
-                    return _names.Single(name => name.Origin.Country == Norway);
+                    return _nameRepositories.Single(name => name.Origin.Country == Norway);
                 case Country.Denmark:
-                    return _names.Single(name => name.Origin.Country == Denmark);
+                    return _nameRepositories.Single(name => name.Origin.Country == Denmark);
                 case Country.Russia:
-                    return _names.Single(name => name.Origin.Country == Russia);
+                    return _nameRepositories.Single(name => name.Origin.Country == Russia);
                 case Country.Finland:
-                    return _names.Single(name => name.Origin.Country == Finland);
+                    return _nameRepositories.Single(name => name.Origin.Country == Finland);
                 case Country.Spain:
-                    return _names.Single(name => name.Origin.Country == Spain);
+                    return _nameRepositories.Single(name => name.Origin.Country == Spain);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(country), country, null);
             }
@@ -154,11 +154,12 @@ namespace DataGenerator.Types.Name {
             public readonly List<string> MaleFirstNames;
             public readonly Origin Origin;
 
-            public NameRepository(List<string> femaleFirstNames, List<string> maleFirstNames, List<string> lastNames,
+            //TODO configure json file so i can have plural names for the collections
+            public NameRepository(List<string> female, List<string> male, List<string> lastName,
                 string country, string region) {
-                FemaleFirstNames = femaleFirstNames;
-                MaleFirstNames = maleFirstNames;
-                LastNames = lastNames;
+                FemaleFirstNames = female;
+                MaleFirstNames = male;
+                LastNames = lastName;
                 Origin = new Origin(country, region);
             }
 
