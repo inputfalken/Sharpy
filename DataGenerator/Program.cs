@@ -7,7 +7,7 @@ using DataGenerator.Types.Name;
 namespace DataGenerator {
     internal static class Program {
         private static void Main(string[] args) {
-            var nameFactory = new NameFactory();
+            var nameFactory = new NameFactory(new RandomGenerator());
             Console.WriteLine(nameFactory.LastNameInitialiser(Region.Europe)());
         }
     }

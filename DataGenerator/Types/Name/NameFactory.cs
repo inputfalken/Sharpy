@@ -23,7 +23,7 @@ namespace DataGenerator.Types.Name {
         ///     Returns a function which will generate a random last name without any filtering
         /// </returns>
         public Func<string> LastNameInitialiser()
-            => GenerateName(Filter.RepeatedData(_nameRepositories.SelectMany(repository => repository.LastNames)));
+            => GenerateName(LastNameCollection());
 
         /// <summary>
         /// Returns a collection of unique last names whose data is not filtered
