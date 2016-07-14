@@ -10,8 +10,8 @@ namespace DataGenerator.Types.Name {
         private readonly IGenerator _generator;
         private readonly IEnumerable<NameRepository> _nameRepositories;
 
-        public NameFactory(IGenerator generator) {
-            _generator = generator;
+        public NameFactory(IGenerator generator = null) {
+            _generator = generator ?? new RandomGenerator();
             _nameRepositories = JsonConvert.DeserializeObject<IEnumerable<NameRepository>>(File.ReadAllText(FilePath));
         }
 
