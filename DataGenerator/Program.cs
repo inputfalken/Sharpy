@@ -7,8 +7,8 @@ using DataGenerator.Types.Name;
 namespace DataGenerator {
     internal static class Program {
         private static void Main(string[] args) {
-            var nameFunctionFactory = new NameFactory();
-            Console.WriteLine(nameFunctionFactory.LastNameInitialiser(Region.Europe)());
+            var nameFactory = new NameFactory();
+            Console.WriteLine(nameFactory.LastNameInitialiser(Region.Europe)());
         }
     }
 }

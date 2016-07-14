@@ -20,10 +20,11 @@ namespace DataGenerator.Types.Name {
         /// </summary>
         /// <param name="enumerable"></param>
         /// <returns></returns>
-        public static IEnumerable<string> RemoveDuplicatedData(IEnumerable<string> enumerable)
+        private static List<string> RemoveDuplicatedName(IEnumerable<string> enumerable)
             => enumerable.GroupBy(s => s)
                 .Where(g => g.Any())
-                .Select(grouping => grouping.Key);
+                .Select(grouping => grouping.Key)
+                .ToList();
 
         /// <summary>
         ///     Initialises a function that generates last names whose data is not filtered at all.
@@ -32,9 +33,14 @@ namespace DataGenerator.Types.Name {
         ///     Returns a function which will generate a random last name without any filtering
         /// </returns>
         public Func<string> LastNameInitialiser()
-            => GenerateName(_nameRepositories
-                .SelectMany(repository => repository.LastNames)
-                .ToList());
+            => GenerateName(RemoveDuplicatedName(_nameRepositories.SelectMany(repository => repository.LastNames)));
+
+        /// <summary>
+        /// Returns a collection of unique last names whose data is not filtered
+        /// </summary>
+        /// <returns></returns>
+        public List<string> LastNameCollection()
+            => RemoveDuplicatedName(_nameRepositories.SelectMany(repository => repository.LastNames));
 
         /// <summary>
         ///     Initialises a function that generates last names whose data is filtered by Country.
