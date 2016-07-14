@@ -50,6 +50,16 @@ namespace DataGenerator.Types.Name {
                 .ToList());
 
         /// <summary>
+        /// Initalises a function that generates last names whose data is filtered by region
+        /// </summary>
+        /// <param name="region"></param>
+        /// <returns></returns>
+        public Func<string> LastNameInitialiser(Region region)
+            => GenerateName(GetRepositorysByRegion(region)
+                .SelectMany(repository => repository.LastNames)
+                .ToList());
+
+        /// <summary>
         ///     Initialises a function to generate firstnames whose data is not filtered at all.
         /// </summary>
         /// <returns>
@@ -68,7 +78,7 @@ namespace DataGenerator.Types.Name {
         /// <param name="region"></param>
         /// <returns></returns>
         public Func<string> FirstNameInitialiser(Region region)
-            => GenerateName(GetNameRepositorysBasedOnRegion(region)
+            => GenerateName(GetRepositorysByRegion(region)
                 .SelectMany(repository => repository.MixedFirstNames)
                 .ToList());
 
@@ -120,7 +130,7 @@ namespace DataGenerator.Types.Name {
         private Func<string> GenerateName(List<string> names)
             => () => _generator.Generate(names);
 
-        private IEnumerable<NameRepository> GetNameRepositorysBasedOnRegion(Region region) {
+        private IEnumerable<NameRepository> GetRepositorysByRegion(Region region) {
             switch (region) {
                 case Region.Europe:
                     return _nameRepositories.Where(repository => repository.Origin.Region == Europe);
