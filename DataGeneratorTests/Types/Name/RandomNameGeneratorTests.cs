@@ -58,9 +58,9 @@ namespace DataGeneratorTests.Types.Name {
                 "Vorobyov"
             };
 
-            var russianMaleGenerator = _nameFactory.FirstNameInitialiser("russia", Gender.Male);
-            var russianFemaleGenerator = _nameFactory.FirstNameInitialiser("russia", Gender.Female);
-            var russianLastNameGenerator = _nameFactory.LastNameInitialiser("russia");
+            var russianMaleGenerator = _nameFactory.FirstNameGenerator("russia", Gender.Male);
+            var russianFemaleGenerator = _nameFactory.FirstNameGenerator("russia", Gender.Female);
+            var russianLastNameGenerator = _nameFactory.LastNameGenerator("russia");
             for (var i = 0; i < 1000; i++) {
                 Assert.IsTrue(russianLastNames.Contains(russianLastNameGenerator()));
                 Assert.IsTrue(russianMaleNames.Contains(russianMaleGenerator()));
