@@ -10,6 +10,7 @@ namespace DataGenerator.Types.Name {
         private readonly IGenerator _generator;
         private readonly IEnumerable<NameRepository> _nameRepositories;
 
+        //TODO Try seperate generator and just make this return name collection filtered by the users arguments
         public NameFactory(IGenerator generator) {
             _generator = generator;
             _nameRepositories = JsonConvert.DeserializeObject<IEnumerable<NameRepository>>(File.ReadAllText(FilePath));
