@@ -6,9 +6,9 @@ using Newtonsoft.Json;
 
 namespace DataGenerator.Types.Name {
     public class NameFactory {
+        private const string FilePath = "Data/Types/Name/data.json";
         private readonly IGenerator _generator;
         private readonly IEnumerable<NameRepository> _nameRepositories;
-        private const string FilePath = "Data/Types/Name/data.json";
 
         public NameFactory(IGenerator generator) {
             _generator = generator;
@@ -16,7 +16,7 @@ namespace DataGenerator.Types.Name {
         }
 
         /// <summary>
-        /// Filters repeated strings from argument
+        ///     Filters repeated strings from argument
         /// </summary>
         /// <param name="enumerable"></param>
         /// <returns></returns>
@@ -33,7 +33,7 @@ namespace DataGenerator.Types.Name {
         /// </returns>
         public Func<string> LastNameInitialiser()
             => GenerateName(_nameRepositories
-                .SelectMany(name => name.LastNames)
+                .SelectMany(repository => repository.LastNames)
                 .ToList());
 
         /// <summary>
@@ -45,8 +45,8 @@ namespace DataGenerator.Types.Name {
         /// </returns>
         public Func<string> LastNameInitialiser(string country)
             => GenerateName(_nameRepositories
-                .Where(name => name.Origin.Country == country)
-                .SelectMany(name => name.LastNames)
+                .Where(repository => repository.Origin.Country == country)
+                .SelectMany(repository => repository.LastNames)
                 .ToList());
 
         /// <summary>
@@ -57,14 +57,19 @@ namespace DataGenerator.Types.Name {
         /// </returns>
         public Func<string> FirstNameInitialiser()
             => GenerateName(_nameRepositories
-                .SelectMany(name => name.MixedFirstNames)
+                .SelectMany(repository => repository.MixedFirstNames)
                 .ToList());
 
 
         //contains repeated data need to filter out
+        /// <summary>
+        ///     Initalizes a function to generate first names whose data is filtered by region
+        /// </summary>
+        /// <param name="region"></param>
+        /// <returns></returns>
         public Func<string> FirstNameInitialiser(Region region)
             => GenerateName(GetNameRepositorysBasedOnRegion(region)
-                .SelectMany(name => name.MixedFirstNames)
+                .SelectMany(repository => repository.MixedFirstNames)
                 .ToList());
 
         /// <summary>
@@ -87,8 +92,8 @@ namespace DataGenerator.Types.Name {
         /// </returns>
         public Func<string> FirstNameInitialiser(Gender gender)
             => GenerateName(gender == Gender.Female
-                ? _nameRepositories.SelectMany(name => name.FemaleFirstNames).ToList()
-                : _nameRepositories.SelectMany(name => name.MaleFirstNames).ToList());
+                ? _nameRepositories.SelectMany(repository => repository.FemaleFirstNames).ToList()
+                : _nameRepositories.SelectMany(repository => repository.MaleFirstNames).ToList());
 
 
         /// <summary>
@@ -118,13 +123,13 @@ namespace DataGenerator.Types.Name {
         private IEnumerable<NameRepository> GetNameRepositorysBasedOnRegion(Region region) {
             switch (region) {
                 case Region.Europe:
-                    return _nameRepositories.Where(name => name.Origin.Region == Europe);
+                    return _nameRepositories.Where(repository => repository.Origin.Region == Europe);
                 case Region.CentralAmerika:
-                    return _nameRepositories.Where(name => name.Origin.Region == CentralAmerica);
+                    return _nameRepositories.Where(repository => repository.Origin.Region == CentralAmerica);
                 case Region.NorthAmerica:
-                    return _nameRepositories.Where(name => name.Origin.Region == NorthAmerica);
+                    return _nameRepositories.Where(repository => repository.Origin.Region == NorthAmerica);
                 case Region.SouthAmerica:
-                    return _nameRepositories.Where(name => name.Origin.Region == SouthAmerica);
+                    return _nameRepositories.Where(repository => repository.Origin.Region == SouthAmerica);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(region), region, null);
             }
