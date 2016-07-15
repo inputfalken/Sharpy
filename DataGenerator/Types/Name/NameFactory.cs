@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
@@ -30,7 +31,7 @@ namespace DataGenerator.Types.Name {
         /// Returns a collection of unique last names whose data is not filtered
         /// </summary>
         /// <returns></returns>
-        public List<string> LastNameCollection()
+        public ImmutableList<string> LastNameCollection()
             => Filter.RepeatedData(_nameRepositories.SelectMany(repository => repository.LastNames));
 
         /// <summary>
@@ -44,17 +45,17 @@ namespace DataGenerator.Types.Name {
             => GenerateName(_nameRepositories
                 .Where(repository => repository.Origin.Country == country)
                 .SelectMany(repository => repository.LastNames)
-                .ToList());
+                .ToImmutableList());
+
 
         /// <summary>
-        /// Initalises a function that generates last names whose data is filtered by region
+        /// Returns a collection of unique lastname whose data is filtered by region
         /// </summary>
         /// <param name="region"></param>
         /// <returns></returns>
-        public Func<string> LastNameGenerator(Region region)
-            => GenerateName(GetRepositorysByRegion(region)
-                .SelectMany(repository => repository.LastNames)
-                .ToList());
+        public ImmutableList<string> LastNameCollection(Region region)
+            => Filter.RepeatedData(GetRepositorysByRegion(region)
+                .SelectMany(repository => repository.LastNames));
 
         /// <summary>
         ///     Initialises a function to generate firstnames whose data is not filtered at all.
@@ -65,7 +66,7 @@ namespace DataGenerator.Types.Name {
         public Func<string> FirstNameGenerator()
             => GenerateName(_nameRepositories
                 .SelectMany(repository => repository.MixedFirstNames)
-                .ToList());
+                .ToImmutableList());
 
 
         //contains repeated data need to filter out
@@ -77,7 +78,7 @@ namespace DataGenerator.Types.Name {
         public Func<string> FirstNameGenerator(Region region)
             => GenerateName(GetRepositorysByRegion(region)
                 .SelectMany(repository => repository.MixedFirstNames)
-                .ToList());
+                .ToImmutableList());
 
         /// <summary>
         ///     Creates a function whose data is filtered by Country.
@@ -99,8 +100,8 @@ namespace DataGenerator.Types.Name {
         /// </returns>
         public Func<string> FirstNameGenerator(Gender gender)
             => GenerateName(gender == Gender.Female
-                ? _nameRepositories.SelectMany(repository => repository.FemaleFirstNames).ToList()
-                : _nameRepositories.SelectMany(repository => repository.MaleFirstNames).ToList());
+                ? _nameRepositories.SelectMany(repository => repository.FemaleFirstNames).ToImmutableList()
+                : _nameRepositories.SelectMany(repository => repository.MaleFirstNames).ToImmutableList());
 
 
         /// <summary>
@@ -124,7 +125,7 @@ namespace DataGenerator.Types.Name {
         /// <returns>
         ///     Returns the Generator
         /// </returns>
-        private Func<string> GenerateName(List<string> names)
+        private Func<string> GenerateName(ImmutableList<string> names)
             => () => _generator.Generate(names);
 
         private IEnumerable<NameRepository> GetRepositorysByRegion(Region region) {
@@ -145,13 +146,13 @@ namespace DataGenerator.Types.Name {
         // ReSharper disable once ClassNeverInstantiated.Local
         // Is generated from json
         private class NameRepository {
-            public readonly List<string> FemaleFirstNames;
-            public readonly List<string> LastNames;
-            public readonly List<string> MaleFirstNames;
-            public readonly Origin Origin;
+            public ImmutableList<string> FemaleFirstNames { get; }
+            public ImmutableList<string> LastNames { get; }
+            public ImmutableList<string> MaleFirstNames { get; }
+            public Origin Origin { get; }
 
             //TODO configure json file so i can have plural names for the collections
-            public NameRepository(List<string> female, List<string> male, List<string> lastName,
+            public NameRepository(ImmutableList<string> female, ImmutableList<string> male, ImmutableList<string> lastName,
                 string country, string region) {
                 FemaleFirstNames = female;
                 MaleFirstNames = male;
@@ -159,7 +160,7 @@ namespace DataGenerator.Types.Name {
                 Origin = new Origin(country, region);
             }
 
-            public List<string> MixedFirstNames => FemaleFirstNames.Concat(MaleFirstNames).ToList();
+            public ImmutableList<string> MixedFirstNames => FemaleFirstNames.Concat(MaleFirstNames).ToImmutableList();
         }
 
         private class Origin {

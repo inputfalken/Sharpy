@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,10 +12,10 @@ namespace DataGenerator.Types {
         /// </summary>
         /// <param name="enumerable"></param>
         /// <returns></returns>
-        public static List<T> RepeatedData<T>(IEnumerable<T> enumerable)
+        public static ImmutableList<T> RepeatedData<T>(IEnumerable<T> enumerable)
             => enumerable.GroupBy(s => s)
                 .Where(g => g.Any())
                 .Select(grouping => grouping.Key)
-                .ToList();
+                .ToImmutableList();
     }
 }
