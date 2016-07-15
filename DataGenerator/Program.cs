@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Diagnostics;
 using DataGenerator.Types;
 using DataGenerator.Types.Name;
 

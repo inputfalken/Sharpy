@@ -42,10 +42,9 @@ namespace DataGenerator.Types.Name {
         ///     Returns a function which will generate last names filtered by Country
         /// </returns>
         public Func<string> LastNameGenerator(string country)
-            => GenerateName(NameRepositories
+            => GenerateName(ImmutableList.CreateRange(NameRepositories
                 .Where(repository => repository.Origin.Country == country)
-                .SelectMany(repository => repository.LastNames)
-                .ToImmutableList());
+                .SelectMany(repository => repository.LastNames)));
 
 
         /// <summary>
@@ -64,10 +63,8 @@ namespace DataGenerator.Types.Name {
         ///     Returns a function will will generate a random name without any filtering.
         /// </returns>
         public Func<string> FirstNameGenerator()
-            => GenerateName(NameRepositories
-                .SelectMany(repository => repository.MixedFirstNames)
-                .ToImmutableList());
-
+            => GenerateName(ImmutableList.CreateRange(NameRepositories
+                .SelectMany(repository => repository.MixedFirstNames)));
 
         //contains repeated data need to filter out
         /// <summary>
@@ -76,9 +73,9 @@ namespace DataGenerator.Types.Name {
         /// <param name="region"></param>
         /// <returns></returns>
         public Func<string> FirstNameGenerator(Region region)
-            => GenerateName(GetRepositorysByRegion(region)
-                .SelectMany(repository => repository.MixedFirstNames)
-                .ToImmutableList());
+            => GenerateName(ImmutableList.CreateRange(
+                GetRepositorysByRegion(region)
+                    .SelectMany(repository => repository.MixedFirstNames)));
 
         /// <summary>
         ///     Creates a function whose data is filtered by Country.
@@ -100,8 +97,9 @@ namespace DataGenerator.Types.Name {
         /// </returns>
         public Func<string> FirstNameGenerator(Gender gender)
             => GenerateName(gender == Gender.Female
-                ? NameRepositories.SelectMany(repository => repository.FemaleFirstNames).ToImmutableList()
-                : NameRepositories.SelectMany(repository => repository.MaleFirstNames).ToImmutableList());
+                ? ImmutableList.CreateRange(NameRepositories.SelectMany(repository => repository.FemaleFirstNames))
+                : ImmutableList.CreateRange(
+                    NameRepositories.SelectMany(repository => repository.MaleFirstNames)));
 
 
         /// <summary>
@@ -161,7 +159,8 @@ namespace DataGenerator.Types.Name {
             public ImmutableList<string> MaleFirstNames { get; }
             public Origin Origin { get; }
 
-            public ImmutableList<string> MixedFirstNames => FemaleFirstNames.Concat(MaleFirstNames).ToImmutableList();
+            public ImmutableList<string> MixedFirstNames
+                => ImmutableList.CreateRange(FemaleFirstNames.Concat(MaleFirstNames));
         }
 
         private class Origin {
