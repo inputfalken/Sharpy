@@ -91,8 +91,10 @@ namespace DataGenerator.Types.Name {
         /// <returns></returns>
         public static ImmutableList<string> FirstNameCollection(string country, Gender gender)
             => gender == Gender.Female
-                ? NameRepositories.Single(repository => repository.Origin.Country == country).FemaleFirstNames
-                : NameRepositories.Single(repository => repository.Origin.Country == country).MaleFirstNames;
+                ? ImmutableList.CreateRange(
+                    NameRepositories.Single(repository => repository.Origin.Country == country).FemaleFirstNames)
+                : ImmutableList.CreateRange(
+                    NameRepositories.Single(repository => repository.Origin.Country == country).MaleFirstNames);
 
 
         private static IEnumerable<NameRepository> FilterByRegion(Region region) {
@@ -114,8 +116,8 @@ namespace DataGenerator.Types.Name {
         // Is generated from json
         private class NameRepository {
             //TODO configure json file so i can have plural names for the collections
-            public NameRepository(ImmutableList<string> female, ImmutableList<string> male,
-                ImmutableList<string> lastName,
+            public NameRepository(IEnumerable<string> female, IEnumerable<string> male,
+                IEnumerable<string> lastName,
                 string country, string region) {
                 FemaleFirstNames = female;
                 MaleFirstNames = male;
@@ -123,9 +125,9 @@ namespace DataGenerator.Types.Name {
                 Origin = new Origin(country, region);
             }
 
-            public ImmutableList<string> FemaleFirstNames { get; }
-            public ImmutableList<string> LastNames { get; }
-            public ImmutableList<string> MaleFirstNames { get; }
+            public IEnumerable<string> FemaleFirstNames { get; }
+            public IEnumerable<string> LastNames { get; }
+            public IEnumerable<string> MaleFirstNames { get; }
             public Origin Origin { get; }
 
             public ImmutableList<string> MixedFirstNames
