@@ -9,7 +9,7 @@ namespace DataGenerator.Types {
         /// </summary>
         /// <param name="enumerable"></param>
         /// <returns></returns>
-        public static ImmutableList<T> RepeatedData<T>(IEnumerable<T> enumerable)
+        public static IEnumerable<T> RepeatedData<T>(IEnumerable<T> enumerable)
             => enumerable.GroupBy(s => s)
                 .Where(g => g.Any())
                 .Select(grouping => grouping.Key)

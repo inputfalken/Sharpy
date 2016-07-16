@@ -14,54 +14,54 @@ namespace DataGenerator.Types.Name {
 
 
         /// <summary>
-        ///     Returns a collection of unique last names whose data is not filtered
+        ///     Returns a iterator of unique last names whose data is not filtered
         /// </summary>
         /// <returns></returns>
-        public static ImmutableList<string> LastNameCollection()
+        public static IEnumerable<string> LastNameCollection()
             => Filter.RepeatedData(NameRepositories.SelectMany(repository => repository.LastNames));
 
 
         /// <summary>
-        ///     Returns a collection of unique last name whos data is filtered by country
+        ///     Returns a iterator of unique last name whos data is filtered by country
         /// </summary>
         /// <param name="country"></param>
         /// <returns></returns>
-        public static ImmutableList<string> LastNameCollection(string country)
-            => ImmutableList.CreateRange(NameRepositories
+        public static IEnumerable<string> LastNameCollection(string country)
+            => NameRepositories
                 .Where(repository => repository.Origin.Country == country)
-                .SelectMany(repository => repository.LastNames));
+                .SelectMany(repository => repository.LastNames);
 
 
         /// <summary>
-        ///     Returns a collection of unique lastname whose data is filtered by region
+        ///     Returns a iterator of unique lastname whose data is filtered by region
         /// </summary>
         /// <param name="region"></param>
         /// <returns></returns>
-        public static ImmutableList<string> LastNameCollection(Region region)
+        public static IEnumerable<string> LastNameCollection(Region region)
             => Filter.RepeatedData(FilterByRegion(region)
                 .SelectMany(repository => repository.LastNames));
 
 
         /// <summary>
-        ///     Returns a collection of unique first names whose data is not filtered
+        ///     Returns a iterator of unique first names whose data is not filtered
         /// </summary>
         /// <returns></returns>
-        public static ImmutableList<string> FirstNameCollection()
-            => Filter.RepeatedData(ImmutableList.CreateRange(NameRepositories
-                .SelectMany(repository => repository.MixedFirstNames)));
+        public static IEnumerable<string> FirstNameCollection()
+            => Filter.RepeatedData(NameRepositories
+                .SelectMany(repository => repository.MixedFirstNames));
 
         /// <summary>
-        ///     Returns a collecion of unique first names whose data is filtered by region
+        ///     Returns a iterator of unique first names whose data is filtered by region
         /// </summary>
         /// <param name="region"></param>
         /// <returns></returns>
-        public static ImmutableList<string> FirstNameCollection(Region region)
-            => Filter.RepeatedData(ImmutableList.CreateRange(FilterByRegion(region)
-                .SelectMany(repository => repository.MixedFirstNames)));
+        public static IEnumerable<string> FirstNameCollection(Region region)
+            => Filter.RepeatedData(FilterByRegion(region)
+                .SelectMany(repository => repository.MixedFirstNames));
 
 
         /// <summary>
-        ///     Returns a collecion of unique first names whose data is filtered by country
+        ///     Returns a iterator of unique first names whose data is filtered by country
         /// </summary>
         /// <param name="country"></param>
         /// <returns></returns>
@@ -71,30 +71,26 @@ namespace DataGenerator.Types.Name {
 
 
         /// <summary>
-        ///     Returns a collecion of unique first names whose data is filtered by gender
+        ///     Returns a iterator of unique first names whose data is filtered by gender
         /// </summary>
         /// <param name="gender"></param>
         /// <returns></returns>
-        public static ImmutableList<string> FirstNameCollection(Gender gender)
+        public static IEnumerable<string> FirstNameCollection(Gender gender)
             => gender == Gender.Female
-                ? Filter.RepeatedData(
-                    ImmutableList.CreateRange(NameRepositories.SelectMany(repository => repository.FemaleFirstNames)))
-                : Filter.RepeatedData(
-                    ImmutableList.CreateRange(NameRepositories.SelectMany(repository => repository.MaleFirstNames)));
+                ? Filter.RepeatedData(NameRepositories.SelectMany(repository => repository.FemaleFirstNames))
+                : Filter.RepeatedData(NameRepositories.SelectMany(repository => repository.MaleFirstNames));
 
 
         /// <summary>
-        ///     Returns a collection of unique first names filtered by country & gender
+        ///     Returns a iterator of unique first names filtered by country & gender
         /// </summary>
         /// <param name="country"></param>
         /// <param name="gender"></param>
         /// <returns></returns>
-        public static ImmutableList<string> FirstNameCollection(string country, Gender gender)
+        public static IEnumerable<string> FirstNameCollection(string country, Gender gender)
             => gender == Gender.Female
-                ? ImmutableList.CreateRange(
-                    NameRepositories.Single(repository => repository.Origin.Country == country).FemaleFirstNames)
-                : ImmutableList.CreateRange(
-                    NameRepositories.Single(repository => repository.Origin.Country == country).MaleFirstNames);
+                ? NameRepositories.Single(repository => repository.Origin.Country == country).FemaleFirstNames
+                : NameRepositories.Single(repository => repository.Origin.Country == country).MaleFirstNames;
 
 
         private static IEnumerable<NameRepository> FilterByRegion(Region region) {
