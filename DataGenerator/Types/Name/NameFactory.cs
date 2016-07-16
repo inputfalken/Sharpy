@@ -8,24 +8,10 @@ using Newtonsoft.Json;
 namespace DataGenerator.Types.Name {
     public class NameFactory {
         private const string FilePath = "Data/Types/Name/data.json";
-        private readonly IGenerator _generator;
-
-        public NameFactory(IGenerator generator) {
-            _generator = generator;
-        }
 
         private static IEnumerable<NameRepository> NameRepositories
             => JsonConvert.DeserializeObject<IEnumerable<NameRepository>>(File.ReadAllText(FilePath));
 
-
-        /// <summary>
-        ///     Initialises a function that generates last names whose data is not filtered at all.
-        /// </summary>
-        /// <returns>
-        ///     Returns a function which will generate a random last name without any filtering
-        /// </returns>
-        public Func<string> LastNameGenerator()
-            => GenerateName(LastNameCollection());
 
         /// <summary>
         ///     Returns a collection of unique last names whose data is not filtered
@@ -34,15 +20,6 @@ namespace DataGenerator.Types.Name {
         public static ImmutableList<string> LastNameCollection()
             => Filter.RepeatedData(NameRepositories.SelectMany(repository => repository.LastNames));
 
-        /// <summary>
-        ///     Initialises a function that generates last names whose data is filtered by Country.
-        /// </summary>
-        /// <param name="country"></param>
-        /// <returns>
-        ///     Returns a function which will generate last names filtered by Country
-        /// </returns>
-        public Func<string> LastNameGenerator(string country)
-            => GenerateName(LastNameCollection(country));
 
         /// <summary>
         ///     Returns a collection of unique last name whos data is filtered by country
@@ -64,14 +41,6 @@ namespace DataGenerator.Types.Name {
             => Filter.RepeatedData(FilterByRegion(region)
                 .SelectMany(repository => repository.LastNames));
 
-        /// <summary>
-        ///     Initialises a function to generate firstnames whose data is not filtered at all.
-        /// </summary>
-        /// <returns>
-        ///     Returns a function will will generate a random name without any filtering.
-        /// </returns>
-        public Func<string> FirstNameGenerator()
-            => GenerateName(FirstNameCollection());
 
         /// <summary>
         ///     Returns a collection of unique first names whose data is not filtered
@@ -80,15 +49,6 @@ namespace DataGenerator.Types.Name {
         public static ImmutableList<string> FirstNameCollection()
             => Filter.RepeatedData(ImmutableList.CreateRange(NameRepositories
                 .SelectMany(repository => repository.MixedFirstNames)));
-
-        //contains repeated data need to filter out
-        /// <summary>
-        ///     Initalizes a function to generate first names whose data is filtered by region
-        /// </summary>
-        /// <param name="region"></param>
-        /// <returns></returns>
-        public Func<string> FirstNameGenerator(Region region)
-            => GenerateName(FirstNameCollection(region));
 
         /// <summary>
         ///     Returns a collecion of unique first names whose data is filtered by region
@@ -101,16 +61,6 @@ namespace DataGenerator.Types.Name {
 
 
         /// <summary>
-        ///     Creates a function whose data is filtered by Country.
-        /// </summary>
-        /// <param name="country"></param>
-        /// <returns>
-        ///     Returns a function that returns names based on Country.
-        /// </returns>
-        public Func<string> FirstNameGenerator(string country)
-            => GenerateName(FirstNameCollection(country));
-
-        /// <summary>
         ///     Returns a collecion of unique first names whose data is filtered by country
         /// </summary>
         /// <param name="country"></param>
@@ -118,16 +68,6 @@ namespace DataGenerator.Types.Name {
         public static ImmutableList<string> FirstNameCollection(string country)
             => NameRepositories
                 .Single(repository => repository.Origin.Country == country).MixedFirstNames;
-
-        /// <summary>
-        ///     Initialises a function to generate firstnames whose data is filtered by Gender.
-        /// </summary>
-        /// <param name="gender"></param>
-        /// <returns>
-        ///     Returns a function which will generate names filtered by Gender
-        /// </returns>
-        public Func<string> FirstNameGenerator(Gender gender)
-            => GenerateName(FirstNameCollection(gender));
 
 
         /// <summary>
@@ -144,17 +84,6 @@ namespace DataGenerator.Types.Name {
 
 
         /// <summary>
-        ///     Initialises a function to generate firstnames whose data is filtered by Gender & Country.
-        /// </summary>
-        /// <param name="country"></param>
-        /// <param name="gender"></param>
-        /// <returns>
-        ///     Returns a function which will generate unique first names filtered by Gender & Country.
-        /// </returns>
-        public Func<string> FirstNameGenerator(string country, Gender gender)
-            => GenerateName(FirstNameCollection(country, gender));
-
-        /// <summary>
         ///     Returns a collection of unique first names filtered by country & gender
         /// </summary>
         /// <param name="country"></param>
@@ -165,15 +94,6 @@ namespace DataGenerator.Types.Name {
                 ? NameRepositories.Single(repository => repository.Origin.Country == country).FemaleFirstNames
                 : NameRepositories.Single(repository => repository.Origin.Country == country).MaleFirstNames;
 
-        /// <summary>
-        ///     Generates a name from from list
-        /// </summary>
-        /// <param name="names"></param>
-        /// <returns>
-        ///     Returns the Generator
-        /// </returns>
-        private Func<string> GenerateName(ImmutableList<string> names)
-            => () => _generator.Generate(names);
 
         private static IEnumerable<NameRepository> FilterByRegion(Region region) {
             switch (region) {
