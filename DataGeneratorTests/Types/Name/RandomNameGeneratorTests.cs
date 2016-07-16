@@ -6,8 +6,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace DataGeneratorTests.Types.Name {
     [TestClass]
     public class RandomNameGeneratorTests {
-        private readonly NameFactory _nameFactory = new NameFactory(new RandomGenerator());
-
         [TestMethod]
         public void TestRussianNames() {
             // Names taken from data.json
@@ -58,13 +56,13 @@ namespace DataGeneratorTests.Types.Name {
                 "Vorobyov"
             };
 
-            var russianMaleGenerator = _nameFactory.FirstNameGenerator("russia", Gender.Male);
-            var russianFemaleGenerator = _nameFactory.FirstNameGenerator("russia", Gender.Female);
-            var russianLastNameGenerator = _nameFactory.LastNameGenerator("russia");
+            var russianMaleFirstNamesCollection = NameFactory.FirstNameCollection("russia", Gender.Male);
+            var russianFemaleFirstNamesCollection = NameFactory.FirstNameCollection("russia", Gender.Female);
+            var russianLastNamesCollection = NameFactory.LastNameCollection("russia");
             for (var i = 0; i < 1000; i++) {
-                Assert.IsTrue(russianLastNames.Contains(russianLastNameGenerator()));
-                Assert.IsTrue(russianMaleNames.Contains(russianMaleGenerator()));
-                Assert.IsTrue(russianFemaleNames.Contains(russianFemaleGenerator()));
+                Assert.IsTrue(russianMaleFirstNamesCollection.SequenceEqual(russianMaleNames));
+                Assert.IsTrue(russianFemaleFirstNamesCollection.SequenceEqual(russianFemaleNames));
+                Assert.IsTrue(russianLastNamesCollection.SequenceEqual(russianLastNames));
             }
         }
     }

@@ -6,7 +6,7 @@ using System.Linq;
 using Newtonsoft.Json;
 
 namespace DataGenerator.Types.Name {
-    public class NameFactory {
+    public static class NameFactory {
         private const string FilePath = "Data/Types/Name/data.json";
 
         private static IEnumerable<NameRepository> NameRepositories
