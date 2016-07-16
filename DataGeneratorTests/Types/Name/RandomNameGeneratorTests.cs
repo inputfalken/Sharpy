@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using DataGenerator.Types;
+﻿using System.Collections.Generic;
+using System.Linq;
 using DataGenerator.Types.Name;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -9,7 +9,7 @@ namespace DataGeneratorTests.Types.Name {
         [TestMethod]
         public void TestRussianNames() {
             // Names taken from data.json
-            var russianMaleNames = new[] {
+            IEnumerable<string> russianMaleNames = new[] {
                 "Alexander",
                 "Sergei",
                 "Dmitry",
@@ -21,7 +21,7 @@ namespace DataGeneratorTests.Types.Name {
                 "Mikhail",
                 "Artyom"
             };
-            var russianFemaleNames = new[] {
+            IEnumerable<string> russianFemaleNames = new[] {
                 "Anastasia",
                 "Yelena",
                 "Olga",
@@ -33,7 +33,7 @@ namespace DataGeneratorTests.Types.Name {
                 "Irina",
                 "Yulia"
             };
-            var russianLastNames = new[] {
+            IEnumerable<string> russianLastNames = new[] {
                 "Smirnov",
                 "Ivanov",
                 "Kuznetsov",
@@ -56,14 +56,9 @@ namespace DataGeneratorTests.Types.Name {
                 "Vorobyov"
             };
 
-            var russianMaleFirstNamesCollection = NameFactory.FirstNameCollection("russia", Gender.Male);
-            var russianFemaleFirstNamesCollection = NameFactory.FirstNameCollection("russia", Gender.Female);
-            var russianLastNamesCollection = NameFactory.LastNameCollection("russia");
-            for (var i = 0; i < 1000; i++) {
-                Assert.IsTrue(russianMaleFirstNamesCollection.SequenceEqual(russianMaleNames));
-                Assert.IsTrue(russianFemaleFirstNamesCollection.SequenceEqual(russianFemaleNames));
-                Assert.IsTrue(russianLastNamesCollection.SequenceEqual(russianLastNames));
-            }
+            Assert.IsTrue(NameFactory.FirstNameCollection("russia", Gender.Male).SequenceEqual(russianMaleNames));
+            Assert.IsTrue(NameFactory.FirstNameCollection("russia", Gender.Female).SequenceEqual(russianFemaleNames));
+            Assert.IsTrue(NameFactory.LastNameCollection("russia").SequenceEqual(russianLastNames));
         }
     }
 }
