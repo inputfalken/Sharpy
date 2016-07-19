@@ -1,6 +1,6 @@
 [
   {
-    "female": [
+    "femaleFirstNames": [
       "Karla",
       "Natalia",
       "Vanessa",
@@ -12,7 +12,7 @@
       "kayla",
       "Jane"
     ],
-    "male": [
+    "maleFirstNames": [
       "David",
       "Keylor",
       "Victor",
@@ -24,7 +24,7 @@
       "Leonel",
       "fabrici"
     ],
-    "lastName": [
+    "lastNames": [
       "Díaz",
       "Mora",
       "Rodríguez",
@@ -52,7 +52,7 @@
     "region": "centralAmerica"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Angela",
       "Arsenia",
       "Ascension",
@@ -64,7 +64,7 @@
       "Teresa",
       "Sara"
     ],
-    "male": [
+    "maleFirstNames": [
       "Adolfo",
       "Alberto",
       "Eduardo",
@@ -76,7 +76,7 @@
       "Marco",
       "Pablo"
     ],
-    "lastName": [
+    "lastNames": [
       "Hernández",
       "Martínez",
       "López",
@@ -107,7 +107,7 @@
     "region": "centralAmerica"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Angela",
       "Arsenia",
       "Ascension",
@@ -119,7 +119,7 @@
       "Teresa",
       "Sara"
     ],
-    "male": [
+    "maleFirstNames": [
       "Adolfo",
       "Alberto",
       "Eduardo",
@@ -131,7 +131,7 @@
       "Marco",
       "Pablo"
     ],
-    "lastName": [
+    "lastNames": [
       "Hernández",
       "Martínez",
       "López",
@@ -162,7 +162,7 @@
     "region": "centralAmerica"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Emma",
       "Olivia",
       "Sophia",
@@ -174,7 +174,7 @@
       "Lily",
       "Ava"
     ],
-    "male": [
+    "maleFirstNames": [
       "Liam",
       "Jackson",
       "Logan",
@@ -186,7 +186,7 @@
       "Jacob",
       "James"
     ],
-    "lastName": [
+    "lastNames": [
       "Li",
       "Smith",
       "Lam",
@@ -202,7 +202,7 @@
     "region": "northAmerica"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Ximena",
       "Valentina",
       "María Fernanda",
@@ -214,7 +214,7 @@
       "Mia",
       "Dulce María"
     ],
-    "male": [
+    "maleFirstNames": [
       "Santiago",
       "Mateo",
       "Matías",
@@ -226,7 +226,7 @@
       "Alejandro",
       "Samuel"
     ],
-    "lastName": [
+    "lastNames": [
       "Hernandez",
       "García",
       "Martínez",
@@ -242,7 +242,7 @@
     "region": "northAmerica"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Zamira",
       "Jacqueline",
       "Veronica",
@@ -254,7 +254,7 @@
       "Dayana",
       "Isa"
     ],
-    "male": [
+    "maleFirstNames": [
       "ernesto",
       "Luis",
       "Alexis",
@@ -266,7 +266,7 @@
       "AlbertoLeon Pacheco",
       "Wilber Rodríguez"
     ],
-    "lastName": [
+    "lastNames": [
       "Rodríguez",
       "Pérez",
       "González",
@@ -281,7 +281,7 @@
     "region": "northAmerica"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Emma",
       "Olivia",
       "Sophia",
@@ -293,7 +293,7 @@
       "Charlotte",
       "Harper"
     ],
-    "male": [
+    "maleFirstNames": [
       "Noah",
       "Liam",
       "Mason",
@@ -305,7 +305,7 @@
       "Michael",
       "Benjamin"
     ],
-    "lastName": [
+    "lastNames": [
       "Smith",
       "Johnson",
       "Williams",
@@ -411,7 +411,7 @@
     "region": "northAmerica"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Sofía",
       "María",
       "Lucía",
@@ -423,7 +423,7 @@
       "Paula",
       "Zoe"
     ],
-    "male": [
+    "maleFirstNames": [
       "Santiago",
       "Mateo",
       "Juan",
@@ -435,7 +435,7 @@
       "Thiago",
       "Santino"
     ],
-    "lastName": [
+    "lastNames": [
       "Fernández",
       "Rodríguez",
       "González",
@@ -541,7 +541,7 @@
     "region": "southAmerica"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "lice",
       "Sophia",
       "Julia",
@@ -553,7 +553,7 @@
       "Valentina",
       "Giovanna"
     ],
-    "male": [
+    "maleFirstNames": [
       "Miguel",
       "Arthur",
       "Davi",
@@ -565,7 +565,7 @@
       "Heitor",
       "Rafael"
     ],
-    "lastName": [
+    "lastNames": [
       "Silva",
       "Santos",
       "Sousa",
@@ -601,7 +601,7 @@
     "region": "southAmerica"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Mariana",
       "Valentina",
       "Isabella",
@@ -613,7 +613,7 @@
       "Salomé",
       "Daniela"
     ],
-    "male": [
+    "maleFirstNames": [
       "Santiago",
       "Juan David",
       "Juan José",
@@ -625,7 +625,7 @@
       "Nicolás",
       "Jerónimo"
     ],
-    "lastName": [
+    "lastNames": [
       "Rodríguez",
       "Gómez",
       "González",
@@ -646,7 +646,7 @@
     "region": "southAmerica"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "María",
       "Elizabeth",
       "Beatriz",
@@ -658,7 +658,7 @@
       "Raquel",
       "Noemí"
     ],
-    "male": [
+    "maleFirstNames": [
       "Ramón",
       "Juan",
       "José",
@@ -670,7 +670,7 @@
       "David",
       "César"
     ],
-    "lastName": [
+    "lastNames": [
       "González",
       "Benítez",
       "Martínez",
@@ -701,7 +701,7 @@
     "region": "southAmerica"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Amelia",
       "Ajla",
       "Melisa",
@@ -713,7 +713,7 @@
       "Alesia",
       "Leandra"
     ],
-    "male": [
+    "maleFirstNames": [
       "Noel",
       "Joel",
       "Mateo",
@@ -725,7 +725,7 @@
       "Roel",
       "Xhoel"
     ],
-    "lastName": [
+    "lastNames": [
       "Kelmendi",
       "Bogdani",
       "Dukagjini",
@@ -742,7 +742,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Anna",
       "Hannah",
       "Sophia",
@@ -754,7 +754,7 @@
       "Laura",
       "Mia"
     ],
-    "male": [
+    "maleFirstNames": [
       "Lukas",
       "Maximilian",
       "Jakob",
@@ -766,7 +766,7 @@
       "Alexander",
       "Elias"
     ],
-    "lastName": [
+    "lastNames": [
       "Gruber",
       "Huber",
       "Bauer",
@@ -813,7 +813,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Sevinj",
       "Gunel",
       "Leyla",
@@ -825,7 +825,7 @@
       "Aysel",
       "Tarana"
     ],
-    "male": [
+    "maleFirstNames": [
       "Ali",
       "Elchin",
       "Vugar",
@@ -837,7 +837,7 @@
       "Ilgar",
       "Vusal"
     ],
-    "lastName": [
+    "lastNames": [
       "Məmmədov",
       "Əliyev",
       "Həsənov",
@@ -858,7 +858,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Emma",
       "Louise",
       "Elise",
@@ -870,7 +870,7 @@
       "Olivia",
       "Camille"
     ],
-    "male": [
+    "maleFirstNames": [
       "Lucas",
       "Louis",
       "Noah",
@@ -882,7 +882,7 @@
       "Mathis",
       "Liam"
     ],
-    "lastName": [
+    "lastNames": [
       "Tamm",
       "Saar",
       "Sepp",
@@ -908,7 +908,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Lana",
       "Lucija",
       "Petra",
@@ -920,7 +920,7 @@
       "Lara",
       "Mia"
     ],
-    "male": [
+    "maleFirstNames": [
       "Luka",
       "Ivan",
       "Marko",
@@ -932,7 +932,7 @@
       "Fran",
       "David"
     ],
-    "lastName": [
+    "lastNames": [
       "Horvat",
       "Kovačević",
       "Babić",
@@ -968,7 +968,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Eliška",
       "Tereza",
       "Anna",
@@ -980,7 +980,7 @@
       "Viktorie",
       "Barbora"
     ],
-    "male": [
+    "maleFirstNames": [
       "Jakub",
       "Jan",
       "Tomáš",
@@ -992,7 +992,7 @@
       "Ondřej",
       "Lukáš"
     ],
-    "lastName": [
+    "lastNames": [
       "Novák",
       "Svoboda",
       "Novotný",
@@ -1008,7 +1008,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Sofia",
       "Alma",
       "Freja",
@@ -1020,7 +1020,7 @@
       "Ida",
       "Agnes"
     ],
-    "male": [
+    "maleFirstNames": [
       "William",
       "Lucas",
       "Malthe",
@@ -1032,7 +1032,7 @@
       "Carl",
       "Elias"
     ],
-    "lastName": [
+    "lastNames": [
       "Nielsen",
       "Jensen",
       "Hansen",
@@ -1058,7 +1058,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Sofia",
       "Eliise",
       "Maria",
@@ -1070,7 +1070,7 @@
       "Liisa",
       "Anna"
     ],
-    "male": [
+    "maleFirstNames": [
       "Rasmus",
       "Robin",
       "Oliver",
@@ -1082,7 +1082,7 @@
       "Henri",
       "Markus"
     ],
-    "lastName": [
+    "lastNames": [
       "Tamm",
       "Saar",
       "Sepp",
@@ -1098,7 +1098,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Eva",
       "Emma",
       ", Hanna",
@@ -1110,7 +1110,7 @@
       "Isabella",
       "Lilja"
     ],
-    "male": [
+    "maleFirstNames": [
       "Benjamin",
       "Liam",
       "Rókur",
@@ -1122,7 +1122,7 @@
       "Dávid",
       "Elias"
     ],
-    "lastName": [
+    "lastNames": [
       "//MAN",
       "Kazlauskas",
       "Jankauskas",
@@ -1150,7 +1150,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Venla",
       "Sofia",
       "Aada",
@@ -1162,7 +1162,7 @@
       "Ella",
       "Emilia"
     ],
-    "male": [
+    "maleFirstNames": [
       "Leo",
       "Elias",
       "Onni",
@@ -1174,7 +1174,7 @@
       "Leevi",
       "Daniel"
     ],
-    "lastName": [
+    "lastNames": [
       "Korhonen",
       "Virtanen",
       "Mäkinen",
@@ -1210,7 +1210,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Louise",
       "Alice",
       "Chloé",
@@ -1222,7 +1222,7 @@
       "Adèle",
       "Juliette"
     ],
-    "male": [
+    "maleFirstNames": [
       "Adam",
       "Gabriel",
       "Raphaël",
@@ -1234,7 +1234,7 @@
       "Jules",
       "Mohammed"
     ],
-    "lastName": [
+    "lastNames": [
       "Martin",
       "Bernard",
       "Dubois",
@@ -1270,7 +1270,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Mia",
       "Emma",
       "Hannah",
@@ -1282,7 +1282,7 @@
       "Lena",
       "Mila"
     ],
-    "male": [
+    "maleFirstNames": [
       "Ben",
       "Jonas",
       "Leon",
@@ -1294,7 +1294,7 @@
       "Lukas",
       "Luca"
     ],
-    "lastName": [
+    "lastNames": [
       "Müller",
       "Schmidt",
       "Schneider",
@@ -1310,7 +1310,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Maria",
       "Eleni",
       "Aikaterini",
@@ -1322,7 +1322,7 @@
       "Konstantina",
       "Paraskeui"
     ],
-    "male": [
+    "maleFirstNames": [
       "Georgios",
       "Ioannis",
       "Konstantinos",
@@ -1334,7 +1334,7 @@
       "Athanasios",
       "Michail"
     ],
-    "lastName": [
+    "lastNames": [
       "Papadopoulos",
       "Vlahos",
       "Angelopoulos",
@@ -1352,7 +1352,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Hanna",
       "Anna",
       "Jázmin",
@@ -1364,7 +1364,7 @@
       "Zoé",
       "Nóra"
     ],
-    "male": [
+    "maleFirstNames": [
       "Bence",
       "Máté",
       "Levente",
@@ -1376,7 +1376,7 @@
       "Milán",
       "Dominik"
     ],
-    "lastName": [
+    "lastNames": [
       "Nagy",
       "Horváth",
       "Kovács",
@@ -1402,7 +1402,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Emily",
       "Emma",
       "Ava",
@@ -1414,7 +1414,7 @@
       "Chloe",
       "Mia"
     ],
-    "male": [
+    "maleFirstNames": [
       "Jack",
       "James",
       "Daniel",
@@ -1426,7 +1426,7 @@
       "Charlie",
       "Luke"
     ],
-    "lastName": [
+    "lastNames": [
       "Murphy",
       "Kelly",
       "Sullivan",
@@ -1452,7 +1452,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Sofia",
       "Giulia",
       "Aurora",
@@ -1464,7 +1464,7 @@
       "Sara",
       "Alice"
     ],
-    "male": [
+    "maleFirstNames": [
       "Francesco",
       "Alessandro",
       "Lorenzo",
@@ -1476,7 +1476,7 @@
       "Riccardo",
       "Tommaso"
     ],
-    "lastName": [
+    "lastNames": [
       "Rossi",
       "Russo",
       "Ferrari",
@@ -1508,7 +1508,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Sofija",
       "Emīlija",
       "Alise",
@@ -1520,7 +1520,7 @@
       "Anastasija",
       "Paula"
     ],
-    "male": [
+    "maleFirstNames": [
       "Roberts",
       "Markuss",
       "Artjoms",
@@ -1532,7 +1532,7 @@
       "Emīls",
       "Daniels"
     ],
-    "lastName": [
+    "lastNames": [
       "Bērziņš",
       "Kalniņš",
       "Ozoliņš",
@@ -1553,7 +1553,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Emma",
       "Lara",
       "Zoé",
@@ -1562,7 +1562,7 @@
       "Charlotte",
       "Emily"
     ],
-    "male": [
+    "maleFirstNames": [
       "Gabriel",
       "Leo",
       "Luca",
@@ -1571,7 +1571,7 @@
       "Tom",
       "Ben"
     ],
-    "lastName": [
+    "lastNames": [
       "Schmit",
       "Muller",
       "Weber",
@@ -1607,7 +1607,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Marija",
       "Elena",
       "Biljana",
@@ -1619,7 +1619,7 @@
       "Katerina",
       "Ivana"
     ],
-    "male": [
+    "maleFirstNames": [
       "Aleksandar",
       "Zoran",
       "Nikola",
@@ -1631,7 +1631,7 @@
       "Ilija",
       "Stefan"
     ],
-    "lastName": [
+    "lastNames": [
       "Andov",
       "Angelov",
       "Bogdanov",
@@ -1672,7 +1672,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Elena",
       "Julia",
       "Emma",
@@ -1684,7 +1684,7 @@
       "Amy",
       "Maria"
     ],
-    "male": [
+    "maleFirstNames": [
       "Luke",
       "Matthias",
       "Jacob",
@@ -1697,7 +1697,7 @@
       "Alexander",
       "Andrew"
     ],
-    "lastName": [
+    "lastNames": [
       "Borg",
       "Camilleri",
       "Vella",
@@ -1713,7 +1713,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Sofia",
       "Anastasia",
       "Daria",
@@ -1725,7 +1725,7 @@
       "Andreea",
       "Nicoleta"
     ],
-    "male": [
+    "maleFirstNames": [
       "Luke/Luca/Lucas",
       "Matthew",
       "Jacob",
@@ -1737,7 +1737,7 @@
       "Kaiden",
       "Alexander"
     ],
-    "lastName": [
+    "lastNames": [
       "Rusu",
       "Ceban",
       "Ciobanu",
@@ -1758,7 +1758,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Emma",
       "Julia",
       "Sophie",
@@ -1770,7 +1770,7 @@
       "Sara",
       "Zoë"
     ],
-    "male": [
+    "maleFirstNames": [
       "Liam",
       "Sem",
       "Lucas",
@@ -1782,7 +1782,7 @@
       "Finn",
       "Jesse"
     ],
-    "lastName": [
+    "lastNames": [
       "De Jong",
       "Jansen",
       "De Vries",
@@ -1813,7 +1813,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Ida",
       "Emilie",
       "Julie",
@@ -1825,7 +1825,7 @@
       "Marte",
       "Nora"
     ],
-    "male": [
+    "maleFirstNames": [
       "Markus",
       "Kristian",
       "Martin",
@@ -1837,7 +1837,7 @@
       "Henrik",
       "Daniel"
     ],
-    "lastName": [
+    "lastNames": [
       "Hansen",
       "Johansen",
       "Olsen",
@@ -1867,7 +1867,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Zofia",
       "Zuzanna",
       "Julia",
@@ -1879,7 +1879,7 @@
       "Aleksandra",
       "Amelia"
     ],
-    "male": [
+    "maleFirstNames": [
       "Jan",
       "Antoni",
       "Jakub",
@@ -1891,7 +1891,7 @@
       "Szymon",
       "Mikołaj"
     ],
-    "lastName": [
+    "lastNames": [
       "Nowak",
       "Kowalski",
       "Wiśniewski",
@@ -1917,7 +1917,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Maria",
       "Leonor",
       "Matilde",
@@ -1929,7 +1929,7 @@
       "Margarida",
       "Sofia"
     ],
-    "male": [
+    "maleFirstNames": [
       "João",
       "Martim",
       "Rodrigo",
@@ -1941,7 +1941,7 @@
       "Guilherme",
       "Gabriel"
     ],
-    "lastName": [
+    "lastNames": [
       "Silva",
       "Santos",
       "Ferreira",
@@ -1997,7 +1997,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Maria",
       "Elena",
       "Ioana",
@@ -2009,7 +2009,7 @@
       "Ana",
       "Gabriela"
     ],
-    "male": [
+    "maleFirstNames": [
       "Andrei",
       "David",
       "Alexandru",
@@ -2021,7 +2021,7 @@
       "Ionuţ",
       "Darius"
     ],
-    "lastName": [
+    "lastNames": [
       "Popa",
       "Popescu",
       "Pop",
@@ -2037,7 +2037,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Anastasia",
       "Yelena",
       "Olga",
@@ -2049,7 +2049,7 @@
       "Irina",
       "Yulia"
     ],
-    "male": [
+    "maleFirstNames": [
       "Alexander",
       "Sergei",
       "Dmitry",
@@ -2061,7 +2061,7 @@
       "Mikhail",
       "Artyom"
     ],
-    "lastName": [
+    "lastNames": [
       "Smirnov",
       "Ivanov",
       "Kuznetsov",
@@ -2087,7 +2087,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Sofia",
       "Nina",
       "Natália",
@@ -2099,7 +2099,7 @@
       "Kristína",
       "Simona"
     ],
-    "male": [
+    "maleFirstNames": [
       "Jakub",
       "Adam",
       "Samuel",
@@ -2111,7 +2111,7 @@
       "Matej",
       "Matúš"
     ],
-    "lastName": [
+    "lastNames": [
       "Horváth",
       "Kováč",
       "Varga",
@@ -2127,7 +2127,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Eva",
       "Ema",
       "Nika",
@@ -2139,7 +2139,7 @@
       "Neža",
       "Zoja"
     ],
-    "male": [
+    "maleFirstNames": [
       "Luka",
       "Nik",
       "Filip",
@@ -2151,7 +2151,7 @@
       "Jaka",
       "Vid"
     ],
-    "lastName": [
+    "lastNames": [
       "Novak",
       "Horvat",
       "Kovačič",
@@ -2187,7 +2187,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Lucía",
       "María",
       "Martina",
@@ -2199,7 +2199,7 @@
       "Carla",
       "Sara"
     ],
-    "male": [
+    "maleFirstNames": [
       "Hugo",
       "Daniel",
       "Pablo",
@@ -2211,7 +2211,7 @@
       "Lucas",
       "Mario"
     ],
-    "lastName": [
+    "lastNames": [
       "García",
       "Fernández",
       "González",
@@ -2257,7 +2257,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Julia",
       "Emma",
       "Wilma",
@@ -2359,7 +2359,7 @@
       "Beatrice",
       "Vera"
     ],
-    "male": [
+    "maleFirstNames": [
       "Filip",
       "Oscar",
       "William",
@@ -2462,7 +2462,7 @@
       "Jack",
       "Tom"
     ],
-    "lastName": [
+    "lastNames": [
       "Andersson",
       "Johansson",
       "Karlsson",
@@ -2488,7 +2488,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Julia",
       "Emma",
       "Wilma",
@@ -2590,7 +2590,7 @@
       "Beatrice",
       "Vera"
     ],
-    "male": [
+    "maleFirstNames": [
       "Filip",
       "Oscar",
       "William",
@@ -2693,7 +2693,7 @@
       "Jack",
       "Tom"
     ],
-    "lastName": [
+    "lastNames": [
       "Bianchi",
       "Bernasconi",
       "Fontana",
@@ -2713,7 +2713,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Fatma",
       "Ayşe",
       "Emine",
@@ -2725,7 +2725,7 @@
       "Zehra",
       "Sultan"
     ],
-    "male": [
+    "maleFirstNames": [
       "Mehmet",
       "Mustafa",
       "Ahmet",
@@ -2737,7 +2737,7 @@
       "Osman",
       "Yusuf"
     ],
-    "lastName": [
+    "lastNames": [
       "Yılmaz",
       "Kaya",
       "Demir",
@@ -2753,7 +2753,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Anna",
       "Darya",
       "Sofiya",
@@ -2765,7 +2765,7 @@
       "Yelyzaveta",
       "Angelina"
     ],
-    "male": [
+    "maleFirstNames": [
       "Artem",
       "Denys",
       "Daniil",
@@ -2777,7 +2777,7 @@
       "Nikita",
       "Nazar"
     ],
-    "lastName": [
+    "lastNames": [
       "Melnyk",
       "Shevchenko",
       "Boyko",
@@ -2803,7 +2803,7 @@
     "region": "europe"
   },
   {
-    "female": [
+    "femaleFirstNames": [
       "Amelia",
       "Olivia",
       "Emily",
@@ -2815,7 +2815,7 @@
       "Lily",
       "Sophie"
     ],
-    "male": [
+    "maleFirstNames": [
       "Oliver",
       "Jack",
       "Harry",
@@ -2827,7 +2827,7 @@
       "James",
       "William"
     ],
-    "lastName": [
+    "lastNames": [
       "Smith",
       "Jones",
       "Taylor",
