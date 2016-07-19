@@ -52,7 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Types\Filter.cs" />
-    <Compile Include="Types\Name\Country.cs" />
     <Compile Include="Types\Name\Gender.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
