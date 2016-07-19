@@ -59,7 +59,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\FilterTests.cs" />
-    <Compile Include="Types\Name\RandomNameGeneratorTests.cs" />
+    <Compile Include="Types\Name\NameFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataGenerator\DataGenerator.csproj">
