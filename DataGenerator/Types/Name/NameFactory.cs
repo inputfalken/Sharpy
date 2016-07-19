@@ -18,7 +18,7 @@ namespace DataGenerator.Types.Name {
         /// </summary>
         /// <returns></returns>
         public static IEnumerable<string> LastNameCollection()
-            => Filter.RepeatedData(NameRepositories.SelectMany(repository => repository.LastNames));
+            => Filter.RepeatedData(NameRepositories.SelectMany(repository => repository.LastNameses));
 
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace DataGenerator.Types.Name {
         public static IEnumerable<string> LastNameCollection(string country)
             => NameRepositories
                 .Where(repository => repository.Origin.Country == country)
-                .SelectMany(repository => repository.LastNames);
+                .SelectMany(repository => repository.LastNameses);
 
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace DataGenerator.Types.Name {
         /// <returns></returns>
         public static IEnumerable<string> LastNameCollection(Region region)
             => Filter.RepeatedData(FilterByRegion(region)
-                .SelectMany(repository => repository.LastNames));
+                .SelectMany(repository => repository.LastNameses));
 
 
         /// <summary>
@@ -77,8 +77,8 @@ namespace DataGenerator.Types.Name {
         /// <returns></returns>
         public static IEnumerable<string> FirstNameCollection(Gender gender)
             => gender == Gender.Female
-                ? Filter.RepeatedData(NameRepositories.SelectMany(repository => repository.FemaleFirstNames))
-                : Filter.RepeatedData(NameRepositories.SelectMany(repository => repository.MaleFirstNames));
+                ? Filter.RepeatedData(NameRepositories.SelectMany(repository => repository.FemaleFirstNamesFirstNames))
+                : Filter.RepeatedData(NameRepositories.SelectMany(repository => repository.MaleFirstNamesFirstNames));
 
 
         /// <summary>
@@ -89,8 +89,8 @@ namespace DataGenerator.Types.Name {
         /// <returns></returns>
         public static IEnumerable<string> FirstNameCollection(string country, Gender gender)
             => gender == Gender.Female
-                ? NameRepositories.Single(repository => repository.Origin.Country == country).FemaleFirstNames
-                : NameRepositories.Single(repository => repository.Origin.Country == country).MaleFirstNames;
+                ? NameRepositories.Single(repository => repository.Origin.Country == country).FemaleFirstNamesFirstNames
+                : NameRepositories.Single(repository => repository.Origin.Country == country).MaleFirstNamesFirstNames;
 
 
         private static IEnumerable<NameRepository> FilterByRegion(Region region) {
@@ -112,22 +112,21 @@ namespace DataGenerator.Types.Name {
         // Is generated from json
         private class NameRepository {
             //TODO configure json file so i can have plural names for the collections
-            public NameRepository(IEnumerable<string> female, IEnumerable<string> male,
-                IEnumerable<string> lastName,
-                string country, string region) {
-                FemaleFirstNames = female;
-                MaleFirstNames = male;
-                LastNames = lastName;
+            public NameRepository(IEnumerable<string> femaleFirstNames, IEnumerable<string> maleFirstNames,
+                IEnumerable<string> lastNames, string country, string region) {
+                FemaleFirstNamesFirstNames = femaleFirstNames;
+                MaleFirstNamesFirstNames = maleFirstNames;
+                LastNameses = lastNames;
                 Origin = new Origin(country, region);
             }
 
-            public IEnumerable<string> FemaleFirstNames { get; }
-            public IEnumerable<string> LastNames { get; }
-            public IEnumerable<string> MaleFirstNames { get; }
+            public IEnumerable<string> FemaleFirstNamesFirstNames { get; }
+            public IEnumerable<string> LastNameses { get; }
+            public IEnumerable<string> MaleFirstNamesFirstNames { get; }
             public Origin Origin { get; }
 
             public ImmutableList<string> MixedFirstNames
-                => ImmutableList.CreateRange(FemaleFirstNames.Concat(MaleFirstNames));
+                => ImmutableList.CreateRange(FemaleFirstNamesFirstNames.Concat(MaleFirstNamesFirstNames));
         }
 
         private class Origin {

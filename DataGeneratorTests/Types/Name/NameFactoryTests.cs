@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DataGeneratorTests.Types.Name {
     [TestClass]
-    public class RandomNameGeneratorTests {
+    public class NameFactoryTests {
         [TestMethod]
         public void TestRussianNames() {
             // Names taken from data.json
