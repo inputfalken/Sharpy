@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using DataGenerator.Types;
 using DataGenerator.Types.Name;
 
