@@ -8,5 +8,10 @@ namespace DataGenerator.Types {
             lock (Random)
                 return Random.Next(limit);
         }
+
+        public static int Randomizer(int min, int max) {
+            lock (Random)
+                return Random.Next(min, max);
+        }
     }
 }
