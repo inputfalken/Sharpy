@@ -97,6 +97,13 @@ namespace DataGeneratorTests.Types.Date {
             Assert.IsTrue(randomBirthDate.Year == DateTime.UtcNow.Year);
         }
 
+        [TestMethod]
+        public void BirthYearTestFutureThisYear() {
+            var randomBirthDate = DateFactory.RandomBirthDate(0);
+            Assert.IsTrue(randomBirthDate <
+                          SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date);
+        }
+
         #endregion
 
         #region Future Date

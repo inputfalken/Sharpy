@@ -13,8 +13,17 @@ namespace DataGenerator.Types.Date {
         public static LocalDate RandomBirthDate(int age) {
             if (age < 0)
                 throw new ArgumentException("Argument cannot be negative");
-            var month = RandomizeMonth();
-            var year = Year(age);
+            var currentTime = CurrentTime();
+            int month;
+            int year;
+            if (age == 0) {
+                month = HelperClass.Randomizer(1, currentTime.Month);
+                year = currentTime.Year;
+            }
+            else {
+                year = currentTime.Minus(Period.FromYears(age)).Year;
+                month = RandomizeMonth();
+            }
             return new LocalDate(year, month, RandomizeDate(CalendarSystem.Iso.GetDaysInMonth(year, month)));
         }
 
@@ -37,7 +46,7 @@ namespace DataGenerator.Types.Date {
             if (years < 0)
                 throw new ArgumentException("Argument cannot be negative");
             var month = RandomizeMonth();
-            var year = Year(0) + years;
+            var year = CurrentTime().Year + years;
             return new LocalDate(year, month, RandomizeDate(CalendarSystem.Iso.GetDaysInMonth(year, month)));
         }
 
@@ -46,9 +55,9 @@ namespace DataGenerator.Types.Date {
         /// </summary>
         /// <param name="age"></param>
         /// <returns></returns>
-        private static int Year(int age)
+        private static LocalDate CurrentTime()
             => SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault())
-                .Date.Minus(Period.FromYears(age)).Year;
+                .Date;
 
         /// <summary>
         /// Returns the current year minus a value between minAge and maxAge
