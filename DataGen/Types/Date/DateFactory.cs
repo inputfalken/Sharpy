@@ -27,42 +27,21 @@ namespace DataGen.Types.Date {
         ///     Will Return the current days minus the arguments
         /// </summary>
         /// <param name="years"></param>
-        /// <param name="yearRange"></param>
         /// <param name="months"></param>
-        /// <param name="monthRange"></param>
         /// <param name="days"></param>
-        /// <param name="dayRange"></param>
         /// <returns></returns>
-        public static LocalDate SubtractionToCurrentDate(int years = 0, Tuple<int, int> yearRange = null, int months = 0,
-            Tuple<int, int> monthRange = null,
-            int days = 0, Tuple<int, int> dayRange = null) {
+        public static LocalDate SubtractionFromCurrentDate(int years = 0, int months = 0, int days = 0) {
             if (years < 0 || months < 0 || days < 0)
                 throw new ArgumentException("Arguments cannot be negative");
-            var year = yearRange != null ? Randomize(yearRange) : years;
-            var month = monthRange != null ? Randomize(monthRange) : months;
-            var day = dayRange != null ? Randomize(dayRange) : days;
             return
                 CurrentLocalDate
-                    .Minus(FromYears(year))
-                    .Minus(FromMonths(month))
-                    .Minus(FromDays(day));
+                    .Minus(FromYears(years))
+                    .Minus(FromMonths(months))
+                    .Minus(FromDays(days));
         }
 
 
         private static int Randomize(Tuple<int, int> tuple)
             => HelperClass.Randomizer(tuple.Item1, tuple.Item2);
-
-        /// <summary>
-        /// Will Return a random date at year of the argument
-        /// </summary>
-        /// <param name="year"></param>
-        /// <returns></returns>
-        //TODO add some testing
-        public static LocalDate RandomDateSpecifikYear(int year) {
-            var month = HelperClass.Randomizer(1, 12);
-            var daysInMonth = CalendarSystem.Iso.GetDaysInMonth(year, month);
-            var day = HelperClass.Randomizer(daysInMonth);
-            return new LocalDate(year, month, day);
-        }
     }
 }

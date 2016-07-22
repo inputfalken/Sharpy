@@ -11,7 +11,7 @@ namespace DataGeneratorTests.Types.Date {
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void SubtractNegativeValue()
-            => DateFactory.SubtractionToCurrentDate(-1);
+            => DateFactory.SubtractionToCurrentDate(years: -1);
 
         #endregion
 
@@ -44,12 +44,6 @@ namespace DataGeneratorTests.Types.Date {
             Assert.IsTrue(randomPreviousDate == now.Minus(Period.FromYears(100)));
         }
 
-        [TestMethod]
-        public void SubtractWithinYearRange() {
-            var randomPreviousDate = DateFactory.SubtractionToCurrentDate(yearRange: new Tuple<int, int>(1, 10));
-            var now = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
-            Assert.IsTrue(randomPreviousDate < now);
-        }
 
         #endregion
 
@@ -176,6 +170,11 @@ namespace DataGeneratorTests.Types.Date {
             var now = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
             Assert.IsTrue(randomFutureDate == now.PlusDays(100));
         }
+
+        #endregion
+
+        #region
+
 
         #endregion
     }
