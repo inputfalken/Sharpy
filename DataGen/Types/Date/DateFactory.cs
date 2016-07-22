@@ -32,10 +32,12 @@ namespace DataGen.Types.Date {
         /// <param name="days"></param>
         /// <returns></returns>
         public static LocalDate Subtraction(LocalDate localDate = default(LocalDate), uint years = 0, uint months = 0,
-            uint days = 0)
-            => CurrentLocalDate
+            uint days = 0) {
+            var date = localDate == default(LocalDate) ? CurrentLocalDate : localDate;
+            return date
                 .Minus(FromYears(years))
                 .Minus(FromMonths(months))
                 .Minus(FromDays(days));
+        }
     }
 }

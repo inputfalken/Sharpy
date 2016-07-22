@@ -1,18 +1,24 @@
-﻿using System;
-using DataGen.Types.Date;
+﻿using DataGen.Types.Date;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NodaTime;
 
 namespace DataGeneratorTests.Types.Date {
     [TestClass]
     public class DateFactoryTests {
-        #region Subtraction No Args
+        #region Subtraction No UInt args
 
         [TestMethod]
         public void SubtractNoArgs() {
-            var randomPreviousDate = DateFactory.Subtraction();
-            var now = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
-            Assert.IsTrue(randomPreviousDate == now);
+            var result = DateFactory.Subtraction();
+            var expected = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
+            Assert.AreEqual(result, expected);
+        }
+
+        [TestMethod]
+        public void SubtractSpecifikDate() {
+            var result = DateFactory.Subtraction(new LocalDate(2000, 1, 1));
+            var expected = new LocalDate(2000, 1, 1);
+            Assert.AreEqual(result, expected);
         }
 
         #endregion
@@ -22,17 +28,37 @@ namespace DataGeneratorTests.Types.Date {
         [TestMethod]
         public void SubtractOneYear() {
             const int years = 1;
-            var randomPreviousDate = DateFactory.Subtraction(years: years);
-            var now = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
-            Assert.IsTrue(randomPreviousDate == now.Minus(Period.FromYears(1)));
+            var result = DateFactory.Subtraction(years: years);
+            var expected =
+                SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault())
+                    .Date.Minus(Period.FromYears(1));
+            Assert.AreEqual(result, expected);
+        }
+
+        [TestMethod]
+        public void SubtractSpecifkDateOneYear() {
+            const int years = 1;
+            var result = DateFactory.Subtraction(years: years, localDate: new LocalDate(2000, 1, 1));
+            var expected = new LocalDate(1999, 1, 1);
+            Assert.AreEqual(result, expected);
         }
 
         [TestMethod]
         public void SubtractHundredYear() {
             const int years = 100;
-            var randomPreviousDate = DateFactory.Subtraction(years: years);
-            var now = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
-            Assert.IsTrue(randomPreviousDate == now.Minus(Period.FromYears(100)));
+            var result = DateFactory.Subtraction(years: years);
+            var expected =
+                SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault())
+                    .Date.Minus(Period.FromYears(100));
+            Assert.AreEqual(result, expected);
+        }
+
+        [TestMethod]
+        public void SubtractSpecifkDateHundredYear() {
+            const int years = 100;
+            var result = DateFactory.Subtraction(years: years, localDate: new LocalDate(2000, 1, 1));
+            var expected = new LocalDate(1900, 1, 1);
+            Assert.AreEqual(result, expected);
         }
 
         #endregion
@@ -40,17 +66,39 @@ namespace DataGeneratorTests.Types.Date {
         #region Subtraction Months
 
         [TestMethod]
-        public void SubtractionDateTestOneMonth() {
-            var randomFutureDate = DateFactory.Subtraction(months: 1);
-            var now = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
-            Assert.IsTrue(randomFutureDate == now.Minus(Period.FromMonths(1)));
+        public void SubtractionOneMonth() {
+            const int months = 1;
+            var result = DateFactory.Subtraction(months: months);
+            var expected =
+                SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault())
+                    .Date.Minus(Period.FromMonths(months));
+            Assert.AreEqual(result, expected);
         }
 
         [TestMethod]
-        public void SubtractionDateTestHundredMonth() {
-            var randomFutureDate = DateFactory.Subtraction(months: 100);
-            var now = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
-            Assert.IsTrue(randomFutureDate == now.Minus(Period.FromMonths(100)));
+        public void SubractionSpecifikDateOnemonth() {
+            const int months = 1;
+            var result = DateFactory.Subtraction(months: months, localDate: new LocalDate(2000, 1, 1));
+            var expected = new LocalDate(1999, 12, 1);
+            Assert.AreEqual(result, expected);
+        }
+
+        [TestMethod]
+        public void SubtractionHundredMonth() {
+            const int months = 100;
+            var result = DateFactory.Subtraction(months: months);
+            var expected =
+                SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault())
+                    .Date.Minus(Period.FromMonths(months));
+            Assert.AreEqual(result, expected);
+        }
+
+        [TestMethod]
+        public void SubractionSpecifikDateHundredMonth() {
+            const int months = 100;
+            var result = DateFactory.Subtraction(months: months, localDate: new LocalDate(2000, 1, 1));
+            var expected = new LocalDate(2000, 1, 1).Minus(Period.FromMonths(months));
+            Assert.AreEqual(result, expected);
         }
 
         #endregion
@@ -58,17 +106,41 @@ namespace DataGeneratorTests.Types.Date {
         #region Subtraction Days
 
         [TestMethod]
-        public void SubtractionDateTestOneDay() {
-            var randomFutureDate = DateFactory.Subtraction(days: 1);
-            var now = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
-            Assert.IsTrue(randomFutureDate == now.Minus(Period.FromDays(1)));
+        public void SubtractinOneDay() {
+            const int days = 1;
+            var result = DateFactory.Subtraction(days: days);
+            var expected =
+                SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault())
+                    .Date.Minus(Period.FromDays(days));
+            Assert.AreEqual(result, expected);
         }
 
         [TestMethod]
-        public void SubtractionDateTestHundredDays() {
-            var randomFutureDate = DateFactory.Subtraction(days: 100);
-            var now = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
-            Assert.IsTrue(randomFutureDate == now.Minus(Period.FromDays(100)));
+        public void SubtractionHundredDays() {
+            const int days = 100;
+            var result = DateFactory.Subtraction(days: days);
+            var expected =
+                SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault())
+                    .Date.Minus(Period.FromDays(days));
+            Assert.AreEqual(result, expected);
+        }
+
+        [TestMethod]
+        public void SubtractionSpecifikDateHundredDays() {
+            const int days = 100;
+            var result = DateFactory.Subtraction(days: days, localDate: new LocalDate(2000, 1, 1));
+            var expected = new LocalDate(2000, 1, 1).Minus(Period.FromDays(days));
+
+            Assert.AreEqual(result, expected);
+        }
+
+        [TestMethod]
+        public void SubtractionSpecifikDateOneDay() {
+            const int days = 1;
+            var result = DateFactory.Subtraction(days: days, localDate: new LocalDate(2000, 1, 1));
+            var expected = new LocalDate(2000, 1, 1).Minus(Period.FromDays(days));
+
+            Assert.AreEqual(result, expected);
         }
 
         #endregion
@@ -96,9 +168,11 @@ namespace DataGeneratorTests.Types.Date {
         [TestMethod]
         public void AddOneYear() {
             const int years = 1;
-            var randomFutureDate = DateFactory.Addition(years: years);
-            var currentYear = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date.Year;
-            Assert.IsTrue(randomFutureDate.Year == currentYear + years);
+            var result = DateFactory.Addition(years: years);
+            var expected =
+                SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault())
+                    .Date.Plus(Period.FromYears(years));
+            Assert.AreEqual(result, expected);
         }
 
         [TestMethod]
@@ -106,15 +180,17 @@ namespace DataGeneratorTests.Types.Date {
             const int years = 1;
             var result = DateFactory.Addition(years: years, localDate: new LocalDate(2000, 1, 1));
             var expected = new LocalDate(2001, 1, 1);
-            Assert.IsTrue(result == expected);
+            Assert.AreEqual(result, expected);
         }
 
         [TestMethod]
         public void AddHundredYears() {
             const int years = 100;
-            var randomFutureDate = DateFactory.Addition(years: years);
-            var currentYear = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date.Year;
-            Assert.IsTrue(randomFutureDate.Year == currentYear + years);
+            var result = DateFactory.Addition(years: years);
+            var expected =
+                SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault())
+                    .Date.Plus(Period.FromYears(years));
+            Assert.AreEqual(result, expected);
         }
 
         [TestMethod]
@@ -122,7 +198,7 @@ namespace DataGeneratorTests.Types.Date {
             const int years = 100;
             var result = DateFactory.Addition(years: years, localDate: new LocalDate(2000, 1, 1));
             var expected = new LocalDate(2100, 1, 1);
-            Assert.IsTrue(result == expected);
+            Assert.AreEqual(result, expected);
         }
 
         #endregion
@@ -130,31 +206,36 @@ namespace DataGeneratorTests.Types.Date {
         #region Addition Months
 
         [TestMethod]
-        public void FutureDateTestOneMonth() {
-            var result = DateFactory.Addition(month: 1);
-            var expected = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date.PlusMonths(1);
-            Assert.IsTrue(result == expected);
+        public void AddtionOneMonth() {
+            const int months = 1;
+            var result = DateFactory.Addition(month: months);
+            var expected =
+                SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date.PlusMonths(months);
+            Assert.AreEqual(result, expected);
         }
 
         [TestMethod]
-        public void FutureDateTestHundredMonth() {
-            var result = DateFactory.Addition(month: 100);
-            var expected = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date.PlusMonths(100);
-            Assert.IsTrue(result == expected);
+        public void AdditionHundredMonths() {
+            const int months = 100;
+            var result = DateFactory.Addition(month: months);
+            var expected =
+                SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date.PlusMonths(months);
+            Assert.AreEqual(result, expected);
         }
 
         [TestMethod]
-        public void FutureDateTestSpecifikDateOneMonth() {
-            var result = DateFactory.Addition(month: 1, localDate: new LocalDate(2000, 1, 1));
-            var expected = new LocalDate(2000, 2, 1);
-            Assert.IsTrue(result == expected);
+        public void AdditionSpecifikDateOneMonth() {
+            const int month = 1;
+            var result = DateFactory.Addition(month: month, localDate: new LocalDate(2000, month, month));
+            var expected = new LocalDate(2000, 2, month);
+            Assert.AreEqual(result, expected);
         }
 
         [TestMethod]
-        public void FutureDateTestSpecifkDateHundredMonth() {
+        public void AdditionSpecifkDateHundredMonths() {
             var result = DateFactory.Addition(month: 100, localDate: new LocalDate(2000, 1, 1));
-            var expected = new LocalDate(2000,1,1).PlusMonths(100);
-            Assert.IsTrue(result == expected);
+            var expected = new LocalDate(2000, 1, 1).PlusMonths(100);
+            Assert.AreEqual(result, expected);
         }
 
         #endregion
@@ -162,31 +243,39 @@ namespace DataGeneratorTests.Types.Date {
         #region Addtion Days
 
         [TestMethod]
-        public void FutureDateTestOneDay() {
-            var randomFutureDate = DateFactory.Addition(days: 1);
-            var now = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
-            Assert.IsTrue(randomFutureDate == now.PlusDays(1));
+        public void AdditionOneDay() {
+            const int days = 1;
+            var result = DateFactory.Addition(days: days);
+            var expected =
+                SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault())
+                    .Date.Plus(Period.FromDays(days));
+            Assert.AreEqual(result, expected);
         }
 
         [TestMethod]
-        public void FutureDateTestSpecifikHundredDays() {
-            var result = DateFactory.Addition(days: 100, localDate: new LocalDate(2000, 1, 1));
-            var expected = new LocalDate(2000, 1, 1).PlusDays(100);
-            Assert.IsTrue(result == expected);
+        public void AdditionSpecifkDateHundredDays() {
+            const int days = 100;
+            var result = DateFactory.Addition(days: days, localDate: new LocalDate(2000, 1, 1));
+            var expected = new LocalDate(2000, 1, 1).Plus(Period.FromDays(days));
+            Assert.AreEqual(result, expected);
         }
 
         [TestMethod]
-        public void FutureDateTestSpecifikOneDay() {
-            var result = DateFactory.Addition(days: 1, localDate: new LocalDate(2000, 1, 1));
-            var expected = new LocalDate(2000, 1, 2);
-            Assert.IsTrue(result == expected);
+        public void AdditionSpecifkDate1Day() {
+            const int month = 1;
+            var result = DateFactory.Addition(days: month, localDate: new LocalDate(2000, month, month));
+            var expected = new LocalDate(2000, month, 2);
+            Assert.AreEqual(result, expected);
         }
 
         [TestMethod]
-        public void FutureDateTestHundredDays() {
-            var randomFutureDate = DateFactory.Addition(days: 100);
-            var now = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
-            Assert.IsTrue(randomFutureDate == now.PlusDays(100));
+        public void AdditionHundredDays() {
+            const int days = 100;
+            var result = DateFactory.Addition(days: days);
+            var expected =
+                SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault())
+                    .Date.Plus(Period.FromDays(days));
+            Assert.AreEqual(result, expected);
         }
 
         #endregion
