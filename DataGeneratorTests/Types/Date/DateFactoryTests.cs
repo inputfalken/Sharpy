@@ -124,6 +124,7 @@ namespace DataGeneratorTests.Types.Date {
 
         #region Addtion Days
 
+        [TestMethod]
         public void FutureDateTestOneDay() {
             var randomFutureDate = DateFactory.Addition(days: 1);
             var now = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
@@ -138,6 +139,5 @@ namespace DataGeneratorTests.Types.Date {
         }
 
         #endregion
-
     }
 }
