@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 
-namespace DataGenerator.Types {
+namespace DataGen.Types {
     public static class Filter {
         /// <summary>
         ///     Filters repeated strings from argument
@@ -12,7 +11,6 @@ namespace DataGenerator.Types {
         public static IEnumerable<T> RepeatedData<T>(IEnumerable<T> enumerable)
             => enumerable.GroupBy(s => s)
                 .Where(g => g.Any())
-                .Select(grouping => grouping.Key)
-                .ToImmutableList();
+                .Select(grouping => grouping.Key);
     }
 }

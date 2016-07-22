@@ -68,13 +68,13 @@
     <Compile Include="Types\Name\NameFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataGenerator\DataGenerator.csproj">
-      <Project>{41AF4616-9A26-424B-B639-52BD2A6A4475}</Project>
-      <Name>DataGenerator</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\DataGen\DataGen.csproj">
+      <Project>{D5108AF1-809B-46DE-8ABB-96D5DE78DA6F}</Project>
+      <Name>DataGen</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

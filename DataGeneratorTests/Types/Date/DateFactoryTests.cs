@@ -1,5 +1,5 @@
 ﻿using System;
-using DataGenerator.Types.Date;
+using DataGen.Types.Date;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NodaTime;
 

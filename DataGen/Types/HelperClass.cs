@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataGenerator.Types {
+namespace DataGen.Types {
     public static class HelperClass {
         private static readonly Random Random = new Random();
 

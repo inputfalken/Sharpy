@@ -1,7 +1,7 @@
 ﻿using System;
 using NodaTime;
 
-namespace DataGenerator.Types.Date {
+namespace DataGen.Types.Date {
     public static class DateFactory {
         private static LocalDate CurrentLocalDate
             => SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
@@ -50,7 +50,7 @@ namespace DataGenerator.Types.Date {
             var daysInMonth = CalendarSystem.Iso.GetDaysInMonth(CurrentLocalDate.Year, month);
             //Is true if month gets randomized to current month
             var date = month == CurrentLocalDate.Month
-            //Makes sure that you cannot get the current date or a date which hasn't yet passed 
+                //Makes sure that you cannot get the current date or a date which hasn't yet passed 
                 ? HelperClass.Randomizer(1, CurrentLocalDate.Day - 1)
                 : RandomizeDate(daysInMonth);
             return new LocalDate(CurrentLocalDate.Year, month, date);

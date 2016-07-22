@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
 
-namespace DataGenerator.Types.Name {
+namespace DataGen.Types.Name {
     public static class NameFactory {
         private const string FilePath = "Data/Types/Name/data.json";
 
@@ -65,7 +64,7 @@ namespace DataGenerator.Types.Name {
         /// </summary>
         /// <param name="country"></param>
         /// <returns></returns>
-        public static ImmutableList<string> FirstNameCollection(string country)
+        public static IEnumerable<string> FirstNameCollection(string country)
             => NameRepositories
                 .Single(repository => repository.Origin.Country == country).MixedFirstNames;
 
@@ -125,8 +124,8 @@ namespace DataGenerator.Types.Name {
             public IEnumerable<string> MaleFirstNamesFirstNames { get; }
             public Origin Origin { get; }
 
-            public ImmutableList<string> MixedFirstNames
-                => ImmutableList.CreateRange(FemaleFirstNamesFirstNames.Concat(MaleFirstNamesFirstNames));
+            public IEnumerable<string> MixedFirstNames
+                => FemaleFirstNamesFirstNames.Concat(MaleFirstNamesFirstNames);
         }
 
         private class Origin {
