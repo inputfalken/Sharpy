@@ -6,8 +6,7 @@ using NodaTime;
 namespace DataGeneratorTests.Types.Date {
     [TestClass]
     public class DateFactoryTests {
-
-        #region Date Subtraction no args
+        #region Subtraction No Args
 
         [TestMethod]
         public void SubtractNoArgs() {
@@ -18,7 +17,7 @@ namespace DataGeneratorTests.Types.Date {
 
         #endregion
 
-        #region Date Subtraction with Year arg
+        #region Subtraction Years
 
         [TestMethod]
         public void SubtractOneYear() {
@@ -36,10 +35,9 @@ namespace DataGeneratorTests.Types.Date {
             Assert.IsTrue(randomPreviousDate == now.Minus(Period.FromYears(100)));
         }
 
-
         #endregion
 
-        #region Subtraction With Month arg
+        #region Subtraction Months
 
         [TestMethod]
         public void SubtractionDateTestOneMonth() {
@@ -57,7 +55,7 @@ namespace DataGeneratorTests.Types.Date {
 
         #endregion
 
-        #region Subtraction With Days arg
+        #region Subtraction Days
 
         [TestMethod]
         public void SubtractionDateTestOneDay() {
@@ -75,12 +73,7 @@ namespace DataGeneratorTests.Types.Date {
 
         #endregion
 
-        #region Date Addition Exception handling 
-
-
-        #endregion
-
-        #region Date Addition no args
+        #region Addition No Args
 
         [TestMethod]
         public void AddNoArgs() {
@@ -91,7 +84,7 @@ namespace DataGeneratorTests.Types.Date {
 
         #endregion
 
-        #region Date Addition with year arg
+        #region Addition Years
 
         [TestMethod]
         public void AddOneYear() {
@@ -111,7 +104,7 @@ namespace DataGeneratorTests.Types.Date {
 
         #endregion
 
-        #region Future Random Date With Month Argument
+        #region Addition Months
 
         [TestMethod]
         public void FutureDateTestOneMonth() {
@@ -129,7 +122,7 @@ namespace DataGeneratorTests.Types.Date {
 
         #endregion
 
-        #region Date Additon with days arg
+        #region Addtion Days
 
         public void FutureDateTestOneDay() {
             var randomFutureDate = DateFactory.Addition(days: 1);
@@ -146,9 +139,5 @@ namespace DataGeneratorTests.Types.Date {
 
         #endregion
 
-        #region
-
-
-        #endregion
     }
 }
