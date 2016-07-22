@@ -11,7 +11,7 @@ namespace DataGeneratorTests.Types.Date {
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void SubtractNegativeValue()
-            => DateFactory.SubtractionToCurrentDate(years: -1);
+            => DateFactory.SubtractionFromCurrentDate(years: -1);
 
         #endregion
 
@@ -19,7 +19,7 @@ namespace DataGeneratorTests.Types.Date {
 
         [TestMethod]
         public void SubtractNoArgs() {
-            var randomPreviousDate = DateFactory.SubtractionToCurrentDate();
+            var randomPreviousDate = DateFactory.SubtractionFromCurrentDate();
             var now = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
             Assert.IsTrue(randomPreviousDate == now);
         }
@@ -31,7 +31,7 @@ namespace DataGeneratorTests.Types.Date {
         [TestMethod]
         public void SubtractOneYear() {
             const int years = 1;
-            var randomPreviousDate = DateFactory.SubtractionToCurrentDate(years: years);
+            var randomPreviousDate = DateFactory.SubtractionFromCurrentDate(years: years);
             var now = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
             Assert.IsTrue(randomPreviousDate == now.Minus(Period.FromYears(1)));
         }
@@ -39,7 +39,7 @@ namespace DataGeneratorTests.Types.Date {
         [TestMethod]
         public void SubtractHundredYear() {
             const int years = 100;
-            var randomPreviousDate = DateFactory.SubtractionToCurrentDate(years: years);
+            var randomPreviousDate = DateFactory.SubtractionFromCurrentDate(years: years);
             var now = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
             Assert.IsTrue(randomPreviousDate == now.Minus(Period.FromYears(100)));
         }
@@ -51,14 +51,14 @@ namespace DataGeneratorTests.Types.Date {
 
         [TestMethod]
         public void SubtractionDateTestOneMonth() {
-            var randomFutureDate = DateFactory.SubtractionToCurrentDate(months: 1);
+            var randomFutureDate = DateFactory.SubtractionFromCurrentDate(months: 1);
             var now = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
             Assert.IsTrue(randomFutureDate == now.Minus(Period.FromMonths(1)));
         }
 
         [TestMethod]
         public void SubtractionDateTestHundredMonth() {
-            var randomFutureDate = DateFactory.SubtractionToCurrentDate(months: 100);
+            var randomFutureDate = DateFactory.SubtractionFromCurrentDate(months: 100);
             var now = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
             Assert.IsTrue(randomFutureDate == now.Minus(Period.FromMonths(100)));
         }
@@ -69,14 +69,14 @@ namespace DataGeneratorTests.Types.Date {
 
         [TestMethod]
         public void SubtractionDateTestOneDay() {
-            var randomFutureDate = DateFactory.SubtractionToCurrentDate(days: 1);
+            var randomFutureDate = DateFactory.SubtractionFromCurrentDate(days: 1);
             var now = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
             Assert.IsTrue(randomFutureDate == now.Minus(Period.FromDays(1)));
         }
 
         [TestMethod]
         public void SubtractionDateTestHundredDays() {
-            var randomFutureDate = DateFactory.SubtractionToCurrentDate(days: 100);
+            var randomFutureDate = DateFactory.SubtractionFromCurrentDate(days: 100);
             var now = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
             Assert.IsTrue(randomFutureDate == now.Minus(Period.FromDays(100)));
         }

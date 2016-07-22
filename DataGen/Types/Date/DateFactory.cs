@@ -39,9 +39,5 @@ namespace DataGen.Types.Date {
                     .Minus(FromMonths(months))
                     .Minus(FromDays(days));
         }
-
-
-        private static int Randomize(Tuple<int, int> tuple)
-            => HelperClass.Randomizer(tuple.Item1, tuple.Item2);
     }
 }
