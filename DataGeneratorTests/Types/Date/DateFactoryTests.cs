@@ -44,20 +44,27 @@ namespace DataGeneratorTests.Types.Date {
             Assert.IsTrue(randomPreviousDate == now.Minus(Period.FromYears(100)));
         }
 
+        [TestMethod]
+        public void SubtractWithinYearRange() {
+            var randomPreviousDate = DateFactory.SubtractionToCurrentDate(yearRange: new Tuple<int, int>(1, 10));
+            var now = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
+            Assert.IsTrue(randomPreviousDate < now);
+        }
+
         #endregion
 
         #region Subtraction With Month arg
 
         [TestMethod]
         public void SubtractionDateTestOneMonth() {
-            var randomFutureDate = DateFactory.SubtractionToCurrentDate(month: 1);
+            var randomFutureDate = DateFactory.SubtractionToCurrentDate(months: 1);
             var now = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
             Assert.IsTrue(randomFutureDate == now.Minus(Period.FromMonths(1)));
         }
 
         [TestMethod]
         public void SubtractionDateTestHundredMonth() {
-            var randomFutureDate = DateFactory.SubtractionToCurrentDate(month: 100);
+            var randomFutureDate = DateFactory.SubtractionToCurrentDate(months: 100);
             var now = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
             Assert.IsTrue(randomFutureDate == now.Minus(Period.FromMonths(100)));
         }
@@ -171,6 +178,5 @@ namespace DataGeneratorTests.Types.Date {
         }
 
         #endregion
-
     }
 }
