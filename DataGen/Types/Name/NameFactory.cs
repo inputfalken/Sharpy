@@ -17,7 +17,7 @@ namespace DataGen.Types.Name {
         /// </summary>
         /// <returns></returns>
         public static IEnumerable<string> LastNameCollection()
-            => Filter.RepeatedData(NameRepositories.SelectMany(repository => repository.LastNameses));
+            => Filter.RepeatedData(NameRepositories.SelectMany(repository => repository.LastNames));
 
 
         /// <summary>
@@ -25,10 +25,12 @@ namespace DataGen.Types.Name {
         /// </summary>
         /// <param name="country"></param>
         /// <returns></returns>
-        public static IEnumerable<string> LastNameCollection(string country)
-            => NameRepositories
-                .Where(repository => repository.Origin.Country == country)
-                .SelectMany(repository => repository.LastNameses);
+        public static IEnumerable<string> LastNameCollection(string country) {
+            var firstOrDefault = NameRepositories.FirstOrDefault(repository => repository.Origin.Country == country);
+            if (firstOrDefault == null)
+                throw new NullReferenceException("Country Not Found");
+            return firstOrDefault.LastNames;
+        }
 
 
         /// <summary>
@@ -38,7 +40,7 @@ namespace DataGen.Types.Name {
         /// <returns></returns>
         public static IEnumerable<string> LastNameCollection(Region region)
             => Filter.RepeatedData(FilterByRegion(region)
-                .SelectMany(repository => repository.LastNameses));
+                .SelectMany(repository => repository.LastNames));
 
 
         /// <summary>
@@ -64,9 +66,13 @@ namespace DataGen.Types.Name {
         /// </summary>
         /// <param name="country"></param>
         /// <returns></returns>
-        public static IEnumerable<string> FirstNameCollection(string country)
-            => NameRepositories
-                .Single(repository => repository.Origin.Country == country).MixedFirstNames;
+        public static IEnumerable<string> FirstNameCollection(string country) {
+            var singleOrDefault = NameRepositories
+                .SingleOrDefault(repository => repository.Origin.Country == country);
+            if (singleOrDefault == null)
+                throw new NullReferenceException("Country Not Found");
+            return singleOrDefault.MixedFirstNames;
+        }
 
 
         /// <summary>
@@ -115,12 +121,12 @@ namespace DataGen.Types.Name {
                 IEnumerable<string> lastNames, string country, string region) {
                 FemaleFirstNamesFirstNames = femaleFirstNames;
                 MaleFirstNamesFirstNames = maleFirstNames;
-                LastNameses = lastNames;
+                LastNames = lastNames;
                 Origin = new Origin(country, region);
             }
 
             public IEnumerable<string> FemaleFirstNamesFirstNames { get; }
-            public IEnumerable<string> LastNameses { get; }
+            public IEnumerable<string> LastNames { get; }
             public IEnumerable<string> MaleFirstNamesFirstNames { get; }
             public Origin Origin { get; }
 
