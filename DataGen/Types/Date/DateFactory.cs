@@ -26,10 +26,10 @@ namespace DataGen.Types.Date {
         /// <summary>
         ///     Will subtract from current date
         /// </summary>
-        /// <param name="localDate"></param>
-        /// <param name="years"></param>
-        /// <param name="months"></param>
-        /// <param name="days"></param>
+        /// <param name="localDate">Will be defaulted to today if not specified</param>
+        /// <param name="years">Years to be subtracted</param>
+        /// <param name="months">Months to be subtracted</param>
+        /// <param name="days">Days to be subtracted</param>
         /// <returns></returns>
         public static LocalDate Subtraction(LocalDate localDate = default(LocalDate), uint years = 0, uint months = 0,
             uint days = 0) {
