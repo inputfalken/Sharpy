@@ -7,26 +7,32 @@ namespace DataGen.Types.Date {
             => SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
 
         /// <summary>
-        ///     Will add To current date
+        ///     Will add days, months, years to a date
         /// </summary>
-        /// <param name="years"></param>
-        /// <param name="month"></param>
-        /// <param name="days"></param>
+        /// <param name="localDate">Will be defaulted to today if not specified</param>
+        /// <param name="years">Years to be added</param>
+        /// <param name="month">Months to be added</param>
+        /// <param name="days">Days to be added </param>
         /// <returns></returns>
-        public static LocalDate Addition(uint years = 0, uint month = 0, uint days = 0)
-            => CurrentLocalDate
+        public static LocalDate Addition(LocalDate localDate = default(LocalDate), uint years = 0, uint month = 0,
+            uint days = 0) {
+            var date = localDate == default(LocalDate) ? CurrentLocalDate : localDate;
+            return date
                 .Plus(FromYears(years))
                 .Plus(FromMonths(month))
                 .Plus(FromDays(days));
+        }
 
         /// <summary>
         ///     Will subtract from current date
         /// </summary>
+        /// <param name="localDate"></param>
         /// <param name="years"></param>
         /// <param name="months"></param>
         /// <param name="days"></param>
         /// <returns></returns>
-        public static LocalDate Subtraction(uint years = 0, uint months = 0, uint days = 0)
+        public static LocalDate Subtraction(LocalDate localDate = default(LocalDate), uint years = 0, uint months = 0,
+            uint days = 0)
             => CurrentLocalDate
                 .Minus(FromYears(years))
                 .Minus(FromMonths(months))
