@@ -6,105 +6,7 @@ using NodaTime;
 namespace DataGeneratorTests.Types.Date {
     [TestClass]
     public class DateFactoryTests {
-        #region Min And Max Birth Year
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void BirthYearTestNegativeValue()
-            => DateFactory.RandomPreviousDate(-1, -1);
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void BirthYearTestMinAgeLargerThanMax()
-            => DateFactory.RandomPreviousDate(40, 20);
-
-        [TestMethod]
-        public void BirthYearTestTwentyToForty() {
-            const int minYear = 20;
-            const int maxYear = 40;
-            var randomPreviousDate = DateFactory.RandomPreviousDate(minYear, maxYear).Year;
-            var currentYear = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date.Year;
-            Assert.IsTrue(randomPreviousDate >= currentYear - maxYear && randomPreviousDate <= currentYear - minYear);
-        }
-
-
-        [TestMethod]
-        public void BirthYearTestTwentyToTwenty() {
-            const int maxYear = 20;
-            const int minYear = 20;
-            var randomPreviousDate = DateFactory.RandomPreviousDate(minYear, maxYear);
-            var currentYear = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date.Year;
-            Assert.IsTrue(randomPreviousDate.Year >= currentYear - maxYear &&
-                          randomPreviousDate.Year <= currentYear - minYear);
-        }
-
-        [TestMethod]
-        public void BirthYearTestTwoToEight() {
-            const int minYear = 2;
-            const int maxYear = 8;
-            var currentYear = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date.Year;
-            var randomPreviousDate = DateFactory.RandomPreviousDate(minYear, maxYear);
-            Assert.IsTrue(randomPreviousDate.Year >= currentYear - maxYear &&
-                          randomPreviousDate.Year <= currentYear - minYear);
-        }
-
-        [TestMethod]
-        public void BirthYearTestOneToThree() {
-            const int minYear = 1;
-            const int maxYear = 3;
-            var randomPreviousDate = DateFactory.RandomPreviousDate(minYear, maxYear);
-            var currentYear = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date.Year;
-            Assert.IsTrue(randomPreviousDate.Year >= currentYear - maxYear &&
-                          randomPreviousDate.Year <= currentYear - minYear);
-        }
-
-        [TestMethod]
-        public void BirthYearTestOneToOne() {
-            const int minYear = 1;
-            const int maxYear = 1;
-            var randomPreviousDate = DateFactory.RandomPreviousDate(minYear, maxYear);
-            var currentYear = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date.Year;
-            Assert.IsTrue(randomPreviousDate.Year >= currentYear - maxYear &&
-                          randomPreviousDate.Year <= currentYear - minYear);
-        }
-
-
-        [TestMethod]
-        public void BirtYearTestTenToHundred() {
-            const int minYear = 10;
-            const int maxYear = 100;
-            var randomPreviousDate = DateFactory.RandomPreviousDate(minYear, maxYear);
-            var currentYear = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date.Year;
-            Assert.IsTrue(randomPreviousDate.Year >= currentYear - maxYear &&
-                          randomPreviousDate.Year <= currentYear - minYear);
-        }
-
-        [TestMethod]
-        public void BirthYearTestZeroToZero() {
-            var randomPreviousDate = DateFactory.RandomPreviousDate(0, 0);
-            var now = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
-            Assert.IsTrue(randomPreviousDate < now);
-        }
-
-
-        [TestMethod]
-        public void BirtYearTestZeroToOne() {
-            var currentDate = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
-            var randomPreviousDate = DateFactory.RandomPreviousDate(0, 1);
-            Assert.IsTrue(randomPreviousDate < currentDate);
-        }
-
-        [TestMethod]
-        public void BirthYearTestZeroToOne() {
-            var currentYear = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date.Year;
-            var randomPreviousDate = DateFactory.RandomPreviousDate(0, 1);
-            Assert.IsTrue(randomPreviousDate.Year >= currentYear - 1 &&
-                          randomPreviousDate.Year <= currentYear);
-        }
-
-        #endregion
-
-        #region Specifik Birth Year
+        #region Previous Random Date With Year Only
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
@@ -142,7 +44,7 @@ namespace DataGeneratorTests.Types.Date {
 
         #endregion
 
-        #region Future Date with year only argument
+        #region Future Random Date with year only argument
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
