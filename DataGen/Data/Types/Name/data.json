@@ -48,7 +48,7 @@
       "López",
       "Madrigal"
     ],
-    "country": "costaRica",
+    "country": "CostaRica",
     "region": "centralAmerica"
   },
   {
@@ -103,7 +103,7 @@
       "Aguilar",
       "Alvarado"
     ],
-    "country": "guatemala",
+    "country": "Guatemala",
     "region": "centralAmerica"
   },
   {
@@ -158,7 +158,7 @@
       "Aguilar",
       "Alvarado"
     ],
-    "country": "elSalvador",
+    "country": "ElSalvador",
     "region": "centralAmerica"
   },
   {
@@ -198,7 +198,7 @@
       "Gagnon",
       "Wilson"
     ],
-    "country": "canada",
+    "country": "Canada",
     "region": "northAmerica"
   },
   {
@@ -238,7 +238,7 @@
       "Ramírez",
       "Flores"
     ],
-    "country": "mexico",
+    "country": "Mexico",
     "region": "northAmerica"
   },
   {
@@ -277,7 +277,7 @@
       "Fernández",
       "López"
     ],
-    "country": "cuba",
+    "country": "Cuba",
     "region": "northAmerica"
   },
   {
@@ -407,7 +407,7 @@
       "Barnes",
       "Fisher"
     ],
-    "country": "unitedStates",
+    "country": "UnitedStates",
     "region": "northAmerica"
   },
   {
@@ -537,7 +537,7 @@
       "Prieto",
       "Maldonado"
     ],
-    "country": "argentina",
+    "country": "Argentina",
     "region": "southAmerica"
   },
   {
@@ -597,7 +597,7 @@
       "Morais",
       "Gonçalves"
     ],
-    "country": "brazil",
+    "country": "Brazil",
     "region": "southAmerica"
   },
   {
@@ -642,7 +642,7 @@
       "Moreno",
       "Jiménez"
     ],
-    "country": "columbia",
+    "country": "Columbia",
     "region": "southAmerica"
   },
   {
@@ -697,7 +697,7 @@
       "Torres",
       "Cardozo"
     ],
-    "country": "paraguay",
+    "country": "Paraguay",
     "region": "southAmerica"
   },
   {
@@ -738,7 +738,7 @@
       "Loshi",
       "Prifti"
     ],
-    "country": "albania",
+    "country": "Albania",
     "region": "europe"
   },
   {
@@ -809,7 +809,7 @@
       "Schuster",
       "Heilig"
     ],
-    "country": "austria",
+    "country": "Austria",
     "region": "europe"
   },
   {
@@ -854,7 +854,7 @@
       "İsmayılov",
       "Ibrahimov"
     ],
-    "country": "azerbaijan",
+    "country": "Azerbaijan",
     "region": "europe"
   },
   {
@@ -904,7 +904,7 @@
       "Andrejev",
       "Aleksejev"
     ],
-    "country": "belgium",
+    "country": "Belgium",
     "region": "europe"
   },
   {
@@ -964,7 +964,7 @@
       "Jukić",
       "Barišić"
     ],
-    "country": "croatia",
+    "country": "Croatia",
     "region": "europe"
   },
   {
@@ -1004,7 +1004,7 @@
       "Horák",
       "Němec"
     ],
-    "country": "czech",
+    "country": "Czech",
     "region": "europe"
   },
   {
@@ -1054,7 +1054,7 @@
       "Møller",
       "Mortensen"
     ],
-    "country": "denmark",
+    "country": "Denmark",
     "region": "europe"
   },
   {
@@ -1094,7 +1094,7 @@
       "Pärn",
       "Koppel"
     ],
-    "country": "estonia",
+    "country": "Estonia",
     "region": "europe"
   },
   {
@@ -1146,7 +1146,7 @@
       "Urbonienė",
       "Kavaliauskienė"
     ],
-    "country": "faroeIslands",
+    "country": "FaroeIslands",
     "region": "europe"
   },
   {
@@ -1206,7 +1206,7 @@
       "Lahtinen",
       "Ahonen"
     ],
-    "country": "finland",
+    "country": "Finland",
     "region": "europe"
   },
   {
@@ -1266,7 +1266,7 @@
       "François",
       "Martinez"
     ],
-    "country": "france",
+    "country": "France",
     "region": "europe"
   },
   {
@@ -1306,7 +1306,7 @@
       "Becker",
       "Hoffmann"
     ],
-    "country": "germany",
+    "country": "Germany",
     "region": "europe"
   },
   {
@@ -1348,7 +1348,7 @@
       "Papantoiou",
       "Antoniou"
     ],
-    "country": "greece",
+    "country": "Greece",
     "region": "europe"
   },
   {
@@ -1398,7 +1398,7 @@
       "Rácz",
       "Fekete"
     ],
-    "country": "hungary",
+    "country": "Hungary",
     "region": "europe"
   },
   {
@@ -1448,7 +1448,7 @@
       "Quinn",
       "Moore"
     ],
-    "country": "ireland",
+    "country": "Ireland",
     "region": "europe"
   },
   {
@@ -1504,7 +1504,7 @@
       "Rinaldi",
       "Caruso"
     ],
-    "country": "italy",
+    "country": "Italy",
     "region": "europe"
   },
   {
@@ -1549,7 +1549,7 @@
       "Kārkliņš",
       "Vanags"
     ],
-    "country": "latvia",
+    "country": "Latvia",
     "region": "europe"
   },
   {
@@ -1603,7 +1603,7 @@
       "Wagener",
       "Diederich"
     ],
-    "country": "luxembourg",
+    "country": "Luxembourg",
     "region": "europe"
   },
   {
@@ -1668,7 +1668,7 @@
       "Tra",
       "vski"
     ],
-    "country": "macedonia",
+    "country": "Macedonia",
     "region": "europe"
   },
   {
@@ -1709,7 +1709,7 @@
       "Attard",
       "Spiteri"
     ],
-    "country": "malta",
+    "country": "Malta",
     "region": "europe"
   },
   {
@@ -1754,7 +1754,7 @@
       "Melnic",
       "Cojocari"
     ],
-    "country": "moldova",
+    "country": "Moldova",
     "region": "europe"
   },
   {
@@ -1809,7 +1809,7 @@
       "De Graaf",
       "Van der Meer"
     ],
-    "country": "netherlands",
+    "country": "Netherlands",
     "region": "europe"
   },
   {
@@ -1863,7 +1863,7 @@
       "Henriksen",
       "Lund"
     ],
-    "country": "norway",
+    "country": "Norway",
     "region": "europe"
   },
   {
@@ -1913,7 +1913,7 @@
       "Piotrowski",
       "Grabowski"
     ],
-    "country": "poland",
+    "country": "Poland",
     "region": "europe"
   },
   {
@@ -1993,7 +1993,7 @@
       "Azevedo",
       "Freitas"
     ],
-    "country": "portugal",
+    "country": "Portugal",
     "region": "europe"
   },
   {
@@ -2033,7 +2033,7 @@
       "Matei",
       "Ciobanu"
     ],
-    "country": "romania",
+    "country": "Romania",
     "region": "europe"
   },
   {
@@ -2083,7 +2083,7 @@
       "Bogdanov",
       "Vorobyov"
     ],
-    "country": "russia",
+    "country": "Russia",
     "region": "europe"
   },
   {
@@ -2123,7 +2123,7 @@
       "Balog",
       "Lukáč"
     ],
-    "country": "slovakia",
+    "country": "Slovakia",
     "region": "europe"
   },
   {
@@ -2183,7 +2183,7 @@
       "Koren",
       "Klemenčič"
     ],
-    "country": "slovenia",
+    "country": "Slovenia",
     "region": "europe"
   },
   {
@@ -2253,7 +2253,7 @@
       "Marín",
       "Iglesias"
     ],
-    "country": "spain",
+    "country": "Spain",
     "region": "europe"
   },
   {
@@ -2484,7 +2484,7 @@
       "Magnusson",
       "Olofsson"
     ],
-    "country": "sweden",
+    "country": "Sweden",
     "region": "europe"
   },
   {
@@ -2709,7 +2709,7 @@
       "Giovanni",
       "Piero"
     ],
-    "country": "switzerland",
+    "country": "Switzerland",
     "region": "europe"
   },
   {
@@ -2749,7 +2749,7 @@
       "Aydın",
       "Özdemir"
     ],
-    "country": "turkey",
+    "country": "Turkey",
     "region": "europe"
   },
   {
@@ -2799,7 +2799,7 @@
       "Savchenko",
       "Petrenko"
     ],
-    "country": "ukraine",
+    "country": "Ukraine",
     "region": "europe"
   },
   {
@@ -2849,7 +2849,7 @@
       "Jackson",
       "Clarke"
     ],
-    "country": "unitedKingdom",
+    "country": "UnitedKingdom",
     "region": "europe"
   }
 ]
