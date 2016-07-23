@@ -82,8 +82,8 @@ namespace DataGen.Types.Name {
         /// <returns></returns>
         public static IEnumerable<string> FirstNameCollection(Gender gender)
             => gender == Gender.Female
-                ? Filter.RepeatedData(NameRepositories.SelectMany(repository => repository.FemaleFirstNamesFirstNames))
-                : Filter.RepeatedData(NameRepositories.SelectMany(repository => repository.MaleFirstNamesFirstNames));
+                ? Filter.RepeatedData(NameRepositories.SelectMany(repository => repository.FemaleFirstNames))
+                : Filter.RepeatedData(NameRepositories.SelectMany(repository => repository.MaleFirstNames));
 
 
         /// <summary>
@@ -94,8 +94,8 @@ namespace DataGen.Types.Name {
         /// <returns></returns>
         public static IEnumerable<string> FirstNameCollection(string country, Gender gender)
             => gender == Gender.Female
-                ? NameRepositories.Single(repository => repository.Origin.Country == country).FemaleFirstNamesFirstNames
-                : NameRepositories.Single(repository => repository.Origin.Country == country).MaleFirstNamesFirstNames;
+                ? NameRepositories.Single(repository => repository.Origin.Country == country).FemaleFirstNames
+                : NameRepositories.Single(repository => repository.Origin.Country == country).MaleFirstNames;
 
 
         private static IEnumerable<NameRepository> FilterByRegion(Region region) {
@@ -119,19 +119,18 @@ namespace DataGen.Types.Name {
             //TODO configure json file so i can have plural names for the collections
             public NameRepository(IEnumerable<string> femaleFirstNames, IEnumerable<string> maleFirstNames,
                 IEnumerable<string> lastNames, string country, string region) {
-                FemaleFirstNamesFirstNames = femaleFirstNames;
-                MaleFirstNamesFirstNames = maleFirstNames;
+                FemaleFirstNames = femaleFirstNames;
+                MaleFirstNames = maleFirstNames;
                 LastNames = lastNames;
                 Origin = new Origin(country, region);
             }
 
-            public IEnumerable<string> FemaleFirstNamesFirstNames { get; }
+            public IEnumerable<string> FemaleFirstNames { get; }
             public IEnumerable<string> LastNames { get; }
-            public IEnumerable<string> MaleFirstNamesFirstNames { get; }
+            public IEnumerable<string> MaleFirstNames { get; }
             public Origin Origin { get; }
-
             public IEnumerable<string> MixedFirstNames
-                => FemaleFirstNamesFirstNames.Concat(MaleFirstNamesFirstNames);
+                => FemaleFirstNames.Concat(MaleFirstNames);
         }
 
         private class Origin {
