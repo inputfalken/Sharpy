@@ -98,6 +98,10 @@ namespace DataGen.Types.Name {
                 : NameRepositories.Single(repository => repository.Origin.Country == country).MaleFirstNames;
 
 
+        //New Object strucutre NameInformation: string data, enum gender, Origin origin(consists of region name  & country name)
+        //Data.json should be an list of only nameinformation.
+        // Use node to rewrite to the structure, create which creates another unisex string gender
+        // Will make mocking much easier & easier to entertain
         private static IEnumerable<NameRepository> FilterByRegion(Region region) {
             switch (region) {
                 case Region.Europe:
