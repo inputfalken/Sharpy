@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
 
+//Todo find a way for the user to decide if he only wants string of names or objects
 namespace DataGen.Types.Name {
     public static class NameFactory {
         private const string FilePath = "Data/Types/Name/data.json";
