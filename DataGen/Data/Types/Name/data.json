@@ -48,7 +48,7 @@
       "López",
       "Madrigal"
     ],
-    "country": "CostaRica",
+    "country": "Costa Rica",
     "region": "centralAmerica"
   },
   {
@@ -158,7 +158,7 @@
       "Aguilar",
       "Alvarado"
     ],
-    "country": "ElSalvador",
+    "country": "El Salvador",
     "region": "centralAmerica"
   },
   {
@@ -407,7 +407,7 @@
       "Barnes",
       "Fisher"
     ],
-    "country": "UnitedStates",
+    "country": "United States",
     "region": "northAmerica"
   },
   {
@@ -1146,7 +1146,7 @@
       "Urbonienė",
       "Kavaliauskienė"
     ],
-    "country": "FaroeIslands",
+    "country": "Faroe Islands",
     "region": "europe"
   },
   {
@@ -2849,7 +2849,7 @@
       "Jackson",
       "Clarke"
     ],
-    "country": "UnitedKingdom",
+    "country": "United Kingdom",
     "region": "europe"
   }
 ]
