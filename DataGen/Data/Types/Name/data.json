@@ -49,7 +49,7 @@
       "Madrigal"
     ],
     "country": "Costa Rica",
-    "region": "centralAmerica"
+    "region": "Central America"
   },
   {
     "femaleFirstNames": [
@@ -104,7 +104,7 @@
       "Alvarado"
     ],
     "country": "Guatemala",
-    "region": "centralAmerica"
+    "region": "Central America"
   },
   {
     "femaleFirstNames": [
@@ -159,7 +159,7 @@
       "Alvarado"
     ],
     "country": "El Salvador",
-    "region": "centralAmerica"
+    "region": "Central America"
   },
   {
     "femaleFirstNames": [
@@ -199,7 +199,7 @@
       "Wilson"
     ],
     "country": "Canada",
-    "region": "northAmerica"
+    "region": "North America"
   },
   {
     "femaleFirstNames": [
@@ -239,7 +239,7 @@
       "Flores"
     ],
     "country": "Mexico",
-    "region": "northAmerica"
+    "region": "North America"
   },
   {
     "femaleFirstNames": [
@@ -278,7 +278,7 @@
       "López"
     ],
     "country": "Cuba",
-    "region": "northAmerica"
+    "region": "North America"
   },
   {
     "femaleFirstNames": [
@@ -408,7 +408,7 @@
       "Fisher"
     ],
     "country": "United States",
-    "region": "northAmerica"
+    "region": "North America"
   },
   {
     "femaleFirstNames": [
@@ -538,7 +538,7 @@
       "Maldonado"
     ],
     "country": "Argentina",
-    "region": "southAmerica"
+    "region": "South America"
   },
   {
     "femaleFirstNames": [
@@ -598,7 +598,7 @@
       "Gonçalves"
     ],
     "country": "Brazil",
-    "region": "southAmerica"
+    "region": "South America"
   },
   {
     "femaleFirstNames": [
@@ -643,7 +643,7 @@
       "Jiménez"
     ],
     "country": "Columbia",
-    "region": "southAmerica"
+    "region": "South America"
   },
   {
     "femaleFirstNames": [
@@ -698,7 +698,7 @@
       "Cardozo"
     ],
     "country": "Paraguay",
-    "region": "southAmerica"
+    "region": "South America"
   },
   {
     "femaleFirstNames": [
@@ -739,7 +739,7 @@
       "Prifti"
     ],
     "country": "Albania",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -810,7 +810,7 @@
       "Heilig"
     ],
     "country": "Austria",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -855,7 +855,7 @@
       "Ibrahimov"
     ],
     "country": "Azerbaijan",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -905,7 +905,7 @@
       "Aleksejev"
     ],
     "country": "Belgium",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -965,7 +965,7 @@
       "Barišić"
     ],
     "country": "Croatia",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -1005,7 +1005,7 @@
       "Němec"
     ],
     "country": "Czech",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -1055,7 +1055,7 @@
       "Mortensen"
     ],
     "country": "Denmark",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -1095,7 +1095,7 @@
       "Koppel"
     ],
     "country": "Estonia",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -1147,7 +1147,7 @@
       "Kavaliauskienė"
     ],
     "country": "Faroe Islands",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -1207,7 +1207,7 @@
       "Ahonen"
     ],
     "country": "Finland",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -1267,7 +1267,7 @@
       "Martinez"
     ],
     "country": "France",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -1307,7 +1307,7 @@
       "Hoffmann"
     ],
     "country": "Germany",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -1349,7 +1349,7 @@
       "Antoniou"
     ],
     "country": "Greece",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -1399,7 +1399,7 @@
       "Fekete"
     ],
     "country": "Hungary",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -1449,7 +1449,7 @@
       "Moore"
     ],
     "country": "Ireland",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -1505,7 +1505,7 @@
       "Caruso"
     ],
     "country": "Italy",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -1550,7 +1550,7 @@
       "Vanags"
     ],
     "country": "Latvia",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -1604,7 +1604,7 @@
       "Diederich"
     ],
     "country": "Luxembourg",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -1669,7 +1669,7 @@
       "vski"
     ],
     "country": "Macedonia",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -1710,7 +1710,7 @@
       "Spiteri"
     ],
     "country": "Malta",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -1755,7 +1755,7 @@
       "Cojocari"
     ],
     "country": "Moldova",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -1810,7 +1810,7 @@
       "Van der Meer"
     ],
     "country": "Netherlands",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -1864,7 +1864,7 @@
       "Lund"
     ],
     "country": "Norway",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -1914,7 +1914,7 @@
       "Grabowski"
     ],
     "country": "Poland",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -1994,7 +1994,7 @@
       "Freitas"
     ],
     "country": "Portugal",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -2034,7 +2034,7 @@
       "Ciobanu"
     ],
     "country": "Romania",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -2084,7 +2084,7 @@
       "Vorobyov"
     ],
     "country": "Russia",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -2124,7 +2124,7 @@
       "Lukáč"
     ],
     "country": "Slovakia",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -2184,7 +2184,7 @@
       "Klemenčič"
     ],
     "country": "Slovenia",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -2254,7 +2254,7 @@
       "Iglesias"
     ],
     "country": "Spain",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -2485,7 +2485,7 @@
       "Olofsson"
     ],
     "country": "Sweden",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -2710,7 +2710,7 @@
       "Piero"
     ],
     "country": "Switzerland",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -2750,7 +2750,7 @@
       "Özdemir"
     ],
     "country": "Turkey",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -2800,7 +2800,7 @@
       "Petrenko"
     ],
     "country": "Ukraine",
-    "region": "europe"
+    "region": "Europe"
   },
   {
     "femaleFirstNames": [
@@ -2850,6 +2850,6 @@
       "Clarke"
     ],
     "country": "United Kingdom",
-    "region": "europe"
+    "region": "Europe"
   }
 ]
