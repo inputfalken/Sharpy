@@ -116,7 +116,6 @@ namespace DataGen.Types.Name {
         // ReSharper disable once ClassNeverInstantiated.Local
         // Is generated from json
         private class NameRepository {
-            //TODO configure json file so i can have plural names for the collections
             public NameRepository(IEnumerable<string> femaleFirstNames, IEnumerable<string> maleFirstNames,
                 IEnumerable<string> lastNames, string country, string region) {
                 FemaleFirstNames = femaleFirstNames;
