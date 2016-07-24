@@ -31,7 +31,7 @@ namespace DataGeneratorTests.Types.Name {
 
         [TestMethod]
         public void FirstNameCollectionCountryQuerySweden() {
-            const string stringQuery = "sweden";
+            const string stringQuery = "Sweden";
             var result = NameFactory.FirstNameCollection(stringQuery);
 
             #region Expected 
@@ -247,7 +247,7 @@ namespace DataGeneratorTests.Types.Name {
 
         [TestMethod]
         public void FirstNameCollectionCountryQuerySwedenFemale() {
-            const string stringQuery = "sweden";
+            const string stringQuery = "Sweden";
             var result = NameFactory.FirstNameCollection(stringQuery, Gender.Female);
 
             #region Expected 
@@ -362,7 +362,7 @@ namespace DataGeneratorTests.Types.Name {
 
         [TestMethod]
         public void FirstNameCollectionCountryQuerySwedenMale() {
-            const string stringQuery = "sweden";
+            const string stringQuery = "Sweden";
             var result = NameFactory.FirstNameCollection(stringQuery, Gender.Male);
 
             #region Expected 
@@ -477,7 +477,7 @@ namespace DataGeneratorTests.Types.Name {
         }
 
         public void LastNameCollectionCountryQuerySwedenMale() {
-            const string stringQuery = "sweden";
+            const string stringQuery = "Sweden";
             var result = NameFactory.LastNameCollection(stringQuery);
 
             #region Expected 
@@ -516,7 +516,7 @@ namespace DataGeneratorTests.Types.Name {
 
         [TestMethod]
         public void FirstNameCollectionNorwayMixedGender() {
-            var result = NameFactory.FirstNameCollection("norway");
+            var result = NameFactory.FirstNameCollection("Norway");
 
             #region Expected
 
@@ -550,7 +550,7 @@ namespace DataGeneratorTests.Types.Name {
 
         [TestMethod]
         public void FirstNameCollectionNorwayFemale() {
-            var result = NameFactory.FirstNameCollection("norway", Gender.Female);
+            var result = NameFactory.FirstNameCollection("Norway", Gender.Female);
 
             #region Expected
 
@@ -574,7 +574,7 @@ namespace DataGeneratorTests.Types.Name {
 
         [TestMethod]
         public void FirstNameCollectionNorwayMale() {
-            var result = NameFactory.FirstNameCollection("norway", Gender.Male);
+            var result = NameFactory.FirstNameCollection("Norway", Gender.Male);
 
             #region Expected
 
@@ -597,7 +597,7 @@ namespace DataGeneratorTests.Types.Name {
         }
 
         public void LastNameCollectionNorway() {
-            var result = NameFactory.LastNameCollection("norway");
+            var result = NameFactory.LastNameCollection("Norway");
 
             #region Expected
 
