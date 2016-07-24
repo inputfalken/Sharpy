@@ -11,14 +11,14 @@ namespace DataGeneratorTests.Types.Name {
 
         [TestMethod]
         [ExpectedException(typeof(NullReferenceException))]
-        public void LastNameCollectionCountryQueryFoobar() {
+        public void LastNameCollection_ExceptionHandling() {
             const string countryQuery = "foobar";
             NameFactory.LastNameCollection(countryQuery);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NullReferenceException))]
-        public void FirstNameCollectionCountryQueryFoobar() {
+        public void FirstNameCollection_ExceptionHandling() {
             const string stringQuery = "foobar";
             NameFactory.FirstNameCollection(stringQuery);
         }
@@ -30,7 +30,7 @@ namespace DataGeneratorTests.Types.Name {
         #region Sweden
 
         [TestMethod]
-        public void FirstNameCollectionCountryQuerySweden() {
+        public void FirstNameCollection_Args_Sweden() {
             const string stringQuery = "Sweden";
             var result = NameFactory.FirstNameCollection(stringQuery);
 
@@ -246,7 +246,7 @@ namespace DataGeneratorTests.Types.Name {
         }
 
         [TestMethod]
-        public void FirstNameCollectionCountryQuerySwedenFemale() {
+        public void FirstNameCollection_Args_SwedenFemale() {
             const string stringQuery = "Sweden";
             var result = NameFactory.FirstNameCollection(stringQuery, Gender.Female);
 
@@ -361,7 +361,7 @@ namespace DataGeneratorTests.Types.Name {
         }
 
         [TestMethod]
-        public void FirstNameCollectionCountryQuerySwedenMale() {
+        public void FirstNameCollection_Args_SwedenMale() {
             const string stringQuery = "Sweden";
             var result = NameFactory.FirstNameCollection(stringQuery, Gender.Male);
 
@@ -476,7 +476,8 @@ namespace DataGeneratorTests.Types.Name {
             Assert.IsTrue(expected.SequenceEqual(result));
         }
 
-        public void LastNameCollectionCountryQuerySwedenMale() {
+        [TestMethod]
+        public void LastNameCollection_Args_Sweden() {
             const string stringQuery = "Sweden";
             var result = NameFactory.LastNameCollection(stringQuery);
 
@@ -515,7 +516,7 @@ namespace DataGeneratorTests.Types.Name {
         #region Norway
 
         [TestMethod]
-        public void FirstNameCollectionNorwayMixedGender() {
+        public void FirstNameCollection_Args_Norway() {
             var result = NameFactory.FirstNameCollection("Norway");
 
             #region Expected
@@ -549,7 +550,7 @@ namespace DataGeneratorTests.Types.Name {
         }
 
         [TestMethod]
-        public void FirstNameCollectionNorwayFemale() {
+        public void FirstNameCollection_Args_NorwayFemale() {
             var result = NameFactory.FirstNameCollection("Norway", Gender.Female);
 
             #region Expected
@@ -573,7 +574,7 @@ namespace DataGeneratorTests.Types.Name {
         }
 
         [TestMethod]
-        public void FirstNameCollectionNorwayMale() {
+        public void FirstNameCollection_Args_NorwayMale() {
             var result = NameFactory.FirstNameCollection("Norway", Gender.Male);
 
             #region Expected
@@ -596,7 +597,7 @@ namespace DataGeneratorTests.Types.Name {
             Assert.IsTrue(result.SequenceEqual(expected));
         }
 
-        public void LastNameCollectionNorway() {
+        public void LastNameCollection_Args_Norway() {
             var result = NameFactory.LastNameCollection("Norway");
 
             #region Expected
