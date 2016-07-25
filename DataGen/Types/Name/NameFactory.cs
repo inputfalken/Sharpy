@@ -22,8 +22,8 @@ namespace DataGen.Types.Name {
             => Filter.RepeatedData(NameRepositories.SelectMany(repository => repository.LastNames));
 
 
-
-        public static IEnumerable<string> NameCollection(Func<NameRepository, IEnumerable<string>> func, params string[] countries) {
+        public static IEnumerable<string> NameCollection(Func<NameRepository, IEnumerable<string>> func,
+            params string[] countries) {
             var list = new List<string>();
             foreach (var country in countries) {
                 var firstOrDefault = NameRepositories.FirstOrDefault(repository => repository.Origin.Country == country);
@@ -32,6 +32,12 @@ namespace DataGen.Types.Name {
                 list.AddRange(func(firstOrDefault));
             }
             return Filter.RepeatedData(list);
+        }
+
+        public static IEnumerable<string> NameCollection(Func<NameRepository, IEnumerable<string>> func, Region region) {
+            var list = new List<string>();
+            foreach (var nameRepository in FilterByRegion(region)) list.AddRange(func(nameRepository));
+            return list;
         }
 
 
@@ -61,7 +67,6 @@ namespace DataGen.Types.Name {
         public static IEnumerable<string> FirstNameCollection(Region region)
             => Filter.RepeatedData(FilterByRegion(region)
                 .SelectMany(repository => repository.MixedFirstNames));
-
 
 
         /// <summary>
