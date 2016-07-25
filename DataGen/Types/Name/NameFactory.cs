@@ -22,23 +22,7 @@ namespace DataGen.Types.Name {
             => Filter.RepeatedData(NameRepositories.SelectMany(repository => repository.LastNames));
 
 
-        /// <summary>
-        ///     Returns a iterator of unique last name whos data is filtered by country
-        /// </summary>
-        /// <param name="countries"></param>
-        /// <returns></returns>
-        public static IEnumerable<string> LastNameCollection(params string[] countries) {
-            var list = new List<string>();
-            foreach (var country in countries) {
-                var firstOrDefault = NameRepositories.FirstOrDefault(repository => repository.Origin.Country == country);
-                if (firstOrDefault == null)
-                    throw new NullReferenceException($"Country: {country} was not found");
-                list.AddRange(firstOrDefault.LastNames);
-            }
-            return Filter.RepeatedData(list);
-        }
 
-        //makes firstnamecollection & Lastname seem redundant
         public static IEnumerable<string> NameCollection(Func<NameRepository, IEnumerable<string>> func, params string[] countries) {
             var list = new List<string>();
             foreach (var country in countries) {
@@ -79,22 +63,6 @@ namespace DataGen.Types.Name {
                 .SelectMany(repository => repository.MixedFirstNames));
 
 
-        /// <summary>
-        ///     Returns a iterator of unique first names whose data is filtered by country
-        /// </summary>
-        /// <param name="countries"></param>
-        /// <returns></returns>
-        public static IEnumerable<string> FirstNameCollection(params string[] countries) {
-            var list = new List<string>();
-            foreach (var country in countries) {
-                var singleOrDefault = NameRepositories
-                    .SingleOrDefault(repository => repository.Origin.Country == country);
-                if (singleOrDefault == null)
-                    throw new NullReferenceException("Country Not Found");
-                list.AddRange(singleOrDefault.MixedFirstNames);
-            }
-            return Filter.RepeatedData(list);
-        }
 
         /// <summary>
         ///     Returns a iterator of unique first names whose data is filtered by gender

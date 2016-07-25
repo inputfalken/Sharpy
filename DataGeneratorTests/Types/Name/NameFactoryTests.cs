@@ -14,14 +14,14 @@ namespace DataGeneratorTests.Types.Name {
         [ExpectedException(typeof(NullReferenceException))]
         public void LastNameCollection_ExceptionHandling() {
             const string countryQuery = "foobar";
-            NameFactory.LastNameCollection(countryQuery);
+            NameFactory.NameCollection(repository => repository.LastNames, countryQuery);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NullReferenceException))]
         public void FirstNameCollection_ExceptionHandling() {
             const string stringQuery = "foobar";
-            NameFactory.FirstNameCollection(stringQuery);
+            NameFactory.NameCollection(repository => repository.MixedFirstNames, stringQuery);
         }
 
         #endregion
@@ -31,7 +31,7 @@ namespace DataGeneratorTests.Types.Name {
         [TestMethod]
         public void FirstNameCollection_Args_Sweden() {
             const string stringQuery = "Sweden";
-            var result = NameFactory.FirstNameCollection(stringQuery);
+            var result = NameFactory.NameCollection(repository => repository.MixedFirstNames,stringQuery);
 
             #region Expected 
 
@@ -522,7 +522,7 @@ namespace DataGeneratorTests.Types.Name {
             var femaleFirstNameCollectionFromSwedenGermanyNorway =
                 NameFactory.FirstNameCollection(Gender.Female, "Sweden", "Germany", "Norway").ToList();
             var mixedFirstNameCollectionFromSwedenGermanyNorway =
-                NameFactory.FirstNameCollection("Sweden", "Germany", "Norway").ToList();
+                NameFactory.NameCollection(repository => repository.MixedFirstNames,"Sweden", "Germany", "Norway").ToList();
             //Tests that result contains names from the countries Sweden, Germany & Norway, Will fail the moment expected2 would contain something different
             Assert.IsTrue(maleFirstNameCollectionFromSwedenGermanyNorway.TrueForAll(s => result.Contains(s)));
             //Tests Male names from four different countries, Will fail the moment expected2 would contain something different
@@ -535,7 +535,7 @@ namespace DataGeneratorTests.Types.Name {
 
         [TestMethod]
         public void FirstNameCollection_Args_Norway() {
-            var result = NameFactory.FirstNameCollection("Norway");
+            var result = NameFactory.NameCollection(repository => repository.MixedFirstNames, "Norway");
 
             #region Expected
 
@@ -838,11 +838,11 @@ namespace DataGeneratorTests.Types.Name {
         [TestMethod]
         [ExpectedException(typeof(NullReferenceException))]
         public void LastNameCollection_Args_NorwayFoobar()
-            => NameFactory.LastNameCollection("Norway", "Foobar");
+            => NameFactory.NameCollection(repository => repository.LastNames, "Norway", "Foobar");
 
         [TestMethod]
         public void LastNameCollection_Args_Norway() {
-            var result = NameFactory.LastNameCollection("Norway");
+            var result = NameFactory.NameCollection(repository => repository.LastNames, "Norway");
 
             #region Expected
 
@@ -881,7 +881,7 @@ namespace DataGeneratorTests.Types.Name {
         [TestMethod]
         public void LastNameCollection_Args_Sweden() {
             const string stringQuery = "Sweden";
-            var result = NameFactory.LastNameCollection(stringQuery);
+            var result = NameFactory.NameCollection(repository => repository.LastNames, stringQuery);
 
             #region Expected 
 
@@ -916,7 +916,7 @@ namespace DataGeneratorTests.Types.Name {
 
         [TestMethod]
         public void LastNameCollection_Args_NorwaySweden() {
-            var result = NameFactory.LastNameCollection("Norway", "Sweden");
+            var result = NameFactory.NameCollection(repository => repository.LastNames, "Norway", "Sweden");
 
             #region Expected
 
