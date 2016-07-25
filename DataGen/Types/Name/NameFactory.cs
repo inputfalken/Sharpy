@@ -38,6 +38,18 @@ namespace DataGen.Types.Name {
             return Filter.RepeatedData(list);
         }
 
+        //makes firstnamecollection & Lastname seem redundant
+        public static IEnumerable<string> NameCollection(Func<NameRepository, IEnumerable<string>> func, params string[] countries) {
+            var list = new List<string>();
+            foreach (var country in countries) {
+                var firstOrDefault = NameRepositories.FirstOrDefault(repository => repository.Origin.Country == country);
+                if (firstOrDefault == null)
+                    throw new NullReferenceException($"Country: {country} was not found");
+                list.AddRange(func(firstOrDefault));
+            }
+            return Filter.RepeatedData(list);
+        }
+
 
         /// <summary>
         ///     Returns a iterator of unique lastname whose data is filtered by region
@@ -131,9 +143,9 @@ namespace DataGen.Types.Name {
             }
         }
 
-        // ReSharper disable once ClassNeverInstantiated.Local
         // Is generated from json
-        private class NameRepository {
+        // ReSharper disable once ClassNeverInstantiated.Global
+        public class NameRepository {
             public NameRepository(IEnumerable<string> femaleFirstNames, IEnumerable<string> maleFirstNames,
                 IEnumerable<string> lastNames, string country, string region) {
                 FemaleFirstNames = femaleFirstNames;
@@ -151,7 +163,7 @@ namespace DataGen.Types.Name {
                 => FemaleFirstNames.Concat(MaleFirstNames);
         }
 
-        private class Origin {
+        public class Origin {
             public readonly string Country;
             public readonly string Region;
 
