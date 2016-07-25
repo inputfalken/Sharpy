@@ -637,5 +637,68 @@ namespace DataGeneratorTests.Types.Name {
         #endregion
 
         #endregion
+
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void LastNameCollection_Args_NorwayAndFoobar() 
+            => NameFactory.LastNameCollection("Norway", "Foobar");
+
+        [TestMethod]
+        public void LastNameCollection_Args_NorwayAndSweden() {
+            var result = NameFactory.LastNameCollection("Norway", "Sweden");
+
+            #region Expected
+
+            IEnumerable<string> expected = new List<string>() {
+                "Hansen",
+                "Johansen",
+                "Olsen",
+                "Larsen",
+                "Andersen",
+                "Pedersen",
+                "Nilsen",
+                "Kristiansen",
+                "Jensen",
+                "Karlsen",
+                "Johnsen",
+                "Pettersen",
+                "Eriksen",
+                "Berg",
+                "Haugen",
+                "Hagen",
+                "Johannessen",
+                "Andreassen",
+                "Jacobsen",
+                "Dahl",
+                "Jørgensen",
+                "Halvorsen",
+                "Henriksen",
+                "Lund",
+                "Andersson",
+                "Johansson",
+                "Karlsson",
+                "Nilsson",
+                "Eriksson",
+                "Larsson",
+                "Olsson",
+                "Persson",
+                "Svensson",
+                "Gustafsson",
+                "Pettersson",
+                "Jonsson",
+                "Jansson",
+                "Hansson",
+                "Bengtsson",
+                "Jönsson",
+                "Lindberg",
+                "Jakobsson",
+                "Magnusson",
+                "Olofsson"
+            };
+
+            #endregion
+
+            Assert.IsTrue(result.SequenceEqual(expected));
+        }
     }
 }

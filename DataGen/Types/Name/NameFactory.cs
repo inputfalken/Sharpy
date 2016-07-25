@@ -5,6 +5,7 @@ using System.Linq;
 using Newtonsoft.Json;
 
 //Todo find a way for the user to decide if he only wants string of names or objects
+
 namespace DataGen.Types.Name {
     public static class NameFactory {
         private const string FilePath = "Data/Types/Name/data.json";
@@ -24,13 +25,17 @@ namespace DataGen.Types.Name {
         /// <summary>
         ///     Returns a iterator of unique last name whos data is filtered by country
         /// </summary>
-        /// <param name="country"></param>
+        /// <param name="countries"></param>
         /// <returns></returns>
-        public static IEnumerable<string> LastNameCollection(string country) {
-            var firstOrDefault = NameRepositories.FirstOrDefault(repository => repository.Origin.Country == country);
-            if (firstOrDefault == null)
-                throw new NullReferenceException("Country Not Found");
-            return firstOrDefault.LastNames;
+        public static IEnumerable<string> LastNameCollection(params string[] countries) {
+            var list = new List<string>();
+            foreach (var country in countries) {
+                var firstOrDefault = NameRepositories.FirstOrDefault(repository => repository.Origin.Country == country);
+                if (firstOrDefault == null)
+                    throw new NullReferenceException($"Country: {country} was not found");
+                list.AddRange(firstOrDefault.LastNames);
+            }
+            return list;
         }
 
 
@@ -99,10 +104,6 @@ namespace DataGen.Types.Name {
                 : NameRepositories.Single(repository => repository.Origin.Country == country).MaleFirstNames;
 
 
-        //New Object strucutre NameInformation: string data, enum gender, Origin origin(consists of region name  & country name)
-        //Data.json should be an list of only nameinformation.
-        // Use node to rewrite to the structure, create which creates another unisex string gender
-        // Will make mocking much easier & easier to entertain
         private static IEnumerable<NameRepository> FilterByRegion(Region region) {
             switch (region) {
                 case Region.Europe:
@@ -133,6 +134,7 @@ namespace DataGen.Types.Name {
             public IEnumerable<string> LastNames { get; }
             public IEnumerable<string> MaleFirstNames { get; }
             public Origin Origin { get; }
+
             public IEnumerable<string> MixedFirstNames
                 => FemaleFirstNames.Concat(MaleFirstNames);
         }
