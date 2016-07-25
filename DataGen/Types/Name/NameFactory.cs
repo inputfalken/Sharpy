@@ -35,7 +35,7 @@ namespace DataGen.Types.Name {
                     throw new NullReferenceException($"Country: {country} was not found");
                 list.AddRange(firstOrDefault.LastNames);
             }
-            return list;
+            return Filter.RepeatedData(list);
         }
 
 
@@ -70,16 +70,19 @@ namespace DataGen.Types.Name {
         /// <summary>
         ///     Returns a iterator of unique first names whose data is filtered by country
         /// </summary>
-        /// <param name="country"></param>
+        /// <param name="countries"></param>
         /// <returns></returns>
-        public static IEnumerable<string> FirstNameCollection(string country) {
-            var singleOrDefault = NameRepositories
-                .SingleOrDefault(repository => repository.Origin.Country == country);
-            if (singleOrDefault == null)
-                throw new NullReferenceException("Country Not Found");
-            return singleOrDefault.MixedFirstNames;
+        public static IEnumerable<string> FirstNameCollection(params string[] countries) {
+            var list = new List<string>();
+            foreach (var country in countries) {
+                var singleOrDefault = NameRepositories
+                    .SingleOrDefault(repository => repository.Origin.Country == country);
+                if (singleOrDefault == null)
+                    throw new NullReferenceException("Country Not Found");
+                list.AddRange(singleOrDefault.MixedFirstNames);
+            }
+            return Filter.RepeatedData(list);
         }
-
 
         /// <summary>
         ///     Returns a iterator of unique first names whose data is filtered by gender
