@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DataGen.Types.Date;
 using DataGen.Types.Name;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -25,9 +26,7 @@ namespace DataGeneratorTests.Types.Name {
 
         #endregion
 
-        #region Countries
-
-        #region Sweden
+        #region FirstNames
 
         [TestMethod]
         public void FirstNameCollection_Args_Sweden() {
@@ -248,7 +247,7 @@ namespace DataGeneratorTests.Types.Name {
         [TestMethod]
         public void FirstNameCollection_Args_SwedenFemale() {
             const string stringQuery = "Sweden";
-            var result = NameFactory.FirstNameCollection(stringQuery, Gender.Female);
+            var result = NameFactory.FirstNameCollection(Gender.Female, stringQuery);
 
             #region Expected 
 
@@ -363,7 +362,7 @@ namespace DataGeneratorTests.Types.Name {
         [TestMethod]
         public void FirstNameCollection_Args_SwedenMale() {
             const string stringQuery = "Sweden";
-            var result = NameFactory.FirstNameCollection(stringQuery, Gender.Male);
+            var result = NameFactory.FirstNameCollection(Gender.Male, stringQuery);
 
             #region Expected 
 
@@ -477,43 +476,62 @@ namespace DataGeneratorTests.Types.Name {
         }
 
         [TestMethod]
-        public void LastNameCollection_Args_Sweden() {
-            const string stringQuery = "Sweden";
-            var result = NameFactory.LastNameCollection(stringQuery);
+        public void FirstNameCollection_Args_Male() {
+            var result = NameFactory.FirstNameCollection(Gender.Male);
 
-            #region Expected 
+            #region expected
 
-            IEnumerable<string> expected = new List<string> {
-                "Andersson",
-                "Johansson",
-                "Karlsson",
-                "Nilsson",
-                "Eriksson",
-                "Larsson",
-                "Olsson",
-                "Persson",
-                "Svensson",
-                "Gustafsson",
-                "Pettersson",
-                "Jonsson",
-                "Jansson",
-                "Hansson",
-                "Bengtsson",
-                "Jönsson",
-                "Lindberg",
-                "Jakobsson",
-                "Magnusson",
-                "Olofsson"
+            //Contains male names from 4 different countries
+            var maleFirstNamesFromFourDifferentCountries = new List<string> {
+                "David",
+                "Keylor",
+                "Victor",
+                "greivin",
+                "Diego",
+                "Enrique",
+                "alonso",
+                "Carlos",
+                "Leonel",
+                "fabrici",
+                "Oliver",
+                "Jack",
+                "Harry",
+                "Jacob",
+                "Charlie",
+                "Thomas",
+                "George",
+                "Oscar",
+                "James",
+                "William",
+                "Artem",
+                "Denys",
+                "Daniil",
+                "Danilo",
+                "Oleksandr",
+                "Andriy",
+                "Bohdan",
+                "Dmytro",
+                "Nikita",
+                "Nazar"
             };
 
             #endregion
 
-            Assert.IsTrue(expected.SequenceEqual(result));
+            var maleFirstNameCollectionFromSwedenGermanyNorway =
+                NameFactory.FirstNameCollection(Gender.Male, "Sweden", "Germany", "Norway").ToList();
+            var femaleFirstNameCollectionFromSwedenGermanyNorway =
+                NameFactory.FirstNameCollection(Gender.Female, "Sweden", "Germany", "Norway").ToList();
+            var mixedFirstNameCollectionFromSwedenGermanyNorway =
+                NameFactory.FirstNameCollection("Sweden", "Germany", "Norway").ToList();
+            //Tests that result contains names from the countries Sweden, Germany & Norway, Will fail the moment expected2 would contain something different
+            Assert.IsTrue(maleFirstNameCollectionFromSwedenGermanyNorway.TrueForAll(s => result.Contains(s)));
+            //Tests Male names from four different countries, Will fail the moment expected2 would contain something different
+            Assert.IsTrue(maleFirstNamesFromFourDifferentCountries.TrueForAll(s => result.Contains(s)));
+            Assert.IsFalse(femaleFirstNameCollectionFromSwedenGermanyNorway.TrueForAll(s => result.Contains(s)));
+            Assert.IsFalse(mixedFirstNameCollectionFromSwedenGermanyNorway.TrueForAll(s => result.Contains(s)));
         }
 
         #endregion
-
-        #region Norway
 
         [TestMethod]
         public void FirstNameCollection_Args_Norway() {
@@ -551,7 +569,7 @@ namespace DataGeneratorTests.Types.Name {
 
         [TestMethod]
         public void FirstNameCollection_Args_NorwayFemale() {
-            var result = NameFactory.FirstNameCollection("Norway", Gender.Female);
+            var result = NameFactory.FirstNameCollection(Gender.Female, "Norway");
 
             #region Expected
 
@@ -575,7 +593,7 @@ namespace DataGeneratorTests.Types.Name {
 
         [TestMethod]
         public void FirstNameCollection_Args_NorwayMale() {
-            var result = NameFactory.FirstNameCollection("Norway", Gender.Male);
+            var result = NameFactory.FirstNameCollection(Gender.Male, "Norway");
 
             #region Expected
 
@@ -597,6 +615,232 @@ namespace DataGeneratorTests.Types.Name {
             Assert.IsTrue(result.SequenceEqual(expected));
         }
 
+
+        [TestMethod]
+        public void FirstNameCollection_Args_NorwaySwedenMale() {
+            var result = NameFactory.FirstNameCollection(Gender.Male, "Sweden", "Switzerland");
+
+            #region Expected
+
+            var expected = new List<string>() {
+                "Filip",
+                "Oscar",
+                "William",
+                "Viktor",
+                "Simon",
+                "Anton",
+                "Erik",
+                "Alexander",
+                "Emil",
+                "Lucas",
+                "Jonathan",
+                "Linus",
+                "Adam",
+                "Marcus",
+                "Jacob",
+                "Albin",
+                "Gustav",
+                "Isak",
+                "Sebastian",
+                "David",
+                "Daniel",
+                "Hugo",
+                "Rasmus",
+                "Carl",
+                "Elias",
+                "Samuel",
+                "Hampus",
+                "Kevin",
+                "Oliver",
+                "Axel",
+                "Johan",
+                "Jesper",
+                "Ludvig",
+                "Felix",
+                "Max",
+                "Robin",
+                "Joel",
+                "Mattias",
+                "Martin",
+                "Andreas",
+                "Pontus",
+                "Christoffer",
+                "Fredrik",
+                "Gabriel",
+                "Edvin",
+                "Tobias",
+                "Casper",
+                "Dennis",
+                "Tim",
+                "Johannes",
+                "Joakim",
+                "Arvid",
+                "Benjamin",
+                "Niklas",
+                "Nils",
+                "Noah",
+                "Elliot",
+                "Hannes",
+                "Alex",
+                "Fabian",
+                "Olle",
+                "Henrik",
+                "Christian",
+                "Leo",
+                "John",
+                "Mikael",
+                "Jonas",
+                "Mohamed",
+                "Rickard",
+                "Josef",
+                "Adrian",
+                "Liam",
+                "Alfred",
+                "André",
+                "Theodor",
+                "Melker",
+                "Wilhelm",
+                "Patrik",
+                "Kalle",
+                "Måns",
+                "August",
+                "Theo",
+                "Kim",
+                "Love",
+                "Melvin",
+                "Petter",
+                "Robert",
+                "Vincent",
+                "Ahmed",
+                "Douglas",
+                "Ali",
+                "Emanuel",
+                "Herman",
+                "Albert",
+                "Eddie",
+                "Leon",
+                "Julius",
+                "Aron",
+                "Thomas",
+                "Jack",
+                "Tom",
+                "Filip",
+                "Oscar",
+                "William",
+                "Viktor",
+                "Simon",
+                "Anton",
+                "Erik",
+                "Alexander",
+                "Emil",
+                "Lucas",
+                "Jonathan",
+                "Linus",
+                "Adam",
+                "Marcus",
+                "Jacob",
+                "Albin",
+                "Gustav",
+                "Isak",
+                "Sebastian",
+                "David",
+                "Daniel",
+                "Hugo",
+                "Rasmus",
+                "Carl",
+                "Elias",
+                "Samuel",
+                "Hampus",
+                "Kevin",
+                "Oliver",
+                "Axel",
+                "Johan",
+                "Jesper",
+                "Ludvig",
+                "Felix",
+                "Max",
+                "Robin",
+                "Joel",
+                "Mattias",
+                "Martin",
+                "Andreas",
+                "Pontus",
+                "Christoffer",
+                "Fredrik",
+                "Gabriel",
+                "Edvin",
+                "Tobias",
+                "Casper",
+                "Dennis",
+                "Tim",
+                "Johannes",
+                "Joakim",
+                "Arvid",
+                "Benjamin",
+                "Niklas",
+                "Nils",
+                "Noah",
+                "Elliot",
+                "Hannes",
+                "Alex",
+                "Fabian",
+                "Olle",
+                "Henrik",
+                "Christian",
+                "Leo",
+                "John",
+                "Mikael",
+                "Jonas",
+                "Mohamed",
+                "Rickard",
+                "Josef",
+                "Adrian",
+                "Liam",
+                "Alfred",
+                "André",
+                "Theodor",
+                "Melker",
+                "Wilhelm",
+                "Patrik",
+                "Kalle",
+                "Måns",
+                "August",
+                "Theo",
+                "Kim",
+                "Love",
+                "Melvin",
+                "Petter",
+                "Robert",
+                "Vincent",
+                "Ahmed",
+                "Douglas",
+                "Ali",
+                "Emanuel",
+                "Herman",
+                "Albert",
+                "Eddie",
+                "Leon",
+                "Julius",
+                "Aron",
+                "Thomas",
+                "Jack",
+                "Tom"
+            };
+
+            #endregion
+
+            //Contains duplication of names
+            Assert.IsFalse(result.SequenceEqual(expected));
+        }
+
+        #region LastNames
+
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void LastNameCollection_Args_NorwayFoobar()
+            => NameFactory.LastNameCollection("Norway", "Foobar");
+
+        [TestMethod]
         public void LastNameCollection_Args_Norway() {
             var result = NameFactory.LastNameCollection("Norway");
 
@@ -634,17 +878,44 @@ namespace DataGeneratorTests.Types.Name {
             Assert.IsTrue(result.SequenceEqual(expected));
         }
 
-        #endregion
+        [TestMethod]
+        public void LastNameCollection_Args_Sweden() {
+            const string stringQuery = "Sweden";
+            var result = NameFactory.LastNameCollection(stringQuery);
 
-        #endregion
+            #region Expected 
+
+            IEnumerable<string> expected = new List<string> {
+                "Andersson",
+                "Johansson",
+                "Karlsson",
+                "Nilsson",
+                "Eriksson",
+                "Larsson",
+                "Olsson",
+                "Persson",
+                "Svensson",
+                "Gustafsson",
+                "Pettersson",
+                "Jonsson",
+                "Jansson",
+                "Hansson",
+                "Bengtsson",
+                "Jönsson",
+                "Lindberg",
+                "Jakobsson",
+                "Magnusson",
+                "Olofsson"
+            };
+
+            #endregion
+
+            Assert.IsTrue(expected.SequenceEqual(result));
+        }
+
 
         [TestMethod]
-        [ExpectedException(typeof(NullReferenceException))]
-        public void LastNameCollection_Args_NorwayAndFoobar() 
-            => NameFactory.LastNameCollection("Norway", "Foobar");
-
-        [TestMethod]
-        public void LastNameCollection_Args_NorwayAndSweden() {
+        public void LastNameCollection_Args_NorwaySweden() {
             var result = NameFactory.LastNameCollection("Norway", "Sweden");
 
             #region Expected
@@ -701,4 +972,6 @@ namespace DataGeneratorTests.Types.Name {
             Assert.IsTrue(result.SequenceEqual(expected));
         }
     }
+
+    #endregion
 }

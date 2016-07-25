@@ -98,13 +98,22 @@ namespace DataGen.Types.Name {
         /// <summary>
         ///     Returns a iterator of unique first names filtered by country & gender
         /// </summary>
-        /// <param name="country"></param>
         /// <param name="gender"></param>
+        /// <param name="countries"></param>
         /// <returns></returns>
-        public static IEnumerable<string> FirstNameCollection(string country, Gender gender)
-            => gender == Gender.Female
-                ? NameRepositories.Single(repository => repository.Origin.Country == country).FemaleFirstNames
-                : NameRepositories.Single(repository => repository.Origin.Country == country).MaleFirstNames;
+        public static IEnumerable<string> FirstNameCollection(Gender gender, params string[] countries) {
+            var list = new List<string>();
+            foreach (var country in countries) {
+                var singleOrDefault = NameRepositories
+                    .SingleOrDefault(repository => repository.Origin.Country == country);
+                if (singleOrDefault == null)
+                    throw new NullReferenceException("Country Not Found");
+                list.AddRange(gender == Gender.Female
+                    ? singleOrDefault.FemaleFirstNames
+                    : singleOrDefault.MaleFirstNames);
+            }
+            return Filter.RepeatedData(list);
+        }
 
 
         private static IEnumerable<NameRepository> FilterByRegion(Region region) {
