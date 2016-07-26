@@ -875,7 +875,7 @@ namespace DataGeneratorTests.Types.Name {
 
         [TestMethod]
         public void FirstNameCollection_Args_Male() {
-            var result = NameFactory.FirstNameCollection(Gender.Male);
+            var result = NameFactory.NameCollection(repository => repository.MaleFirstNames);
 
             #region expected
 
