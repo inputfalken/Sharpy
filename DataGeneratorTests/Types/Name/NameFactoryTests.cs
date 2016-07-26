@@ -19,6 +19,14 @@ namespace DataGeneratorTests.Types.Name {
             Assert.IsTrue(result.SequenceEqual(expected));
         }
 
+        [TestMethod]
+        public void NameCollection_LastNames_Arg_SouthAmerica() {
+            var result = NameFactory.NameCollection(repository => repository.LastNames, Region.SouthAmerica);
+            var expected = NameFactory.NameCollection(repository => repository.LastNames, "Argentina", "Brazil",
+                "Columbia", "Paraguay");
+            Assert.IsTrue(result.SequenceEqual(expected));
+        }
+
         #endregion
 
         #region Exception Handling
