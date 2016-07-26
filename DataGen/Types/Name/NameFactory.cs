@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
 
-//Todo find a way for the user to decide if he only wants string of names or objects
+//Todo Rework json again to either camelCase or PascalCase was better...
 
 namespace DataGen.Types.Name {
     public static class NameFactory {
@@ -36,8 +36,11 @@ namespace DataGen.Types.Name {
 
         public static IEnumerable<string> NameCollection(Func<NameRepository, IEnumerable<string>> func, Region region) {
             var list = new List<string>();
-            foreach (var nameRepository in FilterByRegion(region)) list.AddRange(func(nameRepository));
-            return list;
+            var enumer = FilterByRegion(region);
+            foreach (var nameRepository in enumer) {
+                list.AddRange(func(nameRepository));
+            }
+            return Filter.RepeatedData(list);
         }
 
 
@@ -148,10 +151,10 @@ namespace DataGen.Types.Name {
 
         #region Regions
 
-        private const string Europe = "europe";
-        private const string NorthAmerica = "northAmerica";
-        private const string SouthAmerica = "southAmerica";
-        private const string CentralAmerica = "centralAmerica";
+        private const string Europe = "Europe";
+        private const string NorthAmerica = "North America";
+        private const string SouthAmerica = "South America";
+        private const string CentralAmerica = "Central America";
 
         #endregion
     }
