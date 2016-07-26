@@ -14,14 +14,6 @@ namespace DataGen.Types.Name {
             => JsonConvert.DeserializeObject<IEnumerable<NameRepository>>(File.ReadAllText(FilePath));
 
 
-        /// <summary>
-        ///     Returns a iterator of unique last names whose data is not filtered
-        /// </summary>
-        /// <returns></returns>
-        public static IEnumerable<string> LastNameCollection()
-            => Filter.RepeatedData(NameRepositories.SelectMany(repository => repository.LastNames));
-
-
         public static IEnumerable<string> NameCollection(Func<NameRepository, IEnumerable<string>> func,
             params string[] countries) {
             var list = new List<string>();
@@ -37,12 +29,9 @@ namespace DataGen.Types.Name {
         public static IEnumerable<string> NameCollection(Func<NameRepository, IEnumerable<string>> func,
             params Region[] regions) {
             var list = new List<string>();
-            foreach (var region in regions) {
-                var enumer = FilterByRegion(region);
-                foreach (var nameRepository in enumer) {
+            foreach (var region in regions)
+                foreach (var nameRepository in FilterByRegion(region))
                     list.AddRange(func(nameRepository));
-                }
-            }
             return Filter.RepeatedData(list);
         }
 

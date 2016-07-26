@@ -35,7 +35,6 @@ namespace DataGeneratorTests.Types.Name {
             Assert.IsTrue(result.SequenceEqual(expected));
         }
 
-
         [TestMethod]
         public void NameCollection_LastNames_Arg_Europe() {
             var result = NameFactory.NameCollection(repository => repository.LastNames, Region.Europe);
@@ -46,6 +45,15 @@ namespace DataGeneratorTests.Types.Name {
                 "Spain", "Sweden", "Switzerland", "Turkey", "Ukraine", "United Kingdom");
             Assert.IsTrue(result.SequenceEqual(expected));
         }
+
+        [TestMethod]
+        public void NameCollection_LastNames_Arg_None() {
+            var result = NameFactory.NameCollection(repository => repository.LastNames);
+            var expected = NameFactory.NameCollection(repository => repository.LastNames, Region.CentralAmerika,
+                Region.NorthAmerica, Region.SouthAmerica, Region.Europe);
+            Assert.IsTrue(result.SequenceEqual(expected));
+        }
+
         #endregion
 
         #region Exception Handling
