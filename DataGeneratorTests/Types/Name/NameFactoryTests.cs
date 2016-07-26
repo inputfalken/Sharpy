@@ -46,7 +46,6 @@ namespace DataGeneratorTests.Types.Name {
                 "Spain", "Sweden", "Switzerland", "Turkey", "Ukraine", "United Kingdom");
             Assert.IsTrue(result.SequenceEqual(expected));
         }
-
         #endregion
 
         #region Exception Handling
