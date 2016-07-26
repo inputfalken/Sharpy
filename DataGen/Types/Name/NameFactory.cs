@@ -34,12 +34,22 @@ namespace DataGen.Types.Name {
             return Filter.RepeatedData(list);
         }
 
-        public static IEnumerable<string> NameCollection(Func<NameRepository, IEnumerable<string>> func, Region region) {
+        public static IEnumerable<string> NameCollection(Func<NameRepository, IEnumerable<string>> func,
+            params Region[] regions) {
             var list = new List<string>();
-            var enumer = FilterByRegion(region);
-            foreach (var nameRepository in enumer) {
-                list.AddRange(func(nameRepository));
+            foreach (var region in regions) {
+                var enumer = FilterByRegion(region);
+                foreach (var nameRepository in enumer) {
+                    list.AddRange(func(nameRepository));
+                }
             }
+            return Filter.RepeatedData(list);
+        }
+
+        public static IEnumerable<string> NameCollection(Func<NameRepository, IEnumerable<string>> func) {
+            var list = new List<string>();
+            foreach (var nameRepository in NameRepositories)
+                list.AddRange(func(nameRepository));
             return Filter.RepeatedData(list);
         }
 
