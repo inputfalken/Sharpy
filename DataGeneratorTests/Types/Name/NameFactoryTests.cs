@@ -1,14 +1,312 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
-using DataGen.Types.Date;
 using DataGen.Types.Name;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DataGeneratorTests.Types.Name {
     [TestClass]
     public class NameFactoryTests {
+        [TestMethod]
+        public void FirstNameCollection_Args_Norway() {
+            var result = NameFactory.NameCollection(repository => repository.MixedFirstNames, "Norway");
+
+            #region Expected
+
+            IEnumerable<string> expected = new List<string> {
+                "Ida",
+                "Emilie",
+                "Julie",
+                "Thea",
+                "Sara",
+                "Ingrid",
+                "Malin",
+                "Maria",
+                "Marte",
+                "Nora",
+                "Markus",
+                "Kristian",
+                "Martin",
+                "Sander",
+                "Kristoffer",
+                "Mathias",
+                "Andreas",
+                "Jonas",
+                "Henrik",
+                "Daniel"
+            };
+
+            #endregion
+
+            Assert.IsTrue(result.SequenceEqual(expected));
+        }
+
+        [TestMethod]
+        public void FirstNameCollection_Args_NorwayFemale() {
+            var result = NameFactory.FirstNameCollection(Gender.Female, "Norway");
+
+            #region Expected
+
+            IEnumerable<string> expected = new List<string> {
+                "Ida",
+                "Emilie",
+                "Julie",
+                "Thea",
+                "Sara",
+                "Ingrid",
+                "Malin",
+                "Maria",
+                "Marte",
+                "Nora"
+            };
+
+            #endregion
+
+            Assert.IsTrue(result.SequenceEqual(expected));
+        }
+
+        [TestMethod]
+        public void FirstNameCollection_Args_NorwayMale() {
+            var result = NameFactory.FirstNameCollection(Gender.Male, "Norway");
+
+            #region Expected
+
+            IEnumerable<string> expected = new List<string> {
+                "Markus",
+                "Kristian",
+                "Martin",
+                "Sander",
+                "Kristoffer",
+                "Mathias",
+                "Andreas",
+                "Jonas",
+                "Henrik",
+                "Daniel"
+            };
+
+            #endregion
+
+            Assert.IsTrue(result.SequenceEqual(expected));
+        }
+
+
+        [TestMethod]
+        public void FirstNameCollection_Args_NorwaySwedenMale() {
+            var result = NameFactory.FirstNameCollection(Gender.Male, "Sweden", "Switzerland");
+
+            #region Expected
+
+            var expected = new List<string> {
+                "Filip",
+                "Oscar",
+                "William",
+                "Viktor",
+                "Simon",
+                "Anton",
+                "Erik",
+                "Alexander",
+                "Emil",
+                "Lucas",
+                "Jonathan",
+                "Linus",
+                "Adam",
+                "Marcus",
+                "Jacob",
+                "Albin",
+                "Gustav",
+                "Isak",
+                "Sebastian",
+                "David",
+                "Daniel",
+                "Hugo",
+                "Rasmus",
+                "Carl",
+                "Elias",
+                "Samuel",
+                "Hampus",
+                "Kevin",
+                "Oliver",
+                "Axel",
+                "Johan",
+                "Jesper",
+                "Ludvig",
+                "Felix",
+                "Max",
+                "Robin",
+                "Joel",
+                "Mattias",
+                "Martin",
+                "Andreas",
+                "Pontus",
+                "Christoffer",
+                "Fredrik",
+                "Gabriel",
+                "Edvin",
+                "Tobias",
+                "Casper",
+                "Dennis",
+                "Tim",
+                "Johannes",
+                "Joakim",
+                "Arvid",
+                "Benjamin",
+                "Niklas",
+                "Nils",
+                "Noah",
+                "Elliot",
+                "Hannes",
+                "Alex",
+                "Fabian",
+                "Olle",
+                "Henrik",
+                "Christian",
+                "Leo",
+                "John",
+                "Mikael",
+                "Jonas",
+                "Mohamed",
+                "Rickard",
+                "Josef",
+                "Adrian",
+                "Liam",
+                "Alfred",
+                "André",
+                "Theodor",
+                "Melker",
+                "Wilhelm",
+                "Patrik",
+                "Kalle",
+                "Måns",
+                "August",
+                "Theo",
+                "Kim",
+                "Love",
+                "Melvin",
+                "Petter",
+                "Robert",
+                "Vincent",
+                "Ahmed",
+                "Douglas",
+                "Ali",
+                "Emanuel",
+                "Herman",
+                "Albert",
+                "Eddie",
+                "Leon",
+                "Julius",
+                "Aron",
+                "Thomas",
+                "Jack",
+                "Tom",
+                "Filip",
+                "Oscar",
+                "William",
+                "Viktor",
+                "Simon",
+                "Anton",
+                "Erik",
+                "Alexander",
+                "Emil",
+                "Lucas",
+                "Jonathan",
+                "Linus",
+                "Adam",
+                "Marcus",
+                "Jacob",
+                "Albin",
+                "Gustav",
+                "Isak",
+                "Sebastian",
+                "David",
+                "Daniel",
+                "Hugo",
+                "Rasmus",
+                "Carl",
+                "Elias",
+                "Samuel",
+                "Hampus",
+                "Kevin",
+                "Oliver",
+                "Axel",
+                "Johan",
+                "Jesper",
+                "Ludvig",
+                "Felix",
+                "Max",
+                "Robin",
+                "Joel",
+                "Mattias",
+                "Martin",
+                "Andreas",
+                "Pontus",
+                "Christoffer",
+                "Fredrik",
+                "Gabriel",
+                "Edvin",
+                "Tobias",
+                "Casper",
+                "Dennis",
+                "Tim",
+                "Johannes",
+                "Joakim",
+                "Arvid",
+                "Benjamin",
+                "Niklas",
+                "Nils",
+                "Noah",
+                "Elliot",
+                "Hannes",
+                "Alex",
+                "Fabian",
+                "Olle",
+                "Henrik",
+                "Christian",
+                "Leo",
+                "John",
+                "Mikael",
+                "Jonas",
+                "Mohamed",
+                "Rickard",
+                "Josef",
+                "Adrian",
+                "Liam",
+                "Alfred",
+                "André",
+                "Theodor",
+                "Melker",
+                "Wilhelm",
+                "Patrik",
+                "Kalle",
+                "Måns",
+                "August",
+                "Theo",
+                "Kim",
+                "Love",
+                "Melvin",
+                "Petter",
+                "Robert",
+                "Vincent",
+                "Ahmed",
+                "Douglas",
+                "Ali",
+                "Emanuel",
+                "Herman",
+                "Albert",
+                "Eddie",
+                "Leon",
+                "Julius",
+                "Aron",
+                "Thomas",
+                "Jack",
+                "Tom"
+            };
+
+            #endregion
+
+            //Contains duplication of names
+            Assert.IsFalse(result.SequenceEqual(expected));
+        }
+
         #region NameCollection
 
         [TestMethod]
@@ -582,306 +880,6 @@ namespace DataGeneratorTests.Types.Name {
 
         #endregion
 
-        [TestMethod]
-        public void FirstNameCollection_Args_Norway() {
-            var result = NameFactory.NameCollection(repository => repository.MixedFirstNames, "Norway");
-
-            #region Expected
-
-            IEnumerable<string> expected = new List<string> {
-                "Ida",
-                "Emilie",
-                "Julie",
-                "Thea",
-                "Sara",
-                "Ingrid",
-                "Malin",
-                "Maria",
-                "Marte",
-                "Nora",
-                "Markus",
-                "Kristian",
-                "Martin",
-                "Sander",
-                "Kristoffer",
-                "Mathias",
-                "Andreas",
-                "Jonas",
-                "Henrik",
-                "Daniel"
-            };
-
-            #endregion
-
-            Assert.IsTrue(result.SequenceEqual(expected));
-        }
-
-        [TestMethod]
-        public void FirstNameCollection_Args_NorwayFemale() {
-            var result = NameFactory.FirstNameCollection(Gender.Female, "Norway");
-
-            #region Expected
-
-            IEnumerable<string> expected = new List<string> {
-                "Ida",
-                "Emilie",
-                "Julie",
-                "Thea",
-                "Sara",
-                "Ingrid",
-                "Malin",
-                "Maria",
-                "Marte",
-                "Nora",
-            };
-
-            #endregion
-
-            Assert.IsTrue(result.SequenceEqual(expected));
-        }
-
-        [TestMethod]
-        public void FirstNameCollection_Args_NorwayMale() {
-            var result = NameFactory.FirstNameCollection(Gender.Male, "Norway");
-
-            #region Expected
-
-            IEnumerable<string> expected = new List<string> {
-                "Markus",
-                "Kristian",
-                "Martin",
-                "Sander",
-                "Kristoffer",
-                "Mathias",
-                "Andreas",
-                "Jonas",
-                "Henrik",
-                "Daniel"
-            };
-
-            #endregion
-
-            Assert.IsTrue(result.SequenceEqual(expected));
-        }
-
-
-        [TestMethod]
-        public void FirstNameCollection_Args_NorwaySwedenMale() {
-            var result = NameFactory.FirstNameCollection(Gender.Male, "Sweden", "Switzerland");
-
-            #region Expected
-
-            var expected = new List<string>() {
-                "Filip",
-                "Oscar",
-                "William",
-                "Viktor",
-                "Simon",
-                "Anton",
-                "Erik",
-                "Alexander",
-                "Emil",
-                "Lucas",
-                "Jonathan",
-                "Linus",
-                "Adam",
-                "Marcus",
-                "Jacob",
-                "Albin",
-                "Gustav",
-                "Isak",
-                "Sebastian",
-                "David",
-                "Daniel",
-                "Hugo",
-                "Rasmus",
-                "Carl",
-                "Elias",
-                "Samuel",
-                "Hampus",
-                "Kevin",
-                "Oliver",
-                "Axel",
-                "Johan",
-                "Jesper",
-                "Ludvig",
-                "Felix",
-                "Max",
-                "Robin",
-                "Joel",
-                "Mattias",
-                "Martin",
-                "Andreas",
-                "Pontus",
-                "Christoffer",
-                "Fredrik",
-                "Gabriel",
-                "Edvin",
-                "Tobias",
-                "Casper",
-                "Dennis",
-                "Tim",
-                "Johannes",
-                "Joakim",
-                "Arvid",
-                "Benjamin",
-                "Niklas",
-                "Nils",
-                "Noah",
-                "Elliot",
-                "Hannes",
-                "Alex",
-                "Fabian",
-                "Olle",
-                "Henrik",
-                "Christian",
-                "Leo",
-                "John",
-                "Mikael",
-                "Jonas",
-                "Mohamed",
-                "Rickard",
-                "Josef",
-                "Adrian",
-                "Liam",
-                "Alfred",
-                "André",
-                "Theodor",
-                "Melker",
-                "Wilhelm",
-                "Patrik",
-                "Kalle",
-                "Måns",
-                "August",
-                "Theo",
-                "Kim",
-                "Love",
-                "Melvin",
-                "Petter",
-                "Robert",
-                "Vincent",
-                "Ahmed",
-                "Douglas",
-                "Ali",
-                "Emanuel",
-                "Herman",
-                "Albert",
-                "Eddie",
-                "Leon",
-                "Julius",
-                "Aron",
-                "Thomas",
-                "Jack",
-                "Tom",
-                "Filip",
-                "Oscar",
-                "William",
-                "Viktor",
-                "Simon",
-                "Anton",
-                "Erik",
-                "Alexander",
-                "Emil",
-                "Lucas",
-                "Jonathan",
-                "Linus",
-                "Adam",
-                "Marcus",
-                "Jacob",
-                "Albin",
-                "Gustav",
-                "Isak",
-                "Sebastian",
-                "David",
-                "Daniel",
-                "Hugo",
-                "Rasmus",
-                "Carl",
-                "Elias",
-                "Samuel",
-                "Hampus",
-                "Kevin",
-                "Oliver",
-                "Axel",
-                "Johan",
-                "Jesper",
-                "Ludvig",
-                "Felix",
-                "Max",
-                "Robin",
-                "Joel",
-                "Mattias",
-                "Martin",
-                "Andreas",
-                "Pontus",
-                "Christoffer",
-                "Fredrik",
-                "Gabriel",
-                "Edvin",
-                "Tobias",
-                "Casper",
-                "Dennis",
-                "Tim",
-                "Johannes",
-                "Joakim",
-                "Arvid",
-                "Benjamin",
-                "Niklas",
-                "Nils",
-                "Noah",
-                "Elliot",
-                "Hannes",
-                "Alex",
-                "Fabian",
-                "Olle",
-                "Henrik",
-                "Christian",
-                "Leo",
-                "John",
-                "Mikael",
-                "Jonas",
-                "Mohamed",
-                "Rickard",
-                "Josef",
-                "Adrian",
-                "Liam",
-                "Alfred",
-                "André",
-                "Theodor",
-                "Melker",
-                "Wilhelm",
-                "Patrik",
-                "Kalle",
-                "Måns",
-                "August",
-                "Theo",
-                "Kim",
-                "Love",
-                "Melvin",
-                "Petter",
-                "Robert",
-                "Vincent",
-                "Ahmed",
-                "Douglas",
-                "Ali",
-                "Emanuel",
-                "Herman",
-                "Albert",
-                "Eddie",
-                "Leon",
-                "Julius",
-                "Aron",
-                "Thomas",
-                "Jack",
-                "Tom"
-            };
-
-            #endregion
-
-            //Contains duplication of names
-            Assert.IsFalse(result.SequenceEqual(expected));
-        }
-
         #region LastNames
 
         [TestMethod]
@@ -969,7 +967,7 @@ namespace DataGeneratorTests.Types.Name {
 
             #region Expected
 
-            IEnumerable<string> expected = new List<string>() {
+            IEnumerable<string> expected = new List<string> {
                 "Hansen",
                 "Johansen",
                 "Olsen",

@@ -44,34 +44,6 @@ namespace DataGen.Types.Name {
 
 
         /// <summary>
-        ///     Returns a iterator of unique lastname whose data is filtered by region
-        /// </summary>
-        /// <param name="region"></param>
-        /// <returns></returns>
-        public static IEnumerable<string> LastNameCollection(Region region)
-            => Filter.RepeatedData(FilterByRegion(region)
-                .SelectMany(repository => repository.LastNames));
-
-
-        /// <summary>
-        ///     Returns a iterator of unique first names whose data is not filtered
-        /// </summary>
-        /// <returns></returns>
-        public static IEnumerable<string> FirstNameCollection()
-            => Filter.RepeatedData(NameRepositories
-                .SelectMany(repository => repository.MixedFirstNames));
-
-        /// <summary>
-        ///     Returns a iterator of unique first names whose data is filtered by region
-        /// </summary>
-        /// <param name="region"></param>
-        /// <returns></returns>
-        public static IEnumerable<string> FirstNameCollection(Region region)
-            => Filter.RepeatedData(FilterByRegion(region)
-                .SelectMany(repository => repository.MixedFirstNames));
-
-
-        /// <summary>
         ///     Returns a iterator of unique first names whose data is filtered by gender
         /// </summary>
         /// <param name="gender"></param>
