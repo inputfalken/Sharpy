@@ -43,7 +43,7 @@ namespace DataGeneratorTests.Types.Name {
 
         [TestMethod]
         public void FirstNameCollection_Args_NorwayFemale() {
-            var result = NameFactory.FirstNameCollection(Gender.Female, "Norway");
+            var result = NameFactory.NameCollection(repository => repository.FemaleFirstNames, "Norway");
 
             #region Expected
 
@@ -67,7 +67,7 @@ namespace DataGeneratorTests.Types.Name {
 
         [TestMethod]
         public void FirstNameCollection_Args_NorwayMale() {
-            var result = NameFactory.FirstNameCollection(Gender.Male, "Norway");
+            var result = NameFactory.NameCollection(repository => repository.MaleFirstNames, "Norway");
 
             #region Expected
 
@@ -92,7 +92,7 @@ namespace DataGeneratorTests.Types.Name {
 
         [TestMethod]
         public void FirstNameCollection_Args_NorwaySwedenMale() {
-            var result = NameFactory.FirstNameCollection(Gender.Male, "Sweden", "Switzerland");
+            var result = NameFactory.NameCollection(repository => repository.MaleFirstNames, "Sweden", "Switzerland");
 
             #region Expected
 
@@ -645,7 +645,7 @@ namespace DataGeneratorTests.Types.Name {
         [TestMethod]
         public void FirstNameCollection_Args_SwedenFemale() {
             const string stringQuery = "Sweden";
-            var result = NameFactory.FirstNameCollection(Gender.Female, stringQuery);
+            var result = NameFactory.NameCollection(repository => repository.FemaleFirstNames, stringQuery);
 
             #region Expected 
 
@@ -760,7 +760,7 @@ namespace DataGeneratorTests.Types.Name {
         [TestMethod]
         public void FirstNameCollection_Args_SwedenMale() {
             const string stringQuery = "Sweden";
-            var result = NameFactory.FirstNameCollection(Gender.Male, stringQuery);
+            var result = NameFactory.NameCollection(repository => repository.MaleFirstNames, stringQuery);
 
             #region Expected 
 
@@ -916,9 +916,9 @@ namespace DataGeneratorTests.Types.Name {
             #endregion
 
             var maleFirstNameCollectionFromSwedenGermanyNorway =
-                NameFactory.FirstNameCollection(Gender.Male, "Sweden", "Germany", "Norway").ToList();
+                NameFactory.NameCollection(repository => repository.MaleFirstNames, "Sweden", "Germany", "Norway").ToList();
             var femaleFirstNameCollectionFromSwedenGermanyNorway =
-                NameFactory.FirstNameCollection(Gender.Female, "Sweden", "Germany", "Norway").ToList();
+                NameFactory.NameCollection(repository => repository.FemaleFirstNames, "Sweden", "Germany", "Norway").ToList();
             var mixedFirstNameCollectionFromSwedenGermanyNorway =
                 NameFactory.NameCollection(repository => repository.MixedFirstNames, "Sweden", "Germany", "Norway")
                     .ToList();
