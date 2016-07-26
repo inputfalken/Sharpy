@@ -319,10 +319,24 @@ namespace DataGeneratorTests.Types.Name {
 
         [TestMethod]
         public void NameCollection_LastNames_Arg_SouthAmerica() {
-            var result = NameFactory.NameCollection(repository => repository.LastNames, Region.SouthAmerica);
-            var expected = NameFactory.NameCollection(repository => repository.LastNames, "Argentina", "Brazil",
-                "Columbia", "Paraguay");
-            Assert.IsTrue(result.SequenceEqual(expected));
+            string[]
+                countries = {
+                    "Argentina", "Brazil",
+                    "Columbia", "Paraguay"
+                };
+            var lastNameResult = NameFactory.NameCollection(repository => repository.LastNames, Region.SouthAmerica);
+            var lastNameExpected = NameFactory.NameCollection(repository => repository.LastNames, countries);
+            var femaleFirstNameResult = NameFactory.NameCollection(repository => repository.FemaleFirstNames,
+                Region.SouthAmerica);
+            var femaleFirstNameExpected = NameFactory.NameCollection(repository => repository.FemaleFirstNames,
+                countries);
+            var maleFirstNameResult = NameFactory.NameCollection(repository => repository.MaleFirstNames,
+                Region.SouthAmerica);
+            var maleFirstNameExpected = NameFactory.NameCollection(repository => repository.MaleFirstNames, countries);
+
+            Assert.IsTrue(lastNameResult.SequenceEqual(lastNameExpected));
+            Assert.IsTrue(femaleFirstNameResult.SequenceEqual(femaleFirstNameExpected));
+            Assert.IsTrue(maleFirstNameResult.SequenceEqual(maleFirstNameExpected));
         }
 
         [TestMethod]
