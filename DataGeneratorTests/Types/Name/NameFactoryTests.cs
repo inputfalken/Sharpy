@@ -334,14 +334,26 @@ namespace DataGeneratorTests.Types.Name {
         }
 
         [TestMethod]
-        public void NameCollection_LastNames_Arg_Europe() {
-            var result = NameFactory.NameCollection(repository => repository.LastNames, Region.Europe);
-            var expected = NameFactory.NameCollection(repository => repository.LastNames, "Albania", "Austria",
+        public void NameCollection_Arg_Europe() {
+            string[] countries = {
+                "Albania", "Austria",
                 "Azerbaijan", "Belgium", "Croatia", "Czech", "Denmark", "Estonia", "Faroe Islands", "Finland", "France",
                 "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Luxembourg", "Macedonia", "Malta",
                 "Moldova", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Russia", "Slovakia", "Slovenia",
-                "Spain", "Sweden", "Switzerland", "Turkey", "Ukraine", "United Kingdom");
-            Assert.IsTrue(result.SequenceEqual(expected));
+                "Spain", "Sweden", "Switzerland", "Turkey", "Ukraine", "United Kingdom"
+            };
+            var lastNameResult = NameFactory.NameCollection(repository => repository.LastNames, Region.Europe);
+            var lastNameExpected = NameFactory.NameCollection(repository => repository.LastNames, countries);
+            var femaleFirstNameResult = NameFactory.NameCollection(repository => repository.FemaleFirstNames,
+                Region.Europe);
+            var femaleFirstNameExpected = NameFactory.NameCollection(repository => repository.FemaleFirstNames,
+                countries);
+            var maleFirstNameResult = NameFactory.NameCollection(repository => repository.MaleFirstNames, Region.Europe);
+            var maleFirstNameExpected = NameFactory.NameCollection(repository => repository.MaleFirstNames, countries);
+
+            Assert.IsTrue(lastNameResult.SequenceEqual(lastNameExpected));
+            Assert.IsTrue(femaleFirstNameResult.SequenceEqual(femaleFirstNameExpected));
+            Assert.IsTrue(maleFirstNameResult.SequenceEqual(maleFirstNameExpected));
         }
 
         [TestMethod]
