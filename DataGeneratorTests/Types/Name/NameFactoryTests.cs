@@ -10,8 +10,9 @@ namespace DataGeneratorTests.Types.Name {
 
         #region NameCollection
 
+
         [TestMethod]
-        public void NameCollection_LastNames_Arg_CentralAmerica() {
+        public void NameCollection_Arg_CentralAmerica() {
             string[] countries = {
                 "Costa Rica", "Guatemala",
                 "El Salvador"
@@ -32,7 +33,7 @@ namespace DataGeneratorTests.Types.Name {
         }
 
         [TestMethod]
-        public void NameCollection_LastNames_Arg_SouthAmerica() {
+        public void NameCollection_Arg_SouthAmerica() {
             string[]
                 countries = {
                     "Argentina", "Brazil",
@@ -98,7 +99,7 @@ namespace DataGeneratorTests.Types.Name {
         }
 
         [TestMethod]
-        public void NameCollection_LastNames_Arg_None() {
+        public void NameCollection_Arg_None() {
             var result = NameFactory.NameCollection(repository => repository.LastNames);
             var expected = NameFactory.NameCollection(repository => repository.LastNames, Region.CentralAmerika,
                 Region.NorthAmerica, Region.SouthAmerica, Region.Europe);
