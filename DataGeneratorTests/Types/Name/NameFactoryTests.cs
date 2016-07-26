@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using DataGen.Types.Date;
 using DataGen.Types.Name;
@@ -8,6 +9,18 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace DataGeneratorTests.Types.Name {
     [TestClass]
     public class NameFactoryTests {
+        #region NameCollection
+
+        [TestMethod]
+        public void NameCollection_LastNames_Arg_CentralAmerica() {
+            var result = NameFactory.NameCollection(repository => repository.LastNames, Region.CentralAmerika);
+            var expected = NameFactory.NameCollection(repository => repository.LastNames, "Costa Rica", "Guatemala",
+                "El Salvador");
+            Assert.IsTrue(result.SequenceEqual(expected));
+        }
+
+        #endregion
+
         #region Exception Handling
 
         [TestMethod]
@@ -31,7 +44,7 @@ namespace DataGeneratorTests.Types.Name {
         [TestMethod]
         public void FirstNameCollection_Args_Sweden() {
             const string stringQuery = "Sweden";
-            var result = NameFactory.NameCollection(repository => repository.MixedFirstNames,stringQuery);
+            var result = NameFactory.NameCollection(repository => repository.MixedFirstNames, stringQuery);
 
             #region Expected 
 
@@ -522,7 +535,8 @@ namespace DataGeneratorTests.Types.Name {
             var femaleFirstNameCollectionFromSwedenGermanyNorway =
                 NameFactory.FirstNameCollection(Gender.Female, "Sweden", "Germany", "Norway").ToList();
             var mixedFirstNameCollectionFromSwedenGermanyNorway =
-                NameFactory.NameCollection(repository => repository.MixedFirstNames,"Sweden", "Germany", "Norway").ToList();
+                NameFactory.NameCollection(repository => repository.MixedFirstNames, "Sweden", "Germany", "Norway")
+                    .ToList();
             //Tests that result contains names from the countries Sweden, Germany & Norway, Will fail the moment expected2 would contain something different
             Assert.IsTrue(maleFirstNameCollectionFromSwedenGermanyNorway.TrueForAll(s => result.Contains(s)));
             //Tests Male names from four different countries, Will fail the moment expected2 would contain something different
