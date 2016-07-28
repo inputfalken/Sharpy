@@ -7,9 +7,31 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace DataGeneratorTests.Types.Name {
     [TestClass]
     public class NameFactoryTests {
+        #region Name Collection
 
-        #region NameCollection
+        #region Exception Handling
 
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void LastNameCollection_ExceptionHandling() {
+            const string countryQuery = "foobar";
+            NameFactory.NameCollection(repository => repository.LastNames, countryQuery);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void FirstNameCollection_ExceptionHandling() {
+            const string stringQuery = "foobar";
+            NameFactory.NameCollection(repository => repository.MixedFirstNames, stringQuery);
+        }
+
+        #endregion
+
+        #region Filtered by Country
+
+        #endregion
+
+        #region Filtered by Region
 
         [TestMethod]
         public void NameCollection_Arg_CentralAmerica() {
@@ -108,23 +130,6 @@ namespace DataGeneratorTests.Types.Name {
 
         #endregion
 
-        #region Exception Handling
-
-        [TestMethod]
-        [ExpectedException(typeof(NullReferenceException))]
-        public void LastNameCollection_ExceptionHandling() {
-            const string countryQuery = "foobar";
-            NameFactory.NameCollection(repository => repository.LastNames, countryQuery);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(NullReferenceException))]
-        public void FirstNameCollection_ExceptionHandling() {
-            const string stringQuery = "foobar";
-            NameFactory.NameCollection(repository => repository.MixedFirstNames, stringQuery);
-        }
-
         #endregion
     }
-
 }
