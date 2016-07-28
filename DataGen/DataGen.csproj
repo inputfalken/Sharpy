@@ -52,7 +52,6 @@
     <Compile Include="Types\Date\DateFactory.cs" />
     <Compile Include="Types\Filter.cs" />
     <Compile Include="Types\HelperClass.cs" />
-    <Compile Include="Types\Name\Gender.cs" />
     <Compile Include="Types\Name\NameFactory.cs" />
     <Compile Include="Types\Name\Region.cs" />
   </ItemGroup>

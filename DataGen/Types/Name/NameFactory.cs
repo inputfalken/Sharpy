@@ -5,6 +5,7 @@ using System.Linq;
 using Newtonsoft.Json;
 
 //Todo Rework json again to either camelCase or PascalCase was better...
+//Todo add documentation
 
 namespace DataGen.Types.Name {
     public static class NameFactory {
@@ -53,9 +54,8 @@ namespace DataGen.Types.Name {
                     return NameRepositories.Where(repository => repository.Origin.Region == NorthAmerica);
                 case Region.SouthAmerica:
                     return NameRepositories.Where(repository => repository.Origin.Region == SouthAmerica);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(region), region, null);
             }
+            throw new ArgumentOutOfRangeException(nameof(region), region, null);
         }
 
         // Is generated from json
