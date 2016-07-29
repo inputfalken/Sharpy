@@ -47,10 +47,10 @@ namespace DataGen.Types.Name {
         }
 
         public static NameRepository FilterByCountry(string country) {
-            var firstOrDef = NameRepositories.FirstOrDefault(repository => repository._origin.Country == country);
-            if (firstOrDef == null)
+            var singleOrDefault = NameRepositories.SingleOrDefault(repository => repository._origin.Country == country);
+            if (singleOrDefault == null)
                 throw new NullReferenceException($"Country: {country} was not found");
-            return firstOrDef;
+            return singleOrDefault;
         }
 
         #region Regions
