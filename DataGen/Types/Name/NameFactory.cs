@@ -4,9 +4,6 @@ using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
 
-//Todo Rework json again to either camelCase or PascalCase was better...
-//Todo make this generic
-
 namespace DataGen.Types.Name {
     public static class NameFactory {
 
@@ -17,7 +14,7 @@ namespace DataGen.Types.Name {
         /// <param name="func">A function who's argument will be a NameRepository for the selected countries</param>
         /// <param name="countries">Lets you decide which name type you are interested in</param>
         /// <returns></returns>
-        public static IEnumerable<string> NameCollection(Func<NameRepository, IEnumerable<string>> func,
+        public static IEnumerable<string> Collection(Func<NameRepository, IEnumerable<string>> func,
             params string[] countries) {
             var list = new List<string>();
             foreach (var country in countries) {
@@ -35,7 +32,7 @@ namespace DataGen.Types.Name {
         /// <param name="func">A function who's argument will be a NameRepository for the selected countries</param>
         /// <param name="regions">Lets you decide which name type you are interested in</param>
         /// <returns></returns>
-        public static IEnumerable<string> NameCollection(Func<NameRepository, IEnumerable<string>> func,
+        public static IEnumerable<string> Collection(Func<NameRepository, IEnumerable<string>> func,
             params Region[] regions) {
             var list = new List<string>();
             foreach (var region in regions)
@@ -49,7 +46,7 @@ namespace DataGen.Types.Name {
         /// </summary>
         /// <param name="func">Lets you decide which name type you are interested in</param>
         /// <returns></returns>
-        public static IEnumerable<string> NameCollection(Func<NameRepository, IEnumerable<string>> func) {
+        public static IEnumerable<string> Collection(Func<NameRepository, IEnumerable<string>> func) {
             var list = new List<string>();
             foreach (var nameRepository in NameRepository.NameRepositories)
                 list.AddRange(func(nameRepository));
