@@ -28,17 +28,15 @@ namespace DataGen.Types.Name {
         private readonly Origin _origin;
 
         public IEnumerable<NameRepository> FilterByRegion(params string[] regions) {
-            foreach (var region in regions) {
-                if (region == _origin.Region) {
-                    yield return this;
-                }
-            }
+            return from region in regions
+                where region == _origin.Region
+                select this;
         }
 
         public IEnumerable<NameRepository> FilterByCountry(params string[] countrys) {
-            foreach (var country in countrys) {
-                if (country == _origin.Country) yield return this;
-            }
+            return from country in countrys
+                where country == _origin.Country
+                select this;
         }
 
         #region Regions
