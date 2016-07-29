@@ -9,24 +9,6 @@ namespace DataGeneratorTests.Types.Name {
     public class NameFactoryTests {
         #region Name Collection
 
-        #region Exception Handling
-
-        [TestMethod]
-        [ExpectedException(typeof(NullReferenceException))]
-        public void LastNameCollection_ExceptionHandling() {
-            const string countryQuery = "foobar";
-            NameFactory.Collection(repository => repository.LastNames, countryQuery);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(NullReferenceException))]
-        public void FirstNameCollection_ExceptionHandling() {
-            const string stringQuery = "foobar";
-            NameFactory.Collection(repository => repository.MixedFirstNames, stringQuery);
-        }
-
-        #endregion
-
         #region Filtered by Country
 
         #endregion
