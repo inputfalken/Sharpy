@@ -15,14 +15,14 @@ namespace DataGeneratorTests.Types.Name {
         [ExpectedException(typeof(NullReferenceException))]
         public void LastNameCollection_ExceptionHandling() {
             const string countryQuery = "foobar";
-            NameFactory.NameCollection(repository => repository.LastNames, countryQuery);
+            NameFactory.Collection(repository => repository.LastNames, countryQuery);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NullReferenceException))]
         public void FirstNameCollection_ExceptionHandling() {
             const string stringQuery = "foobar";
-            NameFactory.NameCollection(repository => repository.MixedFirstNames, stringQuery);
+            NameFactory.Collection(repository => repository.MixedFirstNames, stringQuery);
         }
 
         #endregion
@@ -39,15 +39,15 @@ namespace DataGeneratorTests.Types.Name {
                 "Costa Rica", "Guatemala",
                 "El Salvador"
             };
-            var lastNameResult = NameFactory.NameCollection(repository => repository.LastNames, Region.CentralAmerika);
-            var lastNameExpected = NameFactory.NameCollection(repository => repository.LastNames, countries);
-            var femaleFirstNameResult = NameFactory.NameCollection(repository => repository.FemaleFirstNames,
+            var lastNameResult = NameFactory.Collection(repository => repository.LastNames, Region.CentralAmerika);
+            var lastNameExpected = NameFactory.Collection(repository => repository.LastNames, countries);
+            var femaleFirstNameResult = NameFactory.Collection(repository => repository.FemaleFirstNames,
                 Region.CentralAmerika);
-            var femaleFirstNameExpected = NameFactory.NameCollection(repository => repository.FemaleFirstNames,
+            var femaleFirstNameExpected = NameFactory.Collection(repository => repository.FemaleFirstNames,
                 countries);
-            var maleFirstNameResult = NameFactory.NameCollection(repository => repository.MaleFirstNames,
+            var maleFirstNameResult = NameFactory.Collection(repository => repository.MaleFirstNames,
                 Region.CentralAmerika);
-            var maleFirstNameExpected = NameFactory.NameCollection(repository => repository.MaleFirstNames, countries);
+            var maleFirstNameExpected = NameFactory.Collection(repository => repository.MaleFirstNames, countries);
 
             Assert.IsTrue(lastNameResult.SequenceEqual(lastNameExpected));
             Assert.IsTrue(femaleFirstNameResult.SequenceEqual(femaleFirstNameExpected));
@@ -61,15 +61,15 @@ namespace DataGeneratorTests.Types.Name {
                     "Argentina", "Brazil",
                     "Columbia", "Paraguay"
                 };
-            var lastNameResult = NameFactory.NameCollection(repository => repository.LastNames, Region.SouthAmerica);
-            var lastNameExpected = NameFactory.NameCollection(repository => repository.LastNames, countries);
-            var femaleFirstNameResult = NameFactory.NameCollection(repository => repository.FemaleFirstNames,
+            var lastNameResult = NameFactory.Collection(repository => repository.LastNames, Region.SouthAmerica);
+            var lastNameExpected = NameFactory.Collection(repository => repository.LastNames, countries);
+            var femaleFirstNameResult = NameFactory.Collection(repository => repository.FemaleFirstNames,
                 Region.SouthAmerica);
-            var femaleFirstNameExpected = NameFactory.NameCollection(repository => repository.FemaleFirstNames,
+            var femaleFirstNameExpected = NameFactory.Collection(repository => repository.FemaleFirstNames,
                 countries);
-            var maleFirstNameResult = NameFactory.NameCollection(repository => repository.MaleFirstNames,
+            var maleFirstNameResult = NameFactory.Collection(repository => repository.MaleFirstNames,
                 Region.SouthAmerica);
-            var maleFirstNameExpected = NameFactory.NameCollection(repository => repository.MaleFirstNames, countries);
+            var maleFirstNameExpected = NameFactory.Collection(repository => repository.MaleFirstNames, countries);
 
             Assert.IsTrue(lastNameResult.SequenceEqual(lastNameExpected));
             Assert.IsTrue(femaleFirstNameResult.SequenceEqual(femaleFirstNameExpected));
@@ -82,15 +82,15 @@ namespace DataGeneratorTests.Types.Name {
                 "Canada", "Mexico", "Cuba",
                 "United States"
             };
-            var lastNameResult = NameFactory.NameCollection(repository => repository.LastNames, Region.NorthAmerica);
-            var lastNameExpected = NameFactory.NameCollection(repository => repository.LastNames, countries);
-            var femaleFirstNameResult = NameFactory.NameCollection(repository => repository.FemaleFirstNames,
+            var lastNameResult = NameFactory.Collection(repository => repository.LastNames, Region.NorthAmerica);
+            var lastNameExpected = NameFactory.Collection(repository => repository.LastNames, countries);
+            var femaleFirstNameResult = NameFactory.Collection(repository => repository.FemaleFirstNames,
                 Region.NorthAmerica);
-            var femaleFirstNameExpected = NameFactory.NameCollection(repository => repository.FemaleFirstNames,
+            var femaleFirstNameExpected = NameFactory.Collection(repository => repository.FemaleFirstNames,
                 countries);
-            var maleFirstNameResult = NameFactory.NameCollection(repository => repository.MaleFirstNames,
+            var maleFirstNameResult = NameFactory.Collection(repository => repository.MaleFirstNames,
                 Region.NorthAmerica);
-            var maleFirstNameExpected = NameFactory.NameCollection(repository => repository.MaleFirstNames, countries);
+            var maleFirstNameExpected = NameFactory.Collection(repository => repository.MaleFirstNames, countries);
 
             Assert.IsTrue(lastNameResult.SequenceEqual(lastNameExpected));
             Assert.IsTrue(femaleFirstNameResult.SequenceEqual(femaleFirstNameExpected));
@@ -106,14 +106,14 @@ namespace DataGeneratorTests.Types.Name {
                 "Moldova", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Russia", "Slovakia", "Slovenia",
                 "Spain", "Sweden", "Switzerland", "Turkey", "Ukraine", "United Kingdom"
             };
-            var lastNameResult = NameFactory.NameCollection(repository => repository.LastNames, Region.Europe);
-            var lastNameExpected = NameFactory.NameCollection(repository => repository.LastNames, countries);
-            var femaleFirstNameResult = NameFactory.NameCollection(repository => repository.FemaleFirstNames,
+            var lastNameResult = NameFactory.Collection(repository => repository.LastNames, Region.Europe);
+            var lastNameExpected = NameFactory.Collection(repository => repository.LastNames, countries);
+            var femaleFirstNameResult = NameFactory.Collection(repository => repository.FemaleFirstNames,
                 Region.Europe);
-            var femaleFirstNameExpected = NameFactory.NameCollection(repository => repository.FemaleFirstNames,
+            var femaleFirstNameExpected = NameFactory.Collection(repository => repository.FemaleFirstNames,
                 countries);
-            var maleFirstNameResult = NameFactory.NameCollection(repository => repository.MaleFirstNames, Region.Europe);
-            var maleFirstNameExpected = NameFactory.NameCollection(repository => repository.MaleFirstNames, countries);
+            var maleFirstNameResult = NameFactory.Collection(repository => repository.MaleFirstNames, Region.Europe);
+            var maleFirstNameExpected = NameFactory.Collection(repository => repository.MaleFirstNames, countries);
 
             Assert.IsTrue(lastNameResult.SequenceEqual(lastNameExpected));
             Assert.IsTrue(femaleFirstNameResult.SequenceEqual(femaleFirstNameExpected));
@@ -122,8 +122,8 @@ namespace DataGeneratorTests.Types.Name {
 
         [TestMethod]
         public void NameCollection_Arg_None() {
-            var result = NameFactory.NameCollection(repository => repository.LastNames);
-            var expected = NameFactory.NameCollection(repository => repository.LastNames, Region.CentralAmerika,
+            var result = NameFactory.Collection(repository => repository.LastNames);
+            var expected = NameFactory.Collection(repository => repository.LastNames, Region.CentralAmerika,
                 Region.NorthAmerica, Region.SouthAmerica, Region.Europe);
             Assert.IsTrue(result.SequenceEqual(expected));
         }
