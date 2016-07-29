@@ -20,33 +20,34 @@ namespace DataGen.Types.Name {
             FemaleFirstNames = femaleFirstNames;
             MaleFirstNames = maleFirstNames;
             LastNames = lastNames;
-            Origin = new Origin(country, region);
+            _origin = new Origin(country, region);
         }
 
         public IEnumerable<string> FemaleFirstNames { get; }
         public IEnumerable<string> LastNames { get; }
         public IEnumerable<string> MaleFirstNames { get; }
-        private Origin Origin { get; }
 
         public IEnumerable<string> MixedFirstNames
             => FemaleFirstNames.Concat(MaleFirstNames);
 
+        private readonly Origin _origin;
+
         public static IEnumerable<NameRepository> FilterByRegion(Region region) {
             switch (region) {
                 case Region.Europe:
-                    return NameRepositories.Where(repository => repository.Origin.Region == Europe);
+                    return NameRepositories.Where(repository => repository._origin.Region == Europe);
                 case Region.CentralAmerika:
-                    return NameRepositories.Where(repository => repository.Origin.Region == CentralAmerica);
+                    return NameRepositories.Where(repository => repository._origin.Region == CentralAmerica);
                 case Region.NorthAmerica:
-                    return NameRepositories.Where(repository => repository.Origin.Region == NorthAmerica);
+                    return NameRepositories.Where(repository => repository._origin.Region == NorthAmerica);
                 case Region.SouthAmerica:
-                    return NameRepositories.Where(repository => repository.Origin.Region == SouthAmerica);
+                    return NameRepositories.Where(repository => repository._origin.Region == SouthAmerica);
             }
             throw new ArgumentOutOfRangeException(nameof(region), region, null);
         }
 
         public static NameRepository FilterByCountry(string country)
-            => NameRepositories.FirstOrDefault(repository => repository.Origin.Country == country);
+            => NameRepositories.FirstOrDefault(repository => repository._origin.Country == country);
 
         #region Regions
 
@@ -56,16 +57,15 @@ namespace DataGen.Types.Name {
         private const string CentralAmerica = "Central America";
 
         #endregion
-    }
 
+        private class Origin {
+            public readonly string Country;
+            public readonly string Region;
 
-    public class Origin {
-        public readonly string Country;
-        public readonly string Region;
-
-        public Origin(string country, string region) {
-            Country = country;
-            Region = region;
+            public Origin(string country, string region) {
+                Country = country;
+                Region = region;
+            }
         }
     }
 }
