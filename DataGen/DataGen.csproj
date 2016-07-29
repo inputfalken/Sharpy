@@ -54,7 +54,6 @@
     <Compile Include="Types\HelperClass.cs" />
     <Compile Include="Types\Name\NameFactory.cs" />
     <Compile Include="Types\Name\NameRepository.cs" />
-    <Compile Include="Types\Name\Region.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Types\Name\data.json">

@@ -39,15 +39,6 @@ namespace DataGen.Types.Name {
                 select this;
         }
 
-        #region Regions
-
-        private const string Europe = "Europe";
-        private const string NorthAmerica = "North America";
-        private const string SouthAmerica = "South America";
-        private const string CentralAmerica = "Central America";
-
-        #endregion
-
         private class Origin {
             public readonly string Country;
             public readonly string Region;

@@ -21,41 +21,6 @@ namespace DataGeneratorTests.Types.Name {
                 "Costa Rica", "Guatemala",
                 "El Salvador"
             };
-
-            var nameFactory = Factory.StringFactory(new NameFactory());
-            var lastNameResult =
-                nameFactory.Collection(
-                    repository =>
-                        repository.FilterByRegion("Central America")
-                            .SelectMany(nameRepository => nameRepository.LastNames));
-            var lastNameExpected =
-                nameFactory.Collection(
-                    repository =>
-                        repository.FilterByCountry(countries).SelectMany(nameRepository => nameRepository.LastNames));
-            var femaleFirstNameResult =
-                nameFactory.Collection(
-                    repository =>
-                        repository.FilterByRegion("Central America")
-                            .SelectMany(nameRepository => nameRepository.FemaleFirstNames));
-            var femaleFirstNameExpected =
-                nameFactory.Collection(
-                    repository =>
-                        repository.FilterByCountry(countries)
-                            .SelectMany(nameRepository => nameRepository.FemaleFirstNames));
-            var maleFirstNameResult =
-                nameFactory.Collection(
-                    repository =>
-                        repository.FilterByRegion("Central America")
-                            .SelectMany(nameRepository => nameRepository.MaleFirstNames));
-            var maleFirstNameExpected =
-                nameFactory.Collection(
-                    repository =>
-                        repository.FilterByCountry(countries)
-                            .SelectMany(nameRepository => nameRepository.MaleFirstNames));
-
-            Assert.IsTrue(lastNameResult.SequenceEqual(lastNameExpected));
-            Assert.IsTrue(femaleFirstNameResult.SequenceEqual(femaleFirstNameExpected));
-            Assert.IsTrue(maleFirstNameResult.SequenceEqual(maleFirstNameExpected));
         }
 
         //[TestMethod]

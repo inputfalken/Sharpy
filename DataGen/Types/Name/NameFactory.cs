@@ -11,7 +11,7 @@ namespace DataGen.Types.Name {
         }
     }
 
-    public class StringFactory<T> {
+    public abstract class StringFactory<T> {
         protected StringFactory(string filePath) {
             FilePath = filePath;
         }
@@ -21,20 +21,17 @@ namespace DataGen.Types.Name {
 
         private string FilePath { get; }
 
-        public virtual IEnumerable<string> Collection(Func<T, IEnumerable<string>> func)
-            => Filter.RepeatedData(Source.SelectMany(func));
+        public abstract IEnumerable<T> Collection(Func<T, IEnumerable<T>> func);
     }
 
     public class NameFactory : StringFactory<NameRepository> {
         public NameFactory() : base("Data/Types/Name/data.json") {
         }
 
-        public override IEnumerable<string> Collection(Func<NameRepository, IEnumerable<string>> func) {
-            var names =
-                Source.Select(func)
-                    .Where(enumerable => enumerable != null)
-                    .SelectMany(enumerable => enumerable);
-            return Filter.RepeatedData(names);
+        public override IEnumerable<NameRepository> Collection(Func<NameRepository, IEnumerable<NameRepository>> func) {
+            return Filter.RepeatedData(Source.Select(func)
+                .Where(enumerable => enumerable != null)
+                .SelectMany(enumerable => enumerable));
         }
     }
 }
