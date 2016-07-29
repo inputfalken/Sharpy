@@ -27,18 +27,11 @@ namespace DataGen.Types.Name {
 
         private readonly Origin _origin;
 
-        public NameRepository FilterByRegion(Region region) {
-            switch (region) {
-                case Region.Europe:
-                    return _origin.Region == Europe ? this : null;
-                case Region.CentralAmerika:
-                    return _origin.Region == CentralAmerica ? this : null;
-                case Region.NorthAmerica:
-                    return _origin.Region == NorthAmerica ? this : null;
-                case Region.SouthAmerica:
-                    return _origin.Region == SouthAmerica ? this : null;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(region), region, null);
+        public IEnumerable<NameRepository> FilterByRegion(params string[] regions) {
+            foreach (var region in regions) {
+                if (region == _origin.Region) {
+                    yield return this;
+                }
             }
         }
 
