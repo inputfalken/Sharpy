@@ -42,13 +42,10 @@ namespace DataGen.Types.Name {
             }
         }
 
-        public NameRepository FilterByCountry(params string[] countrys) {
+        public IEnumerable<NameRepository> FilterByCountry(params string[] countrys) {
             foreach (var country in countrys) {
-                if (country == _origin.Country) {
-                    return this;
-                }
+                if (country == _origin.Country) yield return this;
             }
-            return null;
         }
 
         #region Regions

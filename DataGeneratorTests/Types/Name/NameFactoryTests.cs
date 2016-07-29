@@ -25,15 +25,24 @@ namespace DataGeneratorTests.Types.Name {
             var nameFactory = Factory.StringFactory(new NameFactory());
             var lastNameResult =
                 nameFactory.Collection(repository => repository.FilterByRegion(Region.CentralAmerika)?.LastNames);
-            var lastNameExpected = nameFactory.Collection(repository => repository.FilterByCountry(countries)?.LastNames);
+            var lastNameExpected =
+                nameFactory.Collection(
+                    repository =>
+                        repository.FilterByCountry(countries).SelectMany(nameRepository => nameRepository.LastNames));
             var femaleFirstNameResult =
                 nameFactory.Collection(repository => repository.FilterByRegion(Region.CentralAmerika)?.FemaleFirstNames);
             var femaleFirstNameExpected =
-                nameFactory.Collection(repository => repository.FilterByCountry(countries)?.FemaleFirstNames);
+                nameFactory.Collection(
+                    repository =>
+                        repository.FilterByCountry(countries)
+                            .SelectMany(nameRepository => nameRepository.FemaleFirstNames));
             var maleFirstNameResult =
                 nameFactory.Collection(repository => repository.FilterByRegion(Region.CentralAmerika)?.MaleFirstNames);
             var maleFirstNameExpected =
-                nameFactory.Collection(repository => repository.FilterByCountry(countries)?.MaleFirstNames);
+                nameFactory.Collection(
+                    repository =>
+                        repository.FilterByCountry(countries)
+                            .SelectMany(nameRepository => nameRepository.MaleFirstNames));
 
             Assert.IsTrue(lastNameResult.SequenceEqual(lastNameExpected));
             Assert.IsTrue(femaleFirstNameResult.SequenceEqual(femaleFirstNameExpected));
