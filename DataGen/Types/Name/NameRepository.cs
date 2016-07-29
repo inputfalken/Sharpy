@@ -10,11 +10,6 @@ namespace DataGen.Types.Name {
     // Is generated from json
     // ReSharper disable once ClassNeverInstantiated.Global
     public class NameRepository {
-        private const string FilePath = "Data/Types/Name/data.json";
-
-        public static IEnumerable<NameRepository> NameRepositories
-            => JsonConvert.DeserializeObject<IEnumerable<NameRepository>>(File.ReadAllText(FilePath));
-
         public NameRepository(IEnumerable<string> femaleFirstNames, IEnumerable<string> maleFirstNames,
             IEnumerable<string> lastNames, string country, string region) {
             FemaleFirstNames = femaleFirstNames;
@@ -32,25 +27,28 @@ namespace DataGen.Types.Name {
 
         private readonly Origin _origin;
 
-        public static IEnumerable<NameRepository> FilterByRegion(Region region) {
+        public NameRepository FilterByRegion(Region region) {
             switch (region) {
                 case Region.Europe:
-                    return NameRepositories.Where(repository => repository._origin.Region == Europe);
+                    return _origin.Region == Europe ? this : null;
                 case Region.CentralAmerika:
-                    return NameRepositories.Where(repository => repository._origin.Region == CentralAmerica);
+                    return _origin.Region == CentralAmerica ? this : null;
                 case Region.NorthAmerica:
-                    return NameRepositories.Where(repository => repository._origin.Region == NorthAmerica);
+                    return _origin.Region == NorthAmerica ? this : null;
                 case Region.SouthAmerica:
-                    return NameRepositories.Where(repository => repository._origin.Region == SouthAmerica);
+                    return _origin.Region == SouthAmerica ? this : null;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(region), region, null);
             }
-            throw new ArgumentOutOfRangeException(nameof(region), region, null);
         }
 
-        public static NameRepository FilterByCountry(string country) {
-            var singleOrDefault = NameRepositories.SingleOrDefault(repository => repository._origin.Country == country);
-            if (singleOrDefault == null)
-                throw new NullReferenceException($"Country: {country} was not found");
-            return singleOrDefault;
+        public NameRepository FilterByCountry(params string[] countrys) {
+            foreach (var country in countrys) {
+                if (country == _origin.Country) {
+                    return this;
+                }
+            }
+            return null;
         }
 
         #region Regions
