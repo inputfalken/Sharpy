@@ -4,8 +4,6 @@ using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
 
-//Todo Rework json again to either camelCase or PascalCase was better...
-
 namespace DataGen.Types.Name {
     public static class NameFactory {
 
