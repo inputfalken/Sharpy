@@ -46,8 +46,12 @@ namespace DataGen.Types.Name {
             throw new ArgumentOutOfRangeException(nameof(region), region, null);
         }
 
-        public static NameRepository FilterByCountry(string country)
-            => NameRepositories.FirstOrDefault(repository => repository._origin.Country == country);
+        public static NameRepository FilterByCountry(string country) {
+            var firstOrDef = NameRepositories.FirstOrDefault(repository => repository._origin.Country == country);
+            if (firstOrDef == null)
+                throw new NullReferenceException($"Country: {country} was not found");
+            return firstOrDef;
+        }
 
         #region Regions
 

@@ -17,12 +17,8 @@ namespace DataGen.Types.Name {
         public static IEnumerable<string> Collection(Func<NameRepository, IEnumerable<string>> func,
             params string[] countries) {
             var list = new List<string>();
-            foreach (var country in countries) {
-                var firstOrDefault = NameRepository.FilterByCountry(country);
-                if (firstOrDefault == null)
-                    throw new NullReferenceException($"Country: {country} was not found");
-                list.AddRange(func(firstOrDefault));
-            }
+            foreach (var country in countries)
+                list.AddRange(func(NameRepository.FilterByCountry(country)));
             return Filter.RepeatedData(list);
         }
 
