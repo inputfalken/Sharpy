@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DataGen.Types;
 using DataGen.Types.Name;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -21,7 +22,10 @@ namespace DataGeneratorTests.Types.Name {
                 "Costa Rica", "Guatemala",
                 "El Salvador"
             };
+            var fileBasedData = Factory.FileBasedData(new NameFactory());
+            fileBasedData.Collection(repository => repository.FilterByCountry("Sweden"));
         }
+
 
         //[TestMethod]
         //public void NameCollection_Arg_SouthAmerica() {

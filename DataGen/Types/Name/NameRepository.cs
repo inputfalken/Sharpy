@@ -33,8 +33,8 @@ namespace DataGen.Types.Name {
                 select this;
         }
 
-        public IEnumerable<NameRepository> FilterByCountry(params string[] countrys) {
-            return from country in countrys
+        public IEnumerable<NameRepository> FilterByCountry(params string[] countries) {
+            return from country in countries
                 where country == _origin.Country
                 select this;
         }
