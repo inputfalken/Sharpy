@@ -15,5 +15,6 @@ namespace DataGen.Types.Name {
         private string FilePath { get; }
 
         public abstract IEnumerable<T> Collection(Func<T, IEnumerable<T>> func);
+        public abstract IEnumerable<T> Collection();
     }
 }

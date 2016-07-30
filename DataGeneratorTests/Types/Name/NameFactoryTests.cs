@@ -22,8 +22,8 @@ namespace DataGeneratorTests.Types.Name {
                 "Costa Rica", "Guatemala",
                 "El Salvador"
             };
-            var fileBasedData = Factory.FileBasedData(new NameFactory());
-            fileBasedData.Collection(repository => repository.FilterByCountry("Sweden"));
+
+
         }
 
 

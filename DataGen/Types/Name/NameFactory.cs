@@ -12,5 +12,9 @@ namespace DataGen.Types.Name {
                 .Where(enumerable => enumerable != null)
                 .SelectMany(enumerable => enumerable));
         }
+
+        public override IEnumerable<NameRepository> Collection() {
+            return Filter.RepeatedData(Source);
+        }
     }
 }
