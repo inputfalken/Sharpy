@@ -9,9 +9,5 @@ namespace DataGen.Types.Name {
 
         public override IEnumerable<NameRepository> Collection(Func<NameFilter, IEnumerable<NameRepository>> func)
             => func(Filter);
-
-
-        public override IEnumerable<NameRepository> Collection()
-            => Source;
     }
 }

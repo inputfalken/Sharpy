@@ -4,6 +4,7 @@ using System.IO;
 using Newtonsoft.Json;
 
 namespace DataGen.Types {
+    //Todo make abstracter
     public abstract class FileBasedData<TData, TFilter> {
         protected FileBasedData(string filePath) {
             FilePath = filePath;
@@ -16,6 +17,5 @@ namespace DataGen.Types {
         protected TFilter Filter { get; set; }
 
         public abstract IEnumerable<TData> Collection(Func<TFilter, IEnumerable<TData>> func);
-        public abstract IEnumerable<TData> Collection();
     }
 }

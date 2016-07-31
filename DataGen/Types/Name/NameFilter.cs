@@ -3,19 +3,23 @@ using System.Linq;
 
 namespace DataGen.Types.Name {
     public class NameFilter : Filter {
-        private IEnumerable<NameRepository> NameRepositories { get; }
+        public IEnumerable<NameRepository> Result { get; }
 
-        public NameFilter(IEnumerable<NameRepository> nameRepositories) {
-            NameRepositories = nameRepositories;
+        public NameFilter(IEnumerable<NameRepository> result) {
+            Result = result;
         }
 
-        public IEnumerable<NameRepository> ByRegion(params string[] regions)
-            => SelectByString(regions);
+        private IEnumerable<NameRepository> ByRegion(params string[] regions)
+            => regions.SelectMany(region => Result.Where(repository => repository._origin.Region == region));
 
-        public IEnumerable<NameRepository> ByCountry(params string[] countries)
-            => SelectByString(countries);
+        public NameFilter ByRegions(params string[] regions)
+            => new NameFilter(ByRegion(regions));
 
-        private IEnumerable<NameRepository> SelectByString(IEnumerable<string> querys)
-            => querys.SelectMany(query => NameRepositories.Where(repository => repository._origin.Country == query));
+        private IEnumerable<NameRepository> ByCountry(params string[] countries)
+            => countries.SelectMany(country => Result.Where(repository => repository._origin.Country == country));
+
+        public NameFilter ByCountries(params string[] countries)
+            => new NameFilter(ByCountry(countries));
+
     }
 }

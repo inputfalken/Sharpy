@@ -22,6 +22,18 @@ namespace DataGeneratorTests.Types.Name {
                 "Costa Rica", "Guatemala",
                 "El Salvador"
             };
+            foreach (
+                var nameRepository in
+                    Factory.NameData.Collection(
+                        filter => {
+                            var byRegions = filter.ByRegions("South America");
+                            var byCountries = byRegions.ByCountries("Argentina");
+                            return byCountries.Result;
+                        })) {
+                foreach (var femaleFirstName in nameRepository.FemaleFirstNames) {
+                    Console.WriteLine(femaleFirstName);
+                }
+            }
         }
 
 
