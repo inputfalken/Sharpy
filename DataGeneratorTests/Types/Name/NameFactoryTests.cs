@@ -22,13 +22,6 @@ namespace DataGeneratorTests.Types.Name {
                 "Costa Rica", "Guatemala",
                 "El Salvador"
             };
-
-            var nameData = new NameData();
-            foreach (var nameRepository in nameData.Collection(filter => filter.ByCountry("Sweden"))) {
-                foreach (var name in nameRepository.FemaleFirstNames) {
-                    Console.WriteLine(name);
-                }
-            }
         }
 
 
