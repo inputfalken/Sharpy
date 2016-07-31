@@ -25,7 +25,7 @@ namespace DataGen.Types.Name {
         public IEnumerable<string> MixedFirstNames
             => FemaleFirstNames.Concat(MaleFirstNames);
 
-        private readonly Origin _origin;
+        public readonly Origin _origin;
 
         public IEnumerable<NameRepository> FilterByRegion(params string[] regions)
             => from region in regions
@@ -37,7 +37,7 @@ namespace DataGen.Types.Name {
                 where country == _origin.Country
                 select this;
 
-        private class Origin {
+        public class Origin {
             public readonly string Country;
             public readonly string Region;
 

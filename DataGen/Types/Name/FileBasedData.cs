@@ -4,17 +4,18 @@ using System.IO;
 using Newtonsoft.Json;
 
 namespace DataGen.Types.Name {
-    public abstract class FileBasedData<T> {
+    public abstract class FileBasedData<TData, TFilter> {
         protected FileBasedData(string filePath) {
             FilePath = filePath;
         }
 
-        protected IEnumerable<T> Source
-            => JsonConvert.DeserializeObject<IEnumerable<T>>(File.ReadAllText(FilePath));
+        protected IEnumerable<TData> Source
+            => JsonConvert.DeserializeObject<IEnumerable<TData>>(File.ReadAllText(FilePath));
 
         private string FilePath { get; }
+        protected TFilter Filter { get; set; }
 
-        public abstract IEnumerable<T> Collection(Func<T, IEnumerable<T>> func);
-        public abstract IEnumerable<T> Collection();
+        public abstract IEnumerable<TData> Collection(Func<TFilter, IEnumerable<TData>> func);
+        public abstract IEnumerable<TData> Collection();
     }
 }
