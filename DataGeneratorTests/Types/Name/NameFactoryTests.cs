@@ -21,7 +21,7 @@ namespace DataGeneratorTests.Types.Name {
                 "Costa Rica", "Guatemala",
                 "El Salvador"
             };
-            var result = Factory.NameData.Collection(filter => filter.ByCountries(countries).Result);
+            var result = Factory.NameDatas().Collection(filter => filter.Result);
 
 
             foreach (var nameRepository in result)
