@@ -2,11 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace DataGen.Types.Name {
-    public class NameFilter : Filter {
-        public IEnumerable<NameRepository> Result { get; }
-
-        public NameFilter(IEnumerable<NameRepository> result) {
-            Result = result;
+    public class NameFilter : Filter<NameRepository> {
+        public NameFilter(IEnumerable<NameRepository> result) : base(result) {
         }
 
         private IEnumerable<NameRepository> ByRegion(params string[] regions)
@@ -20,6 +17,5 @@ namespace DataGen.Types.Name {
 
         public NameFilter ByCountries(params string[] countries)
             => new NameFilter(ByCountry(countries));
-
     }
 }

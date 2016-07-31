@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using DataGen.Types;
-using DataGen.Types.Name;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DataGeneratorTests.Types.Name {
@@ -22,18 +19,11 @@ namespace DataGeneratorTests.Types.Name {
                 "Costa Rica", "Guatemala",
                 "El Salvador"
             };
-            foreach (
-                var nameRepository in
-                    Factory.NameData.Collection(
-                        filter => {
-                            var byRegions = filter.ByRegions("South America");
-                            var byCountries = byRegions.ByCountries("Argentina");
-                            return byCountries.Result;
-                        })) {
-                foreach (var femaleFirstName in nameRepository.FemaleFirstNames) {
+            var result = Factory.NameData.Collection(filter => filter.ByCountries("Sweden").Result);
+            
+            foreach (var nameRepository in result)
+                foreach (var femaleFirstName in nameRepository.FemaleFirstNames)
                     Console.WriteLine(femaleFirstName);
-                }
-            }
         }
 
 

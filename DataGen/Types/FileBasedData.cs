@@ -1,21 +1,21 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using DataGen.Types.Name;
 using Newtonsoft.Json;
 
 namespace DataGen.Types {
     //Todo make abstracter
-    public abstract class FileBasedData<TData, TFilter> {
-        protected FileBasedData(string filePath) {
+    public abstract class FileBasedData<TData, TFilter> : Data<TData, TFilter> where TFilter : Filter<TData> {
+        protected FileBasedData(string filePath, Func<IEnumerable<TData>, TFilter> factory) : base(factory) {
             FilePath = filePath;
         }
 
-        protected IEnumerable<TData> Source
+
+        protected sealed override IEnumerable<TData> Datas
             => JsonConvert.DeserializeObject<IEnumerable<TData>>(File.ReadAllText(FilePath));
 
-        private string FilePath { get; }
-        protected TFilter Filter { get; set; }
 
-        public abstract IEnumerable<TData> Collection(Func<TFilter, IEnumerable<TData>> func);
+        private string FilePath { get; }
     }
 }

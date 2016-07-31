@@ -2,8 +2,14 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace DataGen.Types {
-    public abstract class Filter {
-        public static IEnumerable<T> RepeatedData<T>(IEnumerable<T> enumerable)
+    public abstract class Filter<T> {
+        public IEnumerable<T> Result { get; }
+
+        protected Filter(IEnumerable<T> result) {
+            Result = result;
+        }
+
+        public static IEnumerable<T> RepeatedData(IEnumerable<T> enumerable)
             => enumerable.GroupBy(s => s)
                 .Where(g => g.Any())
                 .Select(grouping => grouping.Key);
