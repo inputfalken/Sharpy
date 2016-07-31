@@ -50,11 +50,12 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\Date\DateFactory.cs" />
-    <Compile Include="Types\Filter.cs" />
     <Compile Include="Types\HelperClass.cs" />
     <Compile Include="Types\Factory.cs" />
-    <Compile Include="Types\Name\FileBasedData.cs" />
-    <Compile Include="Types\Name\NameFactory.cs" />
+    <Compile Include="Types\FileBasedData.cs" />
+    <Compile Include="Types\Filter.cs" />
+    <Compile Include="Types\Name\NameData.cs" />
+    <Compile Include="Types\Name\NameFilter.cs" />
     <Compile Include="Types\Name\NameRepository.cs" />
   </ItemGroup>
   <ItemGroup>

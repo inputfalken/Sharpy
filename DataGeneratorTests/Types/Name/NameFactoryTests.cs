@@ -23,7 +23,12 @@ namespace DataGeneratorTests.Types.Name {
                 "El Salvador"
             };
 
-
+            var nameData = new NameData();
+            foreach (var nameRepository in nameData.Collection(filter => filter.ByCountry("Sweden"))) {
+                foreach (var name in nameRepository.FemaleFirstNames) {
+                    Console.WriteLine(name);
+                }
+            }
         }
 
 

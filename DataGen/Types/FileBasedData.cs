@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 
-namespace DataGen.Types.Name {
+namespace DataGen.Types {
     public abstract class FileBasedData<TData, TFilter> {
         protected FileBasedData(string filePath) {
             FilePath = filePath;
