@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 
 namespace DataGen.Types {
     //Todo make abstracter
-    public abstract class FileBasedData<TData, TFilter> : Data<TData, TFilter> where TFilter : Filter<TData> {
-        protected FileBasedData(string filePath, Func<IEnumerable<TData>, TFilter> factory) : base(factory) {
+    public class FileBasedData<TData, TFilter> : Data<TData, TFilter> where TFilter : Filter<TData> {
+        public FileBasedData(string filePath, Func<IEnumerable<TData>, TFilter> factory) : base(factory) {
             FilePath = filePath;
         }
 
