@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 
 namespace DataGen.Types {
-    public abstract class Data<TData, TFilter> where TFilter : Filter<TData> {
-        protected abstract IEnumerable<TData> Datas { get; }
+    public class Data<TData, TFilter> where TFilter : Filter<TData> {
+        private IEnumerable<TData> Datas { get; }
 
         private Func<IEnumerable<TData>, TFilter> Factory { get; }
 
-        protected Data(Func<IEnumerable<TData>, TFilter> factory) {
+
+        public Data(IEnumerable<TData> data, Func<IEnumerable<TData>, TFilter> factory) {
+            Datas = data;
             Factory = factory;
         }
 

@@ -7,15 +7,8 @@ using Newtonsoft.Json;
 namespace DataGen.Types {
     //Todo make abstracter
     public class FileBasedData<TData, TFilter> : Data<TData, TFilter> where TFilter : Filter<TData> {
-        public FileBasedData(string filePath, Func<IEnumerable<TData>, TFilter> factory) : base(factory) {
-            FilePath = filePath;
+        public FileBasedData(string filePath, Func<IEnumerable<TData>, TFilter> func)
+            : base(JsonConvert.DeserializeObject<IEnumerable<TData>>(File.ReadAllText(filePath)), func) {
         }
-
-
-        protected sealed override IEnumerable<TData> Datas
-            => JsonConvert.DeserializeObject<IEnumerable<TData>>(File.ReadAllText(FilePath));
-
-
-        private string FilePath { get; }
     }
 }
