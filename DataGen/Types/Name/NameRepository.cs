@@ -27,15 +27,6 @@ namespace DataGen.Types.Name {
 
         public readonly Origin _origin;
 
-        public IEnumerable<NameRepository> FilterByRegion(params string[] regions)
-            => from region in regions
-                where region == _origin.Region
-                select this;
-
-        public IEnumerable<NameRepository> FilterByCountry(params string[] countries)
-            => from country in countries
-                where country == _origin.Country
-                select this;
 
         public class Origin {
             public readonly string Country;
