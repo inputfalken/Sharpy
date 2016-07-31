@@ -55,7 +55,6 @@
     <Compile Include="Types\Factory.cs" />
     <Compile Include="Types\FileBasedData.cs" />
     <Compile Include="Types\Filter.cs" />
-    <Compile Include="Types\Name\NameData.cs" />
     <Compile Include="Types\Name\NameFilter.cs" />
     <Compile Include="Types\Name\NameRepository.cs" />
   </ItemGroup>
