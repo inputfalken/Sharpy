@@ -4,7 +4,7 @@ using System.Linq;
 namespace DataGen.Types {
     //Rename to modifier?
     public abstract class Filter<T> {
-        protected IEnumerable<T> Result { get; }
+        public IEnumerable<T> Result { get; }
 
         protected Filter(IEnumerable<T> result) {
             Result = result;
