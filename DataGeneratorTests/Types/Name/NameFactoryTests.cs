@@ -22,12 +22,9 @@ namespace DataGeneratorTests.Types.Name {
                 "Costa Rica", "Guatemala",
                 "El Salvador"
             };
-            var nameRepositories = Factory.NameDatas.Collection(filter => filter.ByCountries(countries).Result);
-            foreach (var nameRepository in nameRepositories) {
-                foreach (var femaleFirstName in nameRepository.FemaleFirstNames) {
-                    Console.WriteLine(femaleFirstName);
-                }
-            }
+
+            var nameFilter = Factory.Filter(new NameFilter(new List<NameRepository>()));
+            var numberfilter = Factory.Filter(new Numberfilter(new List<int>()));
         }
 
 
@@ -120,5 +117,6 @@ namespace DataGeneratorTests.Types.Name {
     public class Numberfilter : Filter<int> {
         public Numberfilter(IEnumerable<int> result) : base(result) {
         }
+        public void Test() { }
     }
 }
