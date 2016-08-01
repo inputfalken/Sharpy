@@ -2,24 +2,20 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace DataGen.Types.Name {
-    public class NameFilter : Filter<NameRepository>, IEqualityComparer<string> {
+    public class NameFilter : Filter<NameRepository> {
         public NameFilter(IEnumerable<NameRepository> result) : base(result) {
         }
 
         private IEnumerable<NameRepository> ByRegion(params string[] regions)
-            => regions.SelectMany(region => Result.Where(repository => Equals(region, repository.Origin.Region)));
+            => regions.SelectMany(region => Result.Where(repository => repository.Origin.Region.Equals(region)));
 
         public NameFilter ByRegions(params string[] regions)
             => new NameFilter(ByRegion(regions));
 
         private IEnumerable<NameRepository> ByCountry(params string[] countries)
-            => countries.SelectMany(country => Result.Where(repository => Equals(country, repository.Origin.Country)));
+            => countries.SelectMany(country => Result.Where(repository => repository.Origin.Country.Equals(country)));
 
         public NameFilter ByCountries(params string[] countries)
             => new NameFilter(ByCountry(countries));
-
-        public bool Equals(string x, string y) => x == y;
-
-        public int GetHashCode(string obj) => GetHashCode();
     }
 }
