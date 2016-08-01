@@ -16,7 +16,7 @@ namespace DataGen.Types.Name {
             FemaleFirstNames = femaleFirstNames;
             MaleFirstNames = maleFirstNames;
             LastNames = lastNames;
-            _origin = new Origin(country, region);
+            Origin = new Origin(country, region);
         }
 
         public IEnumerable<string> FemaleFirstNames { get; }
@@ -26,17 +26,6 @@ namespace DataGen.Types.Name {
         public IEnumerable<string> MixedFirstNames
             => FemaleFirstNames.Concat(MaleFirstNames);
 
-        public readonly Origin _origin;
-
-
-        public class Origin {
-            public readonly string Country;
-            public readonly string Region;
-
-            public Origin(string country, string region) {
-                Country = country;
-                Region = region;
-            }
-        }
+        public Origin Origin { get; }
     }
 }

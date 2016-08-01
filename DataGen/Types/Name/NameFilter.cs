@@ -7,13 +7,13 @@ namespace DataGen.Types.Name {
         }
 
         private IEnumerable<NameRepository> ByRegion(params string[] regions)
-            => regions.SelectMany(region => Result.Where(repository => Equals(region, repository._origin.Region)));
+            => regions.SelectMany(region => Result.Where(repository => Equals(region, repository.Origin.Region)));
 
         public NameFilter ByRegions(params string[] regions)
             => new NameFilter(ByRegion(regions));
 
         private IEnumerable<NameRepository> ByCountry(params string[] countries)
-            => countries.SelectMany(country => Result.Where(repository => Equals(country, repository._origin.Country)));
+            => countries.SelectMany(country => Result.Where(repository => Equals(country, repository.Origin.Country)));
 
         public NameFilter ByCountries(params string[] countries)
             => new NameFilter(ByCountry(countries));
