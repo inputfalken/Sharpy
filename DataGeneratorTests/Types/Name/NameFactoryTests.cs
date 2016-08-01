@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DataGen.Types;
+using DataGen.Types.Name;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DataGeneratorTests.Types.Name {
@@ -21,12 +22,12 @@ namespace DataGeneratorTests.Types.Name {
                 "Costa Rica", "Guatemala",
                 "El Salvador"
             };
-            var result = Factory.NameDatas().Collection(filter => filter.Result);
-
-
-            foreach (var nameRepository in result)
-                foreach (var femaleFirstName in nameRepository.FemaleFirstNames)
+            var nameRepositories = Factory.NameDatas.Collection(filter => filter.ByCountries(countries).Result);
+            foreach (var nameRepository in nameRepositories) {
+                foreach (var femaleFirstName in nameRepository.FemaleFirstNames) {
                     Console.WriteLine(femaleFirstName);
+                }
+            }
         }
 
 
@@ -109,6 +110,11 @@ namespace DataGeneratorTests.Types.Name {
         #endregion
 
         #endregion
+    }
+
+    public class StringFilter: Filter<string> {
+        public StringFilter(IEnumerable<string> result) : base(result) {
+        }
     }
 
     public class Numberfilter : Filter<int> {

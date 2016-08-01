@@ -2,20 +2,13 @@ using System;
 using System.Collections.Generic;
 
 namespace DataGen.Types {
+    // IS this class even needed?
     public class Data<TData, TFilter> where TFilter : Filter<TData> {
-        private IEnumerable<TData> Datas { get; }
         private TFilter Filter { get; }
 
-        private Func<IEnumerable<TData>, TFilter> Factory { get; }
 
-
-        public Data(IEnumerable<TData> data, Func<IEnumerable<TData>, TFilter> factory) {
-            Datas = data;
-            Factory = factory;
-        }
-
-        public Data(IEnumerable<TData> data, TFilter filter) {
-            Datas = data;
+        
+        public Data(TFilter filter) {
             Filter = filter;
         }
 

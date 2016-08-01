@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace DataGen.Types {
+    //Rename to modifier?
     public abstract class Filter<T> {
         public IEnumerable<T> Result { get; }
 
