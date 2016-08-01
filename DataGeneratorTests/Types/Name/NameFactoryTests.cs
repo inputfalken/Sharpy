@@ -23,8 +23,6 @@ namespace DataGeneratorTests.Types.Name {
                 "El Salvador"
             };
 
-            var nameFilter = Factory.Filter(new NameFilter(new List<NameRepository>()));
-            var numberfilter = Factory.Filter(new Numberfilter(new List<int>()));
         }
 
 
@@ -109,7 +107,7 @@ namespace DataGeneratorTests.Types.Name {
         #endregion
     }
 
-    public class StringFilter: Filter<string> {
+    public class StringFilter : Filter<string> {
         public StringFilter(IEnumerable<string> result) : base(result) {
         }
     }
@@ -117,6 +115,8 @@ namespace DataGeneratorTests.Types.Name {
     public class Numberfilter : Filter<int> {
         public Numberfilter(IEnumerable<int> result) : base(result) {
         }
-        public void Test() { }
+
+        public void Test() {
+        }
     }
 }
