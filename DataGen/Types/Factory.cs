@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace DataGen.Types {
     public static class Factory {
-        public static Filter<NameRepository> NameDatas
+        public static NameFilter NameDatas
             => Filter(new NameFilter(JsonConvert.DeserializeObject<IEnumerable<NameRepository>>(
                 File.ReadAllText("Data/Types/Name/data.json"))));
 
