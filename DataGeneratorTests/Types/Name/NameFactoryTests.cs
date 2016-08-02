@@ -23,7 +23,7 @@ namespace DataGeneratorTests.Types.Name {
                 Factory.NameDatas.FilterBy(Country, "sweden").FilterBy(Female).Result;
 
             foreach (var name in nameFilter) {
-                Console.WriteLine(name.Data);
+                Console.WriteLine(name);
             }
         }
 

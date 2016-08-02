@@ -23,5 +23,6 @@ namespace DataGen.Types.Name {
         public string Data { get; }
         public string Region { get; }
         public string Country { get; }
+        public override string ToString() => Data;
     }
 }
