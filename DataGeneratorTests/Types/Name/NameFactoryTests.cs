@@ -18,14 +18,8 @@ namespace DataGeneratorTests.Types.Name {
 
         [TestMethod]
         public void NameCollection_Arg_CentralAmerica() {
-            string[] countries = {
-                "Costa Rica", "Guatemala",
-                "El Salvador"
-            };
-
-            foreach (var name in Factory.NameDatas.ByRegions("europe").ByCountries("sweden").Result) {
-                Console.WriteLine(name.Data);
-            }
+            const string region = "centralAmerica";
+            Assert.IsTrue(Factory.NameDatas.ByRegions(region).Result.ToList().TrueForAll(name => name.Region == region));
         }
 
 
