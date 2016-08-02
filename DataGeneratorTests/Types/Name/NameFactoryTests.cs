@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DataGen.Types;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using static DataGen.Types.Name.FilterType;
+using static DataGen.Types.Name.FilterArg;
 
 namespace DataGeneratorTests.Types.Name {
     [TestClass]
@@ -20,7 +20,7 @@ namespace DataGeneratorTests.Types.Name {
         public void NameCollection_Arg_CentralAmerica() {
             const string region = "centralAmerica";
             var nameFilter =
-                Factory.NameDatas.FilterBy(Country, "sweden").FilterBy(Male).Result;
+                Factory.NameDatas.FilterBy(Country, "sweden").FilterBy(Female).Result;
 
             foreach (var name in nameFilter) {
                 Console.WriteLine(name.Data);

@@ -7,20 +7,20 @@ namespace DataGen.Types.Name {
         public NameFilter(IEnumerable<Name> result) : base(result) {
         }
 
-        public NameFilter FilterBy(FilterType filterType, params string[] args) {
-            switch (filterType) {
-                case FilterType.Country:
+        public NameFilter FilterBy(FilterArg filterArg, params string[] args) {
+            switch (filterArg) {
+                case FilterArg.Country:
                     return new NameFilter(args.SelectMany(country => Result.Where(name => name.Country.Equals(country))));
-                case FilterType.Region:
+                case FilterArg.Region:
                     return new NameFilter(args.SelectMany(region => Result.Where(name => name.Region.Equals(region))));
-                case FilterType.Female:
-                    return new NameFilter(Result.Where(name => name.NameType == NameType.Female));
-                case FilterType.Lastname:
-                    return new NameFilter(Result.Where(name => name.NameType == NameType.LastName));
-                case FilterType.Male:
-                    return new NameFilter(Result.Where(name => name.NameType == NameType.Male));
+                case FilterArg.Female:
+                    return new NameFilter(Result.Where(name => name.Type == 1));
+                case FilterArg.Lastname:
+                    return new NameFilter(Result.Where(name => name.Type == 3));
+                case FilterArg.Male:
+                    return new NameFilter(Result.Where(name => name.Type == 2));
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(filterType), filterType, null);
+                    throw new ArgumentOutOfRangeException(nameof(filterArg), filterArg, null);
             }
         }
     }

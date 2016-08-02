@@ -16,10 +16,10 @@ namespace DataGen.Types.Name {
             Country = country;
             Region = region;
             Data = name;
-            NameType = (NameType) type;
+            Type = type;
         }
 
-        public NameType NameType { get; }
+        public int Type { get; }
         public string Data { get; }
         public string Region { get; }
         public string Country { get; }
