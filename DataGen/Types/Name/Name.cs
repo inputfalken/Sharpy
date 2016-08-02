@@ -24,10 +24,10 @@ namespace DataGen.Types.Name {
         public string Region { get; }
         public string Country { get; }
     }
+}
 
-    public enum NameType {
-        Female = 1,
-        Male = 2,
-        LastName = 3
-    }
+public enum NameType {
+    Female = 1,
+    Male = 2,
+    LastName = 3
 }

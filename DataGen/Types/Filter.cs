@@ -16,5 +16,4 @@ namespace DataGen.Types {
                 .Where(g => g.Any())
                 .Select(grouping => grouping.Key);
     }
-
 }

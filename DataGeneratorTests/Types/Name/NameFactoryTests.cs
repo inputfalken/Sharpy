@@ -19,7 +19,12 @@ namespace DataGeneratorTests.Types.Name {
         [TestMethod]
         public void NameCollection_Arg_CentralAmerica() {
             const string region = "centralAmerica";
-            Assert.IsTrue(Factory.NameDatas.ByRegions(region).Result.ToList().TrueForAll(name => name.Region == region));
+            var nameFilter =
+                Factory.NameDatas.FilterBy(NameFilter.Types.Country, "sweden").FilterBy(NameFilter.Types.Male).Result;
+
+            foreach (var name in nameFilter) {
+                Console.WriteLine(name.Data);
+            }
         }
 
 

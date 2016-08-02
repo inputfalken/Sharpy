@@ -9,11 +9,11 @@ namespace DataGen.Types {
     public static class Factory {
         public static NameFilter NameDatas
             =>
-                FilterConstructor(enumerable => new NameFilter(enumerable),
+                Filter(enumerable => new NameFilter(enumerable),
                     JsonConvert.DeserializeObject<IEnumerable<Name.Name>>(
                         File.ReadAllText("Data/Types/Name/newData.json")));
 
-        public static TFilter FilterConstructor<TFilter, TData>(Func<IEnumerable<TData>, TFilter> func,
+        public static TFilter Filter<TFilter, TData>(Func<IEnumerable<TData>, TFilter> func,
             IEnumerable<TData> collection) where TFilter : Filter<TData>
             => func(collection);
     }
