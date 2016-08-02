@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DataGen.Types;
-using DataGen.Types.Name;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DataGeneratorTests.Types {

@@ -4,6 +4,6 @@ namespace DataGen.Types.Name {
         Male = 2,
         Lastname = 3,
         Country,
-        Region,
+        Region
     }
 }

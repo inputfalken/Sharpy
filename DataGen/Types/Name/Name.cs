@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-
-namespace DataGen.Types.Name {
+﻿namespace DataGen.Types.Name {
     // Is generated from json
     // ReSharper disable once ClassNeverInstantiated.Global
     public class Name {
