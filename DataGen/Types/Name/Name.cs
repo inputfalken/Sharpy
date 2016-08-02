@@ -11,21 +11,23 @@ namespace DataGen.Types.Name {
     // ReSharper disable once ClassNeverInstantiated.Global
     public class Name {
         //Todo rework json file and this object
-        public Name(IEnumerable<string> femaleFirstNames, IEnumerable<string> maleFirstNames,
-            IEnumerable<string> lastNames, string country, string region) {
-            FemaleFirstNames = femaleFirstNames;
-            MaleFirstNames = maleFirstNames;
-            LastNames = lastNames;
-            Origin = new Origin(country, region);
+
+        public Name(int type, string country, string region, string data) {
+            Country = country;
+            Region = region;
+            Data = data;
+            NameType = (NameType) type;
         }
 
-        public IEnumerable<string> FemaleFirstNames { get; }
-        public IEnumerable<string> LastNames { get; }
-        public IEnumerable<string> MaleFirstNames { get; }
+        public NameType NameType { get; }
+        public string Data { get; }
+        public string Region { get; }
+        public string Country { get; }
+    }
 
-        public IEnumerable<string> MixedFirstNames
-            => FemaleFirstNames.Concat(MaleFirstNames);
-
-        public Origin Origin { get; }
+    public enum NameType {
+        Female = 1,
+        Male = 2,
+        LastName = 3
     }
 }
