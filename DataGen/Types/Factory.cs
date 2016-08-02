@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 
 namespace DataGen.Types {
     public static class Factory {
+        //Todo move this prop to name class
         public static NameFilter NameDatas {
             get {
                 return Filter(enumerable => new NameFilter(enumerable),
