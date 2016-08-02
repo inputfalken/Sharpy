@@ -25,9 +25,3 @@ namespace DataGen.Types.Name {
         public string Country { get; }
     }
 }
-
-public enum NameType {
-    Female = 1,
-    Male = 2,
-    LastName = 3
-}
