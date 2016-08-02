@@ -11,7 +11,7 @@ namespace DataGen.Types {
             =>
                 FilterConstructor(enumerable => new NameFilter(enumerable),
                     JsonConvert.DeserializeObject<IEnumerable<Name.Name>>(
-                        File.ReadAllText("Data/Types/Name/collection.json")));
+                        File.ReadAllText("Data/Types/Name/newData.json")));
 
         public static TFilter FilterConstructor<TFilter, TData>(Func<IEnumerable<TData>, TFilter> func,
             IEnumerable<TData> collection) where TFilter : Filter<TData>

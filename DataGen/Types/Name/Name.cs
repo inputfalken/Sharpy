@@ -12,10 +12,10 @@ namespace DataGen.Types.Name {
     public class Name {
         //Todo rework json file and this object
 
-        public Name(int type, string country, string region, string data) {
+        public Name(int type, string country, string region, string name) {
             Country = country;
             Region = region;
-            Data = data;
+            Data = name;
             NameType = (NameType) type;
         }
 

@@ -23,6 +23,9 @@ namespace DataGeneratorTests.Types.Name {
                 "El Salvador"
             };
 
+            foreach (var name in Factory.NameDatas.ByRegions("europe").ByCountries("sweden").Result) {
+                Console.WriteLine(name.Data);
+            }
         }
 
 
