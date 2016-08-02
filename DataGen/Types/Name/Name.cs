@@ -9,9 +9,9 @@ using Newtonsoft.Json;
 namespace DataGen.Types.Name {
     // Is generated from json
     // ReSharper disable once ClassNeverInstantiated.Global
-    public class NameRepository {
+    public class Name {
         //Todo rework json file and this object
-        public NameRepository(IEnumerable<string> femaleFirstNames, IEnumerable<string> maleFirstNames,
+        public Name(IEnumerable<string> femaleFirstNames, IEnumerable<string> maleFirstNames,
             IEnumerable<string> lastNames, string country, string region) {
             FemaleFirstNames = femaleFirstNames;
             MaleFirstNames = maleFirstNames;

@@ -10,7 +10,7 @@ namespace DataGen.Types {
         public static NameFilter NameDatas
             =>
                 FilterConstructor(enumerable => new NameFilter(enumerable),
-                    JsonConvert.DeserializeObject<IEnumerable<NameRepository>>(
+                    JsonConvert.DeserializeObject<IEnumerable<Name.Name>>(
                         File.ReadAllText("Data/Types/Name/collection.json")));
 
         public static TFilter FilterConstructor<TFilter, TData>(Func<IEnumerable<TData>, TFilter> func,

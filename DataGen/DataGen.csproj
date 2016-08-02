@@ -54,11 +54,14 @@
     <Compile Include="Types\Factory.cs" />
     <Compile Include="Types\Filter.cs" />
     <Compile Include="Types\Name\NameFilter.cs" />
-    <Compile Include="Types\Name\NameRepository.cs" />
+    <Compile Include="Types\Name\Name.cs" />
     <Compile Include="Types\Name\Origin.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Types\Name\data.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Types\Name\newData.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
