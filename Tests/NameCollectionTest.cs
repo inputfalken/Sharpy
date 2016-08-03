@@ -1,11 +1,15 @@
-﻿using System.Collections.Generic;
-using DataGen.Types;
-using DataGen.Types.NameCollection;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using NUnit.Framework;
 
-namespace DataGeneratorTests.CollectionTests {
-    [TestClass]
-    public class NameCollectionTests {
+namespace Tests
+{
+    [TestFixture]
+    class NameCollectionTest
+    {
         #region Name Collection
 
         #region Filtered by Country
@@ -14,14 +18,14 @@ namespace DataGeneratorTests.CollectionTests {
 
         #region Filtered by Region
 
-        [TestMethod]
+        [Test]
         public void NameCollection_Arg_CentralAmerica() {
             const string region = "centralAmerica";
             
         }
 
 
-        //[TestMethod]
+        //[Test]
         //public void NameCollection_Arg_SouthAmerica() {
         //    string[]
         //        countries = {
@@ -43,7 +47,7 @@ namespace DataGeneratorTests.CollectionTests {
         //    Assert.IsTrue(maleFirstNameResult.SequenceEqual(maleFirstNameExpected));
         //}
 
-        //[TestMethod]
+        //[Test]
         //public void NameCollection_Arg_NorthAmerica() {
         //    string[] countries = {
         //        "Canada", "Mexico", "Cuba",
@@ -64,7 +68,7 @@ namespace DataGeneratorTests.CollectionTests {
         //    Assert.IsTrue(maleFirstNameResult.SequenceEqual(maleFirstNameExpected));
         //}
 
-        //[TestMethod]
+        //[Test]
         //public void NameCollection_Arg_Europe() {
         //    string[] countries = {
         //        "Albania", "Austria",
@@ -87,7 +91,7 @@ namespace DataGeneratorTests.CollectionTests {
         //    Assert.IsTrue(maleFirstNameResult.SequenceEqual(maleFirstNameExpected));
         //}
 
-        [TestMethod]
+        [Test]
         public void NameCollection_Arg_None() {
             ////var result = nameFactory.Collection(repository => repository.LastNames);
             ////var expected = Name.Collection(repository => repository.LastNames, Region.CentralAmerika,
@@ -100,18 +104,5 @@ namespace DataGeneratorTests.CollectionTests {
         #endregion
 
         #endregion
-    }
-
-    public class StringFilter : Filter<string> {
-        public StringFilter(IEnumerable<string> result) : base(result) {
-        }
-    }
-
-    public class Numberfilter : Filter<int> {
-        public Numberfilter(IEnumerable<int> result) : base(result) {
-        }
-
-        public void Test() {
-        }
     }
 }
