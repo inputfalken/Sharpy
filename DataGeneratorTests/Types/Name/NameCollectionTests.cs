@@ -6,7 +6,7 @@ using static DataGen.Types.Name.FilterArg;
 
 namespace DataGeneratorTests.Types.Name {
     [TestClass]
-    public class NameFactoryTests {
+    public class NameCollectionTests {
         #region Name Collection
 
         #region Filtered by Country

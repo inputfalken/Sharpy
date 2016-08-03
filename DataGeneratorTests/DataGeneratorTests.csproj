@@ -65,7 +65,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\Date\DateFactoryTests.cs" />
     <Compile Include="Types\FilterTests.cs" />
-    <Compile Include="Types\Name\NameFactoryTests.cs" />
+    <Compile Include="Types\Name\NameCollectionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
