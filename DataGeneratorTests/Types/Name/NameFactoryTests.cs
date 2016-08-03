@@ -18,11 +18,6 @@ namespace DataGeneratorTests.Types.Name {
         [TestMethod]
         public void NameCollection_Arg_CentralAmerica() {
             const string region = "centralAmerica";
-            var nameFilter = Factory.NameDatas.FilterBy(Country, "sweden").FilterBy(Female).Result;
-
-            foreach (var name in nameFilter) {
-                Console.WriteLine(name);
-            }
         }
 
 
