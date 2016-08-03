@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataGen.Types;
+using DataGen.Types.NameCollection;
+using Newtonsoft.Json;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
 
-namespace Tests
-{
+namespace Tests {
     [TestFixture]
-    class NameCollectionTest
-    {
+    internal class NameFilterTest {
         #region Name Collection
 
         #region Filtered by Country
@@ -19,33 +22,24 @@ namespace Tests
         #region Filtered by Region
 
         [Test]
-        public void NameCollection_Arg_CentralAmerica() {
+        public void NameFilter_Arg_CentralAmerica() {
             const string region = "centralAmerica";
-            
+            var enumerable = NameFilter.FilterBy(FilterArg.Region, region).Result;
+            Assert.IsTrue(enumerable.All(name => name.Region == region));
         }
 
 
-        //[Test]
-        //public void NameCollection_Arg_SouthAmerica() {
-        //    string[]
-        //        countries = {
-        //            "Argentina", "Brazil",
-        //            "Columbia", "Paraguay"
-        //        };
-        //    var lastNameResult = Name.Collection(repository => repository.LastNames, Region.SouthAmerica);
-        //    var lastNameExpected = Name.Collection(repository => repository.LastNames, countries);
-        //    var femaleFirstNameResult = Name.Collection(repository => repository.FemaleFirstNames,
-        //        Region.SouthAmerica);
-        //    var femaleFirstNameExpected = Name.Collection(repository => repository.FemaleFirstNames,
-        //        countries);
-        //    var maleFirstNameResult = Name.Collection(repository => repository.MaleFirstNames,
-        //        Region.SouthAmerica);
-        //    var maleFirstNameExpected = Name.Collection(repository => repository.MaleFirstNames, countries);
-
-        //    Assert.IsTrue(lastNameResult.SequenceEqual(lastNameExpected));
-        //    Assert.IsTrue(femaleFirstNameResult.SequenceEqual(femaleFirstNameExpected));
-        //    Assert.IsTrue(maleFirstNameResult.SequenceEqual(maleFirstNameExpected));
-        //}
+        [Test]
+        public void NameFilter_Arg_SouthAmerica() {
+            string[]
+                countries = {
+                    "Argentina", "Brazil",
+                    "Columbia", "Paraguay"
+                };
+            const string region = "soutAmerica";
+            var enumerable = NameFilter.FilterBy(FilterArg.Region, region).Result;
+            Assert.IsTrue(enumerable.All(name => name.Region == region));
+        }
 
         //[Test]
         //public void NameCollection_Arg_NorthAmerica() {
@@ -104,5 +98,9 @@ namespace Tests
         #endregion
 
         #endregion
+
+        private static NameFilter NameFilter => Factory.Filter(enumerable => new NameFilter(enumerable),
+            JsonConvert.DeserializeObject<IEnumerable<Name>>(
+                File.ReadAllText(TestHelper.GetTestsPath() + "/Data/Types/Name/newData.json")));
     }
 }
