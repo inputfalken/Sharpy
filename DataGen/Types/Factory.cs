@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using DataGen.Types.Name;
 using Newtonsoft.Json;
 
 namespace DataGen.Types {

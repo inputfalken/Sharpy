@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DataGen.Types;
+using DataGen.Types.NameCollection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using static DataGen.Types.Name.FilterArg;
 
-namespace DataGeneratorTests.Types.Name {
+namespace DataGeneratorTests.CollectionTests {
     [TestClass]
     public class NameCollectionTests {
         #region Name Collection
@@ -18,6 +17,7 @@ namespace DataGeneratorTests.Types.Name {
         [TestMethod]
         public void NameCollection_Arg_CentralAmerica() {
             const string region = "centralAmerica";
+            
         }
 
 

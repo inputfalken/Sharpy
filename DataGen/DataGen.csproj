@@ -53,9 +53,9 @@
     <Compile Include="Types\HelperClass.cs" />
     <Compile Include="Types\Factory.cs" />
     <Compile Include="Types\Filter.cs" />
-    <Compile Include="Types\Name\NameFilter.cs" />
-    <Compile Include="Types\Name\Name.cs" />
-    <Compile Include="Types\Name\FilterArg.cs" />
+    <Compile Include="Types\NameCollection\NameFilter.cs" />
+    <Compile Include="Types\NameCollection\Name.cs" />
+    <Compile Include="Types\NameCollection\FilterArg.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Types\Name\data.json">

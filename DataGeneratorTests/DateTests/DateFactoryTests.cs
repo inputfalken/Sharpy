@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NodaTime;
 
-namespace DataGeneratorTests.Types.Date {
+namespace DataGeneratorTests.DateTests {
     [TestClass]
     public class DateFactoryTests {
         #region Subtraction No UInt args

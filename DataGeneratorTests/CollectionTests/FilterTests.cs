@@ -3,7 +3,7 @@ using System.Linq;
 using DataGen.Types;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DataGeneratorTests.Types {
+namespace DataGeneratorTests.CollectionTests {
     [TestClass]
     public class FilterTests {
         [TestMethod]

@@ -2,7 +2,7 @@
 using System.IO;
 using Newtonsoft.Json;
 
-namespace DataGen.Types.Name {
+namespace DataGen.Types.NameCollection {
     // Is generated from json
     // ReSharper disable once ClassNeverInstantiated.Global
     public class Name {

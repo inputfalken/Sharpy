@@ -1,4 +1,4 @@
-namespace DataGen.Types.Name {
+namespace DataGen.Types.NameCollection {
     public enum FilterArg {
         Female = 1,
         Male = 2,

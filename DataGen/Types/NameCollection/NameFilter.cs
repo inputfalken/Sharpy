@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DataGen.Types.Name {
+namespace DataGen.Types.NameCollection {
     public class NameFilter : Filter<Name> {
         public NameFilter(IEnumerable<Name> result) : base(result) {
         }
