@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -24,76 +25,40 @@ namespace Tests {
         [Test]
         public void NameFilter_Arg_CentralAmerica() {
             const string region = "centralAmerica";
-            var enumerable = NameFilter.FilterBy(FilterArg.Region, region).Result;
-            Assert.IsTrue(enumerable.All(name => name.Region == region));
+            var result = NameFilter.FilterBy(FilterArg.Region, region).Result.ToList();
+
+            Assert.IsTrue(result.TrueForAll(name => name.Region == region) && result.Any());
         }
 
 
         [Test]
         public void NameFilter_Arg_SouthAmerica() {
-            string[]
-                countries = {
-                    "Argentina", "Brazil",
-                    "Columbia", "Paraguay"
-                };
-            const string region = "soutAmerica";
-            var enumerable = NameFilter.FilterBy(FilterArg.Region, region).Result;
-            Assert.IsTrue(enumerable.All(name => name.Region == region));
+            const string region = "southAmerica";
+            var result = NameFilter.FilterBy(FilterArg.Region, region).Result.ToList();
+            Assert.IsTrue(result.TrueForAll(name => name.Region == region) && result.Any());
         }
-
-        //[Test]
-        //public void NameCollection_Arg_NorthAmerica() {
-        //    string[] countries = {
-        //        "Canada", "Mexico", "Cuba",
-        //        "United States"
-        //    };
-        //    var lastNameResult = Name.Collection(repository => repository.LastNames, Region.NorthAmerica);
-        //    var lastNameExpected = Name.Collection(repository => repository.LastNames, countries);
-        //    var femaleFirstNameResult = Name.Collection(repository => repository.FemaleFirstNames,
-        //        Region.NorthAmerica);
-        //    var femaleFirstNameExpected = Name.Collection(repository => repository.FemaleFirstNames,
-        //        countries);
-        //    var maleFirstNameResult = Name.Collection(repository => repository.MaleFirstNames,
-        //        Region.NorthAmerica);
-        //    var maleFirstNameExpected = Name.Collection(repository => repository.MaleFirstNames, countries);
-
-        //    Assert.IsTrue(lastNameResult.SequenceEqual(lastNameExpected));
-        //    Assert.IsTrue(femaleFirstNameResult.SequenceEqual(femaleFirstNameExpected));
-        //    Assert.IsTrue(maleFirstNameResult.SequenceEqual(maleFirstNameExpected));
-        //}
-
-        //[Test]
-        //public void NameCollection_Arg_Europe() {
-        //    string[] countries = {
-        //        "Albania", "Austria",
-        //        "Azerbaijan", "Belgium", "Croatia", "Czech", "Denmark", "Estonia", "Faroe Islands", "Finland", "France",
-        //        "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Luxembourg", "Macedonia", "Malta",
-        //        "Moldova", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Russia", "Slovakia", "Slovenia",
-        //        "Spain", "Sweden", "Switzerland", "Turkey", "Ukraine", "United Kingdom"
-        //    };
-        //    var lastNameResult = Name.Collection(repository => repository.LastNames, Region.Europe);
-        //    var lastNameExpected = Name.Collection(repository => repository.LastNames, countries);
-        //    var femaleFirstNameResult = Name.Collection(repository => repository.FemaleFirstNames,
-        //        Region.Europe);
-        //    var femaleFirstNameExpected = Name.Collection(repository => repository.FemaleFirstNames,
-        //        countries);
-        //    var maleFirstNameResult = Name.Collection(repository => repository.MaleFirstNames, Region.Europe);
-        //    var maleFirstNameExpected = Name.Collection(repository => repository.MaleFirstNames, countries);
-
-        //    Assert.IsTrue(lastNameResult.SequenceEqual(lastNameExpected));
-        //    Assert.IsTrue(femaleFirstNameResult.SequenceEqual(femaleFirstNameExpected));
-        //    Assert.IsTrue(maleFirstNameResult.SequenceEqual(maleFirstNameExpected));
-        //}
 
         [Test]
-        public void NameCollection_Arg_None() {
-            ////var result = nameFactory.Collection(repository => repository.LastNames);
-            ////var expected = Name.Collection(repository => repository.LastNames, Region.CentralAmerika,
-            ////    Region.NorthAmerica, Region.SouthAmerica, Region.Europe);
-            //Assert.IsTrue(result.SequenceEqual(expected));
+        public void NameCollection_Arg_NorthAmerica() {
+            const string region = "northAmerica";
+            var result = NameFilter.FilterBy(FilterArg.Region, region).Result.ToList();
+            Assert.IsTrue(result.TrueForAll(name => name.Region == region) && result.Any());
         }
 
-        //Cool syntax
+        [Test]
+        public void NameCollection_Arg_Europe() {
+            string[] countries = {
+                "Albania", "Austria",
+                "Azerbaijan", "Belgium", "Croatia", "Czech", "Denmark", "Estonia", "Faroe Islands", "Finland", "France",
+                "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Luxembourg", "Macedonia", "Malta",
+                "Moldova", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Russia", "Slovakia", "Slovenia",
+                "Spain", "Sweden", "Switzerland", "Turkey", "Ukraine", "United Kingdom"
+            };
+
+            const string region = "europe";
+            var result = NameFilter.FilterBy(FilterArg.Region, region).Result.ToList();
+            Assert.IsTrue(result.TrueForAll(name => name.Region == region) && result.Any());
+        }
 
         #endregion
 
@@ -101,6 +66,6 @@ namespace Tests {
 
         private static NameFilter NameFilter => Factory.Filter(enumerable => new NameFilter(enumerable),
             JsonConvert.DeserializeObject<IEnumerable<Name>>(
-                File.ReadAllText(TestHelper.GetTestsPath() + "/Data/Types/Name/newData.json")));
+                File.ReadAllText(TestHelper.GetTestsPath() + @"\Data\Types\Name\newData.json")));
     }
 }
