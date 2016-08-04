@@ -27,7 +27,10 @@ namespace Tests {
             const string region = "centralAmerica";
             var result = NameFilter.FilterBy(FilterArg.Region, region).Result.ToList();
 
-            Assert.IsTrue(result.TrueForAll(name => name.Region == region) && result.Any());
+            //Makes sure that each object region is equal to current region.
+            Assert.IsTrue(result.All(name => name.Region == region) && result.Any());
+            //Makes sure that each country in CentralAmericanCountries is contained from the result
+            Assert.IsTrue(result.Select(name => name.Country).All(CentralAmericanCountries.Contains));
         }
 
 
@@ -35,29 +38,30 @@ namespace Tests {
         public void NameFilter_Arg_SouthAmerica() {
             const string region = "southAmerica";
             var result = NameFilter.FilterBy(FilterArg.Region, region).Result.ToList();
-            Assert.IsTrue(result.TrueForAll(name => name.Region == region) && result.Any());
+            //Makes sure that each object region is equal to current region.
+            Assert.IsTrue(result.All(name => name.Region == region) && result.Any());
+            //Makes sure that each country in SouthAmericanCountries is contained from the result
+            Assert.IsTrue(result.Select(name => name.Country).All(SouthAmericanCountries.Contains));
         }
 
         [Test]
         public void NameCollection_Arg_NorthAmerica() {
             const string region = "northAmerica";
             var result = NameFilter.FilterBy(FilterArg.Region, region).Result.ToList();
-            Assert.IsTrue(result.TrueForAll(name => name.Region == region) && result.Any());
+            //Makes sure that each object region is equal to current region.
+            Assert.IsTrue(result.All(name => name.Region == region) && result.Any());
+            //Makes sure that each country in NorthAmericanCountries is contained from the result
+            Assert.IsTrue(result.Select(name => name.Country).All(NorthAmericanCountries.Contains));
         }
 
         [Test]
         public void NameCollection_Arg_Europe() {
-            string[] countries = {
-                "Albania", "Austria",
-                "Azerbaijan", "Belgium", "Croatia", "Czech", "Denmark", "Estonia", "Faroe Islands", "Finland", "France",
-                "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Luxembourg", "Macedonia", "Malta",
-                "Moldova", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Russia", "Slovakia", "Slovenia",
-                "Spain", "Sweden", "Switzerland", "Turkey", "Ukraine", "United Kingdom"
-            };
-
             const string region = "europe";
             var result = NameFilter.FilterBy(FilterArg.Region, region).Result.ToList();
-            Assert.IsTrue(result.TrueForAll(name => name.Region == region) && result.Any());
+            //Makes sure that each object region is equal to current region.
+            Assert.IsTrue(result.All(name => name.Region == region) && result.Any());
+            //Makes sure that each country in EuropeCountries is contained from the result
+            Assert.IsTrue(result.Select(name => name.Country).All(EuropeCountries.Contains));
         }
 
         #endregion
@@ -67,5 +71,17 @@ namespace Tests {
         private static NameFilter NameFilter => Factory.Filter(enumerable => new NameFilter(enumerable),
             JsonConvert.DeserializeObject<IEnumerable<Name>>(
                 File.ReadAllText(TestHelper.GetTestsPath() + @"\Data\Types\Name\newData.json")));
+
+        private static readonly string[] EuropeCountries = {
+            "albania", "austria",
+            "azerbaijan", "belgium", "croatia", "czech", "denmark", "estonia", "faroeIslands", "finland", "france",
+            "germany", "greece", "hungary", "ireland", "italy", "latvia", "luxembourg", "macedonia", "malta",
+            "moldova", "netherlands", "norway", "poland", "portugal", "romania", "russia", "slovakia", "slovenia",
+            "spain", "sweden", "switzerland", "turkey", "ukraine", "unitedKingdom"
+        };
+
+        private static readonly string[] NorthAmericanCountries = { "canada", "mexico", "cuba", "unitedStates" };
+        private static readonly string[] SouthAmericanCountries = { "argentina", "brazil", "columbia", "paraguay" };
+        private static readonly string[] CentralAmericanCountries = { "costaRica", "guatemala", "elSalvador" };
     }
 }
