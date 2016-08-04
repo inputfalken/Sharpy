@@ -1,14 +1,15 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DataGen.Types {
-    public static class Filter {
-        /// <summary>
-        ///     Filters repeated strings from argument
-        /// </summary>
-        /// <param name="enumerable"></param>
-        /// <returns></returns>
-        public static IEnumerable<T> RepeatedData<T>(IEnumerable<T> enumerable)
+    public abstract class Filter<TData> {
+        protected Filter(IEnumerable<TData> result) {
+            Result = result;
+        }
+
+        public IEnumerable<TData> Result { get; }
+
+        public static IEnumerable<TData> RepeatedData(IEnumerable<TData> enumerable)
             => enumerable.GroupBy(s => s)
                 .Where(g => g.Any())
                 .Select(grouping => grouping.Key);
