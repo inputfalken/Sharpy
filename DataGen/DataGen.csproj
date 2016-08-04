@@ -58,9 +58,6 @@
     <Compile Include="Types\NameCollection\FilterArg.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Data\Types\Name\data.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Data\Types\Name\newData.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
