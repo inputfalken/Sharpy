@@ -18,6 +18,30 @@ namespace Tests {
 
         #region Filtered by Country
 
+        [Test]
+        public void NameFilter_Arg_Sweden() {
+            const string country = "sweden";
+            //Makes sure that each object country is equal to current country.
+            var result = NameFilter.FilterBy(FilterArg.Country, country).Result;
+            Assert.IsTrue(result.All(name => name.Country == country));
+        }
+
+        [Test]
+        public void NameFilter_Arg_Norway() {
+            const string country = "norway";
+            //Makes sure that each object country is equal to current country.
+            var result = NameFilter.FilterBy(FilterArg.Country, country).Result;
+            Assert.IsTrue(result.All(name => name.Country == country));
+        }
+
+        [Test]
+        public void NameFilter_Arg_Denmark() {
+            const string country = "denmark";
+            //Makes sure that each object country is equal to current country.
+            var result = NameFilter.FilterBy(FilterArg.Country, country).Result;
+            Assert.IsTrue(result.All(name => name.Country == country));
+        }
+
         #endregion
 
         #region Filtered by Region
