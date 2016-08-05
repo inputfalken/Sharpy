@@ -22,7 +22,7 @@ namespace Tests {
         public void NameFilter_Arg_Sweden() {
             const string country = "sweden";
             //Makes sure that each object country is equal to current country.
-            var result = NameFilter.FilterBy(FilterArg.Country, country).Result;
+            var result = NameFilter.FilterBy(FilterArg.Country, country);
             Assert.IsTrue(result.All(name => name.Country == country));
         }
 
@@ -30,7 +30,7 @@ namespace Tests {
         public void NameFilter_Arg_Norway() {
             const string country = "norway";
             //Makes sure that each object country is equal to current country.
-            var result = NameFilter.FilterBy(FilterArg.Country, country).Result;
+            var result = NameFilter.FilterBy(FilterArg.Country, country);
             Assert.IsTrue(result.All(name => name.Country == country));
         }
 
@@ -38,7 +38,7 @@ namespace Tests {
         public void NameFilter_Arg_Denmark() {
             const string country = "denmark";
             //Makes sure that each object country is equal to current country.
-            var result = NameFilter.FilterBy(FilterArg.Country, country).Result;
+            var result = NameFilter.FilterBy(FilterArg.Country, country);
             Assert.IsTrue(result.All(name => name.Country == country));
         }
 
@@ -49,7 +49,7 @@ namespace Tests {
         [Test]
         public void NameFilter_Arg_CentralAmerica() {
             const string region = "centralAmerica";
-            var result = NameFilter.FilterBy(FilterArg.Region, region).Result.ToList();
+            var result = NameFilter.FilterBy(FilterArg.Region, region);
 
             //Makes sure that each object region is equal to current region.
             Assert.IsTrue(result.All(name => name.Region == region) && result.Any());
@@ -61,7 +61,7 @@ namespace Tests {
         [Test]
         public void NameFilter_Arg_SouthAmerica() {
             const string region = "southAmerica";
-            var result = NameFilter.FilterBy(FilterArg.Region, region).Result.ToList();
+            var result = NameFilter.FilterBy(FilterArg.Region, region);
             //Makes sure that each object region is equal to current region.
             Assert.IsTrue(result.All(name => name.Region == region) && result.Any());
             //Makes sure that each country in SouthAmericanCountries is contained from the result
@@ -71,7 +71,7 @@ namespace Tests {
         [Test]
         public void NameCollection_Arg_NorthAmerica() {
             const string region = "northAmerica";
-            var result = NameFilter.FilterBy(FilterArg.Region, region).Result.ToList();
+            var result = NameFilter.FilterBy(FilterArg.Region, region);
             //Makes sure that each object region is equal to current region.
             Assert.IsTrue(result.All(name => name.Region == region) && result.Any());
             //Makes sure that each country in NorthAmericanCountries is contained from the result
@@ -81,7 +81,7 @@ namespace Tests {
         [Test]
         public void NameCollection_Arg_Europe() {
             const string region = "europe";
-            var result = NameFilter.FilterBy(FilterArg.Region, region).Result.ToList();
+            var result = NameFilter.FilterBy(FilterArg.Region, region);
             //Makes sure that each object region is equal to current region.
             Assert.IsTrue(result.All(name => name.Region == region) && result.Any());
             //Makes sure that each country in EuropeCountries is contained from the result
