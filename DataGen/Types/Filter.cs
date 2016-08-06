@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using DataGen.Types.NameCollection;
 
 namespace DataGen.Types {
     public abstract class Filter<TData, TEnum> : IEnumerable<TData> {
@@ -11,7 +12,6 @@ namespace DataGen.Types {
         }
 
         private IEnumerable<TData> Enumerable { get; }
-        protected ICollection<TData> Collection { get; } = new Collection<TData>();
 
         public IEnumerable<TData> RemoveRepeatedData()
             => Enumerable.GroupBy(s => s)
@@ -22,13 +22,7 @@ namespace DataGen.Types {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        protected virtual void PopulateCollectionWhere(Func<TData, bool> predicate) {
-            var enumerator = GetEnumerator();
-            while (enumerator.MoveNext())
-                if (predicate(enumerator.Current))
-                    Collection.Add(enumerator.Current);
-            enumerator.Dispose();
-        }
+        protected abstract Filter<TData, TEnum> Where(Func<TData, bool> predicate);
 
         public abstract Filter<TData, TEnum> FilterBy(TEnum tenum, params string[] args);
     }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace DataGen.Types.NameCollection {
@@ -7,27 +8,36 @@ namespace DataGen.Types.NameCollection {
         public NameFilter(IEnumerable<Name> enumerable) : base(enumerable) {
         }
 
+        protected override Filter<Name, FilterArg> Where(Func<Name, bool> predicate) {
+            var collection = new Collection<Name>();
+            var enumerator = GetEnumerator();
+            while (enumerator.MoveNext())
+                if (predicate(enumerator.Current))
+                    collection.Add(enumerator.Current);
+            enumerator.Dispose();
+            return new NameFilter(collection);
+        }
+
         public override Filter<Name, FilterArg> FilterBy(FilterArg filterArg, params string[] args) {
             switch (filterArg) {
                 case FilterArg.Male:
-                    PopulateCollectionWhere(name => name.Type == 1);
+                    return Where(name => name.Type == 1);
                     break;
                 case FilterArg.Female:
-                    PopulateCollectionWhere(name => name.Type == 2);
+                    return Where(name => name.Type == 2);
                     break;
                 case FilterArg.Lastname:
-                    PopulateCollectionWhere(name => name.Type == 3);
+                    return Where(name => name.Type == 3);
                     break;
                 case FilterArg.Country:
-                    PopulateCollectionWhere(name => args.Contains(name.Country));
+                    return Where(name => args.Contains(name.Country));
                     break;
                 case FilterArg.Region:
-                    PopulateCollectionWhere(name => args.Contains(name.Region));
+                    return Where(name => args.Contains(name.Region));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(filterArg), filterArg, null);
             }
-            return new NameFilter(Collection);
         }
     }
 }
