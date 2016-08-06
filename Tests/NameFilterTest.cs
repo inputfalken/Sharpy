@@ -120,6 +120,16 @@ namespace Tests {
             Assert.IsTrue(names.All(s => result.Select(name => name.Data).Contains(s)));
         }
 
+        [Test]
+        public void NameFilter_Arg_LastNames() {
+            string[] names = {
+                "Green", "Wood", "Pavlov", "Bogdanov", "Volkov", "Rusu", "Ceban", "Nagy", "Salo", "Niemi", "Koppel",
+                "Urbonas", "Torres", "Calvo", "Romero", "Johnson", "Salas", "Vargas"
+            };
+            var result = NameFilter.FilterBy(FilterArg.Lastname);
+            Assert.IsTrue(names.All(s => result.Select(name => name.Data).Contains(s)));
+        }
+
         #endregion
 
         #endregion
