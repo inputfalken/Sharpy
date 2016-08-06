@@ -10,8 +10,8 @@ namespace DataGen.Types {
 
         private IEnumerable<TData> Result { get; }
 
-        public static IEnumerable<TData> RepeatedData(IEnumerable<TData> enumerable)
-            => enumerable.GroupBy(s => s)
+        public IEnumerable<TData> RepeatedData()
+            => Result.GroupBy(s => s)
                 .Where(g => g.Any())
                 .Select(grouping => grouping.Key);
 
