@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace DataGen.Types {
-    public abstract class Filter<TData> : IEnumerable<TData> {
+    public abstract class Filter<TData, TEnum> : IEnumerable<TData> {
         protected Filter(IEnumerable<TData> result) {
             Result = result;
         }
@@ -18,5 +18,6 @@ namespace DataGen.Types {
         public IEnumerator<TData> GetEnumerator() => Result.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        public abstract Filter<TData, TEnum> FilterBy(TEnum tenum, params string[] args);
     }
 }
