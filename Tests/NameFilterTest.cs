@@ -90,6 +90,38 @@ namespace Tests {
 
         #endregion
 
+        #region Filtered by Name Types
+
+        [Test]
+        public void NameFilter_arg_FemaleFirstNames() {
+            string[] names = {
+                "Maria", "Olga", "Jessica", "Linda", "Sophie", "Vanessa", "Sophie", "Julia"
+            };
+            var result = NameFilter.FilterBy(FilterArg.FemaleFirstName);
+            Assert.IsTrue(names.All(s => result.Select(name => name.Data).Contains(s)));
+        }
+
+        [Test]
+        public void NameFilter_Arg_MaleFirstNames() {
+            string[] names = {
+                "Jacob", "Erik", "Simon", "Alexander", "Afonso", "Adam", "Michael", "Jack"
+            };
+            var result = NameFilter.FilterBy(FilterArg.MaleFirstName);
+            Assert.IsTrue(names.All(s => result.Select(name => name.Data).Contains(s)));
+        }
+
+        [Test]
+        public void NameFilter_Arg_MixedFirstNames() {
+            string[] names = {
+                "Jacob", "Erik", "Simon", "Alexander", "Afonso", "Adam", "Michael", "Jack",
+                "Maria", "Olga", "Jessica", "Linda", "Sophie", "Vanessa", "Sophie", "Julia"
+            };
+            var result = NameFilter.FilterBy(FilterArg.MixedFirstNames);
+            Assert.IsTrue(names.All(s => result.Select(name => name.Data).Contains(s)));
+        }
+
+        #endregion
+
         #endregion
 
         private static NameFilter NameFilter => new NameFilter(JsonConvert.DeserializeObject<IEnumerable<Name>>(
