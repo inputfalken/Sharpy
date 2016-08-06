@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 namespace DataGen.Types.NameCollection {
-    public class UserNameFilter : Filter<string, UserNameFilter> {
+    public sealed class UserNameFilter : Filter<string, UserNameFilter> {
         public UserNameFilter(IEnumerable<string> enumerable) : base(enumerable) {
         }
 
