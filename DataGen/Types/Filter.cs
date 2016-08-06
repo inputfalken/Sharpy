@@ -22,7 +22,6 @@ namespace DataGen.Types {
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        protected abstract Filter<TData, TEnum> Where(Func<TData, bool> predicate);
 
         public abstract Filter<TData, TEnum> FilterBy(TEnum tenum, params string[] args);
     }

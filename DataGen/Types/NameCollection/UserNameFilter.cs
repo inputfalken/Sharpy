@@ -6,9 +6,6 @@ namespace DataGen.Types.NameCollection {
         public UserNameFilter(IEnumerable<string> enumerable) : base(enumerable) {
         }
 
-        protected override Filter<string, UserNameFilter> Where(Func<string, bool> predicate) {
-            throw new NotImplementedException();
-        }
 
         public override Filter<string, UserNameFilter> FilterBy(UserNameFilter tenum, params string[] args) {
             throw new NotImplementedException();
