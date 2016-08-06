@@ -1,18 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using DataGen.Types.NameCollection;
 
 namespace Logger {
-    internal static class Program {
-        private static void Main(string[] args) {
-            Name.Names.Value
-                .FilterBy(NameArg.Region, "southAmerica")
-                .FilterBy(NameArg.Lastname)
-                .ToStringFilter(name => name.ToString())
-                .FilterBy(StringArg.Contains, "zo")
-                .OrderBy(s => s)
-                .ToList()
-                .ForEach(Console.WriteLine);
+    class Program {
+        static void Main(string[] args) {
         }
     }
 }
