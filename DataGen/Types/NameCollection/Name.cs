@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 namespace DataGen.Types.NameCollection {
     // Is generated from json
     // ReSharper disable once ClassNeverInstantiated.Global
-    public class Name {
+    public sealed class Name {
         public static Lazy<NameFilter> Filter
             => new Lazy<NameFilter>(() => new NameFilter(JsonConvert.DeserializeObject<IEnumerable<Name>>(
                 File.ReadAllText("Data/Tywes/Name/newData.json"))));
