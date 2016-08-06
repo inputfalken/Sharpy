@@ -11,10 +11,10 @@ namespace DataGen.Types.NameCollection {
 
         public override Filter<Name, FilterArg> FilterBy(FilterArg filterArg, params string[] args) {
             switch (filterArg) {
-                case FilterArg.MaleFirstName:
-                    return new NameFilter(this.Where(name => name.Type == 2));
                 case FilterArg.FemaleFirstName:
                     return new NameFilter(this.Where(name => name.Type == 1));
+                case FilterArg.MaleFirstName:
+                    return new NameFilter(this.Where(name => name.Type == 2));
                 case FilterArg.Lastname:
                     return new NameFilter(this.Where(name => name.Type == 3));
                 case FilterArg.Country:
