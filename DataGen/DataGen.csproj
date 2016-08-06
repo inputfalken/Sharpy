@@ -54,6 +54,7 @@
     <Compile Include="Types\Filter.cs" />
     <Compile Include="Types\NameCollection\NameFilter.cs" />
     <Compile Include="Types\NameCollection\Name.cs" />
+    <Compile Include="Types\NameCollection\UserNameFilter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Types\Name\newData.json">

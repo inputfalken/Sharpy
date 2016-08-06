@@ -12,8 +12,8 @@ namespace DataGen.Types.NameCollection {
             => new Lazy<NameFilter>(() => new NameFilter(JsonConvert.DeserializeObject<IEnumerable<Name>>(
                 File.ReadAllText("Data/Types/Name/newData.json"))));
 
-        public static Lazy<string[]> UserNames
-            => new Lazy<string[]>(() => File.ReadAllLines("Data/Types/Name/usernames.txt"));
+        public static Lazy<UserNameFilter> UserNames
+            => new Lazy<UserNameFilter>(() => new UserNameFilter(File.ReadAllLines("Data/Types/Name/usernames.txt")));
 
         public Name(int type, string country, string region, string name) {
             Country = country;
