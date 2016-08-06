@@ -102,12 +102,32 @@ namespace Tests {
         }
 
         [Test]
+        public void NameFilter_Arg_FemaleFirstNames_With_WrongData() {
+            string[] names = {
+                "Maria", "Olga", "Jessica", "Linda", "Sophie", "Vanessa", "Sophie", "Julia",
+                "Michael", "Jack",
+            };
+            var result = NameFilter.FilterBy(FilterArg.FemaleFirstName);
+            Assert.IsFalse(names.All(s => result.Select(name => name.Data).Contains(s)));
+        }
+
+        [Test]
         public void NameFilter_Arg_MaleFirstNames() {
             string[] names = {
                 "Jacob", "Erik", "Simon", "Alexander", "Afonso", "Adam", "Michael", "Jack"
             };
             var result = NameFilter.FilterBy(FilterArg.MaleFirstName);
             Assert.IsTrue(names.All(s => result.Select(name => name.Data).Contains(s)));
+        }
+
+        [Test]
+        public void NameFilter_Arg_MaleFirstNames_With_WrongData() {
+            string[] names = {
+                "Jacob", "Erik", "Simon", "Alexander", "Afonso", "Adam", "Michael", "Jack",
+                "Maria", "Olga"
+            };
+            var result = NameFilter.FilterBy(FilterArg.MaleFirstName);
+            Assert.IsFalse(names.All(s => result.Select(name => name.Data).Contains(s)));
         }
 
         [Test]
@@ -120,6 +140,7 @@ namespace Tests {
             Assert.IsTrue(names.All(s => result.Select(name => name.Data).Contains(s)));
         }
 
+
         [Test]
         public void NameFilter_Arg_LastNames() {
             string[] names = {
@@ -128,6 +149,18 @@ namespace Tests {
             };
             var result = NameFilter.FilterBy(FilterArg.Lastname);
             Assert.IsTrue(names.All(s => result.Select(name => name.Data).Contains(s)));
+        }
+
+        [Test]
+        public void NameFilter_Arg_LastNames_With_WrongData() {
+            string[] names = {
+                "Green", "Wood", "Pavlov", "Bogdanov", "Volkov", "Rusu", "Ceban", "Nagy", "Salo", "Niemi", "Koppel",
+                "Urbonas", "Torres", "Calvo", "Romero", "Johnson", "Salas", "Vargas",
+                "Jacob", "Erik",
+                "Maria", "Olga"
+            };
+            var result = NameFilter.FilterBy(FilterArg.Lastname);
+            Assert.IsFalse(names.All(s => result.Select(name => name.Data).Contains(s)));
         }
 
         #endregion
