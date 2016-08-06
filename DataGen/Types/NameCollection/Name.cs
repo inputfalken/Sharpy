@@ -24,4 +24,5 @@ namespace DataGen.Types.NameCollection {
         public string Country { get; }
         public override string ToString() => Data;
     }
+
 }
