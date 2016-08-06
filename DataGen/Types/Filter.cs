@@ -10,7 +10,7 @@ namespace DataGen.Types {
 
         private IEnumerable<TData> Result { get; }
 
-        public IEnumerable<TData> RepeatedData()
+        public IEnumerable<TData> RemoveRepeatedData()
             => Result.GroupBy(s => s)
                 .Where(g => g.Any())
                 .Select(grouping => grouping.Key);

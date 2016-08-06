@@ -13,7 +13,7 @@ namespace Tests {
         public void RepeatedDataTestString() {
             IEnumerable<string> testList = new[] { "bob", "bob", "John", "doe", "doe", "doe" };
             IEnumerable<string> expected = new[] { "bob", "John", "doe" };
-            var result = Filter<string>.RepeatedData(testList);
+            var result = Filter<string>.RemoveRepeatedData(testList);
             Assert.IsTrue(result.SequenceEqual(expected));
         }
 
@@ -21,7 +21,7 @@ namespace Tests {
         public void RepeatedDataTestInt() {
             IEnumerable<int> testList = new[] { 1, 2, 3, 4, 65, 6, 7, 7, 8, 8, 9, 10, 10, 10, 10 };
             IEnumerable<int> expected = new[] { 1, 2, 3, 4, 65, 6, 7, 8, 9, 10 };
-            var result = Filter<int>.RepeatedData(testList);
+            var result = Filter<int>.RemoveRepeatedData(testList);
             Assert.IsTrue(result.SequenceEqual(expected));
         }
     }
