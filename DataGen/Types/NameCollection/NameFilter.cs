@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace DataGen.Types.NameCollection {
-    public class NameFilter : Filter<Name> {
+    public class NameFilter : Filter<Name, FilterArg> {
         public NameFilter(IEnumerable<Name> result) : base(result) {
         }
 
-        public NameFilter FilterBy(FilterArg filterArg, params string[] args) {
+        public override Filter<Name, FilterArg> FilterBy(FilterArg filterArg, params string[] args) {
             switch (filterArg) {
                 case FilterArg.Male:
                     Predicate(name => name.Type == 1);
@@ -34,11 +34,10 @@ namespace DataGen.Types.NameCollection {
 
         private void Predicate(Func<Name, bool> predicate) {
             var enumerator = GetEnumerator();
-            if (predicate(enumerator.Current)) {
-                while (enumerator.MoveNext())
+            while (enumerator.MoveNext())
+                if (predicate(enumerator.Current))
                     Names.Add(enumerator.Current);
-                enumerator.Dispose();
-            }
+            enumerator.Dispose();
         }
     }
 }

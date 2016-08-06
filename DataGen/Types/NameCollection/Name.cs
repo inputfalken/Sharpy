@@ -6,9 +6,8 @@ namespace DataGen.Types.NameCollection {
     // Is generated from json
     // ReSharper disable once ClassNeverInstantiated.Global
     public class Name {
-        public static NameFilter Filter => Factory.Filter(enumerable => new NameFilter(enumerable),
-            JsonConvert.DeserializeObject<IEnumerable<Name>>(
-                File.ReadAllText("Data/Types/Name/newData.json")));
+        public static NameFilter Filter => new NameFilter(JsonConvert.DeserializeObject<IEnumerable<Name>>(
+            File.ReadAllText("Data/Types/Name/newData.json")));
 
         public Name(int type, string country, string region, string name) {
             Country = country;

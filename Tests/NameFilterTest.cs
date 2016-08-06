@@ -92,9 +92,9 @@ namespace Tests {
 
         #endregion
 
-        private static NameFilter NameFilter => Factory.Filter(enumerable => new NameFilter(enumerable),
-            JsonConvert.DeserializeObject<IEnumerable<Name>>(
-                File.ReadAllText(TestHelper.GetTestsPath() + @"\Data\Types\Name\newData.json")));
+        private static NameFilter NameFilter => new NameFilter(JsonConvert.DeserializeObject<IEnumerable<Name>>(
+            File.ReadAllText(TestHelper.GetTestsPath() + @"\Data\Types\Name\newData.json")));
+
 
         private static readonly string[] EuropeCountries = {
             "albania", "austria",
