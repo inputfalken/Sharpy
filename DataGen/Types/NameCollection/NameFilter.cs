@@ -23,7 +23,6 @@ namespace DataGen.Types.NameCollection {
                     return new NameFilter(this.Where(name => args.Contains(name.Region)));
                 case FilterArg.MixedFirstNames:
                     return new NameFilter(this.Where(name => name.Type == 1 || name.Type == 2));
-                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(filterArg), filterArg, null);
             }
