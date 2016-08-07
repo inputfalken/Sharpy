@@ -10,7 +10,11 @@ namespace DataGen.Types {
         protected Filter(IEnumerable<TData> enumerable) {
             Enumerable = enumerable;
         }
-        //Todo add method to change the filter type which is similiar to select that will work in the current class
+
+
+        public StringFilter ToStringFilter(Func<Filter<TData,TArg>, IEnumerable<string>> func) {
+            return new StringFilter(func(this));
+        }
 
         private IEnumerable<TData> Enumerable { get; }
 
