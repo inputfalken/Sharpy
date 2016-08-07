@@ -12,9 +12,10 @@ namespace DataGen.Types {
         }
 
 
-        public StringFilter ToStringFilter(Func<Filter<TData,TArg>, IEnumerable<string>> func) {
-            return new StringFilter(func(this));
-        }
+
+        public StringFilter ToStringFilter(Func<TData, string> func)
+            => new StringFilter(this.Select(func));
+
 
         private IEnumerable<TData> Enumerable { get; }
 
