@@ -12,7 +12,6 @@ namespace DataGen.Types {
         }
 
 
-
         public StringFilter ToStringFilter(Func<TData, string> func)
             => new StringFilter(this.Select(func));
 
@@ -20,7 +19,7 @@ namespace DataGen.Types {
         private IEnumerable<TData> Enumerable { get; }
 
         public IEnumerable<TData> RemoveRepeatedData()
-            => Enumerable.GroupBy(s => s)
+            => this.GroupBy(s => s)
                 .Where(g => g.Any())
                 .Select(grouping => grouping.Key);
 
