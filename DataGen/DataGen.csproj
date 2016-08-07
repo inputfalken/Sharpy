@@ -52,9 +52,9 @@
     <Compile Include="Types\Date\DateFactory.cs" />
     <Compile Include="Types\HelperClass.cs" />
     <Compile Include="Types\Filter.cs" />
-    <Compile Include="Types\NameCollection\NameFilter.cs" />
-    <Compile Include="Types\NameCollection\Name.cs" />
-    <Compile Include="Types\NameCollection\StringFilter.cs" />
+    <Compile Include="Types\Name\NameFilter.cs" />
+    <Compile Include="Types\Name\Name.cs" />
+    <Compile Include="Types\String\stringfilter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Types\Name\newData.json">
@@ -64,6 +64,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Types\String" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

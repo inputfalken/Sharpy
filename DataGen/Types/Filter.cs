@@ -29,6 +29,6 @@ namespace DataGen.Types {
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
 
-        public abstract Filter<TData, TArg> FilterBy(TArg tenum, params string[] args);
+        public abstract Filter<TData, TArg> FilterBy(TArg tArg, params string[] args);
     }
 }

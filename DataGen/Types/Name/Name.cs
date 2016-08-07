@@ -8,7 +8,7 @@ namespace DataGen.Types.NameCollection {
     // Is generated from json
     // ReSharper disable once ClassNeverInstantiated.Global
     public sealed class Name {
-        public static Lazy<NameFilter> Filter
+        public static Lazy<NameFilter> Names
             => new Lazy<NameFilter>(() => new NameFilter(JsonConvert.DeserializeObject<IEnumerable<Name>>(
                 File.ReadAllText("Data/Types/Name/newData.json"))));
 

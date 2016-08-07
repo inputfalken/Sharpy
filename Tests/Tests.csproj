@@ -57,6 +57,7 @@
     <Compile Include="DateFactoryTest.cs" />
     <Compile Include="NameFilterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringFilterTests.cs" />
     <Compile Include="TestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
