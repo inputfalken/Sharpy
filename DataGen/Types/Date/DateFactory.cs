@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using NodaTime;
+using static System.Linq.Enumerable;
 using static NodaTime.Period;
 
 namespace DataGen.Types.Date {
@@ -11,21 +11,17 @@ namespace DataGen.Types.Date {
 
 
         /// <summary>
-        ///     Will create a sequence of the values given
+        ///     Will create a sequence of the values given from current date
         /// </summary>
         /// <param name="length">Length of sequence</param>
         /// <param name="date">Date to be sequenced</param>
         /// <returns></returns>
-        public static IEnumerable<LocalDate> CreateSequence(int length, LocalDate date) {
-            var localDates = new Collection<LocalDate>();
-            for (var i = 0; i < length; i++)
-                localDates.Add(
-                    CurrentLocalDate
-                        .Plus(FromYears(date.Year * i))
-                        .Plus(FromMonths(date.Month * i))
-                        .Plus(FromDays(date.Day * i)));
-            return localDates;
-        }
+        public static IEnumerable<LocalDate> CreateSequence(int length, LocalDate date)
+            => new List<LocalDate>().Sequence(length,
+                (localDate, i) => localDate
+                    .PlusDays(date.Day * i)
+                    .PlusMonths(date.Month * i)
+                    .PlusYears(date.Year * i), CurrentLocalDate);
 
 
         ///<summary>
