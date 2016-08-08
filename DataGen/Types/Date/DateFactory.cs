@@ -11,10 +11,10 @@ namespace DataGen.Types.Date {
 
 
         /// <summary>
-        ///     will create a sequence of the values given
+        ///     Will create a sequence of the values given
         /// </summary>
         /// <param name="length">Length of sequence</param>
-        /// <param name="date">date to be sequenced</param>
+        /// <param name="date">Date to be sequenced</param>
         /// <returns></returns>
         public static IEnumerable<LocalDate> CreateSequence(int length, LocalDate date) {
             var localDates = new Collection<LocalDate>();
@@ -28,11 +28,12 @@ namespace DataGen.Types.Date {
         }
 
 
-        //Can add an bool arg and use ternary operator to make this into one method
-        public static LocalDate CreatePastDate(LocalDate date)
-            => CurrentLocalDate.Minus(FromYears(date.Year)).Minus(FromMonths(date.Month)).Minus(FromDays(date.Day));
-
-        public static LocalDate CreateFutureDate(LocalDate date)
-            => CurrentLocalDate.Plus(FromYears(date.Year)).Plus(FromMonths(date.Month)).Plus(FromDays(date.Day));
+        ///<summary>
+        ///  Will add or subtract the date argument from current date.
+        /// </summary>
+        public static LocalDate CreateDate(LocalDate date, bool past = true)
+            => past == true
+                ? CurrentLocalDate.Minus(FromYears(date.Year)).Minus(FromMonths(date.Month)).Minus(FromDays(date.Day))
+                : CurrentLocalDate.Plus(FromYears(date.Year)).Plus(FromMonths(date.Month)).Plus(FromDays(date.Day));
     }
 }
