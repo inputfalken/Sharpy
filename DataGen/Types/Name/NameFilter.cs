@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace DataGen.Types.NameCollection {
+namespace DataGen.Types.Name {
     public sealed class NameFilter : Filter<Name, NameArg> {
         public NameFilter(IEnumerable<Name> enumerable) : base(enumerable) {
         }

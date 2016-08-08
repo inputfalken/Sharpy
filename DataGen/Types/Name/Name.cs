@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using DataGen.Types.NameCollection;
 using Newtonsoft.Json;
 
-namespace DataGen.Types.NameCollection {
+namespace DataGen.Types.Name {
     // Is generated from json
     // ReSharper disable once ClassNeverInstantiated.Global
     public sealed class Name {

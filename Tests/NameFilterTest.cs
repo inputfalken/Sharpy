@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataGen.Types;
+using DataGen.Types.Name;
 using DataGen.Types.NameCollection;
 using Newtonsoft.Json;
 using NUnit.Framework;
