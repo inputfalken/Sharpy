@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DataGen.Types;
 
-namespace DataGen.Types.NameCollection {
+namespace DataGen.Types.String {
     public sealed class StringFilter : Filter<string, StringArg> {
         public StringFilter(IEnumerable<string> enumerable) : base(enumerable) {
         }

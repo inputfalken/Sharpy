@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using DataGen.Types.NameCollection;
+using DataGen.Types.String;
 using Newtonsoft.Json;
 
 namespace DataGen.Types.Name {

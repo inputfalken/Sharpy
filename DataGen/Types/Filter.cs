@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using DataGen.Types.NameCollection;
+using DataGen.Types.String;
 
 namespace DataGen.Types {
     public abstract class Filter<TData, TArg> : IEnumerable<TData> {

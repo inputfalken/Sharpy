@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DataGen.Types.NameCollection;
+using DataGen.Types.String;
 using NUnit.Framework;
 
 namespace Tests {
