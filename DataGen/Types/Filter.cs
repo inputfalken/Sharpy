@@ -11,12 +11,9 @@ namespace DataGen.Types {
             Enumerable = enumerable;
         }
 
-
-        public StringFilter ToStringFilter(Func<TData, string> func)
-            => new StringFilter(this.Select(func));
-
-
         private IEnumerable<TData> Enumerable { get; }
+
+        public TData RandomItem => FetchRandomElement();
 
         public IEnumerable<TData> RemoveRepeatedData()
             => this.GroupBy(s => s)
@@ -24,7 +21,7 @@ namespace DataGen.Types {
                 .Select(grouping => grouping.Key);
 
 
-        public TData RetrieveRandomElement() {
+        private TData FetchRandomElement() {
             var current = default(TData);
             var count = 0;
             foreach (var element in this) {
@@ -39,6 +36,9 @@ namespace DataGen.Types {
 
 
         public IEnumerator<TData> GetEnumerator() => Enumerable.GetEnumerator();
+
+        public StringFilter ToStringFilter(Func<TData, string> func)
+            => new StringFilter(this.Select(func));
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
