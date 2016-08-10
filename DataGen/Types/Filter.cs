@@ -9,11 +9,12 @@ namespace DataGen.Types {
     public abstract class Filter<TData, TArg> : IEnumerable<TData> {
         protected Filter(IEnumerable<TData> enumerable) {
             Enumerable = enumerable;
+            LazyList = new Lazy<List<TData>>(this.ToList);
         }
 
         private IEnumerable<TData> Enumerable { get; }
 
-        public TData RandomItem => FetchRandomElement();
+        public TData RandomItem => LazyList.Value[HelperClass.Randomizer(LazyList.Value.Count)];
 
         public IEnumerable<TData> RemoveRepeatedData()
             => this.GroupBy(s => s)
@@ -21,20 +22,7 @@ namespace DataGen.Types {
                 .Select(grouping => grouping.Key);
 
 
-        private TData FetchRandomElement() {
-            var current = default(TData);
-            var count = 0;
-            foreach (var element in this) {
-                count++;
-                if (HelperClass.Randomizer(count) == 0)
-                    current = element;
-            }
-            if (count == 0)
-                throw new InvalidOperationException("Sequence was empty");
-            return current;
-        }
-
-
+        private Lazy<List<TData>> LazyList { get; }
         public IEnumerator<TData> GetEnumerator() => Enumerable.GetEnumerator();
 
         public StringFilter ToStringFilter(Func<TData, string> func)
