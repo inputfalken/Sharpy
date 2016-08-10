@@ -1,20 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using DataGen.Types.String;
-using Newtonsoft.Json;
-
-namespace DataGen.Types.Name {
+﻿namespace DataGen.Types.Name {
     // Is generated from json
     // ReSharper disable once ClassNeverInstantiated.Global
     public sealed class Name {
-        public static Lazy<NameFilter> Names
-            => new Lazy<NameFilter>(() => new NameFilter(JsonConvert.DeserializeObject<IEnumerable<Name>>(
-                File.ReadAllText("Data/Types/Name/newData.json"))));
-
-        public static Lazy<StringFilter> UserNames
-            => new Lazy<StringFilter>(() => new StringFilter(File.ReadAllLines("Data/Types/Name/usernames.txt")));
 
         public Name(int type, string country, string region, string name) {
             Country = country;
