@@ -54,6 +54,7 @@
     <Compile Include="Types\Date\DateFactory.cs" />
     <Compile Include="Types\HelperClass.cs" />
     <Compile Include="Types\Filter.cs" />
+    <Compile Include="Types\Mail\MailFactory.cs" />
     <Compile Include="Types\Name\NameFilter.cs" />
     <Compile Include="Types\Name\Name.cs" />
     <Compile Include="Types\String\stringfilter.cs" />
@@ -68,6 +69,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Types\Mail" />
     <Folder Include="Types\String" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
