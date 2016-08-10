@@ -12,7 +12,7 @@ namespace DataGen.Types.Mail {
         private static readonly List<string> CreatedMails = new List<string>();
 
         private static readonly List<char> Separators = new List<char> {
-            '_', '.', '-', '!'
+            '_', '.', '-'
         };
 
 
