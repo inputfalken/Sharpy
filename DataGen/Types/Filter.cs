@@ -8,6 +8,8 @@ using DataGen.Types.String;
 namespace DataGen.Types {
     public abstract class Filter<TData, TArg> : IEnumerable<TData> {
         protected Filter(IEnumerable<TData> enumerable) {
+            // ReSharper disable PossibleMultipleEnumeration
+            if (!enumerable.Any()) throw new ArgumentException("Sequence Is empty");
             Enumerable = enumerable;
             LazyList = new Lazy<List<TData>>(this.ToList);
         }
