@@ -168,7 +168,7 @@ namespace Tests {
         #endregion
 
         private static NameFilter Names => new NameFilter(JsonConvert.DeserializeObject<IEnumerable<Name>>(
-            File.ReadAllText(TestHelper.GetTestsPath() + @"\Data\Types\Name\newData.json")));
+            File.ReadAllText(TestHelper.GetTestsPath() + @"\Data\Types\Name\NamesByOrigin.json")));
 
 
         private static readonly string[] EuropeCountries = {

@@ -59,7 +59,7 @@
     <Compile Include="Types\String\stringfilter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Data\Types\Name\newData.json">
+    <None Include="Data\Types\Name\NamesByOrigin.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Data\Types\Name\usernames.txt">
