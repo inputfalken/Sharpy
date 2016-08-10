@@ -16,6 +16,18 @@ namespace Tests {
     internal class NameFilterTest {
         #region Name Collection
 
+        #region Exception Handling
+
+        [Test]
+        public void NameFilter_Arg_Country_Foobar()
+            => Assert.Throws<ArgumentException>(() => Names.FilterBy(NameArg.Country, "foobar"));
+
+        [Test]
+        public void NameFilter_Arg_Region_Foobar()
+            => Assert.Throws<ArgumentException>(() => Names.FilterBy(NameArg.Region, "foobar"));
+
+        #endregion
+
         #region Filtered by Country
 
         [Test]
