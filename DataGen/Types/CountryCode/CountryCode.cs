@@ -5,17 +5,15 @@ namespace DataGen.Types.CountryCode {
     // Is generated from json
     public class CountryCode {
         public string Name { get; }
-        private string DialCode { get; }
-        public string Code { get; }
+        private string Code { get; }
 
         // ReSharper disable once InconsistentNaming
-        public CountryCode(string name, string dial_Code, string code) {
+        public CountryCode(string name , string code) {
             Name = name;
-            DialCode = dial_Code;
             Code = code;
         }
 
         public string ConstructNumber => Enumerable.Range(1, 7)
-            .Aggregate(DialCode, (current, i) => current + HelperClass.Randomizer(0, 9));
+            .Aggregate(Code, (current, i) => current + HelperClass.Randomizer(0, 9));
     }
 }
