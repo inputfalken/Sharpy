@@ -15,8 +15,8 @@ namespace DataGen.Types.CountryCode {
         public string RandomPhoneNumber(int length) => Enumerable.Range(1, length)
             .Aggregate(Code, (current, i) => current + HelperClass.Randomizer(0, 9));
 
-        public string RandomPhoneNumber(int minlength, int maxlengh)
-            => Enumerable.Range(1, HelperClass.Randomizer(minlength, maxlengh))
+        public string RandomPhoneNumber(int minLength, int maxLength)
+            => Enumerable.Range(1, HelperClass.Randomizer(minLength, maxLength))
                 .Aggregate(Code, (current, i) => current + HelperClass.Randomizer(0, 9));
     }
 }
