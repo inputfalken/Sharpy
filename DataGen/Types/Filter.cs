@@ -10,12 +10,12 @@ namespace DataGen.Types {
             // ReSharper disable PossibleMultipleEnumeration
             if (!enumerable.Any()) throw new ArgumentException("Sequence Is empty");
             Enumerable = enumerable;
-            LazyList = new Lazy<List<TData>>(this.ToList);
+            LazyArray = new Lazy<TData[]>(this.ToArray);
         }
 
         private IEnumerable<TData> Enumerable { get; }
 
-        public TData RandomItem => LazyList.Value[HelperClass.Randomizer(LazyList.Value.Count)];
+        public TData RandomItem => LazyArray.Value[HelperClass.Randomizer(LazyArray.Value.Length)];
 
         public IEnumerable<TData> RemoveRepeatedData()
             => this.GroupBy(s => s)
@@ -23,7 +23,7 @@ namespace DataGen.Types {
                 .Select(grouping => grouping.Key);
 
 
-        private Lazy<List<TData>> LazyList { get; }
+        private Lazy<TData[]> LazyArray { get; }
         public IEnumerator<TData> GetEnumerator() => Enumerable.GetEnumerator();
 
         public StringFilter ToStringFilter(Func<TData, string> func)
