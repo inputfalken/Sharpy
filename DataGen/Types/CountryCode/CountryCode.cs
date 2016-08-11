@@ -7,11 +7,16 @@ namespace DataGen.Types.CountryCode {
         public string Name { get; }
         private string Code { get; }
 
-        // ReSharper disable once InconsistentNaming
-        public CountryCode(string name , string code) {
+        public CountryCode(string name, string code) {
             Name = name;
             Code = code;
         }
 
+        public string RandomPhoneNumber(int length) => Enumerable.Range(1, length)
+            .Aggregate(Code, (current, i) => current + HelperClass.Randomizer(0, 9));
+
+        public string RandomPhoneNumber(int minlength, int maxlengh)
+            => Enumerable.Range(1, HelperClass.Randomizer(minlength, maxlengh))
+                .Aggregate(Code, (current, i) => current + HelperClass.Randomizer(0, 9));
     }
 }
