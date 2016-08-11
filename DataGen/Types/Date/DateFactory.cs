@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using NodaTime;
 using static NodaTime.Period;
 
@@ -15,11 +17,8 @@ namespace DataGen.Types.Date {
         /// <param name="date">Date to be sequenced</param>
         /// <returns></returns>
         public static IEnumerable<LocalDate> CreateSequence(int length, LocalDate date)
-            => new List<LocalDate>().CreatePattern(length,
-                (localDate, i) => localDate
-                    .PlusDays(date.Day * i)
-                    .PlusMonths(date.Month * i)
-                    .PlusYears(date.Year * i), CurrentLocalDate);
+            => Enumerable.Range(1, length)
+                .Select(i => CurrentLocalDate.PlusYears(date.Year * i).PlusMonths(date.Month * i).PlusDays(date.Day * i));
 
 
         /// <summary>
