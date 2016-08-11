@@ -2,7 +2,6 @@
     // Is generated from json
     // ReSharper disable once ClassNeverInstantiated.Global
     public sealed class Name {
-
         public Name(int type, string country, string region, string name) {
             Country = country;
             Region = region;

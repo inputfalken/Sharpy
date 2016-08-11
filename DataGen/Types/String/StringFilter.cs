@@ -23,6 +23,6 @@ namespace DataGen.Types.String {
 
     public enum StringArg {
         StartsWith,
-        Contains,
+        Contains
     }
 }

@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using NodaTime;
-using static System.Linq.Enumerable;
 using static NodaTime.Period;
 
 namespace DataGen.Types.Date {
@@ -24,11 +22,11 @@ namespace DataGen.Types.Date {
                     .PlusYears(date.Year * i), CurrentLocalDate);
 
 
-        ///<summary>
-        ///  Will add or subtract the date argument from current date.
+        /// <summary>
+        ///     Will add or subtract the date argument from current date.
         /// </summary>
         public static LocalDate CreateDate(LocalDate date, bool past = true)
-            => past == true
+            => past
                 ? CurrentLocalDate.Minus(FromYears(date.Year)).Minus(FromMonths(date.Month)).Minus(FromDays(date.Day))
                 : CurrentLocalDate.Plus(FromYears(date.Year)).Plus(FromMonths(date.Month)).Plus(FromDays(date.Day));
     }

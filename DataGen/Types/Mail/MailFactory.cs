@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 
 namespace DataGen.Types.Mail {
     public class MailFactory {
         /// <summary>
-        /// Since this is static it will not get created for each new instance of this object. Which means this can keep track of all created mails.
-        /// Cons: List will be huge if use alot of mails are created.
+        ///     Since this is static it will not get created for each new instance of this object. Which means this can keep track
+        ///     of all created mails.
+        ///     Cons: List will be huge if use alot of mails are created.
         /// </summary>
         private static readonly List<string> CreatedMails = new List<string>();
 
         /// <summary>
-        /// Used for separating strings with symbols
+        ///     Used for separating strings with symbols
         /// </summary>
         private static readonly List<char> Separators = new List<char> {
             '_', '.', '-'
@@ -22,7 +22,7 @@ namespace DataGen.Types.Mail {
 
 
         /// <summary>
-        ///  Will use the strings as mail providers
+        ///     Will use the strings as mail providers
         /// </summary>
         /// <param name="mailProviders">If Left Empty the mail providers will be defaulted to popular free providers.</param>
         public MailFactory(params string[] mailProviders) {
@@ -34,7 +34,7 @@ namespace DataGen.Types.Mail {
 
 
         /// <summary>
-        ///  Returns a string representing a mail address.
+        ///     Returns a string representing a mail address.
         /// </summary>
         /// <param name="text">the string/strings used to construct a mail string</param>
         /// <returns></returns>
