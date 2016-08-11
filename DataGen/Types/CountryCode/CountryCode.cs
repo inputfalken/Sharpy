@@ -1,15 +1,21 @@
-﻿namespace DataGen.Types.CountryCode {
+﻿using System.Linq;
+
+namespace DataGen.Types.CountryCode {
     // ReSharper disable once ClassNeverInstantiated.Global
     // Is generated from json
     public class CountryCode {
         public string Name { get; }
-        public string DialCode { get; }
+        private string DialCode { get; }
         public string Code { get; }
 
-        public CountryCode(string name, string dialCode, string code) {
+        // ReSharper disable once InconsistentNaming
+        public CountryCode(string name, string dial_Code, string code) {
             Name = name;
-            DialCode = dialCode;
+            DialCode = dial_Code;
             Code = code;
         }
+
+        public string ConstructNumber => Enumerable.Range(1, 7)
+            .Aggregate(DialCode, (current, i) => current + HelperClass.Randomizer(0, 9));
     }
 }
