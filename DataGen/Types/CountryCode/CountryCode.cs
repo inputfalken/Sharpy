@@ -13,7 +13,5 @@ namespace DataGen.Types.CountryCode {
             Code = code;
         }
 
-        public string ConstructNumber => Enumerable.Range(1, 7)
-            .Aggregate(Code, (current, i) => current + HelperClass.Randomizer(0, 9));
     }
 }
