@@ -15,7 +15,7 @@ namespace DataGen.Types.Date {
         /// <param name="date">Date to be sequenced</param>
         /// <returns></returns>
         public static IEnumerable<LocalDate> CreateSequence(int length, LocalDate date)
-            => new List<LocalDate>().Sequence(length,
+            => new List<LocalDate>().CreatePattern(length,
                 (localDate, i) => localDate
                     .PlusDays(date.Day * i)
                     .PlusMonths(date.Month * i)

@@ -12,7 +12,7 @@ namespace DataGen {
         /// <param name="func">will return the element with created by arguments</param>
         /// <param name="defaultTsource">The start value of the sequence</param>
         /// <returns></returns>
-        public static IEnumerable<TSource> Sequence<TSource>(this IList<TSource> list, int ammount,
+        public static IEnumerable<TSource> CreatePattern<TSource>(this IList<TSource> list, int ammount,
             Func<TSource, int, TSource> func, TSource defaultTsource = default(TSource)) {
             foreach (var current in Range(1, ammount))
                 list.Add(func(defaultTsource, current));
