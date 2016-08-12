@@ -12,11 +12,22 @@ namespace DataGen.Types.CountryCode {
             Code = code;
         }
 
-        public string RandomPhoneNumber(int length, string preNumber = null)
+        ///<summary>
+        ///  Will create a phone number by randoming numbers including country code
+        /// <param name="length">The length of the number</param>
+        /// <param name="preNumber">Optional number that will be used before the random numbers</param>
+        /// </summary>
+        public string CreateRandomNumber(int length, string preNumber = null)
             => Enumerable.Range(1, length)
                 .Aggregate(Code + preNumber, (current, i) => current + HelperClass.Randomizer(0, 9));
 
-        public string RandomPhoneNumber(int minLength, int maxLength, string preNumber = null)
+        ///<summary>
+        ///  This overLoad will also randomize a phone number length within min and max length
+        /// <param name="minLength">Min length of the phone number</param>
+        /// <param name="maxLength">Max length of the phone number</param>
+        /// <param name="preNumber">Optional number that will be used before the random numbers</param>
+        /// </summary>
+        public string CreateRandomNumber(int minLength, int maxLength, string preNumber = null)
             => Enumerable.Range(1, HelperClass.Randomizer(minLength, maxLength))
                 .Aggregate(Code + preNumber, (current, i) => current + HelperClass.Randomizer(0, 9));
     }
