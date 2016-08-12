@@ -26,7 +26,7 @@ namespace DataGen.Types.Date {
         /// <param name="date">The date to subtract/add to/from current date</param>
         /// <param name="subtract">if set to false it will perform addition</param>
         /// </summary>
-        public static LocalDate CreateDate(LocalDate date, bool subtract = true)
+        public static LocalDate Date(LocalDate date, bool subtract = true)
             => subtract
                 ? CurrentLocalDate.Minus(FromYears(date.Year)).Minus(FromMonths(date.Month)).Minus(FromDays(date.Day))
                 : CurrentLocalDate.Plus(FromYears(date.Year)).Plus(FromMonths(date.Month)).Plus(FromDays(date.Day));
