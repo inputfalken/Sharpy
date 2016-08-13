@@ -7,7 +7,6 @@ namespace Tests {
     [TestFixture]
     public class DateFactoryTest {
         [Test]
-        //Todo Test with sero day, month, year and create tests for mail factory as well as sequence in the date factory
         public void CreateDate_Arg_Subtract_True() {
             var currentLocalDate = DateFactory.CurrentLocalDate;
             const int day = 1;
