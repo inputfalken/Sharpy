@@ -6,7 +6,7 @@ using static NodaTime.Period;
 
 namespace DataGen.Types.Date {
     public static class DateFactory {
-        private static LocalDate CurrentLocalDate
+        public static LocalDate CurrentLocalDate
             => SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
 
 
@@ -24,11 +24,22 @@ namespace DataGen.Types.Date {
         /// <summary>
         ///     Will add or subtract the date argument from current date.
         /// <param name="date">The date to subtract/add to/from current date</param>
-        /// <param name="subtract">if set to false it will perform addition</param>
+        /// <param name="subtract">if set to false it will add the values to the current date rather than subtracting</param>
         /// </summary>
-        public static LocalDate Date(LocalDate date, bool subtract = true)
-            => subtract
-                ? CurrentLocalDate.Minus(FromYears(date.Year)).Minus(FromMonths(date.Month)).Minus(FromDays(date.Day))
-                : CurrentLocalDate.Plus(FromYears(date.Year)).Plus(FromMonths(date.Month)).Plus(FromDays(date.Day));
+        public static LocalDate Date(LocalDate date, bool subtract = true) => subtract
+            ? CurrentLocalDate.Minus(FromYears(date.Year)).Minus(FromMonths(date.Month)).Minus(FromDays(date.Day))
+            : CurrentLocalDate.Plus(FromYears(date.Year)).Plus(FromMonths(date.Month)).Plus(FromDays(date.Day));
+
+        /// <summary>
+        ///     This overload will do the same but with ints
+        /// <param name="subtract">if set to false it will add the values to the current date rather than subtracting</param>
+        /// </summary>
+        public static LocalDate Date(int year, int month, int day, bool subtract = true) {
+            if (year < 0 || month < 0 || day < 0)
+                throw new ArgumentException("Year/Month/Day cannot be negative");
+            return subtract
+                ? CurrentLocalDate.Minus(FromYears(year)).Minus(FromMonths(month)).Minus(FromDays(day))
+                : CurrentLocalDate.Plus(FromYears(year)).Plus(FromMonths(month)).Plus(FromDays(day));
+        }
     }
 }
