@@ -5,6 +5,10 @@ using System.Linq;
 using DataGen.Types.String;
 
 namespace DataGen.Types {
+    ///<summary>
+    ///     This class is responsible for Filtering and selecting random items
+    ///     All filters used in this project are derived from this class.
+    /// </summary>
     public abstract class Filter<TData, TArg> : IEnumerable<TData> {
         protected Filter(IEnumerable<TData> enumerable) {
             // ReSharper disable PossibleMultipleEnumeration
