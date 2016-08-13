@@ -26,7 +26,7 @@ namespace DataGen.Types.Date {
         /// <param name="date">The date to subtract/add to/from current date</param>
         /// <param name="subtract">if set to false it will add the values to the current date rather than subtracting</param>
         /// </summary>
-        public static LocalDate Date(LocalDate date, bool subtract = true) => subtract
+        public static LocalDate CreateDate(LocalDate date, bool subtract = true) => subtract
             ? CurrentLocalDate.Minus(FromYears(date.Year)).Minus(FromMonths(date.Month)).Minus(FromDays(date.Day))
             : CurrentLocalDate.Plus(FromYears(date.Year)).Plus(FromMonths(date.Month)).Plus(FromDays(date.Day));
 
@@ -34,7 +34,7 @@ namespace DataGen.Types.Date {
         ///     This overload will do the same but with ints
         /// <param name="subtract">if set to false it will add the values to the current date rather than subtracting</param>
         /// </summary>
-        public static LocalDate Date(int year, int month, int day, bool subtract = true) {
+        public static LocalDate CreateDate(int year, int month, int day, bool subtract = true) {
             if (year < 0 || month < 0 || day < 0)
                 throw new ArgumentException("Year/Month/Day cannot be negative");
             return subtract

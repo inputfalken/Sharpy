@@ -12,7 +12,7 @@ namespace Tests {
             const int day = 1;
             const int year = 1;
             const int month = 2;
-            var result = DateFactory.Date(day, month, year);
+            var result = DateFactory.CreateDate(day, month, year);
             Assert.AreEqual(currentLocalDate.Day - day, result.Day);
             Assert.AreEqual(currentLocalDate.Year - year, result.Year);
             Assert.AreEqual(currentLocalDate.Month - month, result.Month);
@@ -24,15 +24,15 @@ namespace Tests {
             const int day = 0;
             const int year = 0;
             const int month = 0;
-            var result = DateFactory.Date(year, month, day);
+            var result = DateFactory.CreateDate(year, month, day);
             Assert.AreEqual(currentLocalDate, result);
         }
 
         [Test]
         public void CreateDate_Arg_Subtract_NegativeArgs() {
-            Assert.Throws<ArgumentException>(() => DateFactory.Date(-1, 1, 1));
-            Assert.Throws<ArgumentException>(() => DateFactory.Date(0, -1, 1));
-            Assert.Throws<ArgumentException>(() => DateFactory.Date(0, 0, -1));
+            Assert.Throws<ArgumentException>(() => DateFactory.CreateDate(-1, 1, 1));
+            Assert.Throws<ArgumentException>(() => DateFactory.CreateDate(0, -1, 1));
+            Assert.Throws<ArgumentException>(() => DateFactory.CreateDate(0, 0, -1));
         }
 
 
@@ -42,7 +42,7 @@ namespace Tests {
             const int day = 1;
             const int year = 1;
             const int month = 2;
-            var result = DateFactory.Date(year, month, year, false);
+            var result = DateFactory.CreateDate(year, month, year, false);
             Assert.AreEqual(currentLocalDate.Day + day, result.Day);
             Assert.AreEqual(currentLocalDate.Year + year, result.Year);
             Assert.AreEqual(currentLocalDate.Month + month, result.Month);
@@ -54,7 +54,7 @@ namespace Tests {
             const int day = 0;
             const int year = 0;
             const int month = 0;
-            var result = DateFactory.Date(year, month, day, false);
+            var result = DateFactory.CreateDate(year, month, day, false);
             Assert.AreEqual(currentLocalDate, result);
         }
     }
