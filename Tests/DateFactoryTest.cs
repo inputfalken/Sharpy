@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using DataGen.Types.Date;
 using NodaTime;
 using NUnit.Framework;
@@ -6,6 +7,8 @@ using NUnit.Framework;
 namespace Tests {
     [TestFixture]
     public class DateFactoryTest {
+        #region CreateDate
+
         [Test]
         public void CreateDate_Arg_Subtract_True() {
             var currentLocalDate = DateFactory.CurrentLocalDate;
@@ -57,5 +60,58 @@ namespace Tests {
             var result = DateFactory.CreateDate(year, month, day, false);
             Assert.AreEqual(currentLocalDate, result);
         }
+
+        #endregion
+
+        #region Sequence
+
+        [Test]
+        public void CreateSequence_Arg_DefaultDate() {
+            var result = DateFactory.CreateSequence(3, new LocalDate(1, 2, 3)).ToList();
+            var expected1 =
+                DateFactory.CurrentLocalDate
+                    .Plus(Period.FromYears(1))
+                    .Plus(Period.FromMonths(2))
+                    .Plus(Period.FromDays(3));
+            var expected2 =
+                DateFactory.CurrentLocalDate
+                    .Plus(Period.FromYears(2))
+                    .Plus(Period.FromMonths(4))
+                    .Plus(Period.FromDays(6));
+            var expected3 =
+                DateFactory.CurrentLocalDate
+                    .Plus(Period.FromYears(3))
+                    .Plus(Period.FromMonths(6))
+                    .Plus(Period.FromDays(9));
+            Assert.AreEqual(result[0], expected1);
+            Assert.AreEqual(result[1], expected2);
+            Assert.AreEqual(result[2], expected3);
+        }
+
+        [Test]
+        public void CreateSequence_Arg_CustomDate() {
+            var startDate = new LocalDate(1992, 1, 1);
+            var result = DateFactory.CreateSequence(3, new LocalDate(1, 2, 3), startDate).ToList();
+            var expected1 =
+                startDate
+                    .Plus(Period.FromYears(1))
+                    .Plus(Period.FromMonths(2))
+                    .Plus(Period.FromDays(3));
+            var expected2 =
+                startDate
+                    .Plus(Period.FromYears(2))
+                    .Plus(Period.FromMonths(4))
+                    .Plus(Period.FromDays(6));
+            var expected3 =
+                startDate
+                    .Plus(Period.FromYears(3))
+                    .Plus(Period.FromMonths(6))
+                    .Plus(Period.FromDays(9));
+            Assert.AreEqual(result[0], expected1);
+            Assert.AreEqual(result[1], expected2);
+            Assert.AreEqual(result[2], expected3);
+        }
+
+        #endregion
     }
 }

@@ -14,11 +14,18 @@ namespace DataGen.Types.Date {
         ///     Will create a sequence of the values given from current date
         /// </summary>
         /// <param name="length">Length of sequence</param>
-        /// <param name="date">Date to be sequenced</param>
+        /// <param name="sequenceDate">Date to be sequenced</param>
+        /// <param name="startDate"></param>
         /// <returns></returns>
-        public static IEnumerable<LocalDate> CreateSequence(int length, LocalDate date)
-            => Enumerable.Range(1, length)
-                .Select(i => CurrentLocalDate.PlusYears(date.Year * i).PlusMonths(date.Month * i).PlusDays(date.Day * i));
+        public static IEnumerable<LocalDate> CreateSequence(int length, LocalDate sequenceDate,
+            LocalDate startDate = default(LocalDate)) {
+            var localDate = startDate == default(LocalDate) ? CurrentLocalDate : startDate;
+            return Enumerable.Range(1, length)
+                .Select(i => localDate
+                    .PlusYears(sequenceDate.Year * i)
+                    .PlusMonths(sequenceDate.Month * i)
+                    .PlusDays(sequenceDate.Day * i));
+        }
 
 
         /// <summary>
