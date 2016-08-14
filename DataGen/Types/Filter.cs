@@ -9,33 +9,30 @@ namespace DataGen.Types {
     ///     This class is responsible for Filtering and selecting random items
     ///     All filters used in this project are derived from this class.
     /// </summary>
-    public abstract class Filter<TData, TArg> : IEnumerable<TData> {
-        protected Filter(IEnumerable<TData> enumerable) {
+    public class Filter<TSource> : IEnumerable<TSource> {
+        protected Filter(IEnumerable<TSource> enumerable) {
             // ReSharper disable PossibleMultipleEnumeration
             if (!enumerable.Any()) throw new ArgumentException("Sequence Is empty");
             Enumerable = enumerable;
-            LazyArray = new Lazy<TData[]>(this.ToArray);
+            LazyArray = new Lazy<TSource[]>(this.ToArray);
         }
 
-        private IEnumerable<TData> Enumerable { get; }
+        private IEnumerable<TSource> Enumerable { get; }
+        private Lazy<TSource[]> LazyArray { get; }
 
-        public TData RandomItem => LazyArray.Value[HelperClass.Randomizer(LazyArray.Value.Length)];
+        public TSource RandomItem => LazyArray.Value[HelperClass.Randomizer(LazyArray.Value.Length)];
 
-        public IEnumerable<TData> RemoveRepeatedData()
-            => this.GroupBy(s => s)
+        public Filter<TSource> RemoveRepeatedData()
+            => new Filter<TSource>(this.GroupBy(s => s)
                 .Where(g => g.Any())
-                .Select(grouping => grouping.Key);
+                .Select(grouping => grouping.Key));
 
 
-        private Lazy<TData[]> LazyArray { get; }
-        public IEnumerator<TData> GetEnumerator() => Enumerable.GetEnumerator();
+        public IEnumerator<TSource> GetEnumerator() => Enumerable.GetEnumerator();
 
-        public StringFilter ToStringFilter(Func<TData, string> func)
+        public StringFilter ToStringFilter(Func<TSource, string> func)
             => new StringFilter(this.Select(func));
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
-
-        public abstract Filter<TData, TArg> FilterBy(TArg tArg, params string[] args);
     }
 }

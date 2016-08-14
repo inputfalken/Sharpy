@@ -33,12 +33,12 @@ namespace Tests {
 
         [Test]
         public void NameFilter_Arg_Region_Foobar()
-            => Assert.Throws<ArgumentException>(() => Names.FilterBy(NameArg.Region, "foobar"));
+            => Assert.Throws<ArgumentException>(() => Names.ByRegion( "foobar"));
 
         [Test]
         public void NameFilter_Arg_Region_CentralAmerica() {
             const string region = "centralAmerica";
-            var result = Names.FilterBy(NameArg.Region, region);
+            var result = Names.ByRegion(region);
 
             //Makes sure that each object region is equal to current region.
             Assert.IsTrue(result.All(name => name.Region == region) && result.Any());
@@ -50,7 +50,7 @@ namespace Tests {
         [Test]
         public void NameFilter_Arg_Region_SouthAmerica() {
             const string region = "southAmerica";
-            var result = Names.FilterBy(NameArg.Region, region);
+            var result = Names.ByRegion(region);
             //Makes sure that each object region is equal to current region.
             Assert.IsTrue(result.All(name => name.Region == region) && result.Any());
             //Makes sure that each country in SouthAmericanCountries is contained from the result
@@ -60,7 +60,7 @@ namespace Tests {
         [Test]
         public void NameCollection_Arg_Region_Europe() {
             const string region = "europe";
-            var result = Names.FilterBy(NameArg.Region, region);
+            var result = Names.ByRegion(region);
             //Makes sure that each object region is equal to current region.
             Assert.IsTrue(result.All(name => name.Region == region) && result.Any());
             //Makes sure that each country in EuropeCountries is contained from the result
@@ -70,7 +70,7 @@ namespace Tests {
         [Test]
         public void NameCollection_Arg_Region_NorthAmerica() {
             const string region = "northAmerica";
-            var result = Names.FilterBy(NameArg.Region, region);
+            var result = Names.ByRegion(region);
             //Makes sure that each object region is equal to current region.
             Assert.IsTrue(result.All(name => name.Region == region) && result.Any());
             //Makes sure that each country in NorthAmericanCountries is contained from the result
@@ -83,13 +83,13 @@ namespace Tests {
 
         [Test]
         public void NameFilter_Arg_Country_Foobar()
-            => Assert.Throws<ArgumentException>(() => Names.FilterBy(NameArg.Country, "foobar"));
+            => Assert.Throws<ArgumentException>(() => Names.ByCountry("foobar"));
 
         [Test]
         public void NameFilter_Arg_Country_Denmark() {
             const string country = "denmark";
             //Makes sure that each object country is equal to current country.
-            var result = Names.FilterBy(NameArg.Country, country);
+            var result = Names.ByCountry(country);
             Assert.IsTrue(result.All(name => name.Country == country));
         }
 
@@ -98,7 +98,7 @@ namespace Tests {
         public void NameFilter_Arg_Country_Norway() {
             const string country = "norway";
             //Makes sure that each object country is equal to current country.
-            var result = Names.FilterBy(NameArg.Country, country);
+            var result = Names.ByCountry(country);
             Assert.IsTrue(result.All(name => name.Country == country));
         }
 
@@ -106,7 +106,7 @@ namespace Tests {
         public void NameFilter_Arg_Country_Sweden() {
             const string country = "sweden";
             //Makes sure that each object country is equal to current country.
-            var result = Names.FilterBy(NameArg.Country, country);
+            var result = Names.ByCountry(country);
             Assert.IsTrue(result.All(name => name.Country == country));
         }
 
@@ -115,7 +115,7 @@ namespace Tests {
             string[] names = {
                 "Maria", "Olga", "Jessica", "Linda", "Sophie", "Vanessa", "Sophie", "Julia"
             };
-            var result = Names.FilterBy(NameArg.FemaleFirstName);
+            var result = Names.FemaleFirstNames;
             Assert.IsTrue(names.All(s => result.Select(name => name.Data).Contains(s)));
         }
 
@@ -125,7 +125,7 @@ namespace Tests {
                 "Maria", "Olga", "Jessica", "Linda", "Sophie", "Vanessa", "Sophie", "Julia",
                 "Michael", "Jack"
             };
-            var result = Names.FilterBy(NameArg.FemaleFirstName);
+            var result = Names.FemaleFirstNames;
             Assert.IsFalse(names.All(s => result.Select(name => name.Data).Contains(s)));
         }
 
@@ -136,7 +136,7 @@ namespace Tests {
                 "Green", "Wood", "Pavlov", "Bogdanov", "Volkov", "Rusu", "Ceban", "Nagy", "Salo", "Niemi", "Koppel",
                 "Urbonas", "Torres", "Calvo", "Romero", "Johnson", "Salas", "Vargas"
             };
-            var result = Names.FilterBy(NameArg.Lastname);
+            var result = Names.LastNames;
             Assert.IsTrue(names.All(s => result.Select(name => name.Data).Contains(s)));
         }
 
@@ -148,7 +148,7 @@ namespace Tests {
                 "Jacob", "Erik",
                 "Maria", "Olga"
             };
-            var result = Names.FilterBy(NameArg.Lastname);
+            var result = Names.LastNames;
             Assert.IsFalse(names.All(s => result.Select(name => name.Data).Contains(s)));
         }
 
@@ -157,7 +157,7 @@ namespace Tests {
             string[] names = {
                 "Jacob", "Erik", "Simon", "Alexander", "Afonso", "Adam", "Michael", "Jack"
             };
-            var result = Names.FilterBy(NameArg.MaleFirstName);
+            var result = Names.MaleFirstNames;
             Assert.IsTrue(names.All(s => result.Select(name => name.Data).Contains(s)));
         }
 
@@ -167,7 +167,7 @@ namespace Tests {
                 "Jacob", "Erik", "Simon", "Alexander", "Afonso", "Adam", "Michael", "Jack",
                 "Maria", "Olga"
             };
-            var result = Names.FilterBy(NameArg.MaleFirstName);
+            var result = Names.MaleFirstNames;
             Assert.IsFalse(names.All(s => result.Select(name => name.Data).Contains(s)));
         }
 
@@ -177,7 +177,7 @@ namespace Tests {
                 "Jacob", "Erik", "Simon", "Alexander", "Afonso", "Adam", "Michael", "Jack",
                 "Maria", "Olga", "Jessica", "Linda", "Sophie", "Vanessa", "Sophie", "Julia"
             };
-            var result = Names.FilterBy(NameArg.MixedFirstNames);
+            var result = Names.MixedFirstNames;
             Assert.IsTrue(names.All(s => result.Select(name => name.Data).Contains(s)));
         }
 

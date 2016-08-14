@@ -3,37 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace DataGen.Types.Name {
-    public sealed class NameFilter : Filter<Name, NameArg> {
+    public sealed class NameFilter : Filter<Name> {
         public NameFilter(IEnumerable<Name> enumerable) : base(enumerable) {
         }
 
 
-        public override Filter<Name, NameArg> FilterBy(NameArg nameArg, params string[] args) {
-            switch (nameArg) {
-                case NameArg.FemaleFirstName:
-                    return new NameFilter(this.Where(name => name.Type == 1));
-                case NameArg.MaleFirstName:
-                    return new NameFilter(this.Where(name => name.Type == 2));
-                case NameArg.Lastname:
-                    return new NameFilter(this.Where(name => name.Type == 3));
-                case NameArg.Country:
-                    return new NameFilter(this.Where(name => args.Contains(name.Country)));
-                case NameArg.Region:
-                    return new NameFilter(this.Where(name => args.Contains(name.Region)));
-                case NameArg.MixedFirstNames:
-                    return new NameFilter(this.Where(name => name.Type == 1 || name.Type == 2));
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(nameArg), nameArg, null);
-            }
-        }
-    }
+        public NameFilter ByCountry(params string[] args)
+            => new NameFilter(this.Where(name => args.Contains(name.Country)));
 
-    public enum NameArg {
-        FemaleFirstName = 1,
-        MaleFirstName = 2,
-        Lastname = 3,
-        MixedFirstNames,
-        Country,
-        Region
+        public NameFilter ByRegion(params string[] args)
+            => new NameFilter(this.Where(name => args.Contains(name.Region)));
+
+        public NameFilter FemaleFirstNames => new NameFilter(this.Where(name => name.Type == 1));
+        public NameFilter MaleFirstNames => new NameFilter(this.Where(name => name.Type == 2));
+        public NameFilter LastNames => new NameFilter(this.Where(name => name.Type == 3));
+        public NameFilter MixedFirstNames => new NameFilter(this.Where(name => name.Type == 1 || name.Type == 2));
     }
 }

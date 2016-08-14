@@ -9,7 +9,7 @@ namespace Tests {
         public void StringFilter_Arg_Contains() {
             string[] strings = { "bar", "foo", "foobar", "barfoo" };
             string[] expected = { "foo", "foobar", "barfoo" };
-            var result = new StringFilter(strings).FilterBy(StringArg.Contains, "foo");
+            var result = new StringFilter(strings).Contains("foo");
             Assert.IsTrue(result.SequenceEqual(expected));
         }
 
@@ -17,7 +17,7 @@ namespace Tests {
         public void StringFilter_Arg_StartsWith() {
             string[] strings = { "bar", "foo", "foobar", "barfoo" };
             string[] expected = { "foo", "foobar" };
-            var result = new StringFilter(strings).FilterBy(StringArg.StartsWith, "foo");
+            var result = new StringFilter(strings).StartsWith("foo");
             Assert.IsTrue(result.SequenceEqual(expected));
         }
     }
