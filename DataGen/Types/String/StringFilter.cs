@@ -17,8 +17,8 @@ namespace DataGen.Types.String {
         //Todo Refactor
         public StringFilter Contains(params string[] args) {
             if (args.Length == 1)
-                return new StringFilter(args.SelectMany(s
-                    => this.Where(username => username.IndexOf(s, StringComparison.CurrentCultureIgnoreCase) >= 0)));
+                return new StringFilter(this.Where(username =>
+                        username.IndexOf(args[0], StringComparison.CurrentCultureIgnoreCase) >= 0));
             return new StringFilter(args.SelectMany(s
                     => this.Where(username => username.IndexOf(s, StringComparison.CurrentCultureIgnoreCase) >= 0)))
                 .RemoveRepeatedData()
