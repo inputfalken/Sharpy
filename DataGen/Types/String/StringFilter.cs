@@ -11,8 +11,14 @@ namespace DataGen.Types.String {
         public StringFilter StartsWith(params string[] args) => new StringFilter(args.SelectMany(s
             => this.Where(username => username.IndexOf(s, StringComparison.CurrentCultureIgnoreCase) == 0)));
 
+        public StringFilter DoesNotStartWith(params string[] args) => new StringFilter(args.SelectMany(s
+            => this.Where(username => username.IndexOf(s, StringComparison.CurrentCultureIgnoreCase) != 0)));
+
         public StringFilter Contains(params string[] args) => new StringFilter(args.SelectMany(s
-            => this.Where(username => username.IndexOf(s, StringComparison.CurrentCultureIgnoreCase) != -1)));
+            => this.Where(username => username.IndexOf(s, StringComparison.CurrentCultureIgnoreCase) >= 0)));
+
+        public StringFilter DoesNotContain(params string[] args) => new StringFilter(args.SelectMany(s
+            => this.Where(username => username.IndexOf(s, StringComparison.CurrentCultureIgnoreCase) < 0)));
 
         public StringFilter ByLength(int length) => new StringFilter(this.Where(s => s.Length == length));
     }
