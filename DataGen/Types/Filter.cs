@@ -33,6 +33,9 @@ namespace DataGen.Types {
         public StringFilter ToStringFilter(Func<TSource, string> func)
             => new StringFilter(this.Select(func));
 
+        public StringFilter ToStringFilter()
+            => new StringFilter(this.Select(source => source.ToString()));
+
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }
