@@ -13,5 +13,7 @@ namespace DataGen.Types.String {
 
         public StringFilter Contains(params string[] args) => new StringFilter(args.SelectMany(s
             => this.Where(username => username.IndexOf(s, StringComparison.CurrentCultureIgnoreCase) != -1)));
+
+        public StringFilter ByLength(int length) => new StringFilter(this.Where(s => s.Length == length));
     }
 }
