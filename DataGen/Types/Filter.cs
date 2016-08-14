@@ -22,8 +22,8 @@ namespace DataGen.Types {
 
         public TSource RandomItem => LazyArray.Value[HelperClass.Randomizer(LazyArray.Value.Length)];
 
-        public Filter<TSource> RemoveRepeatedData()
-            => new Filter<TSource>(this.GroupBy(s => s)
+        protected static IEnumerable<TSource> RemoveRepeatedData(IEnumerable<TSource> enumerable)
+            => new Filter<TSource>(enumerable.GroupBy(s => s)
                 .Where(g => g.Any())
                 .Select(grouping => grouping.Key));
 
