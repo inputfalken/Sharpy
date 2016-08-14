@@ -6,7 +6,7 @@ namespace Tests {
     [TestFixture]
     public class StringFilterTests {
         [Test]
-        public void StringFilter_Contains() {
+        public void StringFilter_Contains_OneArg() {
             string[] strings = { "bar", "foo", "foobar", "barfoo" };
             string[] expected = { "foo", "foobar", "barfoo" };
             var result = new StringFilter(strings).Contains("foo");
