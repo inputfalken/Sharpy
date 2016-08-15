@@ -27,6 +27,6 @@ namespace DataGen.Types.Name {
         public NameFilter FemaleFirstNames => new NameFilter(this.Where(name => name.Type == 1));
         public NameFilter MaleFirstNames => new NameFilter(this.Where(name => name.Type == 2));
         public NameFilter LastNames => new NameFilter(this.Where(name => name.Type == 3));
-        public NameFilter MixedFirstNames => new NameFilter(this.Where(name => name.Type == 1 || name.Type == 2));
+        public NameFilter MixedFirstNames => new NameFilter(this.Where(name => name.Type == 1 | name.Type == 2));
     }
 }
