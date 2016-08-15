@@ -11,8 +11,8 @@ namespace DataGen.Types.String {
         public StringFilter StartsWith(params string[] args)
             => new StringFilter(args.SelectMany(arg => this.Where(s => IndexOf(s, arg) == 0)));
 
-        public StringFilter DoesNotStartWith(params string[] args)
-            => new StringFilter(args.SelectMany(arg => this.Where(s => IndexOf(s, arg) != 0)));
+        public StringFilter DoesNotStartWith(string arg)
+            => new StringFilter(this.Where(s => IndexOf(s, arg) != 0));
 
         public StringFilter Contains(params string[] args)
             => args.Length == 1
