@@ -70,7 +70,7 @@ namespace Tests {
         [Test]
         public void StringFilter_StartsWith_ThreeArg() {
             string[] strings = { "john", "doe", "foo", "bar", "lorem", "loremFoo", "doebar" };
-            string[] expected = { "foo", "bar", "doe", "doebar" };
+            string[] expected = { "doe", "foo", "bar", "doebar" };
             var result = new StringFilter(strings).StartsWith("foo", "bar", "doe");
             Assert.IsTrue(result.SequenceEqual(expected));
         }
@@ -78,7 +78,7 @@ namespace Tests {
         [Test]
         public void StringFilter_StartsWith_FourArg() {
             string[] strings = { "john", "doe", "foo", "bar", "lorem", "loremfoo", "doebar" };
-            string[] expected = { "foo", "bar", "doe", "doebar", "lorem", "loremfoo" };
+            string[] expected = { "doe", "foo", "bar", "lorem", "loremfoo", "doebar" };
             var result = new StringFilter(strings).StartsWith("foo", "bar", "doe", "lorem");
             Assert.IsTrue(result.SequenceEqual(expected));
         }
