@@ -10,15 +10,15 @@ namespace Tests {
             var vladimir = new Name(1, "", "region1", "Vladimir");
             var john = new Name(1, "", "region2", "John");
             var jack = new Name(1, "", "region3", "Jack");
-            var gustavo = new Name(1, "doo", "region1", "gustavo");
-            var james = new Name(1, "woop", "region1", "James");
-            var lisa = new Name(1, "scooby", "region2", "Lisa");
-            var albin = new Name(1, "bar", "region2", "Albin");
-            var wilma = new Name(1, "bar", "region3", "wilma");
-            var jens = new Name(1, "bar", "region3", "jens");
-            var bob = new Name(1, "bar", "region4", "bob");
-            var william = new Name(1, "bar", "region4", "william");
-            var jenkins = new Name(1, "bar", "region4", "jenkins");
+            var gustavo = new Name(1, "", "region1", "gustavo");
+            var james = new Name(1, "", "region1", "James");
+            var lisa = new Name(1, "", "region2", "Lisa");
+            var albin = new Name(1, "", "region2", "Albin");
+            var wilma = new Name(1, "", "region3", "wilma");
+            var jens = new Name(1, "", "region3", "jens");
+            var bob = new Name(1, "", "region4", "bob");
+            var william = new Name(1, "", "region4", "william");
+            var jenkins = new Name(1, "", "region4", "jenkins");
             var enumerable = new[] {
                 vladimir, john, jack,
                 bob, william, jenkins,
@@ -38,15 +38,15 @@ namespace Tests {
             var vladimir = new Name(1, "", "region1", "Vladimir");
             var john = new Name(1, "", "region2", "John");
             var jack = new Name(1, "", "region3", "Jack");
-            var gustavo = new Name(1, "doo", "region1", "gustavo");
-            var james = new Name(1, "woop", "region1", "James");
-            var lisa = new Name(1, "scooby", "region2", "Lisa");
-            var albin = new Name(1, "bar", "region2", "Albin");
-            var wilma = new Name(1, "bar", "region3", "wilma");
-            var jens = new Name(1, "bar", "region3", "jens");
-            var bob = new Name(1, "bar", "region4", "bob");
-            var william = new Name(1, "bar", "region4", "william");
-            var jenkins = new Name(1, "bar", "region4", "jenkins");
+            var gustavo = new Name(1, "", "region1", "gustavo");
+            var james = new Name(1, "", "region1", "James");
+            var lisa = new Name(1, "", "region2", "Lisa");
+            var albin = new Name(1, "", "region2", "Albin");
+            var wilma = new Name(1, "", "region3", "wilma");
+            var jens = new Name(1, "", "region3", "jens");
+            var bob = new Name(1, "", "region4", "bob");
+            var william = new Name(1, "", "region4", "william");
+            var jenkins = new Name(1, "", "region4", "jenkins");
             var enumerable = new[] {
                 vladimir, john, jack,
                 bob, william, jenkins,
@@ -67,15 +67,15 @@ namespace Tests {
             var vladimir = new Name(1, "", "region1", "Vladimir");
             var john = new Name(1, "", "region2", "John");
             var jack = new Name(1, "", "region3", "Jack");
-            var gustavo = new Name(1, "doo", "region1", "gustavo");
-            var james = new Name(1, "woop", "region1", "James");
-            var lisa = new Name(1, "scooby", "region2", "Lisa");
-            var albin = new Name(1, "bar", "region2", "Albin");
-            var wilma = new Name(1, "bar", "region3", "wilma");
-            var jens = new Name(1, "bar", "region3", "jens");
-            var bob = new Name(1, "bar", "region4", "bob");
-            var william = new Name(1, "bar", "region4", "william");
-            var jenkins = new Name(1, "bar", "region4", "jenkins");
+            var gustavo = new Name(1, "", "region1", "gustavo");
+            var james = new Name(1, "", "region1", "James");
+            var lisa = new Name(1, "", "region2", "Lisa");
+            var albin = new Name(1, "", "region2", "Albin");
+            var wilma = new Name(1, "", "region3", "wilma");
+            var jens = new Name(1, "", "region3", "jens");
+            var bob = new Name(1, "", "region4", "bob");
+            var william = new Name(1, "", "region4", "william");
+            var jenkins = new Name(1, "", "region4", "jenkins");
             var enumerable = new[] {
                 vladimir, john, jack,
                 bob, william, jenkins,
@@ -97,15 +97,15 @@ namespace Tests {
             var vladimir = new Name(1, "", "region1", "Vladimir");
             var john = new Name(1, "", "region2", "John");
             var jack = new Name(1, "", "region3", "Jack");
-            var gustavo = new Name(1, "doo", "region1", "gustavo");
-            var james = new Name(1, "woop", "region1", "James");
-            var lisa = new Name(1, "scooby", "region2", "Lisa");
-            var albin = new Name(1, "bar", "region2", "Albin");
-            var wilma = new Name(1, "bar", "region3", "wilma");
-            var jens = new Name(1, "bar", "region3", "jens");
-            var bob = new Name(1, "bar", "region4", "bob");
-            var william = new Name(1, "bar", "region4", "william");
-            var jenkins = new Name(1, "bar", "region4", "jenkins");
+            var gustavo = new Name(1, "", "region1", "gustavo");
+            var james = new Name(1, "", "region1", "James");
+            var lisa = new Name(1, "", "region2", "Lisa");
+            var albin = new Name(1, "", "region2", "Albin");
+            var wilma = new Name(1, "", "region3", "wilma");
+            var jens = new Name(1, "", "region3", "jens");
+            var bob = new Name(1, "", "region4", "bob");
+            var william = new Name(1, "", "region4", "william");
+            var jenkins = new Name(1, "", "region4", "jenkins");
             var enumerable = new[] {
                 vladimir, john, jack,
                 bob, william, jenkins,
@@ -122,5 +122,6 @@ namespace Tests {
             //Makes sure that each object region is equal to current region.
             Assert.IsTrue(result.SequenceEqual(expected));
         }
+
     }
 }
