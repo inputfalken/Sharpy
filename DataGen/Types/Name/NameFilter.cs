@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DataGen.Types.String;
 
 namespace DataGen.Types.Name {
     public sealed class NameFilter : Filter<Name> {
@@ -10,6 +11,15 @@ namespace DataGen.Types.Name {
 
         public NameFilter ByCountry(params string[] args)
             => new NameFilter(this.Where(name => args.Contains(name.Country)));
+
+
+        public NameFilter ByCountry(bool uniqueNames, params string[] args) {
+            if (!uniqueNames) return new NameFilter(this.Where(name => args.Contains(name.Country)));
+            var names = new List<Name>();
+            foreach (var name in this)
+                if (args.Contains(name.Country) && names.All(name1 => name1.Data != name.Data)) names.Add(name);
+            return new NameFilter(names);
+        }
 
         public NameFilter ByRegion(params string[] args)
             => new NameFilter(this.Where(name => args.Contains(name.Region)));
