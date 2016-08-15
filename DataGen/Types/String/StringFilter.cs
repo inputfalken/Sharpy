@@ -9,7 +9,9 @@ namespace DataGen.Types.String {
 
 
         public StringFilter StartsWith(params string[] args)
-            => new StringFilter(args.SelectMany(arg => this.Where(s => IndexOf(s, arg) == 0)));
+            => args.Length == 1
+                ? new StringFilter(this.Where(s => IndexOf(s, args[0]) == 0))
+                : new StringFilter(args.SelectMany(arg => this.Where(s => IndexOf(s, arg) == 0)));
 
         public StringFilter DoesNotStartWith(string arg)
             => new StringFilter(this.Where(s => IndexOf(s, arg) != 0));
