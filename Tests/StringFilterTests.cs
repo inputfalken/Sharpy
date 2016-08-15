@@ -52,10 +52,34 @@ namespace Tests {
 
 
         [Test]
-        public void StringFilter_StartsWith() {
+        public void StringFilter_StartsWith_OneArg() {
             string[] strings = { "bar", "foo", "foobar", "barfoo" };
             string[] expected = { "foo", "foobar" };
             var result = new StringFilter(strings).StartsWith("foo");
+            Assert.IsTrue(result.SequenceEqual(expected));
+        }
+
+        [Test]
+        public void StringFilter_StartsWith_TwoArg() {
+            string[] strings = { "john", "doe", "foo", "bar", "lorem", "loremFoo", "doebar" };
+            string[] expected = { "foo", "bar" };
+            var result = new StringFilter(strings).StartsWith("foo", "bar");
+            Assert.IsTrue(result.SequenceEqual(expected));
+        }
+
+        [Test]
+        public void StringFilter_StartsWith_ThreeArg() {
+            string[] strings = { "john", "doe", "foo", "bar", "lorem", "loremFoo", "doebar" };
+            string[] expected = { "foo", "bar", "doe", "doebar" };
+            var result = new StringFilter(strings).StartsWith("foo", "bar", "doe");
+            Assert.IsTrue(result.SequenceEqual(expected));
+        }
+
+        [Test]
+        public void StringFilter_StartsWith_FourArg() {
+            string[] strings = { "john", "doe", "foo", "bar", "lorem", "loremfoo", "doebar" };
+            string[] expected = { "foo", "bar", "doe", "doebar", "lorem", "loremfoo" };
+            var result = new StringFilter(strings).StartsWith("foo", "bar", "doe", "lorem");
             Assert.IsTrue(result.SequenceEqual(expected));
         }
 
