@@ -42,14 +42,7 @@ namespace Tests {
 
         #endregion
 
-        [Test]
-        public void StringFilter_DoesNotContain() {
-            string[] strings = { "bar", "foo", "foobar", "barfoo" };
-            string[] expected = { "bar" };
-            var result = new StringFilter(strings).DoesNotContain("foo");
-            Assert.IsTrue(result.SequenceEqual(expected));
-        }
-
+        #region Starts With
 
         [Test]
         public void StringFilter_StartsWith_OneArg() {
@@ -83,13 +76,9 @@ namespace Tests {
             Assert.IsTrue(result.SequenceEqual(expected));
         }
 
-        [Test]
-        public void StringFilter_DoesNotStartWith() {
-            string[] strings = { "bar", "foo", "foobar", "barfoo" };
-            string[] expected = { "bar", "barfoo" };
-            var result = new StringFilter(strings).DoesNotStartWith("foo");
-            Assert.IsTrue(result.SequenceEqual(expected));
-        }
+        #endregion
+
+        #region ByLength
 
         [Test]
         public void StringFilter_ByLength() {
@@ -109,6 +98,24 @@ namespace Tests {
         public void StringFilter_ByLength_With_ArgMinusOne() {
             string[] strings = { "bar", "foo", "foobar", "barfoo" };
             Assert.Throws<ArgumentOutOfRangeException>(() => new StringFilter(strings).ByLength(-1));
+        }
+
+        #endregion
+
+        [Test]
+        public void StringFilter_DoesNotStartWith() {
+            string[] strings = { "bar", "foo", "foobar", "barfoo" };
+            string[] expected = { "bar", "barfoo" };
+            var result = new StringFilter(strings).DoesNotStartWith("foo");
+            Assert.IsTrue(result.SequenceEqual(expected));
+        }
+
+        [Test]
+        public void StringFilter_DoesNotContain() {
+            string[] strings = { "bar", "foo", "foobar", "barfoo" };
+            string[] expected = { "bar" };
+            var result = new StringFilter(strings).DoesNotContain("foo");
+            Assert.IsTrue(result.SequenceEqual(expected));
         }
     }
 }
