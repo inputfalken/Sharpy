@@ -5,6 +5,8 @@ using NUnit.Framework;
 namespace Tests {
     [TestFixture]
     public class StringFilterTests {
+        #region Contains
+
         [Test]
         public void StringFilter_Contains_OneArg() {
             string[] strings = { "bar", "foo", "foobar", "barfoo" };
@@ -37,6 +39,8 @@ namespace Tests {
             Assert.IsTrue(result.SequenceEqual(expected));
         }
 
+        #endregion
+
         [Test]
         public void StringFilter_DoesNotContain() {
             string[] strings = { "bar", "foo", "foobar", "barfoo" };
@@ -44,6 +48,7 @@ namespace Tests {
             var result = new StringFilter(strings).DoesNotContain("foo");
             Assert.IsTrue(result.SequenceEqual(expected));
         }
+
 
         [Test]
         public void StringFilter_StartsWith() {
