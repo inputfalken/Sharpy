@@ -150,11 +150,11 @@ namespace Tests {
         }
 
         [Test]
-        public void NameFilter_Arg_Region_Foobar()
+        public void NameFilter_ByRegion_Foobar()
             => Assert.Throws<ArgumentException>(() => Names.ByRegion("foobar"));
 
         [Test]
-        public void NameFilter_Arg_Region_CentralAmerica() {
+        public void NameFilter_ByRegion_CentralAmerica() {
             const string region = "centralAmerica";
             var result = Names.ByRegion(region);
 
@@ -166,7 +166,7 @@ namespace Tests {
 
 
         [Test]
-        public void NameFilter_Arg_Region_SouthAmerica() {
+        public void NameFilter_ByRegion_SouthAmerica() {
             const string region = "southAmerica";
             var result = Names.ByRegion(region);
             //Makes sure that each object region is equal to current region.
@@ -176,7 +176,7 @@ namespace Tests {
         }
 
         [Test]
-        public void NameCollection_Arg_Region_Europe() {
+        public void NameCollection_ByRegion_Europe() {
             const string region = "europe";
             var result = Names.ByRegion(region);
             //Makes sure that each object region is equal to current region.
@@ -186,7 +186,7 @@ namespace Tests {
         }
 
         [Test]
-        public void NameCollection_Arg_Region_NorthAmerica() {
+        public void NameCollection_ByRegion_NorthAmerica() {
             const string region = "northAmerica";
             var result = Names.ByRegion(region);
             //Makes sure that each object region is equal to current region.
