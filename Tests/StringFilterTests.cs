@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using DataGen.Types.String;
 using NUnit.Framework;
 
@@ -64,6 +65,26 @@ namespace Tests {
             string[] expected = { "bar", "barfoo" };
             var result = new StringFilter(strings).DoesNotStartWith("foo");
             Assert.IsTrue(result.SequenceEqual(expected));
+        }
+
+        [Test]
+        public void StringFilter_ByLength() {
+            string[] strings = { "bar", "foo", "foobar", "barfoo" };
+            string[] expected = { "bar", "foo" };
+            var result = new StringFilter(strings).ByLength(3);
+            Assert.IsTrue(result.SequenceEqual(expected));
+        }
+
+        [Test]
+        public void StringFilter_ByLength_With_ArgZero() {
+            string[] strings = { "bar", "foo", "foobar", "barfoo" };
+            Assert.Throws<ArgumentOutOfRangeException>(() => new StringFilter(strings).ByLength(0));
+        }
+
+        [Test]
+        public void StringFilter_ByLength_With_ArgMinusOne() {
+            string[] strings = { "bar", "foo", "foobar", "barfoo" };
+            Assert.Throws<ArgumentOutOfRangeException>(() => new StringFilter(strings).ByLength(-1));
         }
     }
 }

@@ -21,7 +21,10 @@ namespace DataGen.Types.String {
 
         public StringFilter DoesNotContain(string arg) => new StringFilter(this.Where(s => !s.Contains(arg)));
 
-        public StringFilter ByLength(int length) => new StringFilter(this.Where(s => s.Length == length));
+        public StringFilter ByLength(int length) {
+            if (length < 1) throw new ArgumentOutOfRangeException($"{nameof(length)} is below 1");
+            return new StringFilter(this.Where(s => s.Length == length));
+        }
 
         private static int IndexOf(string str, string substring)
             => str.IndexOf(substring, StringComparison.CurrentCultureIgnoreCase);
