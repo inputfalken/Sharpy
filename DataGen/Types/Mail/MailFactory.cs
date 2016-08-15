@@ -46,7 +46,7 @@ namespace DataGen.Types.Mail {
                 CreatedMails.Add(address);
                 return address;
             }
-            throw new Exception("Reached maxium attempts to create Mail");
+            throw new Exception("Reached maxium attempts to create unique Mails");
         }
     }
 }
