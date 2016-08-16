@@ -5,6 +5,42 @@ using NUnit.Framework;
 namespace Tests {
     [TestFixture]
     internal class NameFilterTest {
+        #region Types
+
+        [Test]
+        public void NameFilter_ByType_FemaleFirstNames() {
+            var vladimir = new Name(2, "country1", "region2", "Vladimir");
+            var john = new Name(2, "country2", "region3", "John");
+            var jack = new Name(2, "country3", "region2", "Jack");
+            var gustavo = new Name(2, "country1", "region1", "gustavo");
+            var james = new Name(2, "country1", "region1", "James");
+            var lisa = new Name(1, "country2", "region3", "Lisa");
+            var albin = new Name(2, "country2", "region1", "Albin");
+            var fring = new Name(3, "country2", "region2", "Fring");
+            var svensson = new Name(3, "country2", "country1", "svensson");
+            var wilma = new Name(1, "country3", "region1", "wilma");
+            var jens = new Name(2, "country3", "region1", "jens");
+            var bob = new Name(2, "country4", "region2", "bob");
+            var william = new Name(2, "country4", "region3", "william");
+            var johnson = new Name(3, "country3", "region2", "johnsson");
+            var webb = new Name(3, "country3", "region2", "webb");
+            var willson = new Name(3, "country4", "region3", "willson");
+            var corigan = new Name(3, "country1", "region1", "Corigan");
+            var jenkins = new Name(3, "country4", "region3", "jenkins");
+            var enumerable = new[] {
+                vladimir, john, jack, gustavo, james, albin, lisa,
+                fring, svensson, wilma, jens, bob, william, johnson,
+                webb, willson, corigan, jenkins
+            };
+            var expected = new[] {
+                lisa, wilma
+            };
+            var result = new NameFilter(enumerable).ByType(NameTypes.FemaleFirst);
+            Assert.IsTrue(result.SequenceEqual(expected));
+        }
+
+        #endregion
+
         #region ByRegion
 
         [Test]

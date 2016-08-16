@@ -28,5 +28,27 @@ namespace DataGen.Types.Name {
         public NameFilter MaleFirstNames => new NameFilter(this.Where(name => name.Type == 2));
         public NameFilter LastNames => new NameFilter(this.Where(name => name.Type == 3));
         public NameFilter MixedFirstNames => new NameFilter(this.Where(name => name.Type == 1 | name.Type == 2));
+
+        public NameFilter ByType(NameTypes nameTypes) {
+            switch (nameTypes) {
+                case NameTypes.FemaleFirst:
+                    return new NameFilter(this.Where(name => name.Type == 1));
+                case NameTypes.MaleFirst:
+                    return new NameFilter(this.Where(name => name.Type == 2));
+                case NameTypes.LastNames:
+                    return new NameFilter(this.Where(name => name.Type == 3));
+                case NameTypes.MixedNames:
+                    return new NameFilter(this.Where(name => name.Type == 1 | name.Type == 2));
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(nameTypes), nameTypes, null);
+            }
+        }
+    }
+
+    public enum NameTypes {
+        FemaleFirst,
+        MaleFirst,
+        LastNames,
+        MixedNames,
     }
 }
