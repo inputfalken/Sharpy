@@ -44,6 +44,119 @@ namespace Tests {
             Assert.IsTrue(result.SequenceEqual(expected));
         }
 
+        [Test]
+        public void NameFilter_ByType_MaleFirstNames() {
+            var vladimir = new Name(2, "country1", "region2", "Vladimir");
+            var john = new Name(2, "country2", "region3", "John");
+            var jack = new Name(2, "country3", "region2", "Jack");
+            var gustavo = new Name(2, "country1", "region1", "gustavo");
+            var james = new Name(2, "country1", "region1", "James");
+            var lisa = new Name(1, "country2", "region3", "Lisa");
+            var rachel2 = new Name(1, "country1", "region2", "Rachel");
+            var albin = new Name(2, "country2", "region1", "Albin");
+            var fring = new Name(3, "country2", "region2", "Fring");
+            var svensson = new Name(3, "country2", "region3", "Svensson");
+            var wilma = new Name(1, "country3", "region1", "Wilma");
+            var jens = new Name(2, "country3", "region1", "Jens");
+            var bob = new Name(2, "country3", "region2", "Bob");
+            var rachel = new Name(1, "country2", "region2", "Rachel");
+            var william = new Name(2, "country4", "region3", "William");
+            var johnson = new Name(3, "country3", "region2", "Johnsson");
+            var webb = new Name(3, "country3", "region2", "Webb");
+            var wilma2 = new Name(1, "country3", "region2", "Wilma");
+            var willson = new Name(3, "country4", "region3", "Willson");
+            var corigan = new Name(3, "country1", "region1", "Corigan");
+            var johanna = new Name(1, "country1", "region1", "johanna");
+            var jenkins = new Name(3, "country3", "region3", "Jenkins");
+            var jenkins2 = new Name(3, "country3", "region4", "Jenkins");
+            var enumerable = new[] {
+                vladimir, john, jack, gustavo, james, lisa, rachel2,
+                albin, fring, svensson, wilma, jens, bob, rachel,
+                william, johnson, webb, wilma2, willson, corigan, johanna, jenkins, jenkins2
+            };
+            var expected = new[] {
+                vladimir, john, jack, gustavo, james, albin, jens, bob, william
+            };
+            var result = new NameFilter(enumerable).ByType(NameTypes.MaleFirst);
+            Assert.IsTrue(result.SequenceEqual(expected));
+        }
+
+        [Test]
+        public void NameFilter_ByType_LastNames() {
+            var vladimir = new Name(2, "country1", "region2", "Vladimir");
+            var john = new Name(2, "country2", "region3", "John");
+            var jack = new Name(2, "country3", "region2", "Jack");
+            var gustavo = new Name(2, "country1", "region1", "gustavo");
+            var james = new Name(2, "country1", "region1", "James");
+            var lisa = new Name(1, "country2", "region3", "Lisa");
+            var rachel2 = new Name(1, "country1", "region2", "Rachel");
+            var albin = new Name(2, "country2", "region1", "Albin");
+            var fring = new Name(3, "country2", "region2", "Fring");
+            var svensson = new Name(3, "country2", "region3", "Svensson");
+            var wilma = new Name(1, "country3", "region1", "Wilma");
+            var jens = new Name(2, "country3", "region1", "Jens");
+            var bob = new Name(2, "country3", "region2", "Bob");
+            var rachel = new Name(1, "country2", "region2", "Rachel");
+            var william = new Name(2, "country4", "region3", "William");
+            var johnson = new Name(3, "country3", "region2", "Johnsson");
+            var webb = new Name(3, "country3", "region2", "Webb");
+            var wilma2 = new Name(1, "country3", "region2", "Wilma");
+            var willson = new Name(3, "country4", "region3", "Willson");
+            var corigan = new Name(3, "country1", "region1", "Corigan");
+            var johanna = new Name(1, "country1", "region1", "johanna");
+            var jenkins = new Name(3, "country3", "region3", "Jenkins");
+            var jenkins2 = new Name(3, "country3", "region4", "Jenkins");
+            var enumerable = new[] {
+                vladimir, john, jack, gustavo, james, lisa, rachel2,
+                albin, fring, svensson, wilma, jens, bob, rachel,
+                william, johnson, webb, wilma2, willson, corigan, johanna, jenkins, jenkins2
+            };
+            var expected = new[] {
+                fring, svensson, johnson, webb, willson, corigan, jenkins, jenkins2
+            };
+            var result = new NameFilter(enumerable).ByType(NameTypes.LastNames);
+            Assert.IsTrue(result.SequenceEqual(expected));
+        }
+
+        [Test]
+        public void NameFilter_ByType_MixedFirst() {
+            var vladimir = new Name(2, "country1", "region2", "Vladimir");
+            var john = new Name(2, "country2", "region3", "John");
+            var jack = new Name(2, "country3", "region2", "Jack");
+            var gustavo = new Name(2, "country1", "region1", "gustavo");
+            var james = new Name(2, "country1", "region1", "James");
+            var lisa = new Name(1, "country2", "region3", "Lisa");
+            var rachel2 = new Name(1, "country1", "region2", "Rachel");
+            var albin = new Name(2, "country2", "region1", "Albin");
+            var fring = new Name(3, "country2", "region2", "Fring");
+            var svensson = new Name(3, "country2", "region3", "Svensson");
+            var wilma = new Name(1, "country3", "region1", "Wilma");
+            var jens = new Name(2, "country3", "region1", "Jens");
+            var bob = new Name(2, "country3", "region2", "Bob");
+            var rachel = new Name(1, "country2", "region2", "Rachel");
+            var william = new Name(2, "country4", "region3", "William");
+            var johnson = new Name(3, "country3", "region2", "Johnsson");
+            var webb = new Name(3, "country3", "region2", "Webb");
+            var wilma2 = new Name(1, "country3", "region2", "Wilma");
+            var willson = new Name(3, "country4", "region3", "Willson");
+            var corigan = new Name(3, "country1", "region1", "Corigan");
+            var johanna = new Name(1, "country1", "region1", "johanna");
+            var jenkins = new Name(3, "country3", "region3", "Jenkins");
+            var jenkins2 = new Name(3, "country3", "region4", "Jenkins");
+            var enumerable = new[] {
+                vladimir, john, jack, gustavo, james, lisa, rachel2,
+                albin, fring, svensson, wilma, jens, bob, rachel,
+                william, johnson, webb, wilma2, willson, corigan, johanna, jenkins, jenkins2
+            };
+            var expected = new[] {
+                vladimir, john, jack, gustavo, james, lisa, rachel2,
+                albin, wilma, jens, bob, rachel,
+                william, wilma2, johanna,
+            };
+            var result = new NameFilter(enumerable).ByType(NameTypes.MixedNames);
+            Assert.IsTrue(result.SequenceEqual(expected));
+        }
+
         #endregion
 
         #region ByRegion
