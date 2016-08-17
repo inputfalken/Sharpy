@@ -12,7 +12,7 @@ namespace DataGen.Types.Mail {
         /// <summary>
         ///     Used for separating strings with symbols
         /// </summary>
-        private static readonly List<char> Separators = new List<char> {
+        private static readonly IEnumerable<char> Separators = new List<char> {
             '.', '_', '-'
         };
 
