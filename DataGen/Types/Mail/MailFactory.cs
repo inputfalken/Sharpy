@@ -39,14 +39,7 @@ namespace DataGen.Types.Mail {
         /// <param name="text">the string/strings used to construct a mail string</param>
         /// <returns></returns>
         public string Mail(params string[] text) {
-            foreach (var i in Enumerable.Range(1, 10)) {
-                var address =
-                    $"{text.Aggregate((s, s1) => s + Separators[HelperClass.Randomizer(Separators.Count)] + s1).ToLower()}@{_emailDomains[HelperClass.Randomizer(_emailDomains.Count)]}";
-                if (CreatedMails.Contains(address)) continue;
-                CreatedMails.Add(address);
-                return address;
-            }
-            throw new Exception("Reached maxium attempts to create unique Mails");
+            return "";
         }
     }
 }
