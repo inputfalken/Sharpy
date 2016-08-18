@@ -35,15 +35,17 @@ namespace DataGen.Types.Mail {
         ///     Returns a string representing a mail address.
         ///     This method currently can only be called up 3 * ammount of mail suppliers with the same argument. After that it will throw an exception
         /// </summary>
-        /// <param name="text">the string/strings used to construct a mail string</param>
+        /// <param name="names">the string/strings used to construct a mail string</param>
         /// <returns></returns>
-        public string Mail(params string[] text) {
-            if (text.Length == 0) throw new Exception("Argument cannot be zero");
-            if (text.Any(string.IsNullOrEmpty)) throw new Exception("Arguments cannot be empty strings or null");
+        public string Mail(params string[] names) {
+            if (names.Length == 0)
+                throw new ArgumentException("This methods cannot be called with out arguments");
+            if (names.Any(string.IsNullOrEmpty))
+                throw new ArgumentException($"{nameof(names)} must contain none null/empty string");
 
             foreach (var emailDomain in _emailDomains) {
                 foreach (var separator in Separators) {
-                    var address = text.Aggregate((s, s1) => $"{s}{separator}{s1}") + $"@{emailDomain}";
+                    var address = names.Aggregate((s, s1) => $"{s}{separator}{s1}") + $"@{emailDomain}";
                     if (_createdMails.Contains(address)) continue;
                     _createdMails.Add(address);
                     return address;
@@ -57,7 +59,8 @@ namespace DataGen.Types.Mail {
         ///     This method currently can only be called up 1 * ammount of mail suppliers with the same argument. After that it will throw an exception
         /// </summary>
         public string Mail(string name) {
-            if (string.IsNullOrEmpty(name)) throw new Exception("Argument cannot be empty string or null");
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentException($"{nameof(name)} cannot be empty string or null");
             foreach (var emailDomain in _emailDomains) {
                 var address = $"{name}@{emailDomain}";
                 if (_createdMails.Contains(address)) continue;
