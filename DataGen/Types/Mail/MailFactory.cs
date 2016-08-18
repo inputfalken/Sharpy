@@ -39,19 +39,22 @@ namespace DataGen.Types.Mail {
         public string Mail(params string[] text) {
             if (text.Length == 0) throw new Exception("Argument cannot be zero");
             foreach (var emailDomain in _emailDomains) {
-                if (text.Length == 1) {
-                    var address = $"{text[0]}@{emailDomain}";
-                    if (_createdMails.Contains(address)) continue;
-                    _createdMails.Add(address);
-                    return address;
-                }
-                //If length is not equal to 1 we start using separators
                 foreach (var separator in Separators) {
                     var address = text.Aggregate((s, s1) => $"{s}{separator}{s1}") + $"@{emailDomain}";
                     if (_createdMails.Contains(address)) continue;
                     _createdMails.Add(address);
                     return address;
                 }
+            }
+            throw new Exception("Could not create an unique mail");
+        }
+
+        public string Mail(string name) {
+            foreach (var emailDomain in _emailDomains) {
+                var address = $"{name}@{emailDomain}";
+                if (_createdMails.Contains(address)) continue;
+                _createdMails.Add(address);
+                return address;
             }
             throw new Exception("Could not create an unique mail");
         }
