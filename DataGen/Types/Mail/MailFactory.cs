@@ -38,6 +38,8 @@ namespace DataGen.Types.Mail {
         /// <returns></returns>
         public string Mail(params string[] text) {
             if (text.Length == 0) throw new Exception("Argument cannot be zero");
+            if (text.Any(string.IsNullOrEmpty)) throw new Exception("Arguments cannot be empty strings or null");
+
             foreach (var emailDomain in _emailDomains) {
                 foreach (var separator in Separators) {
                     var address = text.Aggregate((s, s1) => $"{s}{separator}{s1}") + $"@{emailDomain}";
@@ -50,6 +52,7 @@ namespace DataGen.Types.Mail {
         }
 
         public string Mail(string name) {
+            if (string.IsNullOrEmpty(name)) throw new Exception("Argument cannot be empty string or null");
             foreach (var emailDomain in _emailDomains) {
                 var address = $"{name}@{emailDomain}";
                 if (_createdMails.Contains(address)) continue;
