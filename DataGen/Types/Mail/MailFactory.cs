@@ -33,6 +33,7 @@ namespace DataGen.Types.Mail {
 
         /// <summary>
         ///     Returns a string representing a mail address.
+        ///     This method currently can only be called up 3 * ammount of mail suppliers with the same argument. After that it will throw an exception
         /// </summary>
         /// <param name="text">the string/strings used to construct a mail string</param>
         /// <returns></returns>
@@ -51,6 +52,10 @@ namespace DataGen.Types.Mail {
             throw new Exception("Could not create an unique mail");
         }
 
+        ///<summary>
+        ///     Returns a string representing a mail address.
+        ///     This method currently can only be called up 1 * ammount of mail suppliers with the same argument. After that it will throw an exception
+        /// </summary>
         public string Mail(string name) {
             if (string.IsNullOrEmpty(name)) throw new Exception("Argument cannot be empty string or null");
             foreach (var emailDomain in _emailDomains) {
