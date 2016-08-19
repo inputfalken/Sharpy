@@ -50,7 +50,7 @@ namespace DataGen.Types.Mail {
             if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(secondName))
                 throw new ArgumentException("Argument must contain none null/empty string");
             var resets = 0;
-            while (true) {
+            while (resets < _resetLimit) {
                 if (_emailDomainsEnumerator.MoveNext()) {
                     foreach (var separator in Separators) {
                         var address = _builder.Append(name)
@@ -70,10 +70,9 @@ namespace DataGen.Types.Mail {
                 else {
                     _emailDomainsEnumerator.Reset();
                     resets += 1;
-                    if (resets == _resetLimit)
-                        throw new Exception("Could not create an unique mail");
                 }
             }
+            throw new Exception("Could not create an unique mail");
         }
 
 
