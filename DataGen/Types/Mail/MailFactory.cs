@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace DataGen.Types.Mail {
     public class MailFactory {
@@ -12,7 +13,7 @@ namespace DataGen.Types.Mail {
         /// <summary>
         ///     Used for separating strings with symbols
         /// </summary>
-        private static readonly IEnumerable<char> Separators = new List<char> {
+        private static readonly List<char> Separators = new List<char> {
             '.', '_', '-'
         };
 
@@ -28,31 +29,53 @@ namespace DataGen.Types.Mail {
                 mailProviders.ForEach(_emailDomains.Add);
             else
                 _emailDomains.AddRange(new[] { "yahoo.com", "gmail.com", "hotmail.com" });
+            _emailDomainsEnumerator = _emailDomains.GetEnumerator();
+            _resetLimit = _emailDomains.Count * Separators.Count;
+            _builder = new StringBuilder();
         }
 
+        private readonly IEnumerator<string> _emailDomainsEnumerator;
+
+        private readonly int _resetLimit;
+        private readonly StringBuilder _builder;
 
         /// <summary>
         ///     Returns a string representing a mail address.
         ///     This method currently can only be called up 3 * ammount of mail suppliers with the same argument. After that it will throw an exception
         /// </summary>
-        /// <param name="names">the string/strings used to construct a mail string</param>
+        /// <param name="name"></param>
+        /// <param name="secondName"></param>
         /// <returns></returns>
-        public string Mail(params string[] names) {
-            if (names.Length == 0)
-                throw new ArgumentException("This methods cannot be called with out arguments");
-            if (names.Any(string.IsNullOrEmpty))
-                throw new ArgumentException($"{nameof(names)} must contain none null/empty string");
-
-            foreach (var emailDomain in _emailDomains) {
-                foreach (var separator in Separators) {
-                    var address = names.Aggregate((s, s1) => $"{s}{separator}{s1}") + $"@{emailDomain}";
-                    if (_createdMails.Contains(address)) continue;
-                    _createdMails.Add(address);
-                    return address;
+        public string Mail(string name, string secondName) {
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(secondName))
+                throw new ArgumentException("Argument must contain none null/empty string");
+            var resets = 0;
+            _builder.Clear();
+            while (true) {
+                if (_emailDomainsEnumerator.MoveNext()) {
+                    foreach (var separator in Separators) {
+                        var address = _builder.Append(name)
+                            .Append(separator)
+                            .Append(secondName)
+                            .Append("@")
+                            .Append(_emailDomainsEnumerator.Current)
+                            .ToString();
+                        if (!_createdMails.Contains(address)) {
+                            _createdMails.Add(address);
+                            return address;
+                        }
+                    }
+                }
+                else {
+                    _emailDomainsEnumerator.Reset();
+                    _builder.Clear();
+                    resets += 1;
+                    if (resets == _resetLimit)
+                        throw new Exception("Could not create an unique mail");
                 }
             }
-            throw new Exception("Could not create an unique mail");
         }
+
 
         ///<summary>
         ///     Returns a string representing a mail address.
