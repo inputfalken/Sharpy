@@ -10,6 +10,8 @@ namespace Tests {
     public class MailFactoryTest {
 
 
+        #region Mail With One String
+
         [Test]
         public void MailFactory_OneDomain_Mail_OneStrings_CalledOneTime() {
             var mailFactory = new MailFactory("test.com");
@@ -24,6 +26,36 @@ namespace Tests {
             mailFactory.Mail("bob");
             Assert.Throws<Exception>(() => mailFactory.Mail("bob"));
         }
+
+        [Test]
+        public void MailFactory_TwoDomain_Mail_OneString_CalledOneTime() {
+            var mailFactory = new MailFactory("test.com", "foo.com");
+            const string expected = "bob@test.com";
+            var result = mailFactory.Mail("bob");
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void MailFactory_TwoDomain_Mail_OneString_CalledTwoTime() {
+            var mailFactory = new MailFactory("test.com", "foo.com");
+            const string expected = "bob@foo.com";
+            mailFactory.Mail("bob");
+            var result = mailFactory.Mail("bob");
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void MailFactory_TwoDomain_Mail_OneString_CalledThreeTime() {
+            var mailFactory = new MailFactory("test.com", "foo.com");
+            mailFactory.Mail("bob");
+            mailFactory.Mail("bob");
+            Assert.Throws<Exception>(() => mailFactory.Mail("bob"));
+        }
+
+        #endregion
+
+
+        #region Mail With Two Strings
 
         [Test]
         public void MailFactory_OneDomain_Mail_TwoStrings_CalledOneTime() {
@@ -62,30 +94,8 @@ namespace Tests {
             Assert.Throws<Exception>(() => mailFactory.Mail("bob", "cool"));
         }
 
-        [Test]
-        public void MailFactory_TwoDomain_Mail_OneString_CalledOneTime() {
-            var mailFactory = new MailFactory("test.com", "foo.com");
-            const string expected = "bob@test.com";
-            var result = mailFactory.Mail("bob");
-            Assert.AreEqual(expected, result);
-        }
+        #endregion
 
-        [Test]
-        public void MailFactory_TwoDomain_Mail_OneString_CalledTwoTime() {
-            var mailFactory = new MailFactory("test.com", "foo.com");
-            const string expected = "bob@foo.com";
-            mailFactory.Mail("bob");
-            var result = mailFactory.Mail("bob");
-            Assert.AreEqual(expected, result);
-        }
-
-        [Test]
-        public void MailFactory_TwoDomain_Mail_OneString_CalledThreeTime() {
-            var mailFactory = new MailFactory("test.com", "foo.com");
-            mailFactory.Mail("bob");
-            mailFactory.Mail("bob");
-            Assert.Throws<Exception>(() => mailFactory.Mail("bob"));
-        }
 
         #region Find Duplicates
 
