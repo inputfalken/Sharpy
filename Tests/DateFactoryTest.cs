@@ -7,6 +7,29 @@ using NUnit.Framework;
 namespace Tests {
     [TestFixture]
     public class DateFactoryTest {
+        #region RandomDate
+
+        [Test]
+        public void AgeTwentyMinusOne() {
+            //Will throw exception if argument is less than 0
+            Assert.Throws<ArgumentException>(() => DateFactory.Age(-1));
+        }
+
+        [Test]
+        public void AgeTwentyYears() {
+            var result = DateFactory.Age(20);
+            Assert.AreEqual(result.Year, DateFactory.CurrentLocalDate.Year - 20);
+        }
+
+        [Test]
+        public void AgeZeroYears() {
+            var result = DateFactory.Age(0);
+            //will make sure that the date created is earlier than today this year
+            Assert.IsTrue(DateFactory.CurrentLocalDate > result);
+        }
+
+        #endregion
+
         #region CreateDate
 
         [Test]

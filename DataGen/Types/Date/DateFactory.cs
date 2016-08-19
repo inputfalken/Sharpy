@@ -48,5 +48,20 @@ namespace DataGen.Types.Date {
                 ? CurrentLocalDate.Minus(FromYears(year)).Minus(FromMonths(month)).Minus(FromDays(day))
                 : CurrentLocalDate.Plus(FromYears(year)).Plus(FromMonths(month)).Plus(FromDays(day));
         }
+
+        ///<summary>
+        ///     Will give and random date minus the argument in years
+        /// <param name ="years">ammount of years</param>
+        /// </summary>
+        public static LocalDate Age(int years) {
+            if (years < 0)
+                throw new ArgumentException($"{nameof(years)} cannot be negative");
+            var month = HelperClass.Randomizer(1, CurrentLocalDate.Month);
+            var date = CurrentLocalDate.Minus(FromYears(years));
+            var day = month == CurrentLocalDate.Month
+                ? HelperClass.Randomizer(1, date.Day)
+                : HelperClass.Randomizer(1, DateTime.DaysInMonth(date.Year, month));
+            return new LocalDate(date.Year, month, day);
+        }
     }
 }
