@@ -8,7 +8,7 @@ namespace DataGen.Types.Mail {
         /// <summary>
         /// Will work as a history for each instance.
         /// </summary>
-        private readonly List<string> _createdMails = new List<string>();
+        private readonly HashSet<string> _createdMails = new HashSet<string>();
 
         /// <summary>
         ///     Used for separating strings with symbols
