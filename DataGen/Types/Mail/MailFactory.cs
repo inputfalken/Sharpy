@@ -41,7 +41,7 @@ namespace DataGen.Types.Mail {
 
         /// <summary>
         ///     Returns a string representing a mail address.
-        ///     This method currently can only be called up 3 * ammount of mail suppliers with the same argument. After that it will throw an exception
+        ///     This method currently can be called up 3 * ammount of mail suppliers with the same argument. After that it will throw an exception
         /// </summary>
         /// <param name="name"></param>
         /// <param name="secondName"></param>
@@ -59,12 +59,8 @@ namespace DataGen.Types.Mail {
                             .Append("@")
                             .Append(_emailDomainsEnumerator.Current)
                             .ToString();
-                        if (!_createdMails.Contains(address)) {
-                            _createdMails.Add(address);
-                            _builder.Clear();
+                        if (ClearValidateSave(address))
                             return address;
-                        }
-                        _builder.Clear();
                     }
                 }
                 else {
@@ -84,12 +80,18 @@ namespace DataGen.Types.Mail {
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentException($"{nameof(name)} cannot be empty string or null");
             foreach (var emailDomain in _emailDomains) {
-                var address = $"{name}@{emailDomain}";
-                if (_createdMails.Contains(address)) continue;
-                _createdMails.Add(address);
-                return address;
+                var address = _builder.Append(name).Append("@").Append(emailDomain).ToString();
+                if (ClearValidateSave(address))
+                    return address;
             }
             throw new Exception("Could not create an unique mail");
+        }
+
+        private bool ClearValidateSave(string item) {
+            _builder.Clear();
+            if (_createdMails.Contains(item)) return false;
+            _createdMails.Add(item);
+            return true;
         }
     }
 }
