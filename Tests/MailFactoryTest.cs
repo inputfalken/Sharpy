@@ -8,20 +8,6 @@ using NUnit.Framework.Internal;
 namespace Tests {
     [TestFixture]
     public class MailFactoryTest {
-        [Test]
-        public void MailFactory_OneDomain_Mail_NoString_CalledOneTime() {
-            Assert.Throws<ArgumentException>(() => new MailFactory("test.com").Mail());
-        }
-
-        [Test]
-        public void MailFactory_OneDomain_Mail_EmptyString_CalledOneTime() {
-            Assert.Throws<ArgumentException>(() => new MailFactory("").Mail());
-        }
-
-        [Test]
-        public void MailFactory_OneDomain_Mail_Null_CalledOneTime() {
-            Assert.Throws<ArgumentNullException>(() => new MailFactory(null).Mail());
-        }
 
         [Test]
         public void MailFactory_OneDomain_Mail_OneStrings_CalledOneTime() {
