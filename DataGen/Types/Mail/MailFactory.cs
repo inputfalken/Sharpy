@@ -31,13 +31,12 @@ namespace DataGen.Types.Mail {
                 _emailDomains.AddRange(new[] { "yahoo.com", "gmail.com", "hotmail.com" });
             _emailDomainsEnumerator = _emailDomains.GetEnumerator();
             _resetLimit = _emailDomains.Count * Separators.Count;
-            _builder = new StringBuilder();
         }
 
         private readonly IEnumerator<string> _emailDomainsEnumerator;
 
         private readonly int _resetLimit;
-        private readonly StringBuilder _builder;
+        private static readonly StringBuilder Builder = new StringBuilder();
 
         /// <summary>
         ///     Returns a string representing a mail address.
@@ -53,7 +52,7 @@ namespace DataGen.Types.Mail {
             while (resets < _resetLimit) {
                 if (_emailDomainsEnumerator.MoveNext()) {
                     foreach (var separator in Separators) {
-                        var address = _builder.Append(name)
+                        var address = Builder.Append(name)
                             .Append(separator)
                             .Append(secondName)
                             .Append("@")
@@ -80,7 +79,7 @@ namespace DataGen.Types.Mail {
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentException($"{nameof(name)} cannot be empty string or null");
             foreach (var emailDomain in _emailDomains) {
-                var address = _builder.Append(name).Append("@").Append(emailDomain).ToString();
+                var address = Builder.Append(name).Append("@").Append(emailDomain).ToString();
                 if (ClearValidateSave(address))
                     return address;
             }
@@ -88,7 +87,7 @@ namespace DataGen.Types.Mail {
         }
 
         private bool ClearValidateSave(string item) {
-            _builder.Clear();
+            Builder.Clear();
             if (_createdMails.Contains(item)) return false;
             _createdMails.Add(item);
             return true;
