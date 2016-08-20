@@ -17,6 +17,9 @@ namespace DataGen.Types.Mail {
             '.', '_', '-'
         };
 
+        ///<summary>
+        ///     Contains the email providers
+        /// </summary>
         private readonly List<string> _emailDomains = new List<string>();
 
 
@@ -33,6 +36,9 @@ namespace DataGen.Types.Mail {
             _resetLimit = _emailDomains.Count * Separators.Count;
         }
 
+        ///<summary>
+        ///     Contains the email providers but with saved state
+        /// </summary>
         private readonly IEnumerator<string> _emailDomainsEnumerator;
 
         private readonly int _resetLimit;
