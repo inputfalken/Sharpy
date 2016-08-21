@@ -33,7 +33,6 @@ namespace DataGen.Types.Mail {
             else
                 _emailDomains.AddRange(new[] { "yahoo.com", "gmail.com", "hotmail.com" });
             _emailDomainsEnumerator = _emailDomains.GetEnumerator();
-            _resetLimit = _emailDomains.Count * Separators.Count;
         }
 
         ///<summary>
@@ -41,7 +40,6 @@ namespace DataGen.Types.Mail {
         /// </summary>
         private readonly IEnumerator<string> _emailDomainsEnumerator;
 
-        private readonly int _resetLimit;
         private static readonly StringBuilder Builder = new StringBuilder();
 
         /// <summary>
@@ -55,7 +53,7 @@ namespace DataGen.Types.Mail {
             if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(secondName))
                 throw new ArgumentException("Argument must contain none null/empty string");
             var resets = 0;
-            while (resets < _resetLimit) {
+            while (resets < 2) {
                 if (_emailDomainsEnumerator.MoveNext()) {
                     foreach (var separator in Separators) {
                         var address = Builder.Append(name)
@@ -69,6 +67,8 @@ namespace DataGen.Types.Mail {
                     }
                 }
                 else {
+                    //If this needs to be called more than once.
+                    //It means that every combination with separators and EmailDomains has been iterated.
                     _emailDomainsEnumerator.Reset();
                     resets += 1;
                 }
