@@ -1,946 +1,942 @@
 [
     {
       "code": "+7 840",
-      "name": "Abkhazia"
+      "name": "abkhazia"
     },
     {
       "code": "+93",
-      "name": "Afghanistan"
+      "name": "afghanistan"
     },
     {
       "code": "+355",
-      "name": "Albania"
+      "name": "albania"
     },
     {
       "code": "+213",
-      "name": "Algeria"
+      "name": "algeria"
     },
     {
       "code": "+1 684",
-      "name": "American Samoa"
+      "name": "americanSamoa"
     },
     {
       "code": "+376",
-      "name": "Andorra"
+      "name": "andorra"
     },
     {
       "code": "+244",
-      "name": "Angola"
+      "name": "angola"
     },
     {
       "code": "+1 264",
-      "name": "Anguilla"
+      "name": "anguilla"
     },
     {
       "code": "+1 268",
-      "name": "Antigua and Barbuda"
+      "name": "antiguaAndBarbuda"
     },
     {
       "code": "+54",
-      "name": "Argentina"
+      "name": "argentina"
     },
     {
       "code": "+374",
-      "name": "Armenia"
+      "name": "armenia"
     },
     {
       "code": "+297",
-      "name": "Aruba"
+      "name": "aruba"
     },
     {
       "code": "+247",
-      "name": "Ascension"
+      "name": "ascension"
     },
     {
       "code": "+61",
-      "name": "Australia"
+      "name": "australia"
     },
     {
       "code": "+672",
-      "name": "Australian External Territories"
+      "name": "australianExternalTerritories"
     },
     {
       "code": "+43",
-      "name": "Austria"
+      "name": "austria"
     },
     {
       "code": "+994",
-      "name": "Azerbaijan"
+      "name": "azerbaijan"
     },
     {
       "code": "+1 242",
-      "name": "Bahamas"
+      "name": "bahamas"
     },
     {
       "code": "+973",
-      "name": "Bahrain"
+      "name": "bahrain"
     },
     {
       "code": "+880",
-      "name": "Bangladesh"
+      "name": "bangladesh"
     },
     {
       "code": "+1 246",
-      "name": "Barbados"
+      "name": "barbados"
     },
     {
       "code": "+1 268",
-      "name": "Barbuda"
+      "name": "barbuda"
     },
     {
       "code": "+375",
-      "name": "Belarus"
+      "name": "belarus"
     },
     {
       "code": "+32",
-      "name": "Belgium"
+      "name": "belgium"
     },
     {
       "code": "+501",
-      "name": "Belize"
+      "name": "belize"
     },
     {
       "code": "+229",
-      "name": "Benin"
+      "name": "benin"
     },
     {
       "code": "+1 441",
-      "name": "Bermuda"
+      "name": "bermuda"
     },
     {
       "code": "+975",
-      "name": "Bhutan"
+      "name": "bhutan"
     },
     {
       "code": "+591",
-      "name": "Bolivia"
+      "name": "bolivia"
     },
     {
       "code": "+387",
-      "name": "Bosnia and Herzegovina"
+      "name": "bosniaAndHerzegovina"
     },
     {
       "code": "+267",
-      "name": "Botswana"
+      "name": "botswana"
     },
     {
       "code": "+55",
-      "name": "Brazil"
+      "name": "brazil"
     },
     {
       "code": "+246",
-      "name": "British Indian Ocean Territory"
+      "name": "britishIndianOceanTerritory"
     },
     {
       "code": "+1 284",
-      "name": "British Virgin Islands"
+      "name": "britishVirginIslands"
     },
     {
       "code": "+673",
-      "name": "Brunei"
+      "name": "brunei"
     },
     {
       "code": "+359",
-      "name": "Bulgaria"
+      "name": "bulgaria"
     },
     {
       "code": "+226",
-      "name": "Burkina Faso"
+      "name": "burkinaFaso"
     },
     {
       "code": "+257",
-      "name": "Burundi"
+      "name": "burundi"
     },
     {
       "code": "+855",
-      "name": "Cambodia"
+      "name": "cambodia"
     },
     {
       "code": "+237",
-      "name": "Cameroon"
+      "name": "cameroon"
     },
     {
       "code": "+1",
-      "name": "Canada"
+      "name": "canada"
     },
     {
       "code": "+238",
-      "name": "Cape Verde"
+      "name": "capeVerde"
     },
     {
       "code": "+ 345",
-      "name": "Cayman Islands"
+      "name": "caymanIslands"
     },
     {
       "code": "+236",
-      "name": "Central African Republic"
+      "name": "centralAfricanRepublic"
     },
     {
       "code": "+235",
-      "name": "Chad"
+      "name": "chad"
     },
     {
       "code": "+56",
-      "name": "Chile"
+      "name": "chile"
     },
     {
       "code": "+86",
-      "name": "China"
+      "name": "china"
     },
     {
       "code": "+61",
-      "name": "Christmas Island"
+      "name": "christmasIsland"
     },
     {
       "code": "+61",
-      "name": "Cocos-Keeling Islands"
+      "name": "cocosKeelingIslands"
     },
     {
       "code": "+57",
-      "name": "Colombia"
+      "name": "colombia"
     },
     {
       "code": "+269",
-      "name": "Comoros"
+      "name": "comoros"
     },
     {
       "code": "+242",
-      "name": "Congo"
-    },
-    {
-      "code": "+243",
-      "name": "Congo, Dem. Rep. of (Zaire)"
+      "name": "congo"
     },
     {
       "code": "+682",
-      "name": "Cook Islands"
+      "name": "cookIslands"
     },
     {
       "code": "+506",
-      "name": "Costa Rica"
+      "name": "costaRica"
     },
     {
       "code": "+385",
-      "name": "Croatia"
+      "name": "croatia"
     },
     {
       "code": "+53",
-      "name": "Cuba"
+      "name": "cuba"
     },
     {
       "code": "+599",
-      "name": "Curacao"
+      "name": "curacao"
     },
     {
       "code": "+537",
-      "name": "Cyprus"
+      "name": "cyprus"
     },
     {
       "code": "+420",
-      "name": "Czech Republic"
+      "name": "czechRepublic"
     },
     {
       "code": "+45",
-      "name": "Denmark"
+      "name": "denmark"
     },
     {
       "code": "+246",
-      "name": "Diego Garcia"
+      "name": "diegoGarcia"
     },
     {
       "code": "+253",
-      "name": "Djibouti"
+      "name": "djibouti"
     },
     {
       "code": "+1 767",
-      "name": "Dominica"
+      "name": "dominica"
     },
     {
       "code": "+1 809",
-      "name": "Dominican Republic"
+      "name": "dominicanRepublic"
     },
     {
       "code": "+670",
-      "name": "East Timor"
+      "name": "eastTimor"
     },
     {
       "code": "+56",
-      "name": "Easter Island"
+      "name": "easterIsland"
     },
     {
       "code": "+593",
-      "name": "Ecuador"
+      "name": "ecuador"
     },
     {
       "code": "+20",
-      "name": "Egypt"
+      "name": "egypt"
     },
     {
       "code": "+503",
-      "name": "El Salvador"
+      "name": "elSalvador"
     },
     {
       "code": "+240",
-      "name": "Equatorial Guinea"
+      "name": "equatorialGuinea"
     },
     {
       "code": "+291",
-      "name": "Eritrea"
+      "name": "eritrea"
     },
     {
       "code": "+372",
-      "name": "Estonia"
+      "name": "estonia"
     },
     {
       "code": "+251",
-      "name": "Ethiopia"
+      "name": "ethiopia"
     },
     {
       "code": "+500",
-      "name": "Falkland Islands"
+      "name": "falklandIslands"
     },
     {
       "code": "+298",
-      "name": "Faroe Islands"
+      "name": "faroeIslands"
     },
     {
       "code": "+679",
-      "name": "Fiji"
+      "name": "fiji"
     },
     {
       "code": "+358",
-      "name": "Finland"
+      "name": "finland"
     },
     {
       "code": "+33",
-      "name": "France"
+      "name": "france"
     },
     {
       "code": "+596",
-      "name": "French Antilles"
+      "name": "frenchAntilles"
     },
     {
       "code": "+594",
-      "name": "French Guiana"
+      "name": "frenchGuiana"
     },
     {
       "code": "+689",
-      "name": "French Polynesia"
+      "name": "frenchPolynesia"
     },
     {
       "code": "+241",
-      "name": "Gabon"
+      "name": "gabon"
     },
     {
       "code": "+220",
-      "name": "Gambia"
+      "name": "gambia"
     },
     {
       "code": "+995",
-      "name": "Georgia"
+      "name": "georgia"
     },
     {
       "code": "+49",
-      "name": "Germany"
+      "name": "germany"
     },
     {
       "code": "+233",
-      "name": "Ghana"
+      "name": "ghana"
     },
     {
       "code": "+350",
-      "name": "Gibraltar"
+      "name": "gibraltar"
     },
     {
       "code": "+30",
-      "name": "Greece"
+      "name": "greece"
     },
     {
       "code": "+299",
-      "name": "Greenland"
+      "name": "greenland"
     },
     {
       "code": "+1 473",
-      "name": "Grenada"
+      "name": "grenada"
     },
     {
       "code": "+590",
-      "name": "Guadeloupe"
+      "name": "guadeloupe"
     },
     {
       "code": "+1 671",
-      "name": "Guam"
+      "name": "guam"
     },
     {
       "code": "+502",
-      "name": "Guatemala"
+      "name": "guatemala"
     },
     {
       "code": "+224",
-      "name": "Guinea"
+      "name": "guinea"
     },
     {
       "code": "+245",
-      "name": "Guinea-Bissau"
+      "name": "guinea-bissau"
     },
     {
       "code": "+595",
-      "name": "Guyana"
+      "name": "guyana"
     },
     {
       "code": "+509",
-      "name": "Haiti"
+      "name": "haiti"
     },
     {
       "code": "+504",
-      "name": "Honduras"
+      "name": "honduras"
     },
     {
       "code": "+852",
-      "name": "Hong Kong SAR China"
+      "name": "hongKongSarChina"
     },
     {
       "code": "+36",
-      "name": "Hungary"
+      "name": "hungary"
     },
     {
       "code": "+354",
-      "name": "Iceland"
+      "name": "iceland"
     },
     {
       "code": "+91",
-      "name": "India"
+      "name": "india"
     },
     {
       "code": "+62",
-      "name": "Indonesia"
+      "name": "indonesia"
     },
     {
       "code": "+98",
-      "name": "Iran"
+      "name": "iran"
     },
     {
       "code": "+964",
-      "name": "Iraq"
+      "name": "iraq"
     },
     {
       "code": "+353",
-      "name": "Ireland"
+      "name": "ireland"
     },
     {
       "code": "+972",
-      "name": "Israel"
+      "name": "israel"
     },
     {
       "code": "+39",
-      "name": "Italy"
+      "name": "italy"
     },
     {
       "code": "+225",
-      "name": "Ivory Coast"
+      "name": "ivoryCoast"
     },
     {
       "code": "+1 876",
-      "name": "Jamaica"
+      "name": "jamaica"
     },
     {
       "code": "+81",
-      "name": "Japan"
+      "name": "japan"
     },
     {
       "code": "+962",
-      "name": "Jordan"
+      "name": "jordan"
     },
     {
       "code": "+7 7",
-      "name": "Kazakhstan"
+      "name": "kazakhstan"
     },
     {
       "code": "+254",
-      "name": "Kenya"
+      "name": "kenya"
     },
     {
       "code": "+686",
-      "name": "Kiribati"
+      "name": "kiribati"
     },
     {
       "code": "+965",
-      "name": "Kuwait"
+      "name": "kuwait"
     },
     {
       "code": "+996",
-      "name": "Kyrgyzstan"
+      "name": "kyrgyzstan"
     },
     {
       "code": "+856",
-      "name": "Laos"
+      "name": "laos"
     },
     {
       "code": "+371",
-      "name": "Latvia"
+      "name": "latvia"
     },
     {
       "code": "+961",
-      "name": "Lebanon"
+      "name": "lebanon"
     },
     {
       "code": "+266",
-      "name": "Lesotho"
+      "name": "lesotho"
     },
     {
       "code": "+231",
-      "name": "Liberia"
+      "name": "liberia"
     },
     {
       "code": "+218",
-      "name": "Libya"
+      "name": "libya"
     },
     {
       "code": "+423",
-      "name": "Liechtenstein"
+      "name": "liechtenstein"
     },
     {
       "code": "+370",
-      "name": "Lithuania"
+      "name": "lithuania"
     },
     {
       "code": "+352",
-      "name": "Luxembourg"
+      "name": "luxembourg"
     },
     {
       "code": "+853",
-      "name": "Macau SAR China"
+      "name": "macauSarChina"
     },
     {
       "code": "+389",
-      "name": "Macedonia"
+      "name": "macedonia"
     },
     {
       "code": "+261",
-      "name": "Madagascar"
+      "name": "madagascar"
     },
     {
       "code": "+265",
-      "name": "Malawi"
+      "name": "malawi"
     },
     {
       "code": "+60",
-      "name": "Malaysia"
+      "name": "malaysia"
     },
     {
       "code": "+960",
-      "name": "Maldives"
+      "name": "maldives"
     },
     {
       "code": "+223",
-      "name": "Mali"
+      "name": "mali"
     },
     {
       "code": "+356",
-      "name": "Malta"
+      "name": "malta"
     },
     {
       "code": "+692",
-      "name": "Marshall Islands"
+      "name": "marshallIslands"
     },
     {
       "code": "+596",
-      "name": "Martinique"
+      "name": "martinique"
     },
     {
       "code": "+222",
-      "name": "Mauritania"
+      "name": "mauritania"
     },
     {
       "code": "+230",
-      "name": "Mauritius"
+      "name": "mauritius"
     },
     {
       "code": "+262",
-      "name": "Mayotte"
+      "name": "mayotte"
     },
     {
       "code": "+52",
-      "name": "Mexico"
+      "name": "mexico"
     },
     {
       "code": "+691",
-      "name": "Micronesia"
+      "name": "micronesia"
     },
     {
       "code": "+1 808",
-      "name": "Midway Island"
+      "name": "midwayIsland"
     },
     {
       "code": "+373",
-      "name": "Moldova"
+      "name": "moldova"
     },
     {
       "code": "+377",
-      "name": "Monaco"
+      "name": "monaco"
     },
     {
       "code": "+976",
-      "name": "Mongolia"
+      "name": "mongolia"
     },
     {
       "code": "+382",
-      "name": "Montenegro"
+      "name": "montenegro"
     },
     {
       "code": "+1664",
-      "name": "Montserrat"
+      "name": "montserrat"
     },
     {
       "code": "+212",
-      "name": "Morocco"
+      "name": "morocco"
     },
     {
       "code": "+95",
-      "name": "Myanmar"
+      "name": "myanmar"
     },
     {
       "code": "+264",
-      "name": "Namibia"
+      "name": "namibia"
     },
     {
       "code": "+674",
-      "name": "Nauru"
+      "name": "nauru"
     },
     {
       "code": "+977",
-      "name": "Nepal"
+      "name": "nepal"
     },
     {
       "code": "+31",
-      "name": "Netherlands"
+      "name": "netherlands"
     },
     {
       "code": "+599",
-      "name": "Netherlands Antilles"
+      "name": "netherlandsAntilles"
     },
     {
       "code": "+1 869",
-      "name": "Nevis"
+      "name": "nevis"
     },
     {
       "code": "+687",
-      "name": "New Caledonia"
+      "name": "newCaledonia"
     },
     {
       "code": "+64",
-      "name": "New Zealand"
+      "name": "newZealand"
     },
     {
       "code": "+505",
-      "name": "Nicaragua"
+      "name": "nicaragua"
     },
     {
       "code": "+227",
-      "name": "Niger"
+      "name": "niger"
     },
     {
       "code": "+234",
-      "name": "Nigeria"
+      "name": "nigeria"
     },
     {
       "code": "+683",
-      "name": "Niue"
+      "name": "niue"
     },
     {
       "code": "+672",
-      "name": "Norfolk Island"
+      "name": "norfolkIsland"
     },
     {
       "code": "+850",
-      "name": "North Korea"
+      "name": "northKorea"
     },
     {
       "code": "+1 670",
-      "name": "Northern Mariana Islands"
+      "name": "northernMarianaIslands"
     },
     {
       "code": "+47",
-      "name": "Norway"
+      "name": "norway"
     },
     {
       "code": "+968",
-      "name": "Oman"
+      "name": "oman"
     },
     {
       "code": "+92",
-      "name": "Pakistan"
+      "name": "pakistan"
     },
     {
       "code": "+680",
-      "name": "Palau"
+      "name": "palau"
     },
     {
       "code": "+970",
-      "name": "Palestinian Territory"
+      "name": "palestinianTerritory"
     },
     {
       "code": "+507",
-      "name": "Panama"
+      "name": "panama"
     },
     {
       "code": "+675",
-      "name": "Papua New Guinea"
+      "name": "papuaNewGuinea"
     },
     {
       "code": "+595",
-      "name": "Paraguay"
+      "name": "paraguay"
     },
     {
       "code": "+51",
-      "name": "Peru"
+      "name": "peru"
     },
     {
       "code": "+63",
-      "name": "Philippines"
+      "name": "philippines"
     },
     {
       "code": "+48",
-      "name": "Poland"
+      "name": "poland"
     },
     {
       "code": "+351",
-      "name": "Portugal"
+      "name": "portugal"
     },
     {
       "code": "+1 787",
-      "name": "Puerto Rico"
+      "name": "puertoRico"
     },
     {
       "code": "+974",
-      "name": "Qatar"
+      "name": "qatar"
     },
     {
       "code": "+262",
-      "name": "Reunion"
+      "name": "reunion"
     },
     {
       "code": "+40",
-      "name": "Romania"
+      "name": "romania"
     },
     {
       "code": "+7",
-      "name": "Russia"
+      "name": "russia"
     },
     {
       "code": "+250",
-      "name": "Rwanda"
+      "name": "rwanda"
     },
     {
       "code": "+685",
-      "name": "Samoa"
+      "name": "samoa"
     },
     {
       "code": "+378",
-      "name": "San Marino"
+      "name": "sanMarino"
     },
     {
       "code": "+966",
-      "name": "Saudi Arabia"
+      "name": "saudiArabia"
     },
     {
       "code": "+221",
-      "name": "Senegal"
+      "name": "senegal"
     },
     {
       "code": "+381",
-      "name": "Serbia"
+      "name": "serbia"
     },
     {
       "code": "+248",
-      "name": "Seychelles"
+      "name": "seychelles"
     },
     {
       "code": "+232",
-      "name": "Sierra Leone"
+      "name": "sierraLeone"
     },
     {
       "code": "+65",
-      "name": "Singapore"
+      "name": "singapore"
     },
     {
       "code": "+421",
-      "name": "Slovakia"
+      "name": "slovakia"
     },
     {
       "code": "+386",
-      "name": "Slovenia"
+      "name": "slovenia"
     },
     {
       "code": "+677",
-      "name": "Solomon Islands"
+      "name": "solomonIslands"
     },
     {
       "code": "+27",
-      "name": "South Africa"
+      "name": "southAfrica"
     },
     {
       "code": "+500",
-      "name": "South Georgia and the South Sandwich Islands"
+      "name": "southGeorgiaAndTheSouthSandwichIslands"
     },
     {
       "code": "+82",
-      "name": "South Korea"
+      "name": "southKorea"
     },
     {
       "code": "+34",
-      "name": "Spain"
+      "name": "spain"
     },
     {
       "code": "+94",
-      "name": "Sri Lanka"
+      "name": "sriLanka"
     },
     {
       "code": "+249",
-      "name": "Sudan"
+      "name": "sudan"
     },
     {
       "code": "+597",
-      "name": "Suriname"
+      "name": "suriname"
     },
     {
       "code": "+268",
-      "name": "Swaziland"
+      "name": "swaziland"
     },
     {
       "code": "+46",
-      "name": "Sweden"
+      "name": "sweden"
     },
     {
       "code": "+41",
-      "name": "Switzerland"
+      "name": "switzerland"
     },
     {
       "code": "+963",
-      "name": "Syria"
+      "name": "syria"
     },
     {
       "code": "+886",
-      "name": "Taiwan"
+      "name": "taiwan"
     },
     {
       "code": "+992",
-      "name": "Tajikistan"
+      "name": "tajikistan"
     },
     {
       "code": "+255",
-      "name": "Tanzania"
+      "name": "tanzania"
     },
     {
       "code": "+66",
-      "name": "Thailand"
+      "name": "thailand"
     },
     {
       "code": "+670",
-      "name": "Timor Leste"
+      "name": "timorLeste"
     },
     {
       "code": "+228",
-      "name": "Togo"
+      "name": "togo"
     },
     {
       "code": "+690",
-      "name": "Tokelau"
+      "name": "tokelau"
     },
     {
       "code": "+676",
-      "name": "Tonga"
+      "name": "tonga"
     },
     {
       "code": "+1 868",
-      "name": "Trinidad and Tobago"
+      "name": "trinidadAndTobago"
     },
     {
       "code": "+216",
-      "name": "Tunisia"
+      "name": "tunisia"
     },
     {
       "code": "+90",
-      "name": "Turkey"
+      "name": "turkey"
     },
     {
       "code": "+993",
-      "name": "Turkmenistan"
+      "name": "turkmenistan"
     },
     {
       "code": "+1 649",
-      "name": "Turks and Caicos Islands"
+      "name": "turksAndCaicosIslands"
     },
     {
       "code": "+688",
-      "name": "Tuvalu"
+      "name": "tuvalu"
     },
     {
       "code": "+1 340",
-      "name": "U.S. Virgin Islands"
+      "name": "virginIslands"
     },
     {
       "code": "+256",
-      "name": "Uganda"
+      "name": "uganda"
     },
     {
       "code": "+380",
-      "name": "Ukraine"
+      "name": "ukraine"
     },
     {
       "code": "+971",
-      "name": "United Arab Emirates"
+      "name": "unitedArabEmirates"
     },
     {
       "code": "+44",
-      "name": "United Kingdom"
+      "name": "unitedKingdom"
     },
     {
       "code": "+1",
-      "name": "United States"
+      "name": "unitedStates"
     },
     {
       "code": "+598",
-      "name": "Uruguay"
+      "name": "uruguay"
     },
     {
       "code": "+998",
-      "name": "Uzbekistan"
+      "name": "uzbekistan"
     },
     {
       "code": "+678",
-      "name": "Vanuatu"
+      "name": "vanuatu"
     },
     {
       "code": "+58",
-      "name": "Venezuela"
+      "name": "venezuela"
     },
     {
       "code": "+84",
-      "name": "Vietnam"
+      "name": "vietnam"
     },
     {
       "code": "+1 808",
-      "name": "Wake Island"
+      "name": "wakeIsland"
     },
     {
       "code": "+681",
-      "name": "Wallis and Futuna"
+      "name": "wallisAndFutuna"
     },
     {
       "code": "+967",
-      "name": "Yemen"
+      "name": "yemen"
     },
     {
       "code": "+260",
-      "name": "Zambia"
+      "name": "zambia"
     },
     {
       "code": "+255",
-      "name": "Zanzibar"
+      "name": "zanzibar"
     },
     {
       "code": "+263",
-      "name": "Zimbabwe"
+      "name": "zimbabwe"
     }
   ]

@@ -5,7 +5,7 @@ namespace DataGen.Types.CountryCode {
     // Is generated from json
     public class CountryCode {
         public string Name { get; }
-        private string Code { get; }
+        public string Code { get; }
 
         public CountryCode(string name, string code) {
             Name = name;
