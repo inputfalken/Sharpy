@@ -6,7 +6,7 @@ using System.Text;
 namespace DataGen.Types.Mail {
     public class MailFactory {
         /// <summary>
-        /// Will work as a history for each instance.
+        ///     Will work as a history for each instance.
         /// </summary>
         private readonly HashSet<string> _createdMails = new HashSet<string>();
 
