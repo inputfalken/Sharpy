@@ -62,7 +62,8 @@ namespace DataGen.Types.Mail {
                             .Append(secondName)
                             .Append("@")
                             .Append(_emailDomainsEnumerator.Current)
-                            .ToString();
+                            .ToString()
+                            .ToLower();
                         if (ClearValidateSave(address))
                             return address;
                     }
@@ -86,7 +87,11 @@ namespace DataGen.Types.Mail {
             if (string.IsNullOrEmpty(name))
                 throw new NullReferenceException($"{nameof(name)} cannot be empty string or null");
             foreach (var emailDomain in _emailDomains) {
-                var address = Builder.Append(name).Append("@").Append(emailDomain).ToString();
+                var address = Builder.Append(name)
+                    .Append("@")
+                    .Append(emailDomain)
+                    .ToString()
+                    .ToLower();
                 if (ClearValidateSave(address))
                     return address;
             }
