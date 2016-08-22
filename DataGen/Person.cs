@@ -21,7 +21,9 @@ namespace DataGen {
         public string FirstName { get; }
         public string LastName { get; }
         public string MailAddress { get; }
+        //Todo make it optional if user wants usernames unique
         public string Username { get; }
+        //Todo make every phone number unique
         public string PhoneNumber { get; }
         public LocalDate DateOfBirth { get; }
 
