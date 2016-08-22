@@ -8,9 +8,13 @@ using NUnit.Framework.Internal;
 namespace Tests {
     [TestFixture]
     public class MailFactoryTest {
-
-
         #region Mail With One String
+
+        [Test]
+        public void Mail_OneDomain_null_CalledOneTime() {
+            var mailFactory = new MailFactory("test.com");
+            Assert.Throws<NullReferenceException>(() => mailFactory.Mail(null));
+        }
 
         [Test]
         public void Mail_OneDomain_OneString_CalledOneTime() {
@@ -54,8 +58,21 @@ namespace Tests {
 
         #endregion
 
-
         #region Mail With Two Strings
+
+        [Test]
+        public void Mail_OneDomain_TwoStrings_SecondNull() {
+            var mailFactory = new MailFactory("test.com");
+            var result = mailFactory.Mail("bob", null);
+            const string expected = "bob@test.com";
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void Mail_OneDomain_TwoStrings_FirstNull() {
+            var mailFactory = new MailFactory("test.com");
+            Assert.Throws<NullReferenceException>(() => mailFactory.Mail(null, "bob"));
+        }
 
         [Test]
         public void Mail_OneDomain_TwoStrings_CalledOneTime() {
@@ -95,7 +112,6 @@ namespace Tests {
         }
 
         #endregion
-
 
         #region Find Duplicates
 

@@ -50,8 +50,9 @@ namespace DataGen.Types.Mail {
         /// <param name="secondName"></param>
         /// <returns></returns>
         public string Mail(string name, string secondName) {
-            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(secondName))
-                throw new ArgumentException("Argument must contain none null/empty string");
+            if (string.IsNullOrEmpty(name))
+                throw new NullReferenceException("Argument must contain none null/empty string");
+            if (string.IsNullOrEmpty(secondName)) return Mail(name);
             var resets = 0;
             while (resets < 2) {
                 if (_emailDomainsEnumerator.MoveNext()) {
@@ -83,7 +84,7 @@ namespace DataGen.Types.Mail {
         /// </summary>
         public string Mail(string name) {
             if (string.IsNullOrEmpty(name))
-                throw new ArgumentException($"{nameof(name)} cannot be empty string or null");
+                throw new NullReferenceException($"{nameof(name)} cannot be empty string or null");
             foreach (var emailDomain in _emailDomains) {
                 var address = Builder.Append(name).Append("@").Append(emailDomain).ToString();
                 if (ClearValidateSave(address))
