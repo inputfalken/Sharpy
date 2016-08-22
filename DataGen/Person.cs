@@ -1,8 +1,11 @@
 ﻿using System.Linq;
+using DataGen.Types;
 using DataGen.Types.CountryCode;
+using DataGen.Types.Date;
 using DataGen.Types.Mail;
 using DataGen.Types.Name;
 using DataGen.Types.String;
+using NodaTime;
 
 namespace DataGen {
     public class Person {
@@ -20,6 +23,7 @@ namespace DataGen {
         public string MailAddress { get; }
         public string Username { get; }
         public string PhoneNumber { get; }
+        public LocalDate DateOfBirth { get; }
 
         public Person() {
             FirstName = NameFilter.ByType(NameTypes.MixedNames).RandomItem.Data;
@@ -27,10 +31,12 @@ namespace DataGen {
             Username = UserNameFilter.RandomItem;
             MailAddress = MailFactory.Mail(FirstName, LastName);
             PhoneNumber = CountryCode.CreateRandomNumber(4, "39");
+            DateOfBirth = DateFactory.Age(HelperClass.Randomizer(15, 45));
         }
 
         public override string ToString() {
-            return $"Name: {FirstName} {LastName}\nPhone: {PhoneNumber} \nMail: {MailAddress}\nUser Name: {Username}";
+            return
+                $"Name: {FirstName} {LastName}\nPhone: {PhoneNumber} \nMail: {MailAddress}\nUser Name: {Username}\nDate Of Birth: {DateOfBirth}";
         }
     }
 }
