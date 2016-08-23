@@ -4,7 +4,12 @@ using System.Text;
 namespace DataGen.Types {
     public abstract class Unique<T> {
         protected int AttemptLimit { get; }
+
+        ///<summary>
+        ///      This hashset will be the history of all the created elements in derived classes
+        ///</summary>
         private HashSet<T> HashSet { get; }
+
         // ReSharper disable once StaticMemberInGenericType
         protected static readonly StringBuilder Builder = new StringBuilder();
 
@@ -13,6 +18,9 @@ namespace DataGen.Types {
             HashSet = new HashSet<T>();
         }
 
+        ///<summary>
+        ///      This method is used in order to validate if the created element is unique
+        ///</summary>
         protected bool ClearValidateSave(T item) {
             Builder.Clear();
             if (HashSet.Contains(item)) return false;
