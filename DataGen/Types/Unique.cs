@@ -5,7 +5,7 @@ namespace DataGen.Types {
     public abstract class Unique<T> {
         private HashSet<T> HashSet { get; }
         // ReSharper disable once StaticMemberInGenericType
-        private static readonly StringBuilder Builder = new StringBuilder();
+        protected static readonly StringBuilder Builder = new StringBuilder();
 
         protected Unique() {
             HashSet = new HashSet<T>();
