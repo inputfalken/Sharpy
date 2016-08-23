@@ -8,7 +8,7 @@ namespace DataGen.Types.CountryCode {
         public string Name { get; }
         public string Code { get; }
 
-        public CountryCode(string name, string code) {
+        public CountryCode(string name, string code) : base(50) {
             Name = name;
             Code = code;
         }
@@ -20,7 +20,7 @@ namespace DataGen.Types.CountryCode {
         /// </summary>
         public string CreateRandomNumber(int length, string preNumber = null) {
             var attempts = 0;
-            while (attempts < 50) {
+            while (attempts < AttemptLimit) {
                 foreach (var i in Enumerable.Range(1, length)) {
                     if (i == 1)
                         Builder.Append(Code).Append(preNumber);

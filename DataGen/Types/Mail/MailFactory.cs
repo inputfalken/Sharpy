@@ -22,7 +22,7 @@ namespace DataGen.Types.Mail {
         ///     Will use the strings as mail providers
         /// </summary>
         /// <param name="mailProviders">If Left Empty the mail providers will be defaulted to popular free providers.</param>
-        public MailFactory(params string[] mailProviders) {
+        public MailFactory(params string[] mailProviders) : base(2) {
             if (mailProviders.Any())
                 mailProviders.ForEach(_emailDomains.Add);
             else
@@ -48,7 +48,7 @@ namespace DataGen.Types.Mail {
                 throw new NullReferenceException("Argument must contain none null/empty string");
             if (string.IsNullOrEmpty(secondName)) return Mail(name);
             var resets = 0;
-            while (resets < 2) {
+            while (resets < AttemptLimit) {
                 if (_emailDomainsEnumerator.MoveNext()) {
                     foreach (var separator in Separators) {
                         var address = Builder.Append(name)

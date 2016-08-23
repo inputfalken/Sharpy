@@ -3,11 +3,13 @@ using System.Text;
 
 namespace DataGen.Types {
     public abstract class Unique<T> {
+        protected int AttemptLimit { get; }
         private HashSet<T> HashSet { get; }
         // ReSharper disable once StaticMemberInGenericType
         protected static readonly StringBuilder Builder = new StringBuilder();
 
-        protected Unique() {
+        protected Unique(int attemptLimit) {
+            AttemptLimit = attemptLimit;
             HashSet = new HashSet<T>();
         }
 
