@@ -33,7 +33,7 @@ namespace DataGen {
             Username = UserNameFilter.RandomItem;
             MailAddress = MailGenerator.Mail(FirstName, LastName);
             PhoneNumber = PhoneNumberGenerator.RandomNumber(4, "39");
-            DateOfBirth = DateFactory.Age(HelperClass.Randomizer(15, 45));
+            DateOfBirth = DateGenerator.RandomDateByAge(HelperClass.Randomizer(15, 45));
         }
 
         public override string ToString() {
