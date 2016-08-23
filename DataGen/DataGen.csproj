@@ -61,6 +61,7 @@
     <Compile Include="Types\Name\NameFilter.cs" />
     <Compile Include="Types\Name\Name.cs" />
     <Compile Include="Types\String\stringfilter.cs" />
+    <Compile Include="Types\Unique.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Types\Name\NamesByOrigin.json">
