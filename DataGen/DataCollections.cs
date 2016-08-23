@@ -34,7 +34,7 @@ namespace DataGen {
         /// </summary>
         public static Lazy<CountryCodeFilter> CountryCodeFilters =>
             new Lazy<CountryCodeFilter>(
-                () => new CountryCodeFilter(JsonConvert.DeserializeObject<IEnumerable<CountryCode>>(
+                () => new CountryCodeFilter(JsonConvert.DeserializeObject<IEnumerable<PhoneNumberGenerator>>(
                     File.ReadAllText("Data/Types/CountryCodes/CountryCodes.json"))));
     }
 }

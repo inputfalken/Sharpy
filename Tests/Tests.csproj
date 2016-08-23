@@ -55,8 +55,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonNamesReadFileTest.cs" />
-    <Compile Include="CountryCodeTest.cs" />
     <Compile Include="MailGeneratorTest.cs" />
+    <Compile Include="PhoneNumberGeneratorTest.cs" />
     <Compile Include="NameFilterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringFilterTests.cs" />

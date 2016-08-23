@@ -52,7 +52,7 @@
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Types\CountryCode\CountryCode.cs" />
+    <Compile Include="Types\CountryCode\PhoneNumberGenerator.cs" />
     <Compile Include="Types\CountryCode\CountryCodeFilter.cs" />
     <Compile Include="Types\Date\DateFactory.cs" />
     <Compile Include="Types\HelperClass.cs" />
