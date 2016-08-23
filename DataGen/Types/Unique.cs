@@ -2,8 +2,9 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace DataGen.Types {
-    internal abstract class Unique<T> {
+    public abstract class Unique<T> {
         private HashSet<T> HashSet { get; }
+        // ReSharper disable once StaticMemberInGenericType
         private static readonly StringBuilder Builder = new StringBuilder();
 
         protected Unique() {
