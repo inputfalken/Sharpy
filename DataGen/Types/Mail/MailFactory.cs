@@ -4,12 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace DataGen.Types.Mail {
-    public class MailFactory {
-        /// <summary>
-        ///     Will work as a history for each instance.
-        /// </summary>
-        private readonly HashSet<string> _createdMails = new HashSet<string>();
-
+    public class MailFactory : Unique<string> {
         /// <summary>
         ///     Used for separating strings with symbols
         /// </summary>
@@ -40,7 +35,6 @@ namespace DataGen.Types.Mail {
         /// </summary>
         private readonly IEnumerator<string> _emailDomainsEnumerator;
 
-        private static readonly StringBuilder Builder = new StringBuilder();
 
         /// <summary>
         ///     Returns a string representing a mail address.
@@ -96,13 +90,6 @@ namespace DataGen.Types.Mail {
                     return address;
             }
             throw new Exception("Could not create an unique mail");
-        }
-
-        private bool ClearValidateSave(string item) {
-            Builder.Clear();
-            if (_createdMails.Contains(item)) return false;
-            _createdMails.Add(item);
-            return true;
         }
     }
 }
