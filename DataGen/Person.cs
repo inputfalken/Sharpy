@@ -16,7 +16,7 @@ namespace DataGen {
             DataCollections.CountryCodeFilters.Value.ByCountry(Country).First();
 
         private static readonly StringFilter UserNameFilter = DataCollections.CommonUserNames.Value.ByLength(8);
-        private static readonly MailFactory MailFactory = new MailFactory();
+        private static readonly MailGenerator MailGenerator = new MailGenerator();
 
         public string FirstName { get; }
         public string LastName { get; }
@@ -31,7 +31,7 @@ namespace DataGen {
             FirstName = NameFilter.ByType(NameTypes.MixedFirstNames).RandomItem.Data;
             LastName = NameFilter.ByType(NameTypes.LastNames).RandomItem.Data;
             Username = UserNameFilter.RandomItem;
-            MailAddress = MailFactory.Mail(FirstName, LastName);
+            MailAddress = MailGenerator.Mail(FirstName, LastName);
             PhoneNumber = CountryCode.CreateRandomNumber(4, "39");
             DateOfBirth = DateFactory.Age(HelperClass.Randomizer(15, 45));
         }

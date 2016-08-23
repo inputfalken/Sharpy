@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace DataGen.Types.Mail {
-    public class MailFactory : Unique<string> {
+    public class MailGenerator : Unique<string> {
         /// <summary>
         ///     Used for separating strings with symbols
         /// </summary>
@@ -22,7 +22,7 @@ namespace DataGen.Types.Mail {
         ///     Will use the strings as mail providers
         /// </summary>
         /// <param name="mailProviders">If Left Empty the mail providers will be defaulted to popular free providers.</param>
-        public MailFactory(params string[] mailProviders) : base(2) {
+        public MailGenerator(params string[] mailProviders) : base(2) {
             if (mailProviders.Any())
                 mailProviders.ForEach(_emailDomains.Add);
             else
