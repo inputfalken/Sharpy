@@ -6,26 +6,26 @@ using NUnit.Framework;
 
 namespace Tests {
     [TestFixture]
-    public class DateFactoryTest {
+    public class DateGeneratorTest {
         #region RandomDate
 
         [Test]
         public void AgeTwentyMinusOne() {
             //Will throw exception if argument is less than 0
-            Assert.Throws<ArgumentException>(() => DateFactory.Age(-1));
+            Assert.Throws<ArgumentException>(() => DateGenerator.RandomDateByAge(-1));
         }
 
         [Test]
         public void AgeTwentyYears() {
-            var result = DateFactory.Age(20);
-            Assert.AreEqual(result.Year, DateFactory.CurrentLocalDate.Year - 20);
+            var result = DateGenerator.RandomDateByAge(20);
+            Assert.AreEqual(result.Year, DateGenerator.CurrentLocalDate.Year - 20);
         }
 
         [Test]
         public void AgeZeroYears() {
-            var result = DateFactory.Age(0);
+            var result = DateGenerator.RandomDateByAge(0);
             //will make sure that the date created is earlier than today this year
-            Assert.IsTrue(DateFactory.CurrentLocalDate > result);
+            Assert.IsTrue(DateGenerator.CurrentLocalDate > result);
         }
 
         #endregion
@@ -34,11 +34,11 @@ namespace Tests {
 
         [Test]
         public void CreateDate_Arg_Subtract_True() {
-            var currentLocalDate = DateFactory.CurrentLocalDate;
+            var currentLocalDate = DateGenerator.CurrentLocalDate;
             const int day = 1;
             const int year = 1;
             const int month = 2;
-            var result = DateFactory.CreateDate(day, month, year);
+            var result = DateGenerator.Date(day, month, year);
             Assert.AreEqual(currentLocalDate.Day - day, result.Day);
             Assert.AreEqual(currentLocalDate.Year - year, result.Year);
             Assert.AreEqual(currentLocalDate.Month - month, result.Month);
@@ -46,29 +46,29 @@ namespace Tests {
 
         [Test]
         public void CreateDate_Arg_Subtract_True_ZeroYearsMontsDays() {
-            var currentLocalDate = DateFactory.CurrentLocalDate;
+            var currentLocalDate = DateGenerator.CurrentLocalDate;
             const int day = 0;
             const int year = 0;
             const int month = 0;
-            var result = DateFactory.CreateDate(year, month, day);
+            var result = DateGenerator.Date(year, month, day);
             Assert.AreEqual(currentLocalDate, result);
         }
 
         [Test]
         public void CreateDate_Arg_Subtract_NegativeArgs() {
-            Assert.Throws<ArgumentException>(() => DateFactory.CreateDate(-1, 1, 1));
-            Assert.Throws<ArgumentException>(() => DateFactory.CreateDate(0, -1, 1));
-            Assert.Throws<ArgumentException>(() => DateFactory.CreateDate(0, 0, -1));
+            Assert.Throws<ArgumentException>(() => DateGenerator.Date(-1, 1, 1));
+            Assert.Throws<ArgumentException>(() => DateGenerator.Date(0, -1, 1));
+            Assert.Throws<ArgumentException>(() => DateGenerator.Date(0, 0, -1));
         }
 
 
         [Test]
         public void CreateDate_Arg_Subtract_False() {
-            var currentLocalDate = DateFactory.CurrentLocalDate;
+            var currentLocalDate = DateGenerator.CurrentLocalDate;
             const int day = 1;
             const int year = 1;
             const int month = 2;
-            var result = DateFactory.CreateDate(year, month, year, false);
+            var result = DateGenerator.Date(year, month, year, false);
             Assert.AreEqual(currentLocalDate.Day + day, result.Day);
             Assert.AreEqual(currentLocalDate.Year + year, result.Year);
             Assert.AreEqual(currentLocalDate.Month + month, result.Month);
@@ -76,11 +76,11 @@ namespace Tests {
 
         [Test]
         public void CreateDate_Arg_Subtract_False_ZeroYearsMontsDays() {
-            var currentLocalDate = DateFactory.CurrentLocalDate;
+            var currentLocalDate = DateGenerator.CurrentLocalDate;
             const int day = 0;
             const int year = 0;
             const int month = 0;
-            var result = DateFactory.CreateDate(year, month, day, false);
+            var result = DateGenerator.Date(year, month, day, false);
             Assert.AreEqual(currentLocalDate, result);
         }
 
@@ -90,19 +90,19 @@ namespace Tests {
 
         [Test]
         public void CreateSequence_Arg_DefaultDate() {
-            var result = DateFactory.CreateSequence(3, new LocalDate(1, 2, 3)).ToList();
+            var result = DateGenerator.Sequence(3, new LocalDate(1, 2, 3)).ToList();
             var expected1 =
-                DateFactory.CurrentLocalDate
+                DateGenerator.CurrentLocalDate
                     .Plus(Period.FromYears(1))
                     .Plus(Period.FromMonths(2))
                     .Plus(Period.FromDays(3));
             var expected2 =
-                DateFactory.CurrentLocalDate
+                DateGenerator.CurrentLocalDate
                     .Plus(Period.FromYears(2))
                     .Plus(Period.FromMonths(4))
                     .Plus(Period.FromDays(6));
             var expected3 =
-                DateFactory.CurrentLocalDate
+                DateGenerator.CurrentLocalDate
                     .Plus(Period.FromYears(3))
                     .Plus(Period.FromMonths(6))
                     .Plus(Period.FromDays(9));
@@ -114,7 +114,7 @@ namespace Tests {
         [Test]
         public void CreateSequence_Arg_CustomDate() {
             var startDate = new LocalDate(1992, 1, 1);
-            var result = DateFactory.CreateSequence(3, new LocalDate(1, 2, 3), startDate).ToList();
+            var result = DateGenerator.Sequence(3, new LocalDate(1, 2, 3), startDate).ToList();
             var expected1 =
                 startDate
                     .Plus(Period.FromYears(1))
