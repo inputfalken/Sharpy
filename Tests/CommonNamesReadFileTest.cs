@@ -176,7 +176,7 @@ namespace Tests {
                 "Jacob", "Erik", "Simon", "Alexander", "Afonso", "Adam", "Michael", "Jack",
                 "Maria", "Olga", "Jessica", "Linda", "Sophie", "Vanessa", "Sophie", "Julia"
             };
-            var result = CommonNames.ByType(NameTypes.MixedNames);
+            var result = CommonNames.ByType(NameTypes.MixedFirstNames);
             Assert.IsTrue(names.All(s => result.Select(name => name.Data).Contains(s)));
         }
 

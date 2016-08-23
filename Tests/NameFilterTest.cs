@@ -153,7 +153,7 @@ namespace Tests {
                 albin, wilma, jens, bob, rachel,
                 william, wilma2, johanna,
             };
-            var result = new NameFilter(enumerable).ByType(NameTypes.MixedNames);
+            var result = new NameFilter(enumerable).ByType(NameTypes.MixedFirstNames);
             Assert.IsTrue(result.SequenceEqual(expected));
         }
 

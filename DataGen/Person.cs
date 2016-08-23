@@ -28,7 +28,7 @@ namespace DataGen {
         public LocalDate DateOfBirth { get; }
 
         public Person() {
-            FirstName = NameFilter.ByType(NameTypes.MixedNames).RandomItem.Data;
+            FirstName = NameFilter.ByType(NameTypes.MixedFirstNames).RandomItem.Data;
             LastName = NameFilter.ByType(NameTypes.LastNames).RandomItem.Data;
             Username = UserNameFilter.RandomItem;
             MailAddress = MailFactory.Mail(FirstName, LastName);
