@@ -42,7 +42,7 @@ namespace DataGen.Types.CountryCode {
         /// </summary>
         public string CreateRandomNumber(int minLength, int maxLength, string preNumber = null) {
             var attempts = 0;
-            while (attempts < 50) {
+            while (attempts < AttemptLimit) {
                 foreach (var i in Enumerable.Range(1, HelperClass.Randomizer(minLength, maxLength))) {
                     if (i == 1)
                         Builder.Append(Code).Append(preNumber);
