@@ -10,19 +10,19 @@ namespace Tests {
         #region RandomDate
 
         [Test]
-        public void AgeTwentyMinusOne() {
+        public void RandomDateByAgeTwentyMinusOne() {
             //Will throw exception if argument is less than 0
             Assert.Throws<ArgumentException>(() => DateGenerator.RandomDateByAge(-1));
         }
 
         [Test]
-        public void AgeTwentyYears() {
+        public void RandomDateByAgeTwentyYears() {
             var result = DateGenerator.RandomDateByAge(20);
             Assert.AreEqual(result.Year, DateGenerator.CurrentLocalDate.Year - 20);
         }
 
         [Test]
-        public void AgeZeroYears() {
+        public void RandomDateByAgeZeroYears() {
             var result = DateGenerator.RandomDateByAge(0);
             //will make sure that the date created is earlier than today this year
             Assert.IsTrue(DateGenerator.CurrentLocalDate > result);
@@ -30,10 +30,10 @@ namespace Tests {
 
         #endregion
 
-        #region CreateDate
+        #region Date
 
         [Test]
-        public void CreateDate_Arg_Subtract_True() {
+        public void Date_Arg_Subtract_True() {
             var currentLocalDate = DateGenerator.CurrentLocalDate;
             const int day = 1;
             const int year = 1;
@@ -45,7 +45,7 @@ namespace Tests {
         }
 
         [Test]
-        public void CreateDate_Arg_Subtract_True_ZeroYearsMontsDays() {
+        public void Date_Arg_Subtract_True_ZeroYearsMontsDays() {
             var currentLocalDate = DateGenerator.CurrentLocalDate;
             const int day = 0;
             const int year = 0;
@@ -55,7 +55,7 @@ namespace Tests {
         }
 
         [Test]
-        public void CreateDate_Arg_Subtract_NegativeArgs() {
+        public void Date_Arg_Subtract_NegativeArgs() {
             Assert.Throws<ArgumentException>(() => DateGenerator.Date(-1, 1, 1));
             Assert.Throws<ArgumentException>(() => DateGenerator.Date(0, -1, 1));
             Assert.Throws<ArgumentException>(() => DateGenerator.Date(0, 0, -1));
@@ -63,7 +63,7 @@ namespace Tests {
 
 
         [Test]
-        public void CreateDate_Arg_Subtract_False() {
+        public void Date_Arg_Subtract_False() {
             var currentLocalDate = DateGenerator.CurrentLocalDate;
             const int day = 1;
             const int year = 1;
@@ -75,7 +75,7 @@ namespace Tests {
         }
 
         [Test]
-        public void CreateDate_Arg_Subtract_False_ZeroYearsMontsDays() {
+        public void Date_Arg_Subtract_False_ZeroYearsMontsDays() {
             var currentLocalDate = DateGenerator.CurrentLocalDate;
             const int day = 0;
             const int year = 0;
