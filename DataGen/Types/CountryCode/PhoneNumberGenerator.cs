@@ -4,11 +4,11 @@ using System.Linq;
 namespace DataGen.Types.CountryCode {
     // ReSharper disable once ClassNeverInstantiated.Global
     // Is generated from json
-    public class CountryCode : Unique<string> {
+    public class PhoneNumberGenerator : Unique<string> {
         public string Name { get; }
         public string Code { get; }
 
-        public CountryCode(string name, string code) : base(50) {
+        public PhoneNumberGenerator(string name, string code) : base(50) {
             Name = name;
             Code = code;
         }
@@ -18,7 +18,7 @@ namespace DataGen.Types.CountryCode {
         /// <param name="length">The length of the number</param>
         /// <param name="preNumber">Optional number that will be used before the random numbers</param>
         /// </summary>
-        public string CreateRandomNumber(int length, string preNumber = null) {
+        public string RandomNumber(int length, string preNumber = null) {
             var attempts = 0;
             while (attempts < AttemptLimit) {
                 foreach (var i in Enumerable.Range(1, length)) {
@@ -40,7 +40,7 @@ namespace DataGen.Types.CountryCode {
         /// <param name="maxLength">Max length of the phone number</param>
         /// <param name="preNumber">Optional number that will be used before the random numbers</param>
         /// </summary>
-        public string CreateRandomNumber(int minLength, int maxLength, string preNumber = null) {
+        public string RandomNumber(int minLength, int maxLength, string preNumber = null) {
             var attempts = 0;
             while (attempts < AttemptLimit) {
                 foreach (var i in Enumerable.Range(1, HelperClass.Randomizer(minLength, maxLength))) {

@@ -12,7 +12,7 @@ namespace DataGen {
         private const string Country = "sweden";
         private static readonly NameFilter NameFilter = DataCollections.CommonNames.Value.ByCountry(Country);
 
-        private static readonly CountryCode CountryCode =
+        private static readonly PhoneNumberGenerator PhoneNumberGenerator =
             DataCollections.CountryCodeFilters.Value.ByCountry(Country).First();
 
         private static readonly StringFilter UserNameFilter = DataCollections.CommonUserNames.Value.ByLength(8);
@@ -32,7 +32,7 @@ namespace DataGen {
             LastName = NameFilter.ByType(NameTypes.LastNames).RandomItem.Data;
             Username = UserNameFilter.RandomItem;
             MailAddress = MailFactory.Mail(FirstName, LastName);
-            PhoneNumber = CountryCode.CreateRandomNumber(4, "39");
+            PhoneNumber = PhoneNumberGenerator.RandomNumber(4, "39");
             DateOfBirth = DateFactory.Age(HelperClass.Randomizer(15, 45));
         }
 

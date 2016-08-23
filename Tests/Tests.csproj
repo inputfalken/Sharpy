@@ -55,7 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonNamesReadFileTest.cs" />
-    <Compile Include="CountryCodeTest.cs" />
+    <Compile Include="PhoneNumberGeneratorTest.cs" />
     <Compile Include="MailFactoryTest.cs" />
     <Compile Include="NameFilterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
