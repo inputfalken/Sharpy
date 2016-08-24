@@ -8,7 +8,7 @@ using DataGen.Types.String;
 using NodaTime;
 
 namespace DataGen {
-    public class Person {
+    public class FakePerson {
         private const string Country = "sweden";
         private static readonly NameFilter NameFilter = DataCollections.Names.Value.ByCountry(Country);
 
@@ -26,7 +26,7 @@ namespace DataGen {
         public string PhoneNumber { get; }
         public LocalDate DateOfBirth { get; }
 
-        public Person() {
+        public FakePerson() {
             FirstName = NameFilter.ByType(NameTypes.MixedFirstNames).RandomItem.Data;
             LastName = NameFilter.ByType(NameTypes.LastNames).RandomItem.Data;
             Username = UserNameFilter.RandomItem;
