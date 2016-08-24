@@ -10,12 +10,12 @@ using NodaTime;
 namespace DataGen {
     public class Person {
         private const string Country = "sweden";
-        private static readonly NameFilter NameFilter = DataCollections.CommonNames.Value.ByCountry(Country);
+        private static readonly NameFilter NameFilter = DataCollections.Names.Value.ByCountry(Country);
 
         private static readonly PhoneNumberGenerator PhoneNumberGenerator =
-            DataCollections.CountryCodeFilters.Value.ByCountry(Country).First();
+            DataCollections.CountryCodes.Value.ByCountry(Country).First();
 
-        private static readonly StringFilter UserNameFilter = DataCollections.CommonUserNames.Value.ByLength(8);
+        private static readonly StringFilter UserNameFilter = DataCollections.UserNames.Value.ByLength(8);
         private static readonly MailGenerator MailGenerator = new MailGenerator();
 
         public string FirstName { get; }
