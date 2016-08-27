@@ -6,17 +6,21 @@ using static DataGen.DataCollections;
 
 namespace DataGen {
     public static class Sharpy {
-        public static T Map<T>(Action<T, Config> func) where T : new() {
-            var t = new T();
-            func(t, new Config(Names.Value, UserNames.Value, new MailGenerator()));
-            return t;
-        }
+        public static Func<T> CreateGenerator<T>(Action<T, Config> func) where T : new() =>
+            CreateGenerator(func, new Config(Names.Value, UserNames.Value, new MailGenerator()));
 
-        public static T Map<T>(Action<T, Config> func, Config config) where T : new() {
+
+        public static Func<T> CreateGenerator<T>(Action<T, Config> func, Config config) where T : new() => () => {
             var t = new T();
             func(t, config);
             return t;
-        }
+        };
+
+        public static T Generate<T>(Action<T, Config> func) where T : new() =>
+            Generate(func, new Config(Names.Value, UserNames.Value, new MailGenerator()));
+
+        public static T Generate<T>(Action<T, Config> func, Config config) where T : new() =>
+            CreateGenerator(func, config)();
     }
 
     public class Config {
