@@ -1,23 +1,37 @@
 ﻿using System;
 using DataGen.Types.Mail;
+using DataGen.Types.Name;
+using DataGen.Types.String;
 using static DataGen.DataCollections;
 
 namespace DataGen {
     public static class Sharpy {
         public static T Map<T>(Action<T, Config> func) where T : new() {
             var t = new T();
-            func(t, new Config());
+            func(t, new Config(Names.Value, UserNames.Value, new MailGenerator()));
+            return t;
+        }
+
+        public static T Map<T>(Action<T, Config> func, Config config) where T : new() {
+            var t = new T();
+            func(t, config);
             return t;
         }
     }
 
     public class Config {
-        public Config() {
+        private NameFilter NameFilter { get; }
+        private StringFilter Usernames { get; }
+        private MailGenerator MailGenerator { get; }
+
+        public Config(NameFilter nameFilter, StringFilter usernames, MailGenerator mailGenerator) {
+            NameFilter = nameFilter;
+            Usernames = usernames;
+            MailGenerator = mailGenerator;
         }
 
-        private static readonly MailGenerator MailGenerator = new MailGenerator();
-        public string RandomName => Names.Value.RandomItem.Data;
-        public string UserName => UserNames.Value.RandomItem;
+        public string RandomName => NameFilter.RandomItem.Data;
+        public string UserName => Usernames.RandomItem;
         public Func<string, string, string> MailAddress => MailGenerator.Mail;
     }
 }
