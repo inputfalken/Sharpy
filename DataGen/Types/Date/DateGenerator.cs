@@ -51,13 +51,13 @@ namespace DataGen.Types.Date {
 
         ///<summary>
         ///     Will give and random date minus the argument in years
-        /// <param name ="years">ammount of years</param>
+        /// <param name ="age">ammount of years</param>
         /// </summary>
-        public static LocalDate RandomDateByAge(int years) {
-            if (years < 0)
-                throw new ArgumentException($"{nameof(years)} cannot be negative");
+        public static LocalDate RandomDateByAge(int age) {
+            if (age < 0)
+                throw new ArgumentException($"{nameof(age)} cannot be negative");
             var month = HelperClass.Randomizer(1, CurrentLocalDate.Month);
-            var date = CurrentLocalDate.Minus(FromYears(years));
+            var date = CurrentLocalDate.Minus(FromYears(age));
             var day = month == CurrentLocalDate.Month
                 ? HelperClass.Randomizer(1, date.Day)
                 : HelperClass.Randomizer(1, DateTime.DaysInMonth(date.Year, month));
