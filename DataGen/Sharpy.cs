@@ -5,9 +5,11 @@ using System.Linq;
     >>>>>>> randomNumber
 using DataGen.Types;
 using DataGen.Types.CountryCode;
+using DataGen.Types.Date;
 using DataGen.Types.Mail;
 using DataGen.Types.Name;
 using DataGen.Types.String;
+using NodaTime;
 using static DataGen.DataCollections;
 
 namespace DataGen {
@@ -51,6 +53,8 @@ namespace DataGen {
         public bool Randombool => HelperClass.Randomizer(0, 1) != 0;
         public int RandomNumber(int maxNum) => HelperClass.Randomizer(maxNum);
         public int RandomNumber(int minNum, int maxNum) => HelperClass.Randomizer(minNum, maxNum);
+        public LocalDate RandomDateByAge(int age) => DateGenerator.RandomDateByAge(age);
+        public LocalDate RandomDateByYear(int year) => DateGenerator.RandomDateByYear(year);
 
         public string PhoneNumber(string preNumber = null, int length = 4) =>
             PhoneNumberGenerator.RandomNumber(length, preNumber);
