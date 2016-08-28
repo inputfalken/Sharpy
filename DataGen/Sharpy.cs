@@ -14,21 +14,21 @@ namespace DataGen {
         private static readonly Config DefaultConfig = new Config(Names.Value, UserNames.Value,
             new MailGenerator("gmail.com", "hotmail.com", "yahoo.com"), CountryCodes.Value.RandomItem);
 
-        public static Func<T> CreateGenerator<T>(Action<T, Config> func) where T : new() =>
-            CreateGenerator(func, DefaultConfig);
+        public static Func<T> CreateGenerator<T>(Action<T, Config> action) where T : new() =>
+            CreateGenerator(action, DefaultConfig);
 
 
-        public static Func<T> CreateGenerator<T>(Action<T, Config> func, Config config) where T : new() => () => {
+        public static Func<T> CreateGenerator<T>(Action<T, Config> action, Config config) where T : new() => () => {
             var t = new T();
-            func(t, config);
+            action(t, config);
             return t;
         };
 
-        public static T Generate<T>(Action<T, Config> func) where T : new() =>
-            Generate(func, DefaultConfig);
+        public static T Generate<T>(Action<T, Config> action) where T : new() =>
+            Generate(action, DefaultConfig);
 
-        public static T Generate<T>(Action<T, Config> func, Config config) where T : new() =>
-            CreateGenerator(func, config)();
+        public static T Generate<T>(Action<T, Config> aciton, Config config) where T : new() =>
+            CreateGenerator(aciton, config)();
     }
 
     public class Config {
