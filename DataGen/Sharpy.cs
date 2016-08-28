@@ -47,11 +47,11 @@ namespace DataGen {
 
         public string Name => NameFilter.RandomItem.Data;
         public string UserName => Usernames.RandomItem;
-        public bool Randombool => HelperClass.Randomizer(0, 2) != 0;
-        public int RandomNumber(int maxNum) => HelperClass.Randomizer(maxNum);
-        public int RandomNumber(int minNum, int maxNum) => HelperClass.Randomizer(minNum, maxNum);
-        public LocalDate RandomDateByAge(int age) => DateGenerator.RandomDateByAge(age);
-        public LocalDate RandomDateByYear(int year) => DateGenerator.RandomDateByYear(year);
+        public bool Bool => HelperClass.Randomizer(0, 2) != 0;
+        public int Number(int maxNum) => HelperClass.Randomizer(maxNum);
+        public int Number(int minNum, int maxNum) => HelperClass.Randomizer(minNum, maxNum);
+        public LocalDate DateByAge(int age) => DateGenerator.RandomDateByAge(age);
+        public LocalDate DateByYear(int year) => DateGenerator.RandomDateByYear(year);
 
         public string PhoneNumber(string preNumber = null, int length = 4) =>
             PhoneNumberGenerator.RandomNumber(length, preNumber);
