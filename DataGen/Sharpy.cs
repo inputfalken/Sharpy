@@ -31,12 +31,12 @@ namespace DataGen {
         private StringFilter Usernames { get; }
         private MailGenerator MailGenerator { get; }
 
-        public Config(NameFilter nameFilter, StringFilter usernames, MailGenerator mailGenerator,
-            PhoneNumberGenerator phoneNumberGenerator) {
-            PhoneNumberGenerator = phoneNumberGenerator;
-            NameFilter = nameFilter;
-            Usernames = usernames;
-            MailGenerator = mailGenerator;
+        public Config(NameFilter nameFilter = null, StringFilter usernames = null, MailGenerator mailGenerator = null,
+            PhoneNumberGenerator phoneNumberGenerator = null) {
+            PhoneNumberGenerator = phoneNumberGenerator ?? CountryCodes.Value.RandomItem;
+            NameFilter = nameFilter ?? Names.Value;
+            Usernames = usernames ?? UserNames.Value;
+            MailGenerator = mailGenerator ?? new MailGenerator();
         }
 
         public string Name => NameFilter.RandomItem.Data;
