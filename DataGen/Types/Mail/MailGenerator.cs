@@ -21,12 +21,11 @@ namespace DataGen.Types.Mail {
         /// <summary>
         ///     Will use the strings as mail providers
         /// </summary>
-        /// <param name="mailProviders">If Left Empty the mail providers will be defaulted to popular free providers.</param>
-        public MailGenerator(params string[] mailProviders) : base(2) {
-            if (mailProviders.Any())
-                mailProviders.ForEach(_emailDomains.Add);
-            else
-                _emailDomains.AddRange(new[] { "yahoo.com", "gmail.com", "hotmail.com" });
+        /// <param name="domain">The domain you want to create random mails for</param>
+        /// <param name="extra">If you want additional domains</param>
+        public MailGenerator(string domain, params string[] extra) : base(2) {
+            _emailDomains.Add(domain);
+            extra.ForEach(_emailDomains.Add);
             _emailDomainsEnumerator = _emailDomains.GetEnumerator();
         }
 
@@ -50,14 +49,9 @@ namespace DataGen.Types.Mail {
             var resets = 0;
             while (resets < AttemptLimit) {
                 if (_emailDomainsEnumerator.MoveNext()) {
+                    var emailDomain = _emailDomainsEnumerator.Current;
                     foreach (var separator in Separators) {
-                        var address = Builder.Append(name)
-                            .Append(separator)
-                            .Append(secondName)
-                            .Append("@")
-                            .Append(_emailDomainsEnumerator.Current)
-                            .ToString()
-                            .ToLower();
+                        var address = BuildString(name, separator.ToString(), secondName, "@", emailDomain);
                         if (ClearValidateSave(address))
                             return address;
                     }
@@ -72,6 +66,11 @@ namespace DataGen.Types.Mail {
             throw new Exception("Could not create an unique mail");
         }
 
+        private static string BuildString(params string[] strings) {
+            foreach (var s in strings)
+                Builder.Append(s);
+            return Builder.ToString().ToLower();
+        }
 
         ///<summary>
         ///     Returns a string representing a mail address.
@@ -81,11 +80,7 @@ namespace DataGen.Types.Mail {
             if (string.IsNullOrEmpty(name))
                 throw new NullReferenceException($"{nameof(name)} cannot be empty string or null");
             foreach (var emailDomain in _emailDomains) {
-                var address = Builder.Append(name)
-                    .Append("@")
-                    .Append(emailDomain)
-                    .ToString()
-                    .ToLower();
+                var address = BuildString(name, "@", emailDomain);
                 if (ClearValidateSave(address))
                     return address;
             }
