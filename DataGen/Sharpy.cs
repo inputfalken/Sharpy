@@ -39,7 +39,7 @@ namespace DataGen {
             MailGenerator = mailGenerator;
         }
 
-        public string RandomName => NameFilter.RandomItem.Data;
+        public string Name => NameFilter.RandomItem.Data;
         public string UserName => Usernames.RandomItem;
         public Func<string, string, string> MailAddress => MailGenerator.Mail;
         public Func<int, string, string> PhoneNumber => PhoneNumberGenerator.RandomNumber;
