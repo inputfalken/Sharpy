@@ -11,33 +11,36 @@ using static DataGen.DataCollections;
 
 namespace DataGen {
     public static class Sharpy {
-        private static readonly Config DefaultConfig = new Config(Names.Value, UserNames.Value,
+        private static readonly Fetcher DefaultFetcher = new Fetcher(Names.Value, UserNames.Value,
             new MailGenerator("gmail.com", "hotmail.com", "yahoo.com"), CountryCodes.Value.RandomItem);
 
-        public static Func<T> CreateGenerator<T>(Action<T, Config> action) where T : new() =>
-            CreateGenerator(action, DefaultConfig);
+        public static Func<T> CreateGenerator<T>(Action<T, Fetcher> action) where T : new() =>
+            CreateGenerator(action, DefaultFetcher);
 
 
-        public static Func<T> CreateGenerator<T>(Action<T, Config> action, Config config) where T : new() => () => {
+        public static Func<T> CreateGenerator<T>(Action<T, Fetcher> action, Fetcher fetcher)
+            where T : new() => () => {
             var t = new T();
-            action(t, config);
+            action(t, fetcher);
             return t;
         };
 
-        public static T Generate<T>(Action<T, Config> action) where T : new() =>
-            Generate(action, DefaultConfig);
+        public static T Generate<T>(Action<T, Fetcher> action) where T : new() =>
+            Generate(action, DefaultFetcher);
 
-        public static T Generate<T>(Action<T, Config> aciton, Config config) where T : new() =>
-            CreateGenerator(aciton, config)();
+        public static T Generate<T>(Action<T, Fetcher> aciton, Fetcher fetcher) where T : new()
+        =>
+            CreateGenerator(aciton, fetcher)();
     }
 
-    public class Config {
+    public class Fetcher {
         private PhoneNumberGenerator PhoneNumberGenerator { get; }
         private NameFilter NameFilter { get; }
         private StringFilter Usernames { get; }
         private MailGenerator MailGenerator { get; }
 
-        public Config(NameFilter nameFilter = null, StringFilter usernames = null, MailGenerator mailGenerator = null,
+        public Fetcher(NameFilter nameFilter = null, StringFilter usernames = null,
+            MailGenerator mailGenerator = null,
             PhoneNumberGenerator phoneNumberGenerator = null) {
             PhoneNumberGenerator = phoneNumberGenerator ?? CountryCodes.Value.RandomItem;
             NameFilter = nameFilter ?? Names.Value;
