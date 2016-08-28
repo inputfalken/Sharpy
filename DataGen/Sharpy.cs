@@ -39,7 +39,7 @@ namespace DataGen {
             PhoneNumberGenerator = phoneNumberGenerator ?? CountryCodes.Value.RandomItem;
             NameFilter = nameFilter ?? Names.Value;
             Usernames = usernames ?? UserNames.Value;
-            MailGenerator = mailGenerator ?? new MailGenerator();
+            MailGenerator = mailGenerator ?? new MailGenerator("gmail.com", "hotmail.com", "yahoo.com");
         }
 
         public string Name => NameFilter.RandomItem.Data;
