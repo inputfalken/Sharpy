@@ -41,7 +41,10 @@ namespace DataGen {
 
         public string Name => NameFilter.RandomItem.Data;
         public string UserName => Usernames.RandomItem;
-        public Func<string, string, string> MailAddress => MailGenerator.Mail;
         public Func<int, string, string> PhoneNumber => PhoneNumberGenerator.RandomNumber;
+
+        public string MailAdress(string name, string secondName = null) => secondName == null
+            ? MailGenerator.Mail(name)
+            : MailGenerator.Mail(name, secondName);
     }
 }
