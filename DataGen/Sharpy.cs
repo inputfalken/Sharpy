@@ -7,12 +7,11 @@ using static DataGen.DataCollections;
 
 namespace DataGen {
     public static class Sharpy {
-        private static readonly Config Config = new Config(Names.Value, UserNames.Value,
-            new MailGenerator("gmail.com", "hotmail.com", "yahoo.com"),
-            CountryCodes.Value.RandomItem);
+        private static readonly Config DefaultConfig = new Config(Names.Value, UserNames.Value,
+            new MailGenerator("gmail.com", "hotmail.com", "yahoo.com"), CountryCodes.Value.RandomItem);
 
         public static Func<T> CreateGenerator<T>(Action<T, Config> func) where T : new() =>
-            CreateGenerator(func, Config);
+            CreateGenerator(func, DefaultConfig);
 
 
         public static Func<T> CreateGenerator<T>(Action<T, Config> func, Config config) where T : new() => () => {
@@ -22,7 +21,7 @@ namespace DataGen {
         };
 
         public static T Generate<T>(Action<T, Config> func) where T : new() =>
-            Generate(func, Config);
+            Generate(func, DefaultConfig);
 
         public static T Generate<T>(Action<T, Config> func, Config config) where T : new() =>
             CreateGenerator(func, config)();
