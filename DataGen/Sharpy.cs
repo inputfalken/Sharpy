@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using DataGen.Types;
 using DataGen.Types.CountryCode;
 using DataGen.Types.Mail;
 using DataGen.Types.Name;
@@ -43,6 +45,9 @@ namespace DataGen {
 
         public string Name => NameFilter.RandomItem.Data;
         public string UserName => Usernames.RandomItem;
+        public int RandomNumber(int maxNum) => HelperClass.Randomizer(maxNum);
+        public int RandomNumber(int minNum, int maxNum) => HelperClass.Randomizer(minNum, maxNum);
+
 
         public string PhoneNumber(string preNumber = null, int length = 4) =>
             PhoneNumberGenerator.RandomNumber(length, preNumber);
