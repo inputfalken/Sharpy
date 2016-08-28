@@ -46,6 +46,7 @@ namespace DataGen {
         public string Name => NameFilter.RandomItem.Data;
         public string UserName => Usernames.RandomItem;
         public LocalDate RandomDateByAge(int age) => DateGenerator.RandomDateByAge(age);
+        public LocalDate RandomDateByYear(int year) => DateGenerator.RandomDateByYear(year);
 
         public string PhoneNumber(string preNumber = null, int length = 4) =>
             PhoneNumberGenerator.RandomNumber(length, preNumber);

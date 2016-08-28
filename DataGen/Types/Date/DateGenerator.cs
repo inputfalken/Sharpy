@@ -63,5 +63,14 @@ namespace DataGen.Types.Date {
                 : HelperClass.Randomizer(1, DateTime.DaysInMonth(date.Year, month));
             return new LocalDate(date.Year, month, day);
         }
+
+        ///<summary>
+        ///     Will give a random month and date on specifk year
+        /// <param name ="year">which year to use</param>
+        /// </summary>
+        public static LocalDate RandomDateByYear(int year) {
+            var month = HelperClass.Randomizer(1, CurrentLocalDate.Month);
+            return new LocalDate(year, month, HelperClass.Randomizer(1, DateTime.DaysInMonth(year, month)));
+        }
     }
 }
