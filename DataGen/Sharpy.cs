@@ -1,8 +1,5 @@
 ﻿using System;
-    <<<<<<< HEAD
-    =======
 using System.Linq;
-    >>>>>>> randomNumber
 using DataGen.Types;
 using DataGen.Types.CountryCode;
 using DataGen.Types.Date;
