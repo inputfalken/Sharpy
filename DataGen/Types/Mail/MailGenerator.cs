@@ -21,12 +21,11 @@ namespace DataGen.Types.Mail {
         /// <summary>
         ///     Will use the strings as mail providers
         /// </summary>
-        /// <param name="mailProviders">If Left Empty the mail providers will be defaulted to popular free providers.</param>
-        public MailGenerator(params string[] mailProviders) : base(2) {
-            if (mailProviders.Any())
-                mailProviders.ForEach(_emailDomains.Add);
-            else
-                _emailDomains.AddRange(new[] { "yahoo.com", "gmail.com", "hotmail.com" });
+        /// <param name="domain">The domain you want to create random mails for</param>
+        /// <param name="extra">If you want additional domains</param>
+        public MailGenerator(string domain, params string[] extra) : base(2) {
+            _emailDomains.Add(domain);
+            extra.ForEach(_emailDomains.Add);
             _emailDomainsEnumerator = _emailDomains.GetEnumerator();
         }
 

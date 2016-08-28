@@ -16,7 +16,7 @@ namespace DataGen {
             DataCollections.CountryCodes.Value.ByCountry(Country).First();
 
         private static readonly StringFilter UserNameFilter = DataCollections.UserNames.Value.ByLength(8);
-        private static readonly MailGenerator MailGenerator = new MailGenerator();
+        private static readonly MailGenerator MailGenerator = new MailGenerator("gmail.com");
 
         public string FirstName { get; }
         public string LastName { get; }
