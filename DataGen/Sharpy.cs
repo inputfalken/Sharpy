@@ -50,7 +50,7 @@ namespace DataGen {
 
         public string Name => NameFilter.RandomItem.Data;
         public string UserName => Usernames.RandomItem;
-        public bool Bool => HelperClass.Randomizer(0, 2) != 0;
+        public bool Bool => Number(2) != 0;
         public int Number(int maxNum) => HelperClass.Randomizer(maxNum);
         public int Number(int minNum, int maxNum) => HelperClass.Randomizer(minNum, maxNum);
         public LocalDate DateByAge(int age) => DateGenerator.RandomDateByAge(age);
