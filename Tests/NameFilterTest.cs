@@ -151,7 +151,7 @@ namespace Tests {
             var expected = new[] {
                 vladimir, john, jack, gustavo, james, lisa, rachel2,
                 albin, wilma, jens, bob, rachel,
-                william, wilma2, johanna,
+                william, wilma2, johanna
             };
             var result = new NameFilter(enumerable).ByType(NameTypes.MixedFirstNames);
             Assert.IsTrue(result.SequenceEqual(expected));
