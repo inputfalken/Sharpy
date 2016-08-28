@@ -1,8 +1,10 @@
 ﻿using System;
 using DataGen.Types.CountryCode;
+using DataGen.Types.Date;
 using DataGen.Types.Mail;
 using DataGen.Types.Name;
 using DataGen.Types.String;
+using NodaTime;
 using static DataGen.DataCollections;
 
 namespace DataGen {
@@ -43,6 +45,7 @@ namespace DataGen {
 
         public string Name => NameFilter.RandomItem.Data;
         public string UserName => Usernames.RandomItem;
+        public LocalDate RandomDateByAge(int age) => DateGenerator.RandomDateByAge(age);
 
         public string PhoneNumber(string preNumber = null, int length = 4) =>
             PhoneNumberGenerator.RandomNumber(length, preNumber);
