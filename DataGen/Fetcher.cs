@@ -34,8 +34,6 @@ namespace DataGen {
         public string PhoneNumber(string preNumber = null, int length = 4) =>
             PhoneNumberGenerator.RandomNumber(length, preNumber);
 
-        public string MailAdress(string name, string secondName = null) => secondName == null
-            ? MailGenerator.Mail(name)
-            : MailGenerator.Mail(name, secondName);
+        public string MailAdress(string name, string secondName = null) => MailGenerator.Mail(name, secondName);
     }
 }

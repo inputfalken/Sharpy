@@ -97,10 +97,20 @@ namespace Tests {
         }
 
         [Test]
-        public void CreateGenerator_MailAddress() {
+        public void CreateGenerator_MailAddress_OneArg() {
             var generator =
                 Sharpy.CreateGenerator<TestClass>(
                     (testClass, fetcher) => { testClass.StringProp = fetcher.MailAdress(fetcher.UserName); }, TestFetcher);
+            var mailAddress = generator().StringProp;
+            //This test makes sure that the number is from sweden and the length is correct
+            Assert.IsTrue(mailAddress.Contains("@gmail.com"));
+        }
+
+        [Test]
+        public void CreateGenerator_MailAddress_TwoArg() {
+            var generator =
+                Sharpy.CreateGenerator<TestClass>(
+                    (testClass, fetcher) => { testClass.StringProp = fetcher.MailAdress(fetcher.UserName, null); }, TestFetcher);
             var mailAddress = generator().StringProp;
             //This test makes sure that the number is from sweden and the length is correct
             Assert.IsTrue(mailAddress.Contains("@gmail.com"));
