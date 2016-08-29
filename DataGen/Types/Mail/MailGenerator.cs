@@ -110,6 +110,7 @@ namespace DataGen.Types.Mail {
         public string Mail(string name) {
             if (string.IsNullOrEmpty(name))
                 throw new NullReferenceException($"{nameof(name)} cannot be empty string or null");
+            if (!Unique) return RandomMail(name);
             foreach (var emailDomain in _emailDomains) {
                 var address = BuildString(name, "@", emailDomain);
                 if (ClearValidateSave(address))
