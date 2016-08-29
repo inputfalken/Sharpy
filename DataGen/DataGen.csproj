@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="DataCollections.cs" />
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="Fetcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sharpy.cs" />
     <Compile Include="Types\CountryCode\PhoneNumberGenerator.cs" />
