@@ -18,6 +18,12 @@ namespace DataGen {
             CreateGenerator(action, DefaultFetcher);
 
 
+        public static T Generate<T>(Action<T, Fetcher> action) where T : new() =>
+            Generate(action, DefaultFetcher);
+
+        public static T Generate<T>(Action<T, Fetcher> action, Fetcher fetcher) where T : new() =>
+            CreateGenerator(action, fetcher)();
+
         public static Func<T> CreateGenerator<T>(Action<T, Fetcher> action, Fetcher fetcher)
             where T : new() => () => {
             var t = new T();
@@ -25,12 +31,12 @@ namespace DataGen {
             return t;
         };
 
-        public static T Generate<T>(Action<T, Fetcher> action) where T : new() =>
-            Generate(action, DefaultFetcher);
 
-        public static T Generate<T>(Action<T, Fetcher> aciton, Fetcher fetcher) where T : new()
-        =>
-            CreateGenerator(aciton, fetcher)();
+        public static Func<T> CreateGenerator<T>(Func<Fetcher, T> func) => ()
+            => func(DefaultFetcher);
+
+        public static Func<T> CreateGenerator<T>(Func<Fetcher, T> func, Fetcher fetcher)
+            => () => func(fetcher);
     }
 
     public class Fetcher {
