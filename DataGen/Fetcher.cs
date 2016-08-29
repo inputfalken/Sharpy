@@ -23,6 +23,7 @@ namespace DataGen {
         }
 
         public string Name => NameFilter.RandomItem.Data;
+        public string NameByType(NameTypes nameTypes) => NameFilter.ByType(nameTypes).RandomItem.Data;
         public string UserName => Usernames.RandomItem;
         public bool Bool => Number(2) != 0;
         public int Number(int maxNum) => HelperClass.Randomizer(maxNum);
