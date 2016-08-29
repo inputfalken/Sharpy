@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using static DataGen.Types.HelperClass;
 
 namespace DataGen.Types.Mail {
     public class MailGenerator : Unique<string> {
+        private bool Unique { get; }
+
         /// <summary>
         ///     Used for separating strings with symbols
         /// </summary>
@@ -21,11 +24,11 @@ namespace DataGen.Types.Mail {
         /// <summary>
         ///     Will use the strings as mail providers
         /// </summary>
-        /// <param name="domain">The domain you want to create random mails for</param>
-        /// <param name="extra">If you want additional domains</param>
-        public MailGenerator(string domain, params string[] extra) : base(2) {
-            _emailDomains.Add(domain);
-            extra.ForEach(_emailDomains.Add);
+        /// <param name="providers"></param>
+        /// <param name="unique"></param>
+        public MailGenerator(IEnumerable<string> providers, bool unique = true) : base(2) {
+            Unique = unique;
+            providers.ForEach(_emailDomains.Add);
             _emailDomainsEnumerator = _emailDomains.GetEnumerator();
         }
 
@@ -46,8 +49,17 @@ namespace DataGen.Types.Mail {
             if (string.IsNullOrEmpty(name))
                 throw new NullReferenceException("Argument must contain none null/empty string");
             if (string.IsNullOrEmpty(secondName)) return Mail(name);
+
+            return Unique ? UniqueMail(name, secondName) : RandomMail(name, secondName);
+        }
+
+        private string RandomMail(string name, string secondName) =>
+            BuildString(name, Separators[Randomizer(Separators.Count)].ToString(), secondName, "@",
+                _emailDomains[Randomizer(_emailDomains.Count)]);
+
+        private string UniqueMail(string name, string secondName) {
             var resets = 0;
-            while (resets < AttemptLimit) {
+            while (resets < AttemptLimit)
                 if (_emailDomainsEnumerator.MoveNext()) {
                     var emailDomain = _emailDomainsEnumerator.Current;
                     foreach (var separator in Separators) {
@@ -62,7 +74,6 @@ namespace DataGen.Types.Mail {
                     _emailDomainsEnumerator.Reset();
                     resets += 1;
                 }
-            }
             throw new Exception("Could not create an unique mail");
         }
 

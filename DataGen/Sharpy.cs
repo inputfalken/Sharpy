@@ -9,7 +9,7 @@ namespace DataGen {
         ///     This is the field which gets used if you use the method which do not ask for a fetcher
         /// </summary>
         private static readonly Fetcher DefaultFetcher = new Fetcher(Names.Value, UserNames.Value,
-            new MailGenerator("gmail.com", "hotmail.com", "yahoo.com"), CountryCodes.Value.RandomItem);
+            new MailGenerator(new []{"gmail.com", "hotmail.com", "yahoo.com"}), CountryCodes.Value.RandomItem);
 
         ///<summary>
         ///     Gives a method which can be used to creating random instances of the type given

@@ -19,7 +19,7 @@ namespace DataGen {
             PhoneNumberGenerator = phoneNumberGenerator ?? DataCollections.CountryCodes.Value.RandomItem;
             NameFilter = nameFilter ?? DataCollections.Names.Value;
             Usernames = usernames ?? DataCollections.UserNames.Value;
-            MailGenerator = mailGenerator ?? new MailGenerator("gmail.com", "hotmail.com", "yahoo.com");
+            MailGenerator = mailGenerator ?? new MailGenerator(new []{"gmail.com", "hotmail.com", "yahoo.com"});
         }
 
         ///<summary>
