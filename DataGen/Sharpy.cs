@@ -30,6 +30,9 @@ namespace DataGen {
         public static Func<T> CreateGenerator<T>(Func<Fetcher, T> func, Fetcher fetcher)
             => () => func(fetcher);
 
+        public static T Generate<T>(Func<Fetcher, T> func, Fetcher fetcher) => func(fetcher);
+
+        public static T Generate<T>(Func<Fetcher, T> func) => func(DefaultFetcher);
 
         public static T Generate<T>(Action<T, Fetcher> action) where T : new() =>
             Generate(action, DefaultFetcher);
