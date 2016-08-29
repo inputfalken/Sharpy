@@ -63,6 +63,14 @@ namespace DataGen.Types.Mail {
             BuildString(name, Separators[Randomizer(Separators.Count)].ToString(), secondName, "@",
                 _emailDomains[Randomizer(_emailDomains.Count)]);
 
+        /// <summary>
+        ///    Will try to create an unique mail address
+        ///    If all possible combinations for the arguments used it will throw an exception
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="secondName"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         private string UniqueMail(string name, string secondName) {
             var resets = 0;
             while (resets < AttemptLimit)
