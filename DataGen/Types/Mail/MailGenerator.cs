@@ -53,6 +53,12 @@ namespace DataGen.Types.Mail {
             return Unique ? UniqueMail(name, secondName) : RandomMail(name, secondName);
         }
 
+        /// <summary>
+        ///    Gives a mail address with randomed separator and domain
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="secondName"></param>
+        /// <returns></returns>
         private string RandomMail(string name, string secondName) =>
             BuildString(name, Separators[Randomizer(Separators.Count)].ToString(), secondName, "@",
                 _emailDomains[Randomizer(_emailDomains.Count)]);
