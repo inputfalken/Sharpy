@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DataGen.Types.Mail;
 using static DataGen.DataCollections;
@@ -12,73 +13,45 @@ namespace DataGen {
             new MailGenerator("gmail.com", "hotmail.com", "yahoo.com"), CountryCodes.Value.RandomItem);
 
         ///<summary>
-        ///     Gives a method which can be used to creating random instances of the type given
-        ///     All you have to do is to use the type argument and assign its props/fields by the fetchers props/methods
+        ///     Returns a Generator which you can use to create one instance or a collection of type given
+        ///     For a type with a consturctor you can just new up an instance of the type and satisfy the constructor args.
+        ///     if you don't have a constructor you can new up an instance and assign it's props/fields
+        ///     For examples please visit https://github.com/inputfalken/Sharpy
+        /// </summary>
+        public static Generator<T> CreateGenerator<T>(Func<Fetcher, T> func)
+            => new Generator<T>(() => func(DefaultFetcher));
+
+        ///<summary>
+        ///     Returns a Generator which you can use to create one instance or a collection of type given
+        ///     For a type with a consturctor you can just new up an instance of the type and satisfy the constructor args.
+        ///     if you don't have a constructor you can new up an instance and assign it's props/fields
+        ///     For examples please visit https://github.com/inputfalken/Sharpy
         ///     You need to specify a new fetcher for this overload the data used for the fetcher is found in the DataCollections class
         /// </summary>
-        public static Func<T> CreateGenerator<T>(Action<T, Fetcher> action, Fetcher fetcher)
-            where T : new() => () => {
-            var t = new T();
-            action(t, fetcher);
-            return t;
-        };
-
-        ///<summary>
-        ///     Gives a method which can be used to creating random instances of the type given
-        ///     This overload can be used if you have class which do not use a constructor to set its props/fields
-        ///     All you have to do is to use the type argument and assign its props/fields by the fetchers props/methods
-        /// </summary>
-        public static Func<T> CreateGenerator<T>(Action<T, Fetcher> action) where T : new() =>
-            CreateGenerator(action, DefaultFetcher);
-
-        ///<summary>
-        ///     Gives a method which can be used to creating random instances of the type given
-        ///     This overload can be used if you have a class which requires constructor arguments.
-        ///     All you have to do is to new up an instance and use the fetcher to satisfy the constructor arguments.
-        /// </summary>
-        public static Func<T> CreateGenerator<T>(Func<Fetcher, T> func) => ()
-            => func(DefaultFetcher);
-
-        ///<summary>
-        ///     Gives a method which can be used to creating random instances of the type given
-        ///     This overload can be used if you have a class which requires constructor arguments.
-        ///     All you have to do is to new up an instance and use the fetcher to satisfy the constructor arguments.
-        ///     You need to specify a new fetcher for this overload the data used for the fetcher is found in the DataCollections class
-        /// </summary>
-        public static Func<T> CreateGenerator<T>(Func<Fetcher, T> func, Fetcher fetcher)
-            => () => func(fetcher);
-
+        public static Generator<T> CreateGenerator<T>(Func<Fetcher, T> func, Fetcher fetcher)
+            => new Generator<T>(() => func(fetcher));
 
         ///<summary>
         ///     Gives a new instance of the type used
-        ///     This overload can be used if you have a class which requires constructor arguments.
-        ///     All you have to do is to new up an instance and use the fetcher to satisfy the constructor arguments.
         ///     You need to specify a new fetcher for this overload the data used for the fetcher is found in the DataCollections class
         /// </summary>
         public static T Generate<T>(Func<Fetcher, T> func, Fetcher fetcher) => func(fetcher);
 
         ///<summary>
         ///     Gives a new instance of the type used
-        ///     This overload can be used if you have a class which requires constructor arguments.
-        ///     All you have to do is to new up an instance and use the fetcher to satisfy the constructor arguments.
         /// </summary>
         public static T Generate<T>(Func<Fetcher, T> func) => func(DefaultFetcher);
+    }
 
-        ///<summary>
-        ///     Gives a new instance of the type used
-        ///     This overload can be used if you have class which do not use a constructor to set its props/fields
-        ///     All you have to do is to use the type argument and assign its props/fields by the fetchers props/methods
-        /// </summary>
-        public static T Generate<T>(Action<T, Fetcher> action) where T : new() =>
-            Generate(action, DefaultFetcher);
+    public class Generator<T> {
+        private readonly Func<T> _func;
 
-        ///<summary>
-        ///     Gives a new instance of the type used
-        ///     This overload can be used if you have class which do not use a constructor to set its props/fields
-        ///     All you have to do is to use the type argument and assign its props/fields by the fetchers props/methods
-        ///     You need to specify a new fetcher for this overload the data used for the fetcher is found in the DataCollections class
-        /// </summary>
-        public static T Generate<T>(Action<T, Fetcher> action, Fetcher fetcher) where T : new() =>
-            CreateGenerator(action, fetcher)();
+        public Generator(Func<T> func) {
+            _func = func;
+        }
+
+        public T Generate() => _func();
+
+        public IEnumerable<T> Generate(int ammount) => Enumerable.Range(0, ammount).Select(i => _func());
     }
 }
