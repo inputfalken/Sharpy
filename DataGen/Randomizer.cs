@@ -7,13 +7,13 @@ using DataGen.Types.String;
 using NodaTime;
 
 namespace DataGen {
-    public class Fetcher {
+    public class Randomizer {
         private PhoneNumberGenerator PhoneNumberGenerator { get; }
         private NameFilter NameFilter { get; }
         private StringFilter Usernames { get; }
         private MailGenerator MailGenerator { get; }
 
-        public Fetcher(NameFilter nameFilter = null, StringFilter usernames = null,
+        public Randomizer(NameFilter nameFilter = null, StringFilter usernames = null,
             MailGenerator mailGenerator = null,
             PhoneNumberGenerator phoneNumberGenerator = null) {
             PhoneNumberGenerator = phoneNumberGenerator ?? DataCollections.CountryCodes.Value.RandomItem;
@@ -25,7 +25,7 @@ namespace DataGen {
         ///<summary>
         ///     Gives a random name, it could be a female first name, male first name and a lastname.
         /// </summary>
-        public string Name => NameFilter.RandomItem.Data;
+        public string Name() => NameFilter.RandomItem.Data;
         ///<summary>
         ///     Gives a random name based on type of argument.
         /// </summary>
@@ -33,12 +33,12 @@ namespace DataGen {
         ///<summary>
         ///     Gives a random username from a huge collection.
         /// </summary>
-        public string UserName => Usernames.RandomItem;
+        public string UserName() => Usernames.RandomItem;
 
         ///<summary>
         ///     Gives a random bool
         /// </summary>
-        public bool Bool => Number(2) != 0;
+        public bool Bool() => Number(2) != 0;
 
         ///<summary>
         ///     Gives a random number within below the argument value

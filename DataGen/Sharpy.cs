@@ -9,7 +9,7 @@ namespace DataGen {
         ///<summary>
         ///     This is the field which gets used if you use the method which do not ask for a fetcher
         /// </summary>
-        private static readonly Fetcher DefaultFetcher = new Fetcher(Names.Value, UserNames.Value,
+        private static readonly Randomizer DefaultRandomizer = new Randomizer(Names.Value, UserNames.Value,
             new MailGenerator("gmail.com", "hotmail.com", "yahoo.com"), CountryCodes.Value.RandomItem);
 
         ///<summary>
@@ -18,8 +18,8 @@ namespace DataGen {
         ///     if you don't have a constructor you can new up an instance and assign it's props/fields
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
-        public static Generator<T> CreateGenerator<T>(Func<Fetcher, T> func)
-            => new Generator<T>(() => func(DefaultFetcher));
+        public static Generator<T> CreateGenerator<T>(Func<Randomizer, T> func)
+            => new Generator<T>(() => func(DefaultRandomizer));
 
         ///<summary>
         ///     Returns a Generator which you can use to create one instance or a collection of type given
@@ -28,19 +28,19 @@ namespace DataGen {
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         ///     You need to specify a new fetcher for this overload the data used for the fetcher is found in the DataCollections class
         /// </summary>
-        public static Generator<T> CreateGenerator<T>(Func<Fetcher, T> func, Fetcher fetcher)
-            => new Generator<T>(() => func(fetcher));
+        public static Generator<T> CreateGenerator<T>(Func<Randomizer, T> func, Randomizer randomizer)
+            => new Generator<T>(() => func(randomizer));
 
         ///<summary>
         ///     Gives a new instance of the type used
         ///     You need to specify a new fetcher for this overload the data used for the fetcher is found in the DataCollections class
         /// </summary>
-        public static T Generate<T>(Func<Fetcher, T> func, Fetcher fetcher) => func(fetcher);
+        public static T Generate<T>(Func<Randomizer, T> func, Randomizer randomizer) => func(randomizer);
 
         ///<summary>
         ///     Gives a new instance of the type used
         /// </summary>
-        public static T Generate<T>(Func<Fetcher, T> func) => func(DefaultFetcher);
+        public static T Generate<T>(Func<Randomizer, T> func) => func(DefaultRandomizer);
     }
 
     public class Generator<T> {

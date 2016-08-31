@@ -15,14 +15,15 @@ namespace Tests {
     public class Fetcher {
         [Test]
         public void CreateGenerator_CorrectType() {
-            var generator = Sharpy.CreateGenerator(fetcher => new TestClass(), TestFetcher);
+            var generator = Sharpy.CreateGenerator(randomizer => new TestClass(), TestRandomizer);
             var testClass = generator.Generate();
             Assert.IsTrue(testClass.GetType() == typeof(TestClass));
         }
 
         [Test]
         public void CreateGenerator_Name() {
-            var generator = Sharpy.CreateGenerator(fetcher => new TestClass { StringProp = fetcher.Name }, TestFetcher);
+            var generator = Sharpy.CreateGenerator(randomizer => new TestClass { StringProp = randomizer.Name() },
+                TestRandomizer);
 
             //This test will check if the name given is from the common names collection
             Assert.IsTrue(CommonNames.Select(name => name.Data).Contains(generator.Generate().StringProp));
@@ -32,7 +33,8 @@ namespace Tests {
         public void CreateGenerator_NameByType() {
             var generator =
                 Sharpy.CreateGenerator(
-                    fetcher => new TestClass { StringProp = fetcher.NameByType(NameTypes.MaleFirst) }, TestFetcher);
+                    randomizer => new TestClass { StringProp = randomizer.NameByType(NameTypes.MaleFirst) },
+                    TestRandomizer);
             var firstName = generator.Generate();
             //This test will check if the name given is from the common names collection
             Assert.IsTrue(
@@ -45,8 +47,8 @@ namespace Tests {
 
         [Test]
         public void CreateGenerator_UserName() {
-            var generator = Sharpy.CreateGenerator(fetcher => new TestClass { StringProp = fetcher.UserName },
-                TestFetcher);
+            var generator = Sharpy.CreateGenerator(randomizer => new TestClass { StringProp = randomizer.UserName() },
+                TestRandomizer);
             //This test will check that the random user name is contained in the list
             var list = Usernames.ToList();
             Assert.IsTrue(list.Contains(generator.Generate().StringProp));
@@ -54,8 +56,8 @@ namespace Tests {
 
         [Test]
         public void CreateGenerator_Number_OneArg() {
-            var generator = Sharpy.CreateGenerator(fetcher => new TestClass { IntProp = fetcher.Number(10) },
-                TestFetcher);
+            var generator = Sharpy.CreateGenerator(randomizer => new TestClass { IntProp = randomizer.Number(10) },
+                TestRandomizer);
 
             Assert.IsTrue(generator.Generate().IntProp < 10);
         }
@@ -63,7 +65,8 @@ namespace Tests {
         [Test]
         public void CreateGenerator_Number_TwoArg() {
             var generator =
-                Sharpy.CreateGenerator(fetcher => new TestClass { IntProp = fetcher.Number(10, 20) }, TestFetcher);
+                Sharpy.CreateGenerator(randomizer => new TestClass { IntProp = randomizer.Number(10, 20) },
+                    TestRandomizer);
 
             var @class = generator.Generate();
             Assert.IsTrue(@class.IntProp < 20 && @class.IntProp > 10);
@@ -71,7 +74,8 @@ namespace Tests {
 
         [Test]
         public void CreateGenerator_Bool() {
-            var generator = Sharpy.CreateGenerator(fetcher => new TestClass { BoolProp = fetcher.Bool }, TestFetcher);
+            var generator = Sharpy.CreateGenerator(randomizer => new TestClass { BoolProp = randomizer.Bool() },
+                TestRandomizer);
 
             //This test will ask if the collection contains atleast one of false & true
             var testClasses = generator.Generate(10).ToList();
@@ -82,7 +86,8 @@ namespace Tests {
         [Test]
         public void CreateGenerator_LocalDateAge() {
             var generator =
-                Sharpy.CreateGenerator(fetcher => new TestClass { LocalDateProp = fetcher.DateByAge(10) }, TestFetcher);
+                Sharpy.CreateGenerator(randomizer => new TestClass { LocalDateProp = randomizer.DateByAge(10) },
+                    TestRandomizer);
             Assert.IsTrue(generator.Generate().LocalDateProp.Year == DateGenerator.CurrentLocalDate.Year - 10);
         }
 
@@ -90,14 +95,15 @@ namespace Tests {
         [Test]
         public void CreateGenerator_LocalDateYear() {
             var generator = Sharpy.CreateGenerator(
-                fetcher => new TestClass { LocalDateProp = fetcher.DateByYear(1920) }, TestFetcher);
+                randomizer => new TestClass { LocalDateProp = randomizer.DateByYear(1920) }, TestRandomizer);
             Assert.IsTrue(generator.Generate().LocalDateProp.Year == 1920);
         }
 
         [Test]
         public void CreateGenerator_PhoneNumber() {
-            var generator = Sharpy.CreateGenerator(fetcher => new TestClass { StringProp = fetcher.PhoneNumber() },
-                TestFetcher);
+            var generator = Sharpy.CreateGenerator(
+                randomizer => new TestClass { StringProp = randomizer.PhoneNumber() },
+                TestRandomizer);
             var phoneNumber = generator.Generate().StringProp;
             //This test makes sure that the number is from sweden and the length is correct
             Assert.IsTrue(phoneNumber.Contains("+46") && phoneNumber.Length == 7);
@@ -106,8 +112,8 @@ namespace Tests {
         [Test]
         public void CreateGenerator_MailAddress_OneArg() {
             var generator =
-                Sharpy.CreateGenerator(fetcher => new TestClass { StringProp = fetcher.MailAdress("bobby") },
-                    TestFetcher);
+                Sharpy.CreateGenerator(randomizer => new TestClass { StringProp = randomizer.MailAdress("bobby") },
+                    TestRandomizer);
             var mailAddress = generator.Generate().StringProp;
             //This test makes sure that the number is from sweden and the length is correct
             Assert.IsTrue(mailAddress.Contains("@gmail.com"));
@@ -117,7 +123,7 @@ namespace Tests {
         public void CreateGenerator_MailAddress_TwoArg() {
             var generator =
                 Sharpy.CreateGenerator(
-                    fetcher => new TestClass { StringProp = fetcher.MailAdress("bobby", null) }, TestFetcher);
+                    randomizer => new TestClass { StringProp = randomizer.MailAdress("bobby", null) }, TestRandomizer);
             var mailAddress = generator.Generate().StringProp;
             Assert.IsTrue(mailAddress.Contains("@hotmail.com"));
         }
@@ -141,7 +147,7 @@ namespace Tests {
                 File.ReadAllText(TestHelper.GetTestsPath() + @"\Data\Types\CountryCodes\CountryCodes.json"))
         );
 
-        private static readonly DataGen.Fetcher TestFetcher = new DataGen.Fetcher(CommonNames, Usernames,
+        private static readonly DataGen.Randomizer TestRandomizer = new DataGen.Randomizer(CommonNames, Usernames,
             phoneNumberGenerator: CountryCodeFilter.First(generator => generator.Name == "sweden"));
     }
 }
