@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using DataGen.Types.Mail;
 using static DataGen.DataCollections;
 
@@ -41,19 +39,5 @@ namespace DataGen {
         ///     Gives a new instance of the type used
         /// </summary>
         public static T Generate<T>(Func<Randomizer, T> func) => func(DefaultRandomizer);
-    }
-
-    public class Generator<T> {
-        public Config Config { get; }
-        private readonly Func<T> _func;
-
-        public Generator(Func<T> func, Config config) {
-            Config = config;
-            _func = func;
-        }
-
-        public T Generate() => _func();
-
-        public IEnumerable<T> Generate(int ammount) => Enumerable.Range(0, ammount).Select(i => _func());
     }
 }
