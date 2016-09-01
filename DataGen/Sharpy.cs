@@ -9,10 +9,8 @@ namespace DataGen {
         ///<summary>
         ///     This is the field which gets used if you use the method which do not ask for a fetcher
         /// </summary>
-        private static readonly Config DefaultConfig = new Config(Names.Value, UserNames.Value,
-            new MailGenerator("gmail.com", "hotmail.com", "yahoo.com"), CountryCodes.Value.RandomItem);
-
-        private static readonly Randomizer DefaultRandomizer = new Randomizer(DefaultConfig);
+        private static readonly Randomizer DefaultRandomizer = new Randomizer(new Config(Names.Value, UserNames.Value,
+            new MailGenerator("gmail.com", "hotmail.com", "yahoo.com"), CountryCodes.Value.RandomItem));
 
         ///<summary>
         ///     Returns a Generator which you can use to create one instance or a collection of type given
@@ -21,7 +19,7 @@ namespace DataGen {
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
         public static Generator<T> CreateGenerator<T>(Func<Randomizer, T> func)
-            => new Generator<T>(() => func(DefaultRandomizer), DefaultConfig);
+            => new Generator<T>(() => func(DefaultRandomizer), DefaultRandomizer.Config);
 
         ///<summary>
         ///     Returns a Generator which you can use to create one instance or a collection of type given
@@ -31,7 +29,7 @@ namespace DataGen {
         ///     You need to specify a new fetcher for this overload the data used for the fetcher is found in the DataCollections class
         /// </summary>
         public static Generator<T> CreateGenerator<T>(Func<Randomizer, T> func, Randomizer randomizer)
-            => new Generator<T>(() => func(randomizer), DefaultConfig);
+            => new Generator<T>(() => func(randomizer), randomizer.Config);
 
         ///<summary>
         ///     Gives a new instance of the type used

@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using DataGen.Types.CountryCode;
 using DataGen.Types.Mail;
 using DataGen.Types.Name;
@@ -5,10 +7,19 @@ using DataGen.Types.String;
 
 namespace DataGen {
     public class Config {
-        public PhoneNumberGenerator PhoneNumberGenerator { get; set; }
-        public NameFilter NameFilter { get; set; }
-        public StringFilter Usernames { get; set; }
-        public MailGenerator MailGenerator { get; set; }
+        internal PhoneNumberGenerator PhoneNumberGenerator { get; private set; }
+        internal NameFilter NameFilter { get; private set; }
+        internal StringFilter Usernames { get; private set; }
+        internal MailGenerator MailGenerator { get; private set; }
+
+        public void FilterNamesByCountry(string country) => NameFilter = NameFilter.ByCountry(country);
+        public void FilterNamesByRegion(string region) => NameFilter = NameFilter.ByRegion(region);
+        public void ChangeMailProviders(params string[] providers) => MailGenerator = new MailGenerator(null, providers);
+
+        public void ChangePhoneCode(string country) =>
+            PhoneNumberGenerator = DataCollections.CountryCodes.Value.First(generator => generator.Name == country);
+
+        public void ChangeUserNameFiltering(Func<StringFilter, StringFilter> func) => Usernames = func(Usernames);
 
         public Config(NameFilter nameFilter = null, StringFilter usernames = null,
             MailGenerator mailGenerator = null,

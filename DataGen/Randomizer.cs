@@ -6,26 +6,26 @@ using NodaTime;
 
 namespace DataGen {
     public class Randomizer {
-        private readonly Config _config;
+        internal readonly Config Config;
 
         public Randomizer(Config config) {
-            _config = config;
+            Config = config;
         }
 
         ///<summary>
         ///     Gives a random name, it could be a female first name, male first name and a lastname.
         /// </summary>
-        public string Name() => _config.NameFilter.RandomItem.Data;
+        public string Name() => Config.NameFilter.RandomItem.Data;
 
         ///<summary>
         ///     Gives a random name based on type of argument.
         /// </summary>
-        public string NameByType(NameTypes nameTypes) => _config.NameFilter.ByType(nameTypes).RandomItem.Data;
+        public string NameByType(NameTypes nameTypes) => Config.NameFilter.ByType(nameTypes).RandomItem.Data;
 
         ///<summary>
         ///     Gives a random username from a huge collection.
         /// </summary>
-        public string UserName() => _config.Usernames.RandomItem;
+        public string UserName() => Config.Usernames.RandomItem;
 
         ///<summary>
         ///     Gives a random bool
@@ -56,11 +56,11 @@ namespace DataGen {
         ///     gives a random phonenumber using a random country code and lets you specify a number to start with as well as the length.
         /// </summary>
         public string PhoneNumber(string preNumber = null, int length = 4) =>
-            _config.PhoneNumberGenerator.RandomNumber(length, preNumber);
+            Config.PhoneNumberGenerator.RandomNumber(length, preNumber);
 
         ///<summary>
         ///     Gives a mail address by concatining the arguments into a mail address.
         /// </summary>
-        public string MailAdress(string name, string secondName = null) => _config.MailGenerator.Mail(name, secondName);
+        public string MailAdress(string name, string secondName = null) => Config.MailGenerator.Mail(name, secondName);
     }
 }
