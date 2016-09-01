@@ -12,12 +12,12 @@ namespace DataGen {
         internal StringFilter Usernames { get; private set; }
         internal MailGenerator MailGenerator { get; private set; }
 
-        public Config FilterNamesByCountry(string country) {
+        public Config ChangeCountryForNames(string country) {
             NameFilter = NameFilter.ByCountry(country);
             return this;
         }
 
-        public Config FilterNamesByRegion(string region) {
+        public Config ChangeRegionForNames(string region) {
             NameFilter = NameFilter.ByRegion(region);
             return this;
         }
