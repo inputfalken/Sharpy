@@ -147,7 +147,7 @@ namespace Tests {
                 File.ReadAllText(TestHelper.GetTestsPath() + @"\Data\Types\CountryCodes\CountryCodes.json"))
         );
 
-        private static readonly DataGen.Randomizer TestRandomizer = new DataGen.Randomizer(CommonNames, Usernames,
-            phoneNumberGenerator: CountryCodeFilter.First(generator => generator.Name == "sweden"));
+        private static readonly DataGen.Randomizer TestRandomizer = new DataGen.Randomizer(new Config(CommonNames, Usernames,
+            phoneNumberGenerator: CountryCodeFilter.First(generator => generator.Name == "sweden")));
     }
 }

@@ -9,8 +9,10 @@ namespace DataGen {
         ///<summary>
         ///     This is the field which gets used if you use the method which do not ask for a fetcher
         /// </summary>
-        private static readonly Randomizer DefaultRandomizer = new Randomizer(Names.Value, UserNames.Value,
+        private static readonly Config DefaultConfig = new Config(Names.Value, UserNames.Value,
             new MailGenerator("gmail.com", "hotmail.com", "yahoo.com"), CountryCodes.Value.RandomItem);
+
+        private static readonly Randomizer DefaultRandomizer = new Randomizer(DefaultConfig);
 
         ///<summary>
         ///     Returns a Generator which you can use to create one instance or a collection of type given
@@ -19,7 +21,7 @@ namespace DataGen {
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
         public static Generator<T> CreateGenerator<T>(Func<Randomizer, T> func)
-            => new Generator<T>(() => func(DefaultRandomizer));
+            => new Generator<T>(() => func(DefaultRandomizer), DefaultConfig);
 
         ///<summary>
         ///     Returns a Generator which you can use to create one instance or a collection of type given
@@ -29,7 +31,7 @@ namespace DataGen {
         ///     You need to specify a new fetcher for this overload the data used for the fetcher is found in the DataCollections class
         /// </summary>
         public static Generator<T> CreateGenerator<T>(Func<Randomizer, T> func, Randomizer randomizer)
-            => new Generator<T>(() => func(randomizer));
+            => new Generator<T>(() => func(randomizer), DefaultConfig);
 
         ///<summary>
         ///     Gives a new instance of the type used
@@ -44,9 +46,11 @@ namespace DataGen {
     }
 
     public class Generator<T> {
+        public Config Config { get; }
         private readonly Func<T> _func;
 
-        public Generator(Func<T> func) {
+        public Generator(Func<T> func, Config config) {
+            Config = config;
             _func = func;
         }
 
