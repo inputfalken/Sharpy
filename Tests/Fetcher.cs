@@ -62,6 +62,7 @@ namespace Tests {
             Assert.IsTrue(generator.Generate().IntProp < 10);
         }
 
+        //dosn't always assert true...
         [Test]
         public void CreateGenerator_Number_TwoArg() {
             var generator =
