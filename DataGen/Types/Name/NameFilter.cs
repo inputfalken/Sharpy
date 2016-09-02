@@ -25,7 +25,7 @@ namespace DataGen.Types.Name {
             => new NameFilter(this.Where(name => args.Contains(name.Region)));
 
 
-        public NameFilter ByType(NameTypes nameTypes) {
+        internal NameFilter ByType(NameTypes nameTypes) {
             switch (nameTypes) {
                 case NameTypes.FemaleFirst:
                     return new NameFilter(this.Where(name => name.Type == 1));
