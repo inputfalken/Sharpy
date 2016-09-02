@@ -2,7 +2,7 @@
 
 namespace DataGen.Types {
     public static class HelperClass {
-        private static readonly Random Random = new Random();
+        public static Random Random { private get; set; } = new Random();
 
         public static int Randomizer(int limit) {
             lock (Random)
