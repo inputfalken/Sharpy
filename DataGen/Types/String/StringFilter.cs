@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace DataGen.Types.String {
-    public sealed class StringFilter : Filter<string> {
+    public sealed class StringFilter : Filter<string>, IStringFilter<StringFilter> {
         public StringFilter(IEnumerable<string> enumerable) : base(enumerable) {
         }
 
@@ -26,7 +26,5 @@ namespace DataGen.Types.String {
             return new StringFilter(this.Where(s => s.Length == length));
         }
 
-        private static int IndexOf(string str, string substring)
-            => str.IndexOf(substring, StringComparison.CurrentCultureIgnoreCase);
     }
 }

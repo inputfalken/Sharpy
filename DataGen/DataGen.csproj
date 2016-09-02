@@ -48,9 +48,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config.cs" />
     <Compile Include="DataCollections.cs" />
     <Compile Include="ExtensionMethods.cs" />
-    <Compile Include="Fetcher.cs" />
+    <Compile Include="Generator.cs" />
+    <Compile Include="Randomizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sharpy.cs" />
     <Compile Include="Types\CountryCode\PhoneNumberGenerator.cs" />
@@ -61,6 +63,7 @@
     <Compile Include="Types\Mail\MailGenerator.cs" />
     <Compile Include="Types\Name\NameFilter.cs" />
     <Compile Include="Types\Name\Name.cs" />
+    <Compile Include="Types\String\IStringFilter.cs" />
     <Compile Include="Types\String\stringfilter.cs" />
     <Compile Include="Types\Unique.cs" />
   </ItemGroup>
