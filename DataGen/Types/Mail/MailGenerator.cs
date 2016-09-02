@@ -84,9 +84,9 @@ namespace DataGen.Types.Mail {
                 var resets = 0;
                 while (resets < AttemptLimit)
                     if (_emailDomainsEnumerator.MoveNext()) {
-                        var emailDomain = _emailDomainsEnumerator.Current;
                         foreach (var separator in Separators) {
-                            var address = BuildString(name, separator.ToString(), secondName, "@", emailDomain);
+                            var address = BuildString(name, separator.ToString(), secondName, "@",
+                                _emailDomainsEnumerator.Current);
                             if (ClearValidateSave(address))
                                 return address;
                         }
