@@ -57,7 +57,7 @@ Mail and Phone number currently throws an exception if they fail to create an un
         public string LastName { get; set; }
     }
 ```
-This code shows how you can create instances of the type given to the CreateGenerator method.
+These examples show how you can create instances of the type given to the CreateGenerator method.
 #### 
 
 ======
