@@ -22,9 +22,9 @@ Mail and Phone number currently throws an exception if they fail to create an un
                 FirstName = randomizer.NameByType(NameTypes.MixedFirstNames),
                 LastName = randomizer.NameByType(NameTypes.LastNames)
             });
-            // creates an IEnmuerable<Person> with twenty persons. All with randomized names.
+            // Creates an IEnumerable<Person> with twenty persons. All with randomized names.
             var persons = generator.Generate(20);
-            // Creates one person 
+            // Creates one person with randomized names.
             var person = generator.Generate();
         }
     }
@@ -42,11 +42,12 @@ Mail and Phone number currently throws an exception if they fail to create an un
                 FirstName = randomizer.NameByType(NameTypes.MixedFirstNames),
                 LastName = randomizer.NameByType(NameTypes.LastNames)
             });
+            // Applies a filter to give common names from the United States
             generator.Config.Names(filter => filter.ByCountry("unitedStates"));
-            // creates an IEnmuerable<Person> with twenty persons.
+            // Creates an IEnumerable<Person> with twenty persons.
             // All with randomized names from the United States.
             var persons = generator.Generate(20);
-            // Creates one person with randomized Lastname & Firstname from the United States
+            // Creates one person with randomized names from the United States
             var person = generator.Generate();
         }
     }
