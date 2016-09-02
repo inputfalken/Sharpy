@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using DataGen.Types;
 using DataGen.Types.CountryCode;
@@ -20,8 +21,8 @@ namespace DataGen {
         }
 
 
-        public Config Mail(params string[] providers) {
-            MailGenerator = new MailGenerator(providers);
+        public Config Mail(IEnumerable<string> providers, bool uniqueAddresses = false) {
+            MailGenerator = new MailGenerator(providers, uniqueAddresses);
             return this;
         }
 
@@ -53,7 +54,7 @@ namespace DataGen {
             PhoneNumberGenerator = phoneNumberGenerator ?? DataCollections.CountryCodes.Value.RandomItem;
             NameFilter = nameFilter ?? DataCollections.Names.Value;
             Usernames = usernames ?? DataCollections.UserNames.Value;
-            MailGenerator = mailGenerator ?? new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" });
+            MailGenerator = mailGenerator ?? new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" }, false);
         }
     }
 }

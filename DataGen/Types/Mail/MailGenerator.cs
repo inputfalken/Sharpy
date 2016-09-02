@@ -26,7 +26,7 @@ namespace DataGen.Types.Mail {
         /// </summary>
         /// <param name="providers"></param>
         /// <param name="unique"></param>
-        public MailGenerator(IEnumerable<string> providers, bool unique = true) : base(2) {
+        public MailGenerator(IEnumerable<string> providers, bool unique) : base(2) {
             Unique = unique;
             providers.ForEach(_emailDomains.Add);
             _emailDomainsEnumerator = _emailDomains.GetEnumerator();

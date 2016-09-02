@@ -8,7 +8,7 @@ namespace DataGen {
         ///     This is the field which gets used if you use the method which do not ask for a fetcher
         /// </summary>
         private static readonly Randomizer DefaultRandomizer = new Randomizer(new Config(Names.Value, UserNames.Value,
-            new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" }), CountryCodes.Value.RandomItem));
+            new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" }, false), CountryCodes.Value.RandomItem));
 
         ///<summary>
         ///     Returns a Generator which you can use to create one instance or a collection of type given
