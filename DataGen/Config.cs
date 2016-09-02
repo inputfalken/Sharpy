@@ -42,9 +42,11 @@ namespace DataGen {
         ///  Lets you change the country code
         /// </summary>
         /// <param name="country"></param>
+        /// <param name="uniqueNumbers"></param>
         /// <returns></returns>
-        public Config CountryCode(string country) {
+        public Config CountryCode(string country, bool uniqueNumbers = false) {
             PhoneNumberGenerator = DataCollections.CountryCodes.Value.First(generator => generator.Name == country);
+            PhoneNumberGenerator.Unique = uniqueNumbers;
             return this;
         }
 
