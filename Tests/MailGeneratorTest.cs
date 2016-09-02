@@ -17,6 +17,20 @@ namespace Tests {
         }
 
         [Test]
+        public void Mail_OneDomain_UniqueFalse_CheckLowerCase() {
+            var mailGenerator = new MailGenerator(new[] { "test.com" }, false);
+            var mail = mailGenerator.Mail("bob");
+            Assert.IsTrue(mail.All(c => !char.IsUpper(c)));
+        }
+
+        [Test]
+        public void Mail_OneDomain_UniqueTrue_CheckLowerCase() {
+            var mailGenerator = new MailGenerator(new[] { "test.com" }, true);
+            var mail = mailGenerator.Mail("bob");
+            Assert.IsTrue(mail.All(c => !char.IsUpper(c)));
+        }
+
+        [Test]
         public void Mail_OneDomain_OneString_CalledOneTime() {
             var mailGenerator = new MailGenerator(new[] { "test.com" }, true);
             const string expected = "bob@test.com";

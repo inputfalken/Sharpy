@@ -66,7 +66,7 @@ namespace DataGen.Types.Mail {
                 else
                     Builder.Append(Separators[Randomizer(Separators.Count)].ToString());
             }
-            var address = Builder.ToString();
+            var address = Builder.ToString().ToLower();
             Builder.Clear();
             return address;
         }
