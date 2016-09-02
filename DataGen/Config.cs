@@ -38,6 +38,7 @@ namespace DataGen {
 
         /// <summary>
         ///     If you use this method it will set a seed for everything including future generators.
+        ///     TODO: make seed only manipulate the generator instance.
         /// </summary>
         /// <param name="seed"></param>
         /// <returns></returns>
