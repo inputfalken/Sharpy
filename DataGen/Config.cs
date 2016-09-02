@@ -18,12 +18,12 @@ namespace DataGen {
         }
 
 
-        public Config ChangeMailProviders(string provider, params string[] providers) {
+        public Config Mail(string provider, params string[] providers) {
             MailGenerator = new MailGenerator(provider, providers);
             return this;
         }
 
-        public Config ChangePhoneCode(string country) {
+        public Config CountryCode(string country) {
             PhoneNumberGenerator = DataCollections.CountryCodes.Value.First(generator => generator.Name == country);
             return this;
         }
