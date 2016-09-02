@@ -12,15 +12,11 @@ namespace DataGen {
         internal StringFilter Usernames { get; private set; }
         internal MailGenerator MailGenerator { get; private set; }
 
-        public Config ChangeCountryForNames(string country) {
-            NameFilter = NameFilter.ByCountry(country);
+        public Config Names(Func<NameFilter, NameFilter> func) {
+            NameFilter = func(NameFilter);
             return this;
         }
 
-        public Config ChangeRegionForNames(string region) {
-            NameFilter = NameFilter.ByRegion(region);
-            return this;
-        }
 
         public Config ChangeMailProviders(string provider, params string[] providers) {
             MailGenerator = new MailGenerator(provider, providers);
