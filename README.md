@@ -11,8 +11,6 @@ The idea of this project is to let users have a source to fetch random data from
  * Mail
  * Phone number
 
-Phone number currently throws an exception if they fail to create an unique string.
-
 ###Examples
 #### Generating
 ```C#
@@ -62,7 +60,6 @@ These examples show how you can create instances of the type given to the Create
 
 ======
 ### TODO
-* Deal with Phone Number
 * Make into nuget package
 
 ### Dependencies:
