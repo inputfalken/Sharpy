@@ -15,23 +15,45 @@ namespace DataGen {
         internal MailGenerator MailGenerator { get; private set; }
         private int RandomizerSeed { get; set; }
 
+        /// <summary>
+        ///     Will filter the result for the randomizer's name
+        /// </summary>
+        /// <param name="func"></param>
+        /// <returns></returns>
         public Config Names(Func<NameFilter, NameFilter> func) {
             NameFilter = func(NameFilter);
             return this;
         }
 
 
+        /// <summary>
+        ///     Lets you change the providers for the mail addresses.
+        ///     You can also a set a bool for wether the addreses will be unique.
+        /// </summary>
+        /// <param name="providers"></param>
+        /// <param name="uniqueAddresses">For Unique Addresses</param>
+        /// <returns></returns>
         public Config Mail(IEnumerable<string> providers, bool uniqueAddresses = false) {
             MailGenerator = new MailGenerator(providers, uniqueAddresses);
             return this;
         }
 
+        /// <summary>
+        ///  Lets you change the country code
+        /// </summary>
+        /// <param name="country"></param>
+        /// <returns></returns>
         public Config CountryCode(string country) {
             PhoneNumberGenerator = DataCollections.CountryCodes.Value.First(generator => generator.Name == country);
             return this;
         }
 
 
+        /// <summary>
+        ///     Will let you filter the usernames result for the randomizer
+        /// </summary>
+        /// <param name="func"></param>
+        /// <returns></returns>
         public Config UserNames(Func<StringFilter, StringFilter> func) {
             Usernames = func(Usernames);
             return this;
