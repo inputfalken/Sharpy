@@ -12,13 +12,13 @@ namespace Tests {
 
         [Test]
         public void Mail_OneDomain_null_CalledOneTime() {
-            var mailGenerator = new MailGenerator(new[] { "test.com" },true);
+            var mailGenerator = new MailGenerator(new[] { "test.com" }, true);
             Assert.Throws<NullReferenceException>(() => mailGenerator.Mail(null));
         }
 
         [Test]
         public void Mail_OneDomain_OneString_CalledOneTime() {
-            var mailGenerator = new MailGenerator(new[] { "test.com" },true);
+            var mailGenerator = new MailGenerator(new[] { "test.com" }, true);
             const string expected = "bob@test.com";
             var result = mailGenerator.Mail("bob");
             Assert.AreEqual(expected, result);
@@ -26,14 +26,16 @@ namespace Tests {
 
         [Test]
         public void Mail_OneDomain_OneString_CalledTwoTimes() {
-            var mailGenerator = new MailGenerator(new[] { "test.com" },true);
-            mailGenerator.Mail("bob");
-            Assert.Throws<Exception>(() => mailGenerator.Mail("bob"));
+            var mailGenerator = new MailGenerator(new[] { "test.com" }, true);
+            //Should not contain any numbers
+            Assert.IsTrue(mailGenerator.Mail("bob").Any(c => !char.IsDigit(c)));
+            //Should contain a number since all possible combinations have been used
+            Assert.IsTrue(mailGenerator.Mail("bob").Any(char.IsDigit));
         }
 
         [Test]
         public void Mail_TwoDomain_OneString_CalledOneTime() {
-            var mailGenerator = new MailGenerator(new[]{"test.com", "foo.com"},true);
+            var mailGenerator = new MailGenerator(new[] { "test.com", "foo.com" }, true);
             const string expected = "bob@test.com";
             var result = mailGenerator.Mail("bob");
             Assert.AreEqual(expected, result);
@@ -41,7 +43,7 @@ namespace Tests {
 
         [Test]
         public void Mail_TwoDomain_OneString_CalledTwoTimes() {
-            var mailGenerator = new MailGenerator(new[]{"test.com", "foo.com"},true);
+            var mailGenerator = new MailGenerator(new[] { "test.com", "foo.com" }, true);
             const string expected = "bob@foo.com";
             mailGenerator.Mail("bob");
             var result = mailGenerator.Mail("bob");
@@ -50,10 +52,11 @@ namespace Tests {
 
         [Test]
         public void Mail_TwoDomain_OneString_CalledThreeTimes() {
-            var mailGenerator = new MailGenerator(new[]{"test.com", "foo.com"},true);
-            mailGenerator.Mail("bob");
-            mailGenerator.Mail("bob");
-            Assert.Throws<Exception>(() => mailGenerator.Mail("bob"));
+            var mailGenerator = new MailGenerator(new[] { "test.com", "foo.com" }, true);
+            Assert.IsTrue(mailGenerator.Mail("bob").Any(c => !char.IsDigit(c)));
+            Assert.IsTrue(mailGenerator.Mail("bob").Any(c => !char.IsDigit(c)));
+            // All possible combinations have been used now needs a number
+            Assert.IsTrue(mailGenerator.Mail("bob").Any(char.IsDigit));
         }
 
         #endregion
@@ -62,7 +65,7 @@ namespace Tests {
 
         [Test]
         public void Mail_OneDomain_TwoStrings_SecondNull() {
-            var mailGenerator = new MailGenerator(new []{"test.com"},true);
+            var mailGenerator = new MailGenerator(new[] { "test.com" }, true);
             var result = mailGenerator.Mail("bob", null);
             const string expected = "bob@test.com";
             Assert.AreEqual(expected, result);
@@ -70,13 +73,13 @@ namespace Tests {
 
         [Test]
         public void Mail_OneDomain_TwoStrings_FirstNull() {
-            var mailGenerator = new MailGenerator(new []{"test.com"},true);
+            var mailGenerator = new MailGenerator(new[] { "test.com" }, true);
             Assert.Throws<NullReferenceException>(() => mailGenerator.Mail(null, "bob"));
         }
 
         [Test]
         public void Mail_OneDomain_TwoStrings_CalledOneTime() {
-            var mailGenerator = new MailGenerator(new []{"test.com"},true);
+            var mailGenerator = new MailGenerator(new[] { "test.com" }, true);
             const string expected = "bob.cool@test.com";
             var result = mailGenerator.Mail("bob", "cool");
             Assert.AreEqual(expected, result);
@@ -84,7 +87,7 @@ namespace Tests {
 
         [Test]
         public void Mail_OneDomain_TwoStrings_CalledTwoTimes() {
-            var mailGenerator = new MailGenerator(new []{"test.com"},true);
+            var mailGenerator = new MailGenerator(new[] { "test.com" }, true);
             mailGenerator.Mail("bob", "cool");
             var result = mailGenerator.Mail("bob", "cool");
             const string expected = "bob_cool@test.com";
@@ -93,7 +96,7 @@ namespace Tests {
 
         [Test]
         public void Mail_OneDomain_TwoStrings_CalledThreeTimes() {
-            var mailGenerator = new MailGenerator(new []{"test.com"},true);
+            var mailGenerator = new MailGenerator(new[] { "test.com" }, true);
             mailGenerator.Mail("bob", "cool");
             mailGenerator.Mail("bob", "cool");
             var result = mailGenerator.Mail("bob", "cool");
@@ -104,11 +107,12 @@ namespace Tests {
 
         [Test]
         public void Mail_TwoStrings_CalledFourTimes() {
-            var mailGenerator = new MailGenerator(new []{"test.com"},true);
-            mailGenerator.Mail("bob", "cool");
-            mailGenerator.Mail("bob", "cool");
-            mailGenerator.Mail("bob", "cool");
-            Assert.Throws<Exception>(() => mailGenerator.Mail("bob", "cool"));
+            var mailGenerator = new MailGenerator(new[] { "test.com" }, true);
+            Assert.IsTrue(mailGenerator.Mail("bob", "cool").Any(c => !char.IsDigit(c)));
+            Assert.IsTrue(mailGenerator.Mail("bob", "cool").Any(c => !char.IsDigit(c)));
+            Assert.IsTrue(mailGenerator.Mail("bob", "cool").Any(c => !char.IsDigit(c)));
+            // All combinations have been reached now needs a number
+            Assert.IsTrue(mailGenerator.Mail("bob", "cool").Any(char.IsDigit));
         }
 
         #endregion
@@ -117,28 +121,28 @@ namespace Tests {
 
         [Test]
         public void Mail_OneDomain_TwoStrings_NoDuplicates() {
-            var mailGenerator = new MailGenerator(new []{"test.com"},true);
+            var mailGenerator = new MailGenerator(new[] { "test.com" }, true);
             var mails = Enumerable.Range(1, 3).Select(i => mailGenerator.Mail("john", "doe"));
             Assert.IsTrue(FindDuplicates(mails).Count == 0);
         }
 
         [Test]
         public void Mail_TwoDomain_TwoStrings_NoDuplicates() {
-            var mailGenerator = new MailGenerator(new []{"test.com", "test2.com"},true);
+            var mailGenerator = new MailGenerator(new[] { "test.com", "test2.com" }, true);
             var mails = Enumerable.Range(1, 6).Select(i => mailGenerator.Mail("john", "doe"));
             Assert.IsTrue(FindDuplicates(mails).Count == 0);
         }
 
         [Test]
         public void Mail_ThreeDomain_TwoStrings_NoDuplicates() {
-            var mailGenerator = new MailGenerator(new []{"test.com", "test2.com", "test3.com"},true);
+            var mailGenerator = new MailGenerator(new[] { "test.com", "test2.com", "test3.com" }, true);
             var mails = Enumerable.Range(1, 9).Select(i => mailGenerator.Mail("john", "doe"));
             Assert.IsTrue(FindDuplicates(mails).Count == 0);
         }
 
         [Test]
         public void Mail_FourDomain_TwoStrings_NoDuplicates() {
-            var mailGenerator = new MailGenerator(new []{"test.com", "test2.com", "test3.com", "test4.com"},true);
+            var mailGenerator = new MailGenerator(new[] { "test.com", "test2.com", "test3.com", "test4.com" }, true);
             var mails = Enumerable.Range(1, 12).Select(i => mailGenerator.Mail("john", "doe"));
             Assert.IsTrue(FindDuplicates(mails).Count == 0);
         }
