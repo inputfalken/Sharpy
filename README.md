@@ -34,7 +34,7 @@ Mail and Phone number currently throws an exception if they fail to create an un
         public string LastName { get; set; }
     }
 ```
-#### Configure
+#### Configure & Generating
 ```C#
       internal static class Program {
         public static void Main() {
