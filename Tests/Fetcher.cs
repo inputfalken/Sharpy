@@ -4,6 +4,7 @@ using System.Linq;
 using DataGen;
 using DataGen.Types.CountryCode;
 using DataGen.Types.Date;
+using DataGen.Types.Mail;
 using DataGen.Types.Name;
 using DataGen.Types.String;
 using Newtonsoft.Json;
@@ -62,7 +63,6 @@ namespace Tests {
             Assert.IsTrue(generator.Generate().IntProp < 10);
         }
 
-        //dosn't always assert true...
         [Test]
         public void CreateGenerator_Number_TwoArg() {
             var generator =
@@ -148,7 +148,10 @@ namespace Tests {
                 File.ReadAllText(TestHelper.GetTestsPath() + @"\Data\Types\CountryCodes\CountryCodes.json"))
         );
 
-        private static readonly DataGen.Randomizer TestRandomizer = new DataGen.Randomizer(new Config(CommonNames, Usernames,
-            phoneNumberGenerator: CountryCodeFilter.First(generator => generator.Name == "sweden")));
+        private static readonly DataGen.Randomizer TestRandomizer =
+            new Randomizer(new Config(CommonNames, Usernames,
+                phoneNumberGenerator: CountryCodeFilter.First(generator => generator.Name == "sweden"),
+                mailGenerator: new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" }, true
+                )));
     }
 }
