@@ -1,5 +1,7 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
+using static System.Linq.Enumerable;
+using static DataGen.Types.HelperClass;
 
 namespace DataGen.Types.CountryCode {
     // ReSharper disable once ClassNeverInstantiated.Global
@@ -7,6 +9,7 @@ namespace DataGen.Types.CountryCode {
     public class PhoneNumberGenerator : Unique<string> {
         public string Name { get; }
         public string Code { get; }
+        public bool Unique { get; set; }
 
         public PhoneNumberGenerator(string name, string code) : base(50) {
             Name = name;
@@ -19,19 +22,25 @@ namespace DataGen.Types.CountryCode {
         /// <param name="preNumber">Optional number that will be used before the random numbers</param>
         /// </summary>
         public string RandomNumber(int length, string preNumber = null) {
+            if (!Unique) return BuildString(length, preNumber);
             var attempts = 0;
             while (attempts < AttemptLimit) {
-                foreach (var i in Enumerable.Range(1, length)) {
-                    if (i == 1)
-                        Builder.Append(Code).Append(preNumber);
-                    Builder.Append(HelperClass.Randomizer(0, 9));
-                }
-                var number = Builder.ToString();
+                var number = BuildString(length, preNumber);
                 if (ClearValidateSave(number))
                     return number;
                 attempts += 1;
             }
             throw new Exception("Could not create an unique number");
+        }
+
+        private string BuildString(int length, string preNumber) {
+            foreach (var i in Range(0, length)) {
+                if (i == 0) Builder.Append(Code).Append(preNumber);
+                Builder.Append(Randomizer(10));
+            }
+            var str = Builder.ToString();
+            Builder.Clear();
+            return str;
         }
 
         ///<summary>
@@ -40,20 +49,7 @@ namespace DataGen.Types.CountryCode {
         /// <param name="maxLength">Max length of the phone number</param>
         /// <param name="preNumber">Optional number that will be used before the random numbers</param>
         /// </summary>
-        public string RandomNumber(int minLength, int maxLength, string preNumber = null) {
-            var attempts = 0;
-            while (attempts < AttemptLimit) {
-                foreach (var i in Enumerable.Range(1, HelperClass.Randomizer(minLength, maxLength))) {
-                    if (i == 1)
-                        Builder.Append(Code).Append(preNumber);
-                    Builder.Append(HelperClass.Randomizer(0, 9));
-                }
-                var number = Builder.ToString();
-                if (ClearValidateSave(number))
-                    return number;
-                attempts += 1;
-            }
-            throw new Exception("Could not create an unique number");
-        }
+        public string RandomNumber(int minLength, int maxLength, string preNumber = null)
+            => RandomNumber(Randomizer(minLength, maxLength), preNumber);
     }
 }
