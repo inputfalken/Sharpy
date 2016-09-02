@@ -20,7 +20,7 @@ namespace DataGen.Types {
         private IEnumerable<TSource> Enumerable { get; }
         private Lazy<TSource[]> LazyArray { get; }
 
-        public TSource RandomItem => LazyArray.Value[HelperClass.Randomizer(LazyArray.Value.Length)];
+        internal TSource RandomItem => LazyArray.Value[HelperClass.Randomizer(LazyArray.Value.Length)];
 
         protected static IEnumerable<TSource> RemoveRepeatedData(IEnumerable<TSource> enumerable)
             => enumerable.GroupBy(s => s)
