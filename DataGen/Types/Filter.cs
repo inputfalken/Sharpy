@@ -36,6 +36,9 @@ namespace DataGen.Types {
         public StringFilter ToStringFilter()
             => new StringFilter(this.Select(source => source.ToString()));
 
+        protected static int IndexOf(string str, string substring)
+            => str.IndexOf(substring, StringComparison.CurrentCultureIgnoreCase);
+
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }
