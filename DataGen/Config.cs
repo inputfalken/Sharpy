@@ -29,7 +29,7 @@ namespace DataGen {
         }
 
 
-        public Config ChangeUserNameFiltering(Func<StringFilter, StringFilter> func) {
+        public Config UserNames(Func<StringFilter, StringFilter> func) {
             Usernames = func(Usernames);
             return this;
         }
