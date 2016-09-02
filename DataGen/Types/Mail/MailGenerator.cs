@@ -80,23 +80,26 @@ namespace DataGen.Types.Mail {
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
         private string UniqueMail(string name, string secondName) {
-            var resets = 0;
-            while (resets < AttemptLimit)
-                if (_emailDomainsEnumerator.MoveNext()) {
-                    var emailDomain = _emailDomainsEnumerator.Current;
-                    foreach (var separator in Separators) {
-                        var address = BuildString(name, separator.ToString(), secondName, "@", emailDomain);
-                        if (ClearValidateSave(address))
-                            return address;
+            while (true) {
+                var resets = 0;
+                while (resets < AttemptLimit)
+                    if (_emailDomainsEnumerator.MoveNext()) {
+                        var emailDomain = _emailDomainsEnumerator.Current;
+                        foreach (var separator in Separators) {
+                            var address = BuildString(name, separator.ToString(), secondName, "@", emailDomain);
+                            if (ClearValidateSave(address))
+                                return address;
+                        }
                     }
-                }
-                else {
-                    //If this needs to be called more than once.
-                    //It means that every combination with separators and EmailDomains has been iterated.
-                    _emailDomainsEnumerator.Reset();
-                    resets += 1;
-                }
-            throw new Exception("Could not create an unique mail");
+                    else {
+                        //If this needs to be called more than once.
+                        //It means that every combination with separators and EmailDomains has been iterated.
+                        _emailDomainsEnumerator.Reset();
+                        resets += 1;
+                    }
+                // Start adding numbers.
+                secondName = secondName + Randomizer(9);
+            }
         }
 
         private static string BuildString(params string[] strings) {
@@ -110,15 +113,18 @@ namespace DataGen.Types.Mail {
         ///     This method currently can only be called up 1 * ammount of mail suppliers with the same argument. After that it will throw an exception
         /// </summary>
         public string Mail(string name) {
-            if (string.IsNullOrEmpty(name))
-                throw new NullReferenceException($"{nameof(name)} cannot be empty string or null");
-            if (!Unique) return RandomMail(name);
-            foreach (var emailDomain in _emailDomains) {
-                var address = BuildString(name, "@", emailDomain);
-                if (ClearValidateSave(address))
-                    return address;
+            while (true) {
+                if (string.IsNullOrEmpty(name))
+                    throw new NullReferenceException($"{nameof(name)} cannot be empty string or null");
+                if (!Unique) return RandomMail(name);
+                foreach (var emailDomain in _emailDomains) {
+                    var address = BuildString(name, "@", emailDomain);
+                    if (ClearValidateSave(address))
+                        return address;
+                }
+                // Start adding numbers
+                name = name + Randomizer(9);
             }
-            throw new Exception("Could not create an unique mail");
         }
     }
 }
