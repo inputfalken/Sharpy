@@ -60,9 +60,11 @@ namespace DataGen.Types.Mail {
         /// <returns></returns>
         private string RandomMail(params string[] strings) {
             foreach (var name in strings) {
-                Builder.Append(name).Append(Separators[Randomizer(Separators.Count)].ToString());
+                Builder.Append(name);
                 if (name == strings[strings.Length - 1])
                     Builder.Append("@").Append(_emailDomains[Randomizer(_emailDomains.Count)]);
+                else
+                    Builder.Append(Separators[Randomizer(Separators.Count)].ToString());
             }
             var address = Builder.ToString();
             Builder.Clear();
