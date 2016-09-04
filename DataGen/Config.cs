@@ -6,6 +6,7 @@ using DataGen.Types.CountryCode;
 using DataGen.Types.Mail;
 using DataGen.Types.Name;
 using DataGen.Types.String;
+using static DataGen.Types.HelperClass;
 
 namespace DataGen {
     public class Config {
@@ -62,7 +63,7 @@ namespace DataGen {
         }
 
         /// <summary>
-        ///     If you use this method it will set a seed for everything including future generators.
+        ///     NOTE: If you use this method it will set a seed for everything including future generators.
         ///     TODO: make seed only manipulate the generator instance.
         /// </summary>
         /// <param name="seed"></param>
