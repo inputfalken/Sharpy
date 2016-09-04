@@ -62,9 +62,9 @@ namespace DataGen.Types.Mail {
             foreach (var name in strings) {
                 Builder.Append(name);
                 if (name == strings[strings.Length - 1])
-                    Builder.Append("@").Append(_emailDomains[Randomizer(_emailDomains.Count)]);
+                    Builder.Append("@").Append(_emailDomains[SetRandomizer(_emailDomains.Count)]);
                 else
-                    Builder.Append(Separators[Randomizer(Separators.Count)].ToString());
+                    Builder.Append(Separators[SetRandomizer(Separators.Count)].ToString());
             }
             var address = Builder.ToString().ToLower();
             Builder.Clear();
@@ -98,7 +98,7 @@ namespace DataGen.Types.Mail {
                         resets += 1;
                     }
                 // Start adding numbers.
-                secondName = secondName + Randomizer(9);
+                secondName = secondName + SetRandomizer(9);
             }
         }
 
@@ -123,7 +123,7 @@ namespace DataGen.Types.Mail {
                         return address;
                 }
                 // Start adding numbers
-                name = name + Randomizer(9);
+                name = name + SetRandomizer(9);
             }
         }
     }

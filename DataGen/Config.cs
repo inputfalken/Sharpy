@@ -69,7 +69,7 @@ namespace DataGen {
         /// <param name="seed"></param>
         /// <returns></returns>
         public Config Seed(int seed) {
-            Randomizer(new Random(seed));
+            SetRandomizer(new Random(seed));
             return this;
         }
 
