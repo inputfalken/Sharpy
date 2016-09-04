@@ -11,6 +11,13 @@ namespace DataGen {
             Config = config;
         }
 
+        /// <summary>
+        ///     This can be used if you want to provide your own strings.
+        /// </summary>
+        /// <param name="strings"></param>
+        /// <returns></returns>
+        public string RandomString(params string[] strings) => strings[Number(strings.Length)];
+
         ///<summary>
         ///     Gives a random name, it could be a female first name, male first name and a lastname.
         /// </summary>
