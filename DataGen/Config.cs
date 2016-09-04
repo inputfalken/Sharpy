@@ -15,7 +15,6 @@ namespace DataGen {
         internal NameFilter NameFilter { get; private set; }
         internal StringFilter Usernames { get; private set; }
         internal MailGenerator MailGenerator { get; private set; }
-        private int RandomizerSeed { get; set; }
 
         /// <summary>
         ///     Will filter the result for the randomizer's name
