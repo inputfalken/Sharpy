@@ -36,7 +36,7 @@ namespace DataGen.Types.CountryCode {
         private string BuildString(int length, string preNumber) {
             foreach (var i in Range(0, length)) {
                 if (i == 0) Builder.Append(Code).Append(preNumber);
-                Builder.Append(SetRandomizer(10));
+                Builder.Append(Randomizer(10));
             }
             var str = Builder.ToString();
             Builder.Clear();
@@ -50,6 +50,6 @@ namespace DataGen.Types.CountryCode {
         /// <param name="preNumber">Optional number that will be used before the random numbers</param>
         /// </summary>
         public string RandomNumber(int minLength, int maxLength, string preNumber = null)
-            => RandomNumber(SetRandomizer(minLength, maxLength), preNumber);
+            => RandomNumber(Randomizer(minLength, maxLength), preNumber);
     }
 }

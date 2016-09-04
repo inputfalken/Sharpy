@@ -35,12 +35,12 @@ namespace DataGen {
         ///<summary>
         ///     Gives a random number within below the argument value
         /// </summary>
-        public int Number(int maxNum) => HelperClass.SetRandomizer(maxNum);
+        public int Number(int maxNum) => HelperClass.Randomizer(maxNum);
 
         ///<summary>
         ///     Gives a random number within within the two arguments
         /// </summary>
-        public int Number(int minNum, int maxNum) => HelperClass.SetRandomizer(minNum, maxNum);
+        public int Number(int minNum, int maxNum) => HelperClass.Randomizer(minNum, maxNum);
 
         ///<summary>
         ///     gives a date with random month & date and subtract the current the current year by the argument

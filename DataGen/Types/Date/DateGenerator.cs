@@ -56,11 +56,11 @@ namespace DataGen.Types.Date {
         public static LocalDate RandomDateByAge(int age) {
             if (age < 0)
                 throw new ArgumentException($"{nameof(age)} cannot be negative");
-            var month = HelperClass.SetRandomizer(1, CurrentLocalDate.Month);
+            var month = HelperClass.Randomizer(1, CurrentLocalDate.Month);
             var date = CurrentLocalDate.Minus(FromYears(age));
             var day = month == CurrentLocalDate.Month
-                ? HelperClass.SetRandomizer(1, date.Day)
-                : HelperClass.SetRandomizer(1, DateTime.DaysInMonth(date.Year, month));
+                ? HelperClass.Randomizer(1, date.Day)
+                : HelperClass.Randomizer(1, DateTime.DaysInMonth(date.Year, month));
             return new LocalDate(date.Year, month, day);
         }
 
@@ -69,8 +69,8 @@ namespace DataGen.Types.Date {
         /// <param name ="year">which year to use</param>
         /// </summary>
         public static LocalDate RandomDateByYear(int year) {
-            var month = HelperClass.SetRandomizer(1, CurrentLocalDate.Month);
-            return new LocalDate(year, month, HelperClass.SetRandomizer(1, DateTime.DaysInMonth(year, month)));
+            var month = HelperClass.Randomizer(1, CurrentLocalDate.Month);
+            return new LocalDate(year, month, HelperClass.Randomizer(1, DateTime.DaysInMonth(year, month)));
         }
     }
 }

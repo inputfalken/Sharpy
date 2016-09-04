@@ -4,12 +4,12 @@ namespace DataGen.Types {
     internal static class HelperClass {
         private static Random Random { get; set; } = new Random();
 
-        internal static int SetRandomizer(int limit) {
+        internal static int Randomizer(int limit) {
             lock (Random)
                 return Random.Next(limit);
         }
 
-        internal static int SetRandomizer(int min, int max) {
+        internal static int Randomizer(int min, int max) {
             lock (Random)
                 return Random.Next(min, max);
         }

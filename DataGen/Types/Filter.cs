@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using DataGen.Types.String;
+using static DataGen.Types.HelperClass;
 
 namespace DataGen.Types {
     ///<summary>
@@ -20,7 +20,7 @@ namespace DataGen.Types {
         private IEnumerable<TSource> Enumerable { get; }
         private Lazy<TSource[]> LazyArray { get; }
 
-        internal TSource RandomItem => LazyArray.Value[HelperClass.SetRandomizer(LazyArray.Value.Length)];
+        internal TSource RandomItem => LazyArray.Value[Randomizer(LazyArray.Value.Length)];
 
         public IEnumerator<TSource> GetEnumerator() => Enumerable.GetEnumerator();
 
