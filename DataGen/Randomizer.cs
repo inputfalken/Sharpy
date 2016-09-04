@@ -5,54 +5,6 @@ using static DataGen.Types.Date.DateGenerator;
 using static DataGen.Types.HelperClass;
 
 namespace DataGen {
-    public enum Country {
-        CostaRica,
-        ElSalvador,
-        Guatemala,
-        Albania,
-        Austria,
-        Azerbaijan,
-        Belgium,
-        Croatia,
-        Czech,
-        Denmark,
-        Estonia,
-        FaroeIslands,
-        Finland,
-        France,
-        Germany,
-        Greece,
-        Hungary,
-        Ireland,
-        Italy,
-        Latvia,
-        Luxembourg,
-        Macedonia,
-        Malta,
-        Moldova,
-        Netherlands,
-        Norway,
-        Poland,
-        Portugal,
-        Romania,
-        Russia,
-        Slovakia,
-        Slovenia,
-        Spain,
-        Sweden,
-        Switzerland,
-        Turkey,
-        Ukraine,
-        UnitedKingdom,
-        Canada,
-        Cuba,
-        Mexico,
-        UnitedStates,
-        Argentina,
-        Brazil,
-        Paraguay
-    }
-
     public class Randomizer {
         internal readonly Config Config;
 
