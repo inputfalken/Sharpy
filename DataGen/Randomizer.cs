@@ -1,9 +1,16 @@
+using System.Linq;
 using DataGen.Types.Name;
 using NodaTime;
 using static DataGen.Types.Date.DateGenerator;
 using static DataGen.Types.HelperClass;
 
 namespace DataGen {
+    public enum Country {
+        Sweden,
+        Norway,
+        UnitedStates
+    }
+
     public class Randomizer {
         internal readonly Config Config;
 
@@ -27,6 +34,13 @@ namespace DataGen {
         ///     Gives a random name based on type of argument.
         /// </summary>
         public string Name(NameTypes nameTypes) => Config.NameFilter.ByType(nameTypes).RandomItem.Data;
+
+        ///<summary>
+        ///     Gives a random name based on type of argument.
+        /// </summary>
+        public string Name(NameTypes nameTypes, Country country)
+            => Config.NameFilter.ByType(nameTypes).ByCountry(FirstletterTolower(country.ToString())).RandomItem.Data;
+
 
         ///<summary>
         ///     Gives a random username from a huge collection.
