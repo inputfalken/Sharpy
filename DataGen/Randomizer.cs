@@ -1,8 +1,7 @@
-using DataGen;
-using DataGen.Types;
-using DataGen.Types.Date;
 using DataGen.Types.Name;
 using NodaTime;
+using static DataGen.Types.Date.DateGenerator;
+using static DataGen.Types.HelperClass;
 
 namespace DataGen {
     public class Randomizer {
@@ -35,22 +34,22 @@ namespace DataGen {
         ///<summary>
         ///     Gives a random number within below the argument value
         /// </summary>
-        public int Number(int maxNum) => HelperClass.Randomizer(maxNum);
+        public int Number(int maxNum) => Randomizer(maxNum);
 
         ///<summary>
         ///     Gives a random number within within the two arguments
         /// </summary>
-        public int Number(int minNum, int maxNum) => HelperClass.Randomizer(minNum, maxNum);
+        public int Number(int minNum, int maxNum) => Randomizer(minNum, maxNum);
 
         ///<summary>
         ///     gives a date with random month & date and subtract the current the current year by the argument
         /// </summary>
-        public LocalDate DateByAge(int age) => DateGenerator.RandomDateByAge(age);
+        public LocalDate DateByAge(int age) => RandomDateByAge(age);
 
         ///<summary>
         ///     Gives a random month & date and use the argument given as year
         /// </summary>
-        public LocalDate DateByYear(int year) => DateGenerator.RandomDateByYear(year);
+        public LocalDate DateByYear(int year) => RandomDateByYear(year);
 
         ///<summary>
         ///     gives a random phonenumber using a random country code and lets you specify a number to start with as well as the length.
