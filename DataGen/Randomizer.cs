@@ -7,7 +7,6 @@ using static DataGen.Types.HelperClass;
 namespace DataGen {
     public enum Country {
         CostaRica,
-        DominicanRepublic,
         ElSalvador,
         Guatemala,
         Albania,
@@ -26,7 +25,6 @@ namespace DataGen {
         Hungary,
         Ireland,
         Italy,
-        Kosovo,
         Latvia,
         Luxembourg,
         Macedonia,
@@ -38,7 +36,6 @@ namespace DataGen {
         Portugal,
         Romania,
         Russia,
-        Serbia,
         Slovakia,
         Slovenia,
         Spain,
@@ -53,7 +50,6 @@ namespace DataGen {
         UnitedStates,
         Argentina,
         Brazil,
-        Colombia,
         Paraguay
     }
 
