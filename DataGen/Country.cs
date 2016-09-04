@@ -1,4 +1,8 @@
 namespace DataGen {
+    // ReSharper disable UnusedMember.Global
+    /// <summary>
+    ///  Is used for Filtering by country
+    /// </summary>
     public enum Country {
         CostaRica,
         ElSalvador,
