@@ -2,7 +2,7 @@
 
 namespace DataGen.Types {
     public static class HelperClass {
-        public static Random Random { private get; set; } = new Random();
+        private static Random Random { get; set; }
 
         public static int Randomizer(int limit) {
             lock (Random)
@@ -13,5 +13,7 @@ namespace DataGen.Types {
             lock (Random)
                 return Random.Next(min, max);
         }
+
+        public static void Randomizer(Random random) => Random = random;
     }
 }
