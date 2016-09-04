@@ -9,6 +9,7 @@ using DataGen.Types.String;
 using static DataGen.Types.HelperClass;
 
 namespace DataGen {
+    //TODO make each Config contain an instance of Random which gets passed arround everywhere
     public class Config {
         internal PhoneNumberGenerator PhoneNumberGenerator { get; private set; }
         internal NameFilter NameFilter { get; private set; }
@@ -64,7 +65,6 @@ namespace DataGen {
 
         /// <summary>
         ///     NOTE: If you use this method it will set a seed for everything including future generators.
-        ///     TODO: make seed only manipulate the generator instance.
         /// </summary>
         /// <param name="seed"></param>
         /// <returns></returns>
