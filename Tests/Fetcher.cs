@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using DataGen;
@@ -28,6 +29,21 @@ namespace Tests {
 
             //This test will check if the name given is from the common names collection
             Assert.IsTrue(CommonNames.Select(name => name.Data).Contains(generator.Generate().StringProp));
+        }
+
+        [Test]
+        public void TestEveryCountryEnum() {
+            //This code will iterate all country enums and try to generate from it if no data is fetched from the country an exception will be thrown...
+            Assert.DoesNotThrow(() => {
+                foreach (var enumName in typeof(Country).GetEnumNames()) {
+                    Country country;
+                    if (!Enum.TryParse(enumName, out country)) continue;
+                    var generator = Sharpy.CreateGenerator(randomizer => new {
+                        name1 = randomizer.Name(NameTypes.FemaleFirst, country)
+                    }, TestRandomizer);
+                    generator.Generate();
+                }
+            });
         }
 
         [Test]
@@ -148,7 +164,7 @@ namespace Tests {
                 File.ReadAllText(TestHelper.GetTestsPath() + @"\Data\Types\CountryCodes\CountryCodes.json"))
         );
 
-        private static readonly DataGen.Randomizer TestRandomizer =
+        private static readonly Randomizer TestRandomizer =
             new Randomizer(new Config(CommonNames, Usernames,
                 phoneNumberGenerator: CountryCodeFilter.First(generator => generator.Name == "sweden"),
                 mailGenerator: new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" }, true
