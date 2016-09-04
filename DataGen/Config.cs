@@ -46,7 +46,7 @@ namespace DataGen {
         /// <param name="uniqueNumbers"></param>
         /// <returns></returns>
         public Config CountryCode(string country, bool uniqueNumbers = false) {
-            PhoneNumberGenerator = DataCollections.CountryCodes.Value.First(generator => generator.Name == country);
+            PhoneNumberGenerator = DataCollections.CountryCodes.First(generator => generator.Name == country);
             PhoneNumberGenerator.Unique = uniqueNumbers;
             return this;
         }
@@ -75,9 +75,9 @@ namespace DataGen {
         public Config(NameFilter nameFilter = null, StringFilter usernames = null,
             MailGenerator mailGenerator = null,
             PhoneNumberGenerator phoneNumberGenerator = null) {
-            PhoneNumberGenerator = phoneNumberGenerator ?? DataCollections.CountryCodes.Value.RandomItem;
-            NameFilter = nameFilter ?? DataCollections.Names.Value;
-            Usernames = usernames ?? DataCollections.UserNames.Value;
+            PhoneNumberGenerator = phoneNumberGenerator ?? DataCollections.CountryCodes.RandomItem;
+            NameFilter = nameFilter ?? DataCollections.Names;
+            Usernames = usernames ?? DataCollections.UserNames;
             MailGenerator = mailGenerator ?? new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" }, false);
         }
     }
