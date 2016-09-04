@@ -34,7 +34,7 @@ namespace Tests {
         public void CreateGenerator_NameByType() {
             var generator =
                 Sharpy.CreateGenerator(
-                    randomizer => new TestClass { StringProp = randomizer.NameByType(NameTypes.MaleFirst) },
+                    randomizer => new TestClass { StringProp = randomizer.Name(NameTypes.MaleFirst) },
                     TestRandomizer);
             var firstName = generator.Generate();
             //This test will check if the name given is from the common names collection

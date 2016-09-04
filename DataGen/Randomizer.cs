@@ -20,7 +20,7 @@ namespace DataGen {
         ///<summary>
         ///     Gives a random name based on type of argument.
         /// </summary>
-        public string NameByType(NameTypes nameTypes) => Config.NameFilter.ByType(nameTypes).RandomItem.Data;
+        public string Name(NameTypes nameTypes) => Config.NameFilter.ByType(nameTypes).RandomItem.Data;
 
         ///<summary>
         ///     Gives a random username from a huge collection.
