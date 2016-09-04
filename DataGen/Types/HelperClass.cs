@@ -14,6 +14,8 @@ namespace DataGen.Types {
                 return Random.Next(min, max);
         }
 
+        internal static string FirstletterTolower(string text) => char.ToLowerInvariant(text[0]) + text.Substring(1);
+
         internal static void SetRandomizer(Random random) => Random = random;
     }
 }
