@@ -34,7 +34,7 @@ namespace DataGen {
         /// </summary>
         public string Name(NameType nameType) {
             if (!Dictionary.ContainsKey(nameType))
-                Dictionary.Add(nameType, Config.NameFilter);
+                Dictionary.Add(nameType, Config.NameFilter.ByType(nameType));
             return Dictionary[nameType].RandomItem.Data;
         }
 
