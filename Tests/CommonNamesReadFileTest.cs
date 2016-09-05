@@ -36,7 +36,7 @@ namespace Tests {
         [Test]
         public void NameFilter_ByRegion_CentralAmerica() {
             var result = CommonNames.ByRegion(Region.CentralAmerica);
-            //Makes sure that each object region is equal to current region.
+            //Makes sure that each object region is equal to current region.and that it contains data
             Assert.IsTrue(result.All(name => name.Region == Region.CentralAmerica) && result.Any());
             //Makes sure that each country in CentralAmericanCountries is contained from the result
             Assert.IsTrue(result.All(name => CentralAmericanCountries.Contains(name.Country)));
@@ -46,7 +46,7 @@ namespace Tests {
         [Test]
         public void NameFilter_ByRegion_SouthAmerica() {
             var result = CommonNames.ByRegion(Region.SouthAmerica);
-            //Makes sure that each object region is equal to current region.
+            //Makes sure that each object region is equal to current region.and that it contains data
             Assert.IsTrue(result.All(name => name.Region == Region.SouthAmerica) && result.Any());
             //Makes sure that each country in SouthAmericanCountries is contained from the result
             Assert.IsTrue(result.All(name => SouthAmericanCountries.Contains(name.Country)));
@@ -55,7 +55,7 @@ namespace Tests {
         [Test]
         public void NameCollection_ByRegion_Europe() {
             var result = CommonNames.ByRegion(Region.Europe);
-            //Makes sure that each object region is equal to current region.
+            //Makes sure that each object region is equal to current region.and that it contains data
             Assert.IsTrue(result.All(name => name.Region == Region.Europe) && result.Any());
             //Makes sure that each country in EuropeCountries is contained from the result
             Assert.IsTrue(result.All(name => EuropeCountries.Contains(name.Country)));
@@ -64,7 +64,7 @@ namespace Tests {
         [Test]
         public void NameCollection_ByRegion_NorthAmerica() {
             var result = CommonNames.ByRegion(Region.NorthAmerica);
-            //Makes sure that each object region is equal to current region.
+            //Makes sure that each object region is equal to current region.and that it contains data
             Assert.IsTrue(result.All(name => name.Region == Region.NorthAmerica) && result.Any());
             //Makes sure that each country in NorthAmericanCountries is contained from the result
             Assert.IsTrue(result.All(name => NorthAmericanCountries.Contains(name.Country)));

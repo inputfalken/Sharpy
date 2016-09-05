@@ -41,7 +41,7 @@ The idea of this project is to let users have a source to fetch random data from
                 LastName = randomizer.NameByType(NameTypes.LastNames)
             });
             // Applies a filter to give common names from the United States
-            generator.Config.Names(filter => filter.ByCountry("unitedStates"));
+            generator.Config.Names(filter => filter.ByCountry(Country.UnitedStates));
             // Creates an IEnumerable<Person> with twenty persons.
             // All with randomized names from the United States.
             var persons = generator.Generate(20);
