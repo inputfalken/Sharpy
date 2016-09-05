@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using DataGen;
+using DataGen.Types;
 using DataGen.Types.CountryCode;
 using DataGen.Types.Date;
 using DataGen.Types.Mail;
@@ -37,11 +38,10 @@ namespace Tests {
             Assert.DoesNotThrow(() => {
                 foreach (var enumName in typeof(Country).GetEnumNames()) {
                     Country country;
-                    if (!Enum.TryParse(enumName, out country)) continue;
-                    var generator = Sharpy.CreateGenerator(randomizer => new {
-                        name1 = randomizer.Name(NameTypes.FemaleFirst, country)
-                    }, TestRandomizer);
-                    generator.Generate();
+                    if (Enum.TryParse(enumName, out country)) {
+                        CommonNames.ByCountry(HelperClass.FirstletterTolower(enumName));
+                    }
+                    else throw new Exception();
                 }
             });
         }
