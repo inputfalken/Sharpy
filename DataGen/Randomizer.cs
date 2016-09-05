@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DataGen.Types.Name;
 using NodaTime;
@@ -8,14 +9,11 @@ namespace DataGen {
     public class Randomizer {
         internal readonly Config Config;
 
-        private readonly Dictionary<NameType, NameFilter> _dictionary = new Dictionary<NameType, NameFilter>();
+        private Dictionary<NameType, NameFilter> Dictionary { get; }
 
         public Randomizer(Config config) {
             Config = config;
-            _dictionary.Add(NameType.FemaleFirst, Config.NameFilter.ByType(NameType.FemaleFirst));
-            _dictionary.Add(NameType.MaleFirst, Config.NameFilter.ByType(NameType.MaleFirst));
-            _dictionary.Add(NameType.MixedFirstNames, Config.NameFilter.ByType(NameType.MixedFirstNames));
-            _dictionary.Add(NameType.LastNames, Config.NameFilter.ByType(NameType.LastNames));
+            Dictionary = new Dictionary<NameType, NameFilter>();
         }
 
         /// <summary>
@@ -25,6 +23,7 @@ namespace DataGen {
         /// <returns></returns>
         public string RandomString(params string[] strings) => strings[Number(strings.Length)];
 
+        //Todo Optimize, calls filter way to much
         ///<summary>
         ///     Gives a random name, it could be a female first name, male first name and a lastname.
         /// </summary>
@@ -33,7 +32,11 @@ namespace DataGen {
         ///<summary>
         ///     Gives a random name based on type of argument.
         /// </summary>
-        public string Name(NameType nameType) => _dictionary[nameType].RandomItem.Data;
+        public string Name(NameType nameType) {
+            if (!Dictionary.ContainsKey(nameType))
+                Dictionary.Add(nameType, Config.NameFilter);
+            return Dictionary[nameType].RandomItem.Data;
+        }
 
         ///<summary>
         ///     Gives a random username from a huge collection.
