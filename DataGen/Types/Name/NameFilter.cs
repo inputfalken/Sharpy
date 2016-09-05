@@ -17,18 +17,18 @@ namespace DataGen.Types.Name {
             => new NameFilter(this.Where(name => args.Contains(name.Region)));
 
 
-        internal NameFilter ByType(NameTypes nameTypes) {
-            switch (nameTypes) {
-                case NameTypes.FemaleFirst:
+        internal NameFilter ByType(NameType nameType) {
+            switch (nameType) {
+                case NameType.FemaleFirst:
                     return new NameFilter(this.Where(name => name.Type == 1));
-                case NameTypes.MaleFirst:
+                case NameType.MaleFirst:
                     return new NameFilter(this.Where(name => name.Type == 2));
-                case NameTypes.LastNames:
+                case NameType.LastNames:
                     return new NameFilter(this.Where(name => name.Type == 3));
-                case NameTypes.MixedFirstNames:
+                case NameType.MixedFirstNames:
                     return new NameFilter(this.Where(name => name.Type == 1 | name.Type == 2));
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(nameTypes), nameTypes, null);
+                    throw new ArgumentOutOfRangeException(nameof(nameType), nameType, null);
             }
         }
 
@@ -53,7 +53,7 @@ namespace DataGen.Types.Name {
         }
     }
 
-    public enum NameTypes {
+    public enum NameType {
         FemaleFirst,
         MaleFirst,
         LastNames,
