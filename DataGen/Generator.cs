@@ -28,6 +28,9 @@ namespace DataGen {
         /// </summary>
         /// <param name="ammount"></param>
         /// <returns></returns>
-        public IEnumerable<T> Generate(int ammount) => Enumerable.Range(0, ammount).Select(i => Func());
+        public IEnumerable<T> Generate(int ammount) {
+            for (var i = 0; i < ammount; i++)
+                yield return Func();
+        }
     }
 }
