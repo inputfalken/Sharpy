@@ -9,10 +9,12 @@ namespace DataGen.Types.Name {
         }
 
 
+        //Todo change from params string to country params
         public NameFilter ByCountry(params string[] args)
             => new NameFilter(this.Where(name => args.Contains(name.Country)));
 
 
+        //Todo change from params string to country params
         public NameFilter ByRegion(params string[] args)
             => new NameFilter(this.Where(name => args.Contains(name.Region)));
 

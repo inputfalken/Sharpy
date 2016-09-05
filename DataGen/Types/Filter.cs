@@ -15,7 +15,7 @@ namespace DataGen.Types {
             if (!enumerable.Any()) throw new ArgumentException("Sequence Is empty");
             Enumerable = enumerable;
             LazyArray = new Lazy<TSource[]>(this.ToArray);
-            //TODO this gets called way to much.
+            Console.WriteLine("test");
         }
 
         private IEnumerable<TSource> Enumerable { get; }

@@ -16,20 +16,8 @@ namespace DataGen {
         internal StringFilter Usernames { get; private set; }
         internal MailGenerator MailGenerator { get; private set; }
 
-        //TODO Refactor
-        /// <summary>
-        ///     Will filter the result for the randomizer's name
-        /// </summary>
-        /// <param name="countries"></param>
-        /// <returns></returns>
-        public Config NamesFilterByCountry(params Country[] countries) {
-            var myArr = new string[ countries.Length ];
-            for (var i = 0; i < countries.Length; i++)
-                myArr[i] = FirstletterTolower(countries[0].ToString());
-            NameFilter = NameFilter.ByCountry(myArr);
-            return this;
-        }
 
+        //Todo use interface
         public Config Names(Func<NameFilter, NameFilter> func) {
             NameFilter = func(NameFilter);
             return this;
