@@ -30,7 +30,7 @@ namespace DataGen {
             return this;
         }
 
-        public Config NamesFilterOnString(Func<IStringFilter<NameFilter>, NameFilter> func) {
+        public Config Names(Func<NameFilter, NameFilter> func) {
             NameFilter = func(NameFilter);
             return this;
         }

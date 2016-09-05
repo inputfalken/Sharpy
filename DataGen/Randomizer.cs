@@ -1,4 +1,4 @@
-using System.Linq;
+using System.Collections.Generic;
 using DataGen.Types.Name;
 using NodaTime;
 using static DataGen.Types.Date.DateGenerator;
@@ -8,8 +8,14 @@ namespace DataGen {
     public class Randomizer {
         internal readonly Config Config;
 
+        private readonly Dictionary<NameType, NameFilter> _dictionary = new Dictionary<NameType, NameFilter>();
+
         public Randomizer(Config config) {
             Config = config;
+            _dictionary.Add(NameType.FemaleFirst, Config.NameFilter.ByType(NameType.FemaleFirst));
+            _dictionary.Add(NameType.MaleFirst, Config.NameFilter.ByType(NameType.MaleFirst));
+            _dictionary.Add(NameType.MixedFirstNames, Config.NameFilter.ByType(NameType.MixedFirstNames));
+            _dictionary.Add(NameType.LastNames, Config.NameFilter.ByType(NameType.LastNames));
         }
 
         /// <summary>
@@ -27,7 +33,7 @@ namespace DataGen {
         ///<summary>
         ///     Gives a random name based on type of argument.
         /// </summary>
-        public string Name(NameType nameType) => Config.NameFilter.ByType(nameType).RandomItem.Data;
+        public string Name(NameType nameType) => _dictionary[nameType].RandomItem.Data;
 
         ///<summary>
         ///     Gives a random username from a huge collection.
