@@ -5,6 +5,7 @@ namespace DataGen {
     /// </summary>
     public enum Country {
         CostaRica,
+        Columbia,
         ElSalvador,
         Guatemala,
         Albania,
@@ -49,5 +50,12 @@ namespace DataGen {
         Argentina,
         Brazil,
         Paraguay
+    }
+
+    public enum Region {
+        Europe,
+        CentralAmerica,
+        SouthAmerica,
+        NorthAmerica
     }
 }

@@ -37,11 +37,8 @@ namespace Tests {
             //This code will iterate all country enums and try to generate from it if no data is fetched from the country an exception will be thrown...
             Assert.DoesNotThrow(() => {
                 foreach (var enumName in typeof(Country).GetEnumNames()) {
-                    Country country;
-                    if (Enum.TryParse(enumName, out country)) {
-                        CommonNames.ByCountry(HelperClass.FirstletterTolower(enumName));
-                    }
-                    else throw new Exception();
+                    var countryEnum = (Country) Enum.Parse(typeof(Country), enumName);
+                    CommonNames.ByCountry(countryEnum);
                 }
             });
         }
