@@ -142,6 +142,52 @@ namespace Tests {
             Assert.IsTrue(mailAddress.Contains("@hotmail.com"));
         }
 
+        #region With Config
+
+        [Test]
+        public void CreateGenerator_Config_MailAddress() {
+            var generator =
+                Sharpy.CreateGenerator(randomizer => new TestClass { StringProp = randomizer.MailAdress("Bobby") },
+                    TestRandomizer);
+            generator.Config.Mail(new[] { "gmail.com" }, true);
+            var testClasses = generator.Generate(3).ToList();
+
+            // Checks if there's no number
+            Assert.IsTrue(testClasses[0].StringProp.All(c => !char.IsNumber(c)));
+            //Should contain a number
+            Assert.IsTrue(testClasses[1].StringProp.Any(char.IsNumber));
+            //Should contain a number
+            Assert.IsTrue(testClasses[2].StringProp.Any(char.IsNumber));
+        }
+
+        [Test]
+        public void CreateGenerator_Config_Names() {
+            var generator = Sharpy.CreateGenerator(randomizer => randomizer.Name(NameType.MixedFirstNames),
+                TestRandomizer);
+            generator.Config.Names(filter => filter.ByCountry(Country.Sweden));
+            Assert.IsTrue(
+                generator.Generate(30)
+                    .All(s => CommonNames.ByCountry(Country.Sweden).Select(name => name.Data).Contains(s)));
+        }
+
+        [Test]
+        public void CreateGenerator_Config_Seed() {
+            var generator = Sharpy.CreateGenerator(randomizer => randomizer.Name(NameType.MaleFirst), TestRandomizer);
+            generator.Config.Seed(200);
+            var expected = new[] { "Samir", "Lucas", "Gabriel", "Josip", "Luuk" };
+            Assert.IsTrue(generator.Generate(5).SequenceEqual(expected));
+        }
+
+        [Test]
+        public void CreateGenerator_Config_UserNames() {
+            var generator = Sharpy.CreateGenerator(randomizer => randomizer.UserName(), TestRandomizer);
+            generator.Config.UserNames(filter => filter.ByLength(5));
+
+            Assert.IsTrue(generator.Generate(30).All(s => s.Length == 5));
+        }
+
+        #endregion
+
         private class TestClass {
             public string StringProp { get; set; }
             public bool BoolProp { get; set; }
@@ -163,7 +209,7 @@ namespace Tests {
 
         private static readonly Randomizer TestRandomizer =
             new Randomizer(new Config(CommonNames, Usernames,
-                phoneNumberGenerator: CountryCodeFilter.First(generator => generator.Name == "sweden"),
+                phoneNumberGenerator: CountryCodeFilter.RandomItem,
                 mailGenerator: new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" }, true
                 )));
     }
