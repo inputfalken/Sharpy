@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using static DataGen.Types.HelperClass;
 
 namespace DataGen.Types.Mail {
     public class MailGenerator : Unique<string> {
-        private bool Unique { get; }
-
         /// <summary>
         ///     Used for separating strings with symbols
         /// </summary>
@@ -15,10 +11,15 @@ namespace DataGen.Types.Mail {
             '.', '_', '-'
         };
 
-        ///<summary>
+        /// <summary>
         ///     Contains the email providers
         /// </summary>
         private readonly List<string> _emailDomains = new List<string>();
+
+        /// <summary>
+        ///     Contains the email providers but with saved state
+        /// </summary>
+        private readonly IEnumerator<string> _emailDomainsEnumerator;
 
 
         /// <summary>
@@ -32,15 +33,13 @@ namespace DataGen.Types.Mail {
             _emailDomainsEnumerator = _emailDomains.GetEnumerator();
         }
 
-        ///<summary>
-        ///     Contains the email providers but with saved state
-        /// </summary>
-        private readonly IEnumerator<string> _emailDomainsEnumerator;
+        private bool Unique { get; }
 
 
         /// <summary>
         ///     Returns a string representing a mail address.
-        ///     This method currently can be called up 3 * ammount of mail suppliers with the same argument. After that it will throw an exception
+        ///     This method currently can be called up 3 * ammount of mail suppliers with the same argument. After that it will
+        ///     throw an exception
         /// </summary>
         /// <param name="name"></param>
         /// <param name="secondName"></param>
@@ -54,7 +53,7 @@ namespace DataGen.Types.Mail {
         }
 
         /// <summary>
-        ///    Gives a mail address with randomed separator and domain
+        ///     Gives a mail address with randomed separator and domain
         /// </summary>
         /// <param name="strings"></param>
         /// <returns></returns>
@@ -72,8 +71,8 @@ namespace DataGen.Types.Mail {
         }
 
         /// <summary>
-        ///    Will try to create an unique mail address
-        ///    If all possible combinations for the arguments used it will throw an exception
+        ///     Will try to create an unique mail address
+        ///     If all possible combinations for the arguments used it will throw an exception
         /// </summary>
         /// <param name="name"></param>
         /// <param name="secondName"></param>
@@ -108,9 +107,10 @@ namespace DataGen.Types.Mail {
             return Builder.ToString().ToLower();
         }
 
-        ///<summary>
+        /// <summary>
         ///     Returns a string representing a mail address.
-        ///     This method currently can only be called up 1 * ammount of mail suppliers with the same argument. After that it will throw an exception
+        ///     This method currently can only be called up 1 * ammount of mail suppliers with the same argument. After that it
+        ///     will throw an exception
         /// </summary>
         public string Mail(string name) {
             while (true) {

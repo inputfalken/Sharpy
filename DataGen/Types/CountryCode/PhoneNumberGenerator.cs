@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using DataGen.Types.Enums;
 using static System.Linq.Enumerable;
 using static DataGen.Types.HelperClass;
@@ -8,11 +7,6 @@ namespace DataGen.Types.CountryCode {
     // ReSharper disable once ClassNeverInstantiated.Global
     // Is generated from json
     public class PhoneNumberGenerator : Unique<string> {
-        public Country Name { get; }
-        public string Code { get; }
-        public bool Unique { get; set; }
-        internal bool IsParsed { get; }
-
         //Todo split this into two classes one CountryCode which will only contain code & name and one named phonenumber generator which will contain the number methods
         public PhoneNumberGenerator(string name, string code) : base(50) {
             Country country;
@@ -23,10 +17,15 @@ namespace DataGen.Types.CountryCode {
             Code = code;
         }
 
-        ///<summary>
+        public Country Name { get; }
+        public string Code { get; }
+        public bool Unique { get; set; }
+        internal bool IsParsed { get; }
+
+        /// <summary>
         ///     Will create a phone number by randoming numbers including country code
-        /// <param name="length">The length of the number</param>
-        /// <param name="preNumber">Optional number that will be used before the random numbers</param>
+        ///     <param name="length">The length of the number</param>
+        ///     <param name="preNumber">Optional number that will be used before the random numbers</param>
         /// </summary>
         public string RandomNumber(int length, string preNumber = null) {
             if (!Unique) return BuildString(length, preNumber);
@@ -50,11 +49,11 @@ namespace DataGen.Types.CountryCode {
             return str;
         }
 
-        ///<summary>
+        /// <summary>
         ///     This overLoad will also randomize a phone number length within min and max length
-        /// <param name="minLength">Min length of the phone number</param>
-        /// <param name="maxLength">Max length of the phone number</param>
-        /// <param name="preNumber">Optional number that will be used before the random numbers</param>
+        ///     <param name="minLength">Min length of the phone number</param>
+        ///     <param name="maxLength">Max length of the phone number</param>
+        ///     <param name="preNumber">Optional number that will be used before the random numbers</param>
         /// </summary>
         public string RandomNumber(int minLength, int maxLength, string preNumber = null)
             => RandomNumber(Randomizer(minLength, maxLength), preNumber);

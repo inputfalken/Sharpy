@@ -15,6 +15,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 //Makes my internal items visibile to the test project
+
 [assembly: InternalsVisibleTo("Tests")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 

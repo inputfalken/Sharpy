@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using DataGen.Types;
 using DataGen.Types.CountryCode;
 using DataGen.Types.Enums;
 using DataGen.Types.Mail;
@@ -12,11 +11,19 @@ using static DataGen.Types.HelperClass;
 namespace DataGen {
     //TODO make each Config contain an instance of Random which gets passed arround everywhere
     public class Config {
+        public Config(NameFilter nameFilter = null, StringFilter usernames = null,
+            MailGenerator mailGenerator = null,
+            PhoneNumberGenerator phoneNumberGenerator = null) {
+            PhoneNumberGenerator = phoneNumberGenerator ?? DataCollections.CountryCodes.RandomItem;
+            NameFilter = nameFilter ?? DataCollections.Names;
+            Usernames = usernames ?? DataCollections.UserNames;
+            MailGenerator = mailGenerator ?? new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" }, false);
+        }
+
         internal PhoneNumberGenerator PhoneNumberGenerator { get; private set; }
         internal NameFilter NameFilter { get; private set; }
         internal StringFilter Usernames { get; private set; }
         internal MailGenerator MailGenerator { get; private set; }
-
 
 
         public Config NameOrigin(params Country[] countries) {
@@ -48,7 +55,7 @@ namespace DataGen {
         }
 
         /// <summary>
-        ///  Lets you change the country code
+        ///     Lets you change the country code
         /// </summary>
         /// <param name="country"></param>
         /// <param name="uniqueNumbers"></param>
@@ -78,15 +85,6 @@ namespace DataGen {
         public Config Seed(int seed) {
             SetRandomizer(new Random(seed));
             return this;
-        }
-
-        public Config(NameFilter nameFilter = null, StringFilter usernames = null,
-            MailGenerator mailGenerator = null,
-            PhoneNumberGenerator phoneNumberGenerator = null) {
-            PhoneNumberGenerator = phoneNumberGenerator ?? DataCollections.CountryCodes.RandomItem;
-            NameFilter = nameFilter ?? DataCollections.Names;
-            Usernames = usernames ?? DataCollections.UserNames;
-            MailGenerator = mailGenerator ?? new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" }, false);
         }
     }
 }

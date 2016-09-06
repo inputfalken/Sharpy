@@ -30,8 +30,8 @@ namespace DataGen.Types.Date {
 
         /// <summary>
         ///     Will add or subtract the date argument from current date.
-        /// <param name="date">The date to subtract/add to/from current date</param>
-        /// <param name="subtract">if set to false it will add the values to the current date rather than subtracting</param>
+        ///     <param name="date">The date to subtract/add to/from current date</param>
+        ///     <param name="subtract">if set to false it will add the values to the current date rather than subtracting</param>
         /// </summary>
         public static LocalDate Date(LocalDate date, bool subtract = true) => subtract
             ? CurrentLocalDate.Minus(FromYears(date.Year)).Minus(FromMonths(date.Month)).Minus(FromDays(date.Day))
@@ -39,7 +39,7 @@ namespace DataGen.Types.Date {
 
         /// <summary>
         ///     This overload will do the same but with ints
-        /// <param name="subtract">if set to false it will add the values to the current date rather than subtracting</param>
+        ///     <param name="subtract">if set to false it will add the values to the current date rather than subtracting</param>
         /// </summary>
         public static LocalDate Date(int year, int month, int day, bool subtract = true) {
             if (year < 0 || month < 0 || day < 0)
@@ -49,9 +49,9 @@ namespace DataGen.Types.Date {
                 : CurrentLocalDate.Plus(FromYears(year)).Plus(FromMonths(month)).Plus(FromDays(day));
         }
 
-        ///<summary>
+        /// <summary>
         ///     Will give and random date minus the argument in years
-        /// <param name ="age">ammount of years</param>
+        ///     <param name="age">ammount of years</param>
         /// </summary>
         public static LocalDate RandomDateByAge(int age) {
             if (age < 0)
@@ -64,9 +64,9 @@ namespace DataGen.Types.Date {
             return new LocalDate(date.Year, month, day);
         }
 
-        ///<summary>
+        /// <summary>
         ///     Will give a random month and date on specifk year
-        /// <param name ="year">which year to use</param>
+        ///     <param name="year">which year to use</param>
         /// </summary>
         public static LocalDate RandomDateByYear(int year) {
             var month = HelperClass.Randomizer(1, CurrentLocalDate.Month);

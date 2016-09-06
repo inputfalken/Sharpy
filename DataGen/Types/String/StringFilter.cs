@@ -25,6 +25,5 @@ namespace DataGen.Types.String {
             if (length < 1) throw new ArgumentOutOfRangeException($"{nameof(length)} is below 1");
             return new StringFilter(this.Where(s => s.Length == length));
         }
-
     }
 }

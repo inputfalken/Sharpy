@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DataGen {
     public class Generator<T> {
+        public Generator(Func<T> func, Config config) {
+            Config = config;
+            Func = func;
+        }
+
         /// <summary>
         ///     Can be used to change settings for the randomizer
         /// </summary>
         public Config Config { get; }
 
         private Func<T> Func { get; }
-
-        public Generator(Func<T> func, Config config) {
-            Config = config;
-            Func = func;
-        }
 
         /// <summary>
         ///     Will give back one instance of the specified Type

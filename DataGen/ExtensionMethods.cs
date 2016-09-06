@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using static System.Linq.Enumerable;
 
 namespace DataGen {
     public static class ExtensionMethods {

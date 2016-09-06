@@ -9,6 +9,26 @@ namespace DataGen.Types.Name {
         public NameFilter(IEnumerable<Name> enumerable) : base(enumerable) {
         }
 
+        public NameFilter DoesNotStartWith(string arg) => new NameFilter(this.Where(s => IndexOf(s.Data, arg) != 0));
+
+        public NameFilter DoesNotContain(string arg) => new NameFilter(this.Where(s => !s.Data.Contains(arg)));
+
+        public NameFilter StartsWith(params string[] args)
+            => args.Length == 1
+                ? new NameFilter(this.Where(s => IndexOf(s.Data, args[0]) == 0))
+                : new NameFilter(this.Where(s => args.Any(arg => IndexOf(s.Data, arg) == 0)));
+
+
+        public NameFilter Contains(params string[] args)
+            => args.Length == 1
+                ? new NameFilter(this.Where(s => s.Data.Contains(args[0])))
+                : new NameFilter(this.Where(s => args.Any(s.Data.Contains)));
+
+        public NameFilter ByLength(int length) {
+            if (length < 1) throw new ArgumentOutOfRangeException($"{nameof(length)} is below 1");
+            return new NameFilter(this.Where(s => s.Data.Length == length));
+        }
+
 
         //Todo change from params string to country params
         internal NameFilter ByCountry(params Country[] args)
@@ -33,26 +53,6 @@ namespace DataGen.Types.Name {
                 default:
                     throw new ArgumentOutOfRangeException(nameof(nameType), nameType, null);
             }
-        }
-
-        public NameFilter DoesNotStartWith(string arg) => new NameFilter(this.Where(s => IndexOf(s.Data, arg) != 0));
-
-        public NameFilter DoesNotContain(string arg) => new NameFilter(this.Where(s => !s.Data.Contains(arg)));
-
-        public NameFilter StartsWith(params string[] args)
-            => args.Length == 1
-                ? new NameFilter(this.Where(s => IndexOf(s.Data, args[0]) == 0))
-                : new NameFilter(this.Where(s => args.Any(arg => IndexOf(s.Data, arg) == 0)));
-
-
-        public NameFilter Contains(params string[] args)
-            => args.Length == 1
-                ? new NameFilter(this.Where(s => s.Data.Contains(args[0])))
-                : new NameFilter(this.Where(s => args.Any(s.Data.Contains)));
-
-        public NameFilter ByLength(int length) {
-            if (length < 1) throw new ArgumentOutOfRangeException($"{nameof(length)} is below 1");
-            return new NameFilter(this.Where(s => s.Data.Length == length));
         }
     }
 }
