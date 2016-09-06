@@ -41,7 +41,7 @@ namespace Tests {
             var expected = new[] {
                 lisa, rachel2, wilma, rachel, wilma2, johanna
             };
-            var result = new NameFilter(enumerable).ByType(NameType.FemaleFirst);
+            var result = new NameFilter(enumerable).ByType(NameType.FemaleFirstName);
             Assert.IsTrue(result.SequenceEqual(expected));
         }
 
@@ -78,7 +78,7 @@ namespace Tests {
             var expected = new[] {
                 vladimir, john, jack, gustavo, james, albin, jens, bob, william
             };
-            var result = new NameFilter(enumerable).ByType(NameType.MaleFirst);
+            var result = new NameFilter(enumerable).ByType(NameType.MaleFirstName);
             Assert.IsTrue(result.SequenceEqual(expected));
         }
 
@@ -115,7 +115,7 @@ namespace Tests {
             var expected = new[] {
                 fring, svensson, johnson, webb, willson, corigan, jenkins, jenkins2
             };
-            var result = new NameFilter(enumerable).ByType(NameType.LastNames);
+            var result = new NameFilter(enumerable).ByType(NameType.LastName);
             Assert.IsTrue(result.SequenceEqual(expected));
         }
 
@@ -154,7 +154,7 @@ namespace Tests {
                 albin, wilma, jens, bob, rachel,
                 william, wilma2, johanna
             };
-            var result = new NameFilter(enumerable).ByType(NameType.MixedFirstNames);
+            var result = new NameFilter(enumerable).ByType(NameType.MixedFirstName);
             Assert.IsTrue(result.SequenceEqual(expected));
         }
 

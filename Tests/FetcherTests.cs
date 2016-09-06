@@ -47,16 +47,16 @@ namespace Tests {
         public void CreateGenerator_NameByType() {
             var generator =
                 Sharpy.CreateGenerator(
-                    randomizer => new TestClass { StringProp = randomizer.Name(NameType.MaleFirst) },
+                    randomizer => new TestClass { StringProp = randomizer.Name(NameType.MaleFirstName) },
                     TestRandomizer);
             var firstName = generator.Generate();
             //This test will check if the name given is from the common names collection
             Assert.IsTrue(
-                CommonNames.ByType(NameType.MaleFirst).Select(name => name.Data).Contains(firstName.StringProp));
+                CommonNames.ByType(NameType.MaleFirstName).Select(name => name.Data).Contains(firstName.StringProp));
             Assert.IsTrue(
-                CommonNames.ByType(NameType.MixedFirstNames).Select(name => name.Data).Contains(firstName.StringProp));
+                CommonNames.ByType(NameType.MixedFirstName).Select(name => name.Data).Contains(firstName.StringProp));
             Assert.IsFalse(
-                CommonNames.ByType(NameType.FemaleFirst).Select(name => name.Data).Contains(firstName.StringProp));
+                CommonNames.ByType(NameType.FemaleFirstName).Select(name => name.Data).Contains(firstName.StringProp));
         }
 
         [Test]

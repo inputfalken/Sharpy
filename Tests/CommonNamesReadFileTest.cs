@@ -99,7 +99,7 @@ namespace Tests {
             string[] names = {
                 "Maria", "Olga", "Jessica", "Linda", "Sophie", "Vanessa", "Sophie", "Julia"
             };
-            var result = CommonNames.ByType(NameType.FemaleFirst);
+            var result = CommonNames.ByType(NameType.FemaleFirstName);
             Assert.IsTrue(names.All(s => result.Select(name => name.Data).Contains(s)));
         }
 
@@ -109,7 +109,7 @@ namespace Tests {
                 "Maria", "Olga", "Jessica", "Linda", "Sophie", "Vanessa", "Sophie", "Julia",
                 "Michael", "Jack"
             };
-            var result = CommonNames.ByType(NameType.FemaleFirst);
+            var result = CommonNames.ByType(NameType.FemaleFirstName);
             Assert.IsFalse(names.All(s => result.Select(name => name.Data).Contains(s)));
         }
 
@@ -120,7 +120,7 @@ namespace Tests {
                 "Green", "Wood", "Pavlov", "Bogdanov", "Volkov", "Rusu", "Ceban", "Nagy", "Salo", "Niemi", "Koppel",
                 "Urbonas", "Torres", "Calvo", "Romero", "Johnson", "Salas", "Vargas"
             };
-            var result = CommonNames.ByType(NameType.LastNames);
+            var result = CommonNames.ByType(NameType.LastName);
             Assert.IsTrue(names.All(s => result.Select(name => name.Data).Contains(s)));
         }
 
@@ -132,7 +132,7 @@ namespace Tests {
                 "Jacob", "Erik",
                 "Maria", "Olga"
             };
-            var result = CommonNames.ByType(NameType.LastNames);
+            var result = CommonNames.ByType(NameType.LastName);
             Assert.IsFalse(names.All(s => result.Select(name => name.Data).Contains(s)));
         }
 
@@ -141,7 +141,7 @@ namespace Tests {
             string[] names = {
                 "Jacob", "Erik", "Simon", "Alexander", "Afonso", "Adam", "Michael", "Jack"
             };
-            var result = CommonNames.ByType(NameType.MaleFirst);
+            var result = CommonNames.ByType(NameType.MaleFirstName);
             Assert.IsTrue(names.All(s => result.Select(name => name.Data).Contains(s)));
         }
 
@@ -151,7 +151,7 @@ namespace Tests {
                 "Jacob", "Erik", "Simon", "Alexander", "Afonso", "Adam", "Michael", "Jack",
                 "Maria", "Olga"
             };
-            var result = CommonNames.ByType(NameType.LastNames);
+            var result = CommonNames.ByType(NameType.LastName);
             Assert.IsFalse(names.All(s => result.Select(name => name.Data).Contains(s)));
         }
 
@@ -161,7 +161,7 @@ namespace Tests {
                 "Jacob", "Erik", "Simon", "Alexander", "Afonso", "Adam", "Michael", "Jack",
                 "Maria", "Olga", "Jessica", "Linda", "Sophie", "Vanessa", "Sophie", "Julia"
             };
-            var result = CommonNames.ByType(NameType.MixedFirstNames);
+            var result = CommonNames.ByType(NameType.MixedFirstName);
             Assert.IsTrue(names.All(s => result.Select(name => name.Data).Contains(s)));
         }
 
