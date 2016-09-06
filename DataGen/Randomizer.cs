@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DataGen.Types.Enums;
 using DataGen.Types.Name;
 using NodaTime;
 using static DataGen.Types.Date.DateGenerator;

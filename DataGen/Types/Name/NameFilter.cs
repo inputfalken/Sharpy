@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DataGen.Types.Enums;
 using DataGen.Types.String;
 
 namespace DataGen.Types.Name {
@@ -10,24 +11,24 @@ namespace DataGen.Types.Name {
 
 
         //Todo change from params string to country params
-        public NameFilter ByCountry(params Country[] args)
+        internal NameFilter ByCountry(params Country[] args)
             => new NameFilter(this.Where(name => args.Contains(name.Country)));
 
 
         //Todo change from params string to country params
-        public NameFilter ByRegion(params Region[] args)
+        internal NameFilter ByRegion(params Region[] args)
             => new NameFilter(this.Where(name => args.Contains(name.Region)));
 
 
         internal NameFilter ByType(NameType nameType) {
             switch (nameType) {
-                case NameType.FemaleFirst:
+                case NameType.FemaleFirstName:
                     return new NameFilter(this.Where(name => name.Type == 1));
-                case NameType.MaleFirst:
+                case NameType.MaleFirstName:
                     return new NameFilter(this.Where(name => name.Type == 2));
-                case NameType.LastNames:
+                case NameType.LastName:
                     return new NameFilter(this.Where(name => name.Type == 3));
-                case NameType.MixedFirstNames:
+                case NameType.MixedFirstName:
                     return new NameFilter(this.Where(name => name.Type == 1 | name.Type == 2));
                 default:
                     throw new ArgumentOutOfRangeException(nameof(nameType), nameType, null);
@@ -53,12 +54,5 @@ namespace DataGen.Types.Name {
             if (length < 1) throw new ArgumentOutOfRangeException($"{nameof(length)} is below 1");
             return new NameFilter(this.Where(s => s.Data.Length == length));
         }
-    }
-
-    public enum NameType {
-        FemaleFirst,
-        MaleFirst,
-        LastNames,
-        MixedFirstNames
     }
 }
