@@ -53,7 +53,7 @@ namespace DataGen {
         /// <param name="country"></param>
         /// <param name="uniqueNumbers"></param>
         /// <returns></returns>
-        public Config CountryCode(string country, bool uniqueNumbers = false) {
+        public Config CountryCode(Country country, bool uniqueNumbers = false) {
             PhoneNumberGenerator = DataCollections.CountryCodes.First(generator => generator.Name == country);
             PhoneNumberGenerator.Unique = uniqueNumbers;
             return this;

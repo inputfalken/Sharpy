@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DataGen.Types.Enums;
 using static System.Linq.Enumerable;
 using static DataGen.Types.HelperClass;
 
@@ -7,12 +8,17 @@ namespace DataGen.Types.CountryCode {
     // ReSharper disable once ClassNeverInstantiated.Global
     // Is generated from json
     public class PhoneNumberGenerator : Unique<string> {
-        public string Name { get; }
+        public Country Name { get; }
         public string Code { get; }
         public bool Unique { get; set; }
+        internal bool IsParsed { get; }
 
         public PhoneNumberGenerator(string name, string code) : base(50) {
-            Name = name;
+            Country country;
+            if (Enum.TryParse(name, out country)) {
+                Name = country;
+                IsParsed = true;
+            }
             Code = code;
         }
 

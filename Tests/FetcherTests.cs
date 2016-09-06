@@ -34,12 +34,25 @@ namespace Tests {
         }
 
         [Test]
-        public void TestEveryCountryEnum() {
+        public void TestEveryCountryEnumForName() {
             //This code will iterate all country enums and try to generate from it if no data is fetched from the country an exception will be thrown...
             Assert.DoesNotThrow(() => {
                 foreach (var enumName in typeof(Country).GetEnumNames()) {
                     var countryEnum = (Country) Enum.Parse(typeof(Country), enumName);
                     CommonNames.ByCountry(countryEnum);
+                }
+            });
+        }
+
+        [Test]
+        public void TestEveryCountryEnumForCountryCode() {
+            //This code will iterate all country enums and try to generate from it if no data is fetched from the country an exception will be thrown...
+            Assert.DoesNotThrow(() => {
+                foreach (var enumName in typeof(Country).GetEnumNames()) {
+                    var phoneNumberGenerator = new PhoneNumberGenerator(enumName, "code");
+                    if (!phoneNumberGenerator.IsParsed) {
+                        throw new Exception();
+                    }
                 }
             });
         }
