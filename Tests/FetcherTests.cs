@@ -116,7 +116,7 @@ namespace Tests {
             var generator =
                 Sharpy.CreateGenerator(randomizer => new TestClass { LocalDateProp = randomizer.DateByAge(10) },
                     TestRandomizer);
-            Assert.IsTrue(generator.Generate().LocalDateProp.Year == DateGenerator.CurrentLocalDate.Year - 10);
+            Assert.IsTrue(generator.Generate().LocalDateProp.Year == DateGenerator.CurrentLocalDate.Minus(Period.FromYears(10)).Year);
         }
 
 
