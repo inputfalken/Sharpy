@@ -17,8 +17,18 @@ namespace DataGen {
         internal MailGenerator MailGenerator { get; private set; }
 
 
-        //Todo use interface
-        public Config Names(Func<NameFilter, NameFilter> func) {
+
+        public Config NameOrigin(params Country[] countries) {
+            NameFilter = NameFilter.ByCountry(countries);
+            return this;
+        }
+
+        public Config NameOrigin(params Region[] regions) {
+            NameFilter = NameFilter.ByRegion(regions);
+            return this;
+        }
+
+        public Config Name(Func<IStringFilter<NameFilter>, NameFilter> func) {
             NameFilter = func(NameFilter);
             return this;
         }
@@ -54,7 +64,7 @@ namespace DataGen {
         /// </summary>
         /// <param name="func"></param>
         /// <returns></returns>
-        public Config UserNames(Func<StringFilter, StringFilter> func) {
+        public Config UserName(Func<StringFilter, StringFilter> func) {
             Usernames = func(Usernames);
             return this;
         }
