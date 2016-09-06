@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using DataGen;
+using DataGen.Types.Enums;
 using DataGen.Types.Name;
 using Newtonsoft.Json;
 using NUnit.Framework;

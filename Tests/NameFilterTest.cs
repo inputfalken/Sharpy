@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using DataGen;
+using DataGen.Types.Enums;
 using DataGen.Types.Name;
 using NUnit.Framework;
 

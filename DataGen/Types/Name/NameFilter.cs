@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DataGen.Types.Enums;
 using DataGen.Types.String;
 
 namespace DataGen.Types.Name {
@@ -53,12 +54,5 @@ namespace DataGen.Types.Name {
             if (length < 1) throw new ArgumentOutOfRangeException($"{nameof(length)} is below 1");
             return new NameFilter(this.Where(s => s.Data.Length == length));
         }
-    }
-
-    public enum NameType {
-        FemaleFirstName,
-        MaleFirstName,
-        LastName,
-        MixedFirstName
     }
 }

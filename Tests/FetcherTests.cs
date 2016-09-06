@@ -6,6 +6,7 @@ using DataGen;
 using DataGen.Types;
 using DataGen.Types.CountryCode;
 using DataGen.Types.Date;
+using DataGen.Types.Enums;
 using DataGen.Types.Mail;
 using DataGen.Types.Name;
 using DataGen.Types.String;
