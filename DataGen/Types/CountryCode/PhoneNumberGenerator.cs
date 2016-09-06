@@ -13,6 +13,7 @@ namespace DataGen.Types.CountryCode {
         public bool Unique { get; set; }
         internal bool IsParsed { get; }
 
+        //Todo split this into two classes one CountryCode which will only contain code & name and one named phonenumber generator which will contain the number methods
         public PhoneNumberGenerator(string name, string code) : base(50) {
             Country country;
             if (Enum.TryParse(name, out country)) {
