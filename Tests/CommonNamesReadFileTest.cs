@@ -7,7 +7,7 @@ using DataGen.Types.Enums;
 using DataGen.Types.Name;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using static DataGen.Country;
+using static DataGen.Types.Enums.Country;
 
 namespace Tests {
     ///<summary>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DataGen.Types;
 using DataGen.Types.CountryCode;
+using DataGen.Types.Enums;
 using DataGen.Types.Mail;
 using DataGen.Types.Name;
 using DataGen.Types.String;

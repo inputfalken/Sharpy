@@ -1,4 +1,4 @@
-namespace DataGen {
+namespace DataGen.Types.Enums {
     // ReSharper disable UnusedMember.Global
     /// <summary>
     ///  Is used for Filtering by country

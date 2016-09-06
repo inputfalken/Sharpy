@@ -1,4 +1,5 @@
 ﻿using System;
+using DataGen.Types.Enums;
 
 namespace DataGen.Types.Name {
     // Is generated from json
