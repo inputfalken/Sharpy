@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using DataGen.Types.Mail;
 using static DataGen.DataCollections;
 

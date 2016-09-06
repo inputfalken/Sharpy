@@ -3003,7 +3003,13 @@
     "type": 3,
     "country": "Brazil",
     "region": "SouthAmerica",
-    "name": "Schmitz or Schmidt"
+    "name": "Schmitz"
+  },
+  {
+    "type": 3,
+    "country": "Brazil",
+    "region": "SouthAmerica",
+    "name": "Schmidt"
   },
   {
     "type": 3,
@@ -3015,7 +3021,13 @@
     "type": 3,
     "country": "Brazil",
     "region": "SouthAmerica",
-    "name": "Correia, Correa"
+    "name": "Correa"
+  },
+  {
+    "type": 3,
+    "country": "Brazil",
+    "region": "SouthAmerica",
+    "name": "Correia"
   },
   {
     "type": 3,
@@ -3045,7 +3057,13 @@
     "type": 3,
     "country": "Brazil",
     "region": "SouthAmerica",
-    "name": "Cavalcante or Cavalcanti"
+    "name": "Cavalcante"
+  },
+  {
+    "type": 3,
+    "country": "Brazil",
+    "region": "SouthAmerica",
+    "name": "Cavalcanti"
   },
   {
     "type": 3,
@@ -5571,12 +5589,6 @@
     "type": 3,
     "country": "FaroeIslands",
     "region": "Europe",
-    "name": "//MAN"
-  },
-  {
-    "type": 3,
-    "country": "FaroeIslands",
-    "region": "Europe",
     "name": "Kazlauskas"
   },
   {
@@ -5632,12 +5644,6 @@
     "country": "FaroeIslands",
     "region": "Europe",
     "name": "Kavaliauskas"
-  },
-  {
-    "type": 3,
-    "country": "FaroeIslands",
-    "region": "Europe",
-    "name": "//WOMAN"
   },
   {
     "type": 3,
@@ -8769,7 +8775,7 @@
     "type": 3,
     "country": "Netherlands",
     "region": "Europe",
-    "name": "M12002:4 Van den Berg *"
+    "name": "Van den Berg"
   },
   {
     "type": 3,

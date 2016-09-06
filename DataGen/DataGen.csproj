@@ -52,6 +52,11 @@
     <Compile Include="DataCollections.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Generator.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Randomizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sharpy.cs" />
@@ -70,22 +75,24 @@
     <Compile Include="Types\Unique.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Data\Types\Name\NamesByOrigin.json">
+    <None Include="content\Data\Types\Name\NamesByOrigin.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Data\Types\CountryCodes\CountryCodes.json">
+    <None Include="content\Data\Types\CountryCodes\CountryCodes.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Data\Types\Name\usernames.txt">
+    <None Include="content\Data\Types\Name\usernames.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Types\CountryCode" />
-    <Folder Include="Types\Enums" />
-    <Folder Include="Types\Mail" />
-    <Folder Include="Types\String" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
