@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using DataGen;
-using DataGen.Types;
 using DataGen.Types.CountryCode;
 using DataGen.Types.Date;
 using DataGen.Types.Enums;
@@ -14,6 +13,7 @@ using Newtonsoft.Json;
 using NodaTime;
 using NUnit.Framework;
 
+//Todo set a seed and let all tests be ran from that seed so i can expect values...
 namespace Tests {
     [TestFixture]
     public class FetcherTests {
@@ -97,7 +97,7 @@ namespace Tests {
                     TestRandomizer);
 
             var @class = generator.Generate();
-            Assert.IsTrue(@class.IntProp < 20 && @class.IntProp > 10);
+            Assert.IsTrue(@class.IntProp < 19 && @class.IntProp > 10);
         }
 
         [Test]
@@ -116,7 +116,7 @@ namespace Tests {
             var generator =
                 Sharpy.CreateGenerator(randomizer => new TestClass { LocalDateProp = randomizer.DateByAge(10) },
                     TestRandomizer);
-            Assert.IsTrue(generator.Generate().LocalDateProp.Year == DateGenerator.CurrentLocalDate.Year - 10);
+            Assert.IsTrue(generator.Generate().LocalDateProp.Year == DateGenerator.CurrentLocalDate.Minus(Period.FromYears(10)).Year);
         }
 
 
