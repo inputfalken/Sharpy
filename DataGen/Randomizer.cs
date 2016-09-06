@@ -17,11 +17,10 @@ namespace DataGen {
         private Dictionary<NameType, NameFilter> Dictionary { get; }
 
         /// <summary>
-        ///     This can be used if you want to provide your own strings.
+        ///     This can be used if you have your own collection of items that you would want an random item from.
         /// </summary>
-        /// <param name="strings"></param>
         /// <returns></returns>
-        public string RandomString(params string[] strings) => strings[Number(strings.Length)];
+        public T RandomItem<T>(params T[] items) => items[Number(items.Length)];
 
         //Todo Optimize, calls filter way to much
         /// <summary>
