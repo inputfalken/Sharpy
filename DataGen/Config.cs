@@ -21,7 +21,9 @@ namespace DataGen {
         private static CountryCodeFilter GetCountryCodes()
             => CountryCodes ?? LazyCountryCodes.Value;
 
-        internal PhoneNumberGenerator PhoneNumberGenerator { get; private set; }
+        internal PhoneNumberGenerator PhoneNumberGenerator { get; private set; } =
+            new PhoneNumberGenerator("UnitedStates", "+1");
+
         private static CountryCodeFilter CountryCodes { get; set; }
 
         internal MailGenerator MailGenerator { get; private set; } =
