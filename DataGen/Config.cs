@@ -18,13 +18,14 @@ namespace DataGen {
                 () => new CountryCodeFilter(JsonConvert.DeserializeObject<IEnumerable<PhoneNumberGenerator>>(
                     Encoding.Default.GetString(Properties.Resources.CountryCodes))));
 
-        private static CountryCodeFilter GetCountryCodes()
+        private CountryCodeFilter GetCountryCodes()
             => CountryCodes ?? LazyCountryCodes.Value;
+
+        private CountryCodeFilter CountryCodes { get; set; }
 
         internal PhoneNumberGenerator PhoneNumberGenerator { get; private set; } =
             new PhoneNumberGenerator("UnitedStates", "+1");
 
-        private static CountryCodeFilter CountryCodes { get; set; }
 
         internal MailGenerator MailGenerator { get; private set; } =
             new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" }, false);
