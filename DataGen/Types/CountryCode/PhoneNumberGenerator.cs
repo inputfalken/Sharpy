@@ -18,8 +18,8 @@ namespace DataGen.Types.CountryCode {
         }
 
         public Country Name { get; }
-        public string Code { get; }
-        public bool Unique { get; set; }
+        private string Code { get; }
+        public bool Unique { private get; set; }
         internal bool IsParsed { get; }
 
         /// <summary>
