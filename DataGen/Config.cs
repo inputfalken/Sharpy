@@ -14,8 +14,12 @@ namespace DataGen {
     //TODO make each Config contain an instance of Random which gets passed arround everywhere
     public class Config {
         public Config(NameFilter nameFilter = null, StringFilter usernames = null,
-            MailGenerator mailGenerator = null,
-            PhoneNumberGenerator phoneNumberGenerator = null) {
+            MailGenerator mailGenerator = null) {
+            if (nameFilter != null)
+                NameFilter = nameFilter;
+            if (usernames != null)
+                Usernames = usernames;
+
             MailGenerator = mailGenerator ?? new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" }, false);
             PhoneNumberGenerator = CountryCodes.RandomItem;
         }
