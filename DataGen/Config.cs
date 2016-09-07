@@ -23,8 +23,12 @@ namespace DataGen {
             new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" }, false);
 
 
-        internal StringFilter Usernames { get; private set; } =
-            new StringFilter(Properties.Resources.usernames.Split(Convert.ToChar("\n")));
+        private Lazy<StringFilter> LazyUsernames { get; } =
+            new Lazy<StringFilter>(() => new StringFilter(Properties.Resources.usernames.Split(Convert.ToChar("\n"))));
+
+        private StringFilter UserNames { get;  set; }
+
+        internal StringFilter GetUserNames() => UserNames ?? LazyUsernames.Value;
 
         internal NameFilter NameFilter { get; private set; } =
             new NameFilter(JsonConvert.DeserializeObject<IEnumerable<Name>>(
@@ -78,7 +82,7 @@ namespace DataGen {
         /// <param name="func"></param>
         /// <returns></returns>
         public Config UserName(Func<StringFilter, StringFilter> func) {
-            Usernames = func(Usernames);
+            UserNames = func(GetUserNames());
             return this;
         }
 
