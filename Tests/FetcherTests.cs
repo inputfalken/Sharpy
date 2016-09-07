@@ -98,7 +98,7 @@ namespace Tests {
                     );
 
             var @class = generator.Generate();
-            Assert.IsTrue(@class.IntProp < 19 && @class.IntProp > 10);
+            Assert.IsTrue(@class.IntProp < 19 && @class.IntProp >= 10);
         }
 
         [Test]
