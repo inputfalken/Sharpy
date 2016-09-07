@@ -1,14 +1,12 @@
-﻿﻿using System;
+﻿using System;
 using DataGen.Types.Mail;
-using static DataGen.DataCollections;
 
 namespace DataGen {
     public static class Sharpy {
         /// <summary>
         ///     This is the field which gets used if you use the method which do not ask for a randomizer
         /// </summary>
-        private static readonly Randomizer DefaultRandomizer = new Randomizer(new Config(Names, UserNames,
-            new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" }, false), CountryCodes.RandomItem));
+        private static readonly Randomizer DefaultRandomizer = new Randomizer(new Config());
 
         /// <summary>
         ///     Returns a Generator which you can use to create one instance or a collection of type given

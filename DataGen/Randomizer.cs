@@ -17,31 +17,30 @@ namespace DataGen {
         private Dictionary<NameType, NameFilter> Dictionary { get; }
 
         /// <summary>
-        ///     This can be used if you want to provide your own strings.
+        ///     This can be used if you have your own collection of items that you would want an random item from.
         /// </summary>
-        /// <param name="strings"></param>
         /// <returns></returns>
-        public string RandomString(params string[] strings) => strings[Number(strings.Length)];
+        public T RandomItem<T>(params T[] items) => items[Number(items.Length)];
 
         //Todo Optimize, calls filter way to much
         /// <summary>
         ///     Gives a random name, it could be a female first name, male first name and a lastname.
         /// </summary>
-        public string Name() => Config.NameFilter.RandomItem.Data;
+        public string Name() => Config.GetNames().RandomItem.Data;
 
         /// <summary>
         ///     Gives a random name based on type of argument.
         /// </summary>
         public string Name(NameType nameType) {
             if (!Dictionary.ContainsKey(nameType))
-                Dictionary.Add(nameType, Config.NameFilter.ByType(nameType));
+                Dictionary.Add(nameType, Config.GetNames().ByType(nameType));
             return Dictionary[nameType].RandomItem.Data;
         }
 
         /// <summary>
         ///     Gives a random username from a huge collection.
         /// </summary>
-        public string UserName() => Config.Usernames.RandomItem;
+        public string UserName() => Config.GetUserNames().RandomItem;
 
         /// <summary>
         ///     Gives a random bool

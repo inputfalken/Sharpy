@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using DataGen;
 using DataGen.Types.Enums;
 using DataGen.Types.Name;
@@ -17,8 +18,8 @@ namespace Tests {
     internal class CommonNamesReadFileTest {
         #region Common Items
 
-        private static NameFilter CommonNames => new NameFilter(JsonConvert.DeserializeObject<IEnumerable<Name>>(
-            File.ReadAllText(TestHelper.GetTestsPath() + @"\Data\Types\Name\NamesByOrigin.json")));
+        private static NameFilter CommonNames => new NameFilter(new NameFilter(JsonConvert.DeserializeObject<IEnumerable<Name>>(
+                Encoding.UTF8.GetString(DataGen.Properties.Resources.NamesByOrigin))));
 
         private static readonly Country[] EuropeCountries = {
             Albania, Austria, Azerbaijan, Belgium, Croatia, Czech, Denmark,
