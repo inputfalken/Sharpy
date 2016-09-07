@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using DataGen;
 using DataGen.Types.CountryCode;
 using DataGen.Types.Date;
@@ -97,7 +98,7 @@ namespace Tests {
                     TestRandomizer);
 
             var @class = generator.Generate();
-            Assert.IsTrue(@class.IntProp < 19 && @class.IntProp > 10);
+            Assert.IsTrue(@class.IntProp < 20 && @class.IntProp > 10);
         }
 
         [Test]
@@ -177,21 +178,13 @@ namespace Tests {
 
         [Test]
         public void CreateGenerator_Config_UserNames() {
-            var generator = Sharpy.CreateGenerator(randomizer => randomizer.UserName(), TestRandomizer);
+            var generator = Sharpy.CreateGenerator(randomizer => randomizer.UserName());
             generator.Config.UserName(filter => filter.ByLength(5));
 
             Assert.IsTrue(generator.Generate(30).All(s => s.Length == 5));
         }
 
 
-        //Works if run seperate but not together with all...
-        [Test]
-        public void CreateGenerator_Config_Seed() {
-            var generator = Sharpy.CreateGenerator(randomizer => randomizer.Name(NameType.MaleFirstName), TestRandomizer);
-            generator.Config.Seed(200);
-            var expected = new[] { "Samir", "Lucas", "Gabriel", "Josip", "Luuk" };
-            Assert.IsTrue(generator.Generate(5).SequenceEqual(expected));
-        }
 
         #endregion
 
@@ -203,21 +196,16 @@ namespace Tests {
         }
 
         private static readonly NameFilter CommonNames =
-            new NameFilter(JsonConvert.DeserializeObject<IEnumerable<Name>>(
-                File.ReadAllText(TestHelper.GetTestsPath() + @"\Data\Types\Name\NamesByOrigin.json")));
+            new NameFilter(new NameFilter(JsonConvert.DeserializeObject<IEnumerable<Name>>(
+                Encoding.UTF8.GetString(DataGen.Properties.Resources.NamesByOrigin))));
 
         private static readonly StringFilter Usernames =
-            new StringFilter(File.ReadAllLines(TestHelper.GetTestsPath() + @"\Data\Types\Name\usernames.txt"));
+            new StringFilter(DataGen.Properties.Resources.usernames.Split(Convert.ToChar("\n")));
 
-        private static readonly CountryCodeFilter CountryCodeFilter = new CountryCodeFilter(
-            JsonConvert.DeserializeObject<IEnumerable<PhoneNumberGenerator>>(
-                File.ReadAllText(TestHelper.GetTestsPath() + @"\Data\Types\CountryCodes\CountryCodes.json"))
-        );
+        private static readonly CountryCodeFilter CountryCodeFilter = new CountryCodeFilter(JsonConvert.DeserializeObject<IEnumerable<PhoneNumberGenerator>>(
+                Encoding.Default.GetString(DataGen.Properties.Resources.CountryCodes)));
 
         private static readonly Randomizer TestRandomizer =
-            new Randomizer(new Config(CommonNames, Usernames,
-                phoneNumberGenerator: CountryCodeFilter.RandomItem,
-                mailGenerator: new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" }, true
-                )));
+            new Randomizer(new Config());
     }
 }
