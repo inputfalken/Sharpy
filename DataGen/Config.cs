@@ -13,26 +13,38 @@ using static DataGen.Types.HelperClass;
 namespace DataGen {
     //TODO make each Config contain an instance of Random which gets passed arround everywhere
     public class Config {
-        private static CountryCodeFilter CountryCodes { get; } =
-            new CountryCodeFilter(JsonConvert.DeserializeObject<IEnumerable<PhoneNumberGenerator>>(
-                Encoding.Default.GetString(Properties.Resources.CountryCodes)));
+        private static Lazy<CountryCodeFilter> LazyCountryCodes { get; } =
+            new Lazy<CountryCodeFilter>(
+                () => new CountryCodeFilter(JsonConvert.DeserializeObject<IEnumerable<PhoneNumberGenerator>>(
+                    Encoding.Default.GetString(Properties.Resources.CountryCodes))));
 
-        internal PhoneNumberGenerator PhoneNumberGenerator { get; private set; } = CountryCodes.RandomItem;
+        private static CountryCodeFilter GetCountryCodes()
+            => CountryCodes ?? LazyCountryCodes.Value;
+
+        internal PhoneNumberGenerator PhoneNumberGenerator { get; private set; }
+        private static CountryCodeFilter CountryCodes { get; set; }
 
         internal MailGenerator MailGenerator { get; private set; } =
             new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" }, false);
 
 
-        internal StringFilter Usernames { get; private set; } =
-            new StringFilter(Properties.Resources.usernames.Split(Convert.ToChar("\n")));
+        private Lazy<StringFilter> LazyUsernames { get; } =
+            new Lazy<StringFilter>(() => new StringFilter(Properties.Resources.usernames.Split(Convert.ToChar("\n"))));
 
-        internal NameFilter NameFilter { get; private set; } =
-            new NameFilter(JsonConvert.DeserializeObject<IEnumerable<Name>>(
-                Encoding.UTF8.GetString(Properties.Resources.NamesByOrigin)));
+        private StringFilter UserNames { get; set; }
 
+        internal StringFilter GetUserNames() => UserNames ?? LazyUsernames.Value;
+
+        private Lazy<NameFilter> LazyNameFilter { get; } =
+            new Lazy<NameFilter>(() => new NameFilter(JsonConvert.DeserializeObject<IEnumerable<Name>>(
+                Encoding.UTF8.GetString(Properties.Resources.NamesByOrigin))));
+
+        private NameFilter NameFilter { get; set; }
+
+        internal NameFilter GetNames() => NameFilter ?? LazyNameFilter.Value;
 
         public Config NameOrigin(params Country[] countries) {
-            NameFilter = NameFilter.ByCountry(countries);
+            NameFilter = GetNames().ByCountry(countries);
             return this;
         }
 
@@ -42,7 +54,7 @@ namespace DataGen {
         }
 
         public Config Name(Func<IStringFilter<NameFilter>, NameFilter> func) {
-            NameFilter = func(NameFilter);
+            NameFilter = func(GetNames());
             return this;
         }
 
@@ -66,7 +78,7 @@ namespace DataGen {
         /// <param name="uniqueNumbers"></param>
         /// <returns></returns>
         public Config CountryCode(Country country, bool uniqueNumbers = false) {
-            PhoneNumberGenerator = CountryCodes.First(generator => generator.Name.Equals(country));
+            PhoneNumberGenerator = GetCountryCodes().First(generator => generator.Name.Equals(country));
             PhoneNumberGenerator.Unique = uniqueNumbers;
             return this;
         }
@@ -78,7 +90,7 @@ namespace DataGen {
         /// <param name="func"></param>
         /// <returns></returns>
         public Config UserName(Func<StringFilter, StringFilter> func) {
-            Usernames = func(Usernames);
+            UserNames = func(GetUserNames());
             return this;
         }
 
