@@ -1,6 +1,5 @@
 ﻿using System;
 using DataGen.Types.Mail;
-using static DataGen.DataCollections;
 
 namespace DataGen {
     public static class Sharpy {
