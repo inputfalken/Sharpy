@@ -13,11 +13,16 @@ using static DataGen.Types.HelperClass;
 namespace DataGen {
     //TODO make each Config contain an instance of Random which gets passed arround everywhere
     public class Config {
-        private static CountryCodeFilter CountryCodes { get; } =
-            new CountryCodeFilter(JsonConvert.DeserializeObject<IEnumerable<PhoneNumberGenerator>>(
-                Encoding.Default.GetString(Properties.Resources.CountryCodes)));
+        private static Lazy<CountryCodeFilter> LazyCountryCodes { get; } =
+            new Lazy<CountryCodeFilter>(
+                () => new CountryCodeFilter(JsonConvert.DeserializeObject<IEnumerable<PhoneNumberGenerator>>(
+                    Encoding.Default.GetString(Properties.Resources.CountryCodes))));
 
-        internal PhoneNumberGenerator PhoneNumberGenerator { get; private set; } = CountryCodes.RandomItem;
+        private static CountryCodeFilter GetCountryCodes()
+            => CountryCodes ?? LazyCountryCodes.Value;
+
+        internal PhoneNumberGenerator PhoneNumberGenerator { get; private set; }
+        private static CountryCodeFilter CountryCodes { get; set; }
 
         internal MailGenerator MailGenerator { get; private set; } =
             new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" }, false);
@@ -73,7 +78,7 @@ namespace DataGen {
         /// <param name="uniqueNumbers"></param>
         /// <returns></returns>
         public Config CountryCode(Country country, bool uniqueNumbers = false) {
-            PhoneNumberGenerator = CountryCodes.First(generator => generator.Name.Equals(country));
+            PhoneNumberGenerator = GetCountryCodes().First(generator => generator.Name.Equals(country));
             PhoneNumberGenerator.Unique = uniqueNumbers;
             return this;
         }
