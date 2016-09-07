@@ -41,7 +41,7 @@ namespace DataGen {
         /// <summary>
         ///     Gives a random username from a huge collection.
         /// </summary>
-        public string UserName() => Config.Usernames.RandomItem;
+        public string UserName() => Config.GetUserNames().RandomItem;
 
         /// <summary>
         ///     Gives a random bool
