@@ -26,17 +26,20 @@ namespace DataGen {
         private Lazy<StringFilter> LazyUsernames { get; } =
             new Lazy<StringFilter>(() => new StringFilter(Properties.Resources.usernames.Split(Convert.ToChar("\n"))));
 
-        private StringFilter UserNames { get;  set; }
+        private StringFilter UserNames { get; set; }
 
         internal StringFilter GetUserNames() => UserNames ?? LazyUsernames.Value;
 
-        internal NameFilter NameFilter { get; private set; } =
-            new NameFilter(JsonConvert.DeserializeObject<IEnumerable<Name>>(
-                Encoding.UTF8.GetString(Properties.Resources.NamesByOrigin)));
+        private Lazy<NameFilter> LazyNameFilter { get; } =
+            new Lazy<NameFilter>(() => new NameFilter(JsonConvert.DeserializeObject<IEnumerable<Name>>(
+                Encoding.UTF8.GetString(Properties.Resources.NamesByOrigin))));
 
+        private NameFilter NameFilter { get; set; }
+
+        internal NameFilter GetNames() => NameFilter ?? LazyNameFilter.Value;
 
         public Config NameOrigin(params Country[] countries) {
-            NameFilter = NameFilter.ByCountry(countries);
+            NameFilter = GetNames().ByCountry(countries);
             return this;
         }
 
@@ -46,7 +49,7 @@ namespace DataGen {
         }
 
         public Config Name(Func<IStringFilter<NameFilter>, NameFilter> func) {
-            NameFilter = func(NameFilter);
+            NameFilter = func(GetNames());
             return this;
         }
 
