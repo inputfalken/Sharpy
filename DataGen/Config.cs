@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using DataGen.Types.CountryCode;
 using DataGen.Types.Enums;
 using DataGen.Types.Mail;
 using DataGen.Types.Name;
 using DataGen.Types.String;
+using Newtonsoft.Json;
 using static DataGen.Types.HelperClass;
 
 namespace DataGen {
@@ -14,16 +16,24 @@ namespace DataGen {
         public Config(NameFilter nameFilter = null, StringFilter usernames = null,
             MailGenerator mailGenerator = null,
             PhoneNumberGenerator phoneNumberGenerator = null) {
-            PhoneNumberGenerator = phoneNumberGenerator ?? DataCollections.CountryCodes.RandomItem;
-            NameFilter = nameFilter ?? DataCollections.Names;
-            Usernames = usernames ?? DataCollections.UserNames;
             MailGenerator = mailGenerator ?? new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" }, false);
+            PhoneNumberGenerator = CountryCodes.RandomItem;
         }
 
         internal PhoneNumberGenerator PhoneNumberGenerator { get; private set; }
-        internal NameFilter NameFilter { get; private set; }
-        internal StringFilter Usernames { get; private set; }
+
         internal MailGenerator MailGenerator { get; private set; }
+
+        private CountryCodeFilter CountryCodes { get; } =
+            new CountryCodeFilter(JsonConvert.DeserializeObject<IEnumerable<PhoneNumberGenerator>>(
+                Encoding.Default.GetString(Properties.Resources.CountryCodes)));
+
+        internal StringFilter Usernames { get; private set; } =
+            new StringFilter(Properties.Resources.usernames.Split(Convert.ToChar("\n")));
+
+        internal NameFilter NameFilter { get; private set; } =
+            new NameFilter(JsonConvert.DeserializeObject<IEnumerable<Name>>(
+                Encoding.UTF8.GetString(Properties.Resources.NamesByOrigin)));
 
 
         public Config NameOrigin(params Country[] countries) {
@@ -61,7 +71,7 @@ namespace DataGen {
         /// <param name="uniqueNumbers"></param>
         /// <returns></returns>
         public Config CountryCode(Country country, bool uniqueNumbers = false) {
-            PhoneNumberGenerator = DataCollections.CountryCodes.First(generator => generator.Name == country);
+            PhoneNumberGenerator = CountryCodes.First(generator => generator.Name.Equals(country));
             PhoneNumberGenerator.Unique = uniqueNumbers;
             return this;
         }
