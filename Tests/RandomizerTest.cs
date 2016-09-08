@@ -448,6 +448,11 @@ namespace Tests {
                 .All(s => s.IndexOf("jo", StringComparison.CurrentCultureIgnoreCase) != 0));
         }
 
+        [Test]
+        public void CreateGenerator_Config_PhoneNumber_Default() {
+           var generator = Sharpy.CreateGenerator(randomizer => randomizer.PhoneNumber());
+            Assert.IsTrue(generator.Generate(2).All(s => s.Contains("+1") && s.Length == 6));
+        }
         #endregion
 
         private class TestClass {
