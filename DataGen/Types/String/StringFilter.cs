@@ -17,7 +17,7 @@ namespace DataGen.Types.String {
 
         public StringFilter Contains(params string[] args)
             => args.Length == 1
-                ? new StringFilter(this.Where(s => s.Contains(args[0])))
+                ? new StringFilter(this.Where(s => s.IndexOf(args[0], StringComparison.OrdinalIgnoreCase) >= 0))
                 : new StringFilter(this.Where(s => args.Any(s.Contains)));
 
 
