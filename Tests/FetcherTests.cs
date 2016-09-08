@@ -99,7 +99,7 @@ namespace Tests {
                     );
 
             var @class = generator.Generate();
-            Assert.IsTrue(@class.IntProp < 19 && @class.IntProp >= 10);
+            Assert.IsTrue(@class.IntProp <= 19 && @class.IntProp >= 10);
         }
 
         [Test]
@@ -212,36 +212,51 @@ namespace Tests {
         public void CreateGenerator_Config_UserNames_Contains_S() {
             var generator = Sharpy.CreateGenerator(randomizer => randomizer.UserName());
             generator.Config.UserName(filter => filter.Contains("S"));
-            Assert.IsTrue(generator.Generate(30).All(s => s.Contains("S") || s.Contains("s")));
+            Assert.IsTrue(generator.Generate(30).All(s => {
+                var b = s.IndexOf("S", StringComparison.CurrentCultureIgnoreCase) >= 0;
+                return b;
+            }));
         }
 
         [Test]
         public void CreateGenerator_Config_Names_Contains_S() {
             var generator = Sharpy.CreateGenerator(randomizer => randomizer.Name());
             generator.Config.Name(filter => filter.Contains("S"));
-            Assert.IsTrue(generator.Generate(30).All(s => s.Contains("S") || s.Contains("s")));
+            Assert.IsTrue(generator.Generate(30).All(s => {
+                var b = s.IndexOf("S", StringComparison.CurrentCultureIgnoreCase) >= 0;
+                return b;
+            }));
         }
 
         [Test]
         public void CreateGenerator_Config_UserNames_DoesNotContains_S() {
             var generator = Sharpy.CreateGenerator(randomizer => randomizer.UserName());
             generator.Config.UserName(filter => filter.DoesNotContain("S"));
-            Assert.IsTrue(generator.Generate(30).All(s => !s.Contains("S")));
+            Assert.IsTrue(generator.Generate(30).All(s => {
+                var b = s.IndexOf("S", StringComparison.CurrentCultureIgnoreCase) < 0;
+                return b;
+            }));
         }
 
         [Test]
         public void CreateGenerator_Config_Names_DoesNotContains_S() {
             var generator = Sharpy.CreateGenerator(randomizer => randomizer.Name());
             generator.Config.Name(filter => filter.DoesNotContain("S"));
-            Assert.IsTrue(generator.Generate(30).All(s => !s.Contains("S")));
+            Assert.IsTrue(generator.Generate(30).All(s => {
+                var b = s.IndexOf("S", StringComparison.CurrentCultureIgnoreCase) < 0;
+                return b;
+            }));
         }
 
-        //This is case sensetive
         [Test]
         public void CreateGenerator_Config_UserNames_StartsWith_j() {
             var generator = Sharpy.CreateGenerator(randomizer => randomizer.UserName());
             generator.Config.UserName(filter => filter.StartsWith("j"));
-            Assert.IsTrue(generator.Generate(30).All(s => s[0] == 'j' || s[0] == 'J'));
+            Assert.IsTrue(generator.Generate(30).All(s => {
+                var b = s.IndexOf("j", StringComparison.CurrentCultureIgnoreCase) >= 0;
+                return b;
+                
+            }));
         }
 
         [Test]
