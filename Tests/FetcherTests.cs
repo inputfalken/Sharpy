@@ -134,7 +134,7 @@ namespace Tests {
         [Test]
         public void CreateGenerator_MailAddress_OneArg() {
             var generator =
-                Sharpy.CreateGenerator(randomizer => new TestClass { StringProp = randomizer.MailAdress("bobby") }
+                Sharpy.CreateGenerator(randomizer => new TestClass { StringProp = randomizer.MailAdress("joby") }
                     );
             generator.Config.Mail(new[] { "gmail.com" });
             var mailAddress = generator.Generate().StringProp;
@@ -146,7 +146,7 @@ namespace Tests {
         public void CreateGenerator_MailAddress_TwoArg() {
             var generator =
                 Sharpy.CreateGenerator(
-                    randomizer => new TestClass { StringProp = randomizer.MailAdress("bobby", null) });
+                    randomizer => new TestClass { StringProp = randomizer.MailAdress("joby", null) });
             generator.Config.Mail(new[] { "gmail.com" });
             var mailAddress = generator.Generate().StringProp;
             Assert.IsTrue(mailAddress.Contains("@gmail.com"));
@@ -157,7 +157,7 @@ namespace Tests {
         [Test]
         public void CreateGenerator_Config_MailAddressWithOutNumberAppending() {
             var generator =
-                Sharpy.CreateGenerator(randomizer => new TestClass { StringProp = randomizer.MailAdress("Bobby") });
+                Sharpy.CreateGenerator(randomizer => new TestClass { StringProp = randomizer.MailAdress("joby") });
             generator.Config.Mail(new[] { "gmail.com" });
             var testClasses = generator.Generate(3).ToList();
 
@@ -172,7 +172,7 @@ namespace Tests {
         [Test]
         public void CreateGenerator_Config_MailAddressWithNumberAppending() {
             var generator =
-                Sharpy.CreateGenerator(randomizer => new TestClass { StringProp = randomizer.MailAdress("Bobby") });
+                Sharpy.CreateGenerator(randomizer => new TestClass { StringProp = randomizer.MailAdress("joby") });
             generator.Config.Mail(new[] { "gmail.com" }, true);
             var testClasses = generator.Generate(3).ToList();
 
@@ -218,6 +218,16 @@ namespace Tests {
             }));
         }
 
+        [Test]
+        public void CreateGenerator_Config_UserNames_Contains_Sot() {
+            var generator = Sharpy.CreateGenerator(randomizer => randomizer.UserName());
+            generator.Config.UserName(filter => filter.Contains("Sot"));
+            Assert.IsTrue(generator.Generate(30).All(s => {
+                var b = s.IndexOf("Sot", StringComparison.CurrentCultureIgnoreCase) >= 0;
+                return b;
+            }));
+        }
+
 
         [Test]
         public void CreateGenerator_Config_UserNames_Contains_MultipleArgs_S_Y() {
@@ -231,11 +241,31 @@ namespace Tests {
         }
 
         [Test]
+        public void CreateGenerator_Config_UserNames_Contains_MultipleArgs_Sot_Yor() {
+            var generator = Sharpy.CreateGenerator(randomizer => randomizer.UserName());
+            generator.Config.UserName(filter => filter.Contains("Sot", "Yor"));
+            Assert.IsTrue(generator.Generate(30).All(s => {
+                var b = s.IndexOf("Sot", StringComparison.CurrentCultureIgnoreCase) >= 0 |
+                        s.IndexOf("Yor", StringComparison.CurrentCultureIgnoreCase) >= 0;
+                return b;
+            }));
+        }
+        [Test]
         public void CreateGenerator_Config_Names_Contains_S() {
             var generator = Sharpy.CreateGenerator(randomizer => randomizer.Name());
             generator.Config.Name(filter => filter.Contains("S"));
             Assert.IsTrue(generator.Generate(30).All(s => {
                 var b = s.IndexOf("S", StringComparison.CurrentCultureIgnoreCase) >= 0;
+                return b;
+            }));
+        }
+
+        [Test]
+        public void CreateGenerator_Config_Names_Contains_Sot() {
+            var generator = Sharpy.CreateGenerator(randomizer => randomizer.Name());
+            generator.Config.Name(filter => filter.Contains("Sot"));
+            Assert.IsTrue(generator.Generate(30).All(s => {
+                var b = s.IndexOf("Sot", StringComparison.CurrentCultureIgnoreCase) >= 0;
                 return b;
             }));
         }
@@ -252,11 +282,32 @@ namespace Tests {
         }
 
         [Test]
+        public void CreateGenerator_Config_Names_Contains_MultipleArgs_Sot_Yor() {
+            var generator = Sharpy.CreateGenerator(randomizer => randomizer.Name());
+            generator.Config.Name(filter => filter.Contains("Sot", "Yor"));
+            Assert.IsTrue(generator.Generate(30).All(s => {
+                var b = s.IndexOf("Sot", StringComparison.CurrentCultureIgnoreCase) >= 0 |
+                        s.IndexOf("Yor", StringComparison.CurrentCultureIgnoreCase) >= 0;
+                return b;
+            }));
+        }
+
+        [Test]
         public void CreateGenerator_Config_UserNames_DoesNotContains_S() {
             var generator = Sharpy.CreateGenerator(randomizer => randomizer.UserName());
             generator.Config.UserName(filter => filter.DoesNotContain("S"));
             Assert.IsTrue(generator.Generate(30).All(s => {
                 var b = s.IndexOf("S", StringComparison.CurrentCultureIgnoreCase) < 0;
+                return b;
+            }));
+        }
+
+        [Test]
+        public void CreateGenerator_Config_UserNames_DoesNotContains_Sot() {
+            var generator = Sharpy.CreateGenerator(randomizer => randomizer.UserName());
+            generator.Config.UserName(filter => filter.DoesNotContain("Sot"));
+            Assert.IsTrue(generator.Generate(30).All(s => {
+                var b = s.IndexOf("Sot", StringComparison.CurrentCultureIgnoreCase) < 0;
                 return b;
             }));
         }
@@ -272,11 +323,31 @@ namespace Tests {
         }
 
         [Test]
+        public void CreateGenerator_Config_Names_DoesNotContains_Sot() {
+            var generator = Sharpy.CreateGenerator(randomizer => randomizer.Name());
+            generator.Config.Name(filter => filter.DoesNotContain("Sot"));
+            Assert.IsTrue(generator.Generate(30).All(s => {
+                var b = s.IndexOf("Sot", StringComparison.CurrentCultureIgnoreCase) < 0;
+                return b;
+            }));
+        }
+
+        [Test]
         public void CreateGenerator_Config_UserNames_StartsWith_j() {
             var generator = Sharpy.CreateGenerator(randomizer => randomizer.UserName());
             generator.Config.UserName(filter => filter.StartsWith("j"));
             Assert.IsTrue(generator.Generate(30).All(s => {
                 var b = s.IndexOf("j", StringComparison.CurrentCultureIgnoreCase) >= 0;
+                return b;
+            }));
+        }
+
+        [Test]
+        public void CreateGenerator_Config_UserNames_StartsWith_jo() {
+            var generator = Sharpy.CreateGenerator(randomizer => randomizer.UserName());
+            generator.Config.UserName(filter => filter.StartsWith("jo"));
+            Assert.IsTrue(generator.Generate(30).All(s => {
+                var b = s.IndexOf("jo", StringComparison.CurrentCultureIgnoreCase) >= 0;
                 return b;
             }));
         }
@@ -294,11 +365,31 @@ namespace Tests {
         }
 
         [Test]
+        public void CreateGenerator_Config_UserNames_StartsWith_MultipleArgs_jo_pol() {
+            var generator = Sharpy.CreateGenerator(randomizer => randomizer.UserName());
+            generator.Config.UserName(filter => filter.StartsWith("jo", "pol"));
+            Assert.IsTrue(generator.Generate(30).All(s => {
+                //^ means XOR
+                var b = s.IndexOf("jo", StringComparison.CurrentCultureIgnoreCase) == 0 ^
+                        s.IndexOf("pol", StringComparison.CurrentCultureIgnoreCase) == 0;
+                return b;
+            }));
+        }
+
+        [Test]
         public void CreateGenerator_Config_Names_StartsWith_j() {
             var generator = Sharpy.CreateGenerator(randomizer => randomizer.Name());
             generator.Config.Name(filter => filter.StartsWith("j"));
             Assert.IsTrue(generator.Generate(30)
                 .All(s => s.IndexOf("j", StringComparison.CurrentCultureIgnoreCase) == 0));
+        }
+
+        [Test]
+        public void CreateGenerator_Config_Names_StartsWith_jo() {
+            var generator = Sharpy.CreateGenerator(randomizer => randomizer.Name());
+            generator.Config.Name(filter => filter.StartsWith("jo"));
+            Assert.IsTrue(generator.Generate(30)
+                .All(s => s.IndexOf("jo", StringComparison.CurrentCultureIgnoreCase) == 0));
         }
 
         [Test]
@@ -314,6 +405,18 @@ namespace Tests {
         }
 
         [Test]
+        public void CreateGenerator_Config_Names_StartsWith_MultipleArgs_jo_pol() {
+            var generator = Sharpy.CreateGenerator(randomizer => randomizer.Name());
+            generator.Config.Name(filter => filter.StartsWith("jo", "pol"));
+            Assert.IsTrue(generator.Generate(30).All(s => {
+                //^ means XOR
+                var b = s.IndexOf("jo", StringComparison.CurrentCultureIgnoreCase) == 0 ^
+                        s.IndexOf("pol", StringComparison.CurrentCultureIgnoreCase) == 0;
+                return b;
+            }));
+        }
+
+        [Test]
         public void CreateGenerator_Config_UserNames_DoesNotStartsWith_J() {
             var generator = Sharpy.CreateGenerator(randomizer => randomizer.UserName());
             generator.Config.UserName(filter => filter.DoesNotStartWith("j"));
@@ -322,11 +425,27 @@ namespace Tests {
         }
 
         [Test]
+        public void CreateGenerator_Config_UserNames_DoesNotStartsWith_jo() {
+            var generator = Sharpy.CreateGenerator(randomizer => randomizer.UserName());
+            generator.Config.UserName(filter => filter.DoesNotStartWith("jo"));
+            Assert.IsTrue(generator.Generate(30)
+                .All(s => s.IndexOf("jo", StringComparison.CurrentCultureIgnoreCase) != 0));
+        }
+
+        [Test]
         public void CreateGenerator_Config_Names_DoesNotStartsWith_J() {
             var generator = Sharpy.CreateGenerator(randomizer => randomizer.Name());
             generator.Config.Name(filter => filter.DoesNotStartWith("j"));
             Assert.IsTrue(generator.Generate(30)
                 .All(s => s.IndexOf("j", StringComparison.CurrentCultureIgnoreCase) != 0));
+        }
+
+        [Test]
+        public void CreateGenerator_Config_Names_DoesNotStartsWith_jo() {
+            var generator = Sharpy.CreateGenerator(randomizer => randomizer.Name());
+            generator.Config.Name(filter => filter.DoesNotStartWith("jo"));
+            Assert.IsTrue(generator.Generate(30)
+                .All(s => s.IndexOf("jo", StringComparison.CurrentCultureIgnoreCase) != 0));
         }
 
         #endregion
