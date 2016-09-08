@@ -20,8 +20,8 @@ namespace DataGen {
         ///     This can be used if you have your own collection of items that you would want an random item from.
         /// </summary>
         /// <returns></returns>
-        public T RandomItem<T>(params T[] items) => items[Number(items.Length)];
-        public T RandomItem<T>(List<T> items) => items[Number(items.Count)];
+        public T CustomCollection<T>(params T[] items) => items[Number(items.Length)];
+        public T CustomCollection<T>(List<T> items) => items[Number(items.Count)];
 
         /// <summary>
         ///     Gives a random name, it could be a female first name, male first name and a lastname.

@@ -62,14 +62,14 @@ namespace Tests {
         [Test]
         public void CreateGenerator_WithSuppliedList() {
             var list = new List<int>{1,2,3,4,5,5,6,7};
-            var generator = Sharpy.CreateGenerator(randomizer => randomizer.RandomItem(list));
+            var generator = Sharpy.CreateGenerator(randomizer => randomizer.CustomCollection(list));
             Assert.IsTrue(generator.Generate(10).All(list.Contains));
         }
 
         [Test]
         public void CreateGenerator_WithSuppliedArray() {
             var items = new[] { 1, 2, 3, 4, 5, 6, 7 };
-            var generator = Sharpy.CreateGenerator(randomizer => randomizer.RandomItem(items));
+            var generator = Sharpy.CreateGenerator(randomizer => randomizer.CustomCollection(items));
             Assert.IsTrue(generator.Generate(10).All(items.Contains));
         }
         [Test]
