@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Sharpy</id>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
     <title>Sharpy</title>
     <authors>Robert Andersson</authors>
     <owners>Robert Andersson</owners>
@@ -10,15 +10,17 @@
     <licenseUrl>https://github.com/inputfalken/Sharpy/blob/master/License.txt</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>This class library is useful if you want to have som fake data to play with</description>
-    <releaseNotes>First Release</releaseNotes>
+    <releaseNotes>Files are now lazy loaded and you can supply your own collection and get a random item.</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Fakedata Generator</tags>
     <dependencies>
       <dependency id="Newtonsoft.Json" version="9.0.1" />
       <dependency id="NodaTime" version="1.3.2" />
     </dependencies>
-    <contentFiles>
-      <files include="*" />
-    </contentFiles>
   </metadata>
+  <files>
+        <file src="bin\Release\DataGen.dll" target="lib\net40" />
+        <file src="bin\Release\DataGen.dll" target="lib\net45" />
+        <file src="bin\Release\DataGen.dll" target="lib\net46" />
+  </files>
 </package>
