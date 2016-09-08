@@ -81,7 +81,7 @@
     "type": 2,
     "country": "CostaRica",
     "region": "CentralAmerica",
-    "name": "greivin"
+    "name": "Greivin"
   },
   {
     "type": 2,
@@ -99,7 +99,7 @@
     "type": 2,
     "country": "CostaRica",
     "region": "CentralAmerica",
-    "name": "alonso"
+    "name": "Alonso"
   },
   {
     "type": 2,
@@ -117,7 +117,7 @@
     "type": 2,
     "country": "CostaRica",
     "region": "CentralAmerica",
-    "name": "fabrici"
+    "name": "Fabrici"
   },
   {
     "type": 3,
@@ -987,7 +987,13 @@
     "type": 1,
     "country": "Mexico",
     "region": "NorthAmerica",
-    "name": "María Fernanda"
+    "name": "Fernanda"
+  },
+  {
+    "type": 1,
+    "country": "Mexico",
+    "region": "NorthAmerica",
+    "name": "María"
   },
   {
     "type": 1,
@@ -1071,7 +1077,13 @@
     "type": 2,
     "country": "Mexico",
     "region": "NorthAmerica",
-    "name": "Miguel Ángel"
+    "name": "Miguel"
+  },
+  {
+    "type": 2,
+    "country": "Mexico",
+    "region": "NorthAmerica",
+    "name": "Ángel"
   },
   {
     "type": 2,
@@ -1197,7 +1209,13 @@
     "type": 1,
     "country": "Cuba",
     "region": "NorthAmerica",
-    "name": "Yany Díaz"
+    "name": "Díaz"
+  },
+  {
+    "type": 1,
+    "country": "Cuba",
+    "region": "NorthAmerica",
+    "name": "Yany"
   },
   {
     "type": 1,
@@ -1263,13 +1281,31 @@
     "type": 2,
     "country": "Cuba",
     "region": "NorthAmerica",
-    "name": "AlbertoLeon Pacheco"
+    "name": "Alberto"
   },
   {
     "type": 2,
     "country": "Cuba",
     "region": "NorthAmerica",
-    "name": "Wilber Rodríguez"
+    "name": "Leon"
+  },
+  {
+    "type": 2,
+    "country": "Cuba",
+    "region": "NorthAmerica",
+    "name": "Pacheco"
+  },
+  {
+    "type": 2,
+    "country": "Cuba",
+    "region": "NorthAmerica",
+    "name": "Rodríguez"
+  },
+  {
+    "type": 2,
+    "country": "Cuba",
+    "region": "NorthAmerica",
+    "name": "Wilber"
   },
   {
     "type": 3,

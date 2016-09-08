@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using DataGen.Types.Enums;
 using DataGen.Types.String;
@@ -11,7 +12,7 @@ namespace DataGen.Types.Name {
 
         public NameFilter DoesNotStartWith(string arg) => new NameFilter(this.Where(s => IndexOf(s.Data, arg) != 0));
 
-        public NameFilter DoesNotContain(string arg) => new NameFilter(this.Where(s => !s.Data.Contains(arg)));
+        public NameFilter DoesNotContain(string arg) => new NameFilter(this.Where(s => IndexOf(s.Data, arg) < 0));
 
         public NameFilter StartsWith(params string[] args)
             => args.Length == 1
@@ -19,10 +20,11 @@ namespace DataGen.Types.Name {
                 : new NameFilter(this.Where(s => args.Any(arg => IndexOf(s.Data, arg) == 0)));
 
 
-        public NameFilter Contains(params string[] args)
-            => args.Length == 1
-                ? new NameFilter(this.Where(s => s.Data.Contains(args[0])))
+        public NameFilter Contains(params string[] args) {
+            return args.Length == 1
+                ? new NameFilter(this.Where(s => s.Data.IndexOf(args[0], StringComparison.OrdinalIgnoreCase) >= 0))
                 : new NameFilter(this.Where(s => args.Any(s.Data.Contains)));
+        }
 
         public NameFilter ByLength(int length) {
             if (length < 1) throw new ArgumentOutOfRangeException($"{nameof(length)} is below 1");
@@ -30,12 +32,10 @@ namespace DataGen.Types.Name {
         }
 
 
-        //Todo change from params string to country params
         internal NameFilter ByCountry(params Country[] args)
             => new NameFilter(this.Where(name => args.Contains(name.Country)));
 
 
-        //Todo change from params string to country params
         internal NameFilter ByRegion(params Region[] args)
             => new NameFilter(this.Where(name => args.Contains(name.Region)));
 
