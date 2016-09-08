@@ -461,6 +461,12 @@ namespace Tests {
             Assert.IsTrue(generator.Generate(2).All(s => s.Contains("+1") && s.Length == 7));
         }
 
+
+        [Test]
+        public void CreateGenerator_Config_PhoneNumber_Set_Prenumber() {
+            var generator = Sharpy.CreateGenerator(randomizer => randomizer.PhoneNumber("10"));
+            Assert.IsTrue(generator.Generate(2).All(s => s.Contains("+1") && s.Length == 8));
+        }
         #endregion
 
         private class TestClass {
