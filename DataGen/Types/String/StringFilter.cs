@@ -8,7 +8,8 @@ namespace DataGen.Types.String {
         }
 
         public StringFilter DoesNotStartWith(string arg) => new StringFilter(this.Where(s => IndexOf(s, arg) != 0));
-        public StringFilter DoesNotContain(string arg) => new StringFilter(this.Where(s => !s.Contains(arg)));
+
+        public StringFilter DoesNotContain(string arg) => new StringFilter(this.Where(s => IndexOf(s, arg) < 0));
 
         public StringFilter StartsWith(params string[] args)
             => args.Length == 1
