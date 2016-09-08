@@ -449,6 +449,34 @@ namespace Tests {
                 .All(s => s.IndexOf("jo", StringComparison.CurrentCultureIgnoreCase) != 0));
         }
 
+        [Test]
+        public void CreateGenerator_PhoneNumber_Config_Args_Default() {
+            var generator = Sharpy.CreateGenerator(randomizer => randomizer.PhoneNumber());
+            generator.Config.CountryCode(Country.Sweden);
+            Assert.IsTrue(generator.Generate(2).All(s => s.Contains("+46") && s.Length == 7));
+        }
+
+        [Test]
+        public void CreateGenerator_PhoneNumber_Config_Args_Length() {
+            var generator = Sharpy.CreateGenerator(randomizer => randomizer.PhoneNumber(length: 5));
+            generator.Config.CountryCode(Country.Norway);
+            Assert.IsTrue(generator.Generate(2).All(s => s.Contains("+47") && s.Length == 8));
+        }
+
+        [Test]
+        public void CreateGenerator_PhoneNumber_Config_Args_PreNumber() {
+            var generator = Sharpy.CreateGenerator(randomizer => randomizer.PhoneNumber("11"));
+            generator.Config.CountryCode(Country.Norway);
+            Assert.IsTrue(generator.Generate(2).All(s => s.Contains("+4711") && s.Length == 9));
+        }
+
+        [Test]
+        public void CreateGenerator_PhoneNumber_Config_Args_PreNumber_length() {
+            var generator = Sharpy.CreateGenerator(randomizer => randomizer.PhoneNumber("11", 5));
+            generator.Config.CountryCode(Country.Norway);
+            Assert.IsTrue(generator.Generate(2).All(s => s.Contains("+4711") && s.Length == 10));
+        }
+
         #endregion
 
         [Test]
