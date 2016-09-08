@@ -18,6 +18,14 @@ namespace DataGen {
                 () => new CountryCodeFilter(JsonConvert.DeserializeObject<IEnumerable<PhoneNumberGenerator>>(
                     Encoding.Default.GetString(Properties.Resources.CountryCodes))));
 
+        private static Lazy<StringFilter> LazyUsernames { get; } =
+            new Lazy<StringFilter>(() => new StringFilter(Properties.Resources.usernames.Split(Convert.ToChar("\n"))));
+
+
+        private static Lazy<NameFilter> LazyNameFilter { get; } =
+            new Lazy<NameFilter>(() => new NameFilter(JsonConvert.DeserializeObject<IEnumerable<Name>>(
+                Encoding.UTF8.GetString(Properties.Resources.NamesByOrigin))));
+
         private CountryCodeFilter GetCountryCodes()
             => CountryCodes ?? LazyCountryCodes.Value;
 
@@ -30,17 +38,10 @@ namespace DataGen {
         internal MailGenerator MailGenerator { get; private set; } =
             new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" }, false);
 
-
-        private Lazy<StringFilter> LazyUsernames { get; } =
-            new Lazy<StringFilter>(() => new StringFilter(Properties.Resources.usernames.Split(Convert.ToChar("\n"))));
-
         private StringFilter UserNames { get; set; }
 
         internal StringFilter GetUserNames() => UserNames ?? LazyUsernames.Value;
 
-        private Lazy<NameFilter> LazyNameFilter { get; } =
-            new Lazy<NameFilter>(() => new NameFilter(JsonConvert.DeserializeObject<IEnumerable<Name>>(
-                Encoding.UTF8.GetString(Properties.Resources.NamesByOrigin))));
 
         private NameFilter NameFilter { get; set; }
 
