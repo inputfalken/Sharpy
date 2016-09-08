@@ -38,9 +38,12 @@ namespace DataGen {
         internal MailGenerator MailGenerator { get; private set; } =
             new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" }, false);
 
-        private StringFilter UserNames { get; set; }
+        private StringFilter _userNamesField;
 
-        internal StringFilter GetUserNames() => UserNames ?? LazyUsernames.Value;
+        internal StringFilter UserNames {
+            get { return _userNamesField ?? LazyUsernames.Value; }
+            private set { _userNamesField = value; }
+        }
 
 
         private NameFilter NameFilter { get; set; }
@@ -94,7 +97,7 @@ namespace DataGen {
         /// <param name="func"></param>
         /// <returns></returns>
         public Config UserName(Func<StringFilter, StringFilter> func) {
-            UserNames = func(GetUserNames());
+            UserNames = func(UserNames);
             return this;
         }
 
