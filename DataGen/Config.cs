@@ -26,11 +26,6 @@ namespace DataGen {
             new Lazy<NameFilter>(() => new NameFilter(JsonConvert.DeserializeObject<IEnumerable<Name>>(
                 Encoding.UTF8.GetString(Properties.Resources.NamesByOrigin))));
 
-        private CountryCodeFilter GetCountryCodes()
-            => CountryCodes ?? LazyCountryCodes.Value;
-
-        private CountryCodeFilter CountryCodes { get; set; }
-
         internal PhoneNumberGenerator PhoneNumberGenerator { get; private set; } =
             new PhoneNumberGenerator("UnitedStates", "+1");
 
@@ -39,6 +34,7 @@ namespace DataGen {
             new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" }, false);
 
         private StringFilter _userNamesField;
+
         internal StringFilter UserNames {
             get { return _userNamesField ?? LazyUsernames.Value; }
             private set { _userNamesField = value; }
@@ -46,6 +42,7 @@ namespace DataGen {
 
 
         private NameFilter _nameFilter;
+
         internal NameFilter NameFilter {
             get { return _nameFilter ?? LazyNameFilter.Value; }
             private set { _nameFilter = value; }
@@ -87,7 +84,7 @@ namespace DataGen {
         /// <param name="uniqueNumbers"></param>
         /// <returns></returns>
         public Config CountryCode(Country country, bool uniqueNumbers = false) {
-            PhoneNumberGenerator = GetCountryCodes().First(generator => generator.Name.Equals(country));
+            PhoneNumberGenerator = LazyCountryCodes.Value.First(generator => generator.Name.Equals(country));
             PhoneNumberGenerator.Unique = uniqueNumbers;
             return this;
         }
