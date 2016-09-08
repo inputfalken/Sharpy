@@ -21,6 +21,7 @@ namespace DataGen {
         /// </summary>
         /// <returns></returns>
         public T RandomItem<T>(params T[] items) => items[Number(items.Length)];
+        public T RandomItem<T>(List<T> items) => items[Number(items.Count)];
 
         /// <summary>
         ///     Gives a random name, it could be a female first name, male first name and a lastname.
