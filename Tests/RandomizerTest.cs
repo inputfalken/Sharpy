@@ -29,7 +29,7 @@ namespace Tests {
         [Test]
         public void CreateGenerator_Name() {
             var generator = Sharpy.CreateGenerator(randomizer => new TestClass { StringProp = randomizer.Name() }
-                );
+            );
 
             //This test will check if the name given is from the common names collection
             Assert.IsTrue(CommonNames.Select(name => name.Data).Contains(generator.Generate().StringProp));
@@ -64,7 +64,7 @@ namespace Tests {
             var generator =
                 Sharpy.CreateGenerator(
                     randomizer => new TestClass { StringProp = randomizer.Name(NameType.MaleFirstName) }
-                    );
+                );
             var firstName = generator.Generate();
             //This test will check if the name given is from the common names collection
             Assert.IsTrue(
@@ -78,7 +78,7 @@ namespace Tests {
         [Test]
         public void CreateGenerator_UserName() {
             var generator = Sharpy.CreateGenerator(randomizer => new TestClass { StringProp = randomizer.UserName() }
-                );
+            );
             //This test will check that the random user name is contained in the list
             var list = Usernames.ToList();
             Assert.IsTrue(list.Contains(generator.Generate().StringProp));
@@ -87,7 +87,7 @@ namespace Tests {
         [Test]
         public void CreateGenerator_Number_OneArg() {
             var generator = Sharpy.CreateGenerator(randomizer => new TestClass { IntProp = randomizer.Number(10) }
-                );
+            );
 
             Assert.IsTrue(generator.Generate().IntProp < 10);
         }
@@ -96,7 +96,7 @@ namespace Tests {
         public void CreateGenerator_Number_TwoArg() {
             var generator =
                 Sharpy.CreateGenerator(randomizer => new TestClass { IntProp = randomizer.Number(10, 20) }
-                    );
+                );
 
             var @class = generator.Generate();
             Assert.IsTrue(@class.IntProp <= 19 && @class.IntProp >= 10);
@@ -105,7 +105,7 @@ namespace Tests {
         [Test]
         public void CreateGenerator_Bool() {
             var generator = Sharpy.CreateGenerator(randomizer => new TestClass { BoolProp = randomizer.Bool() }
-                );
+            );
 
             //This test will ask if the collection contains atleast one of false & true
             var testClasses = generator.Generate(10).ToList();
@@ -117,7 +117,7 @@ namespace Tests {
         public void CreateGenerator_LocalDateAge() {
             var generator =
                 Sharpy.CreateGenerator(randomizer => new TestClass { LocalDateProp = randomizer.DateByAge(10) }
-                    );
+                );
             Assert.IsTrue(generator.Generate().LocalDateProp.Year ==
                           DateGenerator.CurrentLocalDate.Minus(Period.FromYears(10)).Year);
         }
@@ -135,7 +135,7 @@ namespace Tests {
         public void CreateGenerator_MailAddress_OneArg() {
             var generator =
                 Sharpy.CreateGenerator(randomizer => new TestClass { StringProp = randomizer.MailAdress("joby") }
-                    );
+                );
             generator.Config.Mail(new[] { "gmail.com" });
             var mailAddress = generator.Generate().StringProp;
 
@@ -250,6 +250,7 @@ namespace Tests {
                 return b;
             }));
         }
+
         [Test]
         public void CreateGenerator_Config_Names_Contains_S() {
             var generator = Sharpy.CreateGenerator(randomizer => randomizer.Name());
@@ -450,9 +451,16 @@ namespace Tests {
 
         [Test]
         public void CreateGenerator_Config_PhoneNumber_Default() {
-           var generator = Sharpy.CreateGenerator(randomizer => randomizer.PhoneNumber());
+            var generator = Sharpy.CreateGenerator(randomizer => randomizer.PhoneNumber());
             Assert.IsTrue(generator.Generate(2).All(s => s.Contains("+1") && s.Length == 6));
         }
+
+        [Test]
+        public void CreateGenerator_Config_PhoneNumber_Set_Length() {
+            var generator = Sharpy.CreateGenerator(randomizer => randomizer.PhoneNumber(length: 5));
+            Assert.IsTrue(generator.Generate(2).All(s => s.Contains("+1") && s.Length == 7));
+        }
+
         #endregion
 
         private class TestClass {
