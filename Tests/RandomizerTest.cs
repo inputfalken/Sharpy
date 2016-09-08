@@ -450,26 +450,26 @@ namespace Tests {
         }
 
         [Test]
-        public void CreateGenerator_Config_PhoneNumber_Default() {
+        public void CreateGenerator_PhoneNumber_Default() {
             var generator = Sharpy.CreateGenerator(randomizer => randomizer.PhoneNumber());
             Assert.IsTrue(generator.Generate(2).All(s => s.Contains("+1") && s.Length == 6));
         }
 
         [Test]
-        public void CreateGenerator_Config_PhoneNumber_Set_Length() {
+        public void CreateGenerator_PhoneNumber_Args_Length() {
             var generator = Sharpy.CreateGenerator(randomizer => randomizer.PhoneNumber(length: 5));
             Assert.IsTrue(generator.Generate(2).All(s => s.Contains("+1") && s.Length == 7));
         }
 
 
         [Test]
-        public void CreateGenerator_Config_PhoneNumber_Set_Prenumber() {
+        public void CreateGenerator_PhoneNumber_Args_Prenumber() {
             var generator = Sharpy.CreateGenerator(randomizer => randomizer.PhoneNumber("10"));
             Assert.IsTrue(generator.Generate(2).All(s => s.Contains("+1") && s.Length == 8));
         }
 
         [Test]
-        public void CreateGenerator_Config_PhoneNumber_Set_Prenumber_Length() {
+        public void CreateGenerator_PhoneNumber_Args_Prenumber_Length() {
             var generator = Sharpy.CreateGenerator(randomizer => randomizer.PhoneNumber("10",5));
             Assert.IsTrue(generator.Generate(2).All(s => s.Contains("+1") && s.Length == 9));
         }
