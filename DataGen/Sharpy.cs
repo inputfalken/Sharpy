@@ -14,8 +14,10 @@ namespace DataGen {
         ///     if you don't have a constructor you can new up an instance and assign it's props/fields
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
-        public static Generator<T> CreateGenerator<T>(Func<Randomizer, T> func)
-            => new Generator<T>(() => func(DefaultRandomizer), DefaultRandomizer.Config);
+        public static Generator<T> CreateGenerator<T>(Func<Randomizer, T> func) {
+            var randomizer = new Randomizer(new Config());
+            return new Generator<T>(() => func(randomizer), randomizer.Config);
+        }
 
         /// <summary>
         ///     Returns a Generator which you can use to create one instance or a collection of type given
