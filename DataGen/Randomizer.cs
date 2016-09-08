@@ -22,7 +22,6 @@ namespace DataGen {
         /// <returns></returns>
         public T RandomItem<T>(params T[] items) => items[Number(items.Length)];
 
-        //Todo Optimize, calls filter way to much
         /// <summary>
         ///     Gives a random name, it could be a female first name, male first name and a lastname.
         /// </summary>
