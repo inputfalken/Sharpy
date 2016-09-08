@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using DataGen.Types.Enums;
 using DataGen.Types.String;
@@ -19,10 +20,12 @@ namespace DataGen.Types.Name {
                 : new NameFilter(this.Where(s => args.Any(arg => IndexOf(s.Data, arg) == 0)));
 
 
-        public NameFilter Contains(params string[] args)
-            => args.Length == 1
-                ? new NameFilter(this.Where(s => s.Data.Contains(args[0])))
+        public NameFilter Contains(params string[] args) {
+
+            return args.Length == 1
+                ? new NameFilter(this.Where(s => s.Data.IndexOf(args[0], StringComparison.OrdinalIgnoreCase) >= 0))
                 : new NameFilter(this.Where(s => args.Any(s.Data.Contains)));
+        }
 
         public NameFilter ByLength(int length) {
             if (length < 1) throw new ArgumentOutOfRangeException($"{nameof(length)} is below 1");
