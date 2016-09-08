@@ -19,7 +19,6 @@
     </dependencies>
   </metadata>
   <files>
-        <file src="bin\Release\DataGen.dll" target="lib\net40" />
         <file src="bin\Release\DataGen.dll" target="lib\net45" />
         <file src="bin\Release\DataGen.dll" target="lib\net46" />
   </files>
