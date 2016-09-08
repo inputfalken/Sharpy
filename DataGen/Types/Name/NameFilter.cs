@@ -12,7 +12,7 @@ namespace DataGen.Types.Name {
 
         public NameFilter DoesNotStartWith(string arg) => new NameFilter(this.Where(s => IndexOf(s.Data, arg) != 0));
 
-        public NameFilter DoesNotContain(string arg) => new NameFilter(this.Where(s => !s.Data.Contains(arg)));
+        public NameFilter DoesNotContain(string arg) => new NameFilter(this.Where(s => IndexOf(s.Data, arg) < 0));
 
         public NameFilter StartsWith(params string[] args)
             => args.Length == 1
@@ -21,7 +21,6 @@ namespace DataGen.Types.Name {
 
 
         public NameFilter Contains(params string[] args) {
-
             return args.Length == 1
                 ? new NameFilter(this.Where(s => s.Data.IndexOf(args[0], StringComparison.OrdinalIgnoreCase) >= 0))
                 : new NameFilter(this.Where(s => args.Any(s.Data.Contains)));
