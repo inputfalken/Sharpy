@@ -18,7 +18,7 @@ using NUnit.Framework;
 
 namespace Tests {
     [TestFixture]
-    public class FetcherTests {
+    public class RandomizerTest {
         [Test]
         public void CreateGenerator_CorrectType() {
             var generator = Sharpy.CreateGenerator(randomizer => new TestClass());
