@@ -62,7 +62,7 @@ These examples show how you can create instances of the type given to the Create
 ### Install
 Use the Nuget Package Manager Console and type Install-Package Sharpy
 
-[Link](https://www.nuget.org/packages/Sharpy/0.1.0) to package on Nuget.
+[Link](https://www.nuget.org/packages/Sharpy/) to package on Nuget.
 ### Dependencies:
 
  * [NodaTime](https://github.com/nodatime/nodatime) for dates
