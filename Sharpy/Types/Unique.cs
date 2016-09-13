@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataGen.Types {
+namespace Sharpy.Types {
     public abstract class Unique<T> {
         // ReSharper disable once StaticMemberInGenericType
         protected static readonly StringBuilder Builder = new StringBuilder();

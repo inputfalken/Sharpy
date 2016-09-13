@@ -1,8 +1,8 @@
 ﻿using System;
-using DataGen.Types.Enums;
-using static System.Linq.Enumerable;
+using System.Linq;
+using Sharpy.Types.Enums;
 
-namespace DataGen.Types.CountryCode {
+namespace Sharpy.Types.CountryCode {
     // ReSharper disable once ClassNeverInstantiated.Global
     // Is generated from json
     public class PhoneNumberGenerator : Unique<string> {
@@ -39,7 +39,7 @@ namespace DataGen.Types.CountryCode {
         }
 
         private string BuildString(int length, string preNumber) {
-            foreach (var i in Range(0, length)) {
+            foreach (var i in Enumerable.Range(0, length)) {
                 if (i == 0) Builder.Append(Code).Append(preNumber);
                 Builder.Append(Random.Next(10));
             }

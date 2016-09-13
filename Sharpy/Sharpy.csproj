@@ -7,8 +7,8 @@
     <ProjectGuid>{D5108AF1-809B-46DE-8ABB-96D5DE78DA6F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DataGen</RootNamespace>
-    <AssemblyName>DataGen</AssemblyName>
+    <RootNamespace>Sharpy</RootNamespace>
+    <AssemblyName>Sharpy</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -60,7 +60,7 @@
     </Compile>
     <Compile Include="Randomizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sharpy.cs" />
+    <Compile Include="Factory.cs" />
     <Compile Include="Types\CountryCode\PhoneNumberGenerator.cs" />
     <Compile Include="Types\CountryCode\CountryCodeFilter.cs" />
     <Compile Include="Types\Date\DateGenerator.cs" />

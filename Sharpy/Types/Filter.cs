@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DataGen.Types {
+namespace Sharpy.Types {
     ///<summary>
     ///     This class is responsible for Filtering and selecting random items
     ///     All filters used in this project are derived from this class.

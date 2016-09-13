@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
-using DataGen.Types.String;
 using NUnit.Framework;
+using Sharpy.Types.String;
 
 namespace Tests {
     [TestFixture]

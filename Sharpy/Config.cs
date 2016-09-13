@@ -2,15 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DataGen.Types.CountryCode;
-using DataGen.Types.Date;
-using DataGen.Types.Enums;
-using DataGen.Types.Mail;
-using DataGen.Types.Name;
-using DataGen.Types.String;
 using Newtonsoft.Json;
+using Sharpy.Types.CountryCode;
+using Sharpy.Types.Date;
+using Sharpy.Types.Enums;
+using Sharpy.Types.Mail;
+using Sharpy.Types.Name;
+using Sharpy.Types.String;
 
-namespace DataGen {
+namespace Sharpy {
     public class Config {
         internal Random Random { get; private set; } = new Random();
         internal DateGenerator DateGenerator { get; }

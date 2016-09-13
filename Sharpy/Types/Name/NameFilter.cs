@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using DataGen.Types.Enums;
-using DataGen.Types.String;
+using Sharpy.Types.Enums;
+using Sharpy.Types.String;
 
-namespace DataGen.Types.Name {
+namespace Sharpy.Types.Name {
     public sealed class NameFilter : Filter<Name>, IStringFilter<NameFilter> {
         public NameFilter(IEnumerable<Name> enumerable) : base(enumerable) {
         }

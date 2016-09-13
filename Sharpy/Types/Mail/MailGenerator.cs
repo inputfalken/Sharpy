@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DataGen.Types.Mail {
+namespace Sharpy.Types.Mail {
     public class MailGenerator : Unique<string> {
         /// <summary>
         ///     Used for separating strings with symbols
