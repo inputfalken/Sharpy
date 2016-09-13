@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using static DataGen.Types.HelperClass;
 
 namespace DataGen.Types.Mail {
     public class MailGenerator : Unique<string> {
@@ -26,8 +25,9 @@ namespace DataGen.Types.Mail {
         ///     Will use the strings as mail providers
         /// </summary>
         /// <param name="providers"></param>
+        /// <param name="random"></param>
         /// <param name="unique"></param>
-        public MailGenerator(IEnumerable<string> providers, bool unique) : base(2) {
+        public MailGenerator(IEnumerable<string> providers, Random random, bool unique) : base(2, random) {
             Unique = unique;
             providers.ForEach(_emailDomains.Add);
             _emailDomainsEnumerator = _emailDomains.GetEnumerator();
@@ -61,9 +61,9 @@ namespace DataGen.Types.Mail {
             foreach (var name in strings) {
                 Builder.Append(name);
                 if (name == strings[strings.Length - 1])
-                    Builder.Append("@").Append(_emailDomains[Randomizer(_emailDomains.Count)]);
+                    Builder.Append("@").Append(_emailDomains[Random.Next(_emailDomains.Count)]);
                 else
-                    Builder.Append(Separators[Randomizer(Separators.Count)].ToString());
+                    Builder.Append(Separators[Random.Next(Separators.Count)].ToString());
             }
             var address = Builder.ToString().ToLower();
             Builder.Clear();
@@ -97,7 +97,7 @@ namespace DataGen.Types.Mail {
                         resets += 1;
                     }
                 // Start adding numbers.
-                secondName = secondName + Randomizer(9);
+                secondName = secondName + Random.Next(9);
             }
         }
 
@@ -123,7 +123,7 @@ namespace DataGen.Types.Mail {
                         return address;
                 }
                 // Start adding numbers
-                name = name + Randomizer(9);
+                name = name + Random.Next(9);
             }
         }
     }
