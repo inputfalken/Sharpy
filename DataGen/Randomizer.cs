@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DataGen.Types.Enums;
 using DataGen.Types.Name;
@@ -8,10 +9,12 @@ using static DataGen.Types.HelperClass;
 namespace DataGen {
     public class Randomizer {
         internal readonly Config Config;
+        private Random  Random { get; }
 
         public Randomizer(Config config) {
             Config = config;
             Dictionary = new Dictionary<NameType, NameFilter>();
+            Random = new Random();
         }
 
         private Dictionary<NameType, NameFilter> Dictionary { get; }
