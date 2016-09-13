@@ -3,16 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DataGen.Types.CountryCode;
+using DataGen.Types.Date;
 using DataGen.Types.Enums;
 using DataGen.Types.Mail;
 using DataGen.Types.Name;
 using DataGen.Types.String;
 using Newtonsoft.Json;
-using static DataGen.Types.HelperClass;
 
 namespace DataGen {
-    //TODO make each Config contain an instance of Random which gets passed arround everywhere
     public class Config {
+        internal Random Random { get; private set; } = new Random();
+        internal DateGenerator DateGenerator { get; }
+
+        public Config() {
+            DateGenerator = new DateGenerator(Random);
+            MailGenerator = new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" }, Random, false);
+            PhoneNumberGenerator = new PhoneNumberGenerator("UnitedStates", "+1", Random);
+        }
+
         private static Lazy<CountryCodeFilter> LazyCountryCodes { get; } =
             new Lazy<CountryCodeFilter>(
                 () => new CountryCodeFilter(JsonConvert.DeserializeObject<IEnumerable<PhoneNumberGenerator>>(
@@ -26,12 +34,10 @@ namespace DataGen {
             new Lazy<NameFilter>(() => new NameFilter(JsonConvert.DeserializeObject<IEnumerable<Name>>(
                 Encoding.UTF8.GetString(Properties.Resources.NamesByOrigin))));
 
-        internal PhoneNumberGenerator PhoneNumberGenerator { get; private set; } =
-            new PhoneNumberGenerator("UnitedStates", "+1");
+        internal PhoneNumberGenerator PhoneNumberGenerator { get; private set; }
 
 
-        internal MailGenerator MailGenerator { get; private set; } =
-            new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" }, false);
+        internal MailGenerator MailGenerator { get; private set; }
 
         private StringFilter _userNamesField;
 
@@ -73,7 +79,7 @@ namespace DataGen {
         /// <param name="uniqueAddresses">For Unique Addresses</param>
         /// <returns></returns>
         public Config Mail(IEnumerable<string> providers, bool uniqueAddresses = false) {
-            MailGenerator = new MailGenerator(providers, uniqueAddresses);
+            MailGenerator = new MailGenerator(providers, Random, uniqueAddresses);
             return this;
         }
 
@@ -84,8 +90,10 @@ namespace DataGen {
         /// <param name="uniqueNumbers"></param>
         /// <returns></returns>
         public Config CountryCode(Country country, bool uniqueNumbers = false) {
-            PhoneNumberGenerator = LazyCountryCodes.Value.First(generator => generator.Name.Equals(country));
-            PhoneNumberGenerator.Unique = uniqueNumbers;
+            var phoneNumberGenerator = LazyCountryCodes.Value.Single(generator => generator.Name.Equals(country));
+            PhoneNumberGenerator = new PhoneNumberGenerator(phoneNumberGenerator.Name.ToString(),
+                phoneNumberGenerator.Code, Random)
+            { Unique = uniqueNumbers };
             return this;
         }
 
@@ -101,12 +109,12 @@ namespace DataGen {
         }
 
         /// <summary>
-        ///     NOTE: If you use this method it will set a seed for everything including future generators.
+        ///     Will set a seed for the generator to use
         /// </summary>
         /// <param name="seed"></param>
         /// <returns></returns>
         public Config Seed(int seed) {
-            SetRandomizer(new Random(seed));
+            Random = new Random(seed);
             return this;
         }
     }

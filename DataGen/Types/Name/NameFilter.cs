@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using DataGen.Types.Enums;
 using DataGen.Types.String;
