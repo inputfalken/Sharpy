@@ -109,7 +109,7 @@ namespace DataGen {
         }
 
         /// <summary>
-        ///     NOTE: If you use this method it will set a seed for everything including future generators.
+        ///     Will set a seed for the generator to use
         /// </summary>
         /// <param name="seed"></param>
         /// <returns></returns>
