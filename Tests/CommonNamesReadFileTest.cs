@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
-using DataGen;
+using DataGen.Properties;
 using DataGen.Types.Enums;
 using DataGen.Types.Name;
 using Newtonsoft.Json;
@@ -11,20 +9,19 @@ using NUnit.Framework;
 using static DataGen.Types.Enums.Country;
 
 namespace Tests {
-    ///<summary>
-    /// These tests purpose is to make sure that you obtain the correct data from a json file.
+    /// <summary>
+    ///     These tests purpose is to make sure that you obtain the correct data from a json file.
     /// </summary>
     [TestFixture]
     internal class CommonNamesReadFileTest {
-        #region Common Items
-
-        private static NameFilter CommonNames => new NameFilter(new NameFilter(JsonConvert.DeserializeObject<IEnumerable<Name>>(
-                Encoding.UTF8.GetString(DataGen.Properties.Resources.NamesByOrigin))));
+        private static NameFilter CommonNames
+            => new NameFilter(new NameFilter(JsonConvert.DeserializeObject<IEnumerable<Name>>(
+                Encoding.UTF8.GetString(Resources.NamesByOrigin))));
 
         private static readonly Country[] EuropeCountries = {
             Albania, Austria, Azerbaijan, Belgium, Croatia, Czech, Denmark,
             Estonia, FaroeIslands, Finland, France, Germany, Greece, Hungary,
-            Ireland, Italy, Latvia, Luxembourg, Macedonia, Malta,  Moldova,
+            Ireland, Italy, Latvia, Luxembourg, Macedonia, Malta, Moldova,
             Netherlands, Norway, Poland, Portugal, Romania, Russia, Slovakia,
             Slovenia, Spain, Sweden, Switzerland, Turkey, Ukraine, UnitedKingdom
         };
@@ -32,27 +29,6 @@ namespace Tests {
         private static readonly Country[] NorthAmericanCountries = { Canada, Mexico, Cuba, UnitedStates };
         private static readonly Country[] SouthAmericanCountries = { Argentina, Brazil, Columbia, Paraguay };
         private static readonly Country[] CentralAmericanCountries = { CostaRica, Guatemala, ElSalvador };
-
-        #endregion
-
-        [Test]
-        public void NameFilter_ByRegion_CentralAmerica() {
-            var result = CommonNames.ByRegion(Region.CentralAmerica);
-            //Makes sure that each object region is equal to current region.and that it contains data
-            Assert.IsTrue(result.All(name => name.Region == Region.CentralAmerica) && result.Any());
-            //Makes sure that each country in CentralAmericanCountries is contained from the result
-            Assert.IsTrue(result.All(name => CentralAmericanCountries.Contains(name.Country)));
-        }
-
-
-        [Test]
-        public void NameFilter_ByRegion_SouthAmerica() {
-            var result = CommonNames.ByRegion(Region.SouthAmerica);
-            //Makes sure that each object region is equal to current region.and that it contains data
-            Assert.IsTrue(result.All(name => name.Region == Region.SouthAmerica) && result.Any());
-            //Makes sure that each country in SouthAmericanCountries is contained from the result
-            Assert.IsTrue(result.All(name => SouthAmericanCountries.Contains(name.Country)));
-        }
 
         [Test]
         public void NameCollection_ByRegion_Europe() {
@@ -71,8 +47,6 @@ namespace Tests {
             //Makes sure that each country in NorthAmericanCountries is contained from the result
             Assert.IsTrue(result.All(name => NorthAmericanCountries.Contains(name.Country)));
         }
-
-        #region Country
 
         [Test]
         public void NameFilter_Arg_Country_Denmark() {
@@ -167,6 +141,23 @@ namespace Tests {
             Assert.IsTrue(names.All(s => result.Select(name => name.Data).Contains(s)));
         }
 
-        #endregion
+        [Test]
+        public void NameFilter_ByRegion_CentralAmerica() {
+            var result = CommonNames.ByRegion(Region.CentralAmerica);
+            //Makes sure that each object region is equal to current region.and that it contains data
+            Assert.IsTrue(result.All(name => name.Region == Region.CentralAmerica) && result.Any());
+            //Makes sure that each country in CentralAmericanCountries is contained from the result
+            Assert.IsTrue(result.All(name => CentralAmericanCountries.Contains(name.Country)));
+        }
+
+
+        [Test]
+        public void NameFilter_ByRegion_SouthAmerica() {
+            var result = CommonNames.ByRegion(Region.SouthAmerica);
+            //Makes sure that each object region is equal to current region.and that it contains data
+            Assert.IsTrue(result.All(name => name.Region == Region.SouthAmerica) && result.Any());
+            //Makes sure that each country in SouthAmericanCountries is contained from the result
+            Assert.IsTrue(result.All(name => SouthAmericanCountries.Contains(name.Country)));
+        }
     }
 }
