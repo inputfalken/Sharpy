@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 
 namespace Sharpy.Types.Mail {
+    /// <summary>
+    /// 
+    /// </summary>
     public class MailGenerator : Unique<string> {
         /// <summary>
         ///     Used for separating strings with symbols

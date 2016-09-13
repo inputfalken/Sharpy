@@ -4,13 +4,22 @@ using System.Linq;
 using NodaTime;
 
 namespace Sharpy.Types.Date {
+    /// <summary>
+    ///     Is used for creating random dates
+    /// </summary>
     public class DateGenerator {
         private readonly Random _random;
 
+        /// <summary>
+        ///     Is used for getting the current time.
+        /// </summary>
         public static LocalDate CurrentLocalDate
             => SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
 
-        public Random Random { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="random"></param>
         public DateGenerator(Random random) {
             _random = random;
         }
@@ -39,19 +48,30 @@ namespace Sharpy.Types.Date {
         ///     <param name="subtract">if set to false it will add the values to the current date rather than subtracting</param>
         /// </summary>
         public static LocalDate Date(LocalDate date, bool subtract = true) => subtract
-            ? CurrentLocalDate.Minus(Period.FromYears(date.Year)).Minus(Period.FromMonths(date.Month)).Minus(Period.FromDays(date.Day))
-            : CurrentLocalDate.Plus(Period.FromYears(date.Year)).Plus(Period.FromMonths(date.Month)).Plus(Period.FromDays(date.Day));
+            ? CurrentLocalDate.Minus(Period.FromYears(date.Year))
+                .Minus(Period.FromMonths(date.Month))
+                .Minus(Period.FromDays(date.Day))
+            : CurrentLocalDate.Plus(Period.FromYears(date.Year))
+                .Plus(Period.FromMonths(date.Month))
+                .Plus(Period.FromDays(date.Day));
 
         /// <summary>
         ///     This overload will do the same but with ints
         ///     <param name="subtract">if set to false it will add the values to the current date rather than subtracting</param>
+        ///     <param name="year"></param>
+        ///     <param name="month"></param>
+        ///     <param name="day"></param>
         /// </summary>
         public static LocalDate Date(int year, int month, int day, bool subtract = true) {
             if (year < 0 || month < 0 || day < 0)
                 throw new ArgumentException("Year/Month/Day cannot be negative");
             return subtract
-                ? CurrentLocalDate.Minus(Period.FromYears(year)).Minus(Period.FromMonths(month)).Minus(Period.FromDays(day))
-                : CurrentLocalDate.Plus(Period.FromYears(year)).Plus(Period.FromMonths(month)).Plus(Period.FromDays(day));
+                ? CurrentLocalDate.Minus(Period.FromYears(year))
+                    .Minus(Period.FromMonths(month))
+                    .Minus(Period.FromDays(day))
+                : CurrentLocalDate.Plus(Period.FromYears(year))
+                    .Plus(Period.FromMonths(month))
+                    .Plus(Period.FromDays(day));
         }
 
         /// <summary>

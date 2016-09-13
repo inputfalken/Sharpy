@@ -11,10 +11,16 @@ using Sharpy.Types.Name;
 using Sharpy.Types.String;
 
 namespace Sharpy {
+    /// <summary>
+    ///     This class is used for configure each Generator created 
+    /// </summary>
     public class Config {
         internal Random Random { get; private set; } = new Random();
         internal DateGenerator DateGenerator { get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Config() {
             DateGenerator = new DateGenerator(Random);
             MailGenerator = new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" }, Random, false);
@@ -55,16 +61,31 @@ namespace Sharpy {
         }
 
 
+        /// <summary>
+        ///     This filters the names by each Country provided
+        /// </summary>
+        /// <param name="countries"></param>
+        /// <returns></returns>
         public Config NameOrigin(params Country[] countries) {
             NameFilter = NameFilter.ByCountry(countries);
             return this;
         }
 
+        /// <summary>
+        ///     This filters the names by each Region provided
+        /// </summary>
+        /// <param name="regions"></param>
+        /// <returns></returns>
         public Config NameOrigin(params Region[] regions) {
             NameFilter = NameFilter.ByRegion(regions);
             return this;
         }
 
+        /// <summary>
+        ///     This can be used if you want to filter based on the string
+        /// </summary>
+        /// <param name="func"></param>
+        /// <returns></returns>
         public Config Name(Func<IStringFilter<NameFilter>, NameFilter> func) {
             NameFilter = func(NameFilter);
             return this;
