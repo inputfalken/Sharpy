@@ -91,7 +91,7 @@ namespace DataGen {
         /// <param name="uniqueNumbers"></param>
         /// <returns></returns>
         public Config CountryCode(Country country, bool uniqueNumbers = false) {
-            var phoneNumberGenerator = LazyCountryCodes.Value.First(generator => generator.Name.Equals(country));
+            var phoneNumberGenerator = LazyCountryCodes.Value.Single(generator => generator.Name.Equals(country));
             PhoneNumberGenerator = new PhoneNumberGenerator(phoneNumberGenerator.Name.ToString(), phoneNumberGenerator.Code, Random)
             { Unique = uniqueNumbers };
             return this;
