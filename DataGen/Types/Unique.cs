@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,12 +7,14 @@ namespace DataGen.Types {
         // ReSharper disable once StaticMemberInGenericType
         protected static readonly StringBuilder Builder = new StringBuilder();
 
-        protected Unique(int attemptLimit) {
+        protected Unique(int attemptLimit, Random random) {
             AttemptLimit = attemptLimit;
+            Random = random;
             HashSet = new HashSet<T>();
         }
 
         protected int AttemptLimit { get; }
+        protected Random Random { get;  }
 
         /// <summary>
         ///     This hashset will be the history of all the created elements in derived classes

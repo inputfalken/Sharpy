@@ -19,6 +19,21 @@ namespace DataGen {
             return new Generator<T>(() => func(randomizer), randomizer.Config);
         }
 
+
+        /// <summary>
+        ///    This overload also gives an int of the current iteration.
+        ///    First iteration will be number 0 
+        /// </summary>
+        /// <returns></returns>
+        public static Generator<T> CreateGenerator<T>(Func<Randomizer, int, T> func) {
+            var randomizer = new Randomizer(new Config());
+            var iteration = -1;
+            return new Generator<T>(() => {
+                iteration ++;
+                return func(randomizer, iteration);
+            }, randomizer.Config);
+        }
+
         /// <summary>
         ///     Gives a new instance of the type used
         /// </summary>
