@@ -9,6 +9,11 @@ namespace Sharpy.Types {
     ///     All filters used in this project are derived from this class.
     /// </summary>
     public abstract class Filter<TSource> : IEnumerable<TSource> {
+        /// <summary>
+        ///    Takes the IEnumerable and turns it into a lazy array which gets used only if needed.
+        /// </summary>
+        /// <param name="enumerable"></param>
+        /// <exception cref="ArgumentException"></exception>
         protected Filter(IEnumerable<TSource> enumerable) {
             // ReSharper disable PossibleMultipleEnumeration
             if (!enumerable.Any()) throw new ArgumentException("Sequence Is empty");
@@ -25,8 +30,18 @@ namespace Sharpy.Types {
         internal TSource RandomItem(Random random) => LazyArray.Value[random.Next(LazyArray.Value.Length)];
         internal TSource RandomItem(int index) => LazyArray.Value[index];
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IEnumerator<TSource> GetEnumerator() => Enumerable.GetEnumerator();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="substring"></param>
+        /// <returns></returns>
         protected static int IndexOf(string str, string substring)
             => str.IndexOf(substring, StringComparison.CurrentCultureIgnoreCase);
 

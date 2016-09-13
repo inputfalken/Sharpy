@@ -1,6 +1,9 @@
 ﻿using System;
 
 namespace Sharpy {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class GeneratorFactory {
         /// <summary>
         ///     This is the field which gets used if you use the method which do not ask for a randomizer

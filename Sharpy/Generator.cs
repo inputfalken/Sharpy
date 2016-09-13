@@ -2,7 +2,16 @@
 using System.Collections.Generic;
 
 namespace Sharpy {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class Generator<T> {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="func"></param>
+        /// <param name="config"></param>
         public Generator(Func<T> func, Config config) {
             Config = config;
             Func = func;

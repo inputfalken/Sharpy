@@ -4,9 +4,16 @@ using Sharpy.Types.Enums;
 using Sharpy.Types.Name;
 
 namespace Sharpy {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Randomizer {
         internal readonly Config Config;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="config"></param>
         public Randomizer(Config config) {
             Config = config;
             Dictionary = new Dictionary<NameType, NameFilter>();
@@ -20,6 +27,12 @@ namespace Sharpy {
         /// <returns></returns>
         public T CustomCollection<T>(params T[] items) => items[Number(items.Length)];
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="items"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public T CustomCollection<T>(List<T> items) => items[Number(items.Count)];
 
         /// <summary>
@@ -59,12 +72,12 @@ namespace Sharpy {
         public int Number(int minNum, int maxNum) => Config.Random.Next(minNum, maxNum);
 
         /// <summary>
-        ///     gives a date with random month & date and subtract the current the current year by the argument
+        ///     Gives a date with random month, date and subtract the current the current year by the argument
         /// </summary>
         public LocalDate DateByAge(int age) => Config.DateGenerator.RandomDateByAge(age);
 
         /// <summary>
-        ///     Gives a random month & date and use the argument given as year
+        ///     Gives a random month, date and use the argument given as year
         /// </summary>
         public LocalDate DateByYear(int year) => Config.DateGenerator.RandomDateByYear(year);
 
