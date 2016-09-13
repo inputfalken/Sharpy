@@ -17,7 +17,10 @@ namespace DataGen.Types {
         }
 
         private IEnumerable<TSource> Enumerable { get; }
-        internal Lazy<TSource[]> LazyArray { get; }
+        private Lazy<TSource[]> LazyArray { get; }
+
+
+        internal TSource[] Array => LazyArray.Value;
 
         internal TSource RandomItem(Random random) => LazyArray.Value[random.Next(LazyArray.Value.Length)];
         internal TSource RandomItem(int index) => LazyArray.Value[index];
