@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DataGen.Types.CountryCode;
 using NUnit.Framework;
+using Sharpy.Types.CountryCode;
 
 namespace Tests {
     [TestFixture]

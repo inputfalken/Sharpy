@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DataGen {
+namespace Sharpy {
     public static class ExtensionMethods {
         /// <summary>
         ///     Will perform a foreach loop

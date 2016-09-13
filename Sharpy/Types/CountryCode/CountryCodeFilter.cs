@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using DataGen.Types.Enums;
+using Sharpy.Types.Enums;
 
-namespace DataGen.Types.CountryCode {
+namespace Sharpy.Types.CountryCode {
     public class CountryCodeFilter : Filter<PhoneNumberGenerator> {
         public CountryCodeFilter(IEnumerable<PhoneNumberGenerator> enumerable) : base(enumerable) {
         }

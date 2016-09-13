@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using DataGen.Types.Date;
 using NodaTime;
 using NUnit.Framework;
+using Sharpy.Types.Date;
 
 namespace Tests {
     [TestFixture]

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DataGen.Types.Mail;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
+using Sharpy.Types.Mail;
 
 namespace Tests {
     [TestFixture]

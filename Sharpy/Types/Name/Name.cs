@@ -1,7 +1,7 @@
 ﻿using System;
-using DataGen.Types.Enums;
+using Sharpy.Types.Enums;
 
-namespace DataGen.Types.Name {
+namespace Sharpy.Types.Name {
     // Is generated from json
     // ReSharper disable once ClassNeverInstantiated.Global
     public sealed class Name {

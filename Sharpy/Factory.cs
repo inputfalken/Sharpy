@@ -1,8 +1,7 @@
 ﻿using System;
-using DataGen.Types.Mail;
 
-namespace DataGen {
-    public static class Sharpy {
+namespace Sharpy {
+    public static class GeneratorFactory {
         /// <summary>
         ///     This is the field which gets used if you use the method which do not ask for a randomizer
         /// </summary>
@@ -14,7 +13,7 @@ namespace DataGen {
         ///     if you don't have a constructor you can new up an instance and assign it's props/fields
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
-        public static Generator<T> CreateGenerator<T>(Func<Randomizer, T> func) {
+        public static Generator<T> CreateNew<T>(Func<Randomizer, T> func) {
             var randomizer = new Randomizer(new Config());
             return new Generator<T>(() => func(randomizer), randomizer.Config);
         }
@@ -25,7 +24,7 @@ namespace DataGen {
         ///    First iteration will be number 0 
         /// </summary>
         /// <returns></returns>
-        public static Generator<T> CreateGenerator<T>(Func<Randomizer, int, T> func) {
+        public static Generator<T> CreateNew<T>(Func<Randomizer, int, T> func) {
             var randomizer = new Randomizer(new Config());
             var iteration = -1;
             return new Generator<T>(() => {

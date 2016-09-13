@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DataGen.Types.String {
+namespace Sharpy.Types.String {
     public sealed class StringFilter : Filter<string>, IStringFilter<StringFilter> {
         public StringFilter(IEnumerable<string> enumerable) : base(enumerable) {
         }

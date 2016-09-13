@@ -1,4 +1,4 @@
-﻿namespace DataGen.Types.String {
+﻿namespace Sharpy.Types.String {
     public interface IStringFilter<out T> {
         T DoesNotStartWith(string arg);
         T DoesNotContain(string arg);

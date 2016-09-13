@@ -1,4 +1,4 @@
-namespace DataGen.Types.Enums {
+namespace Sharpy.Types.Enums {
     public enum NameType {
         FemaleFirstName,
         MaleFirstName,

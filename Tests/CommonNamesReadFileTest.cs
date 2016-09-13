@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DataGen.Properties;
-using DataGen.Types.Enums;
-using DataGen.Types.Name;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using static DataGen.Types.Enums.Country;
+using Sharpy.Properties;
+using Sharpy.Types.Enums;
+using Sharpy.Types.Name;
+using static Sharpy.Types.Enums.Country;
 
 namespace Tests {
     /// <summary>

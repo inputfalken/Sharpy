@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataGen", "DataGen\DataGen.csproj", "{D5108AF1-809B-46DE-8ABB-96D5DE78DA6F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharpy", "Sharpy\Sharpy.csproj", "{D5108AF1-809B-46DE-8ABB-96D5DE78DA6F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{F08A7A68-79DD-40DD-8AFF-940C1D52086C}"
 EndProject

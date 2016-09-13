@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
-using DataGen.Types.Enums;
-using DataGen.Types.Name;
 using NodaTime;
-using static DataGen.Types.Date.DateGenerator;
+using Sharpy.Types.Enums;
+using Sharpy.Types.Name;
 
-namespace DataGen {
+namespace Sharpy {
     public class Randomizer {
         internal readonly Config Config;
 

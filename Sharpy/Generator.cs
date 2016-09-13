@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DataGen {
+namespace Sharpy {
     public class Generator<T> {
         public Generator(Func<T> func, Config config) {
             Config = config;

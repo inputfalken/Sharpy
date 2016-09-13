@@ -64,9 +64,9 @@
     <Compile Include="TestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataGen\DataGen.csproj">
+    <ProjectReference Include="..\Sharpy\Sharpy.csproj">
       <Project>{D5108AF1-809B-46DE-8ABB-96D5DE78DA6F}</Project>
-      <Name>DataGen</Name>
+      <Name>Sharpy</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
