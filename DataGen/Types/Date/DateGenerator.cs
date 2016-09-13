@@ -5,10 +5,16 @@ using NodaTime;
 using static NodaTime.Period;
 
 namespace DataGen.Types.Date {
-    public static class DateGenerator {
+    public class DateGenerator {
+        private readonly Random _random;
+
         public static LocalDate CurrentLocalDate
             => SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
 
+        public Random Random { get; set; }
+        public DateGenerator(Random random) {
+            _random = random;
+        }
 
         /// <summary>
         ///     Will create a sequence of the values given from current date
@@ -53,14 +59,14 @@ namespace DataGen.Types.Date {
         ///     Will give and random date minus the argument in years
         ///     <param name="age">ammount of years</param>
         /// </summary>
-        public static LocalDate RandomDateByAge(int age) {
+        public LocalDate RandomDateByAge(int age) {
             if (age < 0)
                 throw new ArgumentException($"{nameof(age)} cannot be negative");
-            var month = HelperClass.Randomizer(1, CurrentLocalDate.Month);
+            var month = _random.Next(1, CurrentLocalDate.Month);
             var date = CurrentLocalDate.Minus(FromYears(age));
             var day = month == CurrentLocalDate.Month
-                ? HelperClass.Randomizer(1, date.Day)
-                : HelperClass.Randomizer(1, DateTime.DaysInMonth(date.Year, month));
+                ? _random.Next(1, date.Day)
+                : _random.Next(1, DateTime.DaysInMonth(date.Year, month));
             return new LocalDate(date.Year, month, day);
         }
 
@@ -68,9 +74,9 @@ namespace DataGen.Types.Date {
         ///     Will give a random month and date on specifk year
         ///     <param name="year">which year to use</param>
         /// </summary>
-        public static LocalDate RandomDateByYear(int year) {
-            var month = HelperClass.Randomizer(1, CurrentLocalDate.Month);
-            return new LocalDate(year, month, HelperClass.Randomizer(1, DateTime.DaysInMonth(year, month)));
+        public LocalDate RandomDateByYear(int year) {
+            var month = _random.Next(1, CurrentLocalDate.Month);
+            return new LocalDate(year, month, _random.Next(1, DateTime.DaysInMonth(year, month)));
         }
     }
 }

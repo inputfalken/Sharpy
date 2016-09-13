@@ -4,17 +4,14 @@ using DataGen.Types.Enums;
 using DataGen.Types.Name;
 using NodaTime;
 using static DataGen.Types.Date.DateGenerator;
-using static DataGen.Types.HelperClass;
 
 namespace DataGen {
     public class Randomizer {
         internal readonly Config Config;
-        private Random  Random { get; }
 
         public Randomizer(Config config) {
             Config = config;
             Dictionary = new Dictionary<NameType, NameFilter>();
-            Random = new Random();
         }
 
         private Dictionary<NameType, NameFilter> Dictionary { get; }
@@ -24,12 +21,13 @@ namespace DataGen {
         /// </summary>
         /// <returns></returns>
         public T CustomCollection<T>(params T[] items) => items[Number(items.Length)];
+
         public T CustomCollection<T>(List<T> items) => items[Number(items.Count)];
 
         /// <summary>
         ///     Gives a random name, it could be a female first name, male first name and a lastname.
         /// </summary>
-        public string Name() => Config.NameFilter.RandomItem(Random).Data;
+        public string Name() => Config.NameFilter.LazyArray.Value[Number(Config.NameFilter.LazyArray.Value.Length)].Data;
 
         /// <summary>
         ///     Gives a random name based on type of argument.
@@ -37,13 +35,13 @@ namespace DataGen {
         public string Name(NameType nameType) {
             if (!Dictionary.ContainsKey(nameType))
                 Dictionary.Add(nameType, Config.NameFilter.ByType(nameType));
-            return Dictionary[nameType].RandomItem(Random).Data;
+            return Dictionary[nameType].RandomItem(Config.Random).Data;
         }
 
         /// <summary>
         ///     Gives a random username from a huge collection.
         /// </summary>
-        public string UserName() => Config.UserNames.RandomItem(Random);
+        public string UserName() => Config.UserNames.LazyArray.Value[Number(Config.UserNames.LazyArray.Value.Length)];
 
         /// <summary>
         ///     Gives a random bool
@@ -53,22 +51,22 @@ namespace DataGen {
         /// <summary>
         ///     Gives a random number within below the argument value
         /// </summary>
-        public int Number(int maxNum) => Random.Next(maxNum);
+        public int Number(int maxNum) => Config.Random.Next(maxNum);
 
         /// <summary>
         ///     Gives a random number within within the two arguments
         /// </summary>
-        public int Number(int minNum, int maxNum) => Random.Next(minNum, maxNum);
+        public int Number(int minNum, int maxNum) => Config.Random.Next(minNum, maxNum);
 
         /// <summary>
         ///     gives a date with random month & date and subtract the current the current year by the argument
         /// </summary>
-        public LocalDate DateByAge(int age) => RandomDateByAge(age);
+        public LocalDate DateByAge(int age) => Config.DateGenerator.RandomDateByAge(age);
 
         /// <summary>
         ///     Gives a random month & date and use the argument given as year
         /// </summary>
-        public LocalDate DateByYear(int year) => RandomDateByYear(year);
+        public LocalDate DateByYear(int year) => Config.DateGenerator.RandomDateByYear(year);
 
         /// <summary>
         ///     gives a random phonenumber using a random country code and lets you specify a number to start with as well as the

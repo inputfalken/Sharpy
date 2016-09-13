@@ -1,14 +1,13 @@
 ﻿using System;
 using DataGen.Types.Enums;
 using static System.Linq.Enumerable;
-using static DataGen.Types.HelperClass;
 
 namespace DataGen.Types.CountryCode {
     // ReSharper disable once ClassNeverInstantiated.Global
     // Is generated from json
     public class PhoneNumberGenerator : Unique<string> {
         //Todo split this into two classes one CountryCode which will only contain code & name and one named phonenumber generator which will contain the number methods
-        public PhoneNumberGenerator(string name, string code) : base(50) {
+        public PhoneNumberGenerator(string name, string code, Random random) : base(50, random) {
             Country country;
             if (Enum.TryParse(name, out country)) {
                 Name = country;
@@ -18,7 +17,7 @@ namespace DataGen.Types.CountryCode {
         }
 
         public Country Name { get; }
-        private string Code { get; }
+        internal string Code { get; }
         public bool Unique { private get; set; }
         internal bool IsParsed { get; }
 
@@ -42,7 +41,7 @@ namespace DataGen.Types.CountryCode {
         private string BuildString(int length, string preNumber) {
             foreach (var i in Range(0, length)) {
                 if (i == 0) Builder.Append(Code).Append(preNumber);
-                Builder.Append(Randomizer(10));
+                Builder.Append(Random.Next(10));
             }
             var str = Builder.ToString();
             Builder.Clear();
@@ -56,6 +55,6 @@ namespace DataGen.Types.CountryCode {
         ///     <param name="preNumber">Optional number that will be used before the random numbers</param>
         /// </summary>
         public string RandomNumber(int minLength, int maxLength, string preNumber = null)
-            => RandomNumber(Randomizer(minLength, maxLength), preNumber);
+            => RandomNumber(Random.Next(minLength, maxLength), preNumber);
     }
 }
