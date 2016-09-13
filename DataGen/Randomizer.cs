@@ -27,7 +27,7 @@ namespace DataGen {
         /// <summary>
         ///     Gives a random name, it could be a female first name, male first name and a lastname.
         /// </summary>
-        public string Name() => Config.NameFilter.LazyArray.Value[Number(Config.NameFilter.LazyArray.Value.Length)].Data;
+        public string Name() => Config.NameFilter.Array[Number(Config.NameFilter.Array.Length)].Data;
 
         /// <summary>
         ///     Gives a random name based on type of argument.
@@ -35,13 +35,15 @@ namespace DataGen {
         public string Name(NameType nameType) {
             if (!Dictionary.ContainsKey(nameType))
                 Dictionary.Add(nameType, Config.NameFilter.ByType(nameType));
-            return Dictionary[nameType].RandomItem(Config.Random).Data;
+
+            var nameFilter = Dictionary[nameType];
+            return nameFilter.Array[Number(nameFilter.Array.Length)].Data;
         }
 
         /// <summary>
         ///     Gives a random username from a huge collection.
         /// </summary>
-        public string UserName() => Config.UserNames.LazyArray.Value[Number(Config.UserNames.LazyArray.Value.Length)];
+        public string UserName() => Config.UserNames.Array[Number(Config.UserNames.Array.Length)];
 
         /// <summary>
         ///     Gives a random bool
