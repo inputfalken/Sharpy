@@ -11,7 +11,6 @@ using DataGen.Types.String;
 using Newtonsoft.Json;
 
 namespace DataGen {
-    //TODO make each Config contain an instance of Random which gets passed arround everywhere
     public class Config {
         internal Random Random { get; private set; } = new Random();
         internal DateGenerator DateGenerator { get; }
@@ -92,7 +91,8 @@ namespace DataGen {
         /// <returns></returns>
         public Config CountryCode(Country country, bool uniqueNumbers = false) {
             var phoneNumberGenerator = LazyCountryCodes.Value.Single(generator => generator.Name.Equals(country));
-            PhoneNumberGenerator = new PhoneNumberGenerator(phoneNumberGenerator.Name.ToString(), phoneNumberGenerator.Code, Random)
+            PhoneNumberGenerator = new PhoneNumberGenerator(phoneNumberGenerator.Name.ToString(),
+                phoneNumberGenerator.Code, Random)
             { Unique = uniqueNumbers };
             return this;
         }
