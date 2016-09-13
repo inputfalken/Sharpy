@@ -13,8 +13,8 @@ using Newtonsoft.Json;
 namespace DataGen {
     //TODO make each Config contain an instance of Random which gets passed arround everywhere
     public class Config {
-        internal Random Random { get; set; } = new Random();
-        internal DateGenerator DateGenerator { get; set; }
+        internal Random Random { get; private set; } = new Random();
+        internal DateGenerator DateGenerator { get; }
 
         public Config() {
             DateGenerator = new DateGenerator(Random);
