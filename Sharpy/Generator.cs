@@ -7,11 +7,6 @@ namespace Sharpy {
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class Generator<T> {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="func"></param>
-        /// <param name="config"></param>
         internal Generator(Func<T> func, Config config) {
             Config = config;
             Func = func;
@@ -35,7 +30,6 @@ namespace Sharpy {
         ///     Which contains the ammount of elements.
         /// </summary>
         /// <param name="ammount"></param>
-        /// <returns></returns>
         public IEnumerable<T> Generate(int ammount) {
             for (var i = 0; i < ammount; i++)
                 yield return Func();
