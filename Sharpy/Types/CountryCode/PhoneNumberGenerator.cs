@@ -9,20 +9,12 @@ namespace Sharpy.Types.CountryCode {
     /// </summary>
     public class PhoneNumberGenerator : Unique<string> {
         private CountryCode CountryCode { get; }
-        /// <summary>
-        /// </summary>
-        /// <param name="countryCode"></param>
-        /// <param name="random"></param>
-        /// <param name="unique"></param>
         internal PhoneNumberGenerator(CountryCode countryCode, Random random, bool unique = false) : base(50, random) {
             CountryCode = countryCode;
             Unique = unique;
         }
 
 
-        /// <summary>
-        /// 
-        /// </summary>
         private bool Unique { get;  }
 
 

@@ -3,10 +3,19 @@ using Newtonsoft.Json;
 using Sharpy.Types.Enums;
 
 namespace Sharpy.Types.CountryCode {
+    /// <summary>
+    ///     Contains Country name a Country Code
+    /// </summary>
     public class CountryCode {
-        public bool IsParsed { get; }
+        internal bool IsParsed { get; }
 
+        /// <summary>
+        ///     Name of the Country
+        /// </summary>
         public Country Name { get; }
+        /// <summary>
+        ///     The country code for the Country
+        /// </summary>
         public string Code { get; }
 
         [JsonConstructor]
