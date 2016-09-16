@@ -12,7 +12,7 @@ namespace Sharpy {
         /// </summary>
         /// <param name="func"></param>
         /// <param name="config"></param>
-        public Generator(Func<T> func, Config config) {
+        internal Generator(Func<T> func, Config config) {
             Config = config;
             Func = func;
         }
