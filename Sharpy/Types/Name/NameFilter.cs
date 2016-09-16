@@ -13,7 +13,7 @@ namespace Sharpy.Types.Name {
         /// 
         /// </summary>
         /// <param name="enumerable"></param>
-        public NameFilter(IEnumerable<Name> enumerable) : base(enumerable) {
+        internal NameFilter(IEnumerable<Name> enumerable) : base(enumerable) {
         }
 
         /// <summary>
