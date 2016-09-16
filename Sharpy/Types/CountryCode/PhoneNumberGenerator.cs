@@ -8,21 +8,23 @@ namespace Sharpy.Types.CountryCode {
     /// 
     /// </summary>
     public class PhoneNumberGenerator : Unique<string> {
-        private CountryCode CountryCode { get;  }
+        private CountryCode CountryCode { get; }
         //Todo split this into two classes one CountryCode which will only contain code & name and one named phonenumber generator which will contain the number methods
         /// <summary>
         /// </summary>
         /// <param name="countryCode"></param>
         /// <param name="random"></param>
-        public PhoneNumberGenerator(CountryCode countryCode, Random random) : base(50, random) {
+        /// <param name="unique"></param>
+        public PhoneNumberGenerator(CountryCode countryCode, Random random, bool unique = false) : base(50, random) {
             CountryCode = countryCode;
+            Unique = unique;
         }
 
 
         /// <summary>
         /// 
         /// </summary>
-        public bool Unique { private get; set; }
+        private bool Unique { get;  }
 
 
         /// <summary>

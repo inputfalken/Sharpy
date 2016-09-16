@@ -112,8 +112,8 @@ namespace Sharpy {
         /// <returns></returns>
         public Config CountryCode(Country country, bool uniqueNumbers = false) {
             PhoneNumberGenerator =
-                new PhoneNumberGenerator(LazyCountryCodes.Value.Single(number => number.Name == country), Random)
-                    { Unique = uniqueNumbers };
+                new PhoneNumberGenerator(LazyCountryCodes.Value.Single(number => number.Name == country), Random,
+                    uniqueNumbers);
             return this;
         }
 
