@@ -20,7 +20,7 @@ namespace Sharpy.Types.Date {
         /// 
         /// </summary>
         /// <param name="random"></param>
-        public DateGenerator(Random random) {
+        internal DateGenerator(Random random) {
             _random = random;
         }
 
