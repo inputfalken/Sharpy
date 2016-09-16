@@ -2,6 +2,9 @@
 using Sharpy.Types.Enums;
 
 namespace Sharpy.Types.CountryCode {
+    /// <summary>
+    ///     Contains Country name a Country Code
+    /// </summary>
     public class CountryCode {
         internal bool IsParsed { get; }
 
