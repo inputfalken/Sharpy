@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 using Sharpy.Types.Enums;
 
 namespace Sharpy.Types.CountryCode {
@@ -8,7 +9,8 @@ namespace Sharpy.Types.CountryCode {
         public Country Name { get; }
         public string Code { get; }
 
-        public CountryCode(string name, string code) {
+        [JsonConstructor]
+        internal CountryCode(string name, string code) {
             Code = code;
             Country country;
             if (!Enum.TryParse(name, out country)) return;
