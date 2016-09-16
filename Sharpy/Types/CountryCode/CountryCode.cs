@@ -3,8 +3,7 @@ using Sharpy.Types.Enums;
 
 namespace Sharpy.Types.CountryCode {
     public class CountryCode {
-
-        public bool IsParsed { get; }
+        internal bool IsParsed { get; }
 
         /// <summary>
         ///     Name of the Country
