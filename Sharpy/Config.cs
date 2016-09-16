@@ -18,9 +18,6 @@ namespace Sharpy {
         internal Random Random { get; private set; } = new Random();
         internal DateGenerator DateGenerator { get; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         internal Config() {
             DateGenerator = new DateGenerator(Random);
             MailGenerator = new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" }, Random, false);
