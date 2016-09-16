@@ -14,7 +14,7 @@ namespace Sharpy {
         /// 
         /// </summary>
         /// <param name="config"></param>
-        public Randomizer(Config config) {
+        internal Randomizer(Config config) {
             Config = config;
             Dictionary = new Dictionary<NameType, NameFilter>();
         }
