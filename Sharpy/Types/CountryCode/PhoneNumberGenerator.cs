@@ -15,7 +15,7 @@ namespace Sharpy.Types.CountryCode {
         /// <param name="countryCode"></param>
         /// <param name="random"></param>
         /// <param name="unique"></param>
-        public PhoneNumberGenerator(CountryCode countryCode, Random random, bool unique = false) : base(50, random) {
+        internal PhoneNumberGenerator(CountryCode countryCode, Random random, bool unique = false) : base(50, random) {
             CountryCode = countryCode;
             Unique = unique;
         }
