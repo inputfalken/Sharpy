@@ -24,13 +24,13 @@ namespace Sharpy {
         public Config() {
             DateGenerator = new DateGenerator(Random);
             MailGenerator = new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" }, Random, false);
-            PhoneNumberGenerator = new PhoneNumberGenerator("UnitedStates", "+1", Random);
+            PhoneNumberGenerator = new PhoneNumberGenerator(new CountryCode("UnitedStates", "+1"), Random);
         }
 
-        private static Lazy<CountryCodeFilter> LazyCountryCodes { get; } =
-            new Lazy<CountryCodeFilter>(
-                () => new CountryCodeFilter(JsonConvert.DeserializeObject<IEnumerable<PhoneNumberGenerator>>(
-                    Encoding.Default.GetString(Properties.Resources.CountryCodes))));
+        private static Lazy<IEnumerable<CountryCode>> LazyCountryCodes { get; } =
+            new Lazy<IEnumerable<CountryCode>>(
+                () => JsonConvert.DeserializeObject<IEnumerable<CountryCode>>(
+                    Encoding.Default.GetString(Properties.Resources.CountryCodes)));
 
         private static Lazy<StringFilter> LazyUsernames { get; } =
             new Lazy<StringFilter>(() => new StringFilter(Properties.Resources.usernames.Split(Convert.ToChar("\n"))));
@@ -111,10 +111,9 @@ namespace Sharpy {
         /// <param name="uniqueNumbers"></param>
         /// <returns></returns>
         public Config CountryCode(Country country, bool uniqueNumbers = false) {
-            var phoneNumberGenerator = LazyCountryCodes.Value.Single(generator => generator.Name.Equals(country));
-            PhoneNumberGenerator = new PhoneNumberGenerator(phoneNumberGenerator.Name.ToString(),
-                phoneNumberGenerator.Code, Random)
-            { Unique = uniqueNumbers };
+            PhoneNumberGenerator =
+                new PhoneNumberGenerator(LazyCountryCodes.Value.Single(number => number.Name == country), Random)
+                    { Unique = uniqueNumbers };
             return this;
         }
 
