@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 using Sharpy.Types.Enums;
 
 namespace Sharpy.Types.Name {
@@ -8,14 +9,8 @@ namespace Sharpy.Types.Name {
     /// 
     /// </summary>
     public sealed class Name {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="type"></param>
-        /// <param name="country"></param>
-        /// <param name="region"></param>
-        /// <param name="name"></param>
-        public Name(int type, string country, string region, string name) {
+        [JsonConstructor]
+        internal Name(int type, string country, string region, string name) {
             Data = name;
             Type = type;
             Country = (Country) Enum.Parse(typeof(Country), country);
