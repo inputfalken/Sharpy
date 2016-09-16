@@ -10,10 +10,6 @@ namespace Sharpy {
     public class Randomizer {
         internal readonly Config Config;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="config"></param>
         internal Randomizer(Config config) {
             Config = config;
             Dictionary = new Dictionary<NameType, NameFilter>();

@@ -16,10 +16,6 @@ namespace Sharpy.Types.Date {
         public static LocalDate CurrentLocalDate
             => SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="random"></param>
         internal DateGenerator(Random random) {
             _random = random;
         }

@@ -23,13 +23,6 @@ namespace Sharpy.Types.Mail {
         /// </summary>
         private readonly IEnumerator<string> _emailDomainsEnumerator;
 
-
-        /// <summary>
-        ///     Will use the strings as mail providers
-        /// </summary>
-        /// <param name="providers"></param>
-        /// <param name="random"></param>
-        /// <param name="unique"></param>
         internal MailGenerator(IEnumerable<string> providers, Random random, bool unique) : base(2, random) {
             Unique = unique;
             providers.ForEach(_emailDomains.Add);
