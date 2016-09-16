@@ -21,7 +21,7 @@ namespace Sharpy {
         /// <summary>
         /// 
         /// </summary>
-        public Config() {
+        internal Config() {
             DateGenerator = new DateGenerator(Random);
             MailGenerator = new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" }, Random, false);
             PhoneNumberGenerator = new PhoneNumberGenerator(new CountryCode("UnitedStates", "+1"), Random);
