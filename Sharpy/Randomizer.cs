@@ -5,7 +5,7 @@ using Sharpy.Types.Name;
 
 namespace Sharpy {
     /// <summary>
-    /// 
+    ///     Will randomize all data that these methods return.
     /// </summary>
     public class Randomizer {
         internal readonly Config Config;
