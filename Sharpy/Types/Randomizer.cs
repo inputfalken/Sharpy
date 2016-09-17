@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using NodaTime;
 using Sharpy.Types.Name;
 
-namespace Sharpy {
+namespace Sharpy.Types {
     /// <summary>
     ///     Will randomize all data that these methods return.
     /// </summary>
