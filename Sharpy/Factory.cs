@@ -5,7 +5,7 @@ namespace Sharpy {
     /// <summary>
     /// 
     /// </summary>
-    public static class GeneratorFactory {
+    public static class Factory {
         /// <summary>
         ///     This is the field which gets used if you use the method which do not ask for a randomizer
         /// </summary>
