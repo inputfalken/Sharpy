@@ -4,9 +4,10 @@ using System.Text;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using Sharpy;
+using Sharpy.Enums;
 using Sharpy.Properties;
 using Sharpy.Types.Name;
-using static Sharpy.Country;
+using static Sharpy.Enums.Country;
 
 namespace Tests {
     /// <summary>

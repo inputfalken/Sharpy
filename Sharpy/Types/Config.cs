@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
+using Sharpy.Enums;
 using Sharpy.Types.CountryCode;
 using Sharpy.Types.Date;
 using Sharpy.Types.Mail;
