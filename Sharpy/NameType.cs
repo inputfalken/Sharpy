@@ -1,4 +1,4 @@
-namespace Sharpy.Types.Enums {
+namespace Sharpy {
     /// <summary>
     /// 
     /// </summary>

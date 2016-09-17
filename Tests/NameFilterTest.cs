@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using NUnit.Framework;
-using Sharpy.Types.Enums;
+using Sharpy;
 using Sharpy.Types.Name;
 
 namespace Tests {

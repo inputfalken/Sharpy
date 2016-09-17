@@ -3,10 +3,10 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 using NUnit.Framework;
+using Sharpy;
 using Sharpy.Properties;
-using Sharpy.Types.Enums;
 using Sharpy.Types.Name;
-using static Sharpy.Types.Enums.Country;
+using static Sharpy.Country;
 
 namespace Tests {
     /// <summary>

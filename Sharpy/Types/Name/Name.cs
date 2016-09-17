@@ -1,6 +1,5 @@
 ﻿using System;
 using Newtonsoft.Json;
-using Sharpy.Types.Enums;
 
 namespace Sharpy.Types.Name {
     // Is generated from json
