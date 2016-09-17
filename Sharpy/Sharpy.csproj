@@ -76,13 +76,13 @@
     <Compile Include="Types\Unique.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="content\Data\Types\Name\NamesByOrigin.json">
+    <None Include="Data\Name\NamesByOrigin.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="content\Data\Types\CountryCodes\CountryCodes.json">
+    <None Include="Data\CountryCodes\CountryCodes.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="content\Data\Types\Name\usernames.txt">
+    <None Include="Data\Name\usernames.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
@@ -91,6 +91,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
