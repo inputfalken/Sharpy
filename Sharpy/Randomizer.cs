@@ -18,13 +18,13 @@ namespace Sharpy {
         private Dictionary<NameType, NameFilter> Dictionary { get; }
 
         /// <summary>
-        ///     This can be used if you have your own collection of items that you would want an random item from.
+        ///     Can be used if you have your own collection of items that you would want an random item from.
         /// </summary>
         /// <returns></returns>
         public T CustomCollection<T>(params T[] items) => items[Number(items.Length)];
 
         /// <summary>
-        /// 
+        ///     Can be used if you have your own collection of items that you would want an random item from.
         /// </summary>
         /// <param name="items"></param>
         /// <typeparam name="T"></typeparam>
