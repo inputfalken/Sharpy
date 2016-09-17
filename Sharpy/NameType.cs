@@ -1,6 +1,6 @@
 namespace Sharpy {
     /// <summary>
-    /// 
+    ///     Is used as argument when filtering names
     /// </summary>
     public enum NameType {
         /// <summary>

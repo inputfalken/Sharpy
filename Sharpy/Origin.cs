@@ -1,7 +1,7 @@
 namespace Sharpy {
     // ReSharper disable UnusedMember.Global
     /// <summary>
-    ///     Is used for Filtering by country
+    ///     Is used as argument when Filtering by country
     /// </summary>
     public enum Country {
         /// <summary>
@@ -191,7 +191,7 @@ namespace Sharpy {
     }
 
     /// <summary>
-    /// 
+    ///     Is used as argument when filtering by region
     /// </summary>
     public enum Region {
         /// <summary>
