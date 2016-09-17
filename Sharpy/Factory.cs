@@ -36,10 +36,5 @@ namespace Sharpy {
                 return func(randomizer, iteration);
             }, randomizer.Config);
         }
-
-        /// <summary>
-        ///     Gives a new instance of the type used
-        /// </summary>
-        public static T Generate<T>(Func<Randomizer, T> func) => func(DefaultRandomizer);
     }
 }
