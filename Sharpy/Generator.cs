@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace Sharpy {
     /// <summary>
-    ///     Contains methods for generating T
-    ///     And a config to set settings for how T should get generated
+    ///     Contains methods for generating the supplied type
+    ///     And a config to set settings for how the supplied type should get generated
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class Generator<T> {
