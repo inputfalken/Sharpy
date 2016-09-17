@@ -1,4 +1,4 @@
-namespace Sharpy {
+namespace Sharpy.Enums {
     /// <summary>
     ///     Is used as argument when filtering names
     /// </summary>
