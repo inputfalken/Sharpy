@@ -15,12 +15,12 @@ The idea of this project is to let users have a source to fetch random data from
 #### Generating
 ```C#
 using Sharpy;
-using Sharpy.Types.Enums;
+using Sharpy.Enums;
 
 namespace Logger {
     internal static class Program {
         public static void Main() {
-            var generator = GeneratorFactory.CreateNew<Person>(randomizer =>
+            var generator = Factory.Generator<Person>(randomizer =>
                 new Person {
                     FirstName = randomizer.Name(NameType.MixedFirstName),
                     LastName = randomizer.Name(NameType.LastName)
@@ -42,12 +42,12 @@ namespace Logger {
 #### Configure & Generating
 ```C#
 using Sharpy;
-using Sharpy.Types.Enums;
+using Sharpy.Enums;
 
 namespace Logger {
     internal static class Program {
         public static void Main() {
-            var generator = GeneratorFactory.CreateNew<Person>(randomizer =>
+            var generator = Factory.Generator<Person>(randomizer =>
                 new Person {
                     FirstName = randomizer.Name(NameType.MixedFirstName),
                     LastName = randomizer.Name(NameType.LastName)
@@ -70,7 +70,7 @@ namespace Logger {
 #### Supplying your own collection
 ```C#
 using Sharpy;
-using Sharpy.Types.Enums;
+using Sharpy.Enums;
 
 namespace Logger {
     internal static class Program {
@@ -79,7 +79,7 @@ namespace Logger {
                 "workplace1", "workplace2", "workplace3", 
                 "workplace4", "workplace5", "workplace6"
             };
-            var generator = GeneratorFactory.CreateNew<Person>(randomizer =>
+            var generator = Factory.Generator<Person>(randomizer =>
                 new Person {
                     FirstName = randomizer.Name(NameType.MixedFirstName),
                     LastName = randomizer.Name(NameType.LastName),
