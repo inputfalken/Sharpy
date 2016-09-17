@@ -9,7 +9,7 @@ using Sharpy.Types.Mail;
 using Sharpy.Types.Name;
 using Sharpy.Types.String;
 
-namespace Sharpy {
+namespace Sharpy.Types {
     /// <summary>
     ///     This class is used for configure each Generator created 
     /// </summary>
@@ -20,12 +20,12 @@ namespace Sharpy {
         internal Config() {
             DateGenerator = new DateGenerator(Random);
             MailGenerator = new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" }, Random, false);
-            PhoneNumberGenerator = new PhoneNumberGenerator(new CountryCode("UnitedStates", "+1"), Random);
+            PhoneNumberGenerator = new PhoneNumberGenerator(new CountryCode.CountryCode("UnitedStates", "+1"), Random);
         }
 
-        private static Lazy<IEnumerable<CountryCode>> LazyCountryCodes { get; } =
-            new Lazy<IEnumerable<CountryCode>>(
-                () => JsonConvert.DeserializeObject<IEnumerable<CountryCode>>(
+        private static Lazy<IEnumerable<CountryCode.CountryCode>> LazyCountryCodes { get; } =
+            new Lazy<IEnumerable<CountryCode.CountryCode>>(
+                () => JsonConvert.DeserializeObject<IEnumerable<CountryCode.CountryCode>>(
                     Encoding.Default.GetString(Properties.Resources.CountryCodes)));
 
         private static Lazy<StringFilter> LazyUsernames { get; } =
@@ -33,7 +33,7 @@ namespace Sharpy {
 
 
         private static Lazy<NameFilter> LazyNameFilter { get; } =
-            new Lazy<NameFilter>(() => new NameFilter(JsonConvert.DeserializeObject<IEnumerable<Name>>(
+            new Lazy<NameFilter>(() => new NameFilter(JsonConvert.DeserializeObject<IEnumerable<Name.Name>>(
                 Encoding.UTF8.GetString(Properties.Resources.NamesByOrigin))));
 
         internal PhoneNumberGenerator PhoneNumberGenerator { get; private set; }

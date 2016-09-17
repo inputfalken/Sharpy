@@ -51,15 +51,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config.cs" />
+    <Compile Include="Types\Config.cs" />
     <Compile Include="ExtensionMethods.cs" />
-    <Compile Include="Generator.cs" />
+    <Compile Include="Types\Generator.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Randomizer.cs" />
+    <Compile Include="Types\Randomizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Factory.cs" />
     <Compile Include="Types\CountryCode\CountryCode.cs" />

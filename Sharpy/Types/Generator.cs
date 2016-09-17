@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Sharpy {
+namespace Sharpy.Types {
     /// <summary>
     ///     Contains methods for generating the supplied type
     ///     And a config to set settings for how the supplied type should get generated
