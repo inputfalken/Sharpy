@@ -5,7 +5,6 @@ using System.Text;
 using Newtonsoft.Json;
 using Sharpy.Types.CountryCode;
 using Sharpy.Types.Date;
-using Sharpy.Types.Enums;
 using Sharpy.Types.Mail;
 using Sharpy.Types.Name;
 using Sharpy.Types.String;

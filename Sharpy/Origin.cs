@@ -1,4 +1,4 @@
-namespace Sharpy.Types.Enums {
+namespace Sharpy {
     // ReSharper disable UnusedMember.Global
     /// <summary>
     ///     Is used for Filtering by country

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Sharpy.Types.Enums;
 using Sharpy.Types.String;
 
 namespace Sharpy.Types.Name {

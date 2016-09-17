@@ -9,7 +9,6 @@ using NUnit.Framework;
 using Sharpy;
 using Sharpy.Types.CountryCode;
 using Sharpy.Types.Date;
-using Sharpy.Types.Enums;
 using Sharpy.Types.Name;
 using Sharpy.Types.String;
 
