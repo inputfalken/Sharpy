@@ -14,16 +14,16 @@ namespace Sharpy.Configurement {
     ///     Is Responsible for filtering the names
     /// </summary>
     public sealed class NameConfig : IStringFilter<NameConfig> {
-        private Filter<Name> _filter;
+        private Fetcher<Name> _fetcher;
 
-        private static Lazy<Filter<Name>> LazyNames { get; } =
-            new Lazy<Filter<Name>>(
-                () => new Filter<Name>(JsonConvert.DeserializeObject<IEnumerable<Name>>(
+        private static Lazy<Fetcher<Name>> LazyNames { get; } =
+            new Lazy<Fetcher<Name>>(
+                () => new Fetcher<Name>(JsonConvert.DeserializeObject<IEnumerable<Name>>(
                     Encoding.UTF8.GetString(Resources.NamesByOrigin))));
 
-        internal Filter<Name> Filter {
-            get { return _filter ?? LazyNames.Value; }
-            private set { _filter = value; }
+        internal Fetcher<Name> Fetcher {
+            get { return _fetcher ?? LazyNames.Value; }
+            private set { _fetcher = value; }
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace Sharpy.Configurement {
         /// <param name="arg"></param>
         /// <returns></returns>
         public NameConfig DoesNotStartWith(string arg) {
-            Filter = new Filter<Name>(Filter.Where(s => IndexOf(s.Data, arg) != 0));
+            Fetcher = new Fetcher<Name>(Fetcher.Where(s => IndexOf(s.Data, arg) != 0));
             return this;
         }
 
@@ -40,7 +40,7 @@ namespace Sharpy.Configurement {
         /// <param name="arg"></param>
         /// <returns></returns>
         public NameConfig DoesNotContain(string arg) {
-            Filter = new Filter<Name>(Filter.Where(s => IndexOf(s.Data, arg) < 0));
+            Fetcher = new Fetcher<Name>(Fetcher.Where(s => IndexOf(s.Data, arg) < 0));
             return this;
         }
 
@@ -49,9 +49,9 @@ namespace Sharpy.Configurement {
         /// <param name="args"></param>
         /// <returns></returns>
         public NameConfig StartsWith(params string[] args) {
-            Filter = args.Length == 1
-                ? new Filter<Name>(Filter.Where(s => IndexOf(s.Data, args[0]) == 0))
-                : new Filter<Name>(Filter.Where(s => args.Any(arg => IndexOf(s.Data, arg) == 0)));
+            Fetcher = args.Length == 1
+                ? new Fetcher<Name>(Fetcher.Where(s => IndexOf(s.Data, args[0]) == 0))
+                : new Fetcher<Name>(Fetcher.Where(s => args.Any(arg => IndexOf(s.Data, arg) == 0)));
             return this;
         }
 
@@ -60,10 +60,10 @@ namespace Sharpy.Configurement {
         /// <param name="args"></param>
         /// <returns></returns>
         public NameConfig Contains(params string[] args) {
-            Filter = args.Length == 1
-                ? new Filter<Name>(
-                    Filter.Where(s => s.Data.IndexOf(args[0], StringComparison.OrdinalIgnoreCase) >= 0))
-                : new Filter<Name>(Filter.Where(s => args.Any(s.Data.Contains)));
+            Fetcher = args.Length == 1
+                ? new Fetcher<Name>(
+                    Fetcher.Where(s => s.Data.IndexOf(args[0], StringComparison.OrdinalIgnoreCase) >= 0))
+                : new Fetcher<Name>(Fetcher.Where(s => args.Any(s.Data.Contains)));
             return this;
         }
 
@@ -73,7 +73,7 @@ namespace Sharpy.Configurement {
         /// <returns></returns>
         public NameConfig ByLength(int length) {
             if (length < 1) throw new ArgumentOutOfRangeException($"{nameof(length)} is below 1");
-            Filter = new Filter<Name>(Filter.Where(s => s.Data.Length == length));
+            Fetcher = new Fetcher<Name>(Fetcher.Where(s => s.Data.Length == length));
             return this;
         }
 
@@ -83,7 +83,7 @@ namespace Sharpy.Configurement {
         /// <param name="countries"></param>
         /// <returns></returns>
         public NameConfig ByOrigin(params Country[] countries) {
-            Filter = ByCountry(countries);
+            Fetcher = ByCountry(countries);
             return this;
         }
 
@@ -94,31 +94,31 @@ namespace Sharpy.Configurement {
         /// <param name="regions"></param>
         /// <returns></returns>
         public NameConfig ByOrigin(params Region[] regions) {
-            Filter = ByRegion(regions);
+            Fetcher = ByRegion(regions);
             return this;
         }
 
         private static int IndexOf(string str, string substring)
             => str.IndexOf(substring, StringComparison.CurrentCultureIgnoreCase);
 
-        private Filter<Name> ByCountry(params Country[] args)
-            => new Filter<Name>(Filter.Where(name => args.Contains(name.Country)));
+        private Fetcher<Name> ByCountry(params Country[] args)
+            => new Fetcher<Name>(Fetcher.Where(name => args.Contains(name.Country)));
 
 
-        private Filter<Name> ByRegion(params Region[] args)
-            => new Filter<Name>(Filter.Where(name => args.Contains(name.Region)));
+        private Fetcher<Name> ByRegion(params Region[] args)
+            => new Fetcher<Name>(Fetcher.Where(name => args.Contains(name.Region)));
 
 
-        internal Filter<Name> ByType(NameType nameType) {
+        internal Fetcher<Name> ByType(NameType nameType) {
             switch (nameType) {
                 case NameType.FemaleFirstName:
-                    return new Filter<Name>(Filter.Where(name => name.Type == 1));
+                    return new Fetcher<Name>(Fetcher.Where(name => name.Type == 1));
                 case NameType.MaleFirstName:
-                    return new Filter<Name>(Filter.Where(name => name.Type == 2));
+                    return new Fetcher<Name>(Fetcher.Where(name => name.Type == 2));
                 case NameType.LastName:
-                    return new Filter<Name>(Filter.Where(name => name.Type == 3));
+                    return new Fetcher<Name>(Fetcher.Where(name => name.Type == 3));
                 case NameType.MixedFirstName:
-                    return new Filter<Name>(Filter.Where(name => name.Type == 1 | name.Type == 2));
+                    return new Fetcher<Name>(Fetcher.Where(name => name.Type == 1 | name.Type == 2));
                 default:
                     throw new ArgumentOutOfRangeException(nameof(nameType), nameType, null);
             }
