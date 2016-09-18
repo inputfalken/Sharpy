@@ -13,7 +13,7 @@ namespace Sharpy.Config {
     /// <summary>
     ///     This class is used for configure each Generator created 
     /// </summary>
-    public class Config {
+    public sealed class Config {
         internal Random Random { get; private set; } = new Random();
         internal DateGenerator DateGenerator { get; }
 
