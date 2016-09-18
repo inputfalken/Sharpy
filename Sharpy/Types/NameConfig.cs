@@ -35,28 +35,6 @@ namespace Sharpy.Types {
             return this;
         }
 
-        private Filter<Name.Name> ByCountry(params Country[] args)
-            => new Filter<Name.Name>(Filter.Where(name => args.Contains(name.Country)));
-
-
-        private Filter<Name.Name> ByRegion(params Region[] args)
-            => new Filter<Name.Name>(Filter.Where(name => args.Contains(name.Region)));
-
-
-        internal Filter<Name.Name> ByType(NameType nameType) {
-            switch (nameType) {
-                case NameType.FemaleFirstName:
-                    return new Filter<Name.Name>(Filter.Where(name => name.Type == 1));
-                case NameType.MaleFirstName:
-                    return new Filter<Name.Name>(Filter.Where(name => name.Type == 2));
-                case NameType.LastName:
-                    return new Filter<Name.Name>(Filter.Where(name => name.Type == 3));
-                case NameType.MixedFirstName:
-                    return new Filter<Name.Name>(Filter.Where(name => name.Type == 1 | name.Type == 2));
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(nameType), nameType, null);
-            }
-        }
 
         /// <summary>
         ///     This filters the names by each Region provided
@@ -110,8 +88,9 @@ namespace Sharpy.Types {
         /// <returns></returns>
         public NameConfig Contains(params string[] args) {
             Filter = args.Length == 1
-                ? new Filter<Name.Name>(Filter.Where(s => s.Data.IndexOf(args[0], StringComparison.OrdinalIgnoreCase) >= 0))
-                :  new Filter<Name.Name>(Filter.Where(s => args.Any(s.Data.Contains)));
+                ? new Filter<Name.Name>(
+                    Filter.Where(s => s.Data.IndexOf(args[0], StringComparison.OrdinalIgnoreCase) >= 0))
+                : new Filter<Name.Name>(Filter.Where(s => args.Any(s.Data.Contains)));
             return this;
         }
 
@@ -124,6 +103,29 @@ namespace Sharpy.Types {
             if (length < 1) throw new ArgumentOutOfRangeException($"{nameof(length)} is below 1");
             Filter = new Filter<Name.Name>(Filter.Where(s => s.Data.Length == length));
             return this;
+        }
+
+        private Filter<Name.Name> ByCountry(params Country[] args)
+            => new Filter<Name.Name>(Filter.Where(name => args.Contains(name.Country)));
+
+
+        private Filter<Name.Name> ByRegion(params Region[] args)
+            => new Filter<Name.Name>(Filter.Where(name => args.Contains(name.Region)));
+
+
+        internal Filter<Name.Name> ByType(NameType nameType) {
+            switch (nameType) {
+                case NameType.FemaleFirstName:
+                    return new Filter<Name.Name>(Filter.Where(name => name.Type == 1));
+                case NameType.MaleFirstName:
+                    return new Filter<Name.Name>(Filter.Where(name => name.Type == 2));
+                case NameType.LastName:
+                    return new Filter<Name.Name>(Filter.Where(name => name.Type == 3));
+                case NameType.MixedFirstName:
+                    return new Filter<Name.Name>(Filter.Where(name => name.Type == 1 | name.Type == 2));
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(nameType), nameType, null);
+            }
         }
     }
 }
