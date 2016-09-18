@@ -12,7 +12,7 @@ namespace Sharpy.Config {
     /// <summary>
     ///    Is Responsible for filtering the names
     /// </summary>
-    public class NameConfig : IStringFilter<NameConfig> {
+    public sealed class NameConfig : IStringFilter<NameConfig> {
         private static Lazy<Filter<Name>> LazyNames { get; } =
             new Lazy<Filter<Name>>(
                 () => new Filter<Name>(JsonConvert.DeserializeObject<IEnumerable<Name>>(
