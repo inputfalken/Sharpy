@@ -34,14 +34,14 @@ namespace Sharpy.Types {
         /// <summary>
         ///     Gives a random name, it could be a female first name, male first name and a lastname.
         /// </summary>
-        public string Name() => Config.NameFilter.Array[Number(Config.NameFilter.Array.Length)].Data;
+        public string Name() => Config.Name.NameFilter.Array[Number(Config.Name.NameFilter.Array.Length)].Data;
 
         /// <summary>
         ///     Gives a random name based on type of argument.
         /// </summary>
         public string Name(NameType nameType) {
             if (!Dictionary.ContainsKey(nameType))
-                Dictionary.Add(nameType, Config.NameFilter.ByType(nameType));
+                Dictionary.Add(nameType, Config.Name.NameFilter.ByType(nameType));
 
             var nameFilter = Dictionary[nameType];
             return nameFilter.Array[Number(nameFilter.Array.Length)].Data;

@@ -8,7 +8,7 @@ namespace Sharpy.Types.Name {
     /// <summary>
     /// 
     /// </summary>
-    public sealed class NameFilter : Filter<Name>, IStringFilter<NameFilter> {
+    internal sealed class NameFilter : Filter<Name>, IStringFilter<NameFilter> {
         /// <summary>
         /// 
         /// </summary>
