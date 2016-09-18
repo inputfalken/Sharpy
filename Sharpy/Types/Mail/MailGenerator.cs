@@ -5,7 +5,7 @@ namespace Sharpy.Types.Mail {
     /// <summary>
     /// 
     /// </summary>
-    public class MailGenerator : Unique<string> {
+    public sealed class MailGenerator : Unique<string> {
         /// <summary>
         ///     Used for separating strings with symbols
         /// </summary>
