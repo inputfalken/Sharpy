@@ -20,7 +20,7 @@ using Sharpy.Enums;
 namespace Logger {
     internal static class Program {
         public static void Main() {
-            var generator = Factory.Generator<Person>(randomizer =>
+            var generator = Factory.CreateGenerator<Person>(randomizer =>
                 new Person {
                     FirstName = randomizer.Name(NameType.MixedFirstName),
                     LastName = randomizer.Name(NameType.LastName)
@@ -47,7 +47,7 @@ using Sharpy.Enums;
 namespace Logger {
     internal static class Program {
         public static void Main() {
-            var generator = Factory.Generator<Person>(randomizer =>
+            var generator = Factory.CreateGenerator<Person>(randomizer =>
                 new Person {
                     FirstName = randomizer.Name(NameType.MixedFirstName),
                     LastName = randomizer.Name(NameType.LastName)
@@ -79,7 +79,7 @@ namespace Logger {
                 "workplace1", "workplace2", "workplace3", 
                 "workplace4", "workplace5", "workplace6"
             };
-            var generator = Factory.Generator<Person>(randomizer =>
+            var generator = Factory.CreateGenerator<Person>(randomizer =>
                 new Person {
                     FirstName = randomizer.Name(NameType.MixedFirstName),
                     LastName = randomizer.Name(NameType.LastName),
