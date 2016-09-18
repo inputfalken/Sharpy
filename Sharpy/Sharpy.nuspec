@@ -16,7 +16,7 @@
 
       Works on .Net4.6 and .Net4.5
     </description>
-    <releaseNotes>Changed redundant visibility of some classes And Updated Xml comments</releaseNotes>
+    <releaseNotes>Changed redundant visibility of some classes and Updated Xml comments</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Fakedata Generator</tags>
     <dependencies>
