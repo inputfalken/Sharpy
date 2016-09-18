@@ -30,7 +30,7 @@ namespace Sharpy.Types {
         /// </summary>
         /// <param name="countries"></param>
         /// <returns></returns>
-        public NameConfig NameOrigin(params Country[] countries) {
+        public NameConfig ByOrigin(params Country[] countries) {
             NameFilter = ByCountry(countries);
             return this;
         }
@@ -63,7 +63,7 @@ namespace Sharpy.Types {
         /// </summary>
         /// <param name="regions"></param>
         /// <returns></returns>
-        public NameConfig NameOrigin(params Region[] regions) {
+        public NameConfig ByOrigin(params Region[] regions) {
             NameFilter = ByRegion(regions);
             return this;
         }
