@@ -8,7 +8,7 @@ namespace Sharpy.Types.Name {
     /// <summary>
     /// 
     /// </summary>
-    public sealed class Name {
+    internal sealed class Name {
         [JsonConstructor]
         internal Name(int type, string country, string region, string name) {
             Data = name;
