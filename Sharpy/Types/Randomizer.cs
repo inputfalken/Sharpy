@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using NodaTime;
 using Sharpy.Configurement;
 using Sharpy.Enums;
-using Sharpy.Types.Name;
 
 namespace Sharpy.Types {
     /// <summary>

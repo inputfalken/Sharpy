@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Sharpy.Types {
-    ///<summary>
+    /// <summary>
     ///     This class is responsible for Filtering and selecting random items
     ///     All filters used in this project are derived from this class.
     /// </summary>
     internal class Filter<TSource> : IEnumerable<TSource> {
         /// <summary>
-        ///    Takes the IEnumerable and turns it into a lazy array which gets used only if needed.
+        ///     Takes the IEnumerable and turns it into a lazy array which gets used only if needed.
         /// </summary>
         /// <param name="enumerable"></param>
         /// <exception cref="ArgumentException"></exception>
@@ -26,8 +26,8 @@ namespace Sharpy.Types {
 
 
         internal TSource RandomItem(Random random) => LazyArray.Value[random.Next(LazyArray.Value.Length)];
+
         /// <summary>
-        /// 
         /// </summary>
         /// <returns></returns>
         public IEnumerator<TSource> GetEnumerator() => Enumerable.GetEnumerator();

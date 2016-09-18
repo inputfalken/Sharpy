@@ -10,15 +10,15 @@ namespace Sharpy.Types.Date {
     public sealed class DateGenerator {
         private readonly Random _random;
 
+        internal DateGenerator(Random random) {
+            _random = random;
+        }
+
         /// <summary>
         ///     Is used for getting the current time.
         /// </summary>
         public static LocalDate CurrentLocalDate
             => SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
-
-        internal DateGenerator(Random random) {
-            _random = random;
-        }
 
         /// <summary>
         ///     Will create a sequence of the values given from current date

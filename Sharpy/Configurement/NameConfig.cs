@@ -4,26 +4,77 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 using Sharpy.Enums;
+using Sharpy.Properties;
 using Sharpy.Types;
 using Sharpy.Types.Name;
 using Sharpy.Types.String;
 
 namespace Sharpy.Configurement {
     /// <summary>
-    ///    Is Responsible for filtering the names
+    ///     Is Responsible for filtering the names
     /// </summary>
     public sealed class NameConfig : IStringFilter<NameConfig> {
+        private Filter<Name> _filter;
+
         private static Lazy<Filter<Name>> LazyNames { get; } =
             new Lazy<Filter<Name>>(
                 () => new Filter<Name>(JsonConvert.DeserializeObject<IEnumerable<Name>>(
-                    Encoding.UTF8.GetString(Properties.Resources.NamesByOrigin))));
-
-
-        private Filter<Name> _filter;
+                    Encoding.UTF8.GetString(Resources.NamesByOrigin))));
 
         internal Filter<Name> Filter {
             get { return _filter ?? LazyNames.Value; }
             private set { _filter = value; }
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="arg"></param>
+        /// <returns></returns>
+        public NameConfig DoesNotStartWith(string arg) {
+            Filter = new Filter<Name>(Filter.Where(s => IndexOf(s.Data, arg) != 0));
+            return this;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="arg"></param>
+        /// <returns></returns>
+        public NameConfig DoesNotContain(string arg) {
+            Filter = new Filter<Name>(Filter.Where(s => IndexOf(s.Data, arg) < 0));
+            return this;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public NameConfig StartsWith(params string[] args) {
+            Filter = args.Length == 1
+                ? new Filter<Name>(Filter.Where(s => IndexOf(s.Data, args[0]) == 0))
+                : new Filter<Name>(Filter.Where(s => args.Any(arg => IndexOf(s.Data, arg) == 0)));
+            return this;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public NameConfig Contains(params string[] args) {
+            Filter = args.Length == 1
+                ? new Filter<Name>(
+                    Filter.Where(s => s.Data.IndexOf(args[0], StringComparison.OrdinalIgnoreCase) >= 0))
+                : new Filter<Name>(Filter.Where(s => args.Any(s.Data.Contains)));
+            return this;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public NameConfig ByLength(int length) {
+            if (length < 1) throw new ArgumentOutOfRangeException($"{nameof(length)} is below 1");
+            Filter = new Filter<Name>(Filter.Where(s => s.Data.Length == length));
+            return this;
         }
 
         /// <summary>
@@ -49,62 +100,6 @@ namespace Sharpy.Configurement {
 
         private static int IndexOf(string str, string substring)
             => str.IndexOf(substring, StringComparison.CurrentCultureIgnoreCase);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="arg"></param>
-        /// <returns></returns>
-        public NameConfig DoesNotStartWith(string arg) {
-            Filter = new Filter<Name>(Filter.Where(s => IndexOf(s.Data, arg) != 0));
-            return this;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="arg"></param>
-        /// <returns></returns>
-        public NameConfig DoesNotContain(string arg) {
-            Filter = new Filter<Name>(Filter.Where(s => IndexOf(s.Data, arg) < 0));
-            return this;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="args"></param>
-        /// <returns></returns>
-        public NameConfig StartsWith(params string[] args) {
-            Filter = args.Length == 1
-                ? new Filter<Name>(Filter.Where(s => IndexOf(s.Data, args[0]) == 0))
-                : new Filter<Name>(Filter.Where(s => args.Any(arg => IndexOf(s.Data, arg) == 0)));
-            return this;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="args"></param>
-        /// <returns></returns>
-        public NameConfig Contains(params string[] args) {
-            Filter = args.Length == 1
-                ? new Filter<Name>(
-                    Filter.Where(s => s.Data.IndexOf(args[0], StringComparison.OrdinalIgnoreCase) >= 0))
-                : new Filter<Name>(Filter.Where(s => args.Any(s.Data.Contains)));
-            return this;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="length"></param>
-        /// <returns></returns>
-        public NameConfig ByLength(int length) {
-            if (length < 1) throw new ArgumentOutOfRangeException($"{nameof(length)} is below 1");
-            Filter = new Filter<Name>(Filter.Where(s => s.Data.Length == length));
-            return this;
-        }
 
         private Filter<Name> ByCountry(params Country[] args)
             => new Filter<Name>(Filter.Where(name => args.Contains(name.Country)));

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 using Sharpy.Enums;
+using Sharpy.Properties;
 using Sharpy.Types.CountryCode;
 using Sharpy.Types.Date;
 using Sharpy.Types.Mail;
@@ -11,38 +12,37 @@ using Sharpy.Types.String;
 
 namespace Sharpy.Configurement {
     /// <summary>
-    ///     This class is used for configure each Generator created 
+    ///     This class is used for configure each Generator created
     /// </summary>
     public sealed class Config {
-        internal Random Random { get; private set; } = new Random();
-        internal DateGenerator DateGenerator { get; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public NameConfig Name { get; } = new NameConfig();
+        private StringFilter _userNamesField;
 
         internal Config() {
             DateGenerator = new DateGenerator(Random);
             MailGenerator = new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" }, Random, false);
-            PhoneNumberGenerator = new PhoneNumberGenerator(new Types.CountryCode.CountryCode("UnitedStates", "+1"), Random);
+            PhoneNumberGenerator = new PhoneNumberGenerator(new CountryCode("UnitedStates", "+1"), Random);
         }
+
+        internal Random Random { get; private set; } = new Random();
+        internal DateGenerator DateGenerator { get; }
+
+        /// <summary>
+        /// </summary>
+        public NameConfig Name { get; } = new NameConfig();
 
         private static Lazy<IEnumerable<CountryCode>> LazyCountryCodes { get; } =
             new Lazy<IEnumerable<CountryCode>>(
                 () => JsonConvert.DeserializeObject<IEnumerable<CountryCode>>(
-                    Encoding.Default.GetString(Properties.Resources.CountryCodes)));
+                    Encoding.Default.GetString(Resources.CountryCodes)));
 
         private static Lazy<StringFilter> LazyUsernames { get; } =
-            new Lazy<StringFilter>(() => new StringFilter(Properties.Resources.usernames.Split(Convert.ToChar("\n"))));
+            new Lazy<StringFilter>(() => new StringFilter(Resources.usernames.Split(Convert.ToChar("\n"))));
 
 
         internal PhoneNumberGenerator PhoneNumberGenerator { get; private set; }
 
 
         internal MailGenerator MailGenerator { get; private set; }
-
-        private StringFilter _userNamesField;
 
         internal StringFilter UserNames {
             get { return _userNamesField ?? LazyUsernames.Value; }
