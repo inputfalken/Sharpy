@@ -32,15 +32,6 @@ namespace Sharpy.Types {
         /// <returns></returns>
         public IEnumerator<TSource> GetEnumerator() => Enumerable.GetEnumerator();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="str"></param>
-        /// <param name="substring"></param>
-        /// <returns></returns>
-        protected static int IndexOf(string str, string substring)
-            => str.IndexOf(substring, StringComparison.CurrentCultureIgnoreCase);
-
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }
