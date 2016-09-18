@@ -50,7 +50,7 @@ namespace Sharpy.Types {
         /// <summary>
         ///     Gives a random username from a huge collection.
         /// </summary>
-        public string UserName() => Config.UserNames.Array[Number(Config.UserNames.Array.Length)];
+        public string UserName() => Config.UserNames.Filter.Array[Number(Config.UserNames.Filter.Array.Length)];
 
         /// <summary>
         ///     Gives a random bool

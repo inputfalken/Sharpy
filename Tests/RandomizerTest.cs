@@ -61,7 +61,7 @@ namespace Tests {
                 Factory.CreateGenerator(randomizer => new TestClass { StringProp = randomizer.UserName() }
                 );
             //This test will check that the random user name is contained in the list
-            var list = Usernames.ToList();
+            var list = Usernames.Filter.ToList();
             Assert.IsTrue(list.Contains(generator.Generate().StringProp));
         }
 
