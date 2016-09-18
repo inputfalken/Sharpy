@@ -12,10 +12,10 @@ namespace Sharpy.Types {
 
         internal Randomizer(Config config) {
             Config = config;
-            Dictionary = new Dictionary<NameType, Filter<Name.Name>>();
+            Dictionary = new Dictionary<NameType, Fetcher<Name.Name>>();
         }
 
-        private Dictionary<NameType, Filter<Name.Name>> Dictionary { get; }
+        private Dictionary<NameType, Fetcher<Name.Name>> Dictionary { get; }
 
         /// <summary>
         ///     Can be used if you have your own collection of items that you would want an random item from.
@@ -34,7 +34,7 @@ namespace Sharpy.Types {
         /// <summary>
         ///     Gives a random name, it could be a female first name, male first name and a lastname.
         /// </summary>
-        public string Name() => Config.Name.Filter.RandomItem(Config.Random).Data;
+        public string Name() => Config.Name.Fetcher.RandomItem(Config.Random).Data;
 
         /// <summary>
         ///     Gives a random name based on type of argument.
@@ -48,7 +48,7 @@ namespace Sharpy.Types {
         /// <summary>
         ///     Gives a random username from a huge collection.
         /// </summary>
-        public string UserName() => Config.UserNames.Filter.RandomItem(Config.Random);
+        public string UserName() => Config.UserNames.Fetcher.RandomItem(Config.Random);
 
         /// <summary>
         ///     Gives a random bool

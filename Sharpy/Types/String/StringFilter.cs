@@ -10,22 +10,22 @@ namespace Sharpy.Types.String {
         /// </summary>
         /// <param name="enumerable"></param>
         public StringFilter(IEnumerable<string> enumerable) {
-            Filter = new Filter<string>(enumerable);
+            Fetcher = new Fetcher<string>(enumerable);
         }
 
-        internal Filter<string> Filter { get; }
+        internal Fetcher<string> Fetcher { get; }
 
         /// <summary>
         /// </summary>
         /// <param name="arg"></param>
         /// <returns></returns>
-        public StringFilter DoesNotStartWith(string arg) => new StringFilter(Filter.Where(s => IndexOf(s, arg) != 0));
+        public StringFilter DoesNotStartWith(string arg) => new StringFilter(Fetcher.Where(s => IndexOf(s, arg) != 0));
 
         /// <summary>
         /// </summary>
         /// <param name="arg"></param>
         /// <returns></returns>
-        public StringFilter DoesNotContain(string arg) => new StringFilter(Filter.Where(s => IndexOf(s, arg) < 0));
+        public StringFilter DoesNotContain(string arg) => new StringFilter(Fetcher.Where(s => IndexOf(s, arg) < 0));
 
         /// <summary>
         /// </summary>
@@ -33,8 +33,8 @@ namespace Sharpy.Types.String {
         /// <returns></returns>
         public StringFilter StartsWith(params string[] args)
             => args.Length == 1
-                ? new StringFilter(Filter.Where(s => IndexOf(s, args[0]) == 0))
-                : new StringFilter(Filter.Where(s => args.Any(arg => IndexOf(s, arg) == 0)));
+                ? new StringFilter(Fetcher.Where(s => IndexOf(s, args[0]) == 0))
+                : new StringFilter(Fetcher.Where(s => args.Any(arg => IndexOf(s, arg) == 0)));
 
         /// <summary>
         /// </summary>
@@ -42,8 +42,8 @@ namespace Sharpy.Types.String {
         /// <returns></returns>
         public StringFilter Contains(params string[] args)
             => args.Length == 1
-                ? new StringFilter(Filter.Where(s => IndexOf(s, args[0]) >= 0))
-                : new StringFilter(Filter.Where(s => args.Any(arg => IndexOf(s, arg) >= 0)));
+                ? new StringFilter(Fetcher.Where(s => IndexOf(s, args[0]) >= 0))
+                : new StringFilter(Fetcher.Where(s => args.Any(arg => IndexOf(s, arg) >= 0)));
 
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Sharpy.Types.String {
         /// <returns></returns>
         public StringFilter ByLength(int length) {
             if (length < 1) throw new ArgumentOutOfRangeException($"{nameof(length)} is below 1");
-            return new StringFilter(Filter.Where(s => s.Length == length));
+            return new StringFilter(Fetcher.Where(s => s.Length == length));
         }
 
         private static int IndexOf(string str, string substring)
