@@ -8,59 +8,13 @@ namespace Sharpy.Types.Name {
     /// <summary>
     /// 
     /// </summary>
-    internal sealed class NameFilter : Filter<Name>, IStringFilter<NameFilter> {
+    internal sealed class NameFilter : Filter<Name> {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="enumerable"></param>
         internal NameFilter(IEnumerable<Name> enumerable) : base(enumerable) {
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="arg"></param>
-        /// <returns></returns>
-        public NameFilter DoesNotStartWith(string arg) => new NameFilter(this.Where(s => IndexOf(s.Data, arg) != 0));
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="arg"></param>
-        /// <returns></returns>
-        public NameFilter DoesNotContain(string arg) => new NameFilter(this.Where(s => IndexOf(s.Data, arg) < 0));
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="args"></param>
-        /// <returns></returns>
-        public NameFilter StartsWith(params string[] args)
-            => args.Length == 1
-                ? new NameFilter(this.Where(s => IndexOf(s.Data, args[0]) == 0))
-                : new NameFilter(this.Where(s => args.Any(arg => IndexOf(s.Data, arg) == 0)));
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="args"></param>
-        /// <returns></returns>
-        public NameFilter Contains(params string[] args) {
-            return args.Length == 1
-                ? new NameFilter(this.Where(s => s.Data.IndexOf(args[0], StringComparison.OrdinalIgnoreCase) >= 0))
-                : new NameFilter(this.Where(s => args.Any(s.Data.Contains)));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="length"></param>
-        /// <returns></returns>
-        public NameFilter ByLength(int length) {
-            if (length < 1) throw new ArgumentOutOfRangeException($"{nameof(length)} is below 1");
-            return new NameFilter(this.Where(s => s.Data.Length == length));
-        }
-
 
         internal NameFilter ByCountry(params Country[] args)
             => new NameFilter(this.Where(name => args.Contains(name.Country)));
