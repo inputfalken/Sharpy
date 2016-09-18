@@ -25,7 +25,6 @@ namespace Sharpy.Types {
         private Lazy<TSource[]> LazyArray { get; }
 
 
-        internal TSource[] Array => LazyArray.Value;
         internal TSource RandomItem(Random random) => LazyArray.Value[random.Next(LazyArray.Value.Length)];
         /// <summary>
         /// 

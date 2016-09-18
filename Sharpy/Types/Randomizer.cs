@@ -42,9 +42,7 @@ namespace Sharpy.Types {
         public string Name(NameType nameType) {
             if (!Dictionary.ContainsKey(nameType))
                 Dictionary.Add(nameType, Config.Name.ByType(nameType));
-
-            var nameFilter = Dictionary[nameType];
-            return nameFilter.Array[Number(nameFilter.Array.Length)].Data;
+            return Dictionary[nameType].RandomItem(Config.Random).Data;
         }
 
         /// <summary>
