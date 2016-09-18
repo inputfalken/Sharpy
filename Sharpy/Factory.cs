@@ -3,7 +3,7 @@ using Sharpy.Types;
 
 namespace Sharpy {
     /// <summary>
-    /// 
+    ///      Is responsible for initiating the nescesarry objects to create Generators.
     /// </summary>
     public static class Factory {
         /// <summary>
@@ -27,7 +27,7 @@ namespace Sharpy {
             var randomizer = new Randomizer(new Config());
             var iteration = -1;
             return new Generator<T>(() => {
-                iteration ++;
+                iteration++;
                 return func(randomizer, iteration);
             }, randomizer.Config);
         }
