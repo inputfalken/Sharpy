@@ -7,7 +7,7 @@ namespace Sharpy.Types {
     ///     And a config to set settings for how the supplied type should get generated
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class Generator<T> {
+    public sealed class Generator<T> {
         internal Generator(Func<T> func, Config.Config config) {
             Config = config;
             Func = func;
