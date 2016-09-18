@@ -4,7 +4,7 @@ using Sharpy.Types;
 
 namespace Sharpy {
     /// <summary>
-    ///      Is responsible for initiating the nescesarry objects to create Generators.
+    ///     Is responsible for initiating the nescesarry objects to create Generators.
     /// </summary>
     public static class Factory {
         /// <summary>
@@ -20,8 +20,8 @@ namespace Sharpy {
 
 
         /// <summary>
-        ///    This overload also gives an int of the current iteration.
-        ///    First iteration will be number 0 
+        ///     This overload also gives an int of the current iteration.
+        ///     First iteration will be number 0
         /// </summary>
         /// <returns></returns>
         public static Generator<T> CreateGenerator<T>(Func<Randomizer, int, T> func) {

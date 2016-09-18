@@ -6,7 +6,6 @@ namespace Sharpy.Types.Name {
     // Is generated from json
     // ReSharper disable once ClassNeverInstantiated.Global
     /// <summary>
-    /// 
     /// </summary>
     internal sealed class Name {
         [JsonConstructor]
@@ -21,8 +20,8 @@ namespace Sharpy.Types.Name {
         internal string Data { get; }
         internal Region Region { get; }
         internal Country Country { get; }
+
         /// <summary>
-        /// 
         /// </summary>
         /// <returns></returns>
         public override string ToString() => Data;

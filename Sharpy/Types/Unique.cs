@@ -4,18 +4,15 @@ using System.Text;
 
 namespace Sharpy.Types {
     /// <summary>
-    /// 
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract class Unique<T> {
         // ReSharper disable once StaticMemberInGenericType
         /// <summary>
-        /// 
         /// </summary>
         protected static readonly StringBuilder Builder = new StringBuilder();
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="attemptLimit"></param>
         /// <param name="random"></param>
@@ -26,13 +23,12 @@ namespace Sharpy.Types {
         }
 
         /// <summary>
-        /// 
         /// </summary>
         protected int AttemptLimit { get; }
+
         /// <summary>
-        /// 
         /// </summary>
-        protected Random Random { get;  }
+        protected Random Random { get; }
 
         /// <summary>
         ///     This hashset will be the history of all the created elements in derived classes

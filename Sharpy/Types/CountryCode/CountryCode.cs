@@ -7,17 +7,6 @@ namespace Sharpy.Types.CountryCode {
     ///     Contains Country name a Country Code
     /// </summary>
     public sealed class CountryCode {
-        internal bool IsParsed { get; }
-
-        /// <summary>
-        ///     Name of the Country
-        /// </summary>
-        public Country Name { get; }
-        /// <summary>
-        ///     The country code for the Country
-        /// </summary>
-        public string Code { get; }
-
         [JsonConstructor]
         internal CountryCode(string name, string code) {
             Code = code;
@@ -26,5 +15,17 @@ namespace Sharpy.Types.CountryCode {
             Name = country;
             IsParsed = true;
         }
+
+        internal bool IsParsed { get; }
+
+        /// <summary>
+        ///     Name of the Country
+        /// </summary>
+        public Country Name { get; }
+
+        /// <summary>
+        ///     The country code for the Country
+        /// </summary>
+        public string Code { get; }
     }
 }

@@ -5,17 +5,17 @@ namespace Sharpy.Types.CountryCode {
     // ReSharper disable once ClassNeverInstantiated.Global
     // Is generated from json
     /// <summary>
-    /// 
     /// </summary>
     public sealed class PhoneNumberGenerator : Unique<string> {
-        private CountryCode CountryCode { get; }
         internal PhoneNumberGenerator(CountryCode countryCode, Random random, bool unique = false) : base(50, random) {
             CountryCode = countryCode;
             Unique = unique;
         }
 
+        private CountryCode CountryCode { get; }
 
-        private bool Unique { get;  }
+
+        private bool Unique { get; }
 
 
         /// <summary>

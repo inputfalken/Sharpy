@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace Sharpy.Types.Mail {
     /// <summary>
-    /// 
     /// </summary>
     public sealed class MailGenerator : Unique<string> {
         /// <summary>

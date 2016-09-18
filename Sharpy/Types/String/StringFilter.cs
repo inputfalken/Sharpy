@@ -4,11 +4,9 @@ using System.Linq;
 
 namespace Sharpy.Types.String {
     /// <summary>
-    /// 
     /// </summary>
     public sealed class StringFilter : IStringFilter<StringFilter> {
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="enumerable"></param>
         public StringFilter(IEnumerable<string> enumerable) {
@@ -16,22 +14,20 @@ namespace Sharpy.Types.String {
         }
 
         internal Filter<string> Filter { get; }
+
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="arg"></param>
         /// <returns></returns>
         public StringFilter DoesNotStartWith(string arg) => new StringFilter(Filter.Where(s => IndexOf(s, arg) != 0));
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="arg"></param>
         /// <returns></returns>
         public StringFilter DoesNotContain(string arg) => new StringFilter(Filter.Where(s => IndexOf(s, arg) < 0));
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="args"></param>
         /// <returns></returns>
@@ -41,7 +37,6 @@ namespace Sharpy.Types.String {
                 : new StringFilter(Filter.Where(s => args.Any(arg => IndexOf(s, arg) == 0)));
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="args"></param>
         /// <returns></returns>
@@ -52,7 +47,6 @@ namespace Sharpy.Types.String {
 
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="length"></param>
         /// <returns></returns>
