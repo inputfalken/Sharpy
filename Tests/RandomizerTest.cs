@@ -26,26 +26,6 @@ namespace Tests {
             Assert.IsTrue(testClass.GetType() == typeof(TestClass));
         }
 
-        [Test]
-        public void CreateGenerator_Name() {
-            var generator = Factory.CreateGenerator(randomizer => new TestClass { StringProp = randomizer.Name() }
-            );
-
-            //This test will check if the name given is from the common names collection
-            Assert.IsTrue(CommonNames.NameFilter.Select(name => name.Data).Contains(generator.Generate().StringProp));
-
-        }
-
-        [Test]
-        public void TestEveryCountryEnumForName() {
-            //This code will iterate all country enums and try to generate from it if no data is fetched from the country an exception will be thrown...
-            Assert.DoesNotThrow(() => {
-                foreach (var enumName in typeof(Country).GetEnumNames()) {
-                    var countryEnum = (Country) Enum.Parse(typeof(Country), enumName);
-                    CommonNames.NameOrigin(countryEnum);
-                }
-            });
-        }
 
         [Test]
         public void TestEveryCountryEnumForCountryCode() {
@@ -74,21 +54,6 @@ namespace Tests {
             Assert.IsTrue(generator.Generate(10).All(items.Contains));
         }
 
-        [Test]
-        public void CreateGenerator_NameByType() {
-            var generator =
-                Factory.CreateGenerator(
-                    randomizer => new TestClass { StringProp = randomizer.Name(NameType.MaleFirstName) }
-                );
-            var firstName = generator.Generate();
-            //This test will check if the name given is from the common names collection
-            Assert.IsTrue(
-                CommonNames.ByType(NameType.MaleFirstName).Select(name => name.Data).Contains(firstName.StringProp));
-            Assert.IsTrue(
-                CommonNames.ByType(NameType.MixedFirstName).Select(name => name.Data).Contains(firstName.StringProp));
-            Assert.IsFalse(
-                CommonNames.ByType(NameType.FemaleFirstName).Select(name => name.Data).Contains(firstName.StringProp));
-        }
 
         [Test]
         public void CreateGenerator_UserName() {
