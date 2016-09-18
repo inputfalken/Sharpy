@@ -7,7 +7,7 @@ namespace Sharpy.Types.Date {
     /// <summary>
     ///     Is used for creating random dates
     /// </summary>
-    public class DateGenerator {
+    public sealed class DateGenerator {
         private readonly Random _random;
 
         /// <summary>
