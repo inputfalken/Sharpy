@@ -1,4 +1,5 @@
 ﻿using System;
+using Sharpy.Configurement;
 using Sharpy.Types;
 
 namespace Sharpy {
@@ -13,7 +14,7 @@ namespace Sharpy {
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
         public static Generator<T> CreateGenerator<T>(Func<Randomizer, T> func) {
-            var randomizer = new Randomizer(new Config.Config());
+            var randomizer = new Randomizer(new Config());
             return new Generator<T>(() => func(randomizer), randomizer.Config);
         }
 
@@ -24,7 +25,7 @@ namespace Sharpy {
         /// </summary>
         /// <returns></returns>
         public static Generator<T> CreateGenerator<T>(Func<Randomizer, int, T> func) {
-            var randomizer = new Randomizer(new Config.Config());
+            var randomizer = new Randomizer(new Config());
             var iteration = -1;
             return new Generator<T>(() => {
                 iteration++;

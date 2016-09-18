@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using NodaTime;
+using Sharpy.Configurement;
 using Sharpy.Enums;
 using Sharpy.Types.Name;
 
@@ -8,9 +9,9 @@ namespace Sharpy.Types {
     ///     Will randomize all data that these methods return.
     /// </summary>
     public sealed class Randomizer {
-        internal readonly Config.Config Config;
+        internal readonly Config Config;
 
-        internal Randomizer(Config.Config config) {
+        internal Randomizer(Config config) {
             Config = config;
             Dictionary = new Dictionary<NameType, Filter<Name.Name>>();
         }

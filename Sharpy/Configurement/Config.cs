@@ -9,7 +9,7 @@ using Sharpy.Types.Date;
 using Sharpy.Types.Mail;
 using Sharpy.Types.String;
 
-namespace Sharpy.Config {
+namespace Sharpy.Configurement {
     /// <summary>
     ///     This class is used for configure each Generator created 
     /// </summary>
