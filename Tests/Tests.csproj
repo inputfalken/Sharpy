@@ -53,7 +53,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommonNamesReadFileTest.cs" />
     <Compile Include="MailGeneratorTest.cs" />
     <Compile Include="PhoneNumberGeneratorTest.cs" />
     <Compile Include="NameFilterTest.cs" />
