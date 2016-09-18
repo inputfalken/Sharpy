@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 using NodaTime;
 using NUnit.Framework;
 using Sharpy;
-using Sharpy.Config;
+using Sharpy.Configurement;
 using Sharpy.Enums;
 using Sharpy.Types;
 using Sharpy.Types.CountryCode;

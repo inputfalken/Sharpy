@@ -8,7 +8,7 @@ using Sharpy.Types;
 using Sharpy.Types.Name;
 using Sharpy.Types.String;
 
-namespace Sharpy.Config {
+namespace Sharpy.Configurement {
     /// <summary>
     ///    Is Responsible for filtering the names
     /// </summary>
