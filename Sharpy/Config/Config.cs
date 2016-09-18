@@ -9,7 +9,7 @@ using Sharpy.Types.Date;
 using Sharpy.Types.Mail;
 using Sharpy.Types.String;
 
-namespace Sharpy.Types {
+namespace Sharpy.Config {
     /// <summary>
     ///     This class is used for configure each Generator created 
     /// </summary>
@@ -25,12 +25,12 @@ namespace Sharpy.Types {
         internal Config() {
             DateGenerator = new DateGenerator(Random);
             MailGenerator = new MailGenerator(new[] { "gmail.com", "hotmail.com", "yahoo.com" }, Random, false);
-            PhoneNumberGenerator = new PhoneNumberGenerator(new CountryCode.CountryCode("UnitedStates", "+1"), Random);
+            PhoneNumberGenerator = new PhoneNumberGenerator(new Types.CountryCode.CountryCode("UnitedStates", "+1"), Random);
         }
 
-        private static Lazy<IEnumerable<CountryCode.CountryCode>> LazyCountryCodes { get; } =
-            new Lazy<IEnumerable<CountryCode.CountryCode>>(
-                () => JsonConvert.DeserializeObject<IEnumerable<CountryCode.CountryCode>>(
+        private static Lazy<IEnumerable<CountryCode>> LazyCountryCodes { get; } =
+            new Lazy<IEnumerable<CountryCode>>(
+                () => JsonConvert.DeserializeObject<IEnumerable<CountryCode>>(
                     Encoding.Default.GetString(Properties.Resources.CountryCodes)));
 
         private static Lazy<StringFilter> LazyUsernames { get; } =
