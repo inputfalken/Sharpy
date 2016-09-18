@@ -70,7 +70,6 @@
     <Compile Include="Enums\Origin.cs" />
     <Compile Include="Types\Filter.cs" />
     <Compile Include="Types\Mail\MailGenerator.cs" />
-    <Compile Include="Types\Name\NameFilter.cs" />
     <Compile Include="Types\Name\Name.cs" />
     <Compile Include="Types\String\IStringFilter.cs" />
     <Compile Include="Types\String\stringfilter.cs" />

@@ -12,10 +12,10 @@ namespace Sharpy.Types {
 
         internal Randomizer(Config config) {
             Config = config;
-            Dictionary = new Dictionary<NameType, NameFilter>();
+            Dictionary = new Dictionary<NameType, Filter<Name.Name>>();
         }
 
-        private Dictionary<NameType, NameFilter> Dictionary { get; }
+        private Dictionary<NameType, Filter<Name.Name>> Dictionary { get; }
 
         /// <summary>
         ///     Can be used if you have your own collection of items that you would want an random item from.
@@ -41,7 +41,7 @@ namespace Sharpy.Types {
         /// </summary>
         public string Name(NameType nameType) {
             if (!Dictionary.ContainsKey(nameType))
-                Dictionary.Add(nameType, Config.Name.NameFilter.ByType(nameType));
+                Dictionary.Add(nameType, Config.Name.ByType(nameType));
 
             var nameFilter = Dictionary[nameType];
             return nameFilter.Array[Number(nameFilter.Array.Length)].Data;

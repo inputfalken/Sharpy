@@ -8,6 +8,7 @@ using NodaTime;
 using NUnit.Framework;
 using Sharpy;
 using Sharpy.Enums;
+using Sharpy.Types;
 using Sharpy.Types.CountryCode;
 using Sharpy.Types.Date;
 using Sharpy.Types.Name;
@@ -31,7 +32,8 @@ namespace Tests {
             );
 
             //This test will check if the name given is from the common names collection
-            Assert.IsTrue(CommonNames.Select(name => name.Data).Contains(generator.Generate().StringProp));
+            Assert.IsTrue(CommonNames.NameFilter.Select(name => name.Data).Contains(generator.Generate().StringProp));
+
         }
 
         [Test]
@@ -40,7 +42,7 @@ namespace Tests {
             Assert.DoesNotThrow(() => {
                 foreach (var enumName in typeof(Country).GetEnumNames()) {
                     var countryEnum = (Country) Enum.Parse(typeof(Country), enumName);
-                    CommonNames.ByCountry(countryEnum);
+                    CommonNames.NameOrigin(countryEnum);
                 }
             });
         }
@@ -230,7 +232,7 @@ namespace Tests {
             generator.Config.Name.NameOrigin(Country.Sweden);
             Assert.IsTrue(
                 generator.Generate(30)
-                    .All(s => CommonNames.ByCountry(Country.Sweden).Select(name => name.Data).Contains(s)));
+                    .All(s => CommonNames.NameOrigin(Country.Sweden).NameFilter.Select(name => name.Data).Contains(s)));
         }
 
         [Test]
@@ -525,9 +527,8 @@ namespace Tests {
             public int IntProp { get; set; }
         }
 
-        private static readonly NameFilter CommonNames =
-            new NameFilter(new NameFilter(JsonConvert.DeserializeObject<IEnumerable<Name>>(
-                Encoding.UTF8.GetString(Sharpy.Properties.Resources.NamesByOrigin))));
+        private static readonly NameConfig CommonNames = new Config().Name;
+            
 
         private static readonly StringFilter Usernames =
             new StringFilter(Sharpy.Properties.Resources.usernames.Split(Convert.ToChar("\n")));

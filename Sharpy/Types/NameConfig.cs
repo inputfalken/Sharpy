@@ -12,13 +12,15 @@ namespace Sharpy.Types {
     /// 
     /// </summary>
     public class NameConfig : IStringFilter<NameConfig> {
-        private static Lazy<NameFilter> LazyNameFilter { get; } =
-            new Lazy<NameFilter>(() => new NameFilter(JsonConvert.DeserializeObject<IEnumerable<Name.Name>>(
-                Encoding.UTF8.GetString(Properties.Resources.NamesByOrigin))));
+        private static Lazy<Filter<Name.Name>> LazyNameFilter { get; } =
+            new Lazy<Filter<Name.Name>>(
+                () => new Filter<Name.Name>(JsonConvert.DeserializeObject<IEnumerable<Name.Name>>(
+                    Encoding.UTF8.GetString(Properties.Resources.NamesByOrigin))));
 
-        private NameFilter _nameFilter;
 
-        internal NameFilter NameFilter {
+        private Filter<Name.Name> _nameFilter;
+
+        internal Filter<Name.Name> NameFilter {
             get { return _nameFilter ?? LazyNameFilter.Value; }
             private set { _nameFilter = value; }
         }
@@ -29,8 +31,31 @@ namespace Sharpy.Types {
         /// <param name="countries"></param>
         /// <returns></returns>
         public NameConfig NameOrigin(params Country[] countries) {
-            NameFilter = NameFilter.ByCountry(countries);
+            NameFilter = ByCountry(countries);
             return this;
+        }
+
+        private Filter<Name.Name> ByCountry(params Country[] args)
+            => new Filter<Name.Name>(NameFilter.Where(name => args.Contains(name.Country)));
+
+
+        private Filter<Name.Name> ByRegion(params Region[] args)
+            => new Filter<Name.Name>(NameFilter.Where(name => args.Contains(name.Region)));
+
+
+        internal Filter<Name.Name> ByType(NameType nameType) {
+            switch (nameType) {
+                case NameType.FemaleFirstName:
+                    return new Filter<Name.Name>(NameFilter.Where(name => name.Type == 1));
+                case NameType.MaleFirstName:
+                    return new Filter<Name.Name>(NameFilter.Where(name => name.Type == 2));
+                case NameType.LastName:
+                    return new Filter<Name.Name>(NameFilter.Where(name => name.Type == 3));
+                case NameType.MixedFirstName:
+                    return new Filter<Name.Name>(NameFilter.Where(name => name.Type == 1 | name.Type == 2));
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(nameType), nameType, null);
+            }
         }
 
         /// <summary>
@@ -39,7 +64,7 @@ namespace Sharpy.Types {
         /// <param name="regions"></param>
         /// <returns></returns>
         public NameConfig NameOrigin(params Region[] regions) {
-            NameFilter = NameFilter.ByRegion(regions);
+            NameFilter = ByRegion(regions);
             return this;
         }
 
@@ -52,7 +77,7 @@ namespace Sharpy.Types {
         /// <param name="arg"></param>
         /// <returns></returns>
         public NameConfig DoesNotStartWith(string arg) {
-            NameFilter = new NameFilter(NameFilter.Where(s => IndexOf(s.Data, arg) != 0));
+            NameFilter = new Filter<Name.Name>(NameFilter.Where(s => IndexOf(s.Data, arg) != 0));
             return this;
         }
 
@@ -62,7 +87,7 @@ namespace Sharpy.Types {
         /// <param name="arg"></param>
         /// <returns></returns>
         public NameConfig DoesNotContain(string arg) {
-            NameFilter = new NameFilter(NameFilter.Where(s => IndexOf(s.Data, arg) < 0));
+            NameFilter = new Filter<Name.Name>(NameFilter.Where(s => IndexOf(s.Data, arg) < 0));
             return this;
         }
 
@@ -73,8 +98,8 @@ namespace Sharpy.Types {
         /// <returns></returns>
         public NameConfig StartsWith(params string[] args) {
             NameFilter = args.Length == 1
-                ? new NameFilter(NameFilter.Where(s => IndexOf(s.Data, args[0]) == 0))
-                : new NameFilter(NameFilter.Where(s => args.Any(arg => IndexOf(s.Data, arg) == 0)));
+                ? new Filter<Name.Name>(NameFilter.Where(s => IndexOf(s.Data, args[0]) == 0))
+                : new Filter<Name.Name>(NameFilter.Where(s => args.Any(arg => IndexOf(s.Data, arg) == 0)));
             return this;
         }
 
@@ -85,8 +110,8 @@ namespace Sharpy.Types {
         /// <returns></returns>
         public NameConfig Contains(params string[] args) {
             NameFilter = args.Length == 1
-                ? new NameFilter(NameFilter.Where(s => s.Data.IndexOf(args[0], StringComparison.OrdinalIgnoreCase) >= 0))
-                : new NameFilter(NameFilter.Where(s => args.Any(s.Data.Contains)));
+                ? new Filter<Name.Name>(NameFilter.Where(s => s.Data.IndexOf(args[0], StringComparison.OrdinalIgnoreCase) >= 0))
+                :  new Filter<Name.Name>(NameFilter.Where(s => args.Any(s.Data.Contains)));
             return this;
         }
 
@@ -97,7 +122,7 @@ namespace Sharpy.Types {
         /// <returns></returns>
         public NameConfig ByLength(int length) {
             if (length < 1) throw new ArgumentOutOfRangeException($"{nameof(length)} is below 1");
-            NameFilter = new NameFilter(NameFilter.Where(s => s.Data.Length == length));
+            NameFilter = new Filter<Name.Name>(NameFilter.Where(s => s.Data.Length == length));
             return this;
         }
     }
