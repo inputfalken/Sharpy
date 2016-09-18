@@ -81,7 +81,7 @@ namespace Sharpy.Configurement {
         /// </summary>
         /// <param name="func"></param>
         /// <returns></returns>
-        public Config UserName(Func<StringFilter, StringFilter> func) {
+        public Config UserName(Func<IStringFilter<StringFilter>, StringFilter> func) {
             UserNames = func(UserNames);
             return this;
         }
