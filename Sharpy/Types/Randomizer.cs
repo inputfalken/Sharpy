@@ -34,7 +34,7 @@ namespace Sharpy.Types {
         /// <summary>
         ///     Gives a random name, it could be a female first name, male first name and a lastname.
         /// </summary>
-        public string Name() => Config.Name.Filter.Array[Number(Config.Name.Filter.Array.Length)].Data;
+        public string Name() => Config.Name.Filter.RandomItem(Config.Random).Data;
 
         /// <summary>
         ///     Gives a random name based on type of argument.
@@ -50,7 +50,7 @@ namespace Sharpy.Types {
         /// <summary>
         ///     Gives a random username from a huge collection.
         /// </summary>
-        public string UserName() => Config.UserNames.Filter.Array[Number(Config.UserNames.Filter.Array.Length)];
+        public string UserName() => Config.UserNames.Filter.RandomItem(Config.Random);
 
         /// <summary>
         ///     Gives a random bool
