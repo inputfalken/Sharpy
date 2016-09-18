@@ -9,7 +9,7 @@ using Sharpy.Types.String;
 
 namespace Sharpy.Types {
     /// <summary>
-    /// 
+    ///    Is Responsible for filtering the names
     /// </summary>
     public class NameConfig : IStringFilter<NameConfig> {
         private static Lazy<Filter<Name.Name>> LazyNames { get; } =
