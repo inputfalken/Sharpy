@@ -6,7 +6,7 @@ namespace Sharpy.Types.CountryCode {
     /// <summary>
     ///     Contains Country name a Country Code
     /// </summary>
-    public class CountryCode {
+    public sealed class CountryCode {
         internal bool IsParsed { get; }
 
         /// <summary>
