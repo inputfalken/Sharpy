@@ -82,7 +82,7 @@ namespace Sharpy.Configurement {
         /// </summary>
         /// <param name="countries"></param>
         /// <returns></returns>
-        public NameConfig ByOrigin(params Country[] countries) {
+        public NameConfig Origin(params Country[] countries) {
             Fetcher = ByCountry(countries);
             return this;
         }
@@ -93,7 +93,7 @@ namespace Sharpy.Configurement {
         /// </summary>
         /// <param name="regions"></param>
         /// <returns></returns>
-        public NameConfig ByOrigin(params Region[] regions) {
+        public NameConfig Origin(params Region[] regions) {
             Fetcher = ByRegion(regions);
             return this;
         }
@@ -109,7 +109,7 @@ namespace Sharpy.Configurement {
             => new Fetcher<Name>(Fetcher.Where(name => args.Contains(name.Region)));
 
 
-        internal Fetcher<Name> ByType(NameType nameType) {
+        internal Fetcher<Name> Type(NameType nameType) {
             switch (nameType) {
                 case NameType.FemaleFirstName:
                     return new Fetcher<Name>(Fetcher.Where(name => name.Type == 1));

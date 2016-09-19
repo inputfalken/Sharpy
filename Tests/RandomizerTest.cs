@@ -195,10 +195,10 @@ namespace Tests {
         [Test]
         public void CreateGenerator_Config_Names() {
             var generator = Factory.CreateGenerator(randomizer => randomizer.Name(NameType.MixedFirstName));
-            generator.Config.Name.ByOrigin(Country.Sweden);
+            generator.Config.Name.Origin(Country.Sweden);
             Assert.IsTrue(
                 generator.Generate(30)
-                    .All(s => CommonNames.ByOrigin(Country.Sweden).Fetcher.Select(name => name.Data).Contains(s)));
+                    .All(s => CommonNames.Origin(Country.Sweden).Fetcher.Select(name => name.Data).Contains(s)));
         }
 
         [Test]
