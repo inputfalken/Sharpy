@@ -8,7 +8,7 @@ namespace Sharpy.Types {
     ///     This class is responsible for Filtering and selecting random items
     ///     All filters used in this project are derived from this class.
     /// </summary>
-    internal class Fetcher<TSource> : IEnumerable<TSource> {
+    internal sealed class Fetcher<TSource> : IEnumerable<TSource> {
         /// <summary>
         ///     Takes the IEnumerable and turns it into a lazy array which gets used only if needed.
         /// </summary>
