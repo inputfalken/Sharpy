@@ -53,7 +53,7 @@ namespace Logger {
                     LastName = randomizer.Name(NameType.LastName)
                 });
             // Applies a filter to give common names from the United States
-            generator.Config.NameOrigin(Country.UnitedStates);
+            generator.Config.Name(config => config.Origin(Country.UnitedStates));
             // Creates an IEnumerable<Person> with twenty persons. All with randomized names.
             var persons = generator.Generate(20);
             // Creates one person with randomized names.
@@ -86,7 +86,7 @@ namespace Logger {
                     WorkPlace = randomizer.CustomCollection<string>(workplaces)
                 });
             // Applies a filter to give common names from the United States
-            generator.Config.NameOrigin(Country.UnitedStates);
+            generator.Config.Name(config => config.Origin(Country.UnitedStates));
             // Creates an IEnumerable<Person> with twenty persons. All with randomized names.
             var persons = generator.Generate(20);
             // Creates one person with randomized names.
