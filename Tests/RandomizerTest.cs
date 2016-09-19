@@ -195,7 +195,7 @@ namespace Tests {
         [Test]
         public void CreateGenerator_Config_Names() {
             var generator = Factory.CreateGenerator(randomizer => randomizer.Name(NameType.MixedFirstName));
-            generator.Config.NameConfig.Origin(Country.Sweden);
+            generator.Config.Name(config => config.Origin(Country.Sweden));
             Assert.IsTrue(
                 generator.Generate(30)
                     .All(s => CommonNames.Origin(Country.Sweden).Fetcher.Select(name => name.Data).Contains(s)));
@@ -211,7 +211,7 @@ namespace Tests {
         [Test]
         public void CreateGenerator_Config_Names_ByLength5() {
             var generator = Factory.CreateGenerator(randomizer => randomizer.Name());
-            generator.Config.NameConfig.ByLength(5);
+            generator.Config.Name(config => config.ByLength(5));
             Assert.IsTrue(generator.Generate(30).All(s => s.Length == 5));
         }
 
@@ -261,7 +261,7 @@ namespace Tests {
         [Test]
         public void CreateGenerator_Config_Names_Contains_S() {
             var generator = Factory.CreateGenerator(randomizer => randomizer.Name());
-            generator.Config.NameConfig.Contains("S");
+            generator.Config.Name(config => config.Contains("S"));
             Assert.IsTrue(generator.Generate(30).All(s => {
                 var b = s.IndexOf("S", StringComparison.CurrentCultureIgnoreCase) >= 0;
                 return b;
@@ -271,7 +271,7 @@ namespace Tests {
         [Test]
         public void CreateGenerator_Config_Names_Contains_Sot() {
             var generator = Factory.CreateGenerator(randomizer => randomizer.Name());
-            generator.Config.NameConfig.Contains("Sot");
+            generator.Config.Name(config => config.Contains("Sot"));
             Assert.IsTrue(generator.Generate(30).All(s => {
                 var b = s.IndexOf("Sot", StringComparison.CurrentCultureIgnoreCase) >= 0;
                 return b;
@@ -281,7 +281,7 @@ namespace Tests {
         [Test]
         public void CreateGenerator_Config_Names_Contains_MultipleArgs_S_Y() {
             var generator = Factory.CreateGenerator(randomizer => randomizer.Name());
-            generator.Config.NameConfig.Contains("S", "Y");
+            generator.Config.Name(config => config.Contains("S", "Y"));
             Assert.IsTrue(generator.Generate(30).All(s => {
                 var b = s.IndexOf("S", StringComparison.CurrentCultureIgnoreCase) >= 0 |
                         s.IndexOf("Y", StringComparison.CurrentCultureIgnoreCase) >= 0;
@@ -292,7 +292,7 @@ namespace Tests {
         [Test]
         public void CreateGenerator_Config_Names_Contains_MultipleArgs_Sot_Yor() {
             var generator = Factory.CreateGenerator(randomizer => randomizer.Name());
-            generator.Config.NameConfig.Contains("Sot", "Yor");
+            generator.Config.Name(config => config.Contains("Sot", "Yor"));
             Assert.IsTrue(generator.Generate(30).All(s => {
                 var b = s.IndexOf("Sot", StringComparison.CurrentCultureIgnoreCase) >= 0 |
                         s.IndexOf("Yor", StringComparison.CurrentCultureIgnoreCase) >= 0;
@@ -323,7 +323,7 @@ namespace Tests {
         [Test]
         public void CreateGenerator_Config_Names_DoesNotContains_S() {
             var generator = Factory.CreateGenerator(randomizer => randomizer.Name());
-            generator.Config.NameConfig.DoesNotContain("S");
+            generator.Config.Name(config => config.DoesNotContain("S"));
             Assert.IsTrue(generator.Generate(30).All(s => {
                 var b = s.IndexOf("S", StringComparison.CurrentCultureIgnoreCase) < 0;
                 return b;
@@ -333,7 +333,7 @@ namespace Tests {
         [Test]
         public void CreateGenerator_Config_Names_DoesNotContains_Sot() {
             var generator = Factory.CreateGenerator(randomizer => randomizer.Name());
-            generator.Config.NameConfig.DoesNotContain("Sot");
+            generator.Config.Name(config => config.DoesNotContain("Sot"));
             Assert.IsTrue(generator.Generate(30).All(s => {
                 var b = s.IndexOf("Sot", StringComparison.CurrentCultureIgnoreCase) < 0;
                 return b;
@@ -387,7 +387,7 @@ namespace Tests {
         [Test]
         public void CreateGenerator_Config_Names_StartsWith_j() {
             var generator = Factory.CreateGenerator(randomizer => randomizer.Name());
-            generator.Config.NameConfig.StartsWith("j");
+            generator.Config.Name(config => config.StartsWith("j"));
             Assert.IsTrue(generator.Generate(30)
                 .All(s => s.IndexOf("j", StringComparison.CurrentCultureIgnoreCase) == 0));
         }
@@ -395,7 +395,7 @@ namespace Tests {
         [Test]
         public void CreateGenerator_Config_Names_StartsWith_jo() {
             var generator = Factory.CreateGenerator(randomizer => randomizer.Name());
-            generator.Config.NameConfig.StartsWith("jo");
+            generator.Config.Name(config => config.StartsWith("jo"));
             Assert.IsTrue(generator.Generate(30)
                 .All(s => s.IndexOf("jo", StringComparison.CurrentCultureIgnoreCase) == 0));
         }
@@ -403,7 +403,7 @@ namespace Tests {
         [Test]
         public void CreateGenerator_Config_Names_StartsWith_MultipleArgs_j_p() {
             var generator = Factory.CreateGenerator(randomizer => randomizer.Name());
-            generator.Config.NameConfig.StartsWith("j", "p");
+            generator.Config.Name(config => config.StartsWith("j", "p"));
             Assert.IsTrue(generator.Generate(30).All(s => {
                 //^ means XOR
                 var b = s.IndexOf("j", StringComparison.CurrentCultureIgnoreCase) == 0 ^
@@ -415,7 +415,7 @@ namespace Tests {
         [Test]
         public void CreateGenerator_Config_Names_StartsWith_MultipleArgs_jo_pol() {
             var generator = Factory.CreateGenerator(randomizer => randomizer.Name());
-            generator.Config.NameConfig.StartsWith("jo", "pol");
+            generator.Config.Name(config => config.StartsWith("jo", "pol"));
             Assert.IsTrue(generator.Generate(30).All(s => {
                 //^ means XOR
                 var b = s.IndexOf("jo", StringComparison.CurrentCultureIgnoreCase) == 0 ^
@@ -443,7 +443,7 @@ namespace Tests {
         [Test]
         public void CreateGenerator_Config_Names_DoesNotStartsWith_J() {
             var generator = Factory.CreateGenerator(randomizer => randomizer.Name());
-            generator.Config.NameConfig.DoesNotStartWith("J");
+            generator.Config.Name(config => config.DoesNotStartWith("J"));
             Assert.IsTrue(generator.Generate(30)
                 .All(s => s.IndexOf("j", StringComparison.CurrentCultureIgnoreCase) != 0));
         }
@@ -451,7 +451,7 @@ namespace Tests {
         [Test]
         public void CreateGenerator_Config_Names_DoesNotStartsWith_jo() {
             var generator = Factory.CreateGenerator(randomizer => randomizer.Name());
-            generator.Config.NameConfig.DoesNotStartWith("jo");
+            generator.Config.Name(config => config.DoesNotStartWith("jo"));
             Assert.IsTrue(generator.Generate(30)
                 .All(s => s.IndexOf("jo", StringComparison.CurrentCultureIgnoreCase) != 0));
         }
