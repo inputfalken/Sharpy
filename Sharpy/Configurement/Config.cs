@@ -28,16 +28,6 @@ namespace Sharpy.Configurement {
 
         internal NameConfig NameConfig { get; } = new NameConfig();
 
-        /// <summary>
-        ///    Is used for configuring Names
-        /// </summary>
-        /// <param name="func"></param>
-        /// <returns></returns>
-        public Config Name(Func<NameConfig, NameConfig> func ) {
-            func(NameConfig);
-            return this;
-        }
-
 
         private static Lazy<IEnumerable<CountryCode>> LazyCountryCodes { get; } =
             new Lazy<IEnumerable<CountryCode>>(
@@ -56,6 +46,16 @@ namespace Sharpy.Configurement {
         internal StringFilter UserNames {
             get { return _userNamesField ?? LazyUsernames.Value; }
             private set { _userNamesField = value; }
+        }
+
+        /// <summary>
+        ///     Is used for configuring Names
+        /// </summary>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public Config Name(Func<NameConfig, NameConfig> func) {
+            func(NameConfig);
+            return this;
         }
 
 
