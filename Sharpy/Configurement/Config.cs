@@ -26,9 +26,18 @@ namespace Sharpy.Configurement {
         internal Random Random { get; private set; } = new Random();
         internal DateGenerator DateGenerator { get; }
 
+        internal NameConfig NameConfig { get; } = new NameConfig();
+
         /// <summary>
+        ///    Is used for configuring Names
         /// </summary>
-        public NameConfig Name { get; } = new NameConfig();
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public Config Name(Func<NameConfig, NameConfig> func ) {
+            func(NameConfig);
+            return this;
+        }
+
 
         private static Lazy<IEnumerable<CountryCode>> LazyCountryCodes { get; } =
             new Lazy<IEnumerable<CountryCode>>(
