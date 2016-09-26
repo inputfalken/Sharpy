@@ -9,7 +9,7 @@ namespace Sharpy.Types.Name {
     /// </summary>
     internal sealed class Name {
         [JsonConstructor]
-        internal Name(int type, string country, string region, string name) {
+        private Name(int type, string country, string region, string name) {
             Data = name;
             Type = type;
             Country = (Country) Enum.Parse(typeof(Country), country);
