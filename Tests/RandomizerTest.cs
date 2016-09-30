@@ -34,5 +34,18 @@ namespace Tests {
             var result = generator.Generate(1000);
             Assert.IsTrue(result.SequenceEqual(expected));
         }
+
+        [Test]
+        public void GenerateThousandBools() {
+            var generator = Factory.CreateGenerator(randomizer => randomizer.Bool());
+            generator.Config.Seed(Seed);
+
+            var random = new Random(Seed);
+            var expected = Enumerable.Range(0, 1000).Select(i => random.Next(2) != 0);
+
+            var result = generator.Generate(1000);
+
+            Assert.IsTrue(result.SequenceEqual(expected));
+        }
     }
 }
