@@ -18,7 +18,7 @@ namespace Tests {
     ///    These tests are all used with a seed so the result are always the same.
     /// </summary>
     [TestFixture]
-    public class RandomizerTest {
+    public class GeneratorTests {
         private const int Seed = 100;
 
 
