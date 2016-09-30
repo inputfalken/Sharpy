@@ -6,7 +6,7 @@ namespace Sharpy.Types.CountryCode {
     /// <summary>
     ///     Contains Country name a Country Code
     /// </summary>
-    public sealed class CountryCode {
+    internal sealed class CountryCode {
         [JsonConstructor]
         internal CountryCode(string name, string code) {
             Code = code;

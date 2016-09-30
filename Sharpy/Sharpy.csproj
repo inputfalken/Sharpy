@@ -20,7 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\rober\AppData\Local\Temp\vsE7DA.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\rober\AppData\Local\Temp\vsBB44.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,7 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\rober\AppData\Local\Temp\vsE7DA.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\rober\AppData\Local\Temp\vsBB44.tmp\Release\</IntermediateOutputPath>
     <DocumentationFile>bin\Release\Sharpy.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
