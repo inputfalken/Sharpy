@@ -19,13 +19,13 @@ namespace Sharpy.Types.String {
         /// </summary>
         /// <param name="arg"></param>
         /// <returns></returns>
-        public StringFilter DoesNotStartWith(string arg) => new StringFilter(Fetcher.Where(s => IndexOf(s, arg) != 0));
+        public StringFilter DoesNotStartWith(string arg) => new StringFilter(Fetcher.Where(s => !s.StartsWith(arg)));
 
         /// <summary>
         /// </summary>
         /// <param name="arg"></param>
         /// <returns></returns>
-        public StringFilter DoesNotContain(string arg) => new StringFilter(Fetcher.Where(s => IndexOf(s, arg) < 0));
+        public StringFilter DoesNotContain(string arg) => new StringFilter(Fetcher.Where(s => !s.Contains(arg)));
 
         /// <summary>
         /// </summary>
@@ -33,8 +33,8 @@ namespace Sharpy.Types.String {
         /// <returns></returns>
         public StringFilter StartsWith(params string[] args)
             => args.Length == 1
-                ? new StringFilter(Fetcher.Where(s => IndexOf(s, args[0]) == 0))
-                : new StringFilter(Fetcher.Where(s => args.Any(arg => IndexOf(s, arg) == 0)));
+                ? new StringFilter(Fetcher.Where(s => s.StartsWith(args[0])))
+                : new StringFilter(Fetcher.Where(s => args.Any(s.StartsWith)));
 
         /// <summary>
         /// </summary>
@@ -42,8 +42,8 @@ namespace Sharpy.Types.String {
         /// <returns></returns>
         public StringFilter Contains(params string[] args)
             => args.Length == 1
-                ? new StringFilter(Fetcher.Where(s => IndexOf(s, args[0]) >= 0))
-                : new StringFilter(Fetcher.Where(s => args.Any(arg => IndexOf(s, arg) >= 0)));
+                ? new StringFilter(Fetcher.Where(args.Contains))
+                : new StringFilter(Fetcher.Where(s => args.Any(s.Contains)));
 
 
         /// <summary>
