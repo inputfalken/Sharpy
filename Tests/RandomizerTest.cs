@@ -23,7 +23,7 @@ namespace Tests {
 
         [Test]
         public void GenerateThousandNumbers() {
-            //This test will make sure that the generator does not do anything with the Random type.
+            //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             const int limit = 100;
             var generator = Factory.CreateGenerator(randomizer => randomizer.Number(limit));
             generator.Config.Seed(Seed);
@@ -37,6 +37,7 @@ namespace Tests {
 
         [Test]
         public void GenerateThousandBools() {
+            //This test will make sure that the generator does not do anything with the Random type. and that i get the bools expected
             var generator = Factory.CreateGenerator(randomizer => randomizer.Bool());
             generator.Config.Seed(Seed);
 
