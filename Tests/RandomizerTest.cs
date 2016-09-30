@@ -213,58 +213,6 @@ namespace Tests {
 
 
         [Test]
-        public void CreateGenerator_Config_UserNames_Contains_MultipleArgs_S_Y() {
-            var generator = Factory.CreateGenerator(randomizer => randomizer.UserName());
-            generator.Config.UserName(filter => filter.Contains("S", "Y"));
-            Assert.IsTrue(generator.Generate(30).All(s => {
-                var b = s.IndexOf("S", StringComparison.CurrentCultureIgnoreCase) >= 0 |
-                        s.IndexOf("Y", StringComparison.CurrentCultureIgnoreCase) >= 0;
-                return b;
-            }));
-        }
-
-        [Test]
-        public void CreateGenerator_Config_UserNames_Contains_MultipleArgs_Sot_Yor() {
-            var generator = Factory.CreateGenerator(randomizer => randomizer.UserName());
-            generator.Config.UserName(filter => filter.Contains("Sot", "Yor"));
-            Assert.IsTrue(generator.Generate(30).All(s => {
-                var b = s.IndexOf("Sot", StringComparison.CurrentCultureIgnoreCase) >= 0 |
-                        s.IndexOf("Yor", StringComparison.CurrentCultureIgnoreCase) >= 0;
-                return b;
-            }));
-        }
-
-        [Test]
-        public void CreateGenerator_Config_UserNames_Contains_S() {
-            var generator = Factory.CreateGenerator(randomizer => randomizer.UserName());
-            generator.Config.UserName(filter => filter.Contains("S"));
-            Assert.IsTrue(generator.Generate(30).All(s => {
-                var b = s.IndexOf("S", StringComparison.CurrentCultureIgnoreCase) >= 0;
-                return b;
-            }));
-        }
-
-        [Test]
-        public void CreateGenerator_Config_UserNames_Contains_Sot() {
-            var generator = Factory.CreateGenerator(randomizer => randomizer.UserName());
-            generator.Config.UserName(filter => filter.Contains("Sot"));
-            Assert.IsTrue(generator.Generate(30).All(s => {
-                var b = s.IndexOf("Sot", StringComparison.CurrentCultureIgnoreCase) >= 0;
-                return b;
-            }));
-        }
-
-        [Test]
-        public void CreateGenerator_Config_UserNames_DoesNotContains_S() {
-            var generator = Factory.CreateGenerator(randomizer => randomizer.UserName());
-            generator.Config.UserName(filter => filter.DoesNotContain("S"));
-            Assert.IsTrue(generator.Generate(30).All(s => {
-                var b = s.IndexOf("S", StringComparison.CurrentCultureIgnoreCase) < 0;
-                return b;
-            }));
-        }
-
-        [Test]
         public void CreateGenerator_Config_UserNames_DoesNotContains_Sot() {
             var generator = Factory.CreateGenerator(randomizer => randomizer.UserName());
             generator.Config.UserName(filter => filter.DoesNotContain("Sot"));

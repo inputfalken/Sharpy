@@ -34,13 +34,6 @@ namespace Tests {
             Assert.IsTrue(result.Fetcher.SequenceEqual(expected));
         }
 
-        [Test]
-        public void StringFilter_Contains_OneArg() {
-            string[] strings = { "bar", "foo", "foobar", "barfoo" };
-            string[] expected = { "foo", "foobar", "barfoo" };
-            var result = new StringFilter(strings).Contains("oo");
-            Assert.IsTrue(result.Fetcher.SequenceEqual(expected));
-        }
 
         [Test]
         public void StringFilter_Contains_ThreeArgs() {
