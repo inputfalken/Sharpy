@@ -26,6 +26,11 @@ namespace Sharpy.Configurement {
             private set { _fetcher = value; }
         }
 
+        public NameConfig FilterNameByString(Func<string, bool> predicate) {
+            Fetcher = new Fetcher<Name>(Fetcher.Where(name => predicate(name.Data)));
+            return this;
+        }
+
         /// <summary>
         /// </summary>
         /// <param name="arg"></param>
