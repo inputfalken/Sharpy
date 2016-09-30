@@ -21,8 +21,9 @@ namespace Tests {
     public class RandomizerTest {
         private const int Seed = 100;
 
+
         [Test]
-        public void GenerateThousandNumbers() {
+        public void Seed_With_Number() {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             const int limit = 100;
             var generator = Factory.CreateGenerator(randomizer => randomizer.Number(limit));
@@ -36,7 +37,7 @@ namespace Tests {
         }
 
         [Test]
-        public void GenerateThousandBools() {
+        public void Seed_With_Bools() {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the bools expected
             var generator = Factory.CreateGenerator(randomizer => randomizer.Bool());
             generator.Config.Seed(Seed);
