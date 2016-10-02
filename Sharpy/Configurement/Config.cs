@@ -18,13 +18,14 @@ namespace Sharpy.Configurement {
     public sealed class Config {
         private Fetcher<Name> _names;
         private Fetcher<string> _userNamesField;
-        private Dictionary<NameType, Fetcher<string>> Dictionary { get; } = new Dictionary<NameType, Fetcher<string>>();
 
         internal Config() {
             DateGenerator = new DateGenerator(Random);
             MailGenerator = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
             PhoneNumberGenerator = new PhoneNumberGenerator(new CountryCode("UnitedStates", "+1"), Random);
         }
+
+        private Dictionary<NameType, Fetcher<string>> Dictionary { get; } = new Dictionary<NameType, Fetcher<string>>();
 
         private static Lazy<Fetcher<Name>> LazyNames { get; } =
             new Lazy<Fetcher<Name>>(
