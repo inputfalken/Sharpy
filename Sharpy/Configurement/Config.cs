@@ -146,7 +146,7 @@ namespace Sharpy.Configurement {
 
 
         /// <summary>
-        ///     Will let you filter the usernames result for the randomizer
+        ///     Executes the predicate on each username.
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
