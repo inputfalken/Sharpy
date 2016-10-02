@@ -14,7 +14,7 @@ using Sharpy.Types.String;
 
 namespace Sharpy.Configurement {
     /// <summary>
-    ///     This class is used for configure each Generator created
+    ///     Configures the result from the generator instance.
     /// </summary>
     public sealed class Config {
         private Fetcher<string> _userNamesField;
@@ -37,6 +37,11 @@ namespace Sharpy.Configurement {
             private set { _names = value; }
         }
 
+        /// <summary>
+        ///  Executes the predicate on each name.
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
         public Config Name(Func<string, bool> predicate) {
             Names = new Fetcher<Name>(Names.Where(name => predicate(name.Data)));
             return this;
