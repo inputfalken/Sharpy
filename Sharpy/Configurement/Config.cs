@@ -74,7 +74,7 @@ namespace Sharpy.Configurement {
             => new Fetcher<Name>(Names.Where(name => args.Contains(name.Region)));
 
 
-        internal Fetcher<Name> Type(NameType nameType) {
+        internal IEnumerable<Name> Type(NameType nameType) {
             switch (nameType) {
                 case NameType.FemaleFirstName:
                     return new Fetcher<Name>(Names.Where(name => name.Type == 1));
