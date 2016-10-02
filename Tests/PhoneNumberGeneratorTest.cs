@@ -20,7 +20,7 @@ namespace Tests {
         public void CreateRandomNumber_Args_MinLength5_MaxLength10_PreNumber35() {
             var phoneGenerator = new PhoneNumberGenerator(new CountryCode("Norway", "+20"), new Random());
             var randomNumber = phoneGenerator.RandomNumber(5, 10, "35");
-            IEnumerable<int> possibleLength = new[] { 10, 11, 12, 13, 14, 15 };
+            IEnumerable<int> possibleLength = new[] {10, 11, 12, 13, 14, 15};
             Assert.IsTrue(possibleLength.Any(i => i == randomNumber.Length));
             Assert.IsTrue(randomNumber.Contains("+2035"));
         }

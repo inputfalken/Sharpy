@@ -9,7 +9,9 @@ namespace Sharpy.Types.Mail {
         ///     Used for separating strings with symbols
         /// </summary>
         private static readonly List<char> Separators = new List<char> {
-            '.', '_', '-'
+            '.',
+            '_',
+            '-'
         };
 
         /// <summary>
