@@ -1,5 +1,4 @@
 ﻿using System;
-using Sharpy.Configurement;
 using Sharpy.Types;
 
 namespace Sharpy {

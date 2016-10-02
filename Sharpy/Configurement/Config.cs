@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
+using NodaTime;
 using Sharpy.Enums;
 using Sharpy.Properties;
 using Sharpy.Types;
@@ -160,7 +161,14 @@ namespace Sharpy.Configurement {
             return this;
         }
 
-        public string UserName() => UserNames.RandomItem(Random);
+        internal string UserName() => UserNames.RandomItem(Random);
+        internal string Mail(string name, string secondName = null) => MailGenerator.Mail(name, secondName);
+
+        internal LocalDate DateByAge(int age) => DateGenerator.RandomDateByAge(age);
+        internal LocalDate DateByYear(int year) => DateGenerator.RandomDateByYear(year);
+
+        internal string RandomNumber(string preNumber = null, int length = 4) =>
+            PhoneNumberGenerator.RandomNumber(length, preNumber);
 
         /// <summary>
         ///     Will set a seed for the generator to use
