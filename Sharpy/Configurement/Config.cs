@@ -31,9 +31,9 @@ namespace Sharpy.Configurement {
                 () => new Fetcher<Name>(JsonConvert.DeserializeObject<IEnumerable<Name>>(
                     Encoding.UTF8.GetString(Resources.NamesByOrigin))));
 
-        internal Fetcher<Name> Names {
+        private Fetcher<Name> Names {
             get { return _names ?? LazyNames.Value; }
-            private set { _names = value; }
+            set { _names = value; }
         }
 
         internal Random Random { get; private set; } = new Random();
@@ -54,9 +54,9 @@ namespace Sharpy.Configurement {
 
         internal MailGenerator MailGenerator { get; private set; }
 
-        internal Fetcher<string> UserNames {
+        private Fetcher<string> UserNames {
             get { return _userNamesField ?? LazyUsernames.Value; }
-            private set { _userNamesField = value; }
+            set { _userNamesField = value; }
         }
 
         internal string Name() => Names.RandomItem(Random).Data;
@@ -109,7 +109,7 @@ namespace Sharpy.Configurement {
             => new Fetcher<Name>(Names.Where(name => args.Contains(name.Region)));
 
 
-        internal IEnumerable<Name> Type(NameType nameType) {
+        private IEnumerable<Name> Type(NameType nameType) {
             switch (nameType) {
                 case NameType.FemaleFirstName:
                     return Names.Where(name => name.Type == 1);
