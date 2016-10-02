@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Sharpy.Configurement;
 
 namespace Sharpy.Types {
     /// <summary>

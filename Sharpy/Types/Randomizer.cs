@@ -58,23 +58,23 @@ namespace Sharpy.Types {
         /// <summary>
         ///     Gives a date with random month, date and subtract the current the current year by the argument
         /// </summary>
-        public LocalDate DateByAge(int age) => Config.DateGenerator.RandomDateByAge(age);
+        public LocalDate DateByAge(int age) => Config.DateByAge(age);
 
         /// <summary>
         ///     Gives a random month, date and use the argument given as year
         /// </summary>
-        public LocalDate DateByYear(int year) => Config.DateGenerator.RandomDateByYear(year);
+        public LocalDate DateByYear(int year) => Config.DateByYear(year);
 
         /// <summary>
         ///     gives a random phonenumber using a random country code and lets you specify a number to start with as well as the
         ///     length.
         /// </summary>
         public string PhoneNumber(string preNumber = null, int length = 4) =>
-            Config.PhoneNumberGenerator.RandomNumber(length, preNumber);
+            Config.RandomNumber(preNumber, length);
 
         /// <summary>
         ///     Gives a mail address by concatining the arguments into a mail address.
         /// </summary>
-        public string MailAdress(string name, string secondName = null) => Config.MailGenerator.Mail(name, secondName);
+        public string MailAdress(string name, string secondName = null) => Config.Mail(name, secondName);
     }
 }
