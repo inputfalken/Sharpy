@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using NodaTime;
 using Sharpy.Configurement;
 using Sharpy.Enums;
@@ -12,10 +13,10 @@ namespace Sharpy.Types {
 
         internal Randomizer(Config config) {
             Config = config;
-            Dictionary = new Dictionary<NameType, Fetcher<Name.Name>>();
+            Dictionary = new Dictionary<NameType, Fetcher<string>>();
         }
 
-        private Dictionary<NameType, Fetcher<Name.Name>> Dictionary { get; }
+        private Dictionary<NameType, Fetcher<string>> Dictionary { get; }
 
         /// <summary>
         ///     Can be used if you have your own collection of items that you would want an random item from.
@@ -41,8 +42,8 @@ namespace Sharpy.Types {
         /// </summary>
         public string Name(NameType nameType) {
             if (!Dictionary.ContainsKey(nameType))
-                Dictionary.Add(nameType, Config.Type(nameType));
-            return Dictionary[nameType].RandomItem(Config.Random).Data;
+                Dictionary.Add(nameType, new Fetcher<string>(Config.Type(nameType).Select(name => name.Data)));
+            return Dictionary[nameType].RandomItem(Config.Random);
         }
 
         /// <summary>
