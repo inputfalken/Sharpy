@@ -48,7 +48,7 @@ namespace Sharpy.Types {
         /// <summary>
         ///     Gives a random username from a huge collection.
         /// </summary>
-        public string UserName() => Config.UserNames.Fetcher.RandomItem(Config.Random);
+        public string UserName() => Config.UserNames.RandomItem(Config.Random);
 
         /// <summary>
         ///     Gives a random bool
