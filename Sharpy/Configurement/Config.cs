@@ -162,6 +162,8 @@ namespace Sharpy.Configurement {
             return this;
         }
 
+        public string UserName() => UserNames.RandomItem(Random);
+
         /// <summary>
         ///     Will set a seed for the generator to use
         /// </summary>
