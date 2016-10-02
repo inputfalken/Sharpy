@@ -10,13 +10,13 @@ using Sharpy.Types.CountryCode;
 using Sharpy.Types.Date;
 using Sharpy.Types.Mail;
 using Sharpy.Types.Name;
-using Sharpy.Types.String;
 
 namespace Sharpy.Configurement {
     /// <summary>
     ///     Configures the result from the generator instance.
     /// </summary>
     public sealed class Config {
+        private Fetcher<Name> _names;
         private Fetcher<string> _userNamesField;
 
         internal Config() {
@@ -24,8 +24,6 @@ namespace Sharpy.Configurement {
             MailGenerator = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
             PhoneNumberGenerator = new PhoneNumberGenerator(new CountryCode("UnitedStates", "+1"), Random);
         }
-
-        private Fetcher<Name> _names;
 
         private static Lazy<Fetcher<Name>> LazyNames { get; } =
             new Lazy<Fetcher<Name>>(
@@ -37,8 +35,31 @@ namespace Sharpy.Configurement {
             private set { _names = value; }
         }
 
+        internal Random Random { get; private set; } = new Random();
+        internal DateGenerator DateGenerator { get; }
+
+
+        private static Lazy<IEnumerable<CountryCode>> LazyCountryCodes { get; } =
+            new Lazy<IEnumerable<CountryCode>>(
+                () => JsonConvert.DeserializeObject<IEnumerable<CountryCode>>(
+                    Encoding.Default.GetString(Resources.CountryCodes)));
+
+        private static Lazy<Fetcher<string>> LazyUsernames { get; } =
+            new Lazy<Fetcher<string>>(() => new Fetcher<string>(Resources.usernames.Split(Convert.ToChar("\n"))));
+
+
+        internal PhoneNumberGenerator PhoneNumberGenerator { get; private set; }
+
+
+        internal MailGenerator MailGenerator { get; private set; }
+
+        internal Fetcher<string> UserNames {
+            get { return _userNamesField ?? LazyUsernames.Value; }
+            private set { _userNamesField = value; }
+        }
+
         /// <summary>
-        ///  Executes the predicate on each name.
+        ///     Executes the predicate on each name.
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
@@ -92,29 +113,6 @@ namespace Sharpy.Configurement {
                 default:
                     throw new ArgumentOutOfRangeException(nameof(nameType), nameType, null);
             }
-        }
-
-        internal Random Random { get; private set; } = new Random();
-        internal DateGenerator DateGenerator { get; }
-
-
-        private static Lazy<IEnumerable<CountryCode>> LazyCountryCodes { get; } =
-            new Lazy<IEnumerable<CountryCode>>(
-                () => JsonConvert.DeserializeObject<IEnumerable<CountryCode>>(
-                    Encoding.Default.GetString(Resources.CountryCodes)));
-
-        private static Lazy<Fetcher<string>> LazyUsernames { get; } =
-            new Lazy<Fetcher<string>>(() => new Fetcher<string>(Resources.usernames.Split(Convert.ToChar("\n"))));
-
-
-        internal PhoneNumberGenerator PhoneNumberGenerator { get; private set; }
-
-
-        internal MailGenerator MailGenerator { get; private set; }
-
-        internal Fetcher<string> UserNames {
-            get { return _userNamesField ?? LazyUsernames.Value; }
-            private set { _userNamesField = value; }
         }
 
 

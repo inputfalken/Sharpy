@@ -32,9 +32,9 @@ namespace Sharpy.Types.Date {
             var localDate = startDate == default(LocalDate) ? CurrentLocalDate : startDate;
             return Enumerable.Range(1, length)
                 .Select(i => localDate
-                    .PlusYears(sequenceDate.Year * i)
-                    .PlusMonths(sequenceDate.Month * i)
-                    .PlusDays(sequenceDate.Day * i));
+                    .PlusYears(sequenceDate.Year*i)
+                    .PlusMonths(sequenceDate.Month*i)
+                    .PlusDays(sequenceDate.Day*i));
         }
 
 
