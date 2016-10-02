@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Sharpy.Configurement;
 
 namespace Sharpy.Types {
     /// <summary>
@@ -10,14 +11,16 @@ namespace Sharpy.Types {
     public sealed class Generator<T> {
         internal Generator(Func<T> func, Randomizer randomizer) {
             Randomizer = randomizer;
+            Config = randomizer.Config;
             Func = func;
         }
 
         /// <summary>
         ///     Can be used to change settings for the randomizer
         /// </summary>
-        public Randomizer Randomizer { get; }
+        internal Randomizer Randomizer { get; }
 
+        public Config Config { get; }
         private Func<T> Func { get; }
 
         /// <summary>
