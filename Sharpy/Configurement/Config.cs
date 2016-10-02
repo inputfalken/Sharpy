@@ -18,6 +18,7 @@ namespace Sharpy.Configurement {
     public sealed class Config {
         private Fetcher<Name> _names;
         private Fetcher<string> _userNamesField;
+        private Dictionary<NameType, Fetcher<string>> Dictionary { get; } = new Dictionary<NameType, Fetcher<string>>();
 
         internal Config() {
             DateGenerator = new DateGenerator(Random);
@@ -56,6 +57,12 @@ namespace Sharpy.Configurement {
         internal Fetcher<string> UserNames {
             get { return _userNamesField ?? LazyUsernames.Value; }
             private set { _userNamesField = value; }
+        }
+
+        internal string Name(NameType nameType) {
+            if (!Dictionary.ContainsKey(nameType))
+                Dictionary.Add(nameType, new Fetcher<string>(Type(nameType).Select(name => name.Data)));
+            return Dictionary[nameType].RandomItem(Random);
         }
 
         /// <summary>
