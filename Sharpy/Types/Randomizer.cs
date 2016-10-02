@@ -8,11 +8,7 @@ namespace Sharpy.Types {
     ///     Will randomize all data that these methods return.
     /// </summary>
     public sealed class Randomizer {
-        internal readonly Config Config;
-
-        internal Randomizer(Config config) {
-            Config = config;
-        }
+        internal Config Config { get; } = new Config();
 
 
         /// <summary>
