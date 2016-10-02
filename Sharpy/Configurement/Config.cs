@@ -99,9 +99,6 @@ namespace Sharpy.Configurement {
             return this;
         }
 
-        private static int IndexOf(string str, string substring)
-            => str.IndexOf(substring, StringComparison.CurrentCultureIgnoreCase);
-
         private IEnumerable<Name> ByCountry(params Country[] args)
             => new Fetcher<Name>(Names.Where(name => args.Contains(name.Country)));
 
