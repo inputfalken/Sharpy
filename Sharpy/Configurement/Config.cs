@@ -17,7 +17,7 @@ namespace Sharpy.Configurement {
     ///     This class is used for configure each Generator created
     /// </summary>
     public sealed class Config {
-        private StringFilter _userNamesField;
+        private Fetcher<string> _userNamesField;
 
         internal Config() {
             DateGenerator = new DateGenerator(Random);
@@ -93,14 +93,13 @@ namespace Sharpy.Configurement {
         internal DateGenerator DateGenerator { get; }
 
 
-
         private static Lazy<IEnumerable<CountryCode>> LazyCountryCodes { get; } =
             new Lazy<IEnumerable<CountryCode>>(
                 () => JsonConvert.DeserializeObject<IEnumerable<CountryCode>>(
                     Encoding.Default.GetString(Resources.CountryCodes)));
 
-        private static Lazy<StringFilter> LazyUsernames { get; } =
-            new Lazy<StringFilter>(() => new StringFilter(Resources.usernames.Split(Convert.ToChar("\n"))));
+        private static Lazy<Fetcher<string>> LazyUsernames { get; } =
+            new Lazy<Fetcher<string>>(() => new Fetcher<string>(Resources.usernames.Split(Convert.ToChar("\n"))));
 
 
         internal PhoneNumberGenerator PhoneNumberGenerator { get; private set; }
@@ -108,11 +107,10 @@ namespace Sharpy.Configurement {
 
         internal MailGenerator MailGenerator { get; private set; }
 
-        internal StringFilter UserNames {
+        internal Fetcher<string> UserNames {
             get { return _userNamesField ?? LazyUsernames.Value; }
             private set { _userNamesField = value; }
         }
-
 
 
         /// <summary>
@@ -144,10 +142,10 @@ namespace Sharpy.Configurement {
         /// <summary>
         ///     Will let you filter the usernames result for the randomizer
         /// </summary>
-        /// <param name="func"></param>
+        /// <param name="predicate"></param>
         /// <returns></returns>
-        public Config UserName(Func<IStringFilter<StringFilter>, StringFilter> func) {
-            UserNames = func(UserNames);
+        public Config UserName(Func<string, bool> predicate) {
+            UserNames = new Fetcher<string>(UserNames.Where(predicate));
             return this;
         }
 
