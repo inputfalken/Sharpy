@@ -26,7 +26,7 @@ namespace Sharpy.Types.Mail {
 
         internal MailGenerator(IEnumerable<string> providers, Random random, bool unique) : base(2, random) {
             Unique = unique;
-            providers.ForEach(_emailDomains.Add);
+            foreach (var provider in providers) _emailDomains.Add(provider);
             _emailDomainsEnumerator = _emailDomains.GetEnumerator();
         }
 
