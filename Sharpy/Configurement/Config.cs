@@ -119,8 +119,9 @@ namespace Sharpy.Configurement {
 
 
         /// <summary>
-        ///     Lets you change the providers for the mail addresses.
+        ///     Lets you set the providers for the mail addresses.
         ///     You can also a set a bool for wether the addreses will be unique.
+        ///     If set to unique numbers will be appended in case of replicate mail address.
         /// </summary>
         /// <param name="providers"></param>
         /// <param name="uniqueAddresses">For Unique Addresses</param>
