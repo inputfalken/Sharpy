@@ -33,7 +33,7 @@ namespace Sharpy.Types {
         /// <summary>
         ///     Gives a random name, it could be a female first name, male first name and a lastname.
         /// </summary>
-        public string Name() => Config.Names.RandomItem(Config.Random).Data;
+        public string Name() => Config.Name();
 
         /// <summary>
         ///     Gives a random name based on type of argument.
