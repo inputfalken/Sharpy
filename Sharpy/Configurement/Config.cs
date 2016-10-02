@@ -25,20 +25,20 @@ namespace Sharpy.Configurement {
             PhoneNumberGenerator = new PhoneNumberGenerator(new CountryCode("UnitedStates", "+1"), Random);
         }
 
-        private Fetcher<Name> _fetcher;
+        private Fetcher<Name> _names;
 
         private static Lazy<Fetcher<Name>> LazyNames { get; } =
             new Lazy<Fetcher<Name>>(
                 () => new Fetcher<Name>(JsonConvert.DeserializeObject<IEnumerable<Name>>(
                     Encoding.UTF8.GetString(Resources.NamesByOrigin))));
 
-        internal Fetcher<Name> Fetcher {
-            get { return _fetcher ?? LazyNames.Value; }
-            private set { _fetcher = value; }
+        internal Fetcher<Name> Names {
+            get { return _names ?? LazyNames.Value; }
+            private set { _names = value; }
         }
 
         public Config FilterNameByString(Func<string, bool> predicate) {
-            Fetcher = new Fetcher<Name>(Fetcher.Where(name => predicate(name.Data)));
+            Names = new Fetcher<Name>(Names.Where(name => predicate(name.Data)));
             return this;
         }
 
@@ -48,7 +48,7 @@ namespace Sharpy.Configurement {
         /// <param name="countries"></param>
         /// <returns></returns>
         public Config FilterNameByOrigin(params Country[] countries) {
-            Fetcher = ByCountry(countries);
+            Names = ByCountry(countries);
             return this;
         }
 
@@ -59,7 +59,7 @@ namespace Sharpy.Configurement {
         /// <param name="regions"></param>
         /// <returns></returns>
         public Config FilterNameByOrigin(params Region[] regions) {
-            Fetcher = ByRegion(regions);
+            Names = ByRegion(regions);
             return this;
         }
 
@@ -67,23 +67,23 @@ namespace Sharpy.Configurement {
             => str.IndexOf(substring, StringComparison.CurrentCultureIgnoreCase);
 
         private Fetcher<Name> ByCountry(params Country[] args)
-            => new Fetcher<Name>(Fetcher.Where(name => args.Contains(name.Country)));
+            => new Fetcher<Name>(Names.Where(name => args.Contains(name.Country)));
 
 
         private Fetcher<Name> ByRegion(params Region[] args)
-            => new Fetcher<Name>(Fetcher.Where(name => args.Contains(name.Region)));
+            => new Fetcher<Name>(Names.Where(name => args.Contains(name.Region)));
 
 
         internal Fetcher<Name> Type(NameType nameType) {
             switch (nameType) {
                 case NameType.FemaleFirstName:
-                    return new Fetcher<Name>(Fetcher.Where(name => name.Type == 1));
+                    return new Fetcher<Name>(Names.Where(name => name.Type == 1));
                 case NameType.MaleFirstName:
-                    return new Fetcher<Name>(Fetcher.Where(name => name.Type == 2));
+                    return new Fetcher<Name>(Names.Where(name => name.Type == 2));
                 case NameType.LastName:
-                    return new Fetcher<Name>(Fetcher.Where(name => name.Type == 3));
+                    return new Fetcher<Name>(Names.Where(name => name.Type == 3));
                 case NameType.MixedFirstName:
-                    return new Fetcher<Name>(Fetcher.Where(name => name.Type == 1 | name.Type == 2));
+                    return new Fetcher<Name>(Names.Where(name => name.Type == 1 | name.Type == 2));
                 default:
                     throw new ArgumentOutOfRangeException(nameof(nameType), nameType, null);
             }
