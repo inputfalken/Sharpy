@@ -70,8 +70,6 @@
     <Compile Include="Types\Filter.cs" />
     <Compile Include="Types\Mail\MailGenerator.cs" />
     <Compile Include="Types\Name\Name.cs" />
-    <Compile Include="Types\String\IStringFilter.cs" />
-    <Compile Include="Types\String\stringfilter.cs" />
     <Compile Include="Types\Unique.cs" />
   </ItemGroup>
   <ItemGroup>
