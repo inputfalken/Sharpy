@@ -9,15 +9,15 @@ namespace Sharpy.Types {
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public sealed class Generator<T> {
-        internal Generator(Func<T> func, Config config) {
-            Config = config;
+        internal Generator(Func<T> func, Randomizer randomizer) {
+            Randomizer = randomizer;
             Func = func;
         }
 
         /// <summary>
         ///     Can be used to change settings for the randomizer
         /// </summary>
-        public Config Config { get; }
+        public Randomizer Randomizer { get; }
 
         private Func<T> Func { get; }
 

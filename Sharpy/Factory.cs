@@ -14,8 +14,8 @@ namespace Sharpy {
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
         public static Generator<T> CreateGenerator<T>(Func<Randomizer, T> func) {
-            var randomizer = new Randomizer(new Config());
-            return new Generator<T>(() => func(randomizer), randomizer.Config);
+            var randomizer = new Randomizer();
+            return new Generator<T>(() => func(randomizer), randomizer);
         }
 
 
@@ -25,12 +25,12 @@ namespace Sharpy {
         /// </summary>
         /// <returns></returns>
         public static Generator<T> CreateGenerator<T>(Func<Randomizer, int, T> func) {
-            var randomizer = new Randomizer(new Config());
+            var randomizer = new Randomizer();
             var iteration = -1;
             return new Generator<T>(() => {
                 iteration++;
                 return func(randomizer, iteration);
-            }, randomizer.Config);
+            }, randomizer);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Tests {
         public void Seed_With_Bools() {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the bools expected
             var generator = Factory.CreateGenerator(randomizer => randomizer.Bool());
-            generator.Config.Seed(Seed);
+            generator.Randomizer.Config.Seed(Seed);
 
             var random = new Random(Seed);
             var expected = Enumerable.Range(0, 1000).Select(i => random.Next(2) != 0);
@@ -33,7 +33,7 @@ namespace Tests {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             const int limit = 100;
             var generator = Factory.CreateGenerator(randomizer => randomizer.Number(limit));
-            generator.Config.Seed(Seed);
+            generator.Randomizer.Config.Seed(Seed);
 
             var random = new Random(Seed);
             var expected = Enumerable.Range(0, 1000).Select(i => random.Next(limit));
