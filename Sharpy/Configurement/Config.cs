@@ -48,7 +48,7 @@ namespace Sharpy.Configurement {
         /// <param name="countries"></param>
         /// <returns></returns>
         public Config FilterNameByOrigin(params Country[] countries) {
-            Names = ByCountry(countries);
+            Names = new Fetcher<Name>(ByCountry(countries));
             return this;
         }
 
@@ -59,31 +59,31 @@ namespace Sharpy.Configurement {
         /// <param name="regions"></param>
         /// <returns></returns>
         public Config FilterNameByOrigin(params Region[] regions) {
-            Names = ByRegion(regions);
+            Names = new Fetcher<Name>(ByRegion(regions));
             return this;
         }
 
         private static int IndexOf(string str, string substring)
             => str.IndexOf(substring, StringComparison.CurrentCultureIgnoreCase);
 
-        private Fetcher<Name> ByCountry(params Country[] args)
+        private IEnumerable<Name> ByCountry(params Country[] args)
             => new Fetcher<Name>(Names.Where(name => args.Contains(name.Country)));
 
 
-        private Fetcher<Name> ByRegion(params Region[] args)
+        private IEnumerable<Name> ByRegion(params Region[] args)
             => new Fetcher<Name>(Names.Where(name => args.Contains(name.Region)));
 
 
         internal IEnumerable<Name> Type(NameType nameType) {
             switch (nameType) {
                 case NameType.FemaleFirstName:
-                    return new Fetcher<Name>(Names.Where(name => name.Type == 1));
+                    return Names.Where(name => name.Type == 1);
                 case NameType.MaleFirstName:
-                    return new Fetcher<Name>(Names.Where(name => name.Type == 2));
+                    return Names.Where(name => name.Type == 2);
                 case NameType.LastName:
-                    return new Fetcher<Name>(Names.Where(name => name.Type == 3));
+                    return Names.Where(name => name.Type == 3);
                 case NameType.MixedFirstName:
-                    return new Fetcher<Name>(Names.Where(name => name.Type == 1 | name.Type == 2));
+                    return Names.Where(name => name.Type == 1 | name.Type == 2);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(nameType), nameType, null);
             }
