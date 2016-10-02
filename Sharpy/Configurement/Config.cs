@@ -59,6 +59,8 @@ namespace Sharpy.Configurement {
             private set { _userNamesField = value; }
         }
 
+        internal string Name() => Names.RandomItem(Random).Data;
+
         internal string Name(NameType nameType) {
             if (!Dictionary.ContainsKey(nameType))
                 Dictionary.Add(nameType, new Fetcher<string>(Type(nameType).Select(name => name.Data)));
