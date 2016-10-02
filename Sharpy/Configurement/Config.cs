@@ -37,7 +37,7 @@ namespace Sharpy.Configurement {
             private set { _names = value; }
         }
 
-        public Config FilterNameByString(Func<string, bool> predicate) {
+        public Config Name(Func<string, bool> predicate) {
             Names = new Fetcher<Name>(Names.Where(name => predicate(name.Data)));
             return this;
         }
@@ -47,7 +47,7 @@ namespace Sharpy.Configurement {
         /// </summary>
         /// <param name="countries"></param>
         /// <returns></returns>
-        public Config FilterNameByOrigin(params Country[] countries) {
+        public Config Name(params Country[] countries) {
             Names = new Fetcher<Name>(ByCountry(countries));
             return this;
         }
@@ -58,7 +58,7 @@ namespace Sharpy.Configurement {
         /// </summary>
         /// <param name="regions"></param>
         /// <returns></returns>
-        public Config FilterNameByOrigin(params Region[] regions) {
+        public Config Name(params Region[] regions) {
             Names = new Fetcher<Name>(ByRegion(regions));
             return this;
         }
