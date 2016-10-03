@@ -39,7 +39,7 @@ namespace Sharpy.Configurement {
         }
 
         internal Random Random { get; private set; } = new Random();
-        internal DateGenerator DateGenerator { get; }
+        private DateGenerator DateGenerator { get; }
 
 
         private static Lazy<IEnumerable<CountryCode>> LazyCountryCodes { get; } =
@@ -51,10 +51,10 @@ namespace Sharpy.Configurement {
             new Lazy<Fetcher<string>>(() => new Fetcher<string>(Resources.usernames.Split(Convert.ToChar("\n"))));
 
 
-        internal PhoneNumberGenerator PhoneNumberGenerator { get; private set; }
+        private PhoneNumberGenerator PhoneNumberGenerator { get; set; }
 
 
-        internal MailGenerator MailGenerator { get; private set; }
+        private MailGenerator MailGenerator { get; set; }
 
         private Fetcher<string> UserNames {
             get { return _userNamesField ?? LazyUsernames.Value; }
