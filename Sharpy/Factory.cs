@@ -25,11 +25,8 @@ namespace Sharpy {
         /// <returns></returns>
         public static Generator<T> CreateGenerator<T>(Func<Randomizer, int, T> func) {
             var randomizer = new Randomizer();
-            var iteration = -1;
-            return new Generator<T>(() => {
-                iteration++;
-                return func(randomizer, iteration);
-            }, randomizer);
+            var iteration = 0;
+            return new Generator<T>(() => func(randomizer, iteration++), randomizer);
         }
     }
 }
