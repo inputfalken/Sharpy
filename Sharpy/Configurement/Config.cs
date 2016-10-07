@@ -18,7 +18,7 @@ namespace Sharpy.Configurement {
     /// </summary>
     public sealed class Config {
         private Fetcher<Name> _names;
-        private Fetcher<string> _userNamesField;
+        private Fetcher<string> _userNames;
 
         internal Config() {
             DateGenerator = new DateGenerator(Random);
@@ -57,8 +57,8 @@ namespace Sharpy.Configurement {
         private MailGenerator MailGenerator { get; set; }
 
         private Fetcher<string> UserNames {
-            get { return _userNamesField ?? LazyUsernames.Value; }
-            set { _userNamesField = value; }
+            get { return _userNames ?? LazyUsernames.Value; }
+            set { _userNames = value; }
         }
 
         internal string Name() => Names.RandomItem(Random).Data;
