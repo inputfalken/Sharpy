@@ -37,5 +37,13 @@ namespace Tests {
             var result = generator.GenerateEnumerable(1000);
             Assert.IsTrue(result.SequenceEqual(expected));
         }
+
+        [Test]
+        public void NamesAreNotNull() {
+            var generator = new Generator<string>(randomizer => randomizer.Name());
+            var strings = generator.GenerateEnumerable(20).ToArray();
+            Assert.IsFalse(strings.All(string.IsNullOrEmpty));
+            Assert.IsFalse(strings.All(string.IsNullOrWhiteSpace));
+        }
     }
 }
