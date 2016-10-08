@@ -12,6 +12,10 @@ namespace Sharpy.Types {
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public sealed class Generator<T> {
+        /// <summary>
+        ///     Creates a Generator which you can use to create one instance or a collection of the given type
+        ///     For examples please visit https://github.com/inputfalken/Sharpy
+        /// </summary>
         public Generator(Func<Randomizer, T> func) {
             Func = func;
         }
@@ -43,8 +47,8 @@ namespace Sharpy.Types {
         /// </summary>
         /// <param name="ammount"></param>
         public IEnumerable<T> Generate(int ammount) {
-                for (var i = 0; i < ammount; i++)
-                    yield return Generate();
+            for (var i = 0; i < ammount; i++)
+                yield return Generate();
         }
 
 
