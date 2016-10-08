@@ -12,21 +12,8 @@ namespace Sharpy {
         ///     if you don't have a constructor you can new up an instance and assign it's props/fields
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
-        public static Generator<T> CreateGenerator<T>(Func<Randomizer, T> func) {
-            var randomizer = new Randomizer();
-            return new Generator<T>(() => func(randomizer), randomizer);
-        }
-
-
-        /// <summary>
-        ///     This overload also gives an int of the current iteration.
-        ///     First iteration will be number 0
-        /// </summary>
-        /// <returns></returns>
-        public static Generator<T> CreateGenerator<T>(Func<Randomizer, int, T> func) {
-            var randomizer = new Randomizer();
-            var iteration = 0;
-            return new Generator<T>(() => func(randomizer, iteration++), randomizer);
+        public static Generator<T> CreateGenerator<T>(Generator<T> generator) {
+            return generator;
         }
     }
 }
