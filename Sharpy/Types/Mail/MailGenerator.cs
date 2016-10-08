@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Sharpy.Types.Mail {
     /// <summary>
     /// </summary>
-    public sealed class MailGenerator : Unique<string> {
+    internal sealed class MailGenerator : Unique<string> {
         /// <summary>
         ///     Used for separating strings with symbols
         /// </summary>

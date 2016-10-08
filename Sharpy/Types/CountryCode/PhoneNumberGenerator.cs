@@ -6,7 +6,7 @@ namespace Sharpy.Types.CountryCode {
     // Is generated from json
     /// <summary>
     /// </summary>
-    public sealed class PhoneNumberGenerator : Unique<string> {
+    internal sealed class PhoneNumberGenerator : Unique<string> {
         internal PhoneNumberGenerator(CountryCode countryCode, Random random, bool unique = false) : base(50, random) {
             CountryCode = countryCode;
             Unique = unique;
