@@ -21,7 +21,7 @@ namespace Tests {
             generator.Seed(Seed);
             var random = new Random(Seed);
             var expected = Enumerable.Range(0, 1000).Select(i => random.Next(2) != 0);
-            var result = generator.Generate(1000);
+            var result = generator.GenerateEnumerable(1000);
             Assert.IsTrue(result.SequenceEqual(expected));
         }
 
@@ -34,7 +34,7 @@ namespace Tests {
             generator.Seed(Seed);
             var random = new Random(Seed);
             var expected = Enumerable.Range(0, 1000).Select(i => random.Next(limit));
-            var result = generator.Generate(1000);
+            var result = generator.GenerateEnumerable(1000);
             Assert.IsTrue(result.SequenceEqual(expected));
         }
     }
