@@ -45,5 +45,21 @@ namespace Tests {
             Assert.IsFalse(strings.All(string.IsNullOrEmpty));
             Assert.IsFalse(strings.All(string.IsNullOrWhiteSpace));
         }
+
+        [Test]
+        public void IteratorWithEnumerable() {
+            var iteration = 0;
+            var generator = new Generator<bool>((randomizer, i) => iteration++ == i);
+            var result = generator.GenerateEnumerable(20).ToArray();
+            Assert.IsTrue(result.All(b => b));
+        }
+
+        [Test]
+        public void IteratorWithGenerate() {
+            var iteration = 0;
+            var generator = new Generator<bool>((randomizer, i) => iteration++ == i);
+            for (var i = 0; i < 10; i++)
+                Assert.IsTrue(generator.Generate());
+        }
     }
 }
