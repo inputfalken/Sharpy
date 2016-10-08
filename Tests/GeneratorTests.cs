@@ -2,7 +2,9 @@
 using System.Linq;
 using NUnit.Framework;
 using Sharpy;
+using Sharpy.Enums;
 using Sharpy.Types;
+using Sharpy.Types.Name;
 
 //Todo set a seed and let all tests be ran from that seed so i can expect values...
 
@@ -13,6 +15,13 @@ namespace Tests {
     [TestFixture]
     public class GeneratorTests {
         private const int Seed = 100;
+        private Name[] _names;
+
+        [SetUp]
+        public void Setup() {
+            var randomizer = new Randomizer();
+            _names = randomizer.Names.ToArray();
+        }
 
         [Test]
         public void Seed_With_Bools() {
@@ -44,6 +53,23 @@ namespace Tests {
             var strings = generator.GenerateEnumerable(20).ToArray();
             Assert.IsFalse(strings.All(string.IsNullOrEmpty));
             Assert.IsFalse(strings.All(string.IsNullOrWhiteSpace));
+        }
+
+        [Test]
+        public void NamesAreFilteredByGender() {
+            var femaleNameGenerator = new Generator<string>(randomizer => randomizer.Name(NameType.FemaleFirstName));
+            var femaleNames = _names.Where(name => name.Type == 1).Select(name => name.Data);
+            var maleNameGenerator = new Generator<string>(randomizer => randomizer.Name(NameType.MaleFirstName));
+            var maleNames = _names.Where(name => name.Type == 2).Select(name => name.Data);
+            var lastNameGenerator = new Generator<string>(randomizer => randomizer.Name(NameType.LastName));
+            var lastNames = _names.Where(name => name.Type == 3).Select(name => name.Data);
+            var mixedFirstNameGenerator = new Generator<string>(randomizer => randomizer.Name(NameType.MixedFirstName));
+            var mixedNames = _names.Where(name => name.Type == 1 | name.Type == 2).Select(name => name.Data);
+            Assert.IsTrue(femaleNameGenerator.GenerateEnumerable(100).All(femaleNames.Contains));
+            Assert.IsTrue(maleNameGenerator.GenerateEnumerable(100).All(maleNames.Contains));
+            Assert.IsTrue(lastNameGenerator.GenerateEnumerable(100).All(lastNames.Contains));
+            Assert.IsTrue(mixedFirstNameGenerator.GenerateEnumerable(100).All(mixedNames.Contains));
+
         }
 
         [Test]
