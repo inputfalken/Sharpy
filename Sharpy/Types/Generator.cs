@@ -35,6 +35,8 @@ namespace Sharpy.Types {
 
         private int Iteratation { get; set; }
 
+        private T Generate(int i) => FuncIterator == null ? Func(Randomizer) : FuncIterator(Randomizer, i);
+
         /// <summary>
         ///     Will give back one instance of the specified Type
         /// </summary>
@@ -46,9 +48,9 @@ namespace Sharpy.Types {
         ///     Which contains the ammount of elements.
         /// </summary>
         /// <param name="ammount"></param>
-        public IEnumerable<T> Generate(int ammount) {
+        public IEnumerable<T> GenerateEnumerable(int ammount) {
             for (var i = 0; i < ammount; i++)
-                yield return Generate();
+                yield return Generate(i);
         }
 
 
