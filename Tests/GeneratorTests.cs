@@ -17,13 +17,10 @@ namespace Tests {
         public void Seed_With_Bools() {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the bools expected
             var generator = Factory.CreateGenerator(randomizer => randomizer.Bool());
-            generator.Randomizer.Config.Seed(Seed);
-
+            generator.Seed(Seed);
             var random = new Random(Seed);
             var expected = Enumerable.Range(0, 1000).Select(i => random.Next(2) != 0);
-
             var result = generator.Generate(1000);
-
             Assert.IsTrue(result.SequenceEqual(expected));
         }
 
@@ -33,11 +30,9 @@ namespace Tests {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             const int limit = 100;
             var generator = Factory.CreateGenerator(randomizer => randomizer.Number(limit));
-            generator.Randomizer.Config.Seed(Seed);
-
+            generator.Seed(Seed);
             var random = new Random(Seed);
             var expected = Enumerable.Range(0, 1000).Select(i => random.Next(limit));
-
             var result = generator.Generate(1000);
             Assert.IsTrue(result.SequenceEqual(expected));
         }
