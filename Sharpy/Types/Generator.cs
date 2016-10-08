@@ -12,23 +12,30 @@ namespace Sharpy.Types {
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public sealed class Generator<T> {
-        internal Generator(Func<T> func, Randomizer randomizer) {
-            Randomizer = randomizer;
+        public Generator(Func<Randomizer, T> func) {
             Func = func;
         }
+
+        public Generator(Func<Randomizer, int, T> func) {
+            FuncIterator = func;
+        }
+
 
         /// <summary>
         ///     Can be used to change settings for the randomizer
         /// </summary>
-        private Randomizer Randomizer { get; }
+        private Randomizer Randomizer { get; } = new Randomizer();
 
-        private Func<T> Func { get; }
+        private Func<Randomizer, T> Func { get; }
+        private Func<Randomizer, int, T> FuncIterator { get; }
+
+        private int Iteratation { get; set; }
 
         /// <summary>
         ///     Will give back one instance of the specified Type
         /// </summary>
         /// <returns></returns>
-        public T Generate() => Func();
+        public T Generate() => FuncIterator == null ? Func(Randomizer) : FuncIterator(Randomizer, Iteratation++);
 
         /// <summary>
         ///     Will give back an IEnumerable with the specified type.
@@ -36,8 +43,8 @@ namespace Sharpy.Types {
         /// </summary>
         /// <param name="ammount"></param>
         public IEnumerable<T> Generate(int ammount) {
-            for (var i = 0; i < ammount; i++)
-                yield return Func();
+                for (var i = 0; i < ammount; i++)
+                    yield return Generate();
         }
 
 
