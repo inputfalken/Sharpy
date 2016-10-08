@@ -6,7 +6,7 @@ namespace Sharpy.Types {
     /// <summary>
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class Unique<T> {
+    internal abstract class Unique<T> {
         // ReSharper disable once StaticMemberInGenericType
         /// <summary>
         /// </summary>
