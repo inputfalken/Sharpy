@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Sharpy;
 using Sharpy.Enums;
 using Sharpy.Types;
 using Sharpy.Types.Name;
-
-//Todo set a seed and let all tests be ran from that seed so i can expect values...
 
 namespace Tests {
     /// <summary>
