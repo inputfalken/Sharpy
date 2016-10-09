@@ -17,6 +17,7 @@ namespace Tests {
     public class GeneratorTests {
         private const int Seed = 100;
         private Name[] _names;
+        const string MailUserName = "mailUserName";
 
         [SetUp]
         public void Setup() {
@@ -57,6 +58,22 @@ namespace Tests {
         }
 
         [Test]
+        public void UserNamesAreNotNull() {
+            var generator = new Generator<string>(randomizer => randomizer.UserName());
+            var strings = generator.GenerateEnumerable(20).ToArray();
+            Assert.IsFalse(strings.All(string.IsNullOrEmpty));
+            Assert.IsFalse(strings.All(string.IsNullOrWhiteSpace));
+        }
+
+        [Test]
+        public void MailsAreNotnull() {
+            var generator = new Generator<string>(randomizer => randomizer.MailAdress(MailUserName));
+            var strings = generator.GenerateEnumerable(20).ToArray();
+            Assert.IsFalse(strings.All(string.IsNullOrEmpty));
+            Assert.IsFalse(strings.All(string.IsNullOrWhiteSpace));
+        }
+
+        [Test]
         public void NamesAreFilteredByGender() {
             var femaleNameGenerator = new Generator<string>(randomizer => randomizer.Name(NameType.FemaleFirstName));
             var femaleNames = _names.Where(name => name.Type == 1).Select(name => name.Data);
@@ -90,8 +107,7 @@ namespace Tests {
 
         [Test]
         public void Mail() {
-            const string mailUserName = "mailUserName";
-            var mailGenerator = new Generator<string>(randomizer => randomizer.MailAdress(mailUserName));
+            var mailGenerator = new Generator<string>(randomizer => randomizer.MailAdress(MailUserName));
             // Should be false since mailgenerator has not been configured to produce unique mails.
             Assert.IsFalse(mailGenerator.GenerateEnumerable(100).GroupBy(s => s).All(grouping => grouping.Count() == 1));
             mailGenerator.Mail(new List<string> {"gmail.com"}, true);
