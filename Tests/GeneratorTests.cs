@@ -17,7 +17,7 @@ namespace Tests {
     public class GeneratorTests {
         private const int Seed = 100;
         private Name[] _names;
-        const string MailUserName = "mailUserName";
+        private const string MailUserName = "mailUserName";
 
         [SetUp]
         public void Setup() {
