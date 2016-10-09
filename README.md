@@ -4,67 +4,66 @@ The idea of this project is to let users have a source to fetch random data from
 
 ####Features
 
- * LocalDate
- * Bool
- * Name
- * Int
- * Mail
- * Phone number
+* LocalDate
+* Bool
+* Name
+* Int
+* Mail
+* Phone number
 
 ###Examples
 #### Generating
 ```C#
-using Sharpy;
 using Sharpy.Enums;
+using Sharpy.Types;
 
 namespace Logger {
-    internal static class Program {
-        public static void Main() {
-            var generator = Factory.CreateGenerator<Person>(randomizer =>
-                new Person {
-                    FirstName = randomizer.Name(NameType.MixedFirstName),
-                    LastName = randomizer.Name(NameType.LastName)
-                });
+  internal static class Program {
+    public static void Main() {
+      var generator = new Generator<Person>(randomizer => new Person {
+          FirstName = randomizer.Name(NameType.MixedFirstName),
+          LastName = randomizer.Name(NameType.LastName)
+          });
 
-            // Creates an IEnumerable<Person> with twenty persons. All with randomized names.
-            var persons = generator.Generate(20);
-            // Creates one person with randomized names.
-            var person = generator.Generate();
-        }
+      // Creates an IEnumerable<Person> with twenty persons. All with randomized names.
+      var persons = generator.GenerateEnumerable(20);
+      // Creates one person with randomized names.
+      var person = generator.Generate();
     }
+  }
 
-    internal class Person {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-    }
+  internal class Person {
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+  }
 }
 ```
 #### Configure & Generating
 ```C#
-using Sharpy;
 using Sharpy.Enums;
+using Sharpy.Types;
 
 namespace Logger {
-    internal static class Program {
-        public static void Main() {
-            var generator = Factory.CreateGenerator<Person>(randomizer =>
-                new Person {
-                    FirstName = randomizer.Name(NameType.MixedFirstName),
-                    LastName = randomizer.Name(NameType.LastName)
-                });
-            // Applies a filter to give common names from the United States
-            generator.Config.Name(config => config.Origin(Country.UnitedStates));
-            // Creates an IEnumerable<Person> with twenty persons. All with randomized names.
-            var persons = generator.Generate(20);
-            // Creates one person with randomized names.
-            var person = generator.Generate();
-        }
-    }
+  internal static class Program {
+    public static void Main() {
+      var generator = new Generator<Person>(randomizer => new Person {
+          FirstName = randomizer.Name(NameType.MixedFirstName),
+          LastName = randomizer.Name(NameType.LastName)
+          });
 
-    internal class Person {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+      // Limits the name usage to common names in United States.
+      generator.Name(Country.UnitedStates);
+      // Creates an IEnumerable<Person> with twenty persons. All with randomized names.
+      var persons = generator.GenerateEnumerable(20);
+      // Creates one person with randomized names.
+      var person = generator.Generate();
     }
+  }
+
+  internal class Person {
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+  }
 }
 ```
 #### Supplying your own collection
@@ -73,32 +72,31 @@ using Sharpy;
 using Sharpy.Enums;
 
 namespace Logger {
-    internal static class Program {
-        public static void Main() {
-            string[] workplaces = {
-                "workplace1", "workplace2", "workplace3", 
-                "workplace4", "workplace5", "workplace6"
-            };
-            var generator = Factory.CreateGenerator<Person>(randomizer =>
-                new Person {
-                    FirstName = randomizer.Name(NameType.MixedFirstName),
-                    LastName = randomizer.Name(NameType.LastName),
-                    WorkPlace = randomizer.CustomCollection<string>(workplaces)
-                });
-            // Applies a filter to give common names from the United States
-            generator.Config.Name(config => config.Origin(Country.UnitedStates));
-            // Creates an IEnumerable<Person> with twenty persons. All with randomized names.
-            var persons = generator.Generate(20);
-            // Creates one person with randomized names.
-            var person = generator.Generate();
-        }
-    }
+  internal static class Program {
+    public static void Main() {
+      string[] workplaces = {
+        "workplace1", "workplace2", "workplace3",
+        "workplace4", "workplace5", "workplace6"
+      };
+      var generator = new Generator<Person>(randomizer => new Person {
+          FirstName = randomizer.Name(NameType.MixedFirstName),
+          LastName = randomizer.Name(NameType.LastName),
+          WorkPlace = randomizer.CustomCollection(workplaces)
+          });
 
-    internal class Person {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string WorkPlace { get; set; }
+      // Limits the name usage to common names in United States.
+      generator.Name(Country.UnitedStates);
+      // Creates an IEnumerable<Person> with twenty persons. All with randomized names.
+      var persons = generator.GenerateEnumerable(20);
+      // Creates one person with randomized names.
+      var person = generator.Generate();
     }
+  }
+  internal class Person {
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public string WorkPlace { get; set; }
+  }
 }
 ```
 
@@ -112,5 +110,5 @@ Use the Nuget Package Manager Console and type Install-Package Sharpy
 [Link](https://www.nuget.org/packages/Sharpy/) to package on Nuget.
 ### Dependencies:
 
- * [NodaTime](https://github.com/nodatime/nodatime) for dates
- * [Json.NET](https://github.com/JamesNK/Newtonsoft.Json) for deserializing JSON
+* [NodaTime](https://github.com/nodatime/nodatime) for dates
+* [Json.NET](https://github.com/JamesNK/Newtonsoft.Json) for deserializing JSON
