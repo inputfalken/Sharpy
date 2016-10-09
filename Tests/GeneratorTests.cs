@@ -50,6 +50,12 @@ namespace Tests {
         }
 
         [Test]
+        public void NumbersAreNotDefaultValue() {
+            var generator = new Generator<int>(randomizer => randomizer.Number(100));
+            Assert.IsFalse(generator.GenerateEnumerable(100).All(i => i == 0));
+        }
+
+        [Test]
         public void NamesAreNotNull() {
             var generator = new Generator<string>(randomizer => randomizer.Name());
             var strings = generator.GenerateEnumerable(20).ToArray();
