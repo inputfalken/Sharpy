@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Sharpy;
@@ -69,7 +70,6 @@ namespace Tests {
             Assert.IsTrue(maleNameGenerator.GenerateEnumerable(100).All(maleNames.Contains));
             Assert.IsTrue(lastNameGenerator.GenerateEnumerable(100).All(lastNames.Contains));
             Assert.IsTrue(mixedFirstNameGenerator.GenerateEnumerable(100).All(mixedNames.Contains));
-
         }
 
         [Test]
@@ -86,6 +86,17 @@ namespace Tests {
             var generator = new Generator<bool>((randomizer, i) => iteration++ == i);
             for (var i = 0; i < 10; i++)
                 Assert.IsTrue(generator.Generate());
+        }
+
+        [Test]
+        public void Mail() {
+            const string mailUserName = "mailUserName";
+            var mailGenerator = new Generator<string>(randomizer => randomizer.MailAdress(mailUserName));
+            // Should be false since mailgenerator has not been configured to produce unique mails.
+            Assert.IsFalse(mailGenerator.GenerateEnumerable(100).GroupBy(s => s).All(grouping => grouping.Count() == 1));
+            mailGenerator.Mail(new List<string> {"gmail.com"}, true);
+            // Should be true since mailgenerator has been configured to produce unique mails.
+            Assert.IsTrue(mailGenerator.GenerateEnumerable(100).GroupBy(s => s).All(grouping => grouping.Count() == 1));
         }
     }
 }
