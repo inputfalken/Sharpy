@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using Newtonsoft.Json;
 using Sharpy.Enums;
+using Sharpy.Properties;
 using Sharpy.Types.CountryCode;
+using Sharpy.Types.Date;
 using Sharpy.Types.Mail;
 
 namespace Sharpy.Types {
@@ -12,28 +16,80 @@ namespace Sharpy.Types {
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public sealed class Generator<T> {
+        private Fetcher<Name.Name> _names;
+
+        private Fetcher<string> _userNames;
+
         /// <summary>
         ///     Creates a Generator which you can use to create one instance or a collection of the given type
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
-        public Generator(Func<Randomizer, T> func) {
+        public Generator(Func<IRandomizer, T> func) {
             Func = func;
+            Randomizer = new Randomizer<T>(this);
+
+            DateGenerator = new DateGenerator(Random);
+            MailGenerator = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
+            PhoneNumberGenerator = new PhoneNumberGenerator(new CountryCode.CountryCode("UnitedStates", "+1"), Random);
         }
 
-        public Generator(Func<Randomizer, int, T> func) {
+        public Generator(Func<IRandomizer, int, T> func) {
             FuncIterator = func;
+            Randomizer = new Randomizer<T>(this);
+
+            DateGenerator = new DateGenerator(Random);
+            MailGenerator = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
+            PhoneNumberGenerator = new PhoneNumberGenerator(new CountryCode.CountryCode("UnitedStates", "+1"), Random);
         }
 
 
         /// <summary>
         ///     Can be used to change settings for the randomizer
         /// </summary>
-        private Randomizer Randomizer { get; } = new Randomizer();
+        private IRandomizer Randomizer { get; }
 
-        private Func<Randomizer, T> Func { get; }
-        private Func<Randomizer, int, T> FuncIterator { get; }
+        private Func<IRandomizer, T> Func { get; }
+        private Func<IRandomizer, int, T> FuncIterator { get; }
 
         private int Iteratation { get; set; }
+
+        private static Lazy<Fetcher<Name.Name>> LazyNames { get; } =
+            new Lazy<Fetcher<Name.Name>>(
+                () => new Fetcher<Name.Name>(JsonConvert.DeserializeObject<IEnumerable<Name.Name>>(
+                    Encoding.UTF8.GetString(Resources.NamesByOrigin))));
+
+        internal Fetcher<Name.Name> Names {
+            get { return _names ?? LazyNames.Value; }
+            set { _names = value; }
+        }
+
+
+        internal Dictionary<NameType, Fetcher<string>> Dictionary { get; } = new Dictionary<NameType, Fetcher<string>>()
+            ;
+
+
+        internal Random Random { get; set; } = new Random();
+        internal DateGenerator DateGenerator { get; }
+
+
+        internal static Lazy<IEnumerable<CountryCode.CountryCode>> LazyCountryCodes { get; } =
+            new Lazy<IEnumerable<CountryCode.CountryCode>>(
+                () => JsonConvert.DeserializeObject<IEnumerable<CountryCode.CountryCode>>(
+                    Encoding.Default.GetString(Resources.CountryCodes)));
+
+        private static Lazy<Fetcher<string>> LazyUsernames { get; } =
+            new Lazy<Fetcher<string>>(() => new Fetcher<string>(Resources.usernames.Split(Convert.ToChar("\n"))));
+
+
+        internal PhoneNumberGenerator PhoneNumberGenerator { get; set; }
+
+
+        internal MailGenerator MailGenerator { get; set; }
+
+        internal Fetcher<string> UserNames {
+            get { return _userNames ?? LazyUsernames.Value; }
+            set { _userNames = value; }
+        }
 
         private T Generate(int i) => FuncIterator == null ? Func(Randomizer) : FuncIterator(Randomizer, i);
 
@@ -60,7 +116,7 @@ namespace Sharpy.Types {
         /// <param name="predicate"></param>
         /// <returns></returns>
         public Generator<T> Name(Func<string, bool> predicate) {
-            Randomizer.Names = new Fetcher<Name.Name>(Randomizer.Names.Where(name => predicate(name.Data)));
+            Names = new Fetcher<Name.Name>(Names.Where(name => predicate(name.Data)));
             return this;
         }
 
@@ -70,7 +126,7 @@ namespace Sharpy.Types {
         /// <param name="countries"></param>
         /// <returns></returns>
         public Generator<T> Name(params Country[] countries) {
-            Randomizer.Names = new Fetcher<Name.Name>(Randomizer.ByCountry(countries));
+            Names = new Fetcher<Name.Name>(ByCountry(countries));
             return this;
         }
 
@@ -81,7 +137,7 @@ namespace Sharpy.Types {
         /// <param name="regions"></param>
         /// <returns></returns>
         public Generator<T> Name(params Region[] regions) {
-            Randomizer.Names = new Fetcher<Name.Name>(Randomizer.ByRegion(regions));
+            Names = new Fetcher<Name.Name>(ByRegion(regions));
             return this;
         }
 
@@ -94,7 +150,7 @@ namespace Sharpy.Types {
         /// <param name="uniqueAddresses">For Unique Addresses</param>
         /// <returns></returns>
         public Generator<T> Mail(IEnumerable<string> providers, bool uniqueAddresses = false) {
-            Randomizer.MailGenerator = new MailGenerator(providers, Randomizer.Random, uniqueAddresses);
+            MailGenerator = new MailGenerator(providers, Random, uniqueAddresses);
             return this;
         }
 
@@ -105,9 +161,9 @@ namespace Sharpy.Types {
         /// <param name="uniqueNumbers"></param>
         /// <returns></returns>
         public Generator<T> CountryCode(Country country, bool uniqueNumbers = false) {
-            Randomizer.PhoneNumberGenerator =
-                new PhoneNumberGenerator(Randomizer.LazyCountryCodes.Value.Single(number => number.Name == country),
-                    Randomizer.Random,
+            PhoneNumberGenerator =
+                new PhoneNumberGenerator(LazyCountryCodes.Value.Single(number => number.Name == country),
+                    Random,
                     uniqueNumbers);
             return this;
         }
@@ -119,7 +175,7 @@ namespace Sharpy.Types {
         /// <param name="predicate"></param>
         /// <returns></returns>
         public Generator<T> UserName(Func<string, bool> predicate) {
-            Randomizer.UserNames = new Fetcher<string>(Randomizer.UserNames.Where(predicate));
+            UserNames = new Fetcher<string>(UserNames.Where(predicate));
             return this;
         }
 
@@ -129,8 +185,32 @@ namespace Sharpy.Types {
         /// <param name="seed"></param>
         /// <returns></returns>
         public Generator<T> Seed(int seed) {
-            Randomizer.Random = new Random(seed);
+            Random = new Random(seed);
             return this;
+        }
+
+
+        internal IEnumerable<Name.Name> ByCountry(params Country[] args)
+            => new Fetcher<Name.Name>(Names.Where(name => args.Contains(name.Country)));
+
+
+        internal IEnumerable<Name.Name> ByRegion(params Region[] args)
+            => new Fetcher<Name.Name>(Names.Where(name => args.Contains(name.Region)));
+
+
+        internal IEnumerable<Name.Name> Type(NameType nameType) {
+            switch (nameType) {
+                case NameType.FemaleFirstName:
+                    return Names.Where(name => name.Type == 1);
+                case NameType.MaleFirstName:
+                    return Names.Where(name => name.Type == 2);
+                case NameType.LastName:
+                    return Names.Where(name => name.Type == 3);
+                case NameType.MixedFirstName:
+                    return Names.Where(name => name.Type == 1 | name.Type == 2);
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(nameType), nameType, null);
+            }
         }
     }
 }
