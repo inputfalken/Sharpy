@@ -16,7 +16,7 @@
 
       Works on .Net4.6 and .Net4.5
     </description>
-    <releaseNotes>Removed redundant classes and made Configuring easier.</releaseNotes>
+    <releaseNotes>Reworked phonenumber Gen api.</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Fakedata Generator</tags>
     <dependencies>
