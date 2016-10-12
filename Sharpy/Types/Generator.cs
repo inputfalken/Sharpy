@@ -38,10 +38,9 @@ namespace Sharpy.Types {
         ///     Creates a Generator which you can use to create one instance or a collection of the given type
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
-        public Generator(Func<IRandomizer, T> func) {
+        public Generator(Func<IRandomizer, T> func, IRandomizer randomizer = null) {
             Func = func;
-            Randomizer = new Randomizer<T>(this);
-
+            Randomizer = randomizer ?? new Randomizer<T>(this);
             DateGenerator = new DateGenerator(Random);
             MailGenerator = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
             PhoneNumberGenerator = new PhoneNumberGenerator(new CountryCode.CountryCode("UnitedStates", "+1"), Random, 5);
@@ -52,11 +51,9 @@ namespace Sharpy.Types {
         ///     The integer included will track iterations.
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
-        /// <param name="func"></param>
-        public Generator(Func<IRandomizer, int, T> func) {
+        public Generator(Func<IRandomizer, int, T> func, IRandomizer randomizer = null) {
             FuncIterator = func;
-            Randomizer = new Randomizer<T>(this);
-
+            Randomizer = randomizer ?? new Randomizer<T>(this);
             DateGenerator = new DateGenerator(Random);
             MailGenerator = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
             PhoneNumberGenerator = new PhoneNumberGenerator(new CountryCode.CountryCode("UnitedStates", "+1"), Random, 5);
