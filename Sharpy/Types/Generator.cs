@@ -101,13 +101,15 @@ namespace Sharpy.Types {
         /// <summary>
         ///     Lets you change the country code
         /// </summary>
-        /// <param name="country"></param>
+        /// <param name="countryCode"></param>
+        /// <param name="length"></param>
         /// <param name="uniqueNumbers"></param>
         /// <returns></returns>
-        public Generator<T> CountryCode(Country country, bool uniqueNumbers = false) {
+        public Generator<T> CountryCode(Country countryCode, int length, bool uniqueNumbers = false) {
             Randomizer.PhoneNumberGenerator =
-                new PhoneNumberGenerator(Randomizer.LazyCountryCodes.Value.Single(number => number.Name == country),
+                new PhoneNumberGenerator(Randomizer.LazyCountryCodes.Value.Single(number => number.Name == countryCode),
                     Randomizer.Random,
+                    length,
                     uniqueNumbers);
             return this;
         }
