@@ -18,7 +18,7 @@ namespace Sharpy.Types.CountryCode {
         }
 
         private CountryCode CountryCode { get; }
-        private int Length { get; }
+        public int Length { get; }
 
 
         private bool Unique { get; }
@@ -52,14 +52,5 @@ namespace Sharpy.Types.CountryCode {
             Builder.Clear();
             return str;
         }
-
-        /// <summary>
-        ///     This overLoad will also randomize a phone number length within min and max length
-        ///     <param name="minLength">Min length of the phone number</param>
-        ///     <param name="maxLength">Max length of the phone number</param>
-        ///     <param name="preNumber">Optional number that will be used before the random numbers</param>
-        /// </summary>
-        public string RandomNumber(int minLength, int maxLength, string preNumber = null)
-            => RandomNumber(preNumber);
     }
 }
