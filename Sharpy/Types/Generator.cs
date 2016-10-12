@@ -47,6 +47,12 @@ namespace Sharpy.Types {
             PhoneNumberGenerator = new PhoneNumberGenerator(new CountryCode.CountryCode("UnitedStates", "+1"), Random, 5);
         }
 
+        /// <summary>
+        ///     Creates a Generator which you can use to create one instance or a collection of the given type
+        ///     The integer included will track iterations.
+        ///     For examples please visit https://github.com/inputfalken/Sharpy
+        /// </summary>
+        /// <param name="func"></param>
         public Generator(Func<IRandomizer, int, T> func) {
             FuncIterator = func;
             Randomizer = new Randomizer<T>(this);
