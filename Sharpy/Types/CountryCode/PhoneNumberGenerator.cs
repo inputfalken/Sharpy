@@ -18,7 +18,7 @@ namespace Sharpy.Types.CountryCode {
         }
 
         private CountryCode CountryCode { get; }
-        public int Length { get; }
+        private int Length { get; }
 
 
         private bool Unique { get; }
