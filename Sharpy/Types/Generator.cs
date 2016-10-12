@@ -99,13 +99,13 @@ namespace Sharpy.Types {
         }
 
         /// <summary>
-        ///     Lets you change the country code
+        ///     Lets you change the settings for the number generator.
         /// </summary>
         /// <param name="countryCode"></param>
         /// <param name="length"></param>
         /// <param name="uniqueNumbers"></param>
         /// <returns></returns>
-        public Generator<T> CountryCode(Country countryCode, int length, bool uniqueNumbers = false) {
+        public Generator<T> ConfigPhoneGen(Country countryCode, int length, bool uniqueNumbers = false) {
             Randomizer.PhoneNumberGenerator =
                 new PhoneNumberGenerator(Randomizer.LazyCountryCodes.Value.Single(number => number.Name == countryCode),
                     Randomizer.Random,
