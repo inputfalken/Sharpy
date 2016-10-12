@@ -10,9 +10,7 @@
     <licenseUrl>https://github.com/inputfalken/Sharpy/blob/master/License.txt</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
-      This is a generic fake data generator class library.
-      The idea is that you should not have to come up with data such as names, numbers, dates.
-      Instead let this class library do it based on some instructions.
+      A generic data generation class library.
 
       Works on .Net4.6 and .Net4.5
     </description>
