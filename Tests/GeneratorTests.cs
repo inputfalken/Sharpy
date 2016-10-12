@@ -114,7 +114,7 @@ namespace Tests {
             var mailGenerator = new Generator<string>(randomizer => randomizer.MailAdress(MailUserName));
             // Should be false since mailgenerator has not been configured to produce unique mails.
             Assert.IsFalse(mailGenerator.GenerateEnumerable(100).GroupBy(s => s).All(grouping => grouping.Count() == 1));
-            mailGenerator.Mail(new List<string> {"gmail.com"}, true);
+            mailGenerator.ConfigMailGen(new List<string> {"gmail.com"}, true);
             // Should be true since mailgenerator has been configured to produce unique mails.
             Assert.IsTrue(mailGenerator.GenerateEnumerable(100).GroupBy(s => s).All(grouping => grouping.Count() == 1));
         }
