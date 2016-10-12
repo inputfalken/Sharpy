@@ -18,7 +18,7 @@ namespace Sharpy.Types {
         public Randomizer() {
             DateGenerator = new DateGenerator(Random);
             MailGenerator = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
-            PhoneNumberGenerator = new PhoneNumberGenerator(new CountryCode.CountryCode("UnitedStates", "+1"), Random);
+            PhoneNumberGenerator = new PhoneNumberGenerator(new CountryCode.CountryCode("UnitedStates", "+1"), Random, 7);
         }
 
 
@@ -85,8 +85,8 @@ namespace Sharpy.Types {
         ///     gives a random phonenumber using a random country code and lets you specify a number to start with as well as the
         ///     length.
         /// </summary>
-        public string PhoneNumber(string preNumber = null, int length = 4) =>
-            PhoneNumberGenerator.RandomNumber(length, preNumber);
+        public string PhoneNumber(string preNumber = null) =>
+            PhoneNumberGenerator.RandomNumber(preNumber);
 
         /// <summary>
         ///     Gives a mail address by concatining the arguments into a mail address.
