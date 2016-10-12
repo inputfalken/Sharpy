@@ -17,8 +17,10 @@
       Works on .Net4.6 and .Net4.5
     </description>
 <releaseNotes>
-  Reworked phonenumber Gen api.
-      Adds static preconfigured Generators  to the static class for fast usage.
+  1: Reworked phonenumber Gen api.
+  2: Adds static preconfigured Generators  to the static class for fast usage.
+  3: Factory class is now gone, instead you have to new up a generator with the same syntax.
+  4: Generator configurement is now done from the Generator instance.
 </releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Fakedata Generator</tags>
