@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
 using Sharpy.Enums;
 using Sharpy.Types;
 using Sharpy.Types.Name;
@@ -18,8 +19,8 @@ namespace Tests {
 
         [SetUp]
         public void Setup() {
-            var randomizer = new Randomizer();
-            _names = randomizer.Names.ToArray();
+            var gen = new Generator<string>(randomizer => "");
+            _names = gen.Names.ToArray();
         }
 
         [Test]
