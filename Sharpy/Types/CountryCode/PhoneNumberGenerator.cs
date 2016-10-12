@@ -13,7 +13,7 @@ namespace Sharpy.Types.CountryCode {
             CountryCode = countryCode;
             Length = length;
             Unique = unique;
-            Min = (int) Math.Pow(10, Length);
+            Min = (int) Math.Pow(10, Length - 1);
             Max = Min*10 - 1;
         }
 
