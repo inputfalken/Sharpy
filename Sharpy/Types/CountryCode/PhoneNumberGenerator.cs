@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Sharpy.Types.CountryCode {
@@ -7,9 +8,12 @@ namespace Sharpy.Types.CountryCode {
     /// <summary>
     /// </summary>
     internal sealed class PhoneNumberGenerator : Unique<string> {
-        internal PhoneNumberGenerator(CountryCode countryCode, Random random, bool unique = false) : base(50, random) {
+        internal PhoneNumberGenerator(CountryCode countryCode, Random random, int length, bool unique = false)
+            : base(50, random) {
             CountryCode = countryCode;
             Unique = unique;
+            Min = (int) Math.Pow(10, length - 1);
+            Max = Min*10 - 1;
         }
 
         private CountryCode CountryCode { get; }
@@ -18,40 +22,33 @@ namespace Sharpy.Types.CountryCode {
         private bool Unique { get; }
 
 
+        private readonly HashSet<int> _numbers = new HashSet<int>();
+
+        private int Min { get; }
+        private int Max { get; }
+
         /// <summary>
         ///     Will create a phone number by randoming numbers including country code
-        ///     <param name="length">The length of the number</param>
         ///     <param name="preNumber">Optional number that will be used before the random numbers</param>
         /// </summary>
-        public string RandomNumber(int length, string preNumber = null) {
-            if (!Unique) return BuildString(length, preNumber);
-            var attempts = 0;
-            while (attempts < AttemptLimit) {
-                var number = BuildString(length, preNumber);
-                if (ClearValidateSave(number))
-                    return number;
-                attempts += 1;
+        public string RandomNumber(string preNumber = null) {
+            var next = Random.Next(Min, Max);
+            if (!Unique) return Build(CountryCode.Code, preNumber, next.ToString());
+            while (_numbers.Contains(next)) {
+                if (next == Max)
+                    next = Min;
+                next++;
             }
-            throw new Exception("Could not create an unique number");
+            _numbers.Add(next);
+            return Build(CountryCode.Code, preNumber, next.ToString());
         }
 
-        private string BuildString(int length, string preNumber) {
-            foreach (var i in Enumerable.Range(0, length)) {
-                if (i == 0) Builder.Append(CountryCode.Code).Append(preNumber);
-                Builder.Append(Random.Next(10));
-            }
+        private static string Build(params string[] strings) {
+            foreach (var s in strings)
+                Builder.Append(s);
             var str = Builder.ToString();
             Builder.Clear();
             return str;
         }
-
-        /// <summary>
-        ///     This overLoad will also randomize a phone number length within min and max length
-        ///     <param name="minLength">Min length of the phone number</param>
-        ///     <param name="maxLength">Max length of the phone number</param>
-        ///     <param name="preNumber">Optional number that will be used before the random numbers</param>
-        /// </summary>
-        public string RandomNumber(int minLength, int maxLength, string preNumber = null)
-            => RandomNumber(Random.Next(minLength, maxLength), preNumber);
     }
 }
