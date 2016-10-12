@@ -53,14 +53,14 @@ namespace Sharpy.Types {
 
         private int Iteratation { get; set; }
 
-        private static Lazy<Fetcher<Name.Name>> LazyNames { get; } =
+        private Lazy<Fetcher<Name.Name>> LazyNames { get; } =
             new Lazy<Fetcher<Name.Name>>(
                 () => new Fetcher<Name.Name>(JsonConvert.DeserializeObject<IEnumerable<Name.Name>>(
                     Encoding.UTF8.GetString(Resources.NamesByOrigin))));
 
         internal Fetcher<Name.Name> Names {
             get { return _names ?? LazyNames.Value; }
-            set { _names = value; }
+            private set { _names = value; }
         }
 
 
@@ -68,27 +68,27 @@ namespace Sharpy.Types {
             ;
 
 
-        internal Random Random { get; set; } = new Random();
+        internal Random Random { get; private set; } = new Random();
         internal DateGenerator DateGenerator { get; }
 
 
-        internal static Lazy<IEnumerable<CountryCode.CountryCode>> LazyCountryCodes { get; } =
+        private Lazy<IEnumerable<CountryCode.CountryCode>> LazyCountryCodes { get; } =
             new Lazy<IEnumerable<CountryCode.CountryCode>>(
                 () => JsonConvert.DeserializeObject<IEnumerable<CountryCode.CountryCode>>(
                     Encoding.Default.GetString(Resources.CountryCodes)));
 
-        private static Lazy<Fetcher<string>> LazyUsernames { get; } =
+        private Lazy<Fetcher<string>> LazyUsernames { get; } =
             new Lazy<Fetcher<string>>(() => new Fetcher<string>(Resources.usernames.Split(Convert.ToChar("\n"))));
 
 
-        internal PhoneNumberGenerator PhoneNumberGenerator { get; set; }
+        internal PhoneNumberGenerator PhoneNumberGenerator { get; private set; }
 
 
-        internal MailGenerator MailGenerator { get; set; }
+        internal MailGenerator MailGenerator { get; private set; }
 
         internal Fetcher<string> UserNames {
             get { return _userNames ?? LazyUsernames.Value; }
-            set { _userNames = value; }
+            private set { _userNames = value; }
         }
 
         private T Generate(int i) => FuncIterator == null ? Func(Randomizer) : FuncIterator(Randomizer, i);
@@ -190,11 +190,11 @@ namespace Sharpy.Types {
         }
 
 
-        internal IEnumerable<Name.Name> ByCountry(params Country[] args)
+        private IEnumerable<Name.Name> ByCountry(params Country[] args)
             => new Fetcher<Name.Name>(Names.Where(name => args.Contains(name.Country)));
 
 
-        internal IEnumerable<Name.Name> ByRegion(params Region[] args)
+        private IEnumerable<Name.Name> ByRegion(params Region[] args)
             => new Fetcher<Name.Name>(Names.Where(name => args.Contains(name.Region)));
 
 
