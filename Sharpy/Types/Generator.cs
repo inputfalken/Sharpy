@@ -63,12 +63,10 @@ namespace Sharpy.Types {
         }
 
 
-        /// <summary>
-        ///     Can be used to change settings for the randomizer
-        /// </summary>
         private IRandomizer Randomizer { get; }
 
         private Func<IRandomizer, T> Func { get; }
+
         private Func<IRandomizer, int, T> FuncIterator { get; }
 
         private int Iteratation { get; set; }
@@ -84,8 +82,8 @@ namespace Sharpy.Types {
         }
 
 
-        internal Dictionary<NameType, Fetcher<string>> Dictionary { get; } = new Dictionary<NameType, Fetcher<string>>()
-            ;
+        internal Dictionary<NameType, Fetcher<string>> Dictionary { get; } =
+            new Dictionary<NameType, Fetcher<string>>();
 
 
         internal Random Random { get; private set; } = new Random();
