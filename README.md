@@ -52,7 +52,7 @@ namespace Logger {
           });
 
       // Limits the name usage to common names in United States.
-      generator.Name(Country.UnitedStates);
+      generator.ConfigName(Country.UnitedStates);
       // Creates an IEnumerable<Person> with twenty persons. All with randomized names.
       var persons = generator.GenerateEnumerable(20);
       // Creates one person with randomized names.
@@ -85,7 +85,7 @@ namespace Logger {
           });
 
       // Limits the name usage to common names in United States.
-      generator.Name(Country.UnitedStates);
+      generator.ConfigName(Country.UnitedStates);
       // Creates an IEnumerable<Person> with twenty persons. All with randomized names.
       var persons = generator.GenerateEnumerable(20);
       // Creates one person with randomized names.
