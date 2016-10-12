@@ -11,14 +11,12 @@ namespace Sharpy.Types.CountryCode {
         internal PhoneNumberGenerator(CountryCode countryCode, Random random, int length, bool unique = false)
             : base(50, random) {
             CountryCode = countryCode;
-            Length = length;
             Unique = unique;
-            Min = (int) Math.Pow(10, Length - 1);
+            Min = (int) Math.Pow(10, length - 1);
             Max = Min*10 - 1;
         }
 
         private CountryCode CountryCode { get; }
-        private int Length { get; }
 
 
         private bool Unique { get; }
