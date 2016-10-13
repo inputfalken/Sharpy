@@ -6,7 +6,7 @@ using Sharpy.Types.CountryCode;
 using Sharpy.Types.Mail;
 
 namespace Sharpy.Types {
-    public class Config<T> : IConfig<T> {
+    public class Config<T> : IConfig {
         private Generator<T> Generator { get; }
 
         public Config(Generator<T> generator) {
@@ -19,7 +19,7 @@ namespace Sharpy.Types {
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public Config<T> Name(Func<string, bool> predicate) {
+        public IConfig Name(Func<string, bool> predicate) {
             Generator.Names = new Fetcher<Name.Name>(Generator.Names.Where(name => predicate(name.Data)));
             return this;
         }
@@ -29,7 +29,7 @@ namespace Sharpy.Types {
         /// </summary>
         /// <param name="countries"></param>
         /// <returns></returns>
-        public Config<T> Name(params Country[] countries) {
+        public IConfig Name(params Country[] countries) {
             Generator.Names = new Fetcher<Name.Name>(ByCountry(countries));
             return this;
         }
@@ -40,7 +40,7 @@ namespace Sharpy.Types {
         /// </summary>
         /// <param name="regions"></param>
         /// <returns></returns>
-        public Config<T> Name(params Region[] regions) {
+        public IConfig Name(params Region[] regions) {
             Generator.Names = new Fetcher<Name.Name>(ByRegion(regions));
             return this;
         }
@@ -53,7 +53,7 @@ namespace Sharpy.Types {
         /// <param name="providers"></param>
         /// <param name="uniqueAddresses">For Unique Addresses</param>
         /// <returns></returns>
-        public Config<T> MailGenerator(IEnumerable<string> providers, bool uniqueAddresses = false) {
+        public IConfig MailGenerator(IEnumerable<string> providers, bool uniqueAddresses = false) {
             Generator.MailGenerator = new MailGenerator(providers, Generator.Random, uniqueAddresses);
             return this;
         }
@@ -65,7 +65,7 @@ namespace Sharpy.Types {
         /// <param name="length"></param>
         /// <param name="uniqueNumbers"></param>
         /// <returns></returns>
-        public Config<T> PhoneGenerator(Country countryCode, int length, bool uniqueNumbers = false) {
+        public IConfig PhoneGenerator(Country countryCode, int length, bool uniqueNumbers = false) {
             Generator.PhoneNumberGenerator =
                 new PhoneNumberGenerator(Generator.LazyCountryCodes.Value.Single(number => number.Name == countryCode),
                     Generator.Random,
@@ -79,7 +79,7 @@ namespace Sharpy.Types {
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public Config<T> UserName(Func<string, bool> predicate) {
+        public IConfig UserName(Func<string, bool> predicate) {
             Generator.UserNames = new Fetcher<string>(Generator.UserNames.Where(predicate));
             return this;
         }
@@ -89,7 +89,7 @@ namespace Sharpy.Types {
         /// </summary>
         /// <param name="seed"></param>
         /// <returns></returns>
-        public Config<T> Seed(int seed) {
+        public IConfig Seed(int seed) {
             Generator.Random = new Random(seed);
             return this;
         }
