@@ -45,9 +45,10 @@ namespace Sharpy.Types {
         public string Name(NameType nameType) {
             if (!Dictionary.ContainsKey(nameType))
                 Dictionary.Add(nameType,
-                    new Fetcher<string>(Generator.Type(nameType).Select(name => name.Data)));
+                    new Fetcher<string>(Type(nameType).Select(name => name.Data)));
             return Dictionary[nameType].RandomItem(Generator.Random);
         }
+
 
         /// <summary>
         ///     Gives a random username from a huge collection.
@@ -94,5 +95,20 @@ namespace Sharpy.Types {
 
         private Dictionary<NameType, Fetcher<string>> Dictionary { get; } =
             new Dictionary<NameType, Fetcher<string>>();
+
+        private IEnumerable<Name.Name> Type(NameType nameType) {
+            switch (nameType) {
+                case NameType.FemaleFirstName:
+                    return Generator.Names.Where(name => name.Type == 1);
+                case NameType.MaleFirstName:
+                    return Generator.Names.Where(name => name.Type == 2);
+                case NameType.LastName:
+                    return Generator.Names.Where(name => name.Type == 3);
+                case NameType.MixedFirstName:
+                    return Generator.Names.Where(name => name.Type == 1 | name.Type == 2);
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(nameType), nameType, null);
+            }
+        }
     }
 }

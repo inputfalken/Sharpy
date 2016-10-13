@@ -18,10 +18,6 @@ namespace Sharpy {
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public sealed class Generator<T> {
-        private Fetcher<Name> _names;
-
-        private Fetcher<string> _userNames;
-
         /// <summary>
         ///     Creates a Generator which you can use to create one instance or a collection of the given type
         ///     For examples please visit https://github.com/inputfalken/Sharpy
@@ -55,7 +51,7 @@ namespace Sharpy {
         private Func<IRandomizer, T> Func { get; }
 
         private Func<IRandomizer, int, T> FuncIterator { get; }
-        public IConfig<T> Config { get; }
+
 
         private int Iteratation { get; set; }
 
@@ -63,6 +59,9 @@ namespace Sharpy {
             new Lazy<Fetcher<Name>>(
                 () => new Fetcher<Name>(JsonConvert.DeserializeObject<IEnumerable<Name>>(
                     Encoding.UTF8.GetString(Resources.NamesByOrigin))));
+
+        private Fetcher<Name> _names;
+
 
         internal Fetcher<Name> Names {
             get { return _names ?? LazyNames.Value; }
@@ -88,12 +87,16 @@ namespace Sharpy {
 
         internal MailGenerator MailGenerator { get; set; }
 
+        private Fetcher<string> _userNames;
+
         internal Fetcher<string> UserNames {
             get { return _userNames ?? LazyUsernames.Value; }
             set { _userNames = value; }
         }
 
         private T Generate(int i) => FuncIterator == null ? Func(Randomizer) : FuncIterator(Randomizer, i);
+
+        public IConfig<T> Config { get; }
 
         /// <summary>
         ///     Will give back one instance of the specified Type
@@ -109,22 +112,6 @@ namespace Sharpy {
         public IEnumerable<T> GenerateEnumerable(int ammount) {
             for (var i = 0; i < ammount; i++)
                 yield return Generate(i);
-        }
-
-
-        internal IEnumerable<Name> Type(NameType nameType) {
-            switch (nameType) {
-                case NameType.FemaleFirstName:
-                    return Names.Where(name => name.Type == 1);
-                case NameType.MaleFirstName:
-                    return Names.Where(name => name.Type == 2);
-                case NameType.LastName:
-                    return Names.Where(name => name.Type == 3);
-                case NameType.MixedFirstName:
-                    return Names.Where(name => name.Type == 1 | name.Type == 2);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(nameType), nameType, null);
-            }
         }
     }
 }
