@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Generator.cs" />
+    <Compile Include="Types\GeneratorBase.cs" />
     <Compile Include="PreConfigured.cs" />
     <Compile Include="Types\Config.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
