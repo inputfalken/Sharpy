@@ -21,7 +21,7 @@ namespace Tests {
         [SetUp]
         public void Setup() {
             var gen = new Generator<string>(randomizer => "");
-            _names = gen.Names.ToArray();
+            _names = gen.Config.Names.ToArray();
         }
 
         [Test]

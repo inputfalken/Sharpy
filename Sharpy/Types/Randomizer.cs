@@ -36,24 +36,24 @@ namespace Sharpy.Types {
         /// <summary>
         ///     Gives a random name, it could be a female first name, male first name and a lastname.
         /// </summary>
-        public string Name() => Generator.Names.RandomItem(Generator.Random).Data;
+        public string Name() => Generator.Config.Names.RandomItem(Generator.Config.Random).Data;
 
 
         /// <summary>
         ///     Gives a random name based on type of argument.
         /// </summary>
         public string Name(NameType nameType) {
-            if (!Dictionary.ContainsKey(nameType))
-                Dictionary.Add(nameType,
-                    new Fetcher<string>(Type(nameType).Select(name => name.Data)));
-            return Dictionary[nameType].RandomItem(Generator.Random);
+            if (!Generator.Config.Dictionary.ContainsKey(nameType))
+                Generator.Config.Dictionary.Add(nameType,
+                    new Fetcher<string>(Generator.Config.Type(nameType).Select(name => name.Data)));
+            return Generator.Config.Dictionary[nameType].RandomItem(Generator.Config.Random);
         }
 
 
         /// <summary>
         ///     Gives a random username from a huge collection.
         /// </summary>
-        public string UserName() => Generator.UserNames.RandomItem(Generator.Random);
+        public string UserName() => Generator.Config.UserNames.RandomItem(Generator.Config.Random);
 
         /// <summary>
         ///     Gives a random bool
@@ -63,52 +63,35 @@ namespace Sharpy.Types {
         /// <summary>
         ///     Gives a random number within below the argument value
         /// </summary>
-        public int Number(int maxNum) => Generator.Random.Next(maxNum);
+        public int Number(int maxNum) => Generator.Config.Random.Next(maxNum);
 
         /// <summary>
         ///     Gives a random number within within the two arguments
         /// </summary>
-        public int Number(int minNum, int maxNum) => Generator.Random.Next(minNum, maxNum);
+        public int Number(int minNum, int maxNum) => Generator.Config.Random.Next(minNum, maxNum);
 
         /// <summary>
         ///     Gives a date with random month, date and subtract the current the current year by the argument
         /// </summary>
-        public LocalDate DateByAge(int age) => Generator.DateGenerator.RandomDateByAge(age);
+        public LocalDate DateByAge(int age) => Generator.Config.DateGenerator.RandomDateByAge(age);
 
         /// <summary>
         ///     Gives a random month, date and use the argument given as year
         /// </summary>
-        public LocalDate DateByYear(int year) => Generator.DateGenerator.RandomDateByYear(year);
+        public LocalDate DateByYear(int year) => Generator.Config.DateGenerator.RandomDateByYear(year);
 
         /// <summary>
         ///     gives a random phonenumber using a random country code and lets you specify a number to start with as well as the
         ///     length.
         /// </summary>
         public string PhoneNumber(string preNumber = null) =>
-            Generator.PhoneNumberGenerator.RandomNumber(preNumber);
+            Generator.Config.PhoneNumberGenerator.RandomNumber(preNumber);
 
         /// <summary>
         ///     Gives a mail address by concatining the arguments into a mail address.
         /// </summary>
         public string MailAdress(string name, string secondName = null)
-            => Generator.MailGenerator.Mail(name, secondName);
+            => Generator.Config.MailGeneratorP.Mail(name, secondName);
 
-        private Dictionary<NameType, Fetcher<string>> Dictionary { get; } =
-            new Dictionary<NameType, Fetcher<string>>();
-
-        private IEnumerable<Name.Name> Type(NameType nameType) {
-            switch (nameType) {
-                case NameType.FemaleFirstName:
-                    return Generator.Names.Where(name => name.Type == 1);
-                case NameType.MaleFirstName:
-                    return Generator.Names.Where(name => name.Type == 2);
-                case NameType.LastName:
-                    return Generator.Names.Where(name => name.Type == 3);
-                case NameType.MixedFirstName:
-                    return Generator.Names.Where(name => name.Type == 1 | name.Type == 2);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(nameType), nameType, null);
-            }
-        }
     }
 }
