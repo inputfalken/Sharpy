@@ -43,10 +43,10 @@ namespace Sharpy.Types {
         ///     Gives a random name based on type of argument.
         /// </summary>
         public string Name(NameType nameType) {
-            if (!Generator.Dictionary.ContainsKey(nameType))
-                Generator.Dictionary.Add(nameType,
+            if (!Dictionary.ContainsKey(nameType))
+                Dictionary.Add(nameType,
                     new Fetcher<string>(Generator.Type(nameType).Select(name => name.Data)));
-            return Generator.Dictionary[nameType].RandomItem(Generator.Random);
+            return Dictionary[nameType].RandomItem(Generator.Random);
         }
 
         /// <summary>
@@ -91,5 +91,8 @@ namespace Sharpy.Types {
         /// </summary>
         public string MailAdress(string name, string secondName = null)
             => Generator.MailGenerator.Mail(name, secondName);
+
+        private Dictionary<NameType, Fetcher<string>> Dictionary { get; } =
+            new Dictionary<NameType, Fetcher<string>>();
     }
 }
