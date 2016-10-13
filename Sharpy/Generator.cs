@@ -70,8 +70,6 @@ namespace Sharpy {
         }
 
 
-
-
         internal Random Random { get; set; } = new Random();
         internal DateGenerator DateGenerator { get; }
 
@@ -112,95 +110,6 @@ namespace Sharpy {
             for (var i = 0; i < ammount; i++)
                 yield return Generate(i);
         }
-
-
-        /// <summary>
-        ///     Executes the predicate on each name.
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns></returns>
-        public Generator<T> ConfigName(Func<string, bool> predicate) {
-            Names = new Fetcher<Name>(Names.Where(name => predicate(name.Data)));
-            return this;
-        }
-
-        /// <summary>
-        ///     This filters the names by each Country provided
-        /// </summary>
-        /// <param name="countries"></param>
-        /// <returns></returns>
-        public Generator<T> ConfigName(params Country[] countries) {
-            Names = new Fetcher<Name>(ByCountry(countries));
-            return this;
-        }
-
-
-        /// <summary>
-        ///     This filters the names by each Region provided
-        /// </summary>
-        /// <param name="regions"></param>
-        /// <returns></returns>
-        public Generator<T> ConfigName(params Region[] regions) {
-            Names = new Fetcher<Name>(ByRegion(regions));
-            return this;
-        }
-
-        /// <summary>
-        ///     Lets you set the providers for the mail addresses.
-        ///     You can also a set a bool for wether the addreses will be unique.
-        ///     If set to unique numbers will be appended in case of replicate mail address.
-        /// </summary>
-        /// <param name="providers"></param>
-        /// <param name="uniqueAddresses">For Unique Addresses</param>
-        /// <returns></returns>
-        public Generator<T> ConfigMailGen(IEnumerable<string> providers, bool uniqueAddresses = false) {
-            MailGenerator = new MailGenerator(providers, Random, uniqueAddresses);
-            return this;
-        }
-
-        /// <summary>
-        ///     Lets you change the settings for the number generator.
-        /// </summary>
-        /// <param name="countryCode"></param>
-        /// <param name="length"></param>
-        /// <param name="uniqueNumbers"></param>
-        /// <returns></returns>
-        public Generator<T> ConfigPhoneGen(Country countryCode, int length, bool uniqueNumbers = false) {
-            PhoneNumberGenerator =
-                new PhoneNumberGenerator(LazyCountryCodes.Value.Single(number => number.Name == countryCode),
-                    Random,
-                    length, uniqueNumbers);
-            return this;
-        }
-
-
-        /// <summary>
-        ///     Executes the predicate on each username.
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns></returns>
-        public Generator<T> ConfigUserName(Func<string, bool> predicate) {
-            UserNames = new Fetcher<string>(UserNames.Where(predicate));
-            return this;
-        }
-
-        /// <summary>
-        ///     Will set a seed for the generator to use
-        /// </summary>
-        /// <param name="seed"></param>
-        /// <returns></returns>
-        public Generator<T> Seed(int seed) {
-            Random = new Random(seed);
-            return this;
-        }
-
-
-        private IEnumerable<Name> ByCountry(params Country[] args)
-            => new Fetcher<Name>(Names.Where(name => args.Contains(name.Country)));
-
-
-        private IEnumerable<Name> ByRegion(params Region[] args)
-            => new Fetcher<Name>(Names.Where(name => args.Contains(name.Region)));
 
 
         internal IEnumerable<Name> Type(NameType nameType) {
