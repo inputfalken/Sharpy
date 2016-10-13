@@ -22,10 +22,10 @@ namespace Sharpy {
         ///     Creates a Generator which you can use to create one instance or a collection of the given type
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
-        public Generator(Func<IRandomizer, T> func, IRandomizer randomizer = null, IConfig config = null)
+        public Generator(Func<IRandomizer, T> func, IRandomizer randomizer = null)
             : base(func, randomizer) {
             FuncArg = randomizer ?? new Randomizer<T>(this);
-            Config = config ?? new Config<T>(this);
+            _config = new Config<T>(this);
             DateGenerator = new DateGenerator(Random);
             MailGenerator = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
             PhoneNumberGenerator = new PhoneNumberGenerator(new CountryCode("UnitedStates", "+1"), Random, 5);
@@ -36,17 +36,22 @@ namespace Sharpy {
         ///     The integer included will track iterations.
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
-        public Generator(Func<IRandomizer, int, T> func, IRandomizer randomizer = null, IConfig config = null)
+        public Generator(Func<IRandomizer, int, T> func, IRandomizer randomizer = null)
             : base(func, randomizer) {
             FuncArg = randomizer ?? new Randomizer<T>(this);
-            Config = config ?? new Config<T>(this);
+            _config = new Config<T>(this);
             DateGenerator = new DateGenerator(Random);
             MailGenerator = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
             PhoneNumberGenerator = new PhoneNumberGenerator(new CountryCode("UnitedStates", "+1"), Random, 5);
         }
 
 
-        public IConfig Config { get; }
+        public Config<T> Config {
+            get {
+                if (FuncArg is Randomizer<T>) return _config;
+                throw new Exception("You cannot use this property with a custom randomizer.");
+            }
+        }
 
         private Lazy<Fetcher<Name>> LazyNames { get; } =
             new Lazy<Fetcher<Name>>(
@@ -81,6 +86,7 @@ namespace Sharpy {
         internal MailGenerator MailGenerator { get; set; }
 
         private Fetcher<string> _userNames;
+        private readonly Config<T> _config;
 
         internal Fetcher<string> UserNames {
             get { return _userNames ?? LazyUsernames.Value; }

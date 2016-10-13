@@ -60,7 +60,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Types\IConfig.cs" />
     <Compile Include="Types\IRandomizer.cs" />
     <Compile Include="Types\Randomizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
