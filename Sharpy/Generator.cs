@@ -45,7 +45,7 @@ namespace Sharpy {
             Randomizer = randomizer ?? new Randomizer<T>(this);
             DateGenerator = new DateGenerator(Random);
             MailGenerator = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
-            PhoneNumberGenerator = new PhoneNumberGenerator(new Types.CountryCode.CountryCode("UnitedStates", "+1"), Random, 5);
+            PhoneNumberGenerator = new PhoneNumberGenerator(new CountryCode("UnitedStates", "+1"), Random, 5);
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace Sharpy {
             Randomizer = randomizer ?? new Randomizer<T>(this);
             DateGenerator = new DateGenerator(Random);
             MailGenerator = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
-            PhoneNumberGenerator = new PhoneNumberGenerator(new Types.CountryCode.CountryCode("UnitedStates", "+1"), Random, 5);
+            PhoneNumberGenerator = new PhoneNumberGenerator(new CountryCode("UnitedStates", "+1"), Random, 5);
         }
 
 
