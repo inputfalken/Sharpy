@@ -17,15 +17,15 @@ namespace Sharpy {
     ///    Use the randomizer to give you data.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public sealed class Generator<T> {
+    public sealed class Generator<T> : GeneratorBase<T, IRandomizer> {
         /// <summary>
         ///     Creates a Generator which you can use to create one instance or a collection of the given type
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
-        public Generator(Func<IRandomizer, T> func, IRandomizer randomizer = null, IConfig<T> config = null) {
-            Func = func;
+        public Generator(Func<IRandomizer, T> func, IRandomizer randomizer = null, IConfig<T> config = null)
+            : base(func, randomizer) {
+            FuncArg = randomizer ?? new Randomizer<T>(this);
             Config = config ?? new Config<T>(this);
-            Randomizer = randomizer ?? new Randomizer<T>(this);
             DateGenerator = new DateGenerator(Random);
             MailGenerator = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
             PhoneNumberGenerator = new PhoneNumberGenerator(new CountryCode("UnitedStates", "+1"), Random, 5);
@@ -36,24 +36,17 @@ namespace Sharpy {
         ///     The integer included will track iterations.
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
-        public Generator(Func<IRandomizer, int, T> func, IRandomizer randomizer = null, IConfig<T> config = null) {
-            FuncIterator = func;
+        public Generator(Func<IRandomizer, int, T> func, IRandomizer randomizer = null, IConfig<T> config = null)
+            : base(func, randomizer) {
+            FuncArg = randomizer ?? new Randomizer<T>(this);
             Config = config ?? new Config<T>(this);
-            Randomizer = randomizer ?? new Randomizer<T>(this);
             DateGenerator = new DateGenerator(Random);
             MailGenerator = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
             PhoneNumberGenerator = new PhoneNumberGenerator(new CountryCode("UnitedStates", "+1"), Random, 5);
         }
 
 
-        private IRandomizer Randomizer { get; }
-
-        private Func<IRandomizer, T> Func { get; }
-
-        private Func<IRandomizer, int, T> FuncIterator { get; }
-
-
-        private int Iteratation { get; set; }
+        public IConfig<T> Config { get; }
 
         private Lazy<Fetcher<Name>> LazyNames { get; } =
             new Lazy<Fetcher<Name>>(
@@ -92,26 +85,6 @@ namespace Sharpy {
         internal Fetcher<string> UserNames {
             get { return _userNames ?? LazyUsernames.Value; }
             set { _userNames = value; }
-        }
-
-        private T Generate(int i) => FuncIterator == null ? Func(Randomizer) : FuncIterator(Randomizer, i);
-
-        public IConfig<T> Config { get; }
-
-        /// <summary>
-        ///     Will give back one instance of the specified Type
-        /// </summary>
-        /// <returns></returns>
-        public T Generate() => FuncIterator == null ? Func(Randomizer) : FuncIterator(Randomizer, Iteratation++);
-
-        /// <summary>
-        ///     Will give back an IEnumerable with the specified type.
-        ///     Which contains the ammount of elements.
-        /// </summary>
-        /// <param name="ammount"></param>
-        public IEnumerable<T> GenerateEnumerable(int ammount) {
-            for (var i = 0; i < ammount; i++)
-                yield return Generate(i);
         }
     }
 }
