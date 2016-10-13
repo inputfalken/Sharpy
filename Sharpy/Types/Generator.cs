@@ -38,8 +38,9 @@ namespace Sharpy.Types {
         ///     Creates a Generator which you can use to create one instance or a collection of the given type
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
-        public Generator(Func<IRandomizer, T> func, IRandomizer randomizer = null) {
+        public Generator(Func<IRandomizer, T> func, IRandomizer randomizer = null, IConfig<T> config = null) {
             Func = func;
+            Config = config ?? new Config<T>(this);
             Randomizer = randomizer ?? new Randomizer<T>(this);
             DateGenerator = new DateGenerator(Random);
             MailGenerator = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
@@ -51,20 +52,36 @@ namespace Sharpy.Types {
         ///     The integer included will track iterations.
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
-        public Generator(Func<IRandomizer, int, T> func, IRandomizer randomizer = null) {
+        public Generator(Func<IRandomizer, int, T> func, IRandomizer randomizer = null, IConfig<T> config = null) {
             FuncIterator = func;
+            Config = config ?? new Config<T>(this);
             Randomizer = randomizer ?? new Randomizer<T>(this);
             DateGenerator = new DateGenerator(Random);
             MailGenerator = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
             PhoneNumberGenerator = new PhoneNumberGenerator(new CountryCode.CountryCode("UnitedStates", "+1"), Random, 5);
         }
 
+        internal IEnumerable<Name.Name> Type(NameType nameType) {
+            switch (nameType) {
+                case NameType.FemaleFirstName:
+                    return Names.Where(name => name.Type == 1);
+                case NameType.MaleFirstName:
+                    return Names.Where(name => name.Type == 2);
+                case NameType.LastName:
+                    return Names.Where(name => name.Type == 3);
+                case NameType.MixedFirstName:
+                    return Names.Where(name => name.Type == 1 | name.Type == 2);
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(nameType), nameType, null);
+            }
+        }
 
         private IRandomizer Randomizer { get; }
 
         private Func<IRandomizer, T> Func { get; }
 
         private Func<IRandomizer, int, T> FuncIterator { get; }
+        public IConfig<T> Config { get; }
 
         private int Iteratation { get; set; }
 
@@ -75,7 +92,7 @@ namespace Sharpy.Types {
 
         internal Fetcher<Name.Name> Names {
             get { return _names ?? LazyNames.Value; }
-            private set { _names = value; }
+            set { _names = value; }
         }
 
 
@@ -83,11 +100,11 @@ namespace Sharpy.Types {
             new Dictionary<NameType, Fetcher<string>>();
 
 
-        internal Random Random { get; private set; } = new Random();
+        internal Random Random { get; set; } = new Random();
         internal DateGenerator DateGenerator { get; }
 
 
-        private Lazy<IEnumerable<CountryCode.CountryCode>> LazyCountryCodes { get; } =
+        internal Lazy<IEnumerable<CountryCode.CountryCode>> LazyCountryCodes { get; } =
             new Lazy<IEnumerable<CountryCode.CountryCode>>(
                 () => JsonConvert.DeserializeObject<IEnumerable<CountryCode.CountryCode>>(
                     Encoding.Default.GetString(Resources.CountryCodes)));
@@ -96,14 +113,14 @@ namespace Sharpy.Types {
             new Lazy<Fetcher<string>>(() => new Fetcher<string>(Resources.usernames.Split(Convert.ToChar("\n"))));
 
 
-        internal PhoneNumberGenerator PhoneNumberGenerator { get; private set; }
+        internal PhoneNumberGenerator PhoneNumberGenerator { get; set; }
 
 
-        internal MailGenerator MailGenerator { get; private set; }
+        internal MailGenerator MailGenerator { get; set; }
 
         internal Fetcher<string> UserNames {
             get { return _userNames ?? LazyUsernames.Value; }
-            private set { _userNames = value; }
+            set { _userNames = value; }
         }
 
         private T Generate(int i) => FuncIterator == null ? Func(Randomizer) : FuncIterator(Randomizer, i);
@@ -122,111 +139,6 @@ namespace Sharpy.Types {
         public IEnumerable<T> GenerateEnumerable(int ammount) {
             for (var i = 0; i < ammount; i++)
                 yield return Generate(i);
-        }
-
-
-        /// <summary>
-        ///     Executes the predicate on each name.
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns></returns>
-        public Generator<T> ConfigName(Func<string, bool> predicate) {
-            Names = new Fetcher<Name.Name>(Names.Where(name => predicate(name.Data)));
-            return this;
-        }
-
-        /// <summary>
-        ///     This filters the names by each Country provided
-        /// </summary>
-        /// <param name="countries"></param>
-        /// <returns></returns>
-        public Generator<T> ConfigName(params Country[] countries) {
-            Names = new Fetcher<Name.Name>(ByCountry(countries));
-            return this;
-        }
-
-
-        /// <summary>
-        ///     This filters the names by each Region provided
-        /// </summary>
-        /// <param name="regions"></param>
-        /// <returns></returns>
-        public Generator<T> ConfigName(params Region[] regions) {
-            Names = new Fetcher<Name.Name>(ByRegion(regions));
-            return this;
-        }
-
-        /// <summary>
-        ///     Lets you set the providers for the mail addresses.
-        ///     You can also a set a bool for wether the addreses will be unique.
-        ///     If set to unique numbers will be appended in case of replicate mail address.
-        /// </summary>
-        /// <param name="providers"></param>
-        /// <param name="uniqueAddresses">For Unique Addresses</param>
-        /// <returns></returns>
-        public Generator<T> ConfigMailGen(IEnumerable<string> providers, bool uniqueAddresses = false) {
-            MailGenerator = new MailGenerator(providers, Random, uniqueAddresses);
-            return this;
-        }
-
-        /// <summary>
-        ///     Lets you change the settings for the number generator.
-        /// </summary>
-        /// <param name="countryCode"></param>
-        /// <param name="length"></param>
-        /// <param name="uniqueNumbers"></param>
-        /// <returns></returns>
-        public Generator<T> ConfigPhoneGen(Country countryCode, int length, bool uniqueNumbers = false) {
-            PhoneNumberGenerator =
-                new PhoneNumberGenerator(LazyCountryCodes.Value.Single(number => number.Name == countryCode),
-                    Random,
-                    length, uniqueNumbers);
-            return this;
-        }
-
-
-        /// <summary>
-        ///     Executes the predicate on each username.
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns></returns>
-        public Generator<T> ConfigUserName(Func<string, bool> predicate) {
-            UserNames = new Fetcher<string>(UserNames.Where(predicate));
-            return this;
-        }
-
-        /// <summary>
-        ///     Will set a seed for the generator to use
-        /// </summary>
-        /// <param name="seed"></param>
-        /// <returns></returns>
-        public Generator<T> Seed(int seed) {
-            Random = new Random(seed);
-            return this;
-        }
-
-
-        private IEnumerable<Name.Name> ByCountry(params Country[] args)
-            => new Fetcher<Name.Name>(Names.Where(name => args.Contains(name.Country)));
-
-
-        private IEnumerable<Name.Name> ByRegion(params Region[] args)
-            => new Fetcher<Name.Name>(Names.Where(name => args.Contains(name.Region)));
-
-
-        internal IEnumerable<Name.Name> Type(NameType nameType) {
-            switch (nameType) {
-                case NameType.FemaleFirstName:
-                    return Names.Where(name => name.Type == 1);
-                case NameType.MaleFirstName:
-                    return Names.Where(name => name.Type == 2);
-                case NameType.LastName:
-                    return Names.Where(name => name.Type == 3);
-                case NameType.MixedFirstName:
-                    return Names.Where(name => name.Type == 1 | name.Type == 2);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(nameType), nameType, null);
-            }
         }
     }
 }
