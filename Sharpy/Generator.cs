@@ -22,7 +22,7 @@ namespace Sharpy {
         ///     Creates a Generator which you can use to create one instance or a collection of the given type
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
-        public Generator(Func<IRandomizer, T> func, IRandomizer randomizer = null, IConfig<T> config = null)
+        public Generator(Func<IRandomizer, T> func, IRandomizer randomizer = null, IConfig config = null)
             : base(func, randomizer) {
             FuncArg = randomizer ?? new Randomizer<T>(this);
             Config = config ?? new Config<T>(this);
@@ -36,7 +36,7 @@ namespace Sharpy {
         ///     The integer included will track iterations.
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
-        public Generator(Func<IRandomizer, int, T> func, IRandomizer randomizer = null, IConfig<T> config = null)
+        public Generator(Func<IRandomizer, int, T> func, IRandomizer randomizer = null, IConfig config = null)
             : base(func, randomizer) {
             FuncArg = randomizer ?? new Randomizer<T>(this);
             Config = config ?? new Config<T>(this);
@@ -46,7 +46,7 @@ namespace Sharpy {
         }
 
 
-        public IConfig<T> Config { get; }
+        public IConfig Config { get; }
 
         private Lazy<Fetcher<Name>> LazyNames { get; } =
             new Lazy<Fetcher<Name>>(
