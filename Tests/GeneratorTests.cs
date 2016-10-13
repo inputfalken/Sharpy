@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
+using Sharpy;
 using Sharpy.Enums;
 using Sharpy.Types;
 using Sharpy.Types.Name;
