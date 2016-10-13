@@ -27,7 +27,7 @@ namespace Tests {
         public void Seed_With_Bools() {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the bools expected
             var generator = new Generator<bool>(randomizer => randomizer.Bool());
-            generator.Seed(Seed);
+            generator.Config.Seed(Seed);
             var random = new Random(Seed);
             var expected = Enumerable.Range(0, 1000).Select(i => random.Next(2) != 0);
             var result = generator.GenerateEnumerable(1000);
@@ -40,7 +40,7 @@ namespace Tests {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             const int limit = 100;
             var generator = new Generator<int>(randomizer => randomizer.Number(limit));
-            generator.Seed(Seed);
+            generator.Config.Seed(Seed);
             var random = new Random(Seed);
             var expected = Enumerable.Range(0, 1000).Select(i => random.Next(limit));
             var result = generator.GenerateEnumerable(1000);
@@ -114,7 +114,7 @@ namespace Tests {
             var mailGenerator = new Generator<string>(randomizer => randomizer.MailAdress(MailUserName));
             // Should be false since mailgenerator has not been configured to produce unique mails.
             Assert.IsFalse(mailGenerator.GenerateEnumerable(100).GroupBy(s => s).All(grouping => grouping.Count() == 1));
-            mailGenerator.ConfigMailGen(new List<string> {"gmail.com"}, true);
+            mailGenerator.Config.MailGenerator(new List<string> {"gmail.com"}, true);
             // Should be true since mailgenerator has been configured to produce unique mails.
             Assert.IsTrue(mailGenerator.GenerateEnumerable(100).GroupBy(s => s).All(grouping => grouping.Count() == 1));
         }
