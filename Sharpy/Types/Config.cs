@@ -10,12 +10,8 @@ using Sharpy.Types.Date;
 using Sharpy.Types.Mail;
 
 namespace Sharpy.Types {
-    public class Config<T> {
-        private Generator<T> Generator { get; }
-
-        public Config(Generator<T> generator) {
-            Generator = generator;
-
+    public class Config {
+        public Config() {
             DateGenerator = new DateGenerator(Random);
             MailGeneratorP = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
             PhoneNumberGenerator = new PhoneNumberGenerator(new CountryCode.CountryCode("UnitedStates", "+1"), Random, 5);
@@ -27,7 +23,7 @@ namespace Sharpy.Types {
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public Config<T> Name(Func<string, bool> predicate) {
+        public Config Name(Func<string, bool> predicate) {
             Names = new Fetcher<Name.Name>(Names.Where(name => predicate(name.Data)));
             return this;
         }
@@ -37,7 +33,7 @@ namespace Sharpy.Types {
         /// </summary>
         /// <param name="countries"></param>
         /// <returns></returns>
-        public Config<T> Name(params Country[] countries) {
+        public Config Name(params Country[] countries) {
             Names = new Fetcher<Name.Name>(ByCountry(countries));
             return this;
         }
@@ -48,7 +44,7 @@ namespace Sharpy.Types {
         /// </summary>
         /// <param name="regions"></param>
         /// <returns></returns>
-        public Config<T> Name(params Region[] regions) {
+        public Config Name(params Region[] regions) {
             Names = new Fetcher<Name.Name>(ByRegion(regions));
             return this;
         }
@@ -61,7 +57,7 @@ namespace Sharpy.Types {
         /// <param name="providers"></param>
         /// <param name="uniqueAddresses">For Unique Addresses</param>
         /// <returns></returns>
-        public Config<T> MailGenerator(IEnumerable<string> providers, bool uniqueAddresses = false) {
+        public Config MailGenerator(IEnumerable<string> providers, bool uniqueAddresses = false) {
             MailGeneratorP = new MailGenerator(providers, Random, uniqueAddresses);
             return this;
         }
@@ -73,7 +69,7 @@ namespace Sharpy.Types {
         /// <param name="length"></param>
         /// <param name="uniqueNumbers"></param>
         /// <returns></returns>
-        public Config<T> PhoneGenerator(Country countryCode, int length, bool uniqueNumbers = false) {
+        public Config PhoneGenerator(Country countryCode, int length, bool uniqueNumbers = false) {
             PhoneNumberGenerator =
                 new PhoneNumberGenerator(LazyCountryCodes.Value.Single(number => number.Name == countryCode),
                     Random,
@@ -87,7 +83,7 @@ namespace Sharpy.Types {
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public Config<T> UserName(Func<string, bool> predicate) {
+        public Config UserName(Func<string, bool> predicate) {
             UserNames = new Fetcher<string>(UserNames.Where(predicate));
             return this;
         }
@@ -97,7 +93,7 @@ namespace Sharpy.Types {
         /// </summary>
         /// <param name="seed"></param>
         /// <returns></returns>
-        public Config<T> Seed(int seed) {
+        public Config Seed(int seed) {
             Random = new Random(seed);
             return this;
         }
@@ -113,11 +109,11 @@ namespace Sharpy.Types {
 
         internal Fetcher<Name.Name> Names {
             get { return _names ?? LazyNames.Value; }
-            set { _names = value; }
+            private set { _names = value; }
         }
 
 
-        internal Random Random { get; set; } = new Random();
+        internal Random Random { get; private set; } = new Random();
         internal DateGenerator DateGenerator { get; }
 
 
@@ -139,7 +135,7 @@ namespace Sharpy.Types {
 
         internal Fetcher<string> UserNames {
             get { return _userNames ?? LazyUsernames.Value; }
-            set { _userNames = value; }
+            private set { _userNames = value; }
         }
 
         private IEnumerable<Name.Name> ByCountry(params Country[] args)
@@ -155,13 +151,13 @@ namespace Sharpy.Types {
         internal IEnumerable<Name.Name> Type(NameType nameType) {
             switch (nameType) {
                 case NameType.FemaleFirstName:
-                    return Generator.Config.Names.Where(name => name.Type == 1);
+                    return Names.Where(name => name.Type == 1);
                 case NameType.MaleFirstName:
-                    return Generator.Config.Names.Where(name => name.Type == 2);
+                    return Names.Where(name => name.Type == 2);
                 case NameType.LastName:
-                    return Generator.Config.Names.Where(name => name.Type == 3);
+                    return Names.Where(name => name.Type == 3);
                 case NameType.MixedFirstName:
-                    return Generator.Config.Names.Where(name => name.Type == 1 | name.Type == 2);
+                    return Names.Where(name => name.Type == 1 | name.Type == 2);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(nameType), nameType, null);
             }
