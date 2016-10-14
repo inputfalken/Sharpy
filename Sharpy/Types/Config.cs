@@ -8,6 +8,7 @@ using Sharpy.Properties;
 using Sharpy.Types.CountryCode;
 using Sharpy.Types.Date;
 using Sharpy.Types.Mail;
+using Type = Sharpy.Enums.Type;
 
 namespace Sharpy.Types {
     public class Config {
@@ -145,21 +146,27 @@ namespace Sharpy.Types {
         private IEnumerable<Name.Name> ByRegion(params Region[] args)
             => new Fetcher<Name.Name>(Names.Where(name => args.Contains(name.Region)));
 
-        internal Dictionary<NameType, Fetcher<string>> Dictionary { get; } =
-            new Dictionary<NameType, Fetcher<string>>();
+        internal Dictionary<Type, Fetcher<string>> Dictionary { get; } =
+            new Dictionary<Type, Fetcher<string>>();
 
-        internal IEnumerable<Name.Name> Type(NameType nameType) {
-            switch (nameType) {
-                case NameType.FemaleFirstName:
-                    return Names.Where(name => name.Type == 1);
-                case NameType.MaleFirstName:
-                    return Names.Where(name => name.Type == 2);
-                case NameType.LastName:
-                    return Names.Where(name => name.Type == 3);
-                case NameType.MixedFirstName:
-                    return Names.Where(name => name.Type == 1 | name.Type == 2);
+        internal IEnumerable<string> StringType(Type type) {
+            switch (type) {
+                case Type.FemaleFirstName:
+                    return Names.Where(name => name.Type == 1).Select(name => name.Data);
+                case Type.MaleFirstName:
+                    return Names.Where(name => name.Type == 2).Select(name => name.Data);
+                case Type.LastName:
+                    return Names.Where(name => name.Type == 3).Select(name => name.Data);
+                case Type.MixedFirstName:
+                    return Names.Where(name => name.Type == 1 | name.Type == 2).Select(name => name.Data);
+                case Type.UserName:
+                    return UserNames;
+                case Type.Random:
+                    return Random.Next(2) != 0 ? UserNames : Names.Select(name => name.Data);
+                case Type.AnyName:
+                    return Names.Select(name => name.Data);
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(nameType), nameType, null);
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
         }
     }
