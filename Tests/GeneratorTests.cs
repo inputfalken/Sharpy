@@ -8,7 +8,6 @@ using Sharpy.Enums;
 using Sharpy.Types;
 using Sharpy.Types.Name;
 using Randomizer = Sharpy.Types.Randomizer;
-using Type = Sharpy.Enums.Type;
 
 namespace Tests {
     /// <summary>
@@ -56,7 +55,7 @@ namespace Tests {
 
         [Test]
         public void NamesAreNotNull() {
-            var generator = new Generator<string>(randomizer => randomizer.String(Type.AnyName));
+            var generator = new Generator<string>(randomizer => randomizer.String(StringType.AnyName));
             var strings = generator.GenerateEnumerable(20).ToArray();
             Assert.IsFalse(strings.All(string.IsNullOrEmpty));
             Assert.IsFalse(strings.All(string.IsNullOrWhiteSpace));
@@ -64,7 +63,7 @@ namespace Tests {
 
         [Test]
         public void UserNamesAreNotNull() {
-            var generator = new Generator<string>(randomizer => randomizer.String(Type.UserName));
+            var generator = new Generator<string>(randomizer => randomizer.String(StringType.UserName));
             var strings = generator.GenerateEnumerable(20).ToArray();
             Assert.IsFalse(strings.All(string.IsNullOrEmpty));
             Assert.IsFalse(strings.All(string.IsNullOrWhiteSpace));
@@ -80,13 +79,13 @@ namespace Tests {
 
         [Test]
         public void NamesAreFilteredByGender() {
-            var femaleNameGenerator = new Generator<string>(randomizer => randomizer.String(Type.FemaleFirstName));
+            var femaleNameGenerator = new Generator<string>(randomizer => randomizer.String(StringType.FemaleFirstName));
             var femaleNames = _names.Where(name => name.Type == 1).Select(name => name.Data);
-            var maleNameGenerator = new Generator<string>(randomizer => randomizer.String(Type.MaleFirstName));
+            var maleNameGenerator = new Generator<string>(randomizer => randomizer.String(StringType.MaleFirstName));
             var maleNames = _names.Where(name => name.Type == 2).Select(name => name.Data);
-            var lastNameGenerator = new Generator<string>(randomizer => randomizer.String(Type.LastName));
+            var lastNameGenerator = new Generator<string>(randomizer => randomizer.String(StringType.LastName));
             var lastNames = _names.Where(name => name.Type == 3).Select(name => name.Data);
-            var mixedFirstNameGenerator = new Generator<string>(randomizer => randomizer.String(Type.MixedFirstName));
+            var mixedFirstNameGenerator = new Generator<string>(randomizer => randomizer.String(StringType.MixedFirstName));
             var mixedNames = _names.Where(name => name.Type == 1 | name.Type == 2).Select(name => name.Data);
             Assert.IsTrue(femaleNameGenerator.GenerateEnumerable(100).All(femaleNames.Contains));
             Assert.IsTrue(maleNameGenerator.GenerateEnumerable(100).All(maleNames.Contains));
