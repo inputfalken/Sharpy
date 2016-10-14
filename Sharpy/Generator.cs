@@ -1,4 +1,5 @@
 ﻿using System;
+using Sharpy.Enums;
 using Sharpy.Types;
 
 namespace Sharpy {
@@ -7,12 +8,12 @@ namespace Sharpy {
     ///    Use the randomizer to give you data.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public sealed class Generator<T> : GeneratorBase<T, IRandomizer> {
+    public sealed class Generator<T> : GeneratorBase<T, IRandomizer<NameType>> {
         /// <summary>
         ///     Creates a Generator which you can use to create one instance or a collection of the given type
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
-        public Generator(Func<IRandomizer, T> func, IRandomizer randomizer)
+        public Generator(Func<IRandomizer<NameType>, T> func, IRandomizer<NameType> randomizer)
             : base(func, randomizer) {
             FuncArg = randomizer;
             Config = new Config();
@@ -23,16 +24,16 @@ namespace Sharpy {
         ///     The integer included will track iterations.
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
-        public Generator(Func<IRandomizer, int, T> func, IRandomizer randomizer)
+        public Generator(Func<IRandomizer<NameType>, int, T> func, IRandomizer<NameType> randomizer)
             : base(func, randomizer) {
             FuncArg = randomizer;
             Config = new Config();
         }
 
-        public Generator(Func<IRandomizer, int, T> func, Config config = null)
+        public Generator(Func<IRandomizer<NameType>, int, T> func, Config config = null)
             : base(func, new Randomizer(config ?? new Config())) {}
 
-        public Generator(Func<IRandomizer, T> func, Config config = null)
+        public Generator(Func<IRandomizer<NameType>, T> func, Config config = null)
             : base(func, new Randomizer(config ?? new Config())) {}
 
 
