@@ -12,12 +12,12 @@ namespace Sharpy.Types {
     /// <summary>
     ///     Will randomize all data that these methods return.
     /// </summary>
-    public sealed class Randomizer<T> : IRandomizer {
-        public Randomizer(Generator<T> generator) {
-            Generator = generator;
-        }
+    internal sealed class Randomizer : IRandomizer {
+        private Config Config { get; }
 
-        private Generator<T> Generator { get; }
+        public Randomizer(Config config) {
+            Config = config;
+        }
 
 
         /// <summary>
@@ -36,24 +36,24 @@ namespace Sharpy.Types {
         /// <summary>
         ///     Gives a random name, it could be a female first name, male first name and a lastname.
         /// </summary>
-        public string Name() => Generator.Config.Names.RandomItem(Generator.Config.Random).Data;
+        public string Name() => Config.Names.RandomItem(Config.Random).Data;
 
 
         /// <summary>
         ///     Gives a random name based on type of argument.
         /// </summary>
         public string Name(NameType nameType) {
-            if (!Generator.Config.Dictionary.ContainsKey(nameType))
-                Generator.Config.Dictionary.Add(nameType,
-                    new Fetcher<string>(Generator.Config.Type(nameType).Select(name => name.Data)));
-            return Generator.Config.Dictionary[nameType].RandomItem(Generator.Config.Random);
+            if (!Config.Dictionary.ContainsKey(nameType))
+                Config.Dictionary.Add(nameType,
+                    new Fetcher<string>(Config.Type(nameType).Select(name => name.Data)));
+            return Config.Dictionary[nameType].RandomItem(Config.Random);
         }
 
 
         /// <summary>
         ///     Gives a random username from a huge collection.
         /// </summary>
-        public string UserName() => Generator.Config.UserNames.RandomItem(Generator.Config.Random);
+        public string UserName() => Config.UserNames.RandomItem(Config.Random);
 
         /// <summary>
         ///     Gives a random bool
@@ -63,35 +63,34 @@ namespace Sharpy.Types {
         /// <summary>
         ///     Gives a random number within below the argument value
         /// </summary>
-        public int Number(int maxNum) => Generator.Config.Random.Next(maxNum);
+        public int Number(int maxNum) => Config.Random.Next(maxNum);
 
         /// <summary>
         ///     Gives a random number within within the two arguments
         /// </summary>
-        public int Number(int minNum, int maxNum) => Generator.Config.Random.Next(minNum, maxNum);
+        public int Number(int minNum, int maxNum) => Config.Random.Next(minNum, maxNum);
 
         /// <summary>
         ///     Gives a date with random month, date and subtract the current the current year by the argument
         /// </summary>
-        public LocalDate DateByAge(int age) => Generator.Config.DateGenerator.RandomDateByAge(age);
+        public LocalDate DateByAge(int age) => Config.DateGenerator.RandomDateByAge(age);
 
         /// <summary>
         ///     Gives a random month, date and use the argument given as year
         /// </summary>
-        public LocalDate DateByYear(int year) => Generator.Config.DateGenerator.RandomDateByYear(year);
+        public LocalDate DateByYear(int year) => Config.DateGenerator.RandomDateByYear(year);
 
         /// <summary>
         ///     gives a random phonenumber using a random country code and lets you specify a number to start with as well as the
         ///     length.
         /// </summary>
         public string PhoneNumber(string preNumber = null) =>
-            Generator.Config.PhoneNumberGenerator.RandomNumber(preNumber);
+            Config.PhoneNumberGenerator.RandomNumber(preNumber);
 
         /// <summary>
         ///     Gives a mail address by concatining the arguments into a mail address.
         /// </summary>
         public string MailAdress(string name, string secondName = null)
-            => Generator.Config.MailGeneratorP.Mail(name, secondName);
-
+            => Config.MailGeneratorP.Mail(name, secondName);
     }
 }
