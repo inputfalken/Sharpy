@@ -15,10 +15,9 @@
       Works on .Net4.6 and .Net4.5
     </description>
 <releaseNotes>
-  1: Reworked phonenumber Gen api.
-  2: Adds static preconfigured Generators  to the static class for fast usage.
-  3: Factory class is now gone, instead you have to new up a generator with the same syntax.
-  4: Generator configurement is now done from the Generator instance.
+  1: Reworked Configurement for the generator. The generator accepts an config instance as secondary argument. In order to configure need to chain methodcalls from the config instance.
+  2: You can now implement your own implementation of IRandomizer and pass it to the generator as a secondary argument.
+  3: IRandomizer no longer got Username and Name as methods. Instead you have to call the method String(To increase the abstractionlevel) and pass it the suiting enum.
 </releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Fakedata Generator</tags>
