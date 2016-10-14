@@ -66,7 +66,7 @@
     <Compile Include="Types\CountryCode\CountryCode.cs" />
     <Compile Include="Types\CountryCode\PhoneNumberGenerator.cs" />
     <Compile Include="Types\Date\DateGenerator.cs" />
-    <Compile Include="Enums\NameType.cs" />
+    <Compile Include="Enums\Type.cs" />
     <Compile Include="Enums\Origin.cs" />
     <Compile Include="Types\Fetcher.cs" />
     <Compile Include="Types\Mail\MailGenerator.cs" />
