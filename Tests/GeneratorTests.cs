@@ -7,6 +7,7 @@ using Sharpy;
 using Sharpy.Enums;
 using Sharpy.Types;
 using Sharpy.Types.Name;
+using Randomizer = Sharpy.Types.Randomizer;
 
 namespace Tests {
     /// <summary>
@@ -20,15 +21,14 @@ namespace Tests {
 
         [SetUp]
         public void Setup() {
-            var gen = new Generator<string>(randomizer => "");
-            _names = gen.Config.Names.ToArray();
+            var config = new Config();
+            _names = config.Names.ToArray();
         }
 
         [Test]
         public void Seed_With_Bools() {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the bools expected
-            var generator = new Generator<bool>(randomizer => randomizer.Bool());
-            generator.Config.Seed(Seed);
+            var generator = new Generator<bool>(randomizer => randomizer.Bool(), new Config().Seed(Seed));
             var random = new Random(Seed);
             var expected = Enumerable.Range(0, 1000).Select(i => random.Next(2) != 0);
             var result = generator.GenerateEnumerable(1000);
@@ -40,8 +40,7 @@ namespace Tests {
         public void Seed_With_Number() {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             const int limit = 100;
-            var generator = new Generator<int>(randomizer => randomizer.Number(limit));
-            generator.Config.Seed(Seed);
+            var generator = new Generator<int>(randomizer => randomizer.Number(limit), new Config().Seed(Seed));
             var random = new Random(Seed);
             var expected = Enumerable.Range(0, 1000).Select(i => random.Next(limit));
             var result = generator.GenerateEnumerable(1000);
@@ -112,10 +111,8 @@ namespace Tests {
 
         [Test]
         public void Mail() {
-            var mailGenerator = new Generator<string>(randomizer => randomizer.MailAdress(MailUserName));
-            // Should be false since mailgenerator has not been configured to produce unique mails.
-            Assert.IsFalse(mailGenerator.GenerateEnumerable(100).GroupBy(s => s).All(grouping => grouping.Count() == 1));
-            mailGenerator.Config.MailGenerator(new List<string> {"gmail.com"}, true);
+            var mailGenerator = new Generator<string>(randomizer => randomizer.MailAdress(MailUserName),
+                new Config().MailGenerator(new List<string> {"gmail.com"}, true));
             // Should be true since mailgenerator has been configured to produce unique mails.
             Assert.IsTrue(mailGenerator.GenerateEnumerable(100).GroupBy(s => s).All(grouping => grouping.Count() == 1));
         }
