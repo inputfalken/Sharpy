@@ -14,7 +14,6 @@ namespace Sharpy {
         /// </summary>
         public Generator(Func<IRandomizer, T> func, IRandomizer randomizer)
             : base(func, randomizer) {
-            FuncArg = randomizer;
             Config = new Config();
         }
 
@@ -25,7 +24,6 @@ namespace Sharpy {
         /// </summary>
         public Generator(Func<IRandomizer, int, T> func, IRandomizer randomizer)
             : base(func, randomizer) {
-            FuncArg = randomizer;
             Config = new Config();
         }
 
