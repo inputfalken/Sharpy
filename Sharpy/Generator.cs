@@ -14,9 +14,7 @@ namespace Sharpy {
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
         public Generator(Func<IRandomizer<StringType>, T> func, IRandomizer<StringType> randomizer)
-            : base(func, randomizer) {
-            Config = new Config();
-        }
+            : base(func, randomizer) {}
 
         /// <summary>
         ///     Creates a Generator which you can use to create one instance or a collection of the given type
@@ -24,17 +22,12 @@ namespace Sharpy {
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
         public Generator(Func<IRandomizer<StringType>, int, T> func, IRandomizer<StringType> randomizer)
-            : base(func, randomizer) {
-            Config = new Config();
-        }
+            : base(func, randomizer) {}
 
         public Generator(Func<IRandomizer<StringType>, int, T> func, Config config = null)
             : base(func, new Randomizer(config ?? new Config())) {}
 
         public Generator(Func<IRandomizer<StringType>, T> func, Config config = null)
             : base(func, new Randomizer(config ?? new Config())) {}
-
-
-        private Config Config { get; }
     }
 }
