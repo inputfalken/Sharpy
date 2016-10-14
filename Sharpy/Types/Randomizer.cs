@@ -12,7 +12,7 @@ namespace Sharpy.Types {
     /// <summary>
     ///     Will randomize all data that these methods return.
     /// </summary>
-    internal sealed class Randomizer : IRandomizer<StringType> {
+    internal sealed class Randomizer : IRandomizer {
         private Config Config { get; }
 
         public Randomizer(Config config) {

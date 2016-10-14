@@ -8,12 +8,12 @@ namespace Sharpy {
     ///    Use the randomizer to give you data.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public sealed class Generator<T> : GeneratorBase<T, IRandomizer<StringType>> {
+    public sealed class Generator<T> : GeneratorBase<T, IRandomizer> {
         /// <summary>
         ///     Creates a Generator which you can use to create one instance or a collection of the given type
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
-        public Generator(Func<IRandomizer<StringType>, T> func, IRandomizer<StringType> randomizer)
+        public Generator(Func<IRandomizer, T> func, IRandomizer randomizer)
             : base(func, randomizer) {}
 
         /// <summary>
@@ -21,13 +21,13 @@ namespace Sharpy {
         ///     The integer included will track iterations.
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
-        public Generator(Func<IRandomizer<StringType>, int, T> func, IRandomizer<StringType> randomizer)
+        public Generator(Func<IRandomizer, int, T> func, IRandomizer randomizer)
             : base(func, randomizer) {}
 
-        public Generator(Func<IRandomizer<StringType>, int, T> func, Config config = null)
+        public Generator(Func<IRandomizer, int, T> func, Config config = null)
             : base(func, new Randomizer(config ?? new Config())) {}
 
-        public Generator(Func<IRandomizer<StringType>, T> func, Config config = null)
+        public Generator(Func<IRandomizer, T> func, Config config = null)
             : base(func, new Randomizer(config ?? new Config())) {}
     }
 }
