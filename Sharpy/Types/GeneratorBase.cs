@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Sharpy.Types {
     public abstract class GeneratorBase<T, TFuncArg> {
         private Func<TFuncArg, int, T> FuncIterator { get; }
-        protected TFuncArg FuncArg { get; set; }
+        private TFuncArg FuncArg { get; }
         private Func<TFuncArg, T> Func { get; }
         private int Iteratation { get; set; }
 
