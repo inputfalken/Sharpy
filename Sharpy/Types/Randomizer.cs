@@ -12,7 +12,7 @@ namespace Sharpy.Types {
     /// <summary>
     ///     Will randomize all data that these methods return.
     /// </summary>
-    internal sealed class Randomizer : IRandomizer {
+    internal sealed class Randomizer : IRandomizer<NameType> {
         private Config Config { get; }
 
         public Randomizer(Config config) {
@@ -42,11 +42,11 @@ namespace Sharpy.Types {
         /// <summary>
         ///     Gives a random name based on type of argument.
         /// </summary>
-        public string Name(NameType nameType) {
-            if (!Config.Dictionary.ContainsKey(nameType))
-                Config.Dictionary.Add(nameType,
-                    new Fetcher<string>(Config.Type(nameType).Select(name => name.Data)));
-            return Config.Dictionary[nameType].RandomItem(Config.Random);
+        public string Name(NameType nameArg) {
+            if (!Config.Dictionary.ContainsKey(nameArg))
+                Config.Dictionary.Add(nameArg,
+                    new Fetcher<string>(Config.Type(nameArg).Select(name => name.Data)));
+            return Config.Dictionary[nameArg].RandomItem(Config.Random);
         }
 
 
