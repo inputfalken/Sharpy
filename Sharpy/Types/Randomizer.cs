@@ -7,12 +7,13 @@ using Sharpy.Types;
 using Sharpy.Types.CountryCode;
 using Sharpy.Types.Date;
 using Sharpy.Types.Mail;
+using Type = Sharpy.Enums.Type;
 
 namespace Sharpy.Types {
     /// <summary>
     ///     Will randomize all data that these methods return.
     /// </summary>
-    internal sealed class Randomizer : IRandomizer {
+    internal sealed class Randomizer : IRandomizer<Type> {
         private Config Config { get; }
 
         public Randomizer(Config config) {
@@ -33,20 +34,15 @@ namespace Sharpy.Types {
         /// <returns></returns>
         public TElement CustomCollection<TElement>(List<TElement> items) => items[Number(items.Count)];
 
-        /// <summary>
-        ///     Gives a random name, it could be a female first name, male first name and a lastname.
-        /// </summary>
-        public string Name() => Config.Names.RandomItem(Config.Random).Data;
-
 
         /// <summary>
         ///     Gives a random name based on type of argument.
         /// </summary>
-        public string Name(NameType nameType) {
-            if (!Config.Dictionary.ContainsKey(nameType))
-                Config.Dictionary.Add(nameType,
-                    new Fetcher<string>(Config.Type(nameType).Select(name => name.Data)));
-            return Config.Dictionary[nameType].RandomItem(Config.Random);
+        public string String(Type type) {
+            if (!Config.Dictionary.ContainsKey(type))
+                Config.Dictionary.Add(type,
+                    new Fetcher<string>(Config.StringType(type)));
+            return Config.Dictionary[type].RandomItem(Config.Random);
         }
 
 

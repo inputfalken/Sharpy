@@ -3,7 +3,7 @@ using NodaTime;
 using Sharpy.Enums;
 
 namespace Sharpy.Types {
-    public interface IRandomizer {
+    public interface IRandomizer<in TNameArg> {
         /// <summary>
         ///     Can be used if you have your own collection of items that you would want an random item from.
         /// </summary>
@@ -19,19 +19,9 @@ namespace Sharpy.Types {
         T CustomCollection<T>(List<T> items);
 
         /// <summary>
-        ///     Gives a random name, it could be a female first name, male first name and a lastname.
+        ///     Gives a string based on argument.
         /// </summary>
-        string Name();
-
-        /// <summary>
-        ///     Gives a random name based on type of argument.
-        /// </summary>
-        string Name(NameType nameType);
-
-        /// <summary>
-        ///     Gives a random username from a huge collection.
-        /// </summary>
-        string UserName();
+        string String(TNameArg type);
 
         /// <summary>
         ///     Gives a random bool
