@@ -3,7 +3,7 @@ using NodaTime;
 using Sharpy.Enums;
 
 namespace Sharpy.Types {
-    public interface IRandomizer<in TNameArg> {
+    public interface IRandomizer<in TStringArg> {
         /// <summary>
         ///     Can be used if you have your own collection of items that you would want an random item from.
         /// </summary>
@@ -21,7 +21,7 @@ namespace Sharpy.Types {
         /// <summary>
         ///     Gives a string based on argument.
         /// </summary>
-        string String(TNameArg type);
+        string String(TStringArg type);
 
         /// <summary>
         ///     Gives a random bool
