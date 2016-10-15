@@ -27,17 +27,13 @@ namespace Sharpy {
             Randomizer = randomizer;
         }
 
-        private TItem Generate(int i) {
-            return FuncIterator == null ? Func(Randomizer) : FuncIterator(Randomizer, i);
-        }
+        private TItem Generate(int i) => FuncIterator == null ? Func(Randomizer) : FuncIterator(Randomizer, i);
 
         /// <summary>
         ///     Will give back one instance of the specified Type
         /// </summary>
         /// <returns></returns>
-        public TItem Generate() {
-            return FuncIterator == null ? Func(Randomizer) : FuncIterator(Randomizer, Iteratation++);
-        }
+        public TItem Generate() => FuncIterator == null ? Func(Randomizer) : FuncIterator(Randomizer, Iteratation++);
 
         /// <summary>
         ///     Will give back an IEnumerable with the specified type.
