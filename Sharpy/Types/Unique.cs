@@ -33,7 +33,7 @@ namespace Sharpy.Types {
         /// <summary>
         ///     This hashset will be the history of all the created elements in derived classes
         /// </summary>
-        private HashSet<T> HashSet { get; }
+        protected HashSet<T> HashSet { get; }
 
         /// <summary>
         ///     This method is used in order to validate if the created element is unique
