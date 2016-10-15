@@ -1,12 +1,13 @@
 ﻿using Sharpy.Enums;
+using Sharpy.Types;
 
 namespace Sharpy {
     /// <summary>
     ///     Contains Pre-Configured generators.
     /// </summary>
     public static class PreConfigured {
-        private static Generator<string> GenerateNames { get; } = new Generator<string>(
-            randomizer => $"{randomizer.String(StringType.MixedFirstName)} {randomizer.String(StringType.LastName)}");
+        private static Generator<string, StringType> GenerateNames { get; } = Generator.CreateNew(randomizer =>
+                $"{randomizer.String(StringType.MixedFirstName)} {randomizer.String(StringType.LastName)}");
 
         /// <summary>
         ///     Generates a formated string containing First name, space followed by a Last name.
