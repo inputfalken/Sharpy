@@ -8,7 +8,7 @@ namespace Sharpy {
     ///    Supply the class you want to be generated.
     ///    Use the randomizer to give you data.
     /// </summary>
-    public static class Generator {
+    public static class GeneratorFactory {
         public static Generator<T, StringType> CreateNew<T>(Func<IRandomizer<StringType>, int, T> func,
             Config config = null) => new Generator<T, StringType>(func, new Randomizer(config ?? new Config()));
 
