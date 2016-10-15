@@ -61,6 +61,7 @@
     </Compile>
     <Compile Include="Generator.cs" />
     <Compile Include="IRandomizer.cs" />
+    <Compile Include="SharpyGenerator.cs" />
     <Compile Include="Types\Randomizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\CountryCode\CountryCode.cs" />

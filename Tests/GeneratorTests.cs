@@ -26,7 +26,7 @@ namespace Tests {
         [Test]
         public void Seed_With_Bools() {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the bools expected
-            var generator = GeneratorFactory.CreateNew(randomizer => randomizer.Bool(), new Config().Seed(Seed));
+            var generator = GeneratorFactory.Default(randomizer => randomizer.Bool(), new Config().Seed(Seed));
             var random = new Random(Seed);
             var expected = Enumerable.Range(0, 1000).Select(i => random.Next(2) != 0);
             var result = generator.GenerateEnumerable(1000);
@@ -38,7 +38,7 @@ namespace Tests {
         public void Seed_With_Number() {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             const int limit = 100;
-            var generator = GeneratorFactory.CreateNew(randomizer => randomizer.Number(limit), new Config().Seed(Seed));
+            var generator = GeneratorFactory.Default(randomizer => randomizer.Number(limit), new Config().Seed(Seed));
             var random = new Random(Seed);
             var expected = Enumerable.Range(0, 1000).Select(i => random.Next(limit));
             var result = generator.GenerateEnumerable(1000);
@@ -47,13 +47,13 @@ namespace Tests {
 
         [Test]
         public void NumbersAreNotDefaultValue() {
-            var generator =GeneratorFactory.CreateNew(randomizer => randomizer.Number(100));
+            var generator =GeneratorFactory.Default(randomizer => randomizer.Number(100));
             Assert.IsFalse(generator.GenerateEnumerable(100).All(i => i == 0));
         }
 
         [Test]
         public void NamesAreNotNull() {
-            var generator =GeneratorFactory.CreateNew(randomizer => randomizer.String(StringType.AnyName));
+            var generator =GeneratorFactory.Default(randomizer => randomizer.String(StringType.AnyName));
             var strings = generator.GenerateEnumerable(20).ToArray();
             Assert.IsFalse(strings.All(string.IsNullOrEmpty));
             Assert.IsFalse(strings.All(string.IsNullOrWhiteSpace));
@@ -61,7 +61,7 @@ namespace Tests {
 
         [Test]
         public void UserNamesAreNotNull() {
-            var generator =GeneratorFactory.CreateNew(randomizer => randomizer.String(StringType.UserName));
+            var generator =GeneratorFactory.Default(randomizer => randomizer.String(StringType.UserName));
             var strings = generator.GenerateEnumerable(20).ToArray();
             Assert.IsFalse(strings.All(string.IsNullOrEmpty));
             Assert.IsFalse(strings.All(string.IsNullOrWhiteSpace));
@@ -69,7 +69,7 @@ namespace Tests {
 
         [Test]
         public void MailsAreNotnull() {
-            var generator =GeneratorFactory.CreateNew(randomizer => randomizer.MailAdress(MailUserName));
+            var generator =GeneratorFactory.Default(randomizer => randomizer.MailAdress(MailUserName));
             var strings = generator.GenerateEnumerable(20).ToArray();
             Assert.IsFalse(strings.All(string.IsNullOrEmpty));
             Assert.IsFalse(strings.All(string.IsNullOrWhiteSpace));
@@ -77,13 +77,13 @@ namespace Tests {
 
         [Test]
         public void NamesAreFilteredByGender() {
-            var femaleNameGenerator =GeneratorFactory.CreateNew(randomizer => randomizer.String(StringType.FemaleFirstName));
+            var femaleNameGenerator =GeneratorFactory.Default(randomizer => randomizer.String(StringType.FemaleFirstName));
             var femaleNames = _names.Where(name => name.Type == 1).Select(name => name.Data);
-            var maleNameGenerator =GeneratorFactory.CreateNew(randomizer => randomizer.String(StringType.MaleFirstName));
+            var maleNameGenerator =GeneratorFactory.Default(randomizer => randomizer.String(StringType.MaleFirstName));
             var maleNames = _names.Where(name => name.Type == 2).Select(name => name.Data);
-            var lastNameGenerator =GeneratorFactory.CreateNew(randomizer => randomizer.String(StringType.LastName));
+            var lastNameGenerator =GeneratorFactory.Default(randomizer => randomizer.String(StringType.LastName));
             var lastNames = _names.Where(name => name.Type == 3).Select(name => name.Data);
-            var mixedFirstNameGenerator =GeneratorFactory.CreateNew(randomizer => randomizer.String(StringType.MixedFirstName));
+            var mixedFirstNameGenerator =GeneratorFactory.Default(randomizer => randomizer.String(StringType.MixedFirstName));
             var mixedNames = _names.Where(name => name.Type == 1 | name.Type == 2).Select(name => name.Data);
             Assert.IsTrue(femaleNameGenerator.GenerateEnumerable(100).All(femaleNames.Contains));
             Assert.IsTrue(maleNameGenerator.GenerateEnumerable(100).All(maleNames.Contains));
@@ -94,7 +94,7 @@ namespace Tests {
         [Test]
         public void IteratorWithEnumerable() {
             var iteration = 0;
-            var generator =GeneratorFactory.CreateNew((randomizer, i) => iteration++ == i);
+            var generator =GeneratorFactory.Default((randomizer, i) => iteration++ == i);
             var result = generator.GenerateEnumerable(20).ToArray();
             Assert.IsTrue(result.All(b => b));
         }
@@ -102,14 +102,14 @@ namespace Tests {
         [Test]
         public void IteratorWithGenerate() {
             var iteration = 0;
-            var generator =GeneratorFactory.CreateNew((randomizer, i) => iteration++ == i);
+            var generator =GeneratorFactory.Default((randomizer, i) => iteration++ == i);
             for (var i = 0; i < 10; i++)
                 Assert.IsTrue(generator.Generate());
         }
 
         [Test]
         public void Mail() {
-            var mailGenerator =GeneratorFactory.CreateNew(randomizer => randomizer.MailAdress(MailUserName),
+            var mailGenerator =GeneratorFactory.Default(randomizer => randomizer.MailAdress(MailUserName),
                 new Config().MailGenerator(new List<string> {"gmail.com"}, true));
             // Should be true since mailgenerator has been configured to produce unique mails.
             Assert.IsTrue(mailGenerator.GenerateEnumerable(100).GroupBy(s => s).All(grouping => grouping.Count() == 1));
