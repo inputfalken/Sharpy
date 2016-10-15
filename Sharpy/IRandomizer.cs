@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using NodaTime;
-using Sharpy.Enums;
 
-namespace Sharpy.Types {
-    public interface IRandomizer<Targ> {
+namespace Sharpy {
+    public interface IRandomizer<in TArg> {
         /// <summary>
         ///     Can be used if you have your own collection of items that you would want an random item from.
         /// </summary>
@@ -21,7 +20,7 @@ namespace Sharpy.Types {
         /// <summary>
         ///     Gives a string based on argument.
         /// </summary>
-        string String(Targ type);
+        string String(TArg type);
 
         /// <summary>
         ///     Gives a random bool

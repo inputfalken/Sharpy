@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Sharpy.Types {
+namespace Sharpy {
     public class Generator<TItem, TRandomizerType> {
         private Func<IRandomizer<TRandomizerType>, int, TItem> FuncIterator { get; }
         private IRandomizer<TRandomizerType> Randomizer { get; }

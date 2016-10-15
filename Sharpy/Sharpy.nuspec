@@ -18,6 +18,7 @@
   1: Reworked Configurement for the generator. The generator accepts an config instance as secondary argument. In order to configure need to chain methodcalls from the config instance.
   2: You can now implement your own implementation of IRandomizer and pass it to the generator as a secondary argument.
   3: IRandomizer no longer got Username and Name as methods. Instead you have to call the method String(To increase the abstractionlevel) and pass it the suiting enum.
+  4: Added back factory pattern as an optional way of creating Generators.
 </releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Fakedata Generator</tags>
