@@ -5,16 +5,19 @@ using System.Text;
 using Newtonsoft.Json;
 using Sharpy.Enums;
 using Sharpy.Properties;
+using Sharpy.Types;
 using Sharpy.Types.CountryCode;
 using Sharpy.Types.Date;
 using Sharpy.Types.Mail;
+using Sharpy.Types.Name;
 
-namespace Sharpy.Types {
+namespace Sharpy {
     public class Config {
         public Config() {
             DateGenerator = new DateGenerator(Random);
             MailGeneratorP = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
-            PhoneNumberGenerator = new PhoneNumberGenerator(new CountryCode.CountryCode("UnitedStates", "+1"), Random, 5);
+            PhoneNumberGenerator = new PhoneNumberGenerator(new Types.CountryCode.CountryCode("UnitedStates", "+1"),
+                Random, 5);
         }
 
 
@@ -24,7 +27,7 @@ namespace Sharpy.Types {
         /// <param name="predicate"></param>
         /// <returns></returns>
         public Config Name(Func<string, bool> predicate) {
-            Names = new Fetcher<Name.Name>(Names.Where(name => predicate(name.Data)));
+            Names = new Fetcher<Name>(Names.Where(name => predicate(name.Data)));
             return this;
         }
 
@@ -34,7 +37,7 @@ namespace Sharpy.Types {
         /// <param name="countries"></param>
         /// <returns></returns>
         public Config Name(params Country[] countries) {
-            Names = new Fetcher<Name.Name>(ByCountry(countries));
+            Names = new Fetcher<Name>(ByCountry(countries));
             return this;
         }
 
@@ -45,7 +48,7 @@ namespace Sharpy.Types {
         /// <param name="regions"></param>
         /// <returns></returns>
         public Config Name(params Region[] regions) {
-            Names = new Fetcher<Name.Name>(ByRegion(regions));
+            Names = new Fetcher<Name>(ByRegion(regions));
             return this;
         }
 
@@ -99,15 +102,15 @@ namespace Sharpy.Types {
         }
 
 
-        private Lazy<Fetcher<Name.Name>> LazyNames { get; } =
-            new Lazy<Fetcher<Name.Name>>(
-                () => new Fetcher<Name.Name>(JsonConvert.DeserializeObject<IEnumerable<Name.Name>>(
+        private Lazy<Fetcher<Name>> LazyNames { get; } =
+            new Lazy<Fetcher<Name>>(
+                () => new Fetcher<Name>(JsonConvert.DeserializeObject<IEnumerable<Name>>(
                     Encoding.UTF8.GetString(Resources.NamesByOrigin))));
 
-        private Fetcher<Name.Name> _names;
+        private Fetcher<Name> _names;
 
 
-        internal Fetcher<Name.Name> Names {
+        internal Fetcher<Name> Names {
             get { return _names ?? LazyNames.Value; }
             private set { _names = value; }
         }
@@ -117,9 +120,9 @@ namespace Sharpy.Types {
         internal DateGenerator DateGenerator { get; }
 
 
-        private Lazy<IEnumerable<CountryCode.CountryCode>> LazyCountryCodes { get; } =
-            new Lazy<IEnumerable<CountryCode.CountryCode>>(
-                () => JsonConvert.DeserializeObject<IEnumerable<CountryCode.CountryCode>>(
+        private Lazy<IEnumerable<CountryCode>> LazyCountryCodes { get; } =
+            new Lazy<IEnumerable<CountryCode>>(
+                () => JsonConvert.DeserializeObject<IEnumerable<CountryCode>>(
                     Encoding.Default.GetString(Resources.CountryCodes)));
 
         private Lazy<Fetcher<string>> LazyUsernames { get; } =
@@ -138,12 +141,12 @@ namespace Sharpy.Types {
             private set { _userNames = value; }
         }
 
-        private IEnumerable<Name.Name> ByCountry(params Country[] args)
-            => new Fetcher<Name.Name>(Names.Where(name => args.Contains(name.Country)));
+        private IEnumerable<Name> ByCountry(params Country[] args)
+            => new Fetcher<Name>(Names.Where(name => args.Contains(name.Country)));
 
 
-        private IEnumerable<Name.Name> ByRegion(params Region[] args)
-            => new Fetcher<Name.Name>(Names.Where(name => args.Contains(name.Region)));
+        private IEnumerable<Name> ByRegion(params Region[] args)
+            => new Fetcher<Name>(Names.Where(name => args.Contains(name.Region)));
 
         internal Dictionary<StringType, Fetcher<string>> Dictionary { get; } =
             new Dictionary<StringType, Fetcher<string>>();

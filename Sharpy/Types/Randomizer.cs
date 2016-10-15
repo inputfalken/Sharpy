@@ -39,8 +39,7 @@ namespace Sharpy.Types {
         /// </summary>
         public string String(StringType stringType) {
             if (!Config.Dictionary.ContainsKey(stringType))
-                Config.Dictionary.Add(stringType,
-                    new Fetcher<string>(Config.StringType(stringType)));
+                Config.Dictionary.Add(stringType, new Fetcher<string>(Config.StringType(stringType)));
             return Config.Dictionary[stringType].RandomItem(Config.Random);
         }
 
