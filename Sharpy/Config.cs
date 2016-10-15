@@ -16,8 +16,8 @@ namespace Sharpy {
         public Config() {
             DateGenerator = new DateGenerator(Random);
             MailGeneratorP = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
-            PhoneNumberGenerator = new PhoneNumberGenerator(new Types.CountryCode.CountryCode("UnitedStates", "+1"),
-                Random, 5);
+            PhoneNumberGenerator = new PhoneNumberGenerator(new CountryCode("Sweden", "+46"),
+                Random, 5, "070");
         }
 
 
@@ -71,12 +71,16 @@ namespace Sharpy {
         /// <param name="countryCode"></param>
         /// <param name="length"></param>
         /// <param name="uniqueNumbers"></param>
+        /// <param name="prefix"></param>
         /// <returns></returns>
-        public Config PhoneGenerator(Country countryCode, int length, bool uniqueNumbers = false) {
+        public Config PhoneGenerator(Country countryCode, int length, bool uniqueNumbers = false, string prefix = null) {
             PhoneNumberGenerator =
                 new PhoneNumberGenerator(LazyCountryCodes.Value.Single(number => number.Name == countryCode),
                     Random,
-                    length, uniqueNumbers);
+                    length,
+                    prefix,
+                    uniqueNumbers
+                );
             return this;
         }
 
