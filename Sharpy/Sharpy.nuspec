@@ -20,6 +20,7 @@
   3: IRandomizer no longer got Username and Name as methods. Instead you have to call the method String(To increase the abstractionlevel) and pass it the suiting enum.
   4: Added back factory pattern as an optional way of creating Generators.
   5: Remove preconfigged generator since it's easy the api the default Generator API should be enough.
+  6: Simplified Phone number generator, prefix is now set from the config class rather than on the method from the randomizer.
 </releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Fakedata Generator</tags>

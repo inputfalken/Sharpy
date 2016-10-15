@@ -51,7 +51,7 @@ namespace Sharpy {
         ///     gives a random phonenumber using a random country code and lets you specify a number to start with as well as the
         ///     length.
         /// </summary>
-        string PhoneNumber(string preNumber = null);
+        string PhoneNumber();
 
         /// <summary>
         ///     Gives a mail address by concatining the arguments into a mail address.
