@@ -16,15 +16,11 @@ namespace Sharpy.Types {
         /// </summary>
         /// <param name="attemptLimit"></param>
         /// <param name="random"></param>
-        protected Unique(int attemptLimit, Random random) {
-            AttemptLimit = attemptLimit;
+        protected Unique(Random random) {
             Random = random;
             HashSet = new HashSet<T>();
         }
 
-        /// <summary>
-        /// </summary>
-        protected int AttemptLimit { get; }
 
         /// <summary>
         /// </summary>
