@@ -27,7 +27,7 @@ namespace Sharpy.Types.CountryCode {
         /// <summary>
         ///     Will create a phone number by randoming numbers including country code
         /// </summary>
-        public string RandomNumber() {
+        internal string RandomNumber() {
             var next = Random.Next(Min, Max);
             if (!Unique) return Build(CountryCode.Code, Prefix, next.ToString());
             while (HashSet.Contains(next)) {
