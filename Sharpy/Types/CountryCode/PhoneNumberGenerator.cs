@@ -10,7 +10,7 @@ namespace Sharpy.Types.CountryCode {
     internal sealed class PhoneNumberGenerator : Unique<int> {
         internal PhoneNumberGenerator(Random random, int length, string prefix,
             bool unique = false)
-            : base(50, random) {
+            : base(random) {
             Prefix = prefix;
             Unique = unique;
             Min = (int) Math.Pow(10, length - 1);
