@@ -12,6 +12,14 @@ namespace Sharpy {
         public static SharpyGenerator<T> Default<T>(Func<IRandomizer<StringType>, T> func, Config config = null)
             => new SharpyGenerator<T>(func, config);
 
+        public static SharpyGenerator<T> Default<T>(Func<IRandomizer<StringType>, T> func,
+                IRandomizer<StringType> randomizer)
+            => new SharpyGenerator<T>(func, randomizer);
+
+        public static SharpyGenerator<T> Default<T>(Func<IRandomizer<StringType>, int, T> func,
+                IRandomizer<StringType> randomizer)
+            => new SharpyGenerator<T>(func, randomizer);
+
         public static SharpyGenerator<T> Default<T>(Func<IRandomizer<StringType>, int, T> func, Config config = null)
             => new SharpyGenerator<T>(func, config);
 
