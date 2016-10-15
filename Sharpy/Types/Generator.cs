@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 
 namespace Sharpy.Types {
-    public class Generator<T, TFuncArg> {
-        private Func<IRandomizer<TFuncArg>, int, T> FuncIterator { get; }
-        private IRandomizer<TFuncArg> FuncArg { get; }
-        private Func<IRandomizer<TFuncArg>, T> Func { get; }
+    public class Generator<TItem, TRandomizerType> {
+        private Func<IRandomizer<TRandomizerType>, int, TItem> FuncIterator { get; }
+        private IRandomizer<TRandomizerType> Randomizer { get; }
+        private Func<IRandomizer<TRandomizerType>, TItem> Func { get; }
         private int Iteratation { get; set; }
 
         /// <summary>
         ///     Creates a Generator which you can use to create one instance or a collection of the given type
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
-        public Generator(Func<IRandomizer<TFuncArg>, T> func, IRandomizer<TFuncArg> funcArg) {
+        public Generator(Func<IRandomizer<TRandomizerType>, TItem> func, IRandomizer<TRandomizerType> randomizer) {
             Func = func;
-            FuncArg = funcArg;
+            Randomizer = randomizer;
         }
 
         /// <summary>
@@ -22,21 +22,21 @@ namespace Sharpy.Types {
         ///     The integer included will track iterations.
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
-        public Generator(Func<IRandomizer<TFuncArg>, int, T> func, IRandomizer<TFuncArg> funcArg) {
+        public Generator(Func<IRandomizer<TRandomizerType>, int, TItem> func, IRandomizer<TRandomizerType> randomizer) {
             FuncIterator = func;
-            FuncArg = funcArg;
+            Randomizer = randomizer;
         }
 
-        private T Generate(int i) {
-            return FuncIterator == null ? Func(FuncArg) : FuncIterator(FuncArg, i);
+        private TItem Generate(int i) {
+            return FuncIterator == null ? Func(Randomizer) : FuncIterator(Randomizer, i);
         }
 
         /// <summary>
         ///     Will give back one instance of the specified Type
         /// </summary>
         /// <returns></returns>
-        public T Generate() {
-            return FuncIterator == null ? Func(FuncArg) : FuncIterator(FuncArg, Iteratation++);
+        public TItem Generate() {
+            return FuncIterator == null ? Func(Randomizer) : FuncIterator(Randomizer, Iteratation++);
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Sharpy.Types {
         ///     Which contains the ammount of elements.
         /// </summary>
         /// <param name="ammount"></param>
-        public IEnumerable<T> GenerateEnumerable(int ammount) {
+        public IEnumerable<TItem> GenerateEnumerable(int ammount) {
             for (var i = 0; i < ammount; i++)
                 yield return Generate(i);
         }
