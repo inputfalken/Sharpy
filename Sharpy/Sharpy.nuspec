@@ -19,6 +19,7 @@
   2: You can now implement your own implementation of IRandomizer and pass it to the generator as a secondary argument.
   3: IRandomizer no longer got Username and Name as methods. Instead you have to call the method String(To increase the abstractionlevel) and pass it the suiting enum.
   4: Added back factory pattern as an optional way of creating Generators.
+  5: Remove preconfigged generator since it's easy the api the default Generator API should be enough.
 </releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Fakedata Generator</tags>
