@@ -52,7 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Generator.cs" />
-    <Compile Include="Types\GeneratorBase.cs" />
     <Compile Include="PreConfigured.cs" />
     <Compile Include="Types\Config.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -60,6 +59,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Types\GeneratorBase.cs" />
     <Compile Include="Types\IRandomizer.cs" />
     <Compile Include="Types\Randomizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
