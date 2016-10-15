@@ -10,10 +10,10 @@ namespace Sharpy {
         public SharpyGenerator(Func<IRandomizer<StringType>, T> func, Config config = null)
             : base(func, new Randomizer(config ?? new Config())) {}
 
-        public SharpyGenerator(Func<IRandomizer<StringType>, T> func, IRandomizer<StringType> randoimzer)
-            : base(func, randoimzer) {}
+        public SharpyGenerator(Func<IRandomizer<StringType>, T> func, IRandomizer<StringType> randomizer)
+            : base(func, randomizer) {}
 
-        public SharpyGenerator(Func<IRandomizer<StringType>, int, T> func, IRandomizer<StringType> randoimzer)
-            : base(func, randoimzer) {}
+        public SharpyGenerator(Func<IRandomizer<StringType>, int, T> func, IRandomizer<StringType> randomizer)
+            : base(func, randomizer) {}
     }
 }
