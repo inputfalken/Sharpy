@@ -78,8 +78,8 @@ namespace Sharpy.Types {
         ///     gives a random phonenumber using a random country code and lets you specify a number to start with as well as the
         ///     length.
         /// </summary>
-        public string PhoneNumber(string preNumber = null) =>
-            Config.PhoneNumberGenerator.RandomNumber(preNumber);
+        public string PhoneNumber() =>
+            Config.PhoneNumberGenerator.RandomNumber();
 
         /// <summary>
         ///     Gives a mail address by concatining the arguments into a mail address.
