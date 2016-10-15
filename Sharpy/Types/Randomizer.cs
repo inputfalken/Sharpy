@@ -12,7 +12,7 @@ namespace Sharpy.Types {
     /// <summary>
     ///     Will randomize all data that these methods return.
     /// </summary>
-    internal sealed class Randomizer : IRandomizer {
+    internal sealed class Randomizer : IRandomizer<StringType> {
         private Config Config { get; }
 
         public Randomizer(Config config) {
@@ -31,7 +31,7 @@ namespace Sharpy.Types {
         /// </summary>
         /// <param name="items"></param>
         /// <returns></returns>
-        public TElement CustomCollection<TElement>(List<TElement> items) => items[Number(items.Count)];
+        public TElement CustomCollection<TElement>(IList<TElement> items) => items[Number(items.Count)];
 
 
         /// <summary>
