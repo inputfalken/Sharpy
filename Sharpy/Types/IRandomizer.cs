@@ -16,7 +16,7 @@ namespace Sharpy.Types {
         /// <param name="items"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        T CustomCollection<T>(List<T> items);
+        T CustomCollection<T>(IList<T> items);
 
         /// <summary>
         ///     Gives a string based on argument.
