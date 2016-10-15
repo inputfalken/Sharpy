@@ -6,7 +6,7 @@ namespace Sharpy {
     ///     Contains Pre-Configured generators.
     /// </summary>
     public static class PreConfigured {
-        private static SharpyGenerator<string> GenerateNames { get; } = GeneratorFactory.Default(randomizer =>
+        private static SharpyGenerator<string> GenerateNames { get; } = GeneratorFactory.CreateNew(randomizer =>
                 $"{randomizer.String(StringType.MixedFirstName)} {randomizer.String(StringType.LastName)}");
 
         /// <summary>
