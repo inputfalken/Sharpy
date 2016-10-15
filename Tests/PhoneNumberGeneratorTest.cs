@@ -11,7 +11,7 @@ namespace Tests {
         public void CreateRandomNumber_Args_Length5_PreNumber35() {
             var phoneGenerator = new PhoneNumberGenerator(new Random(), 5, "35");
             var randomNumber = phoneGenerator.RandomNumber();
-            const int exepectedLength = 10;
+            const int exepectedLength = 7;
             Assert.AreEqual(exepectedLength, randomNumber.Length);
             Assert.IsTrue(randomNumber.Contains("35"));
         }

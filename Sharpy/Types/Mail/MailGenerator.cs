@@ -24,7 +24,7 @@ namespace Sharpy.Types.Mail {
         /// </summary>
         private readonly IEnumerator<string> _emailDomainsEnumerator;
 
-        internal MailGenerator(IEnumerable<string> providers, Random random, bool unique) : base(2, random) {
+        internal MailGenerator(IEnumerable<string> providers, Random random, bool unique) : base(random) {
             Unique = unique;
             foreach (var provider in providers) _emailDomains.Add(provider);
             _emailDomainsEnumerator = _emailDomains.GetEnumerator();
@@ -67,6 +67,8 @@ namespace Sharpy.Types.Mail {
             return address;
         }
 
+        private const int Limit = 2;
+
         /// <summary>
         ///     Will try to create an unique mail address
         ///     If all possible combinations for the arguments used it will throw an exception
@@ -78,7 +80,7 @@ namespace Sharpy.Types.Mail {
         private string UniqueMail(string name, string secondName) {
             while (true) {
                 var resets = 0;
-                while (resets < AttemptLimit)
+                while (resets < Limit)
                     if (_emailDomainsEnumerator.MoveNext()) {
                         foreach (var separator in Separators) {
                             var address = BuildString(name, separator.ToString(), secondName, "@",
