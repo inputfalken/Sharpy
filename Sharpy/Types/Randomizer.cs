@@ -43,12 +43,6 @@ namespace Sharpy.Types {
             return Config.Dictionary[stringType].RandomItem(Config.Random);
         }
 
-
-        /// <summary>
-        ///     Gives a random username from a huge collection.
-        /// </summary>
-        public string UserName() => Config.UserNames.RandomItem(Config.Random);
-
         /// <summary>
         ///     Gives a random bool
         /// </summary>
