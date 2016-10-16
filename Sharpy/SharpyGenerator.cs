@@ -7,7 +7,7 @@ namespace Sharpy {
     ///    Inherits from Generator class with the type signature &lt;T,StringType&gt;.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class SharpyGenerator<T> : Generator<T, StringType> {
+    public class SharpyGenerator<T> : Generator<T, IRandomizer<StringType>> {
         /// <summary>
         ///    Uses my own implementation of IRandomizer&lt;StringType&gt; Uses an optional config argument as secondary argument.
         /// </summary>
