@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 
 namespace Sharpy {
-    public class Generator<T, TStringArg> {
-        private Func<IRandomizer<TStringArg>, int, T> FuncIterator { get; }
-        private IRandomizer<TStringArg> Randomizer { get; }
-        private Func<IRandomizer<TStringArg>, T> Func { get; }
+    public class Generator<T, TRandomizer> {
+        private Func<TRandomizer, int, T> FuncIterator { get; }
+        private TRandomizer Randomizer { get; }
+        private Func<TRandomizer, T> Func { get; }
         private int Iteratation { get; set; }
 
         /// <summary>
         ///     Creates a Generator which you can use to create one instance or a collection of the given type
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
-        public Generator(Func<IRandomizer<TStringArg>, T> func, IRandomizer<TStringArg> randomizer) {
+        public Generator(Func<TRandomizer, T> func, TRandomizer randomizer) {
             Func = func;
             Randomizer = randomizer;
         }
@@ -22,7 +22,7 @@ namespace Sharpy {
         ///     The integer included will track iterations.
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
-        public Generator(Func<IRandomizer<TStringArg>, int, T> func, IRandomizer<TStringArg> randomizer) {
+        public Generator(Func<TRandomizer, int, T> func, TRandomizer randomizer) {
             FuncIterator = func;
             Randomizer = randomizer;
         }
