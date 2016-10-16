@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using NodaTime;
 
 namespace Sharpy {
-    public interface IRandomizer<in TArg> {
+    public interface IRandomizer<in TStringArg> {
         /// <summary>
         ///     Can be used if you have your own collection of items that you would want an random item from.
         /// </summary>
@@ -20,7 +20,7 @@ namespace Sharpy {
         /// <summary>
         ///     Gives a string based on argument.
         /// </summary>
-        string String(TArg type);
+        string String(TStringArg type);
 
         /// <summary>
         ///     Gives a random bool
