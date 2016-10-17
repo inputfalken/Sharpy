@@ -15,11 +15,11 @@
       Works on .Net4.6 and .Net4.5
     </description>
 <releaseNotes>
-  1: Reworked Configurement for the generator. The generator accepts an config instance as secondary argument. In order to configure need to chain methodcalls from the config instance.
-  2: You can now implement your own implementation of IRandomizer and pass it to the generator as a secondary argument.
-  3: IRandomizer no longer got Username and Name as methods. Instead you have to call the method String(To increase the abstractionlevel) and pass it the suiting enum.
-  4: Remove preconfigged generator since it's easy the api the default Generator API should be enough.
-  5: Simplified Phone number generator, prefix is now set from the config class rather than on the method from the randomizer.
+  1: There's no restrictions on the generic types of the Generator class and All generators require two generic Type arguments.
+  2: IRandomizer no longer got Username and Name as methods. Instead you have to call the method String"(To increase the abstractionlevel)" and pass it the suiting enum.
+  3: Removed preconfigged generator.
+  4: Simplified Phone number generator, prefix is now set from the config class rather than on the method from the randomizer.
+  5: You can now either use a Factory to get a random generator or new up a generator by yourself.
 </releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Fakedata Generator</tags>
