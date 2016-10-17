@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 
 namespace Sharpy {
-    public class Generator<T, TRandomizer> {
-        private Func<TRandomizer, int, T> FuncIterator { get; }
-        private TRandomizer Randomizer { get; }
-        private Func<TRandomizer, T> Func { get; }
+    public class Generator<T, TSource> {
+        private Func<TSource, int, T> FuncIterator { get; }
+        private TSource Source { get; }
+        private Func<TSource, T> Func { get; }
         private int Iteratation { get; set; }
 
         /// <summary>
         ///     Creates a Generator which you can use to create one instance or a collection of the given type
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
-        public Generator(Func<TRandomizer, T> func, TRandomizer randomizer) {
+        public Generator(Func<TSource, T> func, TSource source) {
             Func = func;
-            Randomizer = randomizer;
+            Source = source;
         }
 
         /// <summary>
@@ -22,18 +22,18 @@ namespace Sharpy {
         ///     The integer included will track iterations.
         ///     For examples please visit https://github.com/inputfalken/Sharpy
         /// </summary>
-        public Generator(Func<TRandomizer, int, T> func, TRandomizer randomizer) {
+        public Generator(Func<TSource, int, T> func, TSource source) {
             FuncIterator = func;
-            Randomizer = randomizer;
+            Source = source;
         }
 
-        private T Generate(int i) => FuncIterator == null ? Func(Randomizer) : FuncIterator(Randomizer, i);
+        private T Generate(int i) => FuncIterator == null ? Func(Source) : FuncIterator(Source, i);
 
         /// <summary>
         ///     Will give back one instance of the specified Type
         /// </summary>
         /// <returns></returns>
-        public T Generate() => FuncIterator == null ? Func(Randomizer) : FuncIterator(Randomizer, Iteratation++);
+        public T Generate() => FuncIterator == null ? Func(Source) : FuncIterator(Source, Iteratation++);
 
         /// <summary>
         ///     Will give back an IEnumerable with the specified type.
