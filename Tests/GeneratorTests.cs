@@ -107,7 +107,7 @@ namespace Tests {
             Assert.IsTrue(lastNameGenerator.GenerateEnumerable(randomizer => randomizer.String(StringType.LastName), 100)
                 .All(lastNames.Contains));
             Assert.IsTrue(
-                mixedFirstNameGenerator.GenerateEnumerable(randomizer => randomizer.String(StringType.MixedFirstName),
+                mixedFirstNameGenerator.GenerateEnumerable(randomizer => randomizer.String(StringType.FirstName),
                     100).All(mixedNames.Contains));
         }
 

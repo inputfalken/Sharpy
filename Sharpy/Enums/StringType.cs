@@ -21,7 +21,7 @@ namespace Sharpy.Enums {
         /// <summary>
         ///    Will give you back a random first name.
         /// </summary>
-        MixedFirstName,
+        FirstName,
 
         /// <summary>
         ///    Will give you back a random username.
@@ -31,16 +31,11 @@ namespace Sharpy.Enums {
         /// <summary>
         ///    Will give you either a first name, last name, username.
         /// </summary>
-        Random,
-
-        /// <summary>
-        ///    Will give you either a first name, last name.
-        /// </summary>
         AnyName,
+
         /// <summary>
         ///    Will give a random phone number.
         /// </summary>
         Phonenumber
-           
     }
 }
