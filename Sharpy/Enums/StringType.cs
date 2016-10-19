@@ -36,6 +36,11 @@ namespace Sharpy.Enums {
         /// <summary>
         ///    Will give you either a first name, last name.
         /// </summary>
-        AnyName
+        AnyName,
+        /// <summary>
+        ///    Will give a random phone number.
+        /// </summary>
+        Phonenumber
+           
     }
 }
