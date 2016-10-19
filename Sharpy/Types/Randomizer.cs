@@ -79,6 +79,6 @@ namespace Sharpy.Types {
         ///     Gives a mail address by concatining the arguments into a mail address.
         /// </summary>
         public string MailAdress(string name, string secondName = null)
-            => Config.MailGeneratorP.Mail(name, secondName);
+            => Config.Mailgen.Mail(name, secondName);
     }
 }

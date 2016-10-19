@@ -15,7 +15,7 @@ namespace Sharpy {
     public class Config {
         public Config() {
             DateGenerator = new DateGenerator(Random);
-            MailGeneratorP = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
+            Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
             PhoneNumberGenerator = new PhoneNumberGenerator(Random, 5, "070");
         }
 
@@ -60,7 +60,7 @@ namespace Sharpy {
         /// <param name="uniqueAddresses">For Unique Addresses</param>
         /// <returns></returns>
         public Config MailGenerator(IEnumerable<string> providers, bool uniqueAddresses = false) {
-            MailGeneratorP = new MailGenerator(providers, Random, uniqueAddresses);
+            Mailgen = new MailGenerator(providers, Random, uniqueAddresses);
             return this;
         }
 
@@ -122,25 +122,20 @@ namespace Sharpy {
         internal DateGenerator DateGenerator { get; }
 
 
-        private Lazy<IEnumerable<CountryCode>> LazyCountryCodes { get; } =
-            new Lazy<IEnumerable<CountryCode>>(
-                () => JsonConvert.DeserializeObject<IEnumerable<CountryCode>>(
-                    Encoding.Default.GetString(Resources.CountryCodes)));
-
         private Lazy<Fetcher<string>> LazyUsernames { get; } =
             new Lazy<Fetcher<string>>(() => new Fetcher<string>(Resources.usernames.Split(Convert.ToChar("\n"))));
 
 
-        internal PhoneNumberGenerator PhoneNumberGenerator { get; set; }
+        internal PhoneNumberGenerator PhoneNumberGenerator { get; private set; }
 
 
-        internal MailGenerator MailGeneratorP { get; set; }
+        internal MailGenerator Mailgen { get; private set; }
 
         private Fetcher<string> _userNames;
 
-        internal Fetcher<string> UserNames {
+        private Fetcher<string> UserNames {
             get { return _userNames ?? LazyUsernames.Value; }
-            private set { _userNames = value; }
+            set { _userNames = value; }
         }
 
         private IEnumerable<Name> ByCountry(params Country[] args)
