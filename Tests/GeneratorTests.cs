@@ -26,7 +26,7 @@ namespace Tests {
         public void IteratorWithEnumerable() {
             var iteration = 0;
             var generator = Factory.RandomGenerator();
-            var result = generator.GenerateEnumerable((randomizer, i) => iteration++ == i, 20).ToArray();
+            var result = generator.GenerateMany((randomizer, i) => iteration++ == i, 20).ToArray();
             Assert.IsTrue(result.All(b => b));
         }
 
@@ -37,7 +37,7 @@ namespace Tests {
 
             // Should be true since mailgenerator has been configured to produce unique mails.
             Assert.IsTrue(
-                mailGenerator.GenerateEnumerable(randomizer => randomizer.MailAdress(MailUserName), 100)
+                mailGenerator.GenerateMany(randomizer => randomizer.MailAdress(MailUserName), 100)
                     .GroupBy(s => s)
                     .All(grouping => grouping.Count() == 1));
         }
@@ -45,7 +45,7 @@ namespace Tests {
         [Test]
         public void MailsAreNotnull() {
             var generator = Factory.RandomGenerator();
-            var strings = generator.GenerateEnumerable(randomizer => randomizer.MailAdress(MailUserName), 20).ToArray();
+            var strings = generator.GenerateMany(randomizer => randomizer.MailAdress(MailUserName), 20).ToArray();
             Assert.IsFalse(strings.All(string.IsNullOrEmpty));
             Assert.IsFalse(strings.All(string.IsNullOrWhiteSpace));
         }
@@ -64,15 +64,15 @@ namespace Tests {
                 Factory.RandomGenerator();
             var mixedNames = _names.Where(name => name.Type == 1 | name.Type == 2).Select(name => name.Data);
             Assert.IsTrue(
-                femaleNameGenerator.GenerateEnumerable(randomizer => randomizer.String(StringType.FemaleFirstName), 100)
+                femaleNameGenerator.GenerateMany(randomizer => randomizer.String(StringType.FemaleFirstName), 100)
                     .All(femaleNames.Contains));
             Assert.IsTrue(
-                maleNameGenerator.GenerateEnumerable(randomizer => randomizer.String(StringType.MaleFirstName), 100)
+                maleNameGenerator.GenerateMany(randomizer => randomizer.String(StringType.MaleFirstName), 100)
                     .All(maleNames.Contains));
-            Assert.IsTrue(lastNameGenerator.GenerateEnumerable(randomizer => randomizer.String(StringType.LastName), 100)
+            Assert.IsTrue(lastNameGenerator.GenerateMany(randomizer => randomizer.String(StringType.LastName), 100)
                 .All(lastNames.Contains));
             Assert.IsTrue(
-                mixedFirstNameGenerator.GenerateEnumerable(randomizer => randomizer.String(StringType.FirstName),
+                mixedFirstNameGenerator.GenerateMany(randomizer => randomizer.String(StringType.FirstName),
                     100).All(mixedNames.Contains));
         }
 
@@ -80,7 +80,7 @@ namespace Tests {
         public void NamesAreNotNull() {
             var generator = Factory.RandomGenerator();
             var strings =
-                generator.GenerateEnumerable(randomizer => randomizer.String(StringType.AnyName), 20).ToArray();
+                generator.GenerateMany(randomizer => randomizer.String(StringType.AnyName), 20).ToArray();
             Assert.IsFalse(strings.All(string.IsNullOrEmpty));
             Assert.IsFalse(strings.All(string.IsNullOrWhiteSpace));
         }
@@ -88,14 +88,14 @@ namespace Tests {
         [Test]
         public void NumbersAreNotDefaultValue() {
             var generator = Factory.RandomGenerator();
-            Assert.IsFalse(generator.GenerateEnumerable(randomizer => randomizer.Number(100), 100).All(i => i == 0));
+            Assert.IsFalse(generator.GenerateMany(randomizer => randomizer.Number(100), 100).All(i => i == 0));
         }
 
         [Test]
         public void PhoneNumberAreNotNullOrwhiteSpace() {
             var sharpyGenerator = Factory.RandomGenerator();
             var numbers =
-                sharpyGenerator.GenerateEnumerable(randomizer => randomizer.String(StringType.Phonenumber), 100)
+                sharpyGenerator.GenerateMany(randomizer => randomizer.String(StringType.Phonenumber), 100)
                     .ToArray();
             Assert.IsFalse(numbers.All(string.IsNullOrWhiteSpace));
             Assert.IsFalse(numbers.All(string.IsNullOrWhiteSpace));
@@ -107,7 +107,7 @@ namespace Tests {
             var generator = Factory.RandomGenerator(new Config().Seed(Seed));
             var random = new Random(Seed);
             var expected = Enumerable.Range(0, 1000).Select(i => random.Next(2) != 0);
-            var result = generator.GenerateEnumerable(randomizer => randomizer.Bool(), 1000);
+            var result = generator.GenerateMany(randomizer => randomizer.Bool(), 1000);
             Assert.IsTrue(result.SequenceEqual(expected));
         }
 
@@ -119,7 +119,7 @@ namespace Tests {
             var generator = Factory.RandomGenerator(new Config().Seed(Seed));
             var random = new Random(Seed);
             var expected = Enumerable.Range(0, 1000).Select(i => random.Next(limit));
-            var result = generator.GenerateEnumerable(randomizer => randomizer.Number(limit), 1000);
+            var result = generator.GenerateMany(randomizer => randomizer.Number(limit), 1000);
             Assert.IsTrue(result.SequenceEqual(expected));
         }
 
@@ -127,7 +127,7 @@ namespace Tests {
         public void UserNamesAreNotNull() {
             var generator = Factory.RandomGenerator();
             var strings =
-                generator.GenerateEnumerable(randomizer => randomizer.String(StringType.UserName), 20).ToArray();
+                generator.GenerateMany(randomizer => randomizer.String(StringType.UserName), 20).ToArray();
             Assert.IsFalse(strings.All(string.IsNullOrEmpty));
             Assert.IsFalse(strings.All(string.IsNullOrWhiteSpace));
         }
