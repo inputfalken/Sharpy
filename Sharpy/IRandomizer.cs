@@ -48,12 +48,6 @@ namespace Sharpy {
         LocalDate DateByYear(int year);
 
         /// <summary>
-        ///     gives a random phonenumber using a random country code and lets you specify a number to start with as well as the
-        ///     length.
-        /// </summary>
-        string PhoneNumber();
-
-        /// <summary>
         ///     Gives a mail address by concatining the arguments into a mail address.
         /// </summary>
         string MailAdress(string name, string secondName = null);

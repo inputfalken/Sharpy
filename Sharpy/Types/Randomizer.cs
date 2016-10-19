@@ -35,9 +35,10 @@ namespace Sharpy.Types {
 
 
         /// <summary>
-        ///     Gives a random name based on type of argument.
+        ///     Gives a random string based on argument.
         /// </summary>
         public string String(StringType stringType) {
+            if (stringType == StringType.Phonenumber) return Config.PhoneNumberGenerator.RandomNumber();
             if (!Config.Dictionary.ContainsKey(stringType))
                 Config.Dictionary.Add(stringType, new Fetcher<string>(Config.StringType(stringType)));
             return Config.Dictionary[stringType].RandomItem(Config.Random);
@@ -67,13 +68,6 @@ namespace Sharpy.Types {
         ///     Gives a random month, date and use the argument given as year
         /// </summary>
         public LocalDate DateByYear(int year) => Config.DateGenerator.RandomDateByYear(year);
-
-        /// <summary>
-        ///     gives a random phonenumber using a random country code and lets you specify a number to start with as well as the
-        ///     length.
-        /// </summary>
-        public string PhoneNumber() =>
-            Config.PhoneNumberGenerator.RandomNumber();
 
         /// <summary>
         ///     Gives a mail address by concatining the arguments into a mail address.
