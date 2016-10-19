@@ -44,7 +44,7 @@ namespace Sharpy {
         /// <param name="func"></param>
         public IEnumerable<T> GenerateEnumerable<T>(Func<TSource, int, T> func, int count = 10) {
             for (var i = 0; i < count; i++)
-                yield return Generate(func, count);
+                yield return Generate(func, i);
         }
     }
 }
