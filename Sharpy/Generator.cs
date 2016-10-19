@@ -5,7 +5,7 @@ namespace Sharpy {
     public class Generator<TSource> {
         /// <summary>
         ///     <para>Creates a Generator which you can use to create one instance or a collection of the given type</para>
-        ///     <para>For examples please visit https://github.com/inputfalken/Sharpy</para>
+        ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
         /// </summary>
         public Generator(TSource source) {
             Source = source;
