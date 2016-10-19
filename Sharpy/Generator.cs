@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 
 namespace Sharpy {
+    /// <summary>
+    ///    <para>This class is used to create one or many instances of&lt;T&gt;</para>
+    /// </summary>
+    /// <typeparam name="TSource">The type which will be passed to all delagates in the generation methods</typeparam>
     public class Generator<TSource> {
         /// <summary>
-        ///     <para>Creates a Generator which you can use to create one instance or a collection of the given type</para>
+        ///     <para>Sets the TSource of this Generator instance</para>
         ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
         /// </summary>
+        /// <typeparam name="TSource">The type which will be passed as a in parameter to all generation methods arguments</typeparam>
         public Generator(TSource source) {
             Source = source;
         }
@@ -17,7 +22,7 @@ namespace Sharpy {
         private T Generate<T>(Func<TSource, int, T> func, int i) => func(Source, i);
 
         /// <summary>
-        ///     <para>Will generate a new &lt;T&gt;</para>
+        ///     <para>Will generate a &lt;T&gt;</para>
         /// </summary>
         /// <returns></returns>
         public T Generate<T>(Func<TSource, T> func) => func(Source);
