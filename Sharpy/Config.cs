@@ -166,7 +166,7 @@ namespace Sharpy {
                 case Enums.StringType.UserName:
                     return UserNames;
                 case Enums.StringType.Random:
-                    return Random.Next(2) != 0 ? UserNames : Names.Select(name => name.Data);
+                    return Names.Select(name => name.Data).Concat(UserNames);
                 case Enums.StringType.AnyName:
                     return Names.Select(name => name.Data);
                 default:
