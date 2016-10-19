@@ -80,7 +80,7 @@ namespace Tests {
         [Test]
         public void PhoneNumberAreNotNullOrwhiteSpace() {
             var sharpyGenerator = Factory.RandomGenerator();
-            var numbers = sharpyGenerator.GenerateEnumerable(randomizer => randomizer.PhoneNumber(), 100).ToArray();
+            var numbers = sharpyGenerator.GenerateEnumerable(randomizer => randomizer.String(StringType.Phonenumber), 100).ToArray();
             Assert.IsFalse(numbers.All(string.IsNullOrWhiteSpace));
             Assert.IsFalse(numbers.All(string.IsNullOrWhiteSpace));
         }
