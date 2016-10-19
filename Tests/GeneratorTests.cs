@@ -119,13 +119,6 @@ namespace Tests {
             Assert.IsTrue(result.All(b => b));
         }
 
-        [Test]
-        public void IteratorWithGenerate() {
-            var iteration = 0;
-            var generator = Factory.RandomGenerator();
-            for (var i = 0; i < 10; i++)
-                Assert.IsTrue(generator.Generate((randomizer, d) => iteration++ == d));
-        }
 
         [Test]
         public void Mail() {
