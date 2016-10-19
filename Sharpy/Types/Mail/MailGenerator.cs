@@ -5,6 +5,8 @@ namespace Sharpy.Types.Mail {
     /// <summary>
     /// </summary>
     internal sealed class MailGenerator : Unique<string> {
+        private const int Limit = 2;
+
         /// <summary>
         ///     Used for separating strings with symbols
         /// </summary>
@@ -66,8 +68,6 @@ namespace Sharpy.Types.Mail {
             Builder.Clear();
             return address;
         }
-
-        private const int Limit = 2;
 
         /// <summary>
         ///     Will try to create an unique mail address
