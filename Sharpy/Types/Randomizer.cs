@@ -16,7 +16,7 @@ namespace Sharpy.Types {
         private Config Config { get; }
 
         public Randomizer(Config config) {
-            Config = config;
+            Config = config ?? new Config();
         }
 
 
