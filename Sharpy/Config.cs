@@ -161,14 +161,12 @@ namespace Sharpy {
                     return Names.Where(name => name.Type == 2).Select(name => name.Data);
                 case Enums.StringType.LastName:
                     return Names.Where(name => name.Type == 3).Select(name => name.Data);
-                case Enums.StringType.MixedFirstName:
+                case Enums.StringType.FirstName:
                     return Names.Where(name => name.Type == 1 | name.Type == 2).Select(name => name.Data);
                 case Enums.StringType.UserName:
                     return UserNames;
-                case Enums.StringType.Random:
-                    return Names.Select(name => name.Data).Concat(UserNames);
                 case Enums.StringType.AnyName:
-                    return Names.Select(name => name.Data);
+                    return Names.Select(name => name.Data).Concat(UserNames);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(stringType), stringType, null);
             }
