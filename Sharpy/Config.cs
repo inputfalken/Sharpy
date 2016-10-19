@@ -13,11 +13,49 @@ using Sharpy.Types.Name;
 
 namespace Sharpy {
     public class Config {
+        private Fetcher<Name> _names;
+
+        private Fetcher<string> _userNames;
+
         public Config() {
             DateGenerator = new DateGenerator(Random);
-            MailGeneratorP = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
+            Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
             PhoneNumberGenerator = new PhoneNumberGenerator(Random, 5, "070");
         }
+
+
+        private Lazy<Fetcher<Name>> LazyNames { get; } =
+            new Lazy<Fetcher<Name>>(
+                () => new Fetcher<Name>(JsonConvert.DeserializeObject<IEnumerable<Name>>(
+                    Encoding.UTF8.GetString(Resources.NamesByOrigin))));
+
+
+        internal Fetcher<Name> Names {
+            get { return _names ?? LazyNames.Value; }
+            private set { _names = value; }
+        }
+
+
+        internal Random Random { get; private set; } = new Random();
+        internal DateGenerator DateGenerator { get; }
+
+
+        private Lazy<Fetcher<string>> LazyUsernames { get; } =
+            new Lazy<Fetcher<string>>(() => new Fetcher<string>(Resources.usernames.Split(Convert.ToChar("\n"))));
+
+
+        internal PhoneNumberGenerator PhoneNumberGenerator { get; private set; }
+
+
+        internal MailGenerator Mailgen { get; private set; }
+
+        private Fetcher<string> UserNames {
+            get { return _userNames ?? LazyUsernames.Value; }
+            set { _userNames = value; }
+        }
+
+        internal Dictionary<StringType, Fetcher<string>> Dictionary { get; } =
+            new Dictionary<StringType, Fetcher<string>>();
 
 
         /// <summary>
@@ -60,7 +98,7 @@ namespace Sharpy {
         /// <param name="uniqueAddresses">For Unique Addresses</param>
         /// <returns></returns>
         public Config MailGenerator(IEnumerable<string> providers, bool uniqueAddresses = false) {
-            MailGeneratorP = new MailGenerator(providers, Random, uniqueAddresses);
+            Mailgen = new MailGenerator(providers, Random, uniqueAddresses);
             return this;
         }
 
@@ -103,55 +141,12 @@ namespace Sharpy {
             return this;
         }
 
-
-        private Lazy<Fetcher<Name>> LazyNames { get; } =
-            new Lazy<Fetcher<Name>>(
-                () => new Fetcher<Name>(JsonConvert.DeserializeObject<IEnumerable<Name>>(
-                    Encoding.UTF8.GetString(Resources.NamesByOrigin))));
-
-        private Fetcher<Name> _names;
-
-
-        internal Fetcher<Name> Names {
-            get { return _names ?? LazyNames.Value; }
-            private set { _names = value; }
-        }
-
-
-        internal Random Random { get; private set; } = new Random();
-        internal DateGenerator DateGenerator { get; }
-
-
-        private Lazy<IEnumerable<CountryCode>> LazyCountryCodes { get; } =
-            new Lazy<IEnumerable<CountryCode>>(
-                () => JsonConvert.DeserializeObject<IEnumerable<CountryCode>>(
-                    Encoding.Default.GetString(Resources.CountryCodes)));
-
-        private Lazy<Fetcher<string>> LazyUsernames { get; } =
-            new Lazy<Fetcher<string>>(() => new Fetcher<string>(Resources.usernames.Split(Convert.ToChar("\n"))));
-
-
-        internal PhoneNumberGenerator PhoneNumberGenerator { get; set; }
-
-
-        internal MailGenerator MailGeneratorP { get; set; }
-
-        private Fetcher<string> _userNames;
-
-        internal Fetcher<string> UserNames {
-            get { return _userNames ?? LazyUsernames.Value; }
-            private set { _userNames = value; }
-        }
-
         private IEnumerable<Name> ByCountry(params Country[] args)
             => new Fetcher<Name>(Names.Where(name => args.Contains(name.Country)));
 
 
         private IEnumerable<Name> ByRegion(params Region[] args)
             => new Fetcher<Name>(Names.Where(name => args.Contains(name.Region)));
-
-        internal Dictionary<StringType, Fetcher<string>> Dictionary { get; } =
-            new Dictionary<StringType, Fetcher<string>>();
 
         internal IEnumerable<string> StringType(StringType stringType) {
             switch (stringType) {

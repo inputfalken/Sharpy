@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Sharpy.Types.CountryCode {
     // ReSharper disable once ClassNeverInstantiated.Global

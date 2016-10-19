@@ -1,23 +1,17 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using NodaTime;
 using Sharpy.Enums;
-using Sharpy.Types;
-using Sharpy.Types.CountryCode;
-using Sharpy.Types.Date;
-using Sharpy.Types.Mail;
 
 namespace Sharpy.Types {
     /// <summary>
     ///     Will randomize all data that these methods return.
     /// </summary>
     public sealed class Randomizer : IRandomizer<StringType> {
-        private Config Config { get; }
-
         public Randomizer(Config config) {
             Config = config ?? new Config();
         }
+
+        private Config Config { get; }
 
 
         /// <summary>
@@ -73,6 +67,6 @@ namespace Sharpy.Types {
         ///     Gives a mail address by concatining the arguments into a mail address.
         /// </summary>
         public string MailAdress(string name, string secondName = null)
-            => Config.MailGeneratorP.Mail(name, secondName);
+            => Config.Mailgen.Mail(name, secondName);
     }
 }

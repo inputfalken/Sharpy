@@ -4,37 +4,37 @@ namespace Sharpy.Enums {
     /// </summary>
     public enum StringType {
         /// <summary>
-        ///    Will give you back a random female first name.
+        ///     Will give you back a random female first name.
         /// </summary>
         FemaleFirstName,
 
         /// <summary>
-        ///    Will give you back a random male first name.
+        ///     Will give you back a random male first name.
         /// </summary>
         MaleFirstName,
 
         /// <summary>
-        ///    Will give you back a random male last name.
+        ///     Will give you back a random male last name.
         /// </summary>
         LastName,
 
         /// <summary>
-        ///    Will give you back a random first name.
+        ///     Will give you back a random first name.
         /// </summary>
         FirstName,
 
         /// <summary>
-        ///    Will give you back a random username.
+        ///     Will give you back a random username.
         /// </summary>
         UserName,
 
         /// <summary>
-        ///    Will give you either a first name, last name, username.
+        ///     Will give you either a first name, last name, username.
         /// </summary>
         AnyName,
 
         /// <summary>
-        ///    Will give a random phone number.
+        ///     Will give a random phone number.
         /// </summary>
         Phonenumber
     }

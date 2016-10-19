@@ -4,7 +4,6 @@ using System.Linq;
 using NUnit.Framework;
 using Sharpy;
 using Sharpy.Enums;
-using Sharpy.Types;
 using Sharpy.Types.Name;
 
 namespace Tests {
@@ -13,60 +12,34 @@ namespace Tests {
     /// </summary>
     [TestFixture]
     public class GeneratorTests {
-        private const int Seed = 100;
-        private Name[] _names;
-        private const string MailUserName = "mailUserName";
-
         [SetUp]
         public void Setup() {
             var config = new Config();
             _names = config.Names.ToArray();
         }
 
-        [Test]
-        public void Seed_With_Bools() {
-            //This test will make sure that the generator does not do anything with the Random type. and that i get the bools expected
-            var generator = Factory.RandomGenerator(new Config().Seed(Seed));
-            var random = new Random(Seed);
-            var expected = Enumerable.Range(0, 1000).Select(i => random.Next(2) != 0);
-            var result = generator.GenerateEnumerable(randomizer => randomizer.Bool(), 1000);
-            Assert.IsTrue(result.SequenceEqual(expected));
-        }
-
+        private const int Seed = 100;
+        private Name[] _names;
+        private const string MailUserName = "mailUserName";
 
         [Test]
-        public void Seed_With_Number() {
-            //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
-            const int limit = 100;
-            var generator = Factory.RandomGenerator(new Config().Seed(Seed));
-            var random = new Random(Seed);
-            var expected = Enumerable.Range(0, 1000).Select(i => random.Next(limit));
-            var result = generator.GenerateEnumerable(randomizer => randomizer.Number(limit), 1000);
-            Assert.IsTrue(result.SequenceEqual(expected));
-        }
-
-        [Test]
-        public void NumbersAreNotDefaultValue() {
+        public void IteratorWithEnumerable() {
+            var iteration = 0;
             var generator = Factory.RandomGenerator();
-            Assert.IsFalse(generator.GenerateEnumerable(randomizer => randomizer.Number(100), 100).All(i => i == 0));
+            var result = generator.GenerateEnumerable((randomizer, i) => iteration++ == i, 20).ToArray();
+            Assert.IsTrue(result.All(b => b));
         }
 
-        [Test]
-        public void NamesAreNotNull() {
-            var generator = Factory.RandomGenerator();
-            var strings =
-                generator.GenerateEnumerable(randomizer => randomizer.String(StringType.AnyName), 20).ToArray();
-            Assert.IsFalse(strings.All(string.IsNullOrEmpty));
-            Assert.IsFalse(strings.All(string.IsNullOrWhiteSpace));
-        }
 
         [Test]
-        public void UserNamesAreNotNull() {
-            var generator = Factory.RandomGenerator();
-            var strings =
-                generator.GenerateEnumerable(randomizer => randomizer.String(StringType.UserName), 20).ToArray();
-            Assert.IsFalse(strings.All(string.IsNullOrEmpty));
-            Assert.IsFalse(strings.All(string.IsNullOrWhiteSpace));
+        public void Mail() {
+            var mailGenerator = Factory.RandomGenerator(new Config().MailGenerator(new List<string> {"gmail.com"}, true));
+
+            // Should be true since mailgenerator has been configured to produce unique mails.
+            Assert.IsTrue(
+                mailGenerator.GenerateEnumerable(randomizer => randomizer.MailAdress(MailUserName), 100)
+                    .GroupBy(s => s)
+                    .All(grouping => grouping.Count() == 1));
         }
 
         [Test]
@@ -75,14 +48,6 @@ namespace Tests {
             var strings = generator.GenerateEnumerable(randomizer => randomizer.MailAdress(MailUserName), 20).ToArray();
             Assert.IsFalse(strings.All(string.IsNullOrEmpty));
             Assert.IsFalse(strings.All(string.IsNullOrWhiteSpace));
-        }
-
-        [Test]
-        public void PhoneNumberAreNotNullOrwhiteSpace() {
-            var sharpyGenerator = Factory.RandomGenerator();
-            var numbers = sharpyGenerator.GenerateEnumerable(randomizer => randomizer.String(StringType.Phonenumber), 100).ToArray();
-            Assert.IsFalse(numbers.All(string.IsNullOrWhiteSpace));
-            Assert.IsFalse(numbers.All(string.IsNullOrWhiteSpace));
         }
 
         [Test]
@@ -112,23 +77,59 @@ namespace Tests {
         }
 
         [Test]
-        public void IteratorWithEnumerable() {
-            var iteration = 0;
+        public void NamesAreNotNull() {
             var generator = Factory.RandomGenerator();
-            var result = generator.GenerateEnumerable((randomizer, i) => iteration++ == i, 20).ToArray();
-            Assert.IsTrue(result.All(b => b));
+            var strings =
+                generator.GenerateEnumerable(randomizer => randomizer.String(StringType.AnyName), 20).ToArray();
+            Assert.IsFalse(strings.All(string.IsNullOrEmpty));
+            Assert.IsFalse(strings.All(string.IsNullOrWhiteSpace));
+        }
+
+        [Test]
+        public void NumbersAreNotDefaultValue() {
+            var generator = Factory.RandomGenerator();
+            Assert.IsFalse(generator.GenerateEnumerable(randomizer => randomizer.Number(100), 100).All(i => i == 0));
+        }
+
+        [Test]
+        public void PhoneNumberAreNotNullOrwhiteSpace() {
+            var sharpyGenerator = Factory.RandomGenerator();
+            var numbers =
+                sharpyGenerator.GenerateEnumerable(randomizer => randomizer.String(StringType.Phonenumber), 100)
+                    .ToArray();
+            Assert.IsFalse(numbers.All(string.IsNullOrWhiteSpace));
+            Assert.IsFalse(numbers.All(string.IsNullOrWhiteSpace));
+        }
+
+        [Test]
+        public void Seed_With_Bools() {
+            //This test will make sure that the generator does not do anything with the Random type. and that i get the bools expected
+            var generator = Factory.RandomGenerator(new Config().Seed(Seed));
+            var random = new Random(Seed);
+            var expected = Enumerable.Range(0, 1000).Select(i => random.Next(2) != 0);
+            var result = generator.GenerateEnumerable(randomizer => randomizer.Bool(), 1000);
+            Assert.IsTrue(result.SequenceEqual(expected));
         }
 
 
         [Test]
-        public void Mail() {
-            var mailGenerator = Factory.RandomGenerator(new Config().MailGenerator(new List<string> {"gmail.com"}, true));
+        public void Seed_With_Number() {
+            //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
+            const int limit = 100;
+            var generator = Factory.RandomGenerator(new Config().Seed(Seed));
+            var random = new Random(Seed);
+            var expected = Enumerable.Range(0, 1000).Select(i => random.Next(limit));
+            var result = generator.GenerateEnumerable(randomizer => randomizer.Number(limit), 1000);
+            Assert.IsTrue(result.SequenceEqual(expected));
+        }
 
-            // Should be true since mailgenerator has been configured to produce unique mails.
-            Assert.IsTrue(
-                mailGenerator.GenerateEnumerable(randomizer => randomizer.MailAdress(MailUserName), 100)
-                    .GroupBy(s => s)
-                    .All(grouping => grouping.Count() == 1));
+        [Test]
+        public void UserNamesAreNotNull() {
+            var generator = Factory.RandomGenerator();
+            var strings =
+                generator.GenerateEnumerable(randomizer => randomizer.String(StringType.UserName), 20).ToArray();
+            Assert.IsFalse(strings.All(string.IsNullOrEmpty));
+            Assert.IsFalse(strings.All(string.IsNullOrWhiteSpace));
         }
     }
 }
