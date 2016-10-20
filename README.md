@@ -122,7 +122,7 @@ namespace Logger {
           
       // Creates a IEnumerable<Animal> containing 20 Animals using same generator.
       IEnumerable<Animal> animals = generator.GenerateMany(randomizer => new Animal {
-          Age = randomizer.Number(10, 50)}, 20);
+          Age = randomizer.Integer(10, 50)}, 20);
         }
     }
 
