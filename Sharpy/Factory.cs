@@ -1,14 +1,10 @@
-﻿using Sharpy.Types;
+﻿using Sharpy.Enums;
+using Sharpy.Types;
 
 namespace Sharpy {
     public static class Factory {
-        /// <summary>
-        ///     Creates a simple generator using my Implementation of IRandomizer&lt;TStringArg&gt;
-        /// </summary>
-        /// <param name="config"></param>
-        /// <returns></returns>
-        public static Generator<Randomizer> RandomGenerator(Config config = null)
-            => new Generator<Randomizer>(new Randomizer(config));
+        public static RandomGenerator RandomGenerator()
+            => new RandomGenerator(new Config());
 
         /// <summary>
         ///     Requires a implementation of IRandomizer&lt;TStringArg&gt;
@@ -19,5 +15,17 @@ namespace Sharpy {
         public static Generator<IRandomizer<TStringArg>> CustomRandomGenerator<TStringArg>(
                 IRandomizer<TStringArg> iRandomizer)
             => new Generator<IRandomizer<TStringArg>>(iRandomizer);
+    }
+
+    /// <summary>
+    ///     Creates a simple generator using my Implementation of IRandomizer&lt;TStringArg&gt;
+    /// </summary>
+    /// <returns></returns>
+    public class RandomGenerator : Generator<Randomizer> {
+        public Config Config { get; }
+
+        public RandomGenerator(Config config) : base(new Randomizer(config)) {
+            Config = config;
+        }
     }
 }
