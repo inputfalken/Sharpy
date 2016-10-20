@@ -96,7 +96,7 @@ namespace Tests {
         public void PhoneNumberAreNotNullOrwhiteSpace() {
             var sharpyGenerator = Factory.RandomGenerator();
             var numbers =
-                sharpyGenerator.GenerateMany(randomizer => randomizer.String(StringType.Phonenumber), 100)
+                sharpyGenerator.GenerateMany(randomizer => randomizer.String(StringType.Number), 100)
                     .ToArray();
             Assert.IsFalse(numbers.All(string.IsNullOrWhiteSpace));
             Assert.IsFalse(numbers.All(string.IsNullOrWhiteSpace));

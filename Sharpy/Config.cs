@@ -20,7 +20,7 @@ namespace Sharpy {
         public Config() {
             DateGenerator = new DateGenerator(Random);
             Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
-            PhoneNumberGenerator = new PhoneNumberGenerator(Random, 5, "070");
+            NumberGen = new NumberGenerator(Random, 5, null);
         }
 
 
@@ -44,7 +44,7 @@ namespace Sharpy {
             new Lazy<Fetcher<string>>(() => new Fetcher<string>(Resources.usernames.Split(Convert.ToChar("\n"))));
 
 
-        internal PhoneNumberGenerator PhoneNumberGenerator { get; private set; }
+        internal NumberGenerator NumberGen { get; private set; }
 
 
         internal MailGenerator Mailgen { get; private set; }
@@ -109,9 +109,9 @@ namespace Sharpy {
         /// <param name="uniqueNumbers"></param>
         /// <param name="prefix"></param>
         /// <returns></returns>
-        public Config PhoneGenerator(int length, bool uniqueNumbers = false, string prefix = null) {
-            PhoneNumberGenerator =
-                new PhoneNumberGenerator(
+        public Config NumberGenerator(int length, bool uniqueNumbers = false, string prefix = null) {
+            NumberGen =
+                new NumberGenerator(
                     Random,
                     length,
                     prefix,

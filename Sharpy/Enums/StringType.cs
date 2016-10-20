@@ -34,8 +34,8 @@ namespace Sharpy.Enums {
         AnyName,
 
         /// <summary>
-        ///     Will give a random phone number.
+        ///     Will give a random string number.
         /// </summary>
-        Phonenumber
+        Number
     }
 }
