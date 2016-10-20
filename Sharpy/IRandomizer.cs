@@ -47,6 +47,12 @@ namespace Sharpy {
         /// </summary>
         LocalDate DateByYear(int year);
 
+        /// <summary>
+        ///     Gives a string representing a social security number. 
+        ///     Will use the date given and then randomize 4 unique numbers as control numbers.
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
         string SocialSecurityNumber(LocalDate date);
 
         /// <summary>
