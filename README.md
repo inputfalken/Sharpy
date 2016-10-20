@@ -55,7 +55,7 @@ namespace Logger {
       // will be limited to common names in the United States.
       var config = new Config().Name(Country.UnitedStates);
       // The generator will now behave differently 
-      // when calling the String method  from randomizer using argument for last and first names.
+      // when calling the String method from randomizer using argument for last and first names.
       var generator = Factory.RandomGenerator(config);
       // First argument is the instructions on what will be generated, 
       // second argument is the Count of the IEnumerable.
