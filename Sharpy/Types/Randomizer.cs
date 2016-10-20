@@ -32,7 +32,7 @@ namespace Sharpy.Types {
         ///     Gives a random string based on argument.
         /// </summary>
         public string String(StringType stringType) {
-            if (stringType == StringType.Phonenumber) return Config.PhoneNumberGenerator.RandomNumber();
+            if (stringType == StringType.Number) return Config.NumberGen.RandomNumber();
             if (!Config.Dictionary.ContainsKey(stringType))
                 Config.Dictionary.Add(stringType, new Fetcher<string>(Config.StringType(stringType)));
             return Config.Dictionary[stringType].RandomItem(Config.Random);
