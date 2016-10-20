@@ -3,8 +3,7 @@ using Sharpy.Types;
 
 namespace Sharpy {
     public static class Factory {
-        public static RandomGenerator RandomGenerator()
-            => new RandomGenerator(new Config());
+        public static RandomGenerator RandomGenerator() => new RandomGenerator(new Config());
 
         /// <summary>
         ///     Requires a implementation of IRandomizer&lt;TStringArg&gt;
