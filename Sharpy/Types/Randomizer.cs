@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using NodaTime;
 using Sharpy.Enums;
+using Sharpy.Types.CountryCode;
 
 namespace Sharpy.Types {
     /// <summary>
@@ -9,6 +10,7 @@ namespace Sharpy.Types {
     public sealed class Randomizer : IRandomizer<StringType> {
         public Randomizer(Config config = null) {
             Config = config ?? new Config();
+            SocialSecurityNumberRandomer = new NumberGenerator(Config.Random, 4, null, true);
         }
 
         private Config Config { get; }
@@ -62,6 +64,14 @@ namespace Sharpy.Types {
         ///     Gives a random month, date and use the argument given as year
         /// </summary>
         public LocalDate DateByYear(int year) => Config.DateGenerator.RandomDateByYear(year);
+
+        public string SocialSecurityNumber(LocalDate date) {
+            var month = date.Month.ToString().Length == 1 ? $"0{date.Month}" : date.Month.ToString();
+            var day = date.Day.ToString().Length == 1 ? $"0{date.Day}" : date.Day.ToString();
+            return $"{date.YearOfCentury}{month}{day}-{SocialSecurityNumberRandomer.RandomNumber()}";
+        }
+
+        private NumberGenerator SocialSecurityNumberRandomer { get; }
 
         /// <summary>
         ///     Gives a mail address by concatining the arguments into a mail address.

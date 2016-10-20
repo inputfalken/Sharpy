@@ -47,6 +47,8 @@ namespace Sharpy {
         /// </summary>
         LocalDate DateByYear(int year);
 
+        string SocialSecurityNumber(LocalDate date);
+
         /// <summary>
         ///     Gives a mail address by concatining the arguments into a mail address.
         /// </summary>
