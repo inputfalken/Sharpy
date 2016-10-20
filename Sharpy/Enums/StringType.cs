@@ -34,7 +34,7 @@ namespace Sharpy.Enums {
         AnyName,
 
         /// <summary>
-        ///     Will give a random string number.
+        ///     Will give a random string number. Based on the configuration of numbergenerator.
         /// </summary>
         Number
     }

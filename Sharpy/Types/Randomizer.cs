@@ -11,7 +11,7 @@ namespace Sharpy.Types {
             Config = config ?? new Config();
         }
 
-        internal Config Config { get; }
+        private Config Config { get; }
 
 
         /// <summary>
