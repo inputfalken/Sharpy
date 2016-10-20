@@ -5,8 +5,8 @@ namespace Sharpy.Types.CountryCode {
     // Is generated from json
     /// <summary>
     /// </summary>
-    internal sealed class PhoneNumberGenerator : Unique<int> {
-        internal PhoneNumberGenerator(Random random, int length, string prefix,
+    internal sealed class NumberGenerator : Unique<int> {
+        internal NumberGenerator(Random random, int length, string prefix,
             bool unique = false)
             : base(random) {
             Prefix = prefix;
@@ -20,9 +20,6 @@ namespace Sharpy.Types.CountryCode {
         private int Min { get; }
         private int Max { get; }
 
-        /// <summary>
-        ///     Will create a phone number by randoming numbers including country code
-        /// </summary>
         internal string RandomNumber() {
             var next = Random.Next(Min, Max);
             if (!Unique) return Build(Prefix, next.ToString());
