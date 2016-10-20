@@ -169,7 +169,38 @@ namespace Logger {
 ```
 #### Passing same generated result to multiple arguments.
 ```C#
+using System.Collections.Generic;
+using Sharpy;
+using Sharpy.Enums;
 
+namespace Logger {
+    internal static class Program {
+        public static void Main() {
+            var generator = Factory.RandomGenerator();
+            //At the moment you have to make a statement lambda.
+            IEnumerable<Person> people = generator.GenerateMany(randomizer => {
+                //Reference the result from the randomizer methods
+                var firstName = randomizer.String(StringType.FirstName);
+                var lastName = randomizer.String(StringType.LastName);
+
+                //Use the results and pass them to the person.
+                var person = new Person {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    MailAddress = randomizer.MailAdress(firstName, lastName)
+                };
+
+                return person;
+            }, 20);
+        }
+    }
+
+    internal class Person {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string MailAddress { get; set; }
+    }
+}
 ```
 These examples show how you can create instances of the type given to the GeneratorFactory.
 ####
