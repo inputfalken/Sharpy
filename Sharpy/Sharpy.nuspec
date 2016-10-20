@@ -33,9 +33,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\release\45\Sharpy.dll" target="lib\net45" />
-    <file src="bin\release\Sharpy.xml" target="lib\net45" />
-    <file src="bin\release\46\Sharpy.dll" target="lib\net46" />
-    <file src="bin\release\Sharpy.xml" target="lib\net46" />
+        <file src="src\**" target="build" />
   </files>
 </package>
