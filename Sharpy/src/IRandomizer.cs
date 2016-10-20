@@ -2,6 +2,10 @@ using System.Collections.Generic;
 using NodaTime;
 
 namespace Sharpy {
+    /// <summary>
+    /// A contract containng various Methods to randomize data.
+    /// </summary>
+    /// <typeparam name="TStringArg"></typeparam>
     public interface IRandomizer<in TStringArg> {
         /// <summary>
         ///     Can be used if you have your own collection of items that you would want an random item from.
