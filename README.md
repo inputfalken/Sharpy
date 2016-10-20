@@ -87,7 +87,7 @@ namespace Logger {
       IEnumerable<Person> people = generator.GenerateMany(randomizer => new Person {
           FirstName = randomizer.String(StringType.FirstName),
           LastName = randomizer.String(StringType.LastName),
-          // CustomCollection method can take params, array and list as argument.
+          // Just pass an Class using IList or params!
           // This shows a params example.
           WorkPlace = randomizer.CustomCollection("Workplace1", "workplace2")}, 20);
           
@@ -105,7 +105,7 @@ namespace Logger {
   }
 }
 ```
-#### Creating Multiple types using same generator
+#### Creating Multiple types with the same generator
 ```C#
 using System.Collections.Generic;
 using Sharpy;
@@ -120,7 +120,7 @@ namespace Logger {
           FirstName = randomizer.String(StringType.FirstName),
           LastName = randomizer.String(StringType.LastName)}, 20);
           
-      // Creates a IEnumerable<Animal> containing 20 Animals using same generator.
+      // Just use the same generator and call GenerateMany!
       IEnumerable<Animal> animals = generator.GenerateMany(randomizer => new Animal {
           Age = randomizer.Integer(10, 50)}, 20);
         }
@@ -133,6 +133,37 @@ namespace Logger {
     internal class Person {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+    }
+}
+```
+#### Generating with nested IEnumerable
+```C#
+using System.Collections.Generic;
+using Sharpy;
+using Sharpy.Enums;
+
+namespace Logger {
+    internal static class Program {
+        public static void Main() {
+            var generator = Factory.RandomGenerator();
+
+            IEnumerable<Person> people = generator.GenerateMany(randomizer => new Person {
+                FirstName = randomizer.String(StringType.FirstName),
+                LastName = randomizer.String(StringType.LastName),
+                //Just call GenerateMany but inside the type generated!
+                Animals = generator.GenerateMany(animalRandomizer => new Animal {Age = animalRandomizer.Integer(10, 20)})
+            }, 20);
+        }
+    }
+
+    internal class Animal {
+        public int Age { get; set; }
+    }
+
+    internal class Person {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public IEnumerable<Animal> Animals { get; set; }
     }
 }
 ```
