@@ -21,9 +21,11 @@ using Sharpy.Enums;
 namespace Logger {
   internal static class Program {
     public static void Main() {
-      // Creates a Generator which will randomize the data to the to type returned in the methods used.
+      // Creates a Generator which will randomize the data 
+      // to the to type returned in by the methods from the generator.
       var generator = Factory.RandomGenerator();
-      // First argument is the instructions on what will be generated, second argument is the Count of the IEnumerable.
+      // First argument is the instructions on what will be generated, 
+      // second argument is the Count of the IEnumerable.
       IEnumerable<Person> people = generator.GenerateMany(randomizer => new Person {
           FirstName = randomizer.String(StringType.FirstName),
           LastName = randomizer.String(StringType.LastName)}, 20);
@@ -49,11 +51,14 @@ using Sharpy.Enums;
 namespace Logger {
   internal static class Program {
     public static void Main() {
-      // Creates a config instance where all first and last names will be limited to common names in the United States.
+      // Creates a config instance where all first and last names
+      // will be limited to common names in the United States.
       var config = new Config().Name(Country.UnitedStates);
-      // The generator now will behave differently when calling the String method  from randomizer using argument for last and first names.
+      // The generator will now behave differently 
+      // when calling the String method  from randomizer using argument for last and first names.
       var generator = Factory.RandomGenerator(config);
-      // First argument is the instructions on what will be generated, second argument is the Count of the IEnumerable.
+      // First argument is the instructions on what will be generated, 
+      // second argument is the Count of the IEnumerable.
       IEnumerable<Person> people = generator.GenerateMany(randomizer => new Person {
           FirstName = randomizer.String(StringType.FirstName),
           LastName = randomizer.String(StringType.LastName)}, 20);
@@ -79,9 +84,11 @@ using Sharpy.Enums;
 namespace Logger {
   internal static class Program {
     public static void Main() {
-      // Creates a config instance where all first and last names will be limited to common names in the United States.
+      // Creates a config instance where all first and last names
+      // will be limited to common names in the United States.
       var generator = Factory.RandomGenerator();
-      // First argument is the instructions on what will be generated, second argument is the Count of the IEnumerable.
+      // First argument is the instructions on what will be generated, 
+      // second argument is the Count of the IEnumerable.
       IEnumerable<Person> people = generator.GenerateMany(randomizer => new Person {
           FirstName = randomizer.String(StringType.FirstName),
           LastName = randomizer.String(StringType.LastName),
