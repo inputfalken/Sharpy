@@ -18,14 +18,14 @@ namespace Sharpy.Types {
         ///     Can be used if you have your own collection of items that you would want an random item from.
         /// </summary>
         /// <returns></returns>
-        public TElement CustomCollection<TElement>(params TElement[] items) => items[Number(items.Length)];
+        public TElement CustomCollection<TElement>(params TElement[] items) => items[Integer(items.Length)];
 
         /// <summary>
         ///     Can be used if you have your own collection of items that you would want an random item from.
         /// </summary>
         /// <param name="items"></param>
         /// <returns></returns>
-        public TElement CustomCollection<TElement>(IList<TElement> items) => items[Number(items.Count)];
+        public TElement CustomCollection<TElement>(IList<TElement> items) => items[Integer(items.Count)];
 
 
         /// <summary>
@@ -41,17 +41,17 @@ namespace Sharpy.Types {
         /// <summary>
         ///     Gives a random bool
         /// </summary>
-        public bool Bool() => Number(2) != 0;
+        public bool Bool() => Integer(2) != 0;
 
         /// <summary>
         ///     Gives a random number within below the argument value
         /// </summary>
-        public int Number(int maxNum) => Config.Random.Next(maxNum);
+        public int Integer(int maxNum) => Config.Random.Next(maxNum);
 
         /// <summary>
         ///     Gives a random number within within the two arguments
         /// </summary>
-        public int Number(int minNum, int maxNum) => Config.Random.Next(minNum, maxNum);
+        public int Integer(int minNum, int maxNum) => Config.Random.Next(minNum, maxNum);
 
         /// <summary>
         ///     Gives a date with random month, date and subtract the current the current year by the argument

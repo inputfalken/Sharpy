@@ -88,7 +88,7 @@ namespace Tests {
         [Test]
         public void NumbersAreNotDefaultValue() {
             var generator = Factory.RandomGenerator();
-            Assert.IsFalse(generator.GenerateMany(randomizer => randomizer.Number(100), 100).All(i => i == 0));
+            Assert.IsFalse(generator.GenerateMany(randomizer => randomizer.Integer(100), 100).All(i => i == 0));
         }
 
         [Test]
@@ -119,7 +119,7 @@ namespace Tests {
             var generator = Factory.RandomGenerator(new Config().Seed(Seed));
             var random = new Random(Seed);
             var expected = Enumerable.Range(0, 1000).Select(i => random.Next(limit));
-            var result = generator.GenerateMany(randomizer => randomizer.Number(limit), 1000);
+            var result = generator.GenerateMany(randomizer => randomizer.Integer(limit), 1000);
             Assert.IsTrue(result.SequenceEqual(expected));
         }
 

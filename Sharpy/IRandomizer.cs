@@ -30,12 +30,12 @@ namespace Sharpy {
         /// <summary>
         ///     Gives a random number within below the argument value
         /// </summary>
-        int Number(int maxNum);
+        int Integer(int maxNum);
 
         /// <summary>
         ///     Gives a random number within within the two arguments
         /// </summary>
-        int Number(int minNum, int maxNum);
+        int Integer(int minNum, int maxNum);
 
         /// <summary>
         ///     Gives a date with random month, date and subtract the current the current year by the argument
