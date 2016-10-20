@@ -12,11 +12,17 @@ using Sharpy.Types.Mail;
 using Sharpy.Types.Name;
 
 namespace Sharpy {
+    /// <summary>
+    ///   Is used to configure Randomizer.
+    /// </summary>
     public class Config {
         private Fetcher<Name> _names;
 
         private Fetcher<string> _userNames;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Config() {
             DateGenerator = new DateGenerator(Random);
             Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
