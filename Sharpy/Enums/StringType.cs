@@ -3,6 +3,7 @@ namespace Sharpy.Enums {
     ///     Is used as argument when filtering names
     /// </summary>
     public enum StringType {
+
         /// <summary>
         ///     Will give you back a random female first name.
         /// </summary>
@@ -14,7 +15,7 @@ namespace Sharpy.Enums {
         MaleFirstName,
 
         /// <summary>
-        ///     Will give you back a random male last name.
+        ///     Will give you back a random last name.
         /// </summary>
         LastName,
 
@@ -35,6 +36,7 @@ namespace Sharpy.Enums {
 
         /// <summary>
         ///     Will give a random string number. Based on the configuration of numbergenerator.
+        ///     Could be used as a phone number generator for example.
         /// </summary>
         Number
     }
