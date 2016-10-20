@@ -33,7 +33,8 @@ namespace Tests {
 
         [Test]
         public void Mail() {
-            var mailGenerator = Factory.RandomGenerator(new Config().MailGenerator(new List<string> {"gmail.com"}, true));
+            var mailGenerator = Factory.RandomGenerator();
+            mailGenerator.Config.MailGenerator(new List<string> {"gmail.com"}, true);
 
             // Should be true since mailgenerator has been configured to produce unique mails.
             Assert.IsTrue(
@@ -104,7 +105,8 @@ namespace Tests {
         [Test]
         public void Seed_With_Bools() {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the bools expected
-            var generator = Factory.RandomGenerator(new Config().Seed(Seed));
+            var generator = Factory.RandomGenerator();
+            generator.Config.Seed(Seed);
             var random = new Random(Seed);
             var expected = Enumerable.Range(0, 1000).Select(i => random.Next(2) != 0);
             var result = generator.GenerateMany(randomizer => randomizer.Bool(), 1000);
@@ -116,7 +118,8 @@ namespace Tests {
         public void Seed_With_Number() {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             const int limit = 100;
-            var generator = Factory.RandomGenerator(new Config().Seed(Seed));
+            var generator = Factory.RandomGenerator();
+            generator.Config.Seed(Seed);
             var random = new Random(Seed);
             var expected = Enumerable.Range(0, 1000).Select(i => random.Next(limit));
             var result = generator.GenerateMany(randomizer => randomizer.Number(limit), 1000);
