@@ -14,21 +14,23 @@ The idea of this project is to let users have a source to fetch random data from
 ###Examples
 #### Generating
 ```C#
+using System.Collections.Generic;
+using Sharpy;
 using Sharpy.Enums;
-using Sharpy.Types;
 
 namespace Logger {
   internal static class Program {
     public static void Main() {
-      var generator = new Generator<Person>(randomizer => new Person {
-          FirstName = randomizer.Name(NameType.MixedFirstName),
-          LastName = randomizer.Name(NameType.LastName)
-          });
-
-      // Creates an IEnumerable<Person> with twenty persons. All with randomized names.
-      var persons = generator.GenerateEnumerable(20);
+      // Creates a Generator which will randomize the data to the to type returned in the methods used.
+      var generator = Factory.RandomGenerator();
+      // First argument is the instructions on what will be generated, second argument is the Count of the IEnumerable.
+      IEnumerable<Person> people = generator.GenerateMany(randomizer => new Person {
+          FirstName = randomizer.String(StringType.FirstName),
+          LastName = randomizer.String(StringType.LastName)}, 20);
       // Creates one person with randomized names.
-      var person = generator.Generate();
+      Person person = generator.Generate(randomizer => new Person {
+          FirstName = randomizer.String(StringType.FirstName),
+          LastName = randomizer.String(StringType.LastName)});
     }
   }
 
@@ -40,23 +42,25 @@ namespace Logger {
 ```
 #### Configure & Generating
 ```C#
+using System.Collections.Generic;
+using Sharpy;
 using Sharpy.Enums;
-using Sharpy.Types;
 
 namespace Logger {
   internal static class Program {
     public static void Main() {
-      var generator = new Generator<Person>(randomizer => new Person {
-          FirstName = randomizer.Name(NameType.MixedFirstName),
-          LastName = randomizer.Name(NameType.LastName)
-          });
-
-      // Limits the name usage to common names in United States.
-      generator.ConfigName(Country.UnitedStates);
-      // Creates an IEnumerable<Person> with twenty persons. All with randomized names.
-      var persons = generator.GenerateEnumerable(20);
+      // Creates a config instance where all first and last names will be limited to common names in the United States.
+      var config = new Config().Name(Country.UnitedStates);
+      // The generator now will behave differently when calling the String method  from randomizer using argument for last and first names.
+      var generator = Factory.RandomGenerator(config);
+      // First argument is the instructions on what will be generated, second argument is the Count of the IEnumerable.
+      IEnumerable<Person> people = generator.GenerateMany(randomizer => new Person {
+          FirstName = randomizer.String(StringType.FirstName),
+          LastName = randomizer.String(StringType.LastName)}, 20);
       // Creates one person with randomized names.
-      var person = generator.Generate();
+      Person person = generator.Generate(randomizer => new Person {
+          FirstName = randomizer.String(StringType.FirstName),
+          LastName = randomizer.String(StringType.LastName)});
     }
   }
 
@@ -68,30 +72,30 @@ namespace Logger {
 ```
 #### Supplying your own collection
 ```C#
+using System.Collections.Generic;
 using Sharpy;
 using Sharpy.Enums;
 
 namespace Logger {
   internal static class Program {
     public static void Main() {
-      string[] workplaces = {
-        "workplace1", "workplace2", "workplace3",
-        "workplace4", "workplace5", "workplace6"
-      };
-      var generator = new Generator<Person>(randomizer => new Person {
-          FirstName = randomizer.Name(NameType.MixedFirstName),
-          LastName = randomizer.Name(NameType.LastName),
-          WorkPlace = randomizer.CustomCollection(workplaces)
-          });
-
-      // Limits the name usage to common names in United States.
-      generator.ConfigName(Country.UnitedStates);
-      // Creates an IEnumerable<Person> with twenty persons. All with randomized names.
-      var persons = generator.GenerateEnumerable(20);
+      // Creates a config instance where all first and last names will be limited to common names in the United States.
+      var generator = Factory.RandomGenerator();
+      // First argument is the instructions on what will be generated, second argument is the Count of the IEnumerable.
+      IEnumerable<Person> people = generator.GenerateMany(randomizer => new Person {
+          FirstName = randomizer.String(StringType.FirstName),
+          LastName = randomizer.String(StringType.LastName),
+          // CustomCollection method can take params, array and list as argument.
+          // This shows a params example.
+          WorkPlace = randomizer.CustomCollection("Workplace1", "workplace2")}, 20);
       // Creates one person with randomized names.
-      var person = generator.Generate();
+      Person person = generator.Generate(randomizer => new Person {
+          FirstName = randomizer.String(StringType.FirstName),
+          LastName = randomizer.String(StringType.LastName),
+          WorkPlace = randomizer.CustomCollection("Workplace1", "workplace2")});
     }
   }
+
   internal class Person {
     public string FirstName { get; set; }
     public string LastName { get; set; }
@@ -99,9 +103,8 @@ namespace Logger {
   }
 }
 ```
-
 These examples show how you can create instances of the type given to the GeneratorFactory.
-#### 
+####
 
 ======
 ### Install
