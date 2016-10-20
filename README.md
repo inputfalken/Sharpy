@@ -1,4 +1,4 @@
-# Sharpy 1.0
+# Sharpy 1.0.0
 
 The idea of this project is to let users have a source to fetch random data from.
 
@@ -51,13 +51,11 @@ using Sharpy.Enums;
 namespace Logger {
   internal static class Program {
     public static void Main() {
-      // Creates a config instance where all first and last names
-      // will be limited to common names in the United States.
-      var config = new Config().Name(Country.UnitedStates);
-      
+      var generator = Factory.RandomGenerator();
       // The generator will now behave differently 
       // when calling the String method from randomizer using argument for last and first names.
-      var generator = Factory.RandomGenerator(config);
+      generator.Config.Name(Country.UnitedStates);
+
       
       IEnumerable<Person> people = generator.GenerateMany(randomizer => new Person {
           FirstName = randomizer.String(StringType.FirstName),
