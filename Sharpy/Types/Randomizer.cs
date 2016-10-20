@@ -65,6 +65,12 @@ namespace Sharpy.Types {
         /// </summary>
         public LocalDate DateByYear(int year) => Config.DateGenerator.RandomDateByYear(year);
 
+        /// <summary>
+        ///     Gives a string representing a social security number. 
+        ///     Will use the date given and then randomize 4 unique numbers as control numbers.
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
         public string SocialSecurityNumber(LocalDate date) {
             var month = date.Month.ToString().Length == 1 ? $"0{date.Month}" : date.Month.ToString();
             var day = date.Day.ToString().Length == 1 ? $"0{date.Day}" : date.Day.ToString();
