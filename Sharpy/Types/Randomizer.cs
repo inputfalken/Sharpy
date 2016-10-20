@@ -10,7 +10,7 @@ namespace Sharpy.Types {
     public sealed class Randomizer : IRandomizer<StringType> {
         public Randomizer(Config config = null) {
             Config = config ?? new Config();
-            SocialSecurityNumberRandomer = new NumberGenerator(Config.Random, 4, null, true);
+            SocialSecurityControlNumberGenerator = new NumberGenerator(Config.Random, 4, null, true);
         }
 
         private Config Config { get; }
@@ -74,10 +74,10 @@ namespace Sharpy.Types {
         public string SocialSecurityNumber(LocalDate date) {
             var month = date.Month.ToString().Length == 1 ? $"0{date.Month}" : date.Month.ToString();
             var day = date.Day.ToString().Length == 1 ? $"0{date.Day}" : date.Day.ToString();
-            return $"{date.YearOfCentury}{month}{day}-{SocialSecurityNumberRandomer.RandomNumber()}";
+            return $"{date.YearOfCentury}{month}{day}-{SocialSecurityControlNumberGenerator.RandomNumber()}";
         }
 
-        private NumberGenerator SocialSecurityNumberRandomer { get; }
+        private NumberGenerator SocialSecurityControlNumberGenerator { get; }
 
         /// <summary>
         ///     Gives a mail address by concatining the arguments into a mail address.
