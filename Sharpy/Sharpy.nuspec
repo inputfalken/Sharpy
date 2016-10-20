@@ -15,11 +15,12 @@
       Works on .Net4.6 and .Net4.5
     </description>
 <releaseNotes>
-  1: There's no restrictions on the generic types of the Generator class and All generators require two generic Type arguments.
-  2: IRandomizer no longer got Username and Name as methods. Instead you have to call the method String"(To increase the abstractionlevel)" and pass it the suiting enum.
-  3: Removed preconfigged generator.
-  4: Simplified Phone number generator, prefix is now set from the config class rather than on the method from the randomizer.
-  5: You can now either use a Factory to get a random generator or new up a generator by yourself.
+  1: This is the first major release which means the syntax will not be changed as much anymore.
+  2: Factory pattern is back and is optional, you can either use factory or use Generator and provide Randomizer as TSource.
+  The factory class also got a a method which takes an IRandomizer&lt;StringARg&gt; 
+  if you want to create your own implementation of randomizer.
+  3: you now pass the delegate on the methods that will generate rather than on the construction of the Generator.
+  this makes it much more flexible and allows the same generator to generate multiple types.
 </releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Fakedata Generator</tags>
