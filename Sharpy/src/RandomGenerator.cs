@@ -6,7 +6,7 @@ namespace Sharpy {
     ///     Creates a simple generator using my Implementation of IRandomizer&lt;TStringArg&gt;
     /// </summary>
     /// <returns></returns>
-    public class RandomGenerator : Generator<Randomizer> {
+    public class RandomGenerator : Generator<IRandomizer<StringType>> {
         /// <summary>
         /// 
         /// </summary>

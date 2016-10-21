@@ -25,7 +25,7 @@ namespace Sharpy {
         ///     <para>Will generate a &lt;T&gt;</para>
         /// </summary>
         /// <returns></returns>
-        public T Generate<T>(Func<TSource, T> func) => func(Source);
+        private T Generate<T>(Func<TSource, T> func) => func(Source);
 
 
         /// <summary>
@@ -50,13 +50,10 @@ namespace Sharpy {
         }
 
         /// <summary>
-        ///     Requires a implementation of IRandomizer&lt;TStringArg&gt;
         /// </summary>
-        /// <typeparam name="TStringArg"></typeparam>
-        /// <param name="iRandomizer"></param>
+        /// <param name="tSource"></param>
         /// <returns></returns>
-        public static Generator<IRandomizer<TStringArg>> CustomRandomGenerator<TStringArg>(
-                IRandomizer<TStringArg> iRandomizer)
-            => new Generator<IRandomizer<TStringArg>>(iRandomizer);
+        public static Generator<TSource> Custom(TSource tSource)
+            => new Generator<TSource>(tSource);
     }
 }
