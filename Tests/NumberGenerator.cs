@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using NUnit.Framework;
-using Sharpy.Types.CountryCode;
 
 namespace Tests {
     [TestFixture]
