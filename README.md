@@ -23,7 +23,7 @@ namespace Logger {
     public static void Main() {
       // Creates a Generator which will randomize the data 
       // to the to type returned in by the methods from the generator.
-      var generator = Factory.RandomGenerator();
+      var generator = RandomGenerator.Create();
       // First argument is the instructions on what will be generated, 
       // second argument is the Count of the IEnumerable.
       IEnumerable<Person> people = generator.GenerateMany(randomizer => new Person {
@@ -51,7 +51,7 @@ using Sharpy.Enums;
 namespace Logger {
   internal static class Program {
     public static void Main() {
-      var generator = Factory.RandomGenerator();
+      var generator = RandomGenerator.Create();
       // The generator will now behave differently 
       // when calling the String method from randomizer using argument for last and first names.
       generator.Config.Name(Country.UnitedStates);
@@ -77,7 +77,7 @@ using Sharpy.Enums;
 namespace Logger {
   internal static class Program {
     public static void Main() {
-      var generator = Factory.RandomGenerator();
+      var generator = RandomGenerator.Create();
    
       IEnumerable<Person> people = generator.GenerateMany(randomizer => new Person {
           FirstName = randomizer.String(StringType.FirstName),
@@ -104,7 +104,7 @@ using Sharpy.Enums;
 namespace Logger {
     internal static class Program {
         public static void Main() {
-      var generator = Factory.RandomGenerator();   
+      var generator = RandomGenerator.Create();   
       
       IEnumerable<Person> people = generator.GenerateMany(randomizer => new Person {
           FirstName = randomizer.String(StringType.FirstName),
@@ -135,7 +135,7 @@ using Sharpy.Enums;
 namespace Logger {
     internal static class Program {
         public static void Main() {
-            var generator = Factory.RandomGenerator();
+            var generator = RandomGenerator.Create();
 
             IEnumerable<Person> people = generator.GenerateMany(randomizer => new Person {
                 FirstName = randomizer.String(StringType.FirstName),
@@ -166,7 +166,7 @@ using Sharpy.Enums;
 namespace Logger {
     internal static class Program {
         public static void Main() {
-            var generator = Factory.RandomGenerator();
+            var generator = RandomGenerator.Create();
             //At the moment you have to make a statement lambda.
             IEnumerable<Person> people = generator.GenerateMany(randomizer => {
                 //Reference the result from the randomizer methods
