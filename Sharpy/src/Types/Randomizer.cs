@@ -8,8 +8,12 @@ namespace Sharpy.Types {
     ///     Will randomize all data that these methods return.
     /// </summary>
     public sealed class Randomizer : IRandomizer<StringType> {
-        public Randomizer(Config config = null) {
-            Config = config ?? new Config();
+        /// <summary>
+        ///    Requires a config for these methods to work.
+        /// </summary>
+        /// <param name="config"></param>
+        public Randomizer(Config config) {
+            Config = config;
             SocialSecurityControlNumberGenerator = new NumberGenerator(Config.Random, 4, null, true);
         }
 
