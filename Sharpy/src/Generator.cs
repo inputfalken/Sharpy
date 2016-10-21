@@ -11,8 +11,8 @@ namespace Sharpy {
         ///     <para>Sets the TSource of this Generator instance</para>
         ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
         /// </summary>
-        /// <typeparam name="TSource">The type which will be passed as a in parameter to all generation methods arguments</typeparam>
-        public Generator(TSource source) {
+        /// <typeparam>The type which will be passed as a in parameter to all generation methods arguments</typeparam>
+        protected Generator(TSource source) {
             Source = source;
         }
 
@@ -48,5 +48,15 @@ namespace Sharpy {
             for (var i = 0; i < count; i++)
                 yield return Instance(func, i);
         }
+
+        /// <summary>
+        ///     Requires a implementation of IRandomizer&lt;TStringArg&gt;
+        /// </summary>
+        /// <typeparam name="TStringArg"></typeparam>
+        /// <param name="iRandomizer"></param>
+        /// <returns></returns>
+        public static Generator<IRandomizer<TStringArg>> CustomRandomGenerator<TStringArg>(
+                IRandomizer<TStringArg> iRandomizer)
+            => new Generator<IRandomizer<TStringArg>>(iRandomizer);
     }
 }
