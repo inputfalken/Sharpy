@@ -25,7 +25,7 @@ namespace Sharpy {
         ///     <para>Will generate a &lt;T&gt;</para>
         /// </summary>
         /// <returns></returns>
-        private T Generate<T>(Func<TSource, T> func) => func(Source);
+        public T Generate<T>(Func<TSource, T> func) => func(Source);
 
 
         /// <summary>
