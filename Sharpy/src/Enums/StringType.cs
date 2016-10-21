@@ -3,7 +3,6 @@ namespace Sharpy.Enums {
     ///     Is used as argument when filtering names
     /// </summary>
     public enum StringType {
-
         /// <summary>
         ///     Will give you back a random female first name.
         /// </summary>

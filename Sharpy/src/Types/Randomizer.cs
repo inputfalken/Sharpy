@@ -9,7 +9,7 @@ namespace Sharpy.Types {
     /// </summary>
     internal sealed class Randomizer : IRandomizer<StringType> {
         /// <summary>
-        ///    Requires a config for these methods to work.
+        ///     Requires a config for these methods to work.
         /// </summary>
         /// <param name="config"></param>
         public Randomizer(Config config) {
@@ -18,6 +18,8 @@ namespace Sharpy.Types {
         }
 
         private Config Config { get; }
+
+        private NumberGenerator SocialSecurityControlNumberGenerator { get; }
 
 
         /// <summary>
@@ -70,7 +72,7 @@ namespace Sharpy.Types {
         public LocalDate DateByYear(int year) => Config.DateGenerator.RandomDateByYear(year);
 
         /// <summary>
-        ///     Gives a string representing a social security number. 
+        ///     Gives a string representing a social security number.
         ///     Will use the date given and then randomize 4 unique numbers as control numbers.
         /// </summary>
         /// <param name="date"></param>
@@ -80,8 +82,6 @@ namespace Sharpy.Types {
             var day = date.Day.ToString().Length == 1 ? $"0{date.Day}" : date.Day.ToString();
             return $"{date.YearOfCentury}{month}{day}-{SocialSecurityControlNumberGenerator.RandomNumber()}";
         }
-
-        private NumberGenerator SocialSecurityControlNumberGenerator { get; }
 
         /// <summary>
         ///     Gives a mail address by concatining the arguments into a mail address.

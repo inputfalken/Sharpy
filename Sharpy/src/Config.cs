@@ -13,7 +13,7 @@ using Sharpy.Types.Name;
 
 namespace Sharpy {
     /// <summary>
-    ///   Is used to configure Randomizer.
+    ///     Is used to configure Randomizer.
     /// </summary>
     public class Config {
         private Fetcher<Name> _names;
@@ -21,7 +21,6 @@ namespace Sharpy {
         private Fetcher<string> _userNames;
 
         /// <summary>
-        /// 
         /// </summary>
         public Config() {
             DateGenerator = new DateGenerator(Random);
