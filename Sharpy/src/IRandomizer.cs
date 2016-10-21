@@ -3,7 +3,7 @@ using NodaTime;
 
 namespace Sharpy {
     /// <summary>
-    /// A contract containng various Methods to randomize data.
+    ///     A contract containng various Methods to randomize data.
     /// </summary>
     /// <typeparam name="TStringArg"></typeparam>
     public interface IRandomizer<in TStringArg> {
@@ -52,7 +52,7 @@ namespace Sharpy {
         LocalDate DateByYear(int year);
 
         /// <summary>
-        ///     Gives a string representing a social security number. 
+        ///     Gives a string representing a social security number.
         ///     Will use the date given and then randomize 4 unique numbers as control numbers.
         /// </summary>
         /// <param name="date"></param>
