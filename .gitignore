@@ -3,7 +3,7 @@
 *.idea.DataGenerator/
 Logger/Program.cs
 Sharpy/Nuget.exe
-
+ConsoleApp/
 # User-specific files
 *.suo
 *.user
