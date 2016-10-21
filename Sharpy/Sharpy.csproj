@@ -62,7 +62,7 @@
     <Compile Include="src\Config.cs" />
     <Compile Include="src\Enums\Origin.cs" />
     <Compile Include="src\Enums\StringType.cs" />
-    <Compile Include="src\Factory.cs" />
+    <Compile Include="src\RandomGenerator.cs" />
     <Compile Include="src\Generator.cs" />
     <Compile Include="src\IRandomizer.cs" />
     <Compile Include="src\Types\CountryCode\CountryCode.cs" />
