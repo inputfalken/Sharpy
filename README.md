@@ -192,7 +192,7 @@ namespace Logger {
     }
 }
 ```
-These examples show how you can create instances of the type given to the GeneratorFactory.
+These examples show different ways to use RandomGenerator.
 ####
 
 ======
