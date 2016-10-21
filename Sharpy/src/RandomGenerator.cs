@@ -21,9 +21,10 @@ namespace Sharpy {
         }
 
         /// <summary>
-        /// 
+        ///   Returns a new instance of RandomGenerator.
         /// </summary>
         /// <returns></returns>
-        public static RandomGenerator CreateNew() => new RandomGenerator(new Config());
+        public static RandomGenerator Create() => new RandomGenerator(new Config());
+
     }
 }

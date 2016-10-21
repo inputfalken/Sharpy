@@ -25,7 +25,7 @@ namespace Tests {
         [Test]
         public void IteratorWithEnumerable() {
             var iteration = 0;
-            var generator = RandomGenerator.CreateNew();
+            var generator = RandomGenerator.Create();
             var result = generator.GenerateMany((randomizer, i) => iteration++ == i, 20).ToArray();
             Assert.IsTrue(result.All(b => b));
         }
@@ -33,7 +33,7 @@ namespace Tests {
 
         [Test]
         public void Mail() {
-            var mailGenerator = RandomGenerator.CreateNew();
+            var mailGenerator = RandomGenerator.Create();
             mailGenerator.Config.MailGenerator(new List<string> {"gmail.com"}, true);
 
             // Should be true since mailgenerator has been configured to produce unique mails.
@@ -45,7 +45,7 @@ namespace Tests {
 
         [Test]
         public void MailsAreNotnull() {
-            var generator = RandomGenerator.CreateNew();
+            var generator = RandomGenerator.Create();
             var strings = generator.GenerateMany(randomizer => randomizer.MailAdress(MailUserName), 20).ToArray();
             Assert.IsFalse(strings.All(string.IsNullOrEmpty));
             Assert.IsFalse(strings.All(string.IsNullOrWhiteSpace));
@@ -54,15 +54,15 @@ namespace Tests {
         [Test]
         public void NamesAreFilteredByGender() {
             var femaleNameGenerator =
-                RandomGenerator.CreateNew();
+                RandomGenerator.Create();
             var femaleNames = _names.Where(name => name.Type == 1).Select(name => name.Data);
             var maleNameGenerator =
-                RandomGenerator.CreateNew();
+                RandomGenerator.Create();
             var maleNames = _names.Where(name => name.Type == 2).Select(name => name.Data);
-            var lastNameGenerator = RandomGenerator.CreateNew();
+            var lastNameGenerator = RandomGenerator.Create();
             var lastNames = _names.Where(name => name.Type == 3).Select(name => name.Data);
             var mixedFirstNameGenerator =
-                RandomGenerator.CreateNew();
+                RandomGenerator.Create();
             var mixedNames = _names.Where(name => name.Type == 1 | name.Type == 2).Select(name => name.Data);
             Assert.IsTrue(
                 femaleNameGenerator.GenerateMany(randomizer => randomizer.String(StringType.FemaleFirstName), 100)
@@ -79,7 +79,7 @@ namespace Tests {
 
         [Test]
         public void NamesAreNotNull() {
-            var generator = RandomGenerator.CreateNew();
+            var generator = RandomGenerator.Create();
             var strings =
                 generator.GenerateMany(randomizer => randomizer.String(StringType.AnyName), 20).ToArray();
             Assert.IsFalse(strings.All(string.IsNullOrEmpty));
@@ -88,13 +88,13 @@ namespace Tests {
 
         [Test]
         public void NumbersAreNotDefaultValue() {
-            var generator = RandomGenerator.CreateNew();
+            var generator = RandomGenerator.Create();
             Assert.IsFalse(generator.GenerateMany(randomizer => randomizer.Integer(100), 100).All(i => i == 0));
         }
 
         [Test]
         public void PhoneNumberAreNotNullOrwhiteSpace() {
-            var sharpyGenerator = RandomGenerator.CreateNew();
+            var sharpyGenerator = RandomGenerator.Create();
             var numbers =
                 sharpyGenerator.GenerateMany(randomizer => randomizer.String(StringType.Number), 100)
                     .ToArray();
@@ -105,7 +105,7 @@ namespace Tests {
         [Test]
         public void Seed_With_Bools() {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the bools expected
-            var generator = RandomGenerator.CreateNew();
+            var generator = RandomGenerator.Create();
             generator.Config.Seed(Seed);
             var random = new Random(Seed);
             var expected = Enumerable.Range(0, 1000).Select(i => random.Next(2) != 0);
@@ -118,7 +118,7 @@ namespace Tests {
         public void Seed_With_Number() {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             const int limit = 100;
-            var generator = RandomGenerator.CreateNew();
+            var generator = RandomGenerator.Create();
             generator.Config.Seed(Seed);
             var random = new Random(Seed);
             var expected = Enumerable.Range(0, 1000).Select(i => random.Next(limit));
@@ -128,7 +128,7 @@ namespace Tests {
 
         [Test]
         public void UserNamesAreNotNull() {
-            var generator = RandomGenerator.CreateNew();
+            var generator = RandomGenerator.Create();
             var strings =
                 generator.GenerateMany(randomizer => randomizer.String(StringType.UserName), 20).ToArray();
             Assert.IsFalse(strings.All(string.IsNullOrEmpty));
