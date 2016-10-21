@@ -60,11 +60,6 @@ namespace Logger {
       IEnumerable<Person> people = generator.GenerateMany(randomizer => new Person {
           FirstName = randomizer.String(StringType.FirstName),
           LastName = randomizer.String(StringType.LastName)}, 20);
-          
-      Person person = generator.Generate(randomizer => new Person {
-          FirstName = randomizer.String(StringType.FirstName),
-          LastName = randomizer.String(StringType.LastName)});
-    }
   }
 
   internal class Person {
@@ -90,11 +85,6 @@ namespace Logger {
           // Just pass an Class using IList or params!
           // This shows a params example.
           WorkPlace = randomizer.CustomCollection("Workplace1", "workplace2")}, 20);
-          
-      Person person = generator.Generate(randomizer => new Person {
-          FirstName = randomizer.String(StringType.FirstName),
-          LastName = randomizer.String(StringType.LastName),
-          WorkPlace = randomizer.CustomCollection("Workplace1", "workplace2")});
     }
   }
 
