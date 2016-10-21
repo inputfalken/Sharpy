@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Sharpy</id>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <title>Sharpy</title>
     <authors>Robert Andersson</authors>
     <owners>Robert Andersson</owners>
@@ -14,7 +14,7 @@
 
       Useful when you want to play around with LINQ or just want some fake data.
 
-      For more info and examples visit Project URL.
+      For more info and examples visit the project URL.
 
       Tested on Net4.6 and Net4.5.
     </description>
@@ -22,8 +22,9 @@
       1: This is the first major release which means the syntax will not be changed as much anymore.
       2: Factory pattern is back but is used on the Generator classes now.
       3: Randomizer method Name got renamed to String and Randomizer method Number got renamed to Integer.
-      4: you now pass the delegate on the methods that will generate rather than on the construction of the Generator.
-      this makes it much more flexible and allows the same generator to generate multiple types.
+      4: you now pass delegates on the methods from the generator object rather than on the construction of the Generator.
+         this makes it much more flexible and allows the same generator to generate multiple types.
+      5: Configuring is now done from a property on the RandomGenerator instance.
     </releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Fakedata Generator</tags>
