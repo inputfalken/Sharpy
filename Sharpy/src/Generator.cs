@@ -39,7 +39,7 @@ namespace Sharpy {
         }
 
         /// <summary>
-        ///     <para>Give s a IEnumerable&lt;T&gt; of generated items.</para>
+        ///     <para>Gives a IEnumerable&lt;T&gt; of generated items.</para>
         ///     <para>Includes an integer containing the current iteration.</para>
         /// </summary>
         /// <param name="count">Count of IEnumerable&lt;T&gt;</param>
