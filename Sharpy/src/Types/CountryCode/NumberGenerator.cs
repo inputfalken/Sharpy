@@ -62,10 +62,8 @@ namespace Sharpy.Types.CountryCode {
             var day = date.Day < 10 ? $"0{date.Day}" : date.Day.ToString();
             var securityNumber = long.Parse(year + month + day + controlNumber);
             while (HashSet.Contains(securityNumber)) {
-                if (controlNumber == Max)
-                    controlNumber = Min;
-                else
-                    controlNumber++;
+                if (controlNumber == Max) controlNumber = Min;
+                else controlNumber++;
                 securityNumber = long.Parse(year + month + day + controlNumber);
             }
             HashSet.Add(securityNumber);
