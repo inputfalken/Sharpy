@@ -1,4 +1,5 @@
 ﻿using System;
+using NodaTime;
 
 namespace Sharpy.Types.CountryCode {
     // ReSharper disable once ClassNeverInstantiated.Global
@@ -38,6 +39,37 @@ namespace Sharpy.Types.CountryCode {
             var str = Builder.ToString();
             Builder.Clear();
             return str;
+        }
+    }
+
+    /// <summary>
+    ///  Very similiar to NumberGenerator, maybe could make more dry...
+    /// </summary>
+    internal class SocialSecurityGenerator : Unique<long> {
+        public SocialSecurityGenerator(Random random, int length) : base(random) {
+            Min = (int) Math.Pow(10, length - 1);
+            Max = Min*10 - 1;
+        }
+
+        private int Max { get; }
+
+        private int Min { get; }
+
+        internal string Generate(LocalDate date) {
+            var controlNumber = Random.Next(Min, Max);
+            var month = date.Month < 10 ? $"0{date.Month}" : date.Month.ToString();
+            var year = date.YearOfCentury < 10 ? $"0{date.YearOfCentury}" : date.YearOfCentury.ToString();
+            var day = date.Day < 10 ? $"0{date.Day}" : date.Day.ToString();
+            var securityNumber = long.Parse(year + month + day + controlNumber);
+            while (HashSet.Contains(securityNumber)) {
+                if (controlNumber == Max)
+                    controlNumber = Min;
+                else
+                    controlNumber++;
+                securityNumber = long.Parse(year + month + day + controlNumber);
+            }
+            HashSet.Add(securityNumber);
+            return $"{year}{month}{day}-{controlNumber}";
         }
     }
 }
