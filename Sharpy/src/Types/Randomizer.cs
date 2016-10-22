@@ -78,8 +78,8 @@ namespace Sharpy.Types {
         /// <param name="date"></param>
         /// <returns></returns>
         public string SocialSecurityNumber(LocalDate date) {
-            var month = date.Month.ToString().Length == 1 ? $"0{date.Month}" : date.Month.ToString();
-            var day = date.Day.ToString().Length == 1 ? $"0{date.Day}" : date.Day.ToString();
+            var month = date.Month < 10 ? $"0{date.Month}" : date.Month.ToString();
+            var day = date.Day < 10 ? $"0{date.Day}" : date.Day.ToString();
             return $"{date.YearOfCentury}{month}{day}-{SocialSecurityControlNumberGenerator.RandomNumber()}";
         }
 
