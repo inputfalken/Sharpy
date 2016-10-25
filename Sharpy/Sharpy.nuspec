@@ -20,15 +20,16 @@
     </description>
     <releaseNotes>
       1.1:
-      1: Generating random items can now be done by using static methods from RandomGenerato class.
-         This is useful if you do not want to configure anything and just and some random data.
+          1: Generating random items can now be done by using static methods from RandomGenerato class.
+             This is useful if you do not want to configure anything and just and some random data.
+          2: Adds formating option for SocialSecurity generation.
       1.0:
-        1: This is the first major release which means the syntax will not be changed as much anymore.
-        2: Factory pattern is back but is used on the Generator classes now.
-        3: Randomizer method Name got renamed to String and Randomizer method Number got renamed to Integer.
-        4: you now pass delegates on the methods from the generator object rather than on the construction of the Generator.
-         this makes it much more flexible and allows the same generator to generate multiple types.
-        5: Configuring is now done from a property on the RandomGenerator instance.
+          1: This is the first major release which means the syntax will not be changed as much anymore.
+          2: Factory pattern is back but is used on the Generator classes now.
+          3: Randomizer method Name got renamed to String and Randomizer method Number got renamed to Integer.
+          4: you now pass delegates on the methods from the generator object rather than on the construction of the Generator.
+             this makes it much more flexible and allows the same generator to generate multiple types.
+          5: Configuring is now done from a property on the RandomGenerator instance.
     </releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Fakedata Generator Generic</tags>

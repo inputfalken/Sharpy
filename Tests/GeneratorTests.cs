@@ -202,5 +202,16 @@ namespace Tests {
 
             Assert.IsTrue(generateMany.All(s => s[6] == '-'));
         }
+
+        [Test]
+        public void SocialSecurityOnlyContainsNumberWithNoFormating() {
+            var generator = RandomGenerator.Create();
+
+            var generateMany = generator.GenerateMany(randomizer =>
+                        randomizer.SocialSecurityNumber(randomizer.DateByAge(randomizer.Integer(19, 20)), false), 10000)
+                .ToArray();
+
+            Assert.IsTrue(generateMany.All(s => s.All(char.IsNumber)));
+        }
     }
 }
