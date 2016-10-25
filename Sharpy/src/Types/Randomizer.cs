@@ -78,9 +78,8 @@ namespace Sharpy.Types {
         /// <param name="date"></param>
         /// <param name="formated">Determines wether the string should be formated</param>
         /// <returns></returns>
-        public string SocialSecurityNumber(LocalDate date, bool formated = true) {
-            return SocialSecurityControlNumberGenerator.SocialSecurity(date, formated);
-        }
+        public string SocialSecurityNumber(LocalDate date, bool formated = true)
+            => SocialSecurityControlNumberGenerator.SocialSecurity(date, formated);
 
         /// <summary>
         ///     Gives a mail address by concatining the arguments into a mail address.
