@@ -56,8 +56,9 @@ namespace Sharpy {
         ///     Will use the date given and then randomize 4 unique numbers as control numbers.
         /// </summary>
         /// <param name="date"></param>
+        /// <param name="formated">Determines wether the string should be formated</param>
         /// <returns></returns>
-        string SocialSecurityNumber(LocalDate date);
+        string SocialSecurityNumber(LocalDate date, bool formated = true);
 
         /// <summary>
         ///     Gives a mail address by concatining the arguments into a mail address.
