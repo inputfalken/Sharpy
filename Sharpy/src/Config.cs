@@ -26,9 +26,8 @@ namespace Sharpy {
 
 
         private Lazy<Fetcher<Name>> LazyNames { get; } =
-            new Lazy<Fetcher<Name>>(
-                () => new Fetcher<Name>(JsonConvert.DeserializeObject<IEnumerable<Name>>(
-                    Encoding.UTF8.GetString(Resources.NamesByOrigin))));
+            new Lazy<Fetcher<Name>>(() => new Fetcher<Name>(JsonConvert.DeserializeObject<IEnumerable<Name>>(
+                Encoding.UTF8.GetString(Resources.NamesByOrigin))));
 
 
         private Fetcher<Name> _names;
@@ -78,7 +77,7 @@ namespace Sharpy {
         /// <param name="countries"></param>
         /// <returns></returns>
         public Config Name(params Country[] countries) {
-            Names = new Fetcher<Name>(ByCountry(countries));
+            Names = new Fetcher<Name>(Names.Where(name => countries.Contains(name.Country)));
             return this;
         }
 
@@ -89,7 +88,7 @@ namespace Sharpy {
         /// <param name="regions"></param>
         /// <returns></returns>
         public Config Name(params Region[] regions) {
-            Names = new Fetcher<Name>(ByRegion(regions));
+            Names = new Fetcher<Name>(Names.Where(name => regions.Contains(name.Region)));
             return this;
         }
 
@@ -145,12 +144,6 @@ namespace Sharpy {
             return this;
         }
 
-        private IEnumerable<Name> ByCountry(params Country[] args)
-            => new Fetcher<Name>(Names.Where(name => args.Contains(name.Country)));
-
-
-        private IEnumerable<Name> ByRegion(params Region[] args)
-            => new Fetcher<Name>(Names.Where(name => args.Contains(name.Region)));
 
         internal IEnumerable<string> StringType(StringType stringType) {
             switch (stringType) {
