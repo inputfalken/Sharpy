@@ -16,10 +16,6 @@ namespace Sharpy {
     ///     Is used to configure Randomizer.
     /// </summary>
     public class Config {
-        private Fetcher<Name> _names;
-
-        private Fetcher<string> _userNames;
-
         /// <summary>
         /// </summary>
         public Config() {
@@ -35,6 +31,8 @@ namespace Sharpy {
                     Encoding.UTF8.GetString(Resources.NamesByOrigin))));
 
 
+        private Fetcher<Name> _names;
+
         internal Fetcher<Name> Names {
             get { return _names ?? LazyNames.Value; }
             private set { _names = value; }
@@ -45,14 +43,15 @@ namespace Sharpy {
         internal DateGenerator DateGenerator { get; }
 
 
-        private Lazy<Fetcher<string>> LazyUsernames { get; } =
-            new Lazy<Fetcher<string>>(() => new Fetcher<string>(Resources.usernames.Split(Convert.ToChar("\n"))));
-
-
         internal NumberGenerator NumberGen { get; private set; }
 
 
         internal MailGenerator Mailgen { get; private set; }
+
+        private Fetcher<string> _userNames;
+
+        private Lazy<Fetcher<string>> LazyUsernames { get; } =
+            new Lazy<Fetcher<string>>(() => new Fetcher<string>(Resources.usernames.Split(Convert.ToChar("\n"))));
 
         private Fetcher<string> UserNames {
             get { return _userNames ?? LazyUsernames.Value; }
