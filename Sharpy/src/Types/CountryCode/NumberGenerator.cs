@@ -25,9 +25,8 @@ namespace Sharpy.Types.CountryCode {
             var next = Random.Next(Min, Max);
             if (!Unique) return Build(Prefix, next.ToString());
             var number = CreateUniqueNumber(() => {
-                if (next == Max)
-                    next = Min;
-                next++;
+                if (next == Max) next = Min;
+                else next++;
                 return next;
             });
             return Build(Prefix, number.ToString());
