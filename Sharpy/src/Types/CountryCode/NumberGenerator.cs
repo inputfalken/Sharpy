@@ -34,10 +34,10 @@ namespace Sharpy.Types.CountryCode {
         }
 
         private long CreateUniqueNumber(Func<long> func) {
-            var item = func();
-            while (HashSet.Contains(item)) item = func();
-            HashSet.Add(item);
-            return item;
+            var number = func();
+            while (HashSet.Contains(number)) number = func();
+            HashSet.Add(number);
+            return number;
         }
 
         internal string SocialSecurity(LocalDate date, bool formated) {
