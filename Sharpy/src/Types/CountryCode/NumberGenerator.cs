@@ -24,13 +24,20 @@ namespace Sharpy.Types.CountryCode {
         internal string RandomNumber() {
             var next = Random.Next(Min, Max);
             if (!Unique) return Build(Prefix, next.ToString());
-            while (HashSet.Contains(next)) {
+            var number = CreateUniqueNumber(() => {
                 if (next == Max)
                     next = Min;
                 next++;
-            }
-            HashSet.Add(next);
-            return Build(Prefix, next.ToString());
+                return next;
+            });
+            return Build(Prefix, number.ToString());
+        }
+
+        private long CreateUniqueNumber(Func<long> func) {
+            var item = func();
+            while (HashSet.Contains(item)) item = func();
+            HashSet.Add(item);
+            return item;
         }
 
         internal string SocialSecurity(LocalDate date, bool formated) {
@@ -38,14 +45,11 @@ namespace Sharpy.Types.CountryCode {
             var year = date.YearOfCentury < 10 ? $"0{date.YearOfCentury}" : date.YearOfCentury.ToString();
             var day = date.Day < 10 ? $"0{date.Day}" : date.Day.ToString();
             var controlNumber = Random.Next(Min, Max);
-            var securityNumber = long.Parse(Build(year, month, day, controlNumber.ToString()));
-            while (HashSet.Contains(securityNumber)) {
+            var securityNumber = CreateUniqueNumber(() => {
                 if (controlNumber == Max) controlNumber = Min;
                 else controlNumber++;
-                securityNumber = long.Parse(Build(year, month, day, controlNumber.ToString()));
-            }
-            HashSet.Add(securityNumber);
-
+                return long.Parse(Build(year, month, day, controlNumber.ToString()));
+            });
             return formated
                 ? Build(year, month, day, "-", controlNumber.ToString())
                 : securityNumber.ToString();
