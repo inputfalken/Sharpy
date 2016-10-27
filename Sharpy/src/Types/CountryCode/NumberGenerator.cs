@@ -24,17 +24,19 @@ namespace Sharpy.Types.CountryCode {
         internal string RandomNumber() {
             var next = Random.Next(Min, Max);
             if (!Unique) return Build(Prefix, next.ToString());
-            var number = CreateUniqueNumber(() => {
-                if (next == Max) next = Min;
-                else next++;
-                return next;
-            });
+            var number = CreateUniqueNumber(next, OnDupplicate);
             return Build(Prefix, number.ToString());
         }
 
-        private long CreateUniqueNumber(Func<long> func) {
-            var number = func();
-            while (HashSet.Contains(number)) number = func();
+        private long OnDupplicate(long x) {
+            if (x == Max) x = Min;
+            else x++;
+            return x;
+        }
+
+        private long CreateUniqueNumber(long startNumber, Func<long, long> func) {
+            var number = func(startNumber);
+            while (HashSet.Contains(number)) number = func(number);
             HashSet.Add(number);
             return number;
         }
@@ -44,14 +46,8 @@ namespace Sharpy.Types.CountryCode {
             var year = date.YearOfCentury < 10 ? $"0{date.YearOfCentury}" : date.YearOfCentury.ToString();
             var day = date.Day < 10 ? $"0{date.Day}" : date.Day.ToString();
             var controlNumber = Random.Next(Min, Max);
-            var securityNumber = CreateUniqueNumber(() => {
-                if (controlNumber == Max) controlNumber = Min;
-                else controlNumber++;
-                return long.Parse(Build(year, month, day, controlNumber.ToString()));
-            });
-            return formated
-                ? Build(year, month, day, "-", controlNumber.ToString())
-                : securityNumber.ToString();
+            var securityNumber = CreateUniqueNumber(long.Parse(Build(year, month, day, controlNumber.ToString())), OnDupplicate);
+            return formated ? securityNumber.ToString().Insert(6, "-") : securityNumber.ToString();
         }
 
         private static string Build(params string[] strings) {
