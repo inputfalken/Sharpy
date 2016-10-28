@@ -5,10 +5,10 @@ using Sharpy.Randomizer;
 
 namespace Sharpy {
     /// <summary>
-    ///      Static generator using my Implementation of IRandomizer&lt;TStringArg&gt;
-    ///     <para></para>
-    ///     Can also give instances of the same generator. Is useful if you want to generate same data by setting the same
-    ///     seed on seperate generators.
+    ///     <para>Static generator using my Implementation of IRandomizer&lt;TStringArg&gt;</para>
+    ///     <para>Can also give instances of the same generator. Is useful if you want to generate same data by setting the same
+    ///     seed on seperate generators.</para>
+    ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
     /// </summary>
     /// <returns></returns>
     public sealed class RandomGenerator : Generator<IRandomizer<StringType>> {
@@ -23,25 +23,25 @@ namespace Sharpy {
 
 
         /// <summary>
-        ///     Is used for configuring the generator to act different when calling Generation methods.
+        ///     <para>Is used for configuring the generator to act different when calling Generation methods.</para>
         /// </summary>
         public Config Config { get; }
 
         private static RandomGenerator Generator { get; }
 
         /// <summary>
-        ///     Is used for configuring the generator to act different when calling Generation methods.
+        ///     <para>Is used for configuring the generator to act different when calling Generation methods.</para>
         /// </summary>
         public static Config Configurement { get; }
 
         /// <summary>
-        ///     Creates a new instance of Randomgenerator.
+        ///     <para>Creates a new instance of Randomgenerator.</para>
         /// </summary>
         /// <returns></returns>
         public static RandomGenerator Create() => new RandomGenerator(new Config());
 
         /// <summary>
-        ///     Generates a IEnumerable&lt;T&gt;.
+        ///     <para>Generates a IEnumerable&lt;T&gt;.</para>
         /// </summary>
         /// <param name="func"></param>
         /// <param name="count"></param>
@@ -51,7 +51,7 @@ namespace Sharpy {
             => Generator.GenerateMany(func, count);
 
         /// <summary>
-        ///     Generates a &lt;T&gt;.
+        ///     <para>Generates a &lt;T&gt;.</para>
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
