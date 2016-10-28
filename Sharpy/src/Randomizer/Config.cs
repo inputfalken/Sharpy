@@ -12,7 +12,7 @@ namespace Sharpy.Randomizer {
     /// <summary>
     ///     Is used to configure Randomizer.
     /// </summary>
-    public class Config {
+    public sealed class Config {
         /// <summary>
         /// </summary>
         public Config() {

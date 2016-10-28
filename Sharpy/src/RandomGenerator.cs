@@ -10,7 +10,7 @@ namespace Sharpy {
     ///     Can also give instances of the same generator. Is useful if you want to generate same data by setting the same  seed on seperate generators.
     /// </summary>
     /// <returns></returns>
-    public class RandomGenerator : Generator<IRandomizer<StringType>> {
+    public sealed class RandomGenerator : Generator<IRandomizer<StringType>> {
         private RandomGenerator(Config config) : base(new Randomizer.Randomizer(config)) {
             Config = config;
         }
