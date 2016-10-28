@@ -22,7 +22,7 @@ namespace Sharpy {
         public Config Config { get; }
 
         /// <summary>
-        ///     Gives a new instance of Randomgenerator where you can configure the generator.
+        ///     Creates a new instance of Randomgenerator.
         /// </summary>
         /// <returns></returns>
         public static RandomGenerator Create() => new RandomGenerator(new Config());
