@@ -2,7 +2,7 @@
 using System.Linq;
 using NodaTime;
 using NUnit.Framework;
-using Sharpy.Types.Date;
+using Sharpy.Randomizer.Generators;
 
 namespace Tests {
     [TestFixture]

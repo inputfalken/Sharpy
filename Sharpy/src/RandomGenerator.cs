@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Sharpy.Enums;
-using Sharpy.Types;
+using Sharpy.Randomizer;
 
 namespace Sharpy {
     /// <summary>
@@ -9,7 +9,7 @@ namespace Sharpy {
     /// </summary>
     /// <returns></returns>
     public class RandomGenerator : Generator<IRandomizer<StringType>> {
-        private RandomGenerator(Config config) : base(new Randomizer(config)) {
+        private RandomGenerator(Config config) : base(new Randomizer.Randomizer(config)) {
             Config = config;
         }
 

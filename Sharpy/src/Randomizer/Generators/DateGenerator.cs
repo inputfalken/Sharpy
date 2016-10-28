@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NodaTime;
 
-namespace Sharpy.Types.Date {
+namespace Sharpy.Randomizer.Generators {
     /// <summary>
     ///     Is used for creating random dates
     /// </summary>

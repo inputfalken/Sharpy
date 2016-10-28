@@ -4,7 +4,8 @@ using System.Linq;
 using NUnit.Framework;
 using Sharpy;
 using Sharpy.Enums;
-using Sharpy.Types.Name;
+using Sharpy.Randomizer;
+using Sharpy.Randomizer.DataObjects;
 
 namespace Tests {
     /// <summary>

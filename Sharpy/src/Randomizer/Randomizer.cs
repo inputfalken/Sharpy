@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using NodaTime;
 using Sharpy.Enums;
-using Sharpy.Types.CountryCode;
+using Sharpy.Randomizer.Generators;
 
-namespace Sharpy.Types {
+namespace Sharpy.Randomizer {
     /// <summary>
     ///     Will randomize all data that these methods return.
     /// </summary>
