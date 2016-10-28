@@ -50,7 +50,7 @@ namespace Sharpy {
         }
 
         /// <summary>
-        ///  Creates a Generator.
+        ///     Creates a Generator.
         /// </summary>
         /// <typeparam name="TSource">&lt;TSource&gt; will be passed to all delagates in the generation methods</typeparam>
         /// <returns></returns>

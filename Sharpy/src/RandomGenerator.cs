@@ -6,11 +6,17 @@ using Sharpy.Randomizer;
 namespace Sharpy {
     /// <summary>
     ///     Uses a static generator using my Implementation of IRandomizer&lt;TStringArg&gt;
-    ///<para></para>
-    ///     Can also give instances of the same generator. Is useful if you want to generate same data by setting the same  seed on seperate generators.
+    ///     <para></para>
+    ///     Can also give instances of the same generator. Is useful if you want to generate same data by setting the same
+    ///     seed on seperate generators.
     /// </summary>
     /// <returns></returns>
     public sealed class RandomGenerator : Generator<IRandomizer<StringType>> {
+        static RandomGenerator() {
+            Generator = Create();
+            Configurement = Generator.Config;
+        }
+
         private RandomGenerator(Config config) : base(new Randomizer.Randomizer(config)) {
             Config = config;
         }
@@ -21,13 +27,12 @@ namespace Sharpy {
         /// </summary>
         public Config Config { get; }
 
-
-        static RandomGenerator() {
-            Generator = Create();
-            Configurement = Generator.Config;
-        }
-
         private static RandomGenerator Generator { get; }
+
+        /// <summary>
+        ///     Is used for configuring the generator to act different when calling Generation methods.
+        /// </summary>
+        public static Config Configurement { get; }
 
         /// <summary>
         ///     Creates a new instance of Randomgenerator.
@@ -51,10 +56,5 @@ namespace Sharpy {
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public static T GenerateInstance<T>(Func<IRandomizer<StringType>, T> func) => Generator.Generate(func);
-
-        /// <summary>
-        ///  Configures the Generator.
-        /// </summary>
-        public static Config Configurement { get; }
     }
 }
