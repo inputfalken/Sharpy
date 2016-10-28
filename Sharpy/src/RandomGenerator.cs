@@ -53,7 +53,7 @@ namespace Sharpy {
         public static T GenerateInstance<T>(Func<IRandomizer<StringType>, T> func) => Generator.Generate(func);
 
         /// <summary>
-        /// is used for configuring the static generator.
+        ///  Configures the Generator.
         /// </summary>
         public static Config Configurement { get; }
     }
