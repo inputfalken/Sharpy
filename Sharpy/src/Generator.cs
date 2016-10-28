@@ -5,10 +5,10 @@ namespace Sharpy {
     /// <summary>
     ///     <para>Is used to create one or many of &lt;T&gt; By using methods from this class.</para>
     /// </summary>
-    /// <typeparam name="TSource">Will be passed to all delagates in the generation methods</typeparam>
+    /// <typeparam name="TSource">Will be passed to all delagates in the generation methods.</typeparam>
     public class Generator<TSource> {
         /// <summary>
-        ///     <para>Sets the TSource of this Generator instance</para>
+        ///     <para>Sets the TSource of this Generator instance.</para>
         ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
         /// </summary>
         /// <typeparam>The in parameter for the delegates used in the Generation methods.</typeparam>
@@ -50,7 +50,7 @@ namespace Sharpy {
         }
 
         /// <summary>
-        ///     Creates a Generator.
+        ///     <para>Creates a Generator.</para>
         /// </summary>
         /// <typeparam name="TSource">&lt;TSource&gt; will be passed to all delagates in the generation methods</typeparam>
         /// <returns></returns>
