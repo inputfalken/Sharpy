@@ -28,8 +28,7 @@ namespace Sharpy {
         public static RandomGenerator Create() => new RandomGenerator(new Config());
 
         /// <summary>
-        ///     Can be used if you just want a IEnumerable&lt;T&gt;.
-        ///     Calls GenerateMany from a private Generator.
+        ///     Generates a IEnumerable&lt;T&gt;.
         /// </summary>
         /// <param name="func"></param>
         /// <param name="count"></param>
@@ -39,8 +38,7 @@ namespace Sharpy {
             => Generator.GenerateMany(func, count);
 
         /// <summary>
-        ///     Can be used if you just want an instance of &lt;T&gt;.
-        ///     Calls Generate from a private Generator.
+        ///     Generates a &lt;T&gt;.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
