@@ -13,12 +13,19 @@ namespace Sharpy {
             Config = config;
         }
 
-        private static RandomGenerator Generator { get; } = Create();
 
         /// <summary>
         ///     Is used for configuring the generator to act different when calling Generation methods.
         /// </summary>
         public Config Config { get; }
+
+
+        static RandomGenerator() {
+            Generator = Create();
+            Configurement = Generator.Config;
+        }
+
+        private static RandomGenerator Generator { get; }
 
         /// <summary>
         ///     Gives a new instance of Randomgenerator where you can configure the generator.
@@ -44,5 +51,10 @@ namespace Sharpy {
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public static T GenerateInstance<T>(Func<IRandomizer<StringType>, T> func) => Generator.Generate(func);
+
+        /// <summary>
+        /// is used for configuring the static generator.
+        /// </summary>
+        public static Config Configurement { get; }
     }
 }
