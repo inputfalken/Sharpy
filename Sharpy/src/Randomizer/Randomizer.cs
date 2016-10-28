@@ -26,9 +26,9 @@ namespace Sharpy.Randomizer {
 
         public bool Bool() => Integer(2) != 0;
 
-        public int Integer(int maxNum) => Config.Random.Next(maxNum);
+        public int Integer(int max) => Config.Random.Next(max);
 
-        public int Integer(int minNum, int maxNum) => Config.Random.Next(minNum, maxNum);
+        public int Integer(int min, int max) => Config.Random.Next(min, max);
 
         public LocalDate DateByAge(int age) => Config.DateGenerator.RandomDateByAge(age);
 

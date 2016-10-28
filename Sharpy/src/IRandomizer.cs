@@ -32,14 +32,14 @@ namespace Sharpy {
         bool Bool();
 
         /// <summary>
-        ///     Randomizes a Integer from 0 to argument.
+        ///     Randomizes a Integer from 0 to max.
         /// </summary>
-        int Integer(int maxNum);
+        int Integer(int max);
 
         /// <summary>
-        ///     Randomizes a Integer from minNum to maxNum.
+        ///     Randomizes a Integer from min to max.
         /// </summary>
-        int Integer(int minNum, int maxNum);
+        int Integer(int min, int max);
 
         /// <summary>
         ///     Randomizes a random month and date then subtracts current year by value supplied.
