@@ -3,18 +3,18 @@ using NodaTime;
 
 namespace Sharpy {
     /// <summary>
-    /// A contract containng various Methods to randomize data.
+    ///     <para>A contract containng various Methods to randomize data.</para>
     /// </summary>
     /// <typeparam name="TStringArg"></typeparam>
     public interface IRandomizer<in TStringArg> {
         /// <summary>
-        ///     Can be used if you have your own collection of items that you would want an random item from.
+        ///     <para>Can be used if you have your own collection of items that you would want an random item from.</para>
         /// </summary>
         /// <returns></returns>
         T CustomCollection<T>(params T[] items);
 
         /// <summary>
-        ///     Can be used if you have your own collection of items that you would want an random item from.
+        ///     <para>Can be used if you have your own collection of items that you would want an random item from.</para>
         /// </summary>
         /// <param name="items"></param>
         /// <typeparam name="T"></typeparam>
@@ -22,45 +22,46 @@ namespace Sharpy {
         T CustomCollection<T>(IList<T> items);
 
         /// <summary>
-        ///     Gives a string based on argument.
+        ///     <para>Randomizes a string based on argument.</para>
         /// </summary>
         string String(TStringArg type);
 
         /// <summary>
-        ///     Gives a random bool
+        ///     <para>Randomizes a bool</para>
         /// </summary>
         bool Bool();
 
         /// <summary>
-        ///     Gives a random number within below the argument value
+        ///     <para>Randomizes a Integer from 0 to max.</para>
         /// </summary>
-        int Integer(int maxNum);
+        int Integer(int max);
 
         /// <summary>
-        ///     Gives a random number within within the two arguments
+        ///     <para>Randomizes a Integer from min to max.</para>
         /// </summary>
-        int Integer(int minNum, int maxNum);
+        int Integer(int min, int max);
 
         /// <summary>
-        ///     Gives a date with random month, date and subtract the current the current year by the argument
+        ///     <para>Randomizes a random month and date then subtracts current year by value supplied.</para>
         /// </summary>
         LocalDate DateByAge(int age);
 
         /// <summary>
-        ///     Gives a random month, date and use the argument given as year
+        ///     <para>Randomizes a random month and date then uses argument as year.</para>
         /// </summary>
         LocalDate DateByYear(int year);
 
         /// <summary>
-        ///     Gives a string representing a social security number. 
-        ///     Will use the date given and then randomize 4 unique numbers as control numbers.
+        ///     <para>Gives a string representing a social security number.</para>
+        ///     <para>Will use the date given and then randomize 4 unique numbers as control numbers.</para>
         /// </summary>
         /// <param name="date"></param>
+        /// <param name="formated">Determines wether the string should be formated</param>
         /// <returns></returns>
-        string SocialSecurityNumber(LocalDate date);
+        string SocialSecurityNumber(LocalDate date, bool formated = true);
 
         /// <summary>
-        ///     Gives a mail address by concatining the arguments into a mail address.
+        ///     <para>Gives a mail address by concatinating the arguments into a mail address.</para>
         /// </summary>
         string MailAdress(string name, string secondName = null);
     }

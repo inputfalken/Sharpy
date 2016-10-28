@@ -1,15 +1,6 @@
-# Sharpy 1.0.3
+# Sharpy 1.1.0
 
 The idea of this project is to let users have a source to fetch random data from.
-
-####Features
-
-* LocalDate
-* Bool
-* Name
-* Int
-* Mail
-* Phone number
 
 ###Examples
 #### Generating
@@ -18,28 +9,27 @@ using System.Collections.Generic;
 using Sharpy;
 using Sharpy.Enums;
 
-namespace Logger {
-  internal static class Program {
-    public static void Main() {
-      // Creates a Generator which will randomize the data 
-      // to the to type returned in by the methods from the generator.
-      var generator = RandomGenerator.Create();
-      // First argument is the instructions on what will be generated, 
-      // second argument is the Count of the IEnumerable.
-      IEnumerable<Person> people = generator.GenerateMany(randomizer => new Person {
-          FirstName = randomizer.String(StringType.FirstName),
-          LastName = randomizer.String(StringType.LastName)}, 20);
-      // Creates one person with randomized names.
-      Person person = generator.Generate(randomizer => new Person {
-          FirstName = randomizer.String(StringType.FirstName),
-          LastName = randomizer.String(StringType.LastName)});
+namespace ConsoleApp {
+    internal static class Program {
+        public static void Main() {
+            // First argument is the instructions on what will be generated, 
+            // second argument is the Count of the IEnumerable.
+            IEnumerable<Person> people = RandomGenerator.GenerateEnumerable(randomizer => new Person {
+                FirstName = randomizer.String(StringType.FirstName),
+                LastName = randomizer.String(StringType.LastName)
+            }, 20);
+            // Creates one person with randomized names.
+            Person person = RandomGenerator.GenerateInstance(randomizer => new Person {
+                FirstName = randomizer.String(StringType.FirstName),
+                LastName = randomizer.String(StringType.LastName)
+            });
+        }
     }
-  }
 
-  internal class Person {
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-  }
+    internal class Person {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+    }
 }
 ```
 #### Configure & Generating
@@ -48,24 +38,24 @@ using System.Collections.Generic;
 using Sharpy;
 using Sharpy.Enums;
 
-namespace Logger {
-  internal static class Program {
-    public static void Main() {
-      var generator = RandomGenerator.Create();
-      // The generator will now behave differently 
-      // when calling the String method from randomizer using argument for last and first names.
-      generator.Config.Name(Country.UnitedStates);
+namespace ConsoleApp {
+    internal static class Program {
+        public static void Main() {
+            // The generator will now behave differently 
+            // when calling the String method from randomizer using argument for last and first names.
+            RandomGenerator.Configurement.Name(Country.UnitedStates);
 
-      
-      IEnumerable<Person> people = generator.GenerateMany(randomizer => new Person {
-          FirstName = randomizer.String(StringType.FirstName),
-          LastName = randomizer.String(StringType.LastName)}, 20);
-  }
+            IEnumerable<Person> people = RandomGenerator.GenerateEnumerable(randomizer => new Person {
+                FirstName = randomizer.String(StringType.FirstName),
+                LastName = randomizer.String(StringType.LastName)
+            }, 20);
+        }
 
-  internal class Person {
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-  }
+        internal class Person {
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+        }
+    }
 }
 ```
 #### Supplying your own collection
@@ -74,6 +64,7 @@ using System.Collections.Generic;
 using Sharpy;
 using Sharpy.Enums;
 
+<<<<<<< HEAD
 namespace Logger {
   internal static class Program {
     public static void Main() {
@@ -85,14 +76,26 @@ namespace Logger {
           // Just pass an Class that implements IList or use params!
           // This shows a params example.
           WorkPlace = randomizer.CustomCollection("Workplace1", "workplace2")}, 20);
+=======
+namespace ConsoleApp {
+    internal static class Program {
+        public static void Main() {
+            IEnumerable<Person> people = RandomGenerator.GenerateEnumerable(randomizer => new Person {
+                FirstName = randomizer.String(StringType.FirstName),
+                LastName = randomizer.String(StringType.LastName),
+                // Just pass an Class using IList or params!
+                // This shows a params example.
+                WorkPlace = randomizer.CustomCollection("Workplace1", "workplace2")
+            }, 20);
+        }
+>>>>>>> version-1.1
     }
-  }
 
-  internal class Person {
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-    public string WorkPlace { get; set; }
-  }
+    internal class Person {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string WorkPlace { get; set; }
+    }
 }
 ```
 #### Creating Multiple types with the same generator
@@ -101,18 +104,18 @@ using System.Collections.Generic;
 using Sharpy;
 using Sharpy.Enums;
 
-namespace Logger {
+namespace ConsoleApp {
     internal static class Program {
         public static void Main() {
-      var generator = RandomGenerator.Create();   
-      
-      IEnumerable<Person> people = generator.GenerateMany(randomizer => new Person {
-          FirstName = randomizer.String(StringType.FirstName),
-          LastName = randomizer.String(StringType.LastName)}, 20);
-          
-      // Just use the same generator and call GenerateMany!
-      IEnumerable<Animal> animals = generator.GenerateMany(randomizer => new Animal {
-          Age = randomizer.Integer(10, 50)}, 20);
+            IEnumerable<Person> people = RandomGenerator.GenerateEnumerable(randomizer => new Person {
+                FirstName = randomizer.String(StringType.FirstName),
+                LastName = randomizer.String(StringType.LastName)
+            }, 20);
+
+            // Just use the same generator and call GenerateMany!
+            IEnumerable<Animal> animals = RandomGenerator.GenerateEnumerable(randomizer => new Animal {
+                Age = randomizer.Integer(10, 50)
+            }, 20);
         }
     }
 
@@ -132,16 +135,16 @@ using System.Collections.Generic;
 using Sharpy;
 using Sharpy.Enums;
 
-namespace Logger {
+namespace ConsoleApp {
     internal static class Program {
         public static void Main() {
-            var generator = RandomGenerator.Create();
-
-            IEnumerable<Person> people = generator.GenerateMany(randomizer => new Person {
+            IEnumerable<Person> people = RandomGenerator.GenerateEnumerable(randomizer => new Person {
                 FirstName = randomizer.String(StringType.FirstName),
                 LastName = randomizer.String(StringType.LastName),
                 //Just call GenerateMany but inside the type generated!
-                Animals = generator.GenerateMany(animalRandomizer => new Animal {Age = animalRandomizer.Integer(10, 20)})
+                Animals =
+                    RandomGenerator.GenerateEnumerable(
+                        animalRandomizer => new Animal {Age = animalRandomizer.Integer(10, 20)})
             }, 20);
         }
     }
@@ -163,12 +166,11 @@ using System.Collections.Generic;
 using Sharpy;
 using Sharpy.Enums;
 
-namespace Logger {
+namespace ConsoleApp {
     internal static class Program {
         public static void Main() {
-            var generator = RandomGenerator.Create();
             //At the moment you have to make a statement lambda.
-            IEnumerable<Person> people = generator.GenerateMany(randomizer => {
+            IEnumerable<Person> people = RandomGenerator.GenerateEnumerable(randomizer => {
                 //Reference the result from the randomizer methods
                 var firstName = randomizer.String(StringType.FirstName);
                 var lastName = randomizer.String(StringType.LastName);
@@ -192,7 +194,10 @@ namespace Logger {
     }
 }
 ```
-These examples show different ways to use RandomGenerator.
+These examples show how you can use the RandomGenerator static method & properties.
+
+You could also get RandomGenerator instances by calling the static method Create in the RandomGenerator class.
+Which works the same but got different names for Generating(Generate & GenerateMany).
 ####
 
 ======
