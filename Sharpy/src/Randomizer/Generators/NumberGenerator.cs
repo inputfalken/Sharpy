@@ -46,7 +46,8 @@ namespace Sharpy.Randomizer.Generators {
             var year = date.YearOfCentury < 10 ? $"0{date.YearOfCentury}" : date.YearOfCentury.ToString();
             var day = date.Day < 10 ? $"0{date.Day}" : date.Day.ToString();
             var controlNumber = Random.Next(Min, Max);
-            var securityNumber = CreateUniqueNumber(long.Parse(Build(year, month, day, controlNumber.ToString())), OnDupplicate);
+            var securityNumber = CreateUniqueNumber(long.Parse(Build(year, month, day, controlNumber.ToString())),
+                OnDupplicate);
             return formated ? securityNumber.ToString().Insert(6, "-") : securityNumber.ToString();
         }
 
