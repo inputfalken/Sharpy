@@ -14,7 +14,6 @@ namespace Sharpy.Randomizer {
 
         /// <summary>
         /// </summary>
-        /// <param name="attemptLimit"></param>
         /// <param name="random"></param>
         protected Unique(Random random) {
             Random = random;
