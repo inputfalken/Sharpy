@@ -5,13 +5,10 @@ using System.Text;
 using Newtonsoft.Json;
 using Sharpy.Enums;
 using Sharpy.Properties;
-using Sharpy.Types;
-using Sharpy.Types.CountryCode;
-using Sharpy.Types.Date;
-using Sharpy.Types.Mail;
-using Sharpy.Types.Name;
+using Sharpy.Randomizer.DataObjects;
+using Sharpy.Randomizer.Generators;
 
-namespace Sharpy {
+namespace Sharpy.Randomizer {
     /// <summary>
     ///     Is used to configure Randomizer.
     /// </summary>

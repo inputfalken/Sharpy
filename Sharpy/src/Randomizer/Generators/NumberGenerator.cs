@@ -1,7 +1,7 @@
 ﻿using System;
 using NodaTime;
 
-namespace Sharpy.Types.CountryCode {
+namespace Sharpy.Randomizer.Generators {
     // ReSharper disable once ClassNeverInstantiated.Global
     // Is generated from json
     /// <summary>

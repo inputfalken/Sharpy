@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Sharpy.Types.Mail;
+using Sharpy.Randomizer.Generators;
 
 namespace Tests {
     [TestFixture]
