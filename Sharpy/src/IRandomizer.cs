@@ -22,32 +22,32 @@ namespace Sharpy {
         T CustomCollection<T>(IList<T> items);
 
         /// <summary>
-        ///     Gives a string based on argument.
+        ///     Randomizes a string based on argument.
         /// </summary>
         string String(TStringArg type);
 
         /// <summary>
-        ///     Gives a random bool
+        ///     Randomizes a bool
         /// </summary>
         bool Bool();
 
         /// <summary>
-        ///     Gives a random number within below the argument value
+        ///     Randomizes a Integer from 0 to argument.
         /// </summary>
         int Integer(int maxNum);
 
         /// <summary>
-        ///     Gives a random number within within the two arguments
+        ///     Randomizes a Integer from minNum to maxNum.
         /// </summary>
         int Integer(int minNum, int maxNum);
 
         /// <summary>
-        ///     Gives a date with random month, date and subtract the current the current year by the argument
+        ///     Randomizes a random month and date then subtracts current year by value supplied.
         /// </summary>
         LocalDate DateByAge(int age);
 
         /// <summary>
-        ///     Gives a random month, date and use the argument given as year
+        ///     Randomizes a random month and date then uses argument as year.
         /// </summary>
         LocalDate DateByYear(int year);
 
@@ -61,7 +61,7 @@ namespace Sharpy {
         string SocialSecurityNumber(LocalDate date, bool formated = true);
 
         /// <summary>
-        ///     Gives a mail address by concatining the arguments into a mail address.
+        ///     Gives a mail address by concatinating the arguments into a mail address.
         /// </summary>
         string MailAdress(string name, string secondName = null);
     }
