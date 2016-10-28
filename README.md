@@ -82,7 +82,7 @@ namespace Logger {
       IEnumerable<Person> people = generator.GenerateMany(randomizer => new Person {
           FirstName = randomizer.String(StringType.FirstName),
           LastName = randomizer.String(StringType.LastName),
-          // Just pass an Class using IList or params!
+          // Just pass an Class that implements IList or use params!
           // This shows a params example.
           WorkPlace = randomizer.CustomCollection("Workplace1", "workplace2")}, 20);
     }
@@ -192,7 +192,7 @@ namespace Logger {
     }
 }
 ```
-These examples show how you can create instances of the type given to the GeneratorFactory.
+These examples show different ways to use RandomGenerator.
 ####
 
 ======
