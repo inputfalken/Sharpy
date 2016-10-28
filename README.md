@@ -183,7 +183,6 @@ namespace ConsoleApp {
 These examples show how you can use the RandomGenerator static method & properties.
 
 You could also get RandomGenerator instances by calling the static method Create in the RandomGenerator class.
-
 Which works the same but got different names for Generating(Generate & GenerateMany).
 ####
 
