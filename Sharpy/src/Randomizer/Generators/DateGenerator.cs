@@ -7,7 +7,7 @@ namespace Sharpy.Randomizer.Generators {
     /// <summary>
     ///     Is used for creating random dates
     /// </summary>
-    public sealed class DateGenerator {
+    internal sealed class DateGenerator {
         private readonly Random _random;
 
         internal DateGenerator(Random random) {
@@ -17,7 +17,7 @@ namespace Sharpy.Randomizer.Generators {
         /// <summary>
         ///     Is used for getting the current time.
         /// </summary>
-        public static LocalDate CurrentLocalDate
+        internal static LocalDate CurrentLocalDate
             => SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace Sharpy.Randomizer.Generators {
         /// <param name="sequenceDate">Date to be sequenced</param>
         /// <param name="startDate"></param>
         /// <returns></returns>
-        public static IEnumerable<LocalDate> Sequence(int length, LocalDate sequenceDate,
+        internal static IEnumerable<LocalDate> Sequence(int length, LocalDate sequenceDate,
             LocalDate startDate = default(LocalDate)) {
             var localDate = startDate == default(LocalDate) ? CurrentLocalDate : startDate;
             return Enumerable.Range(1, length)
@@ -43,7 +43,7 @@ namespace Sharpy.Randomizer.Generators {
         ///     <param name="date">The date to subtract/add to/from current date</param>
         ///     <param name="subtract">if set to false it will add the values to the current date rather than subtracting</param>
         /// </summary>
-        public static LocalDate Date(LocalDate date, bool subtract = true) => subtract
+        internal static LocalDate Date(LocalDate date, bool subtract = true) => subtract
             ? CurrentLocalDate.Minus(Period.FromYears(date.Year))
                 .Minus(Period.FromMonths(date.Month))
                 .Minus(Period.FromDays(date.Day))
@@ -58,7 +58,7 @@ namespace Sharpy.Randomizer.Generators {
         ///     <param name="month"></param>
         ///     <param name="day"></param>
         /// </summary>
-        public static LocalDate Date(int year, int month, int day, bool subtract = true) {
+        internal static LocalDate Date(int year, int month, int day, bool subtract = true) {
             if (year < 0 || month < 0 || day < 0)
                 throw new ArgumentException("Year/Month/Day cannot be negative");
             return subtract
@@ -74,7 +74,7 @@ namespace Sharpy.Randomizer.Generators {
         ///     Will give and random date minus the argument in years
         ///     <param name="age">ammount of years</param>
         /// </summary>
-        public LocalDate RandomDateByAge(int age) {
+        internal LocalDate RandomDateByAge(int age) {
             if (age < 0)
                 throw new ArgumentException($"{nameof(age)} cannot be negative");
             var month = _random.Next(1, CurrentLocalDate.Month);
@@ -89,7 +89,7 @@ namespace Sharpy.Randomizer.Generators {
         ///     Will give a random month and date on specifk year
         ///     <param name="year">which year to use</param>
         /// </summary>
-        public LocalDate RandomDateByYear(int year) {
+        internal LocalDate RandomDateByYear(int year) {
             var month = _random.Next(1, CurrentLocalDate.Month);
             return new LocalDate(year, month, _random.Next(1, DateTime.DaysInMonth(year, month)));
         }
