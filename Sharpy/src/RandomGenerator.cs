@@ -5,7 +5,8 @@ using Sharpy.Randomizer;
 
 namespace Sharpy {
     /// <summary>
-    ///     Creates a simple generator using my Implementation of IRandomizer&lt;TStringArg&gt;
+    ///     Uses a static generator using my Implementation of IRandomizer&lt;TStringArg&gt;
+    ///     Can also give instances of the same generator. Is useful if you want to generate same data by setting seed from seperate generators.
     /// </summary>
     /// <returns></returns>
     public class RandomGenerator : Generator<IRandomizer<StringType>> {
