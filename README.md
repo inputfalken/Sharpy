@@ -56,7 +56,6 @@ namespace Logger {
       // when calling the String method from randomizer using argument for last and first names.
       generator.Config.Name(Country.UnitedStates);
 
-      
       IEnumerable<Person> people = generator.GenerateMany(randomizer => new Person {
           FirstName = randomizer.String(StringType.FirstName),
           LastName = randomizer.String(StringType.LastName)}, 20);
@@ -78,7 +77,7 @@ namespace Logger {
   internal static class Program {
     public static void Main() {
       var generator = RandomGenerator.Create();
-   
+
       IEnumerable<Person> people = generator.GenerateMany(randomizer => new Person {
           FirstName = randomizer.String(StringType.FirstName),
           LastName = randomizer.String(StringType.LastName),
@@ -104,12 +103,12 @@ using Sharpy.Enums;
 namespace Logger {
     internal static class Program {
         public static void Main() {
-      var generator = RandomGenerator.Create();   
-      
+      var generator = RandomGenerator.Create();
+
       IEnumerable<Person> people = generator.GenerateMany(randomizer => new Person {
           FirstName = randomizer.String(StringType.FirstName),
           LastName = randomizer.String(StringType.LastName)}, 20);
-          
+
       // Just use the same generator and call GenerateMany!
       IEnumerable<Animal> animals = generator.GenerateMany(randomizer => new Animal {
           Age = randomizer.Integer(10, 50)}, 20);
