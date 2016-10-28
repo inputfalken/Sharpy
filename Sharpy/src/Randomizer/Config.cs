@@ -10,16 +10,14 @@ using Sharpy.Randomizer.Generators;
 
 namespace Sharpy.Randomizer {
     /// <summary>
-    ///     Is used to configure Randomizer.
+    ///     <para>Is used to configure Randomizer.</para>
     /// </summary>
     public sealed class Config {
         private Fetcher<Name> _names;
 
         private Fetcher<string> _userNames;
 
-        /// <summary>
-        /// </summary>
-        public Config() {
+        internal Config() {
             DateGenerator = new DateGenerator(Random);
             Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
             NumberGen = new NumberGenerator(Random, 5, null);
