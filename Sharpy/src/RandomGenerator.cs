@@ -5,7 +5,9 @@ using Sharpy.Randomizer;
 
 namespace Sharpy {
     /// <summary>
-    ///     Creates a simple generator using my Implementation of IRandomizer&lt;TStringArg&gt;
+    ///     Uses a static generator using my Implementation of IRandomizer&lt;TStringArg&gt;
+    ///<para></para>
+    ///     Can also give instances of the same generator. Is useful if you want to generate same data by setting the same  seed on seperate generators.
     /// </summary>
     /// <returns></returns>
     public class RandomGenerator : Generator<IRandomizer<StringType>> {
@@ -28,14 +30,13 @@ namespace Sharpy {
         private static RandomGenerator Generator { get; }
 
         /// <summary>
-        ///     Gives a new instance of Randomgenerator where you can configure the generator.
+        ///     Creates a new instance of Randomgenerator.
         /// </summary>
         /// <returns></returns>
         public static RandomGenerator Create() => new RandomGenerator(new Config());
 
         /// <summary>
-        ///     Can be used if you just want a IEnumerable&lt;T&gt;.
-        ///     Calls GenerateMany from a private Generator.
+        ///     Generates a IEnumerable&lt;T&gt;.
         /// </summary>
         /// <param name="func"></param>
         /// <param name="count"></param>
@@ -45,8 +46,7 @@ namespace Sharpy {
             => Generator.GenerateMany(func, count);
 
         /// <summary>
-        ///     Can be used if you just want an instance of &lt;T&gt;.
-        ///     Calls Generate from a private Generator.
+        ///     Generates a &lt;T&gt;.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
