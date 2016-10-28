@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Sharpy.Types {
+namespace Sharpy.Randomizer {
     /// <summary>
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -14,7 +14,6 @@ namespace Sharpy.Types {
 
         /// <summary>
         /// </summary>
-        /// <param name="attemptLimit"></param>
         /// <param name="random"></param>
         protected Unique(Random random) {
             Random = random;

@@ -5,36 +5,30 @@ using System.Text;
 using Newtonsoft.Json;
 using Sharpy.Enums;
 using Sharpy.Properties;
-using Sharpy.Types;
-using Sharpy.Types.CountryCode;
-using Sharpy.Types.Date;
-using Sharpy.Types.Mail;
-using Sharpy.Types.Name;
+using Sharpy.Randomizer.DataObjects;
+using Sharpy.Randomizer.Generators;
 
-namespace Sharpy {
+namespace Sharpy.Randomizer {
     /// <summary>
-    ///   Is used to configure Randomizer.
+    ///     <para>Is used to configure Randomizer.</para>
     /// </summary>
-    public class Config {
+    public sealed class Config {
         private Fetcher<Name> _names;
 
         private Fetcher<string> _userNames;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public Config() {
+        internal Config() {
             DateGenerator = new DateGenerator(Random);
             Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
             NumberGen = new NumberGenerator(Random, 5, null);
+            SocialSecurityNumberGenerator = new NumberGenerator(Random, 4, null, true);
         }
 
+        internal NumberGenerator SocialSecurityNumberGenerator { get; }
 
         private Lazy<Fetcher<Name>> LazyNames { get; } =
-            new Lazy<Fetcher<Name>>(
-                () => new Fetcher<Name>(JsonConvert.DeserializeObject<IEnumerable<Name>>(
-                    Encoding.UTF8.GetString(Resources.NamesByOrigin))));
-
+            new Lazy<Fetcher<Name>>(() => new Fetcher<Name>(JsonConvert.DeserializeObject<IEnumerable<Name>>(
+                Encoding.UTF8.GetString(Resources.NamesByOrigin))));
 
         internal Fetcher<Name> Names {
             get { return _names ?? LazyNames.Value; }
@@ -46,14 +40,13 @@ namespace Sharpy {
         internal DateGenerator DateGenerator { get; }
 
 
-        private Lazy<Fetcher<string>> LazyUsernames { get; } =
-            new Lazy<Fetcher<string>>(() => new Fetcher<string>(Resources.usernames.Split(Convert.ToChar("\n"))));
-
-
         internal NumberGenerator NumberGen { get; private set; }
 
 
         internal MailGenerator Mailgen { get; private set; }
+
+        private Lazy<Fetcher<string>> LazyUsernames { get; } =
+            new Lazy<Fetcher<string>>(() => new Fetcher<string>(Resources.usernames.Split(Convert.ToChar("\n"))));
 
         private Fetcher<string> UserNames {
             get { return _userNames ?? LazyUsernames.Value; }
@@ -80,7 +73,7 @@ namespace Sharpy {
         /// <param name="countries"></param>
         /// <returns></returns>
         public Config Name(params Country[] countries) {
-            Names = new Fetcher<Name>(ByCountry(countries));
+            Names = new Fetcher<Name>(Names.Where(name => countries.Contains(name.Country)));
             return this;
         }
 
@@ -91,7 +84,7 @@ namespace Sharpy {
         /// <param name="regions"></param>
         /// <returns></returns>
         public Config Name(params Region[] regions) {
-            Names = new Fetcher<Name>(ByRegion(regions));
+            Names = new Fetcher<Name>(Names.Where(name => regions.Contains(name.Region)));
             return this;
         }
 
@@ -147,12 +140,6 @@ namespace Sharpy {
             return this;
         }
 
-        private IEnumerable<Name> ByCountry(params Country[] args)
-            => new Fetcher<Name>(Names.Where(name => args.Contains(name.Country)));
-
-
-        private IEnumerable<Name> ByRegion(params Region[] args)
-            => new Fetcher<Name>(Names.Where(name => args.Contains(name.Region)));
 
         internal IEnumerable<string> StringType(StringType stringType) {
             switch (stringType) {
