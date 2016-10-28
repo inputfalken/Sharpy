@@ -2,15 +2,6 @@
 
 The idea of this project is to let users have a source to fetch random data from.
 
-####Features
-
-* LocalDate
-* Bool
-* Name
-* Int
-* Mail
-* Phone number
-
 ###Examples
 #### Generating
 ```C#
