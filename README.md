@@ -9,30 +9,24 @@ using System.Collections.Generic;
 using Sharpy;
 using Sharpy.Enums;
 
-namespace ConsoleApp
-{
-    internal static class Program
-    {
-        public static void Main()
-        {
+namespace ConsoleApp {
+    internal static class Program {
+        public static void Main() {
             // First argument is the instructions on what will be generated, 
             // second argument is the Count of the IEnumerable.
-            IEnumerable<Person> people = RandomGenerator.GenerateEnumerable(randomizer => new Person
-            {
+            IEnumerable<Person> people = RandomGenerator.GenerateEnumerable(randomizer => new Person {
                 FirstName = randomizer.String(StringType.FirstName),
                 LastName = randomizer.String(StringType.LastName)
             }, 20);
             // Creates one person with randomized names.
-            Person person = RandomGenerator.GenerateInstance(randomizer => new Person
-            {
+            Person person = RandomGenerator.GenerateInstance(randomizer => new Person {
                 FirstName = randomizer.String(StringType.FirstName),
                 LastName = randomizer.String(StringType.LastName)
             });
         }
     }
 
-    internal class Person
-    {
+    internal class Person {
         public string FirstName { get; set; }
         public string LastName { get; set; }
     }
