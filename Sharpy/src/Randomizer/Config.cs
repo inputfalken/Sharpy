@@ -19,8 +19,10 @@ namespace Sharpy.Randomizer {
             DateGenerator = new DateGenerator(Random);
             Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
             NumberGen = new NumberGenerator(Random, 5, null);
+            SocialSecurityNumberGenerator = new NumberGenerator(Random, 4, null, true);
         }
 
+        internal NumberGenerator SocialSecurityNumberGenerator { get; }
 
         private Lazy<Fetcher<Name>> LazyNames { get; } =
             new Lazy<Fetcher<Name>>(() => new Fetcher<Name>(JsonConvert.DeserializeObject<IEnumerable<Name>>(
