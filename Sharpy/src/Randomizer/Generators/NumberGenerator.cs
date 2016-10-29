@@ -7,9 +7,12 @@ namespace Sharpy.Randomizer.Generators {
     /// <summary>
     /// </summary>
     internal sealed class NumberGenerator : Unique<long> {
+        private readonly int _length;
+
         internal NumberGenerator(Random random, int length, string prefix,
             bool unique = false)
             : base(random) {
+            _length = length;
             Prefix = prefix;
             Unique = unique;
             Min = (int) Math.Pow(10, length - 1);
@@ -58,5 +61,7 @@ namespace Sharpy.Randomizer.Generators {
             Builder.Clear();
             return str;
         }
+
+        public override string ToString() => $"Length: {_length}, Unique: {Unique}, Prefix: {Prefix ?? "None"}";
     }
 }
