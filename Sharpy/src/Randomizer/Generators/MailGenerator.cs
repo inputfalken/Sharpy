@@ -97,10 +97,9 @@ namespace Sharpy.Randomizer.Generators {
                         resets += 1;
                     }
                 // Start adding numbers.
-                secondName = secondName + Random.Next(9);
+                secondName = OnDuppplicate(secondName);
             }
         }
-
 
 
         /// <summary>
@@ -119,9 +118,10 @@ namespace Sharpy.Randomizer.Generators {
                     HashSet.Add(address);
                     return address;
                 }
-                // Start adding numbers
-                name = name + Random.Next(9);
+                name = OnDuppplicate(name);
             }
         }
+
+        protected override string OnDuppplicate(string x) => Build(x, Random.Next(10).ToString());
     }
 }
