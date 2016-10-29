@@ -51,6 +51,17 @@ namespace Sharpy {
             => Generator.GenerateMany(func, count);
 
         /// <summary>
+        ///     <para>Generates a IEnumerable&lt;T&gt;.</para>
+        ///     <para>Includes an integer counting iterations.</para>
+        /// </summary>
+        /// <param name="func"></param>
+        /// <param name="count"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static IEnumerable<T> GenerateEnumerable<T>(Func<IRandomizer<StringType>, int, T> func, int count = 10)
+            => Generator.GenerateMany(func, count);
+
+        /// <summary>
         ///     <para>Generates a &lt;T&gt;.</para>
         /// </summary>
         /// <typeparam name="T"></typeparam>
