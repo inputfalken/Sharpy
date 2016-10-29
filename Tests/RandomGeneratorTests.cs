@@ -12,7 +12,7 @@ namespace Tests {
     ///     These tests are all used with a seed so the result are always the same.
     /// </summary>
     [TestFixture]
-    public class GeneratorTests {
+    public class RandomGeneratorTests {
         [SetUp]
         public void Setup() {
             var config = new Config();
