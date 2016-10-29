@@ -167,16 +167,19 @@ namespace Sharpy.Randomizer {
         }
 
         public override string ToString() {
-            var origins = "Origins: ";
+            var origins = string.Empty;
             foreach (var origin in _origins)
                 if (origin.Equals(_origins.Last())) origins += origin;
                 else origins += $"{origin}, ";
 
             return
-                $"\nSeed: {_seed ?? "None set"}\n" +
+                $"\nSeed: {_seed ?? NoSet}. Using default for System.Random\n" +
                 $"Mail: {Mailgen}\n" +
                 $"NumberGenerator: {NumberGen}\n" +
-                $"Name: {origins}";
+                $"Name: Origins: {(string.IsNullOrEmpty(origins) ? NoSet : origins)}";
         }
+
+        private const string NoSet = "None Set";
     }
+    
 }

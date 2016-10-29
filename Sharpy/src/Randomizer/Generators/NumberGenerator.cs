@@ -62,6 +62,6 @@ namespace Sharpy.Randomizer.Generators {
             return str;
         }
 
-        public override string ToString() => $"Length: {_length}, Unique: {Unique}, Prefix: {Prefix ?? "None"}";
+        public override string ToString() => $"Length: {_length}, Unique: {Unique}, Prefix: {Prefix ?? "None Set"}";
     }
 }
