@@ -56,5 +56,9 @@ namespace Sharpy {
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public static T GenerateInstance<T>(Func<IRandomizer<StringType>, T> func) => Generator.Generate(func);
+
+        public override string ToString() {
+            return $"Configurement for Random Generator{Config}";
+        }
     }
 }
