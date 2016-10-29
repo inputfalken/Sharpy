@@ -136,10 +136,12 @@ namespace Sharpy.Randomizer {
         /// <param name="seed"></param>
         /// <returns></returns>
         public Config Seed(int seed) {
+            _seed = seed.ToString();
             Random = new Random(seed);
             return this;
         }
 
+        private string _seed;
 
         internal IEnumerable<string> StringType(StringType stringType) {
             switch (stringType) {
@@ -161,8 +163,7 @@ namespace Sharpy.Randomizer {
         }
 
         public override string ToString() {
-            return
-                $"Current Configurment:\nMailGen: {Mailgen}\nNumberGenerator: {NumberGen}";
+            return $"\nSeed: {_seed ?? "None set"}\nMail: {Mailgen}\nNumberGenerator: {NumberGen}";
         }
     }
 }
