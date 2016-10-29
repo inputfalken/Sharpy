@@ -162,6 +162,101 @@ namespace Tests {
         }
 
         [Test]
+        public void Seed_With_StringAnyName() {
+            const int limit = 100;
+            var generatorA = RandomGenerator.Create();
+            generatorA.Config.Seed(Seed);
+            var generatorB = RandomGenerator.Create();
+            generatorB.Config.Seed(Seed);
+
+            var generateManyA = generatorA.GenerateMany(randomizer => randomizer.String(StringType.AnyName), limit);
+            var generateManyB = generatorB.GenerateMany(randomizer => randomizer.String(StringType.AnyName), limit);
+            Assert.IsTrue(generateManyA.SequenceEqual(generateManyB));
+        }
+
+        [Test]
+        public void Seed_With_StringFirstName() {
+            const int limit = 100;
+            var generatorA = RandomGenerator.Create();
+            generatorA.Config.Seed(Seed);
+            var generatorB = RandomGenerator.Create();
+            generatorB.Config.Seed(Seed);
+
+            var generateManyA = generatorA.GenerateMany(randomizer => randomizer.String(StringType.FirstName), limit);
+            var generateManyB = generatorB.GenerateMany(randomizer => randomizer.String(StringType.FirstName), limit);
+            Assert.IsTrue(generateManyA.SequenceEqual(generateManyB));
+        }
+
+        [Test]
+        public void Seed_With_StringUserName() {
+            const int limit = 100;
+            var generatorA = RandomGenerator.Create();
+            generatorA.Config.Seed(Seed);
+            var generatorB = RandomGenerator.Create();
+            generatorB.Config.Seed(Seed);
+
+            var generateManyA = generatorA.GenerateMany(randomizer => randomizer.String(StringType.UserName), limit);
+            var generateManyB = generatorB.GenerateMany(randomizer => randomizer.String(StringType.UserName), limit);
+            Assert.IsTrue(generateManyA.SequenceEqual(generateManyB));
+        }
+
+        [Test]
+        public void Seed_With_StringLastName() {
+            const int limit = 100;
+            var generatorA = RandomGenerator.Create();
+            generatorA.Config.Seed(Seed);
+            var generatorB = RandomGenerator.Create();
+            generatorB.Config.Seed(Seed);
+
+            var generateManyA = generatorA.GenerateMany(randomizer => randomizer.String(StringType.LastName), limit);
+            var generateManyB = generatorB.GenerateMany(randomizer => randomizer.String(StringType.LastName), limit);
+            Assert.IsTrue(generateManyA.SequenceEqual(generateManyB));
+        }
+
+        [Test]
+        public void Seed_With_StringFemaleFirstName() {
+            const int limit = 100;
+            var generatorA = RandomGenerator.Create();
+            generatorA.Config.Seed(Seed);
+            var generatorB = RandomGenerator.Create();
+            generatorB.Config.Seed(Seed);
+
+            var generateManyA = generatorA.GenerateMany(randomizer => randomizer.String(StringType.FemaleFirstName),
+                limit);
+            var generateManyB = generatorB.GenerateMany(randomizer => randomizer.String(StringType.FemaleFirstName),
+                limit);
+            Assert.IsTrue(generateManyA.SequenceEqual(generateManyB));
+        }
+
+        [Test]
+        public void Seed_With_StringMaleFirstName() {
+            const int limit = 100;
+            var generatorA = RandomGenerator.Create();
+            generatorA.Config.Seed(Seed);
+            var generatorB = RandomGenerator.Create();
+            generatorB.Config.Seed(Seed);
+
+            var generateManyA = generatorA.GenerateMany(randomizer => randomizer.String(StringType.MaleFirstName), limit);
+            var generateManyB = generatorB.GenerateMany(randomizer => randomizer.String(StringType.MaleFirstName), limit);
+            Assert.IsTrue(generateManyA.SequenceEqual(generateManyB));
+        }
+
+        [Test]
+        public void Seed_With_SecurityNumber() {
+            const int limit = 100;
+            var generatorA = RandomGenerator.Create();
+            generatorA.Config.Seed(Seed);
+            var generatorB = RandomGenerator.Create();
+            generatorB.Config.Seed(Seed);
+
+            var generateManyA =
+                generatorA.GenerateMany(randomizer => randomizer.SocialSecurityNumber(randomizer.DateByAge(20)), limit);
+            var generateManyB =
+                generatorB.GenerateMany(randomizer => randomizer.SocialSecurityNumber(randomizer.DateByAge(20)), limit);
+            Assert.IsTrue(generateManyA.SequenceEqual(generateManyB));
+        }
+
+        [Test]
         public void UserNamesAreNotNull() {
             var generator = RandomGenerator.Create();
             //Many
