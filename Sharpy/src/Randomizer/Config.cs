@@ -73,6 +73,7 @@ namespace Sharpy.Randomizer {
         /// <param name="countries"></param>
         /// <returns></returns>
         public Config Name(params Country[] countries) {
+            foreach (var country in countries) _origins.Add(country);
             Names = new Fetcher<Name>(Names.Where(name => countries.Contains(name.Country)));
             return this;
         }
@@ -84,6 +85,7 @@ namespace Sharpy.Randomizer {
         /// <param name="regions"></param>
         /// <returns></returns>
         public Config Name(params Region[] regions) {
+            foreach (var region in regions) _origins.Add(region);
             Names = new Fetcher<Name>(Names.Where(name => regions.Contains(name.Region)));
             return this;
         }
@@ -143,6 +145,8 @@ namespace Sharpy.Randomizer {
 
         private string _seed;
 
+        private readonly HashSet<Enum> _origins = new HashSet<Enum>();
+
         internal IEnumerable<string> StringType(StringType stringType) {
             switch (stringType) {
                 case Enums.StringType.FemaleFirstName:
@@ -163,7 +167,16 @@ namespace Sharpy.Randomizer {
         }
 
         public override string ToString() {
-            return $"\nSeed: {_seed ?? "None set"}\nMail: {Mailgen}\nNumberGenerator: {NumberGen}";
+            var origins = "Origins: ";
+            foreach (var origin in _origins)
+                if (origin.Equals(_origins.Last())) origins += origin;
+                else origins += $"{origin}, ";
+
+            return
+                $"\nSeed: {_seed ?? "None set"}\n" +
+                $"Mail: {Mailgen}\n" +
+                $"NumberGenerator: {NumberGen}\n" +
+                $"Name: {origins}";
         }
     }
 }
