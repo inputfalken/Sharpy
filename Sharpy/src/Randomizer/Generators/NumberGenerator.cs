@@ -51,12 +51,5 @@ namespace Sharpy.Randomizer.Generators {
             return formated ? securityNumber.ToString().Insert(6, "-") : securityNumber.ToString();
         }
 
-        private static string Build(params string[] strings) {
-            foreach (var s in strings)
-                Builder.Append(s);
-            var str = Builder.ToString();
-            Builder.Clear();
-            return str;
-        }
     }
 }
