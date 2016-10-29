@@ -159,5 +159,9 @@ namespace Sharpy.Randomizer {
                     throw new ArgumentOutOfRangeException(nameof(stringType), stringType, null);
             }
         }
+
+        public override string ToString() {
+            return $"Current Configurment:\nMailGen: {Mailgen}";
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Sharpy.Randomizer.Generators {
     /// <summary>
@@ -125,5 +126,7 @@ namespace Sharpy.Randomizer.Generators {
                 name = name + Random.Next(9);
             }
         }
+
+        public override string ToString() => $"Providers: {_emailDomains.Aggregate((x, y) => $"{x}, {y}")} Unique addresses: {Unique}";
     }
 }
