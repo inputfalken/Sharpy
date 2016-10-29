@@ -161,7 +161,8 @@ namespace Sharpy.Randomizer {
         }
 
         public override string ToString() {
-            return $"Current Configurment:\nMailGen: {Mailgen}";
+            return
+                $"Current Configurment:\nMailGen: {Mailgen}\nNumberGenerator: {NumberGen}";
         }
     }
 }
