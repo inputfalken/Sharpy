@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Sharpy.Randomizer.Generators {
     /// <summary>
@@ -83,10 +84,11 @@ namespace Sharpy.Randomizer.Generators {
                 while (resets < Limit)
                     if (_emailDomainsEnumerator.MoveNext()) {
                         foreach (var separator in Separators) {
-                            var address = BuildString(name, separator.ToString(), secondName, "@",
+                            var address = Build(name, separator.ToString(), secondName, "@",
                                 _emailDomainsEnumerator.Current);
-                            if (ClearValidateSave(address))
-                                return address;
+                            if (HashSet.Contains(address)) continue;
+                            HashSet.Add(address);
+                            return address;
                         }
                     }
                     else {
@@ -96,15 +98,10 @@ namespace Sharpy.Randomizer.Generators {
                         resets += 1;
                     }
                 // Start adding numbers.
-                secondName = secondName + Random.Next(9);
+                secondName = OnDuppplicate(secondName);
             }
         }
 
-        private static string BuildString(params string[] strings) {
-            foreach (var s in strings)
-                Builder.Append(s);
-            return Builder.ToString().ToLower();
-        }
 
         /// <summary>
         ///     Returns a string representing a mail address.
@@ -117,13 +114,18 @@ namespace Sharpy.Randomizer.Generators {
                     throw new NullReferenceException($"{nameof(name)} cannot be empty string or null");
                 if (!Unique) return RandomMail(name);
                 foreach (var emailDomain in _emailDomains) {
-                    var address = BuildString(name, "@", emailDomain);
-                    if (ClearValidateSave(address))
-                        return address;
+                    var address = Build(name, "@", emailDomain);
+                    if (HashSet.Contains(address)) continue;
+                    HashSet.Add(address);
+                    return address;
                 }
-                // Start adding numbers
-                name = name + Random.Next(9);
+                name = OnDuppplicate(name);
             }
         }
+
+        public override string ToString()
+            => $"Providers: {_emailDomains.Aggregate((x, y) => $"{x}, {y}")} Unique addresses: {Unique}";
+
+        protected override string OnDuppplicate(string x) => Build(x, Random.Next(10).ToString());
     }
 }
