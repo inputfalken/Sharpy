@@ -73,6 +73,7 @@ namespace Sharpy.Randomizer {
         /// <param name="countries"></param>
         /// <returns></returns>
         public Config Name(params Country[] countries) {
+            foreach (var country in countries) _origins.Add(country);
             Names = new Fetcher<Name>(Names.Where(name => countries.Contains(name.Country)));
             return this;
         }
@@ -84,6 +85,7 @@ namespace Sharpy.Randomizer {
         /// <param name="regions"></param>
         /// <returns></returns>
         public Config Name(params Region[] regions) {
+            foreach (var region in regions) _origins.Add(region);
             Names = new Fetcher<Name>(Names.Where(name => regions.Contains(name.Region)));
             return this;
         }
@@ -136,10 +138,14 @@ namespace Sharpy.Randomizer {
         /// <param name="seed"></param>
         /// <returns></returns>
         public Config Seed(int seed) {
+            _seed = seed.ToString();
             Random = new Random(seed);
             return this;
         }
 
+        private string _seed;
+
+        private readonly HashSet<Enum> _origins = new HashSet<Enum>();
 
         internal IEnumerable<string> StringType(StringType stringType) {
             switch (stringType) {
@@ -159,5 +165,21 @@ namespace Sharpy.Randomizer {
                     throw new ArgumentOutOfRangeException(nameof(stringType), stringType, null);
             }
         }
+
+        public override string ToString() {
+            var origins = string.Empty;
+            foreach (var origin in _origins)
+                if (origin.Equals(_origins.Last())) origins += origin;
+                else origins += $"{origin}, ";
+
+            return
+                $"\nSeed: {_seed ?? NoSet}. Using default for System.Random\n" +
+                $"Mail: {Mailgen}\n" +
+                $"NumberGenerator: {NumberGen}\n" +
+                $"Name: Origins: {(string.IsNullOrEmpty(origins) ? NoSet : origins)}";
+        }
+
+        private const string NoSet = "None Set";
     }
+    
 }

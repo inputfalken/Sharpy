@@ -7,9 +7,12 @@ namespace Sharpy.Randomizer.Generators {
     /// <summary>
     /// </summary>
     internal sealed class NumberGenerator : Unique<long> {
+        private readonly int _length;
+
         internal NumberGenerator(Random random, int length, string prefix,
             bool unique = false)
             : base(random) {
+            _length = length;
             Prefix = prefix;
             Unique = unique;
             Min = (int) Math.Pow(10, length - 1);
@@ -24,15 +27,10 @@ namespace Sharpy.Randomizer.Generators {
         internal string RandomNumber() {
             var next = Random.Next(Min, Max);
             if (!Unique) return Build(Prefix, next.ToString());
-            var number = CreateUniqueNumber(next, OnDupplicate);
+            var number = CreateUniqueNumber(next, OnDuppplicate);
             return Build(Prefix, number.ToString());
         }
 
-        private long OnDupplicate(long x) {
-            if (x == Max) x = Min;
-            else x++;
-            return x;
-        }
 
         private long CreateUniqueNumber(long startNumber, Func<long, long> func) {
             var number = func(startNumber);
@@ -47,16 +45,16 @@ namespace Sharpy.Randomizer.Generators {
             var day = date.Day < 10 ? $"0{date.Day}" : date.Day.ToString();
             var controlNumber = Random.Next(Min, Max);
             var securityNumber = CreateUniqueNumber(long.Parse(Build(year, month, day, controlNumber.ToString())),
-                OnDupplicate);
+                OnDuppplicate);
             return formated ? securityNumber.ToString().Insert(6, "-") : securityNumber.ToString();
         }
 
-        private static string Build(params string[] strings) {
-            foreach (var s in strings)
-                Builder.Append(s);
-            var str = Builder.ToString();
-            Builder.Clear();
-            return str;
+        protected override long OnDuppplicate(long x) {
+            if (x == Max) x = Min;
+            else x++;
+            return x;
         }
+
+        public override string ToString() => $"Length: {_length}, Unique: {Unique}, Prefix: {Prefix ?? "None Set"}";
     }
 }

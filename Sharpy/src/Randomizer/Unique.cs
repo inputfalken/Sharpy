@@ -20,6 +20,7 @@ namespace Sharpy.Randomizer {
             HashSet = new HashSet<T>();
         }
 
+        protected abstract T OnDuppplicate(T x);
 
         /// <summary>
         /// </summary>
@@ -30,14 +31,12 @@ namespace Sharpy.Randomizer {
         /// </summary>
         protected HashSet<T> HashSet { get; }
 
-        /// <summary>
-        ///     This method is used in order to validate if the created element is unique
-        /// </summary>
-        protected bool ClearValidateSave(T item) {
+        protected static string Build(params string[] strings) {
+            foreach (var s in strings)
+                Builder.Append(s);
+            var str = Builder.ToString();
             Builder.Clear();
-            if (HashSet.Contains(item)) return false;
-            HashSet.Add(item);
-            return true;
+            return str;
         }
     }
 }
