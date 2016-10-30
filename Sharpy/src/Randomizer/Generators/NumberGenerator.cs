@@ -27,7 +27,7 @@ namespace Sharpy.Randomizer.Generators {
         internal string RandomNumber() {
             var next = Random.Next(Min, Max);
             if (!Unique) return Build(Prefix, next.ToString());
-            var number = CreateUniqueNumber(next, OnDuppplicate);
+            var number = CreateUniqueNumber(next, OnDuplicate);
             return Build(Prefix, number.ToString());
         }
 
@@ -45,11 +45,11 @@ namespace Sharpy.Randomizer.Generators {
             var day = date.Day < 10 ? $"0{date.Day}" : date.Day.ToString();
             var controlNumber = Random.Next(Min, Max);
             var securityNumber = CreateUniqueNumber(long.Parse(Build(year, month, day, controlNumber.ToString())),
-                OnDuppplicate);
+                OnDuplicate);
             return formated ? securityNumber.ToString().Insert(6, "-") : securityNumber.ToString();
         }
 
-        protected override long OnDuppplicate(long x) {
+        protected override long OnDuplicate(long x) {
             if (x == Max) x = Min;
             else x++;
             return x;
