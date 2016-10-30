@@ -44,10 +44,10 @@ namespace Sharpy.Randomizer.Generators {
             return securityNumber;
         }
 
-        protected override long OnDuplicate(long x) {
-            if (x == Max) x = Min;
-            else x++;
-            return x;
+        protected override long OnDuplicate(long item) {
+            if (item == Max) item = Min;
+            else item++;
+            return item;
         }
 
         public override string ToString() => $"Length: {_length}, Unique: {Unique}";

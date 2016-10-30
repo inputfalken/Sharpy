@@ -20,7 +20,7 @@ namespace Sharpy.Randomizer {
             HashSet = new HashSet<T>();
         }
 
-        protected abstract T OnDuplicate(T x);
+        protected abstract T OnDuplicate(T item);
 
         /// <summary>
         /// </summary>
