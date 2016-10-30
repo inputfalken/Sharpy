@@ -34,12 +34,12 @@ namespace Sharpy {
         /// <summary>
         ///     <para>Randomizes a Integer from 0 to max.</para>
         /// </summary>
-        int Integer(int max);
+        int Integer(int max, bool unique = false);
 
         /// <summary>
         ///     <para>Randomizes a Integer from min to max.</para>
         /// </summary>
-        int Integer(int min, int max);
+        int Integer(int min, int max, bool unique = false);
 
         /// <summary>
         ///     <para>Randomizes a random month and date then subtracts current year by value supplied.</para>
