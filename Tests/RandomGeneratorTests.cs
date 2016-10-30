@@ -121,21 +121,6 @@ namespace Tests {
             Assert.IsFalse(generator.Generate(randomizer => randomizer.Integer(1, 100)) == 0);
         }
 
-        [Test]
-        public void PhoneNumberAreNotNullOrwhiteSpace() {
-            var sharpyGenerator = RandomGenerator.Create();
-            //Many
-            var numbers =
-                sharpyGenerator.GenerateMany(randomizer => randomizer.String(StringType.Number), 100)
-                    .ToArray();
-            Assert.IsFalse(numbers.All(string.IsNullOrWhiteSpace));
-            Assert.IsFalse(numbers.All(string.IsNullOrWhiteSpace));
-
-            //Single
-            var number = sharpyGenerator.Generate(randomizer => randomizer.String(StringType.Number));
-            Assert.IsFalse(string.IsNullOrWhiteSpace(number));
-            Assert.IsFalse(string.IsNullOrWhiteSpace(number));
-        }
 
         [Test]
         public void Seed_With_Bools() {
