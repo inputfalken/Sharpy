@@ -28,5 +28,25 @@ namespace Tests {
             //will make sure that the date created is earlier than today this year
             Assert.IsTrue(DateGenerator.CurrentLocalDate > result);
         }
+
+        [Test]
+        public void RandomDateByYearTwoThousand() {
+            var dateGenerator = new DateGenerator(new Random());
+            var result = dateGenerator.RandomDateByYear(2000);
+            Assert.AreEqual(result.Year, 2000);
+        }
+
+        [Test]
+        public void RandomDateByYearTwoThousandTen() {
+            var dateGenerator = new DateGenerator(new Random());
+            var result = dateGenerator.RandomDateByYear(2010);
+            Assert.AreEqual(result.Year, 2010);
+        }
+
+        [Test]
+        public void RandomDateByYearMinusOne() {
+            var dateGenerator = new DateGenerator(new Random());
+            Assert.Throws<ArgumentException>(() => dateGenerator.RandomDateByYear(-1));
+        }
     }
 }

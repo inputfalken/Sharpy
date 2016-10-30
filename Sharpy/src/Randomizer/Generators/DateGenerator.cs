@@ -40,6 +40,8 @@ namespace Sharpy.Randomizer.Generators {
         ///     <param name="year">which year to use</param>
         /// </summary>
         internal LocalDate RandomDateByYear(int year) {
+            if (year < 0)
+                throw new ArgumentException($"{nameof(year)} cannot be negative");
             var month = _random.Next(1, CurrentLocalDate.Month);
             return new LocalDate(year, month, _random.Next(1, DateTime.DaysInMonth(year, month)));
         }
