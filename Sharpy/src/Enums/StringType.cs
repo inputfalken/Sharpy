@@ -33,10 +33,5 @@ namespace Sharpy.Enums {
         /// </summary>
         AnyName,
 
-        /// <summary>
-        ///     Will give a random string number. Based on the configuration of numbergenerator.
-        ///     Could be used as a phone number generator for example.
-        /// </summary>
-        Number
     }
 }
