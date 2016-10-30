@@ -36,7 +36,7 @@ namespace Sharpy.Randomizer {
         public string SocialSecurityNumber(LocalDate date, bool formated = true)
             => Config.SocialSecurityNumberGenerator.SocialSecurity(date, formated);
 
-        public string MailAdress(string name, string secondName = null)
+        public string MailAddress(string name, string secondName = null)
             => Config.Mailgen.Mail(name, secondName);
     }
 }

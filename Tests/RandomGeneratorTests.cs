@@ -39,7 +39,7 @@ namespace Tests {
 
             // Should be true since mailgenerator has been configured to produce unique mails.
             Assert.IsTrue(
-                mailGenerator.GenerateMany(randomizer => randomizer.MailAdress(MailUserName), 100)
+                mailGenerator.GenerateMany(randomizer => randomizer.MailAddress(MailUserName), 100)
                     .GroupBy(s => s)
                     .All(grouping => grouping.Count() == 1));
         }
@@ -48,12 +48,12 @@ namespace Tests {
         public void MailsAreNotnull() {
             var generator = RandomGenerator.Create();
             //Many
-            var mails = generator.GenerateMany(randomizer => randomizer.MailAdress(MailUserName), 20).ToArray();
+            var mails = generator.GenerateMany(randomizer => randomizer.MailAddress(MailUserName), 20).ToArray();
             Assert.IsFalse(mails.All(string.IsNullOrEmpty));
             Assert.IsFalse(mails.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var masil = generator.Generate(randomizer => randomizer.MailAdress(MailUserName));
+            var masil = generator.Generate(randomizer => randomizer.MailAddress(MailUserName));
             Assert.IsFalse(string.IsNullOrWhiteSpace(masil));
             Assert.IsFalse(string.IsNullOrEmpty(masil));
         }

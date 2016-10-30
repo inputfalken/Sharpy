@@ -98,7 +98,7 @@ namespace Sharpy.Randomizer.Generators {
                         resets += 1;
                     }
                 // Start adding numbers.
-                secondName = OnDuppplicate(secondName);
+                secondName = OnDuplicate(secondName);
             }
         }
 
@@ -119,13 +119,13 @@ namespace Sharpy.Randomizer.Generators {
                     HashSet.Add(address);
                     return address;
                 }
-                name = OnDuppplicate(name);
+                name = OnDuplicate(name);
             }
         }
 
         public override string ToString()
             => $"Providers: {_emailDomains.Aggregate((x, y) => $"{x}, {y}")} Unique addresses: {Unique}";
 
-        protected override string OnDuppplicate(string x) => Build(x, Random.Next(10).ToString());
+        protected override string OnDuplicate(string x) => Build(x, Random.Next(10).ToString());
     }
 }

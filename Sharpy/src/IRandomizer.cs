@@ -3,7 +3,7 @@ using NodaTime;
 
 namespace Sharpy {
     /// <summary>
-    ///     <para>A contract containng various Methods to randomize data.</para>
+    ///     <para>A contract containing various Methods to randomize data.</para>
     /// </summary>
     /// <typeparam name="TStringArg"></typeparam>
     public interface IRandomizer<in TStringArg> {
@@ -61,8 +61,8 @@ namespace Sharpy {
         string SocialSecurityNumber(LocalDate date, bool formated = true);
 
         /// <summary>
-        ///     <para>Gives a mail address by concatinating the arguments into a mail address.</para>
+        ///     <para>Gives a mail address by concatenating the arguments into a mail address.</para>
         /// </summary>
-        string MailAdress(string name, string secondName = null);
+        string MailAddress(string name, string secondName = null);
     }
 }

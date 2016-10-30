@@ -171,7 +171,6 @@ namespace Sharpy.Randomizer {
             foreach (var origin in _origins)
                 if (origin.Equals(_origins.Last())) origins += origin;
                 else origins += $"{origin}, ";
-
             return
                 $"\nSeed: {_seed ?? NoSet}. Using default for System.Random\n" +
                 $"Mail: {Mailgen}\n" +
@@ -181,5 +180,4 @@ namespace Sharpy.Randomizer {
 
         private const string NoSet = "None Set";
     }
-    
 }
