@@ -17,7 +17,6 @@ namespace Sharpy.Randomizer {
 
 
         public string String(StringType stringType) {
-            if (stringType == StringType.Number) return Config.NumberGen.RandomNumber().ToString();
             if (!Config.Dictionary.ContainsKey(stringType))
                 Config.Dictionary.Add(stringType, new Fetcher<string>(Config.StringType(stringType)));
             return Config.Dictionary[stringType].RandomItem(Config.Random);
