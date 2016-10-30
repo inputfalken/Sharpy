@@ -64,19 +64,6 @@ using System.Collections.Generic;
 using Sharpy;
 using Sharpy.Enums;
 
-<<<<<<< HEAD
-namespace Logger {
-  internal static class Program {
-    public static void Main() {
-      var generator = RandomGenerator.Create();
-   
-      IEnumerable<Person> people = generator.GenerateMany(randomizer => new Person {
-          FirstName = randomizer.String(StringType.FirstName),
-          LastName = randomizer.String(StringType.LastName),
-          // Just pass an Class that implements IList or use params!
-          // This shows a params example.
-          WorkPlace = randomizer.CustomCollection("Workplace1", "workplace2")}, 20);
-=======
 namespace ConsoleApp {
     internal static class Program {
         public static void Main() {
@@ -88,7 +75,6 @@ namespace ConsoleApp {
                 WorkPlace = randomizer.CustomCollection("Workplace1", "workplace2")
             }, 20);
         }
->>>>>>> version-1.1
     }
 
     internal class Person {
