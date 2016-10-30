@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using NodaTime;
 using Sharpy.Enums;
@@ -33,9 +34,17 @@ namespace Sharpy.Randomizer {
 
         public LocalDate DateByYear(int year) => Config.DateGenerator.RandomDateByYear(year);
 
-        public string SocialSecurityNumber(LocalDate date, bool formated = true) => formated
-            ? Config.SocialSecurityNumberGenerator.SocialSecurity(date).ToString().Insert(6, "-")
-            : Config.SocialSecurityNumberGenerator.SocialSecurity(date).ToString();
+        public string SocialSecurityNumber(LocalDate date, bool formated = true) {
+            var month = date.Month < 10 ? $"0{date.Month}" : date.Month.ToString();
+            var year = date.YearOfCentury < 10 ? $"0{date.YearOfCentury}" : date.YearOfCentury.ToString();
+            var day = date.Day < 10 ? $"0{date.Day}" : date.Day.ToString();
+            var controlNumber = Config.Random.Next(1000, 9999);
+            var res = Config
+                .SocialSecurityNumberGenerator
+                .RandomNumber(long.Parse(year + month + day + controlNumber))
+                .ToString();
+            return formated ? res.Insert(6, "-") : res;
+        }
 
         public string MailAddress(string name, string secondName = null)
             => Config.Mailgen.Mail(name, secondName);
