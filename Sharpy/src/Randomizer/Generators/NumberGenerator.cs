@@ -1,5 +1,4 @@
 ﻿using System;
-using NodaTime;
 
 namespace Sharpy.Randomizer.Generators {
     // ReSharper disable once ClassNeverInstantiated.Global
@@ -26,22 +25,16 @@ namespace Sharpy.Randomizer.Generators {
             return Unique ? CreateUniqueNumber(next, OnDuplicate) : next;
         }
 
+        public long RandomNumber(long number) {
+            return Unique ? CreateUniqueNumber(number, OnDuplicate) : number;
+        }
+
 
         private long CreateUniqueNumber(long startNumber, Func<long, long> func) {
             var number = func(startNumber);
             while (HashSet.Contains(number)) number = func(number);
             HashSet.Add(number);
             return number;
-        }
-
-        internal long SocialSecurity(LocalDate date) {
-            var month = date.Month < 10 ? $"0{date.Month}" : date.Month.ToString();
-            var year = date.YearOfCentury < 10 ? $"0{date.YearOfCentury}" : date.YearOfCentury.ToString();
-            var day = date.Day < 10 ? $"0{date.Day}" : date.Day.ToString();
-            var controlNumber = Random.Next(Min, Max);
-            var securityNumber = CreateUniqueNumber(long.Parse(Build(year, month, day, controlNumber.ToString())),
-                OnDuplicate);
-            return securityNumber;
         }
 
         protected override long OnDuplicate(long item) {
