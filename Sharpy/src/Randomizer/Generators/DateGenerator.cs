@@ -36,7 +36,7 @@ namespace Sharpy.Randomizer.Generators {
         }
 
         /// <summary>
-        ///     Will give a random month and date on specifk year
+        ///     Will give a random month and date on specifik year
         ///     <param name="year">which year to use</param>
         /// </summary>
         internal LocalDate RandomDateByYear(int year) {
