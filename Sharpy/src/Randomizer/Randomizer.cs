@@ -17,7 +17,7 @@ namespace Sharpy.Randomizer {
 
 
         public string String(StringType stringType) {
-            if (stringType == StringType.Number) return Config.NumberGen.RandomNumber();
+            if (stringType == StringType.Number) return Config.NumberGen.RandomNumber().ToString();
             if (!Config.Dictionary.ContainsKey(stringType))
                 Config.Dictionary.Add(stringType, new Fetcher<string>(Config.StringType(stringType)));
             return Config.Dictionary[stringType].RandomItem(Config.Random);
@@ -33,8 +33,9 @@ namespace Sharpy.Randomizer {
 
         public LocalDate DateByYear(int year) => Config.DateGenerator.RandomDateByYear(year);
 
-        public string SocialSecurityNumber(LocalDate date, bool formated = true)
-            => Config.SocialSecurityNumberGenerator.SocialSecurity(date, formated);
+        public string SocialSecurityNumber(LocalDate date, bool formated = true) => formated
+            ? Config.SocialSecurityNumberGenerator.SocialSecurity(date).ToString().Insert(6, "-")
+            : Config.SocialSecurityNumberGenerator.SocialSecurity(date).ToString();
 
         public string MailAddress(string name, string secondName = null)
             => Config.Mailgen.Mail(name, secondName);

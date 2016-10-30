@@ -20,8 +20,8 @@ namespace Sharpy.Randomizer {
         internal Config() {
             DateGenerator = new DateGenerator(Random);
             Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
-            NumberGen = new NumberGenerator(Random, 5, null);
-            SocialSecurityNumberGenerator = new NumberGenerator(Random, 4, null, true);
+            NumberGen = new NumberGenerator(Random, 5);
+            SocialSecurityNumberGenerator = new NumberGenerator(Random, 4, true);
         }
 
         internal NumberGenerator SocialSecurityNumberGenerator { get; }
@@ -108,14 +108,12 @@ namespace Sharpy.Randomizer {
         /// </summary>
         /// <param name="length"></param>
         /// <param name="uniqueNumbers"></param>
-        /// <param name="prefix"></param>
         /// <returns></returns>
-        public Config NumberGenerator(int length, bool uniqueNumbers = false, string prefix = null) {
+        public Config NumberGenerator(int length, bool uniqueNumbers = false ) {
             NumberGen =
                 new NumberGenerator(
                     Random,
                     length,
-                    prefix,
                     uniqueNumbers
                 );
             return this;

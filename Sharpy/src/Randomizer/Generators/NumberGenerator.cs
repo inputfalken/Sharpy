@@ -9,26 +9,21 @@ namespace Sharpy.Randomizer.Generators {
     internal sealed class NumberGenerator : Unique<long> {
         private readonly int _length;
 
-        internal NumberGenerator(Random random, int length, string prefix,
-            bool unique = false)
+        internal NumberGenerator(Random random, int length, bool unique = false)
             : base(random) {
             _length = length;
-            Prefix = prefix;
             Unique = unique;
             Min = (int) Math.Pow(10, length - 1);
             Max = Min*10 - 1;
         }
 
-        private string Prefix { get; }
         private bool Unique { get; }
         private int Min { get; }
         private int Max { get; }
 
-        internal string RandomNumber() {
+        internal long RandomNumber() {
             var next = Random.Next(Min, Max);
-            if (!Unique) return Build(Prefix, next.ToString());
-            var number = CreateUniqueNumber(next, OnDuplicate);
-            return Build(Prefix, number.ToString());
+            return Unique ? CreateUniqueNumber(next, OnDuplicate) : next;
         }
 
 
@@ -39,14 +34,14 @@ namespace Sharpy.Randomizer.Generators {
             return number;
         }
 
-        internal string SocialSecurity(LocalDate date, bool formated) {
+        internal long SocialSecurity(LocalDate date) {
             var month = date.Month < 10 ? $"0{date.Month}" : date.Month.ToString();
             var year = date.YearOfCentury < 10 ? $"0{date.YearOfCentury}" : date.YearOfCentury.ToString();
             var day = date.Day < 10 ? $"0{date.Day}" : date.Day.ToString();
             var controlNumber = Random.Next(Min, Max);
             var securityNumber = CreateUniqueNumber(long.Parse(Build(year, month, day, controlNumber.ToString())),
                 OnDuplicate);
-            return formated ? securityNumber.ToString().Insert(6, "-") : securityNumber.ToString();
+            return securityNumber;
         }
 
         protected override long OnDuplicate(long x) {
@@ -55,6 +50,6 @@ namespace Sharpy.Randomizer.Generators {
             return x;
         }
 
-        public override string ToString() => $"Length: {_length}, Unique: {Unique}, Prefix: {Prefix ?? "None Set"}";
+        public override string ToString() => $"Length: {_length}, Unique: {Unique}";
     }
 }
