@@ -12,13 +12,16 @@ namespace Sharpy {
     /// </summary>
     /// <returns></returns>
     public sealed class RandomGenerator : Generator<IRandomizer<StringType>> {
+        private Randomizer.Randomizer Randomizer { get;  }
+
         static RandomGenerator() {
             Generator = Create();
             Configurement = Generator.Config;
         }
 
-        private RandomGenerator(Config config) : base(new Randomizer.Randomizer(config)) {
-            Config = config;
+        private RandomGenerator(Randomizer.Randomizer randomizer) : base(randomizer) {
+            Randomizer = randomizer;
+            Config = randomizer.Config;
         }
 
 
@@ -38,7 +41,7 @@ namespace Sharpy {
         ///     <para>Creates a new instance of Randomgenerator.</para>
         /// </summary>
         /// <returns></returns>
-        public static RandomGenerator Create() => new RandomGenerator(new Config());
+        public static RandomGenerator Create() => new RandomGenerator(new Randomizer.Randomizer(new Config()));
 
         /// <summary>
         ///     <para>Generates a IEnumerable&lt;T&gt;.</para>
@@ -47,8 +50,10 @@ namespace Sharpy {
         /// <param name="count"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static IEnumerable<T> GenerateEnumerable<T>(Func<IRandomizer<StringType>, T> func, int count = 10)
-            => Generator.GenerateMany(func, count);
+        public static IEnumerable<T> GenerateEnumerable<T>(Func<IRandomizer<StringType>, T> func, int count = 10) {
+            Generator.Randomizer.MaxAmmount = count;
+            return Generator.GenerateMany(func, count);
+        }
 
         /// <summary>
         ///     <para>Generates a IEnumerable&lt;T&gt;.</para>
@@ -58,15 +63,20 @@ namespace Sharpy {
         /// <param name="count"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static IEnumerable<T> GenerateEnumerable<T>(Func<IRandomizer<StringType>, int, T> func, int count = 10)
-            => Generator.GenerateMany(func, count);
+        public static IEnumerable<T> GenerateEnumerable<T>(Func<IRandomizer<StringType>, int, T> func, int count = 10) {
+            Generator.Randomizer.MaxAmmount = count;
+            return Generator.GenerateMany(func, count);
+        }
 
         /// <summary>
         ///     <para>Generates a &lt;T&gt;.</para>
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static T GenerateInstance<T>(Func<IRandomizer<StringType>, T> func) => Generator.Generate(func);
+        public static T GenerateInstance<T>(Func<IRandomizer<StringType>, T> func) {
+            Generator.Randomizer.MaxAmmount = 1;
+            return Generator.Generate(func);
+        }
 
         public override string ToString() {
             return $"Configurement for Random Generator{Config}";
