@@ -20,12 +20,13 @@ namespace Sharpy {
 
 
         private T Instance<T>(Func<TSource, int, T> func, int i) => func(Source, i);
+        private T Instance<T>(Func<TSource, T> func) => func(Source);
 
         /// <summary>
         ///     <para>Will generate a &lt;T&gt;</para>
         /// </summary>
         /// <returns></returns>
-        public T Generate<T>(Func<TSource, T> func) => func(Source);
+        public virtual T Generate<T>(Func<TSource, T> func) => Instance(func);
 
 
         /// <summary>
@@ -33,9 +34,9 @@ namespace Sharpy {
         /// </summary>
         /// <param name="count">Count of IEnumerable&lt;T&gt;</param>
         /// <param name="func">The item to be returned will be generated.</param>
-        public IEnumerable<T> GenerateMany<T>(Func<TSource, T> func, int count = 10) {
+        public virtual IEnumerable<T> GenerateMany<T>(Func<TSource, T> func, int count = 10) {
             for (var i = 0; i < count; i++)
-                yield return Generate(func);
+                yield return Instance(func);
         }
 
         /// <summary>
@@ -44,7 +45,7 @@ namespace Sharpy {
         /// </summary>
         /// <param name="count">Count of IEnumerable&lt;T&gt;</param>
         /// <param name="func">The item to be returned will be generated.</param>
-        public IEnumerable<T> GenerateMany<T>(Func<TSource, int, T> func, int count = 10) {
+        public virtual IEnumerable<T> GenerateMany<T>(Func<TSource, int, T> func, int count = 10) {
             for (var i = 0; i < count; i++)
                 yield return Instance(func, i);
         }

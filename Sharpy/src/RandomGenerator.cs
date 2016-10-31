@@ -12,7 +12,7 @@ namespace Sharpy {
     /// </summary>
     /// <returns></returns>
     public sealed class RandomGenerator : Generator<IRandomizer<StringType>> {
-        private Randomizer.Randomizer Randomizer { get;  }
+        private Randomizer.Randomizer Randomizer { get; }
 
         static RandomGenerator() {
             Generator = Create();
@@ -29,6 +29,21 @@ namespace Sharpy {
         ///     <para>Is used for configuring the generator to act different when calling Generation methods.</para>
         /// </summary>
         public Config Config { get; }
+
+        public override T Generate<T>(Func<IRandomizer<StringType>, T> func) {
+            Randomizer.MaxAmmount = 1;
+            return base.Generate(func);
+        }
+
+        public override IEnumerable<T> GenerateMany<T>(Func<IRandomizer<StringType>, T> func, int count = 10) {
+            Randomizer.MaxAmmount = count;
+            return base.GenerateMany(func, count);
+        }
+
+        public override IEnumerable<T> GenerateMany<T>(Func<IRandomizer<StringType>, int, T> func, int count = 10) {
+            Randomizer.MaxAmmount = count;
+            return base.GenerateMany(func, count);
+        }
 
         private static RandomGenerator Generator { get; }
 
