@@ -1,11 +1,14 @@
+using System;
 using System.Collections.Generic;
 using NodaTime;
 using Sharpy.Enums;
+using Sharpy.Randomizer.Generators;
 
 namespace Sharpy.Randomizer {
     internal sealed class Randomizer : IRandomizer<StringType> {
         public Randomizer(Config config) {
             Config = config;
+            PhoneNumberGenerator = new NumberGenerator(Config.Random);
         }
 
         private Config Config { get; }
@@ -46,5 +49,21 @@ namespace Sharpy.Randomizer {
 
         public string MailAddress(string name, string secondName = null)
             => Config.Mailgen.Mail(name, secondName);
+
+        public string PhoneNumber(int length, string prefix = null) {
+            //If the field _phoneState not null and _phoneState not changed do just return length items.
+            if (_phoneState != null && _phoneState.Item1 == length)
+                return prefix + PhoneNumberGenerator.RandomNumber(_phoneState.Item2, _phoneState.Item3, true);
+
+            //Else assign new value to _phoneState.
+            var min = (int) Math.Pow(10, length - 1);
+            var max = min*10 - 1;
+            _phoneState = new Tuple<int, int, int>(length, min, max);
+            return prefix + PhoneNumberGenerator.RandomNumber(_phoneState.Item2, _phoneState.Item3, true);
+        }
+
+        private Tuple<int, int, int> _phoneState;
+
+        private NumberGenerator PhoneNumberGenerator { get; }
     }
 }
