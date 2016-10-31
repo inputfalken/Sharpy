@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
 using NodaTime;
+using Sharpy.Randomizer;
+using Sharpy.Randomizer.Generators;
 
 namespace Sharpy {
     /// <summary>
@@ -64,5 +67,7 @@ namespace Sharpy {
         ///     <para>Gives a mail address by concatenating the arguments into a mail address.</para>
         /// </summary>
         string MailAddress(string name, string secondName = null);
+
+        string PhoneNumber(int length, string prefix = null);
     }
 }
