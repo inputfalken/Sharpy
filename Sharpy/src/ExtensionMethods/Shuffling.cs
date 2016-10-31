@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Sharpy.ExtensionMethods {
-    public static class ListExtensions {
-        public static void Shuffle<T>(this IList<T> list, Random random) {
+    internal static class ListExtensions {
+        internal static void Shuffle<T>(this IList<T> list, Random random) {
             var n = list.Count;
             while (n > 1) {
                 n--;
@@ -16,8 +16,8 @@ namespace Sharpy.ExtensionMethods {
         }
     }
 
-    public static class EnumerableExtensions {
-        public static IEnumerable<T> Randomize<T>(this IEnumerable<T> source, Random rnd)
+    internal static class EnumerableExtensions {
+        internal static IEnumerable<T> Randomize<T>(this IEnumerable<T> source, Random rnd)
             => source.OrderBy(item => rnd.Next());
     }
 }
