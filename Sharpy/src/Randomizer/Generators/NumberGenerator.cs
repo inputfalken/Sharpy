@@ -28,8 +28,13 @@ namespace Sharpy.Randomizer.Generators {
             return Unique ? CreateUniqueNumber(next, OnDuplicate) : next;
         }
 
-        public long RandomNumber(long number) {
-            return Unique ? CreateUniqueNumber(number, OnDuplicate) : number;
+        internal long SecurityNumber(int controlNumber, string dateNumber) {
+            var number = long.Parse(dateNumber + controlNumber);
+            //OnDuplicate will only manipulate control number, DateNumber will be the same all the time.
+            while (HashSet.Contains(number))
+                number = long.Parse(dateNumber + OnDuplicate(controlNumber));
+            HashSet.Add(number);
+            return number;
         }
 
 
@@ -41,6 +46,12 @@ namespace Sharpy.Randomizer.Generators {
         }
 
         private long OnDuplicate(long item) {
+            if (item == Max) item = Min;
+            else item++;
+            return item;
+        }
+
+        private int OnDuplicate(int item) {
             if (item == Max) item = Min;
             else item++;
             return item;
