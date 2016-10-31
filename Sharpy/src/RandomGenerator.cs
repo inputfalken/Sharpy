@@ -65,10 +65,8 @@ namespace Sharpy {
         /// <param name="count"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static IEnumerable<T> GenerateEnumerable<T>(Func<IRandomizer<StringType>, T> func, int count = 10) {
-            Generator.Randomizer.MaxAmmount = count;
-            return Generator.GenerateMany(func, count);
-        }
+        public static IEnumerable<T> GenerateEnumerable<T>(Func<IRandomizer<StringType>, T> func, int count = 10)
+            => Generator.GenerateMany(func, count);
 
         /// <summary>
         ///     <para>Generates a IEnumerable&lt;T&gt;.</para>
@@ -78,10 +76,8 @@ namespace Sharpy {
         /// <param name="count"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static IEnumerable<T> GenerateEnumerable<T>(Func<IRandomizer<StringType>, int, T> func, int count = 10) {
-            Generator.Randomizer.MaxAmmount = count;
-            return Generator.GenerateMany(func, count);
-        }
+        public static IEnumerable<T> GenerateEnumerable<T>(Func<IRandomizer<StringType>, int, T> func, int count = 10)
+            => Generator.GenerateMany(func, count);
 
         /// <summary>
         ///     <para>Generates a &lt;T&gt;.</para>
