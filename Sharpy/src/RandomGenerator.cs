@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Sharpy.Enums;
+using Sharpy.ExtensionMethods;
 using Sharpy.Randomizer;
 
 namespace Sharpy {
