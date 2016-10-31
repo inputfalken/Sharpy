@@ -25,30 +25,6 @@ namespace Tests {
         private const string MailUserName = "mailUserName";
 
         [Test]
-        public void CheckRandomizerCountWithGenerate() {
-            var rnd = new Randomizer(new Config());
-            var randomGenerator = new RandomGenerator(rnd);
-            randomGenerator.Generate(randomizer => randomizer.String(StringType.AnyName));
-            Assert.AreEqual(rnd.MaxAmmount, 1);
-        }
-
-        [Test]
-        public void CheckRandomizerCountWithGenerateManyDefaultArg() {
-            var rnd = new Randomizer(new Config());
-            var randomGenerator = new RandomGenerator(rnd);
-            randomGenerator.GenerateMany(randomizer => randomizer.String(StringType.AnyName));
-            Assert.AreEqual(rnd.MaxAmmount, 10);
-        }
-
-        [Test]
-        public void CheckRandomizerCountWithGenerateManyCustomArgument() {
-            var rnd = new Randomizer(new Config());
-            var randomGenerator = new RandomGenerator(rnd);
-            randomGenerator.GenerateMany(randomizer => randomizer.String(StringType.AnyName), 13);
-            Assert.AreEqual(rnd.MaxAmmount, 13);
-        }
-
-        [Test]
         public void IteratorWithEnumerable() {
             var iteration = 0;
             var generator = RandomGenerator.Create();

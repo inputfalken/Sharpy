@@ -21,12 +21,9 @@
     <releaseNotes>
       1:You can now tostring Method to find out the current configuration.
 
-      2:RandomGenerator will now track the max ammount that could be generated.
-        When calling generation methods and make optimizations out of that.
+      2:Fixes spelling on comments and the MailAddress method.
 
-      3:Fixes spelling on comments and the MailAddress method.
-
-      4: Enum for number Gone... instead you have to WIP(Work in progress)
+      3: Enum for number Gone... instead you have to WIP(Work in progress)
     </releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Fakedata Generator Generic</tags>
