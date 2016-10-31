@@ -165,7 +165,7 @@ namespace ConsoleApp {
                 var person = new Person {
                     FirstName = firstName,
                     LastName = lastName,
-                    MailAddress = randomizer.MailAdress(firstName, lastName)
+                    MailAddress = randomizer.MailAddress(firstName, lastName)
                 };
 
                 return person;
