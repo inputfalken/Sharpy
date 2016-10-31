@@ -55,6 +55,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="src\ExtensionMethods\ListExtensions.cs" />
     <Compile Include="src\ExtensionMethods\RandomExtensions.cs" />
     <Compile Include="src\Randomizer\Config.cs" />
     <Compile Include="src\Enums\Origin.cs" />
