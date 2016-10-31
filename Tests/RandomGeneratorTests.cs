@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting;
 using NUnit.Framework;
 using Sharpy;
 using Sharpy.Enums;
@@ -22,6 +23,30 @@ namespace Tests {
         private const int Seed = 100;
         private Name[] _names;
         private const string MailUserName = "mailUserName";
+
+        [Test]
+        public void CheckRandomizerCountWithGenerate() {
+            var rnd = new Randomizer(new Config());
+            var randomGenerator = new RandomGenerator(rnd);
+            randomGenerator.Generate(randomizer => randomizer.String(StringType.AnyName));
+            Assert.AreEqual(rnd.MaxAmmount, 1);
+        }
+
+        [Test]
+        public void CheckRandomizerCountWithGenerateManyDefaultArg() {
+            var rnd = new Randomizer(new Config());
+            var randomGenerator = new RandomGenerator(rnd);
+            randomGenerator.GenerateMany(randomizer => randomizer.String(StringType.AnyName));
+            Assert.AreEqual(rnd.MaxAmmount, 10);
+        }
+
+        [Test]
+        public void CheckRandomizerCountWithGenerateManyCustomArgument() {
+            var rnd = new Randomizer(new Config());
+            var randomGenerator = new RandomGenerator(rnd);
+            randomGenerator.GenerateMany(randomizer => randomizer.String(StringType.AnyName), 13);
+            Assert.AreEqual(rnd.MaxAmmount, 13);
+        }
 
         [Test]
         public void IteratorWithEnumerable() {
