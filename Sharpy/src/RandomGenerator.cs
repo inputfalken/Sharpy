@@ -19,7 +19,7 @@ namespace Sharpy {
             Configurement = Generator.Config;
         }
 
-        private RandomGenerator(Randomizer.Randomizer randomizer) : base(randomizer) {
+        internal RandomGenerator(Randomizer.Randomizer randomizer) : base(randomizer) {
             Randomizer = randomizer;
             Config = randomizer.Config;
         }
