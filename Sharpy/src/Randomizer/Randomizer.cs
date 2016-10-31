@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using NodaTime;
 using Sharpy.Enums;
@@ -22,7 +21,6 @@ namespace Sharpy.Randomizer {
 
 
         public string String(StringType stringType) {
-            Console.WriteLine(MaxAmmount);
             if (!Config.Dictionary.ContainsKey(stringType))
                 Config.Dictionary.Add(stringType, new Fetcher<string>(Config.StringType(stringType)));
             return Config.Dictionary[stringType].RandomItem(Config.Random);
