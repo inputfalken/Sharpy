@@ -20,11 +20,11 @@ namespace Sharpy.Randomizer {
         internal Config() {
             DateGenerator = new DateGenerator(Random);
             Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
-            NumberGen = new NumberGenerator(Random, 5);
-            SocialSecurityNumberGenerator = new NumberGenerator(Random, 4, true);
+            NumberGen = new NumberGenerator(Random);
+            SocialSecurityNumberGenerator = new SecurityNumberGen(Random);
         }
 
-        internal NumberGenerator SocialSecurityNumberGenerator { get; }
+        internal SecurityNumberGen SocialSecurityNumberGenerator { get; }
 
         private Lazy<Fetcher<Name>> LazyNames { get; } =
             new Lazy<Fetcher<Name>>(() => new Fetcher<Name>(JsonConvert.DeserializeObject<IEnumerable<Name>>(
@@ -40,7 +40,7 @@ namespace Sharpy.Randomizer {
         internal DateGenerator DateGenerator { get; }
 
 
-        internal NumberGenerator NumberGen { get; private set; }
+        private NumberGenerator NumberGen { get; }
 
 
         internal MailGenerator Mailgen { get; private set; }
@@ -100,22 +100,6 @@ namespace Sharpy.Randomizer {
         /// <returns></returns>
         public Config MailGenerator(IEnumerable<string> providers, bool uniqueAddresses = false) {
             Mailgen = new MailGenerator(providers, Random, uniqueAddresses);
-            return this;
-        }
-
-        /// <summary>
-        ///     Lets you change the settings for the number generator.
-        /// </summary>
-        /// <param name="length"></param>
-        /// <param name="uniqueNumbers"></param>
-        /// <returns></returns>
-        public Config NumberGenerator(int length, bool uniqueNumbers = false ) {
-            NumberGen =
-                new NumberGenerator(
-                    Random,
-                    length,
-                    uniqueNumbers
-                );
             return this;
         }
 
