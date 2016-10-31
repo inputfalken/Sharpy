@@ -37,7 +37,7 @@ namespace Sharpy.Randomizer.Generators {
             return number;
         }
 
-        protected override long OnDuplicate(long item) {
+        private long OnDuplicate(long item) {
             if (item == Max) item = Min;
             else item++;
             return item;

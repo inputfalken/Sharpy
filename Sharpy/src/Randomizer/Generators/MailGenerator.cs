@@ -126,6 +126,6 @@ namespace Sharpy.Randomizer.Generators {
         public override string ToString()
             => $"Providers: {_emailDomains.Aggregate((x, y) => $"{x}, {y}")} Unique addresses: {Unique}";
 
-        protected override string OnDuplicate(string item) => Build(item, Random.Next(10).ToString());
+        private string OnDuplicate(string item) => Build(item, Random.Next(10).ToString());
     }
 }
