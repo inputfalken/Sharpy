@@ -8,12 +8,7 @@ namespace Sharpy.Randomizer {
             Config = config;
         }
 
-        internal Config Config { get; }
-
-        /// <summary>
-        /// Tracks the max of elements which could be generated.
-        /// </summary>
-        internal int MaxAmmount { get; set; }
+        private Config Config { get; }
 
         public TElement CustomCollection<TElement>(params TElement[] items) => items[Integer(items.Length)];
 
