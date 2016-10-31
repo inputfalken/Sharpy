@@ -45,7 +45,7 @@ namespace Sharpy.Randomizer {
             var controlNumber = Config.Random.Next(1000, 9999);
             var res = Config
                 .SocialSecurityNumberGenerator
-                .RandomNumber(long.Parse(year + month + day + controlNumber))
+                .SecurityNumber(controlNumber, year + month + day)
                 .ToString();
             return formated ? res.Insert(6, "-") : res;
         }
