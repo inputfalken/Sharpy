@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Sharpy.ExtensionMethods;
 
 namespace Sharpy.Randomizer.Generators {
     // ReSharper disable once ClassNeverInstantiated.Global
