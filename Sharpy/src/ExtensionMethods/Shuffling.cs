@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Sharpy.ExtensionMethods {
     public static class ListExtensions {
@@ -13,5 +14,10 @@ namespace Sharpy.ExtensionMethods {
                 list[n] = value;
             }
         }
+    }
+
+    public static class EnumerableExtensions {
+        public static IEnumerable<T> Randomize<T>(this IEnumerable<T> source, Random rnd)
+            => source.OrderBy(item => rnd.Next());
     }
 }
