@@ -1,14 +1,14 @@
 ﻿using System;
 
 namespace Sharpy.ExtensionMethods {
-    public static class RandomExtensionMethods {
+    internal static class RandomExtensionMethods {
         /// <summary>
         /// Returns a random long from min (inclusive) to max (exclusive)
         /// </summary>
         /// <param name="random">The given random instance</param>
         /// <param name="min">The inclusive minimum bound</param>
         /// <param name="max">The exclusive maximum bound.  Must be greater than min</param>
-        public static long NextLong(this Random random, long min, long max) {
+        internal static long NextLong(this Random random, long min, long max) {
             if (max <= min)
                 throw new ArgumentOutOfRangeException(nameof(max), "max must be > min!");
 
@@ -34,7 +34,7 @@ namespace Sharpy.ExtensionMethods {
         /// </summary>
         /// <param name="random">The given random instance</param>
         /// <param name="max">The exclusive maximum bound.  Must be greater than 0</param>
-        public static long NextLong(this Random random, long max) {
+        internal static long NextLong(this Random random, long max) {
             return random.NextLong(0, max);
         }
 
@@ -43,7 +43,7 @@ namespace Sharpy.ExtensionMethods {
         /// random.Next())
         /// </summary>
         /// <param name="random">The given random instance</param>
-        public static long NextLong(this Random random) {
+        internal static long NextLong(this Random random) {
             return random.NextLong(long.MinValue, long.MaxValue);
         }
     }
