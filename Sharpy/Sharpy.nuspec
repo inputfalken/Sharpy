@@ -25,6 +25,8 @@
         When calling generation methods and make optimizations out of that.
 
       3:Fixes spelling on comments and the MailAddress method.
+
+      4: Enum for number Gone... instead you have to WIP(Work in progress)
     </releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Fakedata Generator Generic</tags>
