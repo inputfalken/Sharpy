@@ -383,7 +383,7 @@ namespace Tests {
             var randomGenerator = RandomGenerator.Create();
             var generateMany = randomGenerator.GenerateMany(randomizer => randomizer.PhoneNumber(7), 10000);
 
-            Assert.IsTrue(generateMany.All(s => s.Length == 5));
+            Assert.IsTrue(generateMany.All(s => s.Length == 7));
         }
 
         [Test]
