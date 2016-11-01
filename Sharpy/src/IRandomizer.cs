@@ -65,6 +65,12 @@ namespace Sharpy {
         /// </summary>
         string MailAddress(string name, string secondName = null);
 
+        /// <summary>
+        ///     <para>Returns a unique phoneNumber based on the arguments</para>
+        /// </summary>
+        /// <param name="length">The length of the number. Prefix will not be counted for this argument</param>
+        /// <param name="prefix">The prefix of the number.</param>
+        /// <returns></returns>
         string PhoneNumber(int length, string prefix = null);
     }
 }
