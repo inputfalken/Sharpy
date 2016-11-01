@@ -69,6 +69,7 @@
     <Compile Include="src\Randomizer\Fetcher.cs" />
     <Compile Include="src\Randomizer\Generators\MailGenerator.cs" />
     <Compile Include="src\Randomizer\DataObjects\Name.cs" />
+    <Compile Include="src\Randomizer\Generators\SecurityNumberGen.cs" />
     <Compile Include="src\Randomizer\Randomizer.cs" />
     <Compile Include="src\Randomizer\Unique.cs" />
   </ItemGroup>

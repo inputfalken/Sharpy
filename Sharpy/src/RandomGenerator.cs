@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using Sharpy.Enums;
-using Sharpy.ExtensionMethods;
 using Sharpy.Randomizer;
 
 namespace Sharpy {
     /// <summary>
     ///     <para>Static generator using my Implementation of IRandomizer&lt;TStringArg&gt;</para>
-    ///     <para>Can also give instances of the same generator. Is useful if you want to generate same data by setting the same
-    ///     seed on seperate generators.</para>
+    ///     <para>
+    ///         Can also give instances of the same generator. Is useful if you want to generate same data by setting the same
+    ///         seed on seperate generators.
+    ///     </para>
     ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
     /// </summary>
     /// <returns></returns>

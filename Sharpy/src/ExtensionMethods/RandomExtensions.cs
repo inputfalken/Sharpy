@@ -3,7 +3,7 @@
 namespace Sharpy.ExtensionMethods {
     internal static class RandomExtensionMethods {
         /// <summary>
-        /// Returns a random long from min (inclusive) to max (exclusive)
+        ///     Returns a random long from min (inclusive) to max (exclusive)
         /// </summary>
         /// <param name="random">The given random instance</param>
         /// <param name="min">The inclusive minimum bound</param>
@@ -24,13 +24,13 @@ namespace Sharpy.ExtensionMethods {
                 var buf = new byte[8];
                 random.NextBytes(buf);
                 ulongRand = (ulong) BitConverter.ToInt64(buf, 0);
-            } while (ulongRand > ulong.MaxValue - ((ulong.MaxValue%uRange) + 1)%uRange);
+            } while (ulongRand > ulong.MaxValue - (ulong.MaxValue%uRange + 1)%uRange);
 
             return (long) (ulongRand%uRange) + min;
         }
 
         /// <summary>
-        /// Returns a random long from 0 (inclusive) to max (exclusive)
+        ///     Returns a random long from 0 (inclusive) to max (exclusive)
         /// </summary>
         /// <param name="random">The given random instance</param>
         /// <param name="max">The exclusive maximum bound.  Must be greater than 0</param>
@@ -39,8 +39,8 @@ namespace Sharpy.ExtensionMethods {
         }
 
         /// <summary>
-        /// Returns a random long over all possible values of long (except long.MaxValue, similar to
-        /// random.Next())
+        ///     Returns a random long over all possible values of long (except long.MaxValue, similar to
+        ///     random.Next())
         /// </summary>
         /// <param name="random">The given random instance</param>
         internal static long NextLong(this Random random) {

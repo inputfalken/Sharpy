@@ -31,7 +31,6 @@ namespace Sharpy.Enums {
         /// <summary>
         ///     Will give you either a first name, last name, username.
         /// </summary>
-        AnyName,
-
+        AnyName
     }
 }
