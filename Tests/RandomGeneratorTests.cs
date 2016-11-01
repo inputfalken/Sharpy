@@ -129,14 +129,22 @@ namespace Tests {
             var randomGenerator = RandomGenerator.Create();
             var args = new[] {"hello", "there", "foo"};
             var generateMany =
-                randomGenerator.GenerateMany(randomize => randomize.CustomCollection("hello", "there", "foo"));
+                randomGenerator.GenerateMany(randomize => randomize.Params("hello", "there", "foo"));
             Assert.IsTrue(generateMany.All(s => args.Contains(s)));
         }
 
         [Test]
-        public void CustomCollectionIList() {
+        public void CustomCollectionArray() {
             var randomGenerator = RandomGenerator.Create();
             var args = new[] {"hello", "there", "foo"};
+            var generateMany = randomGenerator.GenerateMany(randomize => randomize.Params(args));
+            Assert.IsTrue(generateMany.All(s => args.Contains(s)));
+        }
+
+        [Test]
+        public void CustomCollectionList() {
+            var randomGenerator = RandomGenerator.Create();
+            var args = new List<string> {"hello", "there", "foo"};
             var generateMany = randomGenerator.GenerateMany(randomize => randomize.CustomCollection(args));
             Assert.IsTrue(generateMany.All(s => args.Contains(s)));
         }
