@@ -282,6 +282,39 @@ namespace Tests {
         }
 
         [Test]
+        public void PhoneNumberGotSameLengthNoPrefix() {
+            var randomGenerator = RandomGenerator.Create();
+            var generateMany = randomGenerator.GenerateMany(randomizer => randomizer.PhoneNumber(5), 10000);
+
+            Assert.IsTrue(generateMany.All(s => s.Length == 5));
+        }
+
+        [Test]
+        public void PhoneNumberGotSameLengthWithPrefix() {
+            var randomGenerator = RandomGenerator.Create();
+            var generateMany = randomGenerator.GenerateMany(randomizer => randomizer.PhoneNumber(5, "07"), 10000);
+
+            Assert.IsTrue(generateMany.All(s => s.Length == 7));
+        }
+
+        [Test]
+        public void PhoneNumberGotSameLengthAllUniqueWithPrefix() {
+            var randomGenerator = RandomGenerator.Create();
+            var generateMany = randomGenerator.GenerateMany(randomizer => randomizer.PhoneNumber(5, "07"), 10000);
+
+            Assert.IsTrue(generateMany.GroupBy(s => s).All(grouping => grouping.Count() == 1));
+        }
+
+
+        [Test]
+        public void PhoneNumberGotSameLengthAllUniqueWithOutPrefix() {
+            var randomGenerator = RandomGenerator.Create();
+            var generateMany = randomGenerator.GenerateMany(randomizer => randomizer.PhoneNumber(5), 10000);
+
+            Assert.IsTrue(generateMany.GroupBy(s => s).All(grouping => grouping.Count() == 1));
+        }
+
+        [Test]
         public void UserNamesAreNotNull() {
             var generator = RandomGenerator.Create();
             //Many
