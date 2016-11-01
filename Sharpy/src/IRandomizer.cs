@@ -42,6 +42,12 @@ namespace Sharpy {
         int Integer(int min, int max);
 
         /// <summary>
+        ///     <para>Returns a random Integer over all possible values</para>
+        /// </summary>
+        /// <returns></returns>
+        int Integer();
+
+        /// <summary>
         ///     <para>Randomizes a random month and date then subtracts current year by value supplied.</para>
         /// </summary>
         LocalDate DateByAge(int age);
