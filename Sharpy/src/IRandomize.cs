@@ -95,7 +95,7 @@ namespace Sharpy {
         long Long(long max);
 
         /// <summary>
-        ///     <para>Returns a random long over all possible values of long (except long.MaxValue, similar to</para>
+        ///     <para>Returns a random long over all possible values of long</para>
         /// </summary>
         /// <returns></returns>
         long Long();
