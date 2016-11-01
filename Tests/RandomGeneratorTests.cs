@@ -33,6 +33,7 @@ namespace Tests {
 
 
         [Test]
+        [Repeat(3)]
         public void Mail() {
             var mailGenerator = RandomGenerator.Create();
             mailGenerator.Config.MailGenerator(new List<string> {"gmail.com"}, true);
@@ -45,6 +46,7 @@ namespace Tests {
         }
 
         [Test]
+        [Repeat(3)]
         public void MailsAreNotnull() {
             var generator = RandomGenerator.Create();
             //Many
@@ -59,6 +61,7 @@ namespace Tests {
         }
 
         [Test]
+        [Repeat(3)]
         public void NamesAreFilteredByGender() {
             var femaleNameGenerator =
                 RandomGenerator.Create();
@@ -99,6 +102,7 @@ namespace Tests {
         }
 
         [Test]
+        [Repeat(3)]
         public void NamesAreNotNull() {
             var generator = RandomGenerator.Create();
             //Many
@@ -113,6 +117,7 @@ namespace Tests {
         }
 
         [Test]
+        [Repeat(3)]
         public void NumbersAreNotDefaultValue() {
             var generator = RandomGenerator.Create();
             //many
@@ -124,6 +129,7 @@ namespace Tests {
 
 
         [Test]
+        [Repeat(3)]
         public void Seed_With_Bools() {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the bools expected
             var generator = RandomGenerator.Create();
@@ -135,6 +141,7 @@ namespace Tests {
         }
 
         [Test]
+        [Repeat(3)]
         public void Seed_With_LongNoArgument() {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             var generator = RandomGenerator.Create();
@@ -148,6 +155,7 @@ namespace Tests {
         }
 
         [Test]
+        [Repeat(3)]
         public void Seed_With_LongSingleArgument() {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             var generator = RandomGenerator.Create();
@@ -162,6 +170,7 @@ namespace Tests {
         }
 
         [Test]
+        [Repeat(3)]
         public void Seed_With_LongDoubleArgument() {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             var generator = RandomGenerator.Create();
@@ -177,6 +186,7 @@ namespace Tests {
         }
 
         [Test]
+        [Repeat(3)]
         public void Seed_With_IntegerNoArgument() {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             var generator = RandomGenerator.Create();
@@ -190,6 +200,7 @@ namespace Tests {
         }
 
         [Test]
+        [Repeat(3)]
         public void Seed_With_IntegerSingleArgument() {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             const int max = 100;
@@ -204,6 +215,7 @@ namespace Tests {
         }
 
         [Test]
+        [Repeat(3)]
         public void Seed_With_IntegerDoubleArgument() {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             const int max = 100;
@@ -219,6 +231,7 @@ namespace Tests {
         }
 
         [Test]
+        [Repeat(3)]
         public void Seed_With_SecurityNumber() {
             const int count = 100;
             var generatorA = RandomGenerator.Create();
@@ -235,6 +248,7 @@ namespace Tests {
         }
 
         [Test]
+        [Repeat(3)]
         public void Seed_With_StringAnyName() {
             const int count = 100;
             var generatorA = RandomGenerator.Create();
@@ -248,6 +262,7 @@ namespace Tests {
         }
 
         [Test]
+        [Repeat(3)]
         public void Seed_With_StringFemaleFirstName() {
             const int count = 100;
             var generatorA = RandomGenerator.Create();
@@ -263,6 +278,7 @@ namespace Tests {
         }
 
         [Test]
+        [Repeat(3)]
         public void Seed_With_StringFirstName() {
             const int count = 100;
             var generatorA = RandomGenerator.Create();
@@ -276,6 +292,7 @@ namespace Tests {
         }
 
         [Test]
+        [Repeat(3)]
         public void Seed_With_StringLastName() {
             const int count = 100;
             var generatorA = RandomGenerator.Create();
@@ -289,6 +306,7 @@ namespace Tests {
         }
 
         [Test]
+        [Repeat(3)]
         public void Seed_With_StringMaleFirstName() {
             const int count = 100;
             var generatorA = RandomGenerator.Create();
@@ -302,6 +320,7 @@ namespace Tests {
         }
 
         [Test]
+        [Repeat(3)]
         public void Seed_With_StringUserName() {
             const int count = 100;
             var generatorA = RandomGenerator.Create();
@@ -315,6 +334,7 @@ namespace Tests {
         }
 
         [Test]
+        [Repeat(10)]
         public void SocialSecurityNumberAllContainsDashAtSameIndex() {
             var generator = RandomGenerator.Create();
 
@@ -325,6 +345,7 @@ namespace Tests {
         }
 
         [Test]
+        [Repeat(10)]
         public void SocialSecurityNumberAllSameLength() {
             var generator = RandomGenerator.Create();
 
@@ -334,6 +355,7 @@ namespace Tests {
         }
 
         [Test]
+        [Repeat(10)]
         public void SocialSecurityNumberAllUnique() {
             var generator = RandomGenerator.Create();
 
@@ -344,6 +366,7 @@ namespace Tests {
         }
 
         [Test]
+        [Repeat(10)]
         public void SocialSecurityOnlyContainsNumberWithNoFormating() {
             var generator = RandomGenerator.Create();
 
@@ -355,14 +378,16 @@ namespace Tests {
         }
 
         [Test]
+        [Repeat(10)]
         public void PhoneNumberGotSameLengthNoPrefix() {
             var randomGenerator = RandomGenerator.Create();
-            var generateMany = randomGenerator.GenerateMany(randomizer => randomizer.PhoneNumber(5), 10000);
+            var generateMany = randomGenerator.GenerateMany(randomizer => randomizer.PhoneNumber(7), 10000);
 
             Assert.IsTrue(generateMany.All(s => s.Length == 5));
         }
 
         [Test]
+        [Repeat(10)]
         public void PhoneNumberGotSameLengthWithPrefix() {
             var randomGenerator = RandomGenerator.Create();
             var generateMany = randomGenerator.GenerateMany(randomizer => randomizer.PhoneNumber(5, "07"), 10000);
@@ -371,6 +396,7 @@ namespace Tests {
         }
 
         [Test]
+        [Repeat(10)]
         public void PhoneNumberGotSameLengthAllUniqueWithPrefix() {
             var randomGenerator = RandomGenerator.Create();
             var generateMany = randomGenerator.GenerateMany(randomizer => randomizer.PhoneNumber(5, "07"), 10000);
@@ -380,6 +406,7 @@ namespace Tests {
 
 
         [Test]
+        [Repeat(10)]
         public void PhoneNumberGotSameLengthAllUniqueWithOutPrefix() {
             var randomGenerator = RandomGenerator.Create();
             var generateMany = randomGenerator.GenerateMany(randomizer => randomizer.PhoneNumber(5), 10000);
@@ -388,6 +415,7 @@ namespace Tests {
         }
 
         [Test]
+        [Repeat(3)]
         public void UserNamesAreNotNull() {
             var generator = RandomGenerator.Create();
             //Many
