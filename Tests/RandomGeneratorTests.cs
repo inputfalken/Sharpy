@@ -32,7 +32,6 @@ namespace Tests {
         }
 
 
-
         [Test]
         public void MailsAreNotnull() {
             var generator = RandomGenerator.Create();
@@ -125,6 +124,22 @@ namespace Tests {
             Assert.IsFalse(generator.Generate(randomizer => randomizer.Integer(1, 100)) == 0);
         }
 
+        [Test]
+        public void CustomCollectionParams() {
+            var randomGenerator = RandomGenerator.Create();
+            var args = new[] {"hello", "there", "foo"};
+            var generateMany =
+                randomGenerator.GenerateMany(randomize => randomize.CustomCollection("hello", "there", "foo"));
+            Assert.IsTrue(generateMany.All(s => args.Contains(s)));
+        }
+
+        [Test]
+        public void CustomCollectionIList() {
+            var randomGenerator = RandomGenerator.Create();
+            var args = new[] {"hello", "there", "foo"};
+            var generateMany = randomGenerator.GenerateMany(randomize => randomize.CustomCollection(args));
+            Assert.IsTrue(generateMany.All(s => args.Contains(s)));
+        }
 
         [Test]
         public void Seed_With_Bools() {
@@ -329,6 +344,7 @@ namespace Tests {
                     .GroupBy(s => s)
                     .All(grouping => grouping.Count() == 1));
         }
+
         [Test]
         [Repeat(10)]
         public void SocialSecurityNumberAllContainsDashAtSameIndex() {
