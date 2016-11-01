@@ -42,6 +42,12 @@ namespace Sharpy {
         int Integer(int min, int max);
 
         /// <summary>
+        ///     <para>Returns a random Integer over all possible values</para>
+        /// </summary>
+        /// <returns></returns>
+        int Integer();
+
+        /// <summary>
         ///     <para>Randomizes a random month and date then subtracts current year by value supplied.</para>
         /// </summary>
         LocalDate DateByAge(int age);
@@ -65,6 +71,33 @@ namespace Sharpy {
         /// </summary>
         string MailAddress(string name, string secondName = null);
 
+        /// <summary>
+        ///     <para>Returns a unique phoneNumber based on the arguments</para>
+        /// </summary>
+        /// <param name="length">The length of the number. Prefix will not be counted for this argument</param>
+        /// <param name="prefix">The prefix of the number.</param>
+        /// <returns></returns>
         string PhoneNumber(int length, string prefix = null);
+
+        /// <summary>
+        ///     <para>Returns a random long from min (inclusive) to max (exclusive)</para>
+        /// </summary>
+        /// <param name="min">The inclusive minimum bound</param>
+        /// <param name="max">The exclusive maximum bound.  Must be greater than min</param>
+        /// <returns></returns>
+        long Long(long min, long max);
+
+        /// <summary>
+        ///    <para>Returns a random long from 0 (inclusive) to max (exclusive)</para>
+        /// </summary>
+        /// <param name="max">The exclusive maximum bound.  Must be greater than 0</param>
+        /// <returns></returns>
+        long Long(long max);
+
+        /// <summary>
+        ///     <para>Returns a random long over all possible values of long (except long.MaxValue, similar to</para>
+        /// </summary>
+        /// <returns></returns>
+        long Long();
     }
 }
