@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Remoting;
 using NUnit.Framework;
 using Sharpy;
 using Sharpy.Enums;
@@ -148,6 +147,21 @@ namespace Tests {
         }
 
         [Test]
+        public void Seed_With_SecurityNumber() {
+            const int limit = 100;
+            var generatorA = RandomGenerator.Create();
+            generatorA.Config.Seed(Seed);
+            var generatorB = RandomGenerator.Create();
+            generatorB.Config.Seed(Seed);
+
+            var generateManyA =
+                generatorA.GenerateMany(randomizer => randomizer.SocialSecurityNumber(randomizer.DateByAge(20)), limit);
+            var generateManyB =
+                generatorB.GenerateMany(randomizer => randomizer.SocialSecurityNumber(randomizer.DateByAge(20)), limit);
+            Assert.IsTrue(generateManyA.SequenceEqual(generateManyB));
+        }
+
+        [Test]
         public void Seed_With_StringAnyName() {
             const int limit = 100;
             var generatorA = RandomGenerator.Create();
@@ -157,45 +171,6 @@ namespace Tests {
 
             var generateManyA = generatorA.GenerateMany(randomizer => randomizer.String(StringType.AnyName), limit);
             var generateManyB = generatorB.GenerateMany(randomizer => randomizer.String(StringType.AnyName), limit);
-            Assert.IsTrue(generateManyA.SequenceEqual(generateManyB));
-        }
-
-        [Test]
-        public void Seed_With_StringFirstName() {
-            const int limit = 100;
-            var generatorA = RandomGenerator.Create();
-            generatorA.Config.Seed(Seed);
-            var generatorB = RandomGenerator.Create();
-            generatorB.Config.Seed(Seed);
-
-            var generateManyA = generatorA.GenerateMany(randomizer => randomizer.String(StringType.FirstName), limit);
-            var generateManyB = generatorB.GenerateMany(randomizer => randomizer.String(StringType.FirstName), limit);
-            Assert.IsTrue(generateManyA.SequenceEqual(generateManyB));
-        }
-
-        [Test]
-        public void Seed_With_StringUserName() {
-            const int limit = 100;
-            var generatorA = RandomGenerator.Create();
-            generatorA.Config.Seed(Seed);
-            var generatorB = RandomGenerator.Create();
-            generatorB.Config.Seed(Seed);
-
-            var generateManyA = generatorA.GenerateMany(randomizer => randomizer.String(StringType.UserName), limit);
-            var generateManyB = generatorB.GenerateMany(randomizer => randomizer.String(StringType.UserName), limit);
-            Assert.IsTrue(generateManyA.SequenceEqual(generateManyB));
-        }
-
-        [Test]
-        public void Seed_With_StringLastName() {
-            const int limit = 100;
-            var generatorA = RandomGenerator.Create();
-            generatorA.Config.Seed(Seed);
-            var generatorB = RandomGenerator.Create();
-            generatorB.Config.Seed(Seed);
-
-            var generateManyA = generatorA.GenerateMany(randomizer => randomizer.String(StringType.LastName), limit);
-            var generateManyB = generatorB.GenerateMany(randomizer => randomizer.String(StringType.LastName), limit);
             Assert.IsTrue(generateManyA.SequenceEqual(generateManyB));
         }
 
@@ -215,6 +190,32 @@ namespace Tests {
         }
 
         [Test]
+        public void Seed_With_StringFirstName() {
+            const int limit = 100;
+            var generatorA = RandomGenerator.Create();
+            generatorA.Config.Seed(Seed);
+            var generatorB = RandomGenerator.Create();
+            generatorB.Config.Seed(Seed);
+
+            var generateManyA = generatorA.GenerateMany(randomizer => randomizer.String(StringType.FirstName), limit);
+            var generateManyB = generatorB.GenerateMany(randomizer => randomizer.String(StringType.FirstName), limit);
+            Assert.IsTrue(generateManyA.SequenceEqual(generateManyB));
+        }
+
+        [Test]
+        public void Seed_With_StringLastName() {
+            const int limit = 100;
+            var generatorA = RandomGenerator.Create();
+            generatorA.Config.Seed(Seed);
+            var generatorB = RandomGenerator.Create();
+            generatorB.Config.Seed(Seed);
+
+            var generateManyA = generatorA.GenerateMany(randomizer => randomizer.String(StringType.LastName), limit);
+            var generateManyB = generatorB.GenerateMany(randomizer => randomizer.String(StringType.LastName), limit);
+            Assert.IsTrue(generateManyA.SequenceEqual(generateManyB));
+        }
+
+        [Test]
         public void Seed_With_StringMaleFirstName() {
             const int limit = 100;
             var generatorA = RandomGenerator.Create();
@@ -228,18 +229,56 @@ namespace Tests {
         }
 
         [Test]
-        public void Seed_With_SecurityNumber() {
+        public void Seed_With_StringUserName() {
             const int limit = 100;
             var generatorA = RandomGenerator.Create();
             generatorA.Config.Seed(Seed);
             var generatorB = RandomGenerator.Create();
             generatorB.Config.Seed(Seed);
 
-            var generateManyA =
-                generatorA.GenerateMany(randomizer => randomizer.SocialSecurityNumber(randomizer.DateByAge(20)), limit);
-            var generateManyB =
-                generatorB.GenerateMany(randomizer => randomizer.SocialSecurityNumber(randomizer.DateByAge(20)), limit);
+            var generateManyA = generatorA.GenerateMany(randomizer => randomizer.String(StringType.UserName), limit);
+            var generateManyB = generatorB.GenerateMany(randomizer => randomizer.String(StringType.UserName), limit);
             Assert.IsTrue(generateManyA.SequenceEqual(generateManyB));
+        }
+
+        [Test]
+        public void SocialSecurityNumberAllContainsDashAtSameIndex() {
+            var generator = RandomGenerator.Create();
+
+            var generateMany = generator.GenerateMany(randomizer =>
+                    randomizer.SocialSecurityNumber(randomizer.DateByAge(randomizer.Integer(19, 20))), 10000).ToArray();
+
+            Assert.IsTrue(generateMany.All(s => s[6] == '-'));
+        }
+
+        [Test]
+        public void SocialSecurityNumberAllSameLength() {
+            var generator = RandomGenerator.Create();
+
+            var generateMany = generator.GenerateMany(randomizer =>
+                    randomizer.SocialSecurityNumber(randomizer.DateByAge(randomizer.Integer(19, 20))), 10000);
+            Assert.IsTrue(generateMany.All(s => s.Length == 11));
+        }
+
+        [Test]
+        public void SocialSecurityNumberAllUnique() {
+            var generator = RandomGenerator.Create();
+
+            var generateMany = generator.GenerateMany(randomizer =>
+                    randomizer.SocialSecurityNumber(randomizer.DateByAge(randomizer.Integer(19, 20))), 10000);
+            // Will look for repeats and expected behaviour is that it should only contain 1 repeat per grouping.
+            Assert.IsTrue(generateMany.GroupBy(s => s).All(grouping => grouping.Count() == 1));
+        }
+
+        [Test]
+        public void SocialSecurityOnlyContainsNumberWithNoFormating() {
+            var generator = RandomGenerator.Create();
+
+            var generateMany = generator.GenerateMany(randomizer =>
+                        randomizer.SocialSecurityNumber(randomizer.DateByAge(randomizer.Integer(19, 20)), false), 10000)
+                .ToArray();
+
+            Assert.IsTrue(generateMany.All(s => s.All(char.IsNumber)));
         }
 
         [Test]
@@ -254,46 +293,6 @@ namespace Tests {
             var userName = generator.Generate(randomizer => randomizer.String(StringType.UserName));
             Assert.IsFalse(string.IsNullOrEmpty(userName));
             Assert.IsFalse(string.IsNullOrWhiteSpace(userName));
-        }
-
-        [Test]
-        public void SocialSecurityNumberAllUnique() {
-            var generator = RandomGenerator.Create();
-
-            var generateMany = generator.GenerateMany(randomizer =>
-                    randomizer.SocialSecurityNumber(randomizer.DateByAge(randomizer.Integer(19, 20))), 10000);
-            // Will look for repeats and expected behaviour is that it should only contain 1 repeat per grouping.
-            Assert.IsTrue(generateMany.GroupBy(s => s).All(grouping => grouping.Count() == 1));
-        }
-
-        [Test]
-        public void SocialSecurityNumberAllSameLength() {
-            var generator = RandomGenerator.Create();
-
-            var generateMany = generator.GenerateMany(randomizer =>
-                    randomizer.SocialSecurityNumber(randomizer.DateByAge(randomizer.Integer(19, 20))), 10000);
-            Assert.IsTrue(generateMany.All(s => s.Length == 11));
-        }
-
-        [Test]
-        public void SocialSecurityNumberAllContainsDashAtSameIndex() {
-            var generator = RandomGenerator.Create();
-
-            var generateMany = generator.GenerateMany(randomizer =>
-                    randomizer.SocialSecurityNumber(randomizer.DateByAge(randomizer.Integer(19, 20))), 10000).ToArray();
-
-            Assert.IsTrue(generateMany.All(s => s[6] == '-'));
-        }
-
-        [Test]
-        public void SocialSecurityOnlyContainsNumberWithNoFormating() {
-            var generator = RandomGenerator.Create();
-
-            var generateMany = generator.GenerateMany(randomizer =>
-                        randomizer.SocialSecurityNumber(randomizer.DateByAge(randomizer.Integer(19, 20)), false), 10000)
-                .ToArray();
-
-            Assert.IsTrue(generateMany.All(s => s.All(char.IsNumber)));
         }
     }
 }

@@ -13,7 +13,12 @@ namespace Sharpy.Randomizer {
     ///     <para>Is used to configure Randomizer.</para>
     /// </summary>
     public sealed class Config {
+        private const string NoSet = "None Set";
+
+        private readonly HashSet<Enum> _origins = new HashSet<Enum>();
         private Fetcher<Name> _names;
+
+        private string _seed;
 
         private Fetcher<string> _userNames;
 
@@ -125,10 +130,6 @@ namespace Sharpy.Randomizer {
             return this;
         }
 
-        private string _seed;
-
-        private readonly HashSet<Enum> _origins = new HashSet<Enum>();
-
         internal IEnumerable<string> StringType(StringType stringType) {
             switch (stringType) {
                 case Enums.StringType.FemaleFirstName:
@@ -159,7 +160,5 @@ namespace Sharpy.Randomizer {
                 $"NumberGenerator: {NumberGen}\n" +
                 $"Name: Origins: {(string.IsNullOrEmpty(origins) ? NoSet : origins)}";
         }
-
-        private const string NoSet = "None Set";
     }
 }

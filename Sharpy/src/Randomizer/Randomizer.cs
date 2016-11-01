@@ -6,12 +6,16 @@ using Sharpy.Randomizer.Generators;
 
 namespace Sharpy.Randomizer {
     internal sealed class Randomizer : IRandomizer<StringType> {
+        private Tuple<int, int, int> _phoneState;
+
         public Randomizer(Config config) {
             Config = config;
             PhoneNumberGenerator = new NumberGenerator(Config.Random);
         }
 
         private Config Config { get; }
+
+        private NumberGenerator PhoneNumberGenerator { get; }
 
         public TElement CustomCollection<TElement>(params TElement[] items) => items[Integer(items.Length)];
 
@@ -61,9 +65,5 @@ namespace Sharpy.Randomizer {
             _phoneState = new Tuple<int, int, int>(length, min, max);
             return prefix + PhoneNumberGenerator.RandomNumber(_phoneState.Item2, _phoneState.Item3, true);
         }
-
-        private Tuple<int, int, int> _phoneState;
-
-        private NumberGenerator PhoneNumberGenerator { get; }
     }
 }

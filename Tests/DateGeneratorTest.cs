@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using NodaTime;
 using NUnit.Framework;
 using Sharpy.Randomizer.Generators;
 
@@ -30,6 +28,12 @@ namespace Tests {
         }
 
         [Test]
+        public void RandomDateByYearMinusOne() {
+            var dateGenerator = new DateGenerator(new Random());
+            Assert.Throws<ArgumentException>(() => dateGenerator.RandomDateByYear(-1));
+        }
+
+        [Test]
         public void RandomDateByYearTwoThousand() {
             var dateGenerator = new DateGenerator(new Random());
             var result = dateGenerator.RandomDateByYear(2000);
@@ -41,12 +45,6 @@ namespace Tests {
             var dateGenerator = new DateGenerator(new Random());
             var result = dateGenerator.RandomDateByYear(2010);
             Assert.AreEqual(result.Year, 2010);
-        }
-
-        [Test]
-        public void RandomDateByYearMinusOne() {
-            var dateGenerator = new DateGenerator(new Random());
-            Assert.Throws<ArgumentException>(() => dateGenerator.RandomDateByYear(-1));
         }
     }
 }
