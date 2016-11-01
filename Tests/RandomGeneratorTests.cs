@@ -32,21 +32,8 @@ namespace Tests {
         }
 
 
-        [Test]
-        [Repeat(3)]
-        public void Mail() {
-            var mailGenerator = RandomGenerator.Create();
-            mailGenerator.Config.MailGenerator(new List<string> {"gmail.com"}, true);
-
-            // Should be true since mailgenerator has been configured to produce unique mails.
-            Assert.IsTrue(
-                mailGenerator.GenerateMany(randomizer => randomizer.MailAddress(MailUserName), 100)
-                    .GroupBy(s => s)
-                    .All(grouping => grouping.Count() == 1));
-        }
 
         [Test]
-        [Repeat(3)]
         public void MailsAreNotnull() {
             var generator = RandomGenerator.Create();
             //Many
@@ -58,6 +45,20 @@ namespace Tests {
             var masil = generator.Generate(randomizer => randomizer.MailAddress(MailUserName));
             Assert.IsFalse(string.IsNullOrWhiteSpace(masil));
             Assert.IsFalse(string.IsNullOrEmpty(masil));
+        }
+
+        [Test]
+        public void UserNamesAreNotNull() {
+            var generator = RandomGenerator.Create();
+            //Many
+            var userNames = generator.GenerateMany(randomizer => randomizer.String(StringType.UserName), 20).ToArray();
+            Assert.IsFalse(userNames.All(string.IsNullOrEmpty));
+            Assert.IsFalse(userNames.All(string.IsNullOrWhiteSpace));
+
+            //Single
+            var userName = generator.Generate(randomizer => randomizer.String(StringType.UserName));
+            Assert.IsFalse(string.IsNullOrEmpty(userName));
+            Assert.IsFalse(string.IsNullOrWhiteSpace(userName));
         }
 
         [Test]
@@ -334,6 +335,17 @@ namespace Tests {
         }
 
         [Test]
+        public void MailAddressesAreUnique() {
+            var mailGenerator = RandomGenerator.Create();
+            mailGenerator.Config.MailGenerator(new List<string> {"gmail.com"}, true);
+
+            // Should be true since mailgenerator has been configured to produce unique mails.
+            Assert.IsTrue(
+                mailGenerator.GenerateMany(randomizer => randomizer.MailAddress(MailUserName), 100)
+                    .GroupBy(s => s)
+                    .All(grouping => grouping.Count() == 1));
+        }
+        [Test]
         [Repeat(10)]
         public void SocialSecurityNumberAllContainsDashAtSameIndex() {
             var generator = RandomGenerator.Create();
@@ -412,21 +424,6 @@ namespace Tests {
             var generateMany = randomGenerator.GenerateMany(randomizer => randomizer.PhoneNumber(5), 10000);
 
             Assert.IsTrue(generateMany.GroupBy(s => s).All(grouping => grouping.Count() == 1));
-        }
-
-        [Test]
-        [Repeat(3)]
-        public void UserNamesAreNotNull() {
-            var generator = RandomGenerator.Create();
-            //Many
-            var userNames = generator.GenerateMany(randomizer => randomizer.String(StringType.UserName), 20).ToArray();
-            Assert.IsFalse(userNames.All(string.IsNullOrEmpty));
-            Assert.IsFalse(userNames.All(string.IsNullOrWhiteSpace));
-
-            //Single
-            var userName = generator.Generate(randomizer => randomizer.String(StringType.UserName));
-            Assert.IsFalse(string.IsNullOrEmpty(userName));
-            Assert.IsFalse(string.IsNullOrWhiteSpace(userName));
         }
     }
 }
