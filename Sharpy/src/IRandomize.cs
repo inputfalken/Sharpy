@@ -8,13 +8,13 @@ namespace Sharpy {
     /// <typeparam name="TStringArg"></typeparam>
     public interface IRandomize<in TStringArg> {
         /// <summary>
-        ///     <para>Can be used if you have your own collection of items that you would want an random item from.</para>
+        ///     <para>Returns a random item from the arguments given</para>
         /// </summary>
         /// <returns></returns>
-        T CustomCollection<T>(params T[] items);
+        T Params<T>(params T[] items);
 
         /// <summary>
-        ///     <para>Can be used if you have your own collection of items that you would want an random item from.</para>
+        ///     <para>Returns a random item from the supplied IList</para>
         /// </summary>
         /// <param name="items"></param>
         /// <typeparam name="T"></typeparam>
