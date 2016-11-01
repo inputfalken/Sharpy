@@ -6,10 +6,10 @@ using Sharpy.ExtensionMethods;
 using Sharpy.Randomizer.Generators;
 
 namespace Sharpy.Randomizer {
-    internal sealed class Randomizer : IRandomizer<StringType> {
+    internal sealed class Randomize : IRandomize<StringType> {
         private Tuple<int, int, int> _phoneState;
 
-        public Randomizer(Config config) {
+        public Randomize(Config config) {
             Config = config;
             PhoneNumberGenerator = new NumberGenerator(Config.Random);
         }

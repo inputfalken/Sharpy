@@ -13,13 +13,13 @@ namespace Sharpy {
     ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
     /// </summary>
     /// <returns></returns>
-    public sealed class RandomGenerator : Generator<IRandomizer<StringType>> {
+    public sealed class RandomGenerator : Generator<IRandomize<StringType>> {
         static RandomGenerator() {
             Generator = Create();
             Configurement = Generator.Config;
         }
 
-        private RandomGenerator(Config config) : base(new Randomizer.Randomizer(config)) {
+        private RandomGenerator(Config config) : base(new Randomizer.Randomize(config)) {
             Config = config;
         }
 
@@ -48,7 +48,7 @@ namespace Sharpy {
         /// <param name="count"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static IEnumerable<T> GenerateEnumerable<T>(Func<IRandomizer<StringType>, T> func, int count = 10)
+        public static IEnumerable<T> GenerateEnumerable<T>(Func<IRandomize<StringType>, T> func, int count = 10)
             => Generator.GenerateMany(func, count);
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace Sharpy {
         /// <param name="count"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static IEnumerable<T> GenerateEnumerable<T>(Func<IRandomizer<StringType>, int, T> func, int count = 10)
+        public static IEnumerable<T> GenerateEnumerable<T>(Func<IRandomize<StringType>, int, T> func, int count = 10)
             => Generator.GenerateMany(func, count);
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Sharpy {
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static T GenerateInstance<T>(Func<IRandomizer<StringType>, T> func) {
+        public static T GenerateInstance<T>(Func<IRandomize<StringType>, T> func) {
             return Generator.Generate(func);
         }
 
