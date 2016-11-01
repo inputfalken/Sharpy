@@ -18,7 +18,7 @@ namespace Sharpy.Randomizer {
 
         private NumberGenerator PhoneNumberGenerator { get; }
 
-        public TElement CustomCollection<TElement>(params TElement[] items) => items[Integer(items.Length)];
+        public TElement Params<TElement>(params TElement[] items) => items[Integer(items.Length)];
 
         public TElement CustomCollection<TElement>(IList<TElement> items) => items[Integer(items.Count)];
 
