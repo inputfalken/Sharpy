@@ -133,6 +133,47 @@ namespace Tests {
             Assert.IsTrue(result.SequenceEqual(expected));
         }
 
+        [Test]
+        public void Seed_With_LongNoArgument() {
+            //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
+            var generator = RandomGenerator.Create();
+            generator.Config.Seed(Seed);
+            var generator2 = RandomGenerator.Create();
+            generator2.Config.Seed(Seed);
+            const int count = 1000;
+            var expected = generator2.GenerateMany(randomizer => randomizer.Long(), count);
+            var result = generator.GenerateMany(randomizer => randomizer.Long(), count);
+            Assert.IsTrue(result.SequenceEqual(expected));
+        }
+
+        [Test]
+        public void Seed_With_LongSingleArgument() {
+            //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
+            var generator = RandomGenerator.Create();
+            generator.Config.Seed(Seed);
+            var generator2 = RandomGenerator.Create();
+            generator2.Config.Seed(Seed);
+            const int count = 1000;
+            const long max = long.MaxValue - 3923329;
+            var expected = generator2.GenerateMany(randomizer => randomizer.Long(max), count);
+            var result = generator.GenerateMany(randomizer => randomizer.Long(max), count);
+            Assert.IsTrue(result.SequenceEqual(expected));
+        }
+
+        [Test]
+        public void Seed_With_LongDoubleArgument() {
+            //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
+            var generator = RandomGenerator.Create();
+            generator.Config.Seed(Seed);
+            var generator2 = RandomGenerator.Create();
+            generator2.Config.Seed(Seed);
+            const int count = 1000;
+            const long max = long.MaxValue - 3923329;
+            const long min = long.MinValue + 3923329;
+            var expected = generator2.GenerateMany(randomizer => randomizer.Long(min, max), count);
+            var result = generator.GenerateMany(randomizer => randomizer.Long(min, max), count);
+            Assert.IsTrue(result.SequenceEqual(expected));
+        }
 
         [Test]
         public void Seed_With_Number() {
