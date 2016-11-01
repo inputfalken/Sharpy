@@ -72,7 +72,7 @@ namespace ConsoleApp {
                 LastName = randomizer.String(StringType.LastName),
                 // Just pass an Class using IList or params!
                 // This shows a params example.
-                WorkPlace = randomizer.CustomCollection("Workplace1", "workplace2")
+                WorkPlace = randomizer.Params("Workplace1", "workplace2")
             }, 20);
         }
     }

@@ -19,11 +19,17 @@
       Tested on Net4.6 and Net4.5.
     </description>
     <releaseNotes>
-      1:You can now tostring Method to find out the current configuration.
+      1: You can now tostring RandomGenerator and it will show current config.
 
-      2:Fixes spelling on comments and the MailAddress method.
+      2: Fixes spelling mistakes on comments and the MailAddress method.
 
-      3: Enum for number Gone... instead you have to WIP(Work in progress)
+      3: Renames IRandomizer to IRandomize.
+
+      4: Adds PhoneNumber method to IRandomize.
+
+      5: Adds Long method to IRandomize.
+
+      6: Renames CustomCollection overload with Params. To Params. it caused an overload problem with IList.
     </releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Fakedata Generator Generic</tags>
