@@ -335,6 +335,7 @@ namespace Tests {
         }
 
         [Test]
+        [Repeat(10)]
         public void MailAddressesAreUnique() {
             var mailGenerator = RandomGenerator.Create();
             mailGenerator.Config.MailGenerator(new List<string> {"gmail.com"}, true);
