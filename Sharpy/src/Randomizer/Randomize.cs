@@ -58,7 +58,7 @@ namespace Sharpy.Randomizer {
             => Config.Mailgen.Mail(name, secondName);
 
         public string PhoneNumber(int length, string prefix = null) {
-            //If the field _phoneState not null and _phoneState not changed do just return length items.
+            //If the field _phoneState not null and length inside phonestate is not changed.
             if (_phoneState != null && _phoneState.Item1 == length)
                 return prefix + PhoneNumberGenerator.RandomNumber(_phoneState.Item2, _phoneState.Item3, true);
 

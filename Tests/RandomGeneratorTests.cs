@@ -440,5 +440,14 @@ namespace Tests {
 
             Assert.IsTrue(generateMany.GroupBy(s => s).All(grouping => grouping.Count() == 1));
         }
+
+        [Test]
+        public void PhoneNumberChangesLength() {
+            var randomGenerator = RandomGenerator.Create();
+            var generateMany = randomGenerator.GenerateMany(randomizer => randomizer.PhoneNumber(5, "07"), 10000);
+            Assert.IsTrue(generateMany.All(s => s.Length == 7));
+            var generateMany2 = randomGenerator.GenerateMany(randomizer => randomizer.PhoneNumber(6, "07"), 10000);
+            Assert.IsTrue(generateMany2.All(s => s.Length == 8));
+        }
     }
 }
