@@ -32,7 +32,6 @@ namespace Tests {
         }
 
 
-
         [Test]
         public void MailsAreNotnull() {
             var generator = RandomGenerator.Create();
@@ -125,6 +124,12 @@ namespace Tests {
             Assert.IsFalse(generator.Generate(randomizer => randomizer.Integer(1, 100)) == 0);
         }
 
+        [Test]
+        public void DateByYear() {
+            var randomGenerator = RandomGenerator.Create();
+            var localDate = randomGenerator.Generate(randomize => randomize.DateByYear(2000));
+            Assert.AreEqual(2000, localDate.Year);
+        }
 
         [Test]
         public void Seed_With_Bools() {
@@ -329,6 +334,7 @@ namespace Tests {
                     .GroupBy(s => s)
                     .All(grouping => grouping.Count() == 1));
         }
+
         [Test]
         [Repeat(10)]
         public void SocialSecurityNumberAllContainsDashAtSameIndex() {
