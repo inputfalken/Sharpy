@@ -66,5 +66,26 @@ namespace Sharpy {
         string MailAddress(string name, string secondName = null);
 
         string PhoneNumber(int length, string prefix = null);
+
+        /// <summary>
+        ///     <para>Returns a random long from min (inclusive) to max (exclusive)</para>
+        /// </summary>
+        /// <param name="min">The inclusive minimum bound</param>
+        /// <param name="max">The exclusive maximum bound.  Must be greater than min</param>
+        /// <returns></returns>
+        long Long(long min, long max);
+
+        /// <summary>
+        ///    <para>Returns a random long from 0 (inclusive) to max (exclusive)</para>
+        /// </summary>
+        /// <param name="max">The exclusive maximum bound.  Must be greater than 0</param>
+        /// <returns></returns>
+        long Long(long max);
+
+        /// <summary>
+        ///     <para>Returns a random long over all possible values of long (except long.MaxValue, similar to</para>
+        /// </summary>
+        /// <returns></returns>
+        long Long();
     }
 }

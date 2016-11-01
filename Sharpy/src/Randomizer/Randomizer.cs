@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using NodaTime;
 using Sharpy.Enums;
+using Sharpy.ExtensionMethods;
 using Sharpy.Randomizer.Generators;
 
 namespace Sharpy.Randomizer {
@@ -65,5 +66,11 @@ namespace Sharpy.Randomizer {
             _phoneState = new Tuple<int, int, int>(length, min, max);
             return prefix + PhoneNumberGenerator.RandomNumber(_phoneState.Item2, _phoneState.Item3, true);
         }
+
+        public long Long(long min, long max) => Config.Random.NextLong(min, max);
+
+        public long Long(long max) => Config.Random.NextLong(max);
+
+        public long Long() => Config.Random.NextLong();
     }
 }
