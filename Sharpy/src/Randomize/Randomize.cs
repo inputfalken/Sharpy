@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using NodaTime;
 using Sharpy.Enums;
 using Sharpy.ExtensionMethods;
-using Sharpy.Randomizer.Generators;
+using Sharpy.Randomize.Generators;
 
-namespace Sharpy.Randomizer {
+namespace Sharpy.Randomize {
     internal sealed class Randomize : IRandomize<StringType> {
         private Tuple<int, int, int> _phoneState;
 

@@ -1,8 +1,8 @@
 ﻿using NUnit.Framework;
 
-namespace Tests.Generator {
+namespace Tests.Randomize {
     [TestFixture]
-    public class Long {
+    public class Bool {
         [Test]
         public void Todo() {}
     }

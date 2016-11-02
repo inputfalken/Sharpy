@@ -5,10 +5,10 @@ using System.Text;
 using Newtonsoft.Json;
 using Sharpy.Enums;
 using Sharpy.Properties;
-using Sharpy.Randomizer.DataObjects;
-using Sharpy.Randomizer.Generators;
+using Sharpy.Randomize.DataObjects;
+using Sharpy.Randomize.Generators;
 
-namespace Sharpy.Randomizer {
+namespace Sharpy.Randomize {
     /// <summary>
     ///     <para>Is used to configure Randomizer.</para>
     /// </summary>

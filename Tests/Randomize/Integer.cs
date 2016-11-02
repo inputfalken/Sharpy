@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Sharpy;
 
-namespace Tests.Generator {
+namespace Tests.Randomize {
     [TestFixture]
     public class Integer {
         [Test]
