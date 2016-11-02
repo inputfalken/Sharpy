@@ -442,10 +442,28 @@ namespace Tests {
         }
 
         [Test]
-        public void PhoneNumberChangesLength() {
+        public void PhoneNumberChangeHigherLength() {
             var randomGenerator = RandomGenerator.Create();
             var generateMany = randomGenerator.GenerateMany(randomizer => randomizer.PhoneNumber(5, "07"), 10000);
             Assert.IsTrue(generateMany.All(s => s.Length == 7));
+            var generateMany2 = randomGenerator.GenerateMany(randomizer => randomizer.PhoneNumber(6, "07"), 10000);
+            Assert.IsTrue(generateMany2.All(s => s.Length == 8));
+        }
+
+        [Test]
+        public void PhoneNumberChangeLowerLength() {
+            var randomGenerator = RandomGenerator.Create();
+            var generateMany = randomGenerator.GenerateMany(randomizer => randomizer.PhoneNumber(6, "07"), 10000);
+            Assert.IsTrue(generateMany.All(s => s.Length == 8));
+            var generateMany2 = randomGenerator.GenerateMany(randomizer => randomizer.PhoneNumber(5, "07"), 10000);
+            Assert.IsTrue(generateMany2.All(s => s.Length == 7));
+        }
+
+        [Test]
+        public void PhoneNumberSameValue() {
+            var randomGenerator = RandomGenerator.Create();
+            var generateMany = randomGenerator.GenerateMany(randomizer => randomizer.PhoneNumber(6, "07"), 10000);
+            Assert.IsTrue(generateMany.All(s => s.Length == 8));
             var generateMany2 = randomGenerator.GenerateMany(randomizer => randomizer.PhoneNumber(6, "07"), 10000);
             Assert.IsTrue(generateMany2.All(s => s.Length == 8));
         }
