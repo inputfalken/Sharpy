@@ -61,7 +61,6 @@
     <Compile Include="Randomize\Seed.cs" />
     <Compile Include="Randomize\SocialSecurity.cs" />
     <Compile Include="Randomize\String.cs" />
-    <Compile Include="Randomize\UniqueTests.cs" />
     <Compile Include="MailGeneratorTest.cs" />
     <Compile Include="NumberGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
