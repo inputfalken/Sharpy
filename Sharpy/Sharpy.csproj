@@ -57,21 +57,21 @@
     </Compile>
     <Compile Include="src\ExtensionMethods\Shuffling.cs" />
     <Compile Include="src\ExtensionMethods\RandomExtensions.cs" />
-    <Compile Include="src\Randomizer\Config.cs" />
+    <Compile Include="src\Randomize\Config.cs" />
     <Compile Include="src\Enums\Origin.cs" />
     <Compile Include="src\Enums\StringType.cs" />
     <Compile Include="src\Generator.cs" />
     <Compile Include="src\IRandomize.cs" />
     <Compile Include="src\RandomGenerator.cs" />
-    <Compile Include="src\Randomizer\DataObjects\CountryCode.cs" />
-    <Compile Include="src\Randomizer\Generators\NumberGenerator.cs" />
-    <Compile Include="src\Randomizer\Generators\DateGenerator.cs" />
-    <Compile Include="src\Randomizer\Fetcher.cs" />
-    <Compile Include="src\Randomizer\Generators\MailGenerator.cs" />
-    <Compile Include="src\Randomizer\DataObjects\Name.cs" />
-    <Compile Include="src\Randomizer\Generators\SecurityNumberGen.cs" />
-    <Compile Include="src\Randomizer\Randomize.cs" />
-    <Compile Include="src\Randomizer\Unique.cs" />
+    <Compile Include="src\Randomize\DataObjects\CountryCode.cs" />
+    <Compile Include="src\Randomize\Generators\NumberGenerator.cs" />
+    <Compile Include="src\Randomize\Generators\DateGenerator.cs" />
+    <Compile Include="src\Randomize\Fetcher.cs" />
+    <Compile Include="src\Randomize\Generators\MailGenerator.cs" />
+    <Compile Include="src\Randomize\DataObjects\Name.cs" />
+    <Compile Include="src\Randomize\Generators\SecurityNumberGen.cs" />
+    <Compile Include="src\Randomize\Randomize.cs" />
+    <Compile Include="src\Randomize\Unique.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

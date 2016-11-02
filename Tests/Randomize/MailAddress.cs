@@ -3,7 +3,7 @@ using System.Linq;
 using NUnit.Framework;
 using Sharpy;
 
-namespace Tests.Generator {
+namespace Tests.Randomize {
     [TestFixture]
     public class MailAddress {
         private const string MailUserName = "mailUserName";

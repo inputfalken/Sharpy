@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace Tests.Generator {
+namespace Tests.Randomize {
     [TestFixture]
     public class UniqueTests {}
 }

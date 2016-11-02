@@ -49,19 +49,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DateGeneratorTest.cs" />
-    <Compile Include="Generator\Bool.cs" />
-    <Compile Include="Generator\CustomCollection.cs" />
-    <Compile Include="Generator\DateByYear.cs" />
-    <Compile Include="Generator\Integer.cs" />
-    <Compile Include="Generator\Iteration.cs" />
-    <Compile Include="Generator\Long.cs" />
-    <Compile Include="Generator\MailAddress.cs" />
-    <Compile Include="Generator\Params.cs" />
-    <Compile Include="Generator\PhoneNumber.cs" />
-    <Compile Include="Generator\Seed.cs" />
-    <Compile Include="Generator\SocialSecurity.cs" />
-    <Compile Include="Generator\String.cs" />
-    <Compile Include="Generator\UniqueTests.cs" />
+    <Compile Include="Randomize\Bool.cs" />
+    <Compile Include="Randomize\CustomCollection.cs" />
+    <Compile Include="Randomize\DateByYear.cs" />
+    <Compile Include="Randomize\Integer.cs" />
+    <Compile Include="Randomize\Iteration.cs" />
+    <Compile Include="Randomize\Long.cs" />
+    <Compile Include="Randomize\MailAddress.cs" />
+    <Compile Include="Randomize\Params.cs" />
+    <Compile Include="Randomize\PhoneNumber.cs" />
+    <Compile Include="Randomize\Seed.cs" />
+    <Compile Include="Randomize\SocialSecurity.cs" />
+    <Compile Include="Randomize\String.cs" />
+    <Compile Include="Randomize\UniqueTests.cs" />
     <Compile Include="MailGeneratorTest.cs" />
     <Compile Include="NumberGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

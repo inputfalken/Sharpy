@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using Sharpy.Randomizer.Generators;
+using Sharpy.Randomize.Generators;
 
 namespace Tests {
     [TestFixture]

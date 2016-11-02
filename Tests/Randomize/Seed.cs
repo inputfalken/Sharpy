@@ -4,7 +4,7 @@ using NUnit.Framework;
 using Sharpy;
 using Sharpy.Enums;
 
-namespace Tests.Generator {
+namespace Tests.Randomize {
     [TestFixture]
     public class Seed {
         private const int TestSeed = 100;

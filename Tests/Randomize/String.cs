@@ -2,10 +2,10 @@
 using NUnit.Framework;
 using Sharpy;
 using Sharpy.Enums;
-using Sharpy.Randomizer;
-using Sharpy.Randomizer.DataObjects;
+using Sharpy.Randomize;
+using Sharpy.Randomize.DataObjects;
 
-namespace Tests.Generator {
+namespace Tests.Randomize {
     [TestFixture]
     public class String {
         [SetUp]
