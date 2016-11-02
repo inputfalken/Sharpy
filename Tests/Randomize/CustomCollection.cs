@@ -7,7 +7,7 @@ namespace Tests.Randomize {
     [TestFixture]
     public class CustomCollection {
         [Test]
-        public void CustomCollectionArray() {
+        public void Array() {
             var randomGenerator = RandomGenerator.Create();
             var args = new[] {"hello", "there", "foo"};
             var generateMany = randomGenerator.GenerateMany(randomize => randomize.Params(args));
@@ -15,7 +15,7 @@ namespace Tests.Randomize {
         }
 
         [Test]
-        public void CustomCollectionList() {
+        public void List() {
             var randomGenerator = RandomGenerator.Create();
             var args = new List<string> {"hello", "there", "foo"};
             var generateMany = randomGenerator.GenerateMany(randomize => randomize.CustomCollection(args));
