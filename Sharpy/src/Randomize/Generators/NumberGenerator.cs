@@ -12,21 +12,15 @@ namespace Sharpy.Randomize.Generators {
 
         internal int RandomNumber(int min, int max, bool unique = false) {
             var next = Random.Next(min, max);
-            return unique ? CreateUniqueNumber(next, min, max, ResolveDuplicate) : next;
+            return unique ? CreateUniqueNumber(next, min, max) : next;
         }
 
 
-        private int CreateUniqueNumber(int startNumber, int min, int max, Func<int, int, int, int> func) {
-            var number = func(startNumber, max, min);
-            while (HashSet.Contains(number)) number = func(number, max, min);
+        private int CreateUniqueNumber(int number, int min, int max) {
+            while (HashSet.Contains(number)) number = ResolveIntDuplicate(ref number, min, max);
             HashSet.Add(number);
             return number;
         }
 
-        private static int ResolveDuplicate(int item, int min, int max) {
-            if (item == max) item = min;
-            else item++;
-            return item;
-        }
     }
 }
