@@ -48,9 +48,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DateGeneratorTest.cs" />
     <Compile Include="Randomize\Bool.cs" />
     <Compile Include="Randomize\CustomCollection.cs" />
+    <Compile Include="Randomize\DateByAge.cs" />
     <Compile Include="Randomize\DateByYear.cs" />
     <Compile Include="Randomize\Integer.cs" />
     <Compile Include="Randomize\Iteration.cs" />
