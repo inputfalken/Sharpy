@@ -37,5 +37,11 @@ namespace Sharpy.Randomize {
             Builder.Clear();
             return str;
         }
+
+        protected static int ResolveIntDuplicate(ref int number, int min, int max) {
+            if (number == max) number = min;
+            else number++;
+            return number;
+        }
     }
 }
