@@ -21,7 +21,7 @@
     <releaseNotes>
       1: You can now tostring RandomGenerator and it will show current config.
 
-      2: Fixes spelling mistakes on comments and the MailAddress method.
+      2: Fixes spelling mistakes on comments and the randomizer's MailAddress method.
 
       3: Adds PhoneNumber method to IRandomize and removes numbergenerator from config.
 
