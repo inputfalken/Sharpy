@@ -38,6 +38,13 @@ namespace Sharpy.Randomize {
             return str;
         }
 
+        /// <summary>
+        ///  This method handle duplication of integers. the ref param is currently required...
+        /// </summary>
+        /// <param name="number"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
         protected static int ResolveIntDuplicate(ref int number, int min, int max) {
             if (number == max) number = min;
             else number++;
