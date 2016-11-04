@@ -2,10 +2,10 @@
 using NUnit.Framework;
 using Sharpy;
 using Sharpy.Enums;
-using Sharpy.Randomize;
-using Sharpy.Randomize.DataObjects;
+using Sharpy.Randomizer;
+using Sharpy.Randomizer.DataObjects;
 
-namespace Tests.Randomize {
+namespace Tests.Randomizer {
     [TestFixture]
     public class String {
         [SetUp]
@@ -32,40 +32,40 @@ namespace Tests.Randomize {
             //Many
             const int count = 100;
             Assert.IsTrue(
-                femaleNameGenerator.GenerateMany(randomizer => randomizer.String(StringType.FemaleFirstName), count)
+                femaleNameGenerator.GenerateMany(randomizerr => randomizerr.String(StringType.FemaleFirstName), count)
                     .All(femaleNames.Contains));
             Assert.IsTrue(
-                maleNameGenerator.GenerateMany(randomizer => randomizer.String(StringType.MaleFirstName), count)
+                maleNameGenerator.GenerateMany(randomizerr => randomizerr.String(StringType.MaleFirstName), count)
                     .All(maleNames.Contains));
-            Assert.IsTrue(lastNameGenerator.GenerateMany(randomizer => randomizer.String(StringType.LastName), count)
+            Assert.IsTrue(lastNameGenerator.GenerateMany(randomizerr => randomizerr.String(StringType.LastName), count)
                 .All(lastNames.Contains));
             Assert.IsTrue(
-                mixedFirstNameGenerator.GenerateMany(randomizer => randomizer.String(StringType.FirstName),
+                mixedFirstNameGenerator.GenerateMany(randomizerr => randomizerr.String(StringType.FirstName),
                     count).All(mixedNames.Contains));
 
             //Single
             Assert.IsTrue(
                 femaleNames.Contains(
-                    femaleNameGenerator.Generate(randomizer => randomizer.String(StringType.FemaleFirstName))));
+                    femaleNameGenerator.Generate(randomizerr => randomizerr.String(StringType.FemaleFirstName))));
             Assert.IsTrue(
-                maleNames.Contains(maleNameGenerator.Generate(randomizer => randomizer.String(StringType.MaleFirstName))));
+                maleNames.Contains(maleNameGenerator.Generate(randomizerr => randomizerr.String(StringType.MaleFirstName))));
             Assert.IsTrue(
-                lastNames.Contains(lastNameGenerator.Generate(randomizer => randomizer.String(StringType.LastName))));
+                lastNames.Contains(lastNameGenerator.Generate(randomizerr => randomizerr.String(StringType.LastName))));
             Assert.IsTrue(
                 mixedNames.Contains(
-                    mixedFirstNameGenerator.Generate(randomizer => randomizer.String(StringType.FirstName))));
+                    mixedFirstNameGenerator.Generate(randomizerr => randomizerr.String(StringType.FirstName))));
         }
 
         [Test]
         public void NamesAreNotNull() {
             var generator = RandomGenerator.Create();
             //Many
-            var names = generator.GenerateMany(randomizer => randomizer.String(StringType.AnyName), 20).ToArray();
+            var names = generator.GenerateMany(randomizerr => randomizerr.String(StringType.AnyName), 20).ToArray();
             Assert.IsFalse(names.All(string.IsNullOrEmpty));
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var name = generator.Generate(randomizer => randomizer.String(StringType.AnyName));
+            var name = generator.Generate(randomizerr => randomizerr.String(StringType.AnyName));
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
         }
@@ -74,12 +74,12 @@ namespace Tests.Randomize {
         public void UserNamesAreNotNull() {
             var generator = RandomGenerator.Create();
             //Many
-            var userNames = generator.GenerateMany(randomizer => randomizer.String(StringType.UserName), 20).ToArray();
+            var userNames = generator.GenerateMany(randomizerr => randomizerr.String(StringType.UserName), 20).ToArray();
             Assert.IsFalse(userNames.All(string.IsNullOrEmpty));
             Assert.IsFalse(userNames.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var userName = generator.Generate(randomizer => randomizer.String(StringType.UserName));
+            var userName = generator.Generate(randomizerr => randomizerr.String(StringType.UserName));
             Assert.IsFalse(string.IsNullOrEmpty(userName));
             Assert.IsFalse(string.IsNullOrWhiteSpace(userName));
         }
