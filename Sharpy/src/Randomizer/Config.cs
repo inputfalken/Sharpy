@@ -157,7 +157,6 @@ namespace Sharpy.Randomizer {
             return
                 $"\nSeed: {_seed ?? NoSet}. Using default for System.Random\n" +
                 $"Mail: {Mailgen}\n" +
-                $"NumberGenerator: {NumberGen}\n" +
                 $"Name: Origins: {(string.IsNullOrEmpty(origins) ? NoSet : origins)}";
         }
     }
