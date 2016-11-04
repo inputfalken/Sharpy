@@ -6,10 +6,7 @@ using Sharpy.Randomizer;
 namespace Sharpy {
     /// <summary>
     ///     <para>Static generator using my Implementation of IRandomizer&lt;TStringArg&gt;</para>
-    ///     <para>
-    ///         Can also give instances of the same generator. Is useful if you want to generate same data by setting the same
-    ///         seed on seperate generators.
-    ///     </para>
+    ///     <para>Can also create instances of the implementation</para>
     ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
     /// </summary>
     /// <returns></returns>
@@ -24,14 +21,14 @@ namespace Sharpy {
         }
 
         /// <summary>
-        ///     <para>Is used for configuring the generator to act different when calling Generation methods.</para>
+        ///     <para>For configuring Randomizer.</para>
         /// </summary>
         public Config Config { get; }
 
         private static RandomGenerator Generator { get; }
 
         /// <summary>
-        ///     <para>Is used for configuring the generator to act different when calling Generation methods.</para>
+        ///     <para>For configuring Randomizer;.</para>
         /// </summary>
         public static Config Configurement { get; }
 
@@ -44,8 +41,8 @@ namespace Sharpy {
         /// <summary>
         ///     <para>Generates a IEnumerable&lt;T&gt;.</para>
         /// </summary>
-        /// <param name="func"></param>
-        /// <param name="count"></param>
+        /// <param name="count">Count of IEnumerable&lt;T&gt;</param>
+        /// <param name="func">The argument supplied is used to get the data. The item returned will be generated.</param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public static IEnumerable<T> GenerateEnumerable<T>(Func<IRandomizer<StringType>, T> func, int count = 10)
@@ -55,8 +52,8 @@ namespace Sharpy {
         ///     <para>Generates a IEnumerable&lt;T&gt;.</para>
         ///     <para>Includes an integer counting iterations.</para>
         /// </summary>
-        /// <param name="func"></param>
-        /// <param name="count"></param>
+        /// <param name="count">Count of IEnumerable&lt;T&gt;</param>
+        /// <param name="func">The argument supplied is used to get the data. The item returned will be generated.</param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public static IEnumerable<T> GenerateEnumerable<T>(Func<IRandomizer<StringType>, int, T> func, int count = 10)
@@ -65,14 +62,10 @@ namespace Sharpy {
         /// <summary>
         ///     <para>Generates a &lt;T&gt;.</para>
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <param name="func">The argument supplied is used to get the data. The item returned will be generated.</param>
         /// <returns></returns>
-        public static T GenerateInstance<T>(Func<IRandomizer<StringType>, T> func) {
-            return Generator.Generate(func);
-        }
+        public static T GenerateInstance<T>(Func<IRandomizer<StringType>, T> func) => Generator.Generate(func);
 
-        public override string ToString() {
-            return $"Configurement for Random Generator{Config}";
-        }
+        public override string ToString() => $"Configurement for Random Generator {Config}";
     }
 }
