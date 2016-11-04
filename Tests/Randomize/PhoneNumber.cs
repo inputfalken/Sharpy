@@ -52,7 +52,6 @@ namespace Tests.Randomize {
         }
 
         [Test]
-        [Repeat(10)]
         public void PhoneNumberGotSameLengthWithPrefix() {
             var randomGenerator = RandomGenerator.Create();
             var generateMany = randomGenerator.GenerateMany(randomizer => randomizer.PhoneNumber(5, "07"), 10000);
