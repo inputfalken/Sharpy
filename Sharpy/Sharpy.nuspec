@@ -23,13 +23,11 @@
 
       2: Fixes spelling mistakes on comments and the MailAddress method.
 
-      3: Renames IRandomizer to IRandomize.
+      3: Adds PhoneNumber method to IRandomize and removes numbergenerator from config.
 
-      4: Adds PhoneNumber method to IRandomize.
+      4: Adds Long method to IRandomize.
 
-      5: Adds Long method to IRandomize.
-
-      6: Renames CustomCollection overload with Params. To Params. it caused an overload problem with IList.
+      5: Renames CustomCollection overload with Params. To Params. it caused an overload problem with IList.
     </releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Fakedata Generator Generic</tags>

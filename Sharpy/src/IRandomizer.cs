@@ -6,7 +6,7 @@ namespace Sharpy {
     ///     <para>A contract containing various Methods to randomize data.</para>
     /// </summary>
     /// <typeparam name="TStringArg"></typeparam>
-    public interface IRandomize<in TStringArg> {
+    public interface IRandomizer<in TStringArg> {
         /// <summary>
         ///     <para>Returns a random item from the arguments given</para>
         /// </summary>

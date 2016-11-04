@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using NodaTime;
 using Sharpy.Enums;
 using Sharpy.ExtensionMethods;
-using Sharpy.Randomize.Generators;
+using Sharpy.Randomizer.Generators;
 
-namespace Sharpy.Randomize {
-    internal sealed class Randomize : IRandomize<StringType> {
+namespace Sharpy.Randomizer {
+    internal sealed class Randomizer : IRandomizer<StringType> {
         private Tuple<int, int, int> _phoneState;
 
-        public Randomize(Config config) {
+        public Randomizer(Config config) {
             Config = config;
             PhoneNumberGenerator = new NumberGenerator(Config.Random);
         }

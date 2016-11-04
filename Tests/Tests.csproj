@@ -48,19 +48,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Randomize\Bool.cs" />
-    <Compile Include="Randomize\CustomCollection.cs" />
-    <Compile Include="Randomize\DateByAge.cs" />
-    <Compile Include="Randomize\DateByYear.cs" />
-    <Compile Include="Randomize\Integer.cs" />
-    <Compile Include="Randomize\Iteration.cs" />
-    <Compile Include="Randomize\Long.cs" />
-    <Compile Include="Randomize\MailAddress.cs" />
-    <Compile Include="Randomize\Params.cs" />
-    <Compile Include="Randomize\PhoneNumber.cs" />
-    <Compile Include="Randomize\Seed.cs" />
-    <Compile Include="Randomize\SocialSecurity.cs" />
-    <Compile Include="Randomize\String.cs" />
+    <Compile Include="Randomizer\Bool.cs" />
+    <Compile Include="Randomizer\CustomCollection.cs" />
+    <Compile Include="Randomizer\DateByAge.cs" />
+    <Compile Include="Randomizer\DateByYear.cs" />
+    <Compile Include="Randomizer\Integer.cs" />
+    <Compile Include="Randomizer\Iteration.cs" />
+    <Compile Include="Randomizer\Long.cs" />
+    <Compile Include="Randomizer\MailAddress.cs" />
+    <Compile Include="Randomizer\Params.cs" />
+    <Compile Include="Randomizer\PhoneNumber.cs" />
+    <Compile Include="Randomizer\Seed.cs" />
+    <Compile Include="Randomizer\SocialSecurity.cs" />
+    <Compile Include="Randomizer\String.cs" />
     <Compile Include="NumberGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

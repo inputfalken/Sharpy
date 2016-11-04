@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sharpy.Randomize.Generators {
+namespace Sharpy.Randomizer.Generators {
     internal class SecurityNumberGen : Unique<long> {
         public SecurityNumberGen(Random random) : base(random) {}
 
