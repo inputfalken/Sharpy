@@ -33,7 +33,7 @@ namespace Sharpy {
         ///     <para>Generates a IEnumerable&lt;T&gt; </para>
         /// </summary>
         /// <param name="count">Count of IEnumerable&lt;T&gt;</param>
-        /// <param name="func">The item to be returned will be generated.</param>
+        /// <param name="func">The argument supplied is used to get the data. The item returned will be generated.</param>
         public virtual IEnumerable<T> GenerateMany<T>(Func<TSource, T> func, int count = 10) {
             for (var i = 0; i < count; i++)
                 yield return Instance(func);
@@ -44,7 +44,7 @@ namespace Sharpy {
         ///     <para>Includes an integer containing the current iteration.</para>
         /// </summary>
         /// <param name="count">Count of IEnumerable&lt;T&gt;</param>
-        /// <param name="func">The item to be returned will be generated.</param>
+        /// <param name="func">The argument supplied is used to get the data. The item returned will be generated.</param>
         public virtual IEnumerable<T> GenerateMany<T>(Func<TSource, int, T> func, int count = 10) {
             for (var i = 0; i < count; i++)
                 yield return Instance(func, i);
