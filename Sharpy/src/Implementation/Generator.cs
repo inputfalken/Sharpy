@@ -2,14 +2,14 @@ using System;
 using System.Collections.Generic;
 using NodaTime;
 using Sharpy.Enums;
-using Sharpy.ExtensionMethods;
-using Sharpy.Randomizer.Generators;
+using Sharpy.Implementation.ExtensionMethods;
+using Sharpy.Implementation.Generators;
 
-namespace Sharpy.Randomizer {
-    internal sealed class Randomizer : IRandomizer<StringType> {
+namespace Sharpy.Implementation {
+    internal sealed class Generator : IGenerator<StringType> {
         private Tuple<int, int, int> _phoneState;
 
-        public Randomizer(Config config) {
+        public Generator(Config config) {
             Config = config;
             PhoneNumberGenerator = new NumberGenerator(Config.Random);
         }

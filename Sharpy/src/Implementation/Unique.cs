@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Sharpy.Randomizer {
+namespace Sharpy.Implementation {
     /// <summary>
     /// </summary>
     /// <typeparam name="T"></typeparam>

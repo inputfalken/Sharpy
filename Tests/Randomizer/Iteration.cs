@@ -8,7 +8,7 @@ namespace Tests.Randomizer {
         [Test]
         public void IteratorWithEnumerable() {
             var iteration = 0;
-            var generator = RandomGenerator.Create();
+            var generator = SharpyGenerator.Create();
             var result = generator.GenerateMany((randomizerr, i) => iteration++ == i, 20).ToArray();
             Assert.IsTrue(result.All(b => b));
         }

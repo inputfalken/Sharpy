@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sharpy.Randomizer.Generators {
+namespace Sharpy.Implementation.Generators {
     // ReSharper disable once ClassNeverInstantiated.Global
     // Is generated from json
     /// <summary>
