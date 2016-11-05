@@ -149,6 +149,7 @@ namespace Sharpy.Implementation {
             }
         }
 
+        /// <inheritdoc />
         public override string ToString() {
             var origins = string.Empty;
             foreach (var origin in _origins)

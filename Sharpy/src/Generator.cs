@@ -6,16 +6,20 @@ namespace Sharpy {
     ///     <para>Is used to create one or many of &lt;T&gt; By using methods from this class.</para>
     /// </summary>
     /// <typeparam name="TStringArg">Argument for the method String in IGenerator</typeparam>
-    public class Generator<TStringArg> {
-        protected Generator(IGenerator<TStringArg> source) {
-            Source = source;
+    public abstract class Generator<TStringArg> {
+        /// <summary>
+        /// <para>Use an implementation of IGenerator.</para>
+        /// </summary>
+        /// <param name="gen"></param>
+        protected Generator(IGenerator<TStringArg> gen) {
+            Gen = gen;
         }
 
-        private IGenerator<TStringArg> Source { get; }
+        private IGenerator<TStringArg> Gen { get; }
 
 
-        private T Instance<T>(Func<IGenerator<TStringArg>, int, T> func, int i) => func(Source, i);
-        private T Instance<T>(Func<IGenerator<TStringArg>, T> func) => func(Source);
+        private T Instance<T>(Func<IGenerator<TStringArg>, int, T> func, int i) => func(Gen, i);
+        private T Instance<T>(Func<IGenerator<TStringArg>, T> func) => func(Gen);
 
         /// <summary>
         ///     <para>Will generate a &lt;T&gt;</para>
@@ -44,13 +48,5 @@ namespace Sharpy {
             for (var i = 0; i < count; i++)
                 yield return Instance(func, i);
         }
-
-        /// <summary>
-        ///     <para>Creates a Generator.</para>
-        /// </summary>
-        /// <typeparam name="TStringArg">&lt;TSource&gt; will be passed to all delagates in the generation methods</typeparam>
-        /// <returns></returns>
-        public static Generator<TStringArg> Custom(IGenerator<TStringArg> tSource)
-            => new Generator<TStringArg>(tSource);
     }
 }
