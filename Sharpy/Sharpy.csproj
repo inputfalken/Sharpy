@@ -70,7 +70,6 @@
     <Compile Include="src\Implementation\Generators\MailGenerator.cs" />
     <Compile Include="src\Implementation\DataObjects\Name.cs" />
     <Compile Include="src\Implementation\Generators\SecurityNumberGen.cs" />
-    <Compile Include="src\Implementation\Generator.cs" />
     <Compile Include="src\Implementation\Unique.cs" />
   </ItemGroup>
   <ItemGroup>
