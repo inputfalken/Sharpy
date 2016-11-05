@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Sharpy.Randomizer {
+namespace Sharpy.Implementation {
     internal sealed class Fetcher<TSource> : IEnumerable<TSource> {
         /// <summary>
         ///     Takes the IEnumerable and turns it into a lazy array which gets used only if needed.

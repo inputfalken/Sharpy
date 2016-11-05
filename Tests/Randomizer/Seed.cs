@@ -12,7 +12,7 @@ namespace Tests.Randomizer {
         [Test]
         public void Bools() {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the bools expected
-            var generator = RandomGenerator.Create();
+            var generator = SharpyGenerator.Create();
             generator.Config.Seed(TestSeed);
             var random = new Random(TestSeed);
             var expected = Enumerable.Range(0, 1000).Select(i => random.Next(2) != 0);
@@ -25,9 +25,9 @@ namespace Tests.Randomizer {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             const int max = 100;
             const int min = 20;
-            var generator = RandomGenerator.Create();
+            var generator = SharpyGenerator.Create();
             generator.Config.Seed(TestSeed);
-            var generator2 = RandomGenerator.Create();
+            var generator2 = SharpyGenerator.Create();
             generator2.Config.Seed(TestSeed);
             const int count = 1000;
             var expected = generator2.GenerateMany(randomizerr => randomizerr.Integer(min, max), count);
@@ -38,9 +38,9 @@ namespace Tests.Randomizer {
         [Test]
         public void IntegerNoArgument() {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
-            var generator = RandomGenerator.Create();
+            var generator = SharpyGenerator.Create();
             generator.Config.Seed(TestSeed);
-            var generator2 = RandomGenerator.Create();
+            var generator2 = SharpyGenerator.Create();
             generator2.Config.Seed(TestSeed);
             const int count = 1000;
             var expected = generator2.GenerateMany(randomizerr => randomizerr.Integer(), count);
@@ -52,9 +52,9 @@ namespace Tests.Randomizer {
         public void IntegerSingleArgument() {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             const int max = 100;
-            var generator = RandomGenerator.Create();
+            var generator = SharpyGenerator.Create();
             generator.Config.Seed(TestSeed);
-            var generator2 = RandomGenerator.Create();
+            var generator2 = SharpyGenerator.Create();
             generator2.Config.Seed(TestSeed);
             const int count = 1000;
             var expected = generator2.GenerateMany(randomizerr => randomizerr.Integer(max), count);
@@ -65,9 +65,9 @@ namespace Tests.Randomizer {
         [Test]
         public void LongDoubleArgument() {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
-            var generator = RandomGenerator.Create();
+            var generator = SharpyGenerator.Create();
             generator.Config.Seed(TestSeed);
-            var generator2 = RandomGenerator.Create();
+            var generator2 = SharpyGenerator.Create();
             generator2.Config.Seed(TestSeed);
             const int count = 1000;
             const long max = long.MaxValue - 3923329;
@@ -80,9 +80,9 @@ namespace Tests.Randomizer {
         [Test]
         public void LongNoArgument() {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
-            var generator = RandomGenerator.Create();
+            var generator = SharpyGenerator.Create();
             generator.Config.Seed(TestSeed);
-            var generator2 = RandomGenerator.Create();
+            var generator2 = SharpyGenerator.Create();
             generator2.Config.Seed(TestSeed);
             const int count = 1000;
             var expected = generator2.GenerateMany(randomizerr => randomizerr.Long(), count);
@@ -93,9 +93,9 @@ namespace Tests.Randomizer {
         [Test]
         public void LongSingleArgument() {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
-            var generator = RandomGenerator.Create();
+            var generator = SharpyGenerator.Create();
             generator.Config.Seed(TestSeed);
-            var generator2 = RandomGenerator.Create();
+            var generator2 = SharpyGenerator.Create();
             generator2.Config.Seed(TestSeed);
             const int count = 1000;
             const long max = long.MaxValue - 3923329;
@@ -107,9 +107,9 @@ namespace Tests.Randomizer {
         [Test]
         public void SecurityNumber() {
             const int count = 100;
-            var generatorA = RandomGenerator.Create();
+            var generatorA = SharpyGenerator.Create();
             generatorA.Config.Seed(TestSeed);
-            var generatorB = RandomGenerator.Create();
+            var generatorB = SharpyGenerator.Create();
             generatorB.Config.Seed(TestSeed);
 
             const int age = 20;
@@ -123,9 +123,9 @@ namespace Tests.Randomizer {
         [Test]
         public void StringAnyName() {
             const int count = 100;
-            var generatorA = RandomGenerator.Create();
+            var generatorA = SharpyGenerator.Create();
             generatorA.Config.Seed(TestSeed);
-            var generatorB = RandomGenerator.Create();
+            var generatorB = SharpyGenerator.Create();
             generatorB.Config.Seed(TestSeed);
 
             var generateManyA = generatorA.GenerateMany(randomizerr => randomizerr.String(StringType.AnyName), count);
@@ -136,9 +136,9 @@ namespace Tests.Randomizer {
         [Test]
         public void StringFemaleFirstName() {
             const int count = 100;
-            var generatorA = RandomGenerator.Create();
+            var generatorA = SharpyGenerator.Create();
             generatorA.Config.Seed(TestSeed);
-            var generatorB = RandomGenerator.Create();
+            var generatorB = SharpyGenerator.Create();
             generatorB.Config.Seed(TestSeed);
 
             var generateManyA = generatorA.GenerateMany(randomizerr => randomizerr.String(StringType.FemaleFirstName),
@@ -151,9 +151,9 @@ namespace Tests.Randomizer {
         [Test]
         public void StringFirstName() {
             const int count = 100;
-            var generatorA = RandomGenerator.Create();
+            var generatorA = SharpyGenerator.Create();
             generatorA.Config.Seed(TestSeed);
-            var generatorB = RandomGenerator.Create();
+            var generatorB = SharpyGenerator.Create();
             generatorB.Config.Seed(TestSeed);
 
             var generateManyA = generatorA.GenerateMany(randomizerr => randomizerr.String(StringType.FirstName), count);
@@ -164,9 +164,9 @@ namespace Tests.Randomizer {
         [Test]
         public void StringLastName() {
             const int count = 100;
-            var generatorA = RandomGenerator.Create();
+            var generatorA = SharpyGenerator.Create();
             generatorA.Config.Seed(TestSeed);
-            var generatorB = RandomGenerator.Create();
+            var generatorB = SharpyGenerator.Create();
             generatorB.Config.Seed(TestSeed);
 
             var generateManyA = generatorA.GenerateMany(randomizerr => randomizerr.String(StringType.LastName), count);
@@ -177,9 +177,9 @@ namespace Tests.Randomizer {
         [Test]
         public void StringMaleFirstName() {
             const int count = 100;
-            var generatorA = RandomGenerator.Create();
+            var generatorA = SharpyGenerator.Create();
             generatorA.Config.Seed(TestSeed);
-            var generatorB = RandomGenerator.Create();
+            var generatorB = SharpyGenerator.Create();
             generatorB.Config.Seed(TestSeed);
 
             var generateManyA = generatorA.GenerateMany(randomizerr => randomizerr.String(StringType.MaleFirstName), count);
@@ -190,9 +190,9 @@ namespace Tests.Randomizer {
         [Test]
         public void StringUserName() {
             const int count = 100;
-            var generatorA = RandomGenerator.Create();
+            var generatorA = SharpyGenerator.Create();
             generatorA.Config.Seed(TestSeed);
-            var generatorB = RandomGenerator.Create();
+            var generatorB = SharpyGenerator.Create();
             generatorB.Config.Seed(TestSeed);
 
             var generateManyA = generatorA.GenerateMany(randomizerr => randomizerr.String(StringType.UserName), count);

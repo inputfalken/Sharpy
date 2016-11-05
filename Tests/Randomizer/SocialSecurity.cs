@@ -8,7 +8,7 @@ namespace Tests.Randomizer {
         [Test]
         [Repeat(10)]
         public void SocialSecurityNumberAllContainsDashAtSameIndex() {
-            var generator = RandomGenerator.Create();
+            var generator = SharpyGenerator.Create();
 
             var generateMany = generator.GenerateMany(randomizerr =>
                     randomizerr.SocialSecurityNumber(randomizerr.DateByAge(randomizerr.Integer(19, 20))), 10000).ToArray();
@@ -19,7 +19,7 @@ namespace Tests.Randomizer {
         [Test]
         [Repeat(10)]
         public void SocialSecurityNumberAllSameLength() {
-            var generator = RandomGenerator.Create();
+            var generator = SharpyGenerator.Create();
 
             var generateMany = generator.GenerateMany(randomizerr =>
                     randomizerr.SocialSecurityNumber(randomizerr.DateByAge(randomizerr.Integer(19, 20))), 10000);
@@ -29,7 +29,7 @@ namespace Tests.Randomizer {
         [Test]
         [Repeat(10)]
         public void SocialSecurityNumberAllUnique() {
-            var generator = RandomGenerator.Create();
+            var generator = SharpyGenerator.Create();
 
             var generateMany = generator.GenerateMany(randomizerr =>
                     randomizerr.SocialSecurityNumber(randomizerr.DateByAge(randomizerr.Integer(19, 20))), 10000);
@@ -40,7 +40,7 @@ namespace Tests.Randomizer {
         [Test]
         [Repeat(10)]
         public void SocialSecurityOnlyContainsNumberWithNoFormating() {
-            var generator = RandomGenerator.Create();
+            var generator = SharpyGenerator.Create();
 
             var generateMany = generator.GenerateMany(randomizerr =>
                         randomizerr.SocialSecurityNumber(randomizerr.DateByAge(randomizerr.Integer(19, 20)), false), 10000)

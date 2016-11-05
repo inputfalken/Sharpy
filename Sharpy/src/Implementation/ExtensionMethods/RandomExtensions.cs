@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sharpy.ExtensionMethods {
+namespace Sharpy.Implementation.ExtensionMethods {
     internal static class RandomExtensionMethods {
         /// <summary>
         ///     Returns a random long from min (inclusive) to max (exclusive)
