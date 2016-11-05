@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Sharpy</id>
-    <version>1.2.1</version>
+    <version>1.2.2</version>
     <title>Sharpy</title>
     <authors>Robert Andersson</authors>
     <owners>Robert Andersson</owners>
@@ -19,20 +19,13 @@
       Tested on Net4.6 and Net4.5.
     </description>
     <releaseNotes>
-      1: You can now tostring RandomGenerator and it will show current config.
-
-      2: Fixes spelling mistakes on comments and the randomizer's MailAddress method.
-
-      3: Adds PhoneNumber method to IRandomize and removes numbergenerator from config.
-
-      4: Adds Long method to IRandomize.
-
+      1: Renames class RandomGenerator -> SharpyGenerator and IRandomizer -> IGeneratorSource.
+      2: You can now call ToString on SharpyGenerator and it will show current config.
+      3: Fixes spelling mistakes on comments and the IGeneratorSources's MailAddress method.
+      4: Adds PhoneNumber method to IGeneratorSource and removes numbergenerator from config.
+      5: Adds Long method to IGeneratorSource.
       5: Renames CustomCollection overload with Params. To Params. it caused an overload problem with IList.
-
-      6: Renames class RandomGenerator -> SharpyGenerator and IRandomizer -> IGenrator.
-
-      7: Generator Class now uses IGenerator as a TSource.
-
+      7: Generator Class now uses IGeneratorSource instead of TSource.
       8: Generator class is now abstract. The method called Custom is removed.
     </releaseNotes>
     <copyright>Copyright 2016</copyright>
