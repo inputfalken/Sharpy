@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace Tests.Randomizer {
+namespace Tests.source {
     [TestFixture]
     public class Bool {
         [Test]
