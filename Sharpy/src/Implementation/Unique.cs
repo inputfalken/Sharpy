@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Sharpy.Randomizer {
+namespace Sharpy.Implementation {
     /// <summary>
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -30,14 +30,25 @@ namespace Sharpy.Randomizer {
         /// </summary>
         protected HashSet<T> HashSet { get; }
 
-        /// <summary>
-        ///     This method is used in order to validate if the created element is unique
-        /// </summary>
-        protected bool ClearValidateSave(T item) {
+        protected static string Build(params string[] strings) {
+            foreach (var s in strings)
+                Builder.Append(s);
+            var str = Builder.ToString();
             Builder.Clear();
-            if (HashSet.Contains(item)) return false;
-            HashSet.Add(item);
-            return true;
+            return str;
+        }
+
+        /// <summary>
+        ///  This method handle duplication of integers. the ref param is currently required...
+        /// </summary>
+        /// <param name="number"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        protected static int ResolveIntDuplicate(ref int number, int min, int max) {
+            if (number == max) number = min;
+            else number++;
+            return number;
         }
     }
 }

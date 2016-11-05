@@ -55,20 +55,23 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="src\Randomizer\Config.cs" />
+    <Compile Include="src\Implementation\ExtensionMethods\Shuffling.cs" />
+    <Compile Include="src\Implementation\ExtensionMethods\RandomExtensions.cs" />
+    <Compile Include="src\Implementation\Config.cs" />
     <Compile Include="src\Enums\Origin.cs" />
     <Compile Include="src\Enums\StringType.cs" />
     <Compile Include="src\Generator.cs" />
-    <Compile Include="src\IRandomizer.cs" />
-    <Compile Include="src\RandomGenerator.cs" />
-    <Compile Include="src\Randomizer\DataObjects\CountryCode.cs" />
-    <Compile Include="src\Randomizer\Generators\NumberGenerator.cs" />
-    <Compile Include="src\Randomizer\Generators\DateGenerator.cs" />
-    <Compile Include="src\Randomizer\Fetcher.cs" />
-    <Compile Include="src\Randomizer\Generators\MailGenerator.cs" />
-    <Compile Include="src\Randomizer\DataObjects\Name.cs" />
-    <Compile Include="src\Randomizer\Randomizer.cs" />
-    <Compile Include="src\Randomizer\Unique.cs" />
+    <Compile Include="src\IGenerator.cs" />
+    <Compile Include="src\SharpyGenerator.cs" />
+    <Compile Include="src\Implementation\DataObjects\CountryCode.cs" />
+    <Compile Include="src\Implementation\Generators\NumberGenerator.cs" />
+    <Compile Include="src\Implementation\Generators\DateGenerator.cs" />
+    <Compile Include="src\Implementation\Fetcher.cs" />
+    <Compile Include="src\Implementation\Generators\MailGenerator.cs" />
+    <Compile Include="src\Implementation\DataObjects\Name.cs" />
+    <Compile Include="src\Implementation\Generators\SecurityNumberGen.cs" />
+    <Compile Include="src\Implementation\Generator.cs" />
+    <Compile Include="src\Implementation\Unique.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

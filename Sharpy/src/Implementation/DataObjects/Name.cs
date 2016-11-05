@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Sharpy.Enums;
 
-namespace Sharpy.Randomizer.DataObjects {
+namespace Sharpy.Implementation.DataObjects {
     // Is generated from json
     // ReSharper disable once ClassNeverInstantiated.Global
     /// <summary>

@@ -39,7 +39,7 @@ namespace Sharpy.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Sharpy.Properties.Resources", typeof(Resources).Assembly);
+                    var temp = new global::System.Resources.ResourceManager("Sharpy.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -65,7 +65,7 @@ namespace Sharpy.Properties {
         /// </summary>
         internal static byte[] CountryCodes {
             get {
-                object obj = ResourceManager.GetObject("CountryCodes", resourceCulture);
+                var obj = ResourceManager.GetObject("CountryCodes", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -75,7 +75,7 @@ namespace Sharpy.Properties {
         /// </summary>
         internal static byte[] NamesByOrigin {
             get {
-                object obj = ResourceManager.GetObject("NamesByOrigin", resourceCulture);
+                var obj = ResourceManager.GetObject("NamesByOrigin", resourceCulture);
                 return ((byte[])(obj));
             }
         }
