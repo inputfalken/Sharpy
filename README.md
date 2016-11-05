@@ -1,4 +1,4 @@
-# Sharpy 1.2.0
+# Sharpy 1.2.1
 
 The idea of this project is to let users have a source to fetch random data from.
 
