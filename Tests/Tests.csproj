@@ -48,9 +48,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DateGeneratorTest.cs" />
-    <Compile Include="GeneratorTests.cs" />
-    <Compile Include="MailGeneratorTest.cs" />
+    <Compile Include="Randomizer\Bool.cs" />
+    <Compile Include="Randomizer\CustomCollection.cs" />
+    <Compile Include="Randomizer\DateByAge.cs" />
+    <Compile Include="Randomizer\DateByYear.cs" />
+    <Compile Include="Randomizer\Integer.cs" />
+    <Compile Include="Randomizer\Iteration.cs" />
+    <Compile Include="Randomizer\Long.cs" />
+    <Compile Include="Randomizer\MailAddress.cs" />
+    <Compile Include="Randomizer\Params.cs" />
+    <Compile Include="Randomizer\PhoneNumber.cs" />
+    <Compile Include="Randomizer\Seed.cs" />
+    <Compile Include="Randomizer\SocialSecurity.cs" />
+    <Compile Include="Randomizer\String.cs" />
     <Compile Include="NumberGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

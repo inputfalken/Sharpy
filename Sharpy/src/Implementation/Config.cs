@@ -4,27 +4,32 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 using Sharpy.Enums;
+using Sharpy.Implementation.DataObjects;
+using Sharpy.Implementation.Generators;
 using Sharpy.Properties;
-using Sharpy.Randomizer.DataObjects;
-using Sharpy.Randomizer.Generators;
 
-namespace Sharpy.Randomizer {
+namespace Sharpy.Implementation {
     /// <summary>
     ///     <para>Is used to configure Randomizer.</para>
     /// </summary>
     public sealed class Config {
+        private const string NoSet = "None Set";
+
+        private readonly HashSet<Enum> _origins = new HashSet<Enum>();
         private Fetcher<Name> _names;
+
+        private string _seed;
 
         private Fetcher<string> _userNames;
 
         internal Config() {
             DateGenerator = new DateGenerator(Random);
             Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
-            NumberGen = new NumberGenerator(Random, 5, null);
-            SocialSecurityNumberGenerator = new NumberGenerator(Random, 4, null, true);
+            NumberGen = new NumberGenerator(Random);
+            SocialSecurityNumberGenerator = new SecurityNumberGen(Random);
         }
 
-        internal NumberGenerator SocialSecurityNumberGenerator { get; }
+        internal SecurityNumberGen SocialSecurityNumberGenerator { get; }
 
         private Lazy<Fetcher<Name>> LazyNames { get; } =
             new Lazy<Fetcher<Name>>(() => new Fetcher<Name>(JsonConvert.DeserializeObject<IEnumerable<Name>>(
@@ -40,7 +45,7 @@ namespace Sharpy.Randomizer {
         internal DateGenerator DateGenerator { get; }
 
 
-        internal NumberGenerator NumberGen { get; private set; }
+        private NumberGenerator NumberGen { get; }
 
 
         internal MailGenerator Mailgen { get; private set; }
@@ -73,6 +78,7 @@ namespace Sharpy.Randomizer {
         /// <param name="countries"></param>
         /// <returns></returns>
         public Config Name(params Country[] countries) {
+            foreach (var country in countries) _origins.Add(country);
             Names = new Fetcher<Name>(Names.Where(name => countries.Contains(name.Country)));
             return this;
         }
@@ -84,6 +90,7 @@ namespace Sharpy.Randomizer {
         /// <param name="regions"></param>
         /// <returns></returns>
         public Config Name(params Region[] regions) {
+            foreach (var region in regions) _origins.Add(region);
             Names = new Fetcher<Name>(Names.Where(name => regions.Contains(name.Region)));
             return this;
         }
@@ -98,24 +105,6 @@ namespace Sharpy.Randomizer {
         /// <returns></returns>
         public Config MailGenerator(IEnumerable<string> providers, bool uniqueAddresses = false) {
             Mailgen = new MailGenerator(providers, Random, uniqueAddresses);
-            return this;
-        }
-
-        /// <summary>
-        ///     Lets you change the settings for the number generator.
-        /// </summary>
-        /// <param name="length"></param>
-        /// <param name="uniqueNumbers"></param>
-        /// <param name="prefix"></param>
-        /// <returns></returns>
-        public Config NumberGenerator(int length, bool uniqueNumbers = false, string prefix = null) {
-            NumberGen =
-                new NumberGenerator(
-                    Random,
-                    length,
-                    prefix,
-                    uniqueNumbers
-                );
             return this;
         }
 
@@ -136,10 +125,10 @@ namespace Sharpy.Randomizer {
         /// <param name="seed"></param>
         /// <returns></returns>
         public Config Seed(int seed) {
+            _seed = seed.ToString();
             Random = new Random(seed);
             return this;
         }
-
 
         internal IEnumerable<string> StringType(StringType stringType) {
             switch (stringType) {
@@ -158,6 +147,17 @@ namespace Sharpy.Randomizer {
                 default:
                     throw new ArgumentOutOfRangeException(nameof(stringType), stringType, null);
             }
+        }
+
+        public override string ToString() {
+            var origins = string.Empty;
+            foreach (var origin in _origins)
+                if (origin.Equals(_origins.Last())) origins += origin;
+                else origins += $"{origin}, ";
+            return
+                $"\nSeed: {_seed ?? NoSet}. Using default for System.Random\n" +
+                $"Mail: {Mailgen}\n" +
+                $"Name: Origins: {(string.IsNullOrEmpty(origins) ? NoSet : origins)}";
         }
     }
 }
