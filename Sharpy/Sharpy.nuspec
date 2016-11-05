@@ -30,6 +30,8 @@
       5: Renames CustomCollection overload with Params. To Params. it caused an overload problem with IList.
 
       6: Renames class RandomGenerator -> SharpyGenerator and IRandomizer -> IGenrator.
+
+      7: Generator Class now uses IGenerator as a TSource.
     </releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Fakedata Generator Generic</tags>
