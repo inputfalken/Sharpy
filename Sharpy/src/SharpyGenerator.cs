@@ -15,8 +15,8 @@ namespace Sharpy {
     /// <returns></returns>
     public sealed class SharpyGenerator : Generator<StringType> {
         static SharpyGenerator() {
-            Gen = Create();
-            Configurement = Gen.Config;
+            Generator = Create();
+            Configurement = Generator.Config;
         }
 
         private SharpyGenerator(Config config) : base(new GeneratorSource(config)) {
@@ -28,7 +28,7 @@ namespace Sharpy {
         /// </summary>
         public Config Config { get; }
 
-        private static SharpyGenerator Gen { get; }
+        private static SharpyGenerator Generator { get; }
 
         /// <summary>
         ///     <para>Configures Generator.</para>
@@ -49,7 +49,7 @@ namespace Sharpy {
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public static IEnumerable<T> GenerateEnumerable<T>(Func<IGeneratorSource<StringType>, T> func, int count = 10)
-            => Gen.GenerateMany(func, count);
+            => Generator.GenerateMany(func, count);
 
         /// <summary>
         ///     <para>Generates a IEnumerable&lt;T&gt;.</para>
@@ -61,14 +61,14 @@ namespace Sharpy {
         /// <returns></returns>
         public static IEnumerable<T> GenerateEnumerable<T>(Func<IGeneratorSource<StringType>, int, T> func,
                 int count = 10)
-            => Gen.GenerateMany(func, count);
+            => Generator.GenerateMany(func, count);
 
         /// <summary>
         ///     <para>Generates a &lt;T&gt;.</para>
         /// </summary>
         /// <param name="func">The argument supplied is used to get the data. The item returned will be generated.</param>
         /// <returns></returns>
-        public static T GenerateInstance<T>(Func<IGeneratorSource<StringType>, T> func) => Gen.Generate(func);
+        public static T GenerateInstance<T>(Func<IGeneratorSource<StringType>, T> func) => Generator.Generate(func);
 
         /// <inheritdoc />
         public override string ToString() => $"Configurement for Random Generator {Config}";
