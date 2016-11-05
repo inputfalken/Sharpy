@@ -2,8 +2,9 @@
 using NUnit.Framework;
 using Sharpy;
 using Sharpy.Enums;
-using Sharpy.Randomizer;
-using Sharpy.Randomizer.DataObjects;
+using Sharpy.Implementation;
+using Sharpy.Implementation.DataObjects;
+using SharpyGenerator = Sharpy.SharpyGenerator;
 
 namespace Tests.Randomizer {
     [TestFixture]
@@ -19,15 +20,15 @@ namespace Tests.Randomizer {
         [Test]
         public void NamesAreFilteredByGender() {
             var femaleNameGenerator =
-                RandomGenerator.Create();
+                SharpyGenerator.Create();
             var femaleNames = _names.Where(name => name.Type == 1).Select(name => name.Data).ToArray();
             var maleNameGenerator =
-                RandomGenerator.Create();
+                SharpyGenerator.Create();
             var maleNames = _names.Where(name => name.Type == 2).Select(name => name.Data).ToArray();
-            var lastNameGenerator = RandomGenerator.Create();
+            var lastNameGenerator = SharpyGenerator.Create();
             var lastNames = _names.Where(name => name.Type == 3).Select(name => name.Data).ToArray();
             var mixedFirstNameGenerator =
-                RandomGenerator.Create();
+                SharpyGenerator.Create();
             var mixedNames = _names.Where(name => name.Type == 1 | name.Type == 2).Select(name => name.Data).ToArray();
             //Many
             const int count = 100;
@@ -58,7 +59,7 @@ namespace Tests.Randomizer {
 
         [Test]
         public void NamesAreNotNull() {
-            var generator = RandomGenerator.Create();
+            var generator = SharpyGenerator.Create();
             //Many
             var names = generator.GenerateMany(randomizerr => randomizerr.String(StringType.AnyName), 20).ToArray();
             Assert.IsFalse(names.All(string.IsNullOrEmpty));
@@ -72,7 +73,7 @@ namespace Tests.Randomizer {
 
         [Test]
         public void UserNamesAreNotNull() {
-            var generator = RandomGenerator.Create();
+            var generator = SharpyGenerator.Create();
             //Many
             var userNames = generator.GenerateMany(randomizerr => randomizerr.String(StringType.UserName), 20).ToArray();
             Assert.IsFalse(userNames.All(string.IsNullOrEmpty));

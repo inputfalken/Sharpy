@@ -1,42 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
 using Sharpy.Enums;
-using Sharpy.Randomizer;
+using Sharpy.Implementation;
 
 namespace Sharpy {
     /// <summary>
-    ///     <para>Static generator using my Implementation of IRandomizer&lt;TStringArg&gt;</para>
-    ///     <para>Can also create instances of the implementation</para>
+    ///     <para>Static generator derived from Generator</para>
+    ///     <para>Can also create instances of the generator</para>
     ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
     /// </summary>
     /// <returns></returns>
-    public sealed class RandomGenerator : Generator<IGenerator<StringType>> {
-        static RandomGenerator() {
-            Generator = Create();
-            Configurement = Generator.Config;
+    public sealed class SharpyGenerator : Generator<StringType> {
+        static SharpyGenerator() {
+            Gen = Create();
+            Configurement = Gen.Config;
         }
 
-        private RandomGenerator(Config config) : base(source: new Generator(config)) {
+        private SharpyGenerator(Config config) : base(new Implementation.Generator(config)) {
             Config = config;
         }
 
         /// <summary>
-        ///     <para>For configuring Randomizer.</para>
+        ///     <para>For configuring Generator.</para>
         /// </summary>
         public Config Config { get; }
 
-        private static RandomGenerator Generator { get; }
+        private static SharpyGenerator Gen { get; }
 
         /// <summary>
-        ///     <para>For configuring Randomizer;.</para>
+        ///     <para>For configuring Generator.</para>
         /// </summary>
         public static Config Configurement { get; }
 
         /// <summary>
-        ///     <para>Creates a new instance of Randomgenerator.</para>
+        ///     <para>Creates a new instance of Generator.</para>
         /// </summary>
         /// <returns></returns>
-        public static RandomGenerator Create() => new RandomGenerator(new Config());
+        public static SharpyGenerator Create() => new SharpyGenerator(new Config());
 
         /// <summary>
         ///     <para>Generates a IEnumerable&lt;T&gt;.</para>
@@ -46,7 +46,7 @@ namespace Sharpy {
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public static IEnumerable<T> GenerateEnumerable<T>(Func<IGenerator<StringType>, T> func, int count = 10)
-            => Generator.GenerateMany(func, count);
+            => Gen.GenerateMany(func, count);
 
         /// <summary>
         ///     <para>Generates a IEnumerable&lt;T&gt;.</para>
@@ -57,14 +57,14 @@ namespace Sharpy {
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public static IEnumerable<T> GenerateEnumerable<T>(Func<IGenerator<StringType>, int, T> func, int count = 10)
-            => Generator.GenerateMany(func, count);
+            => Gen.GenerateMany(func, count);
 
         /// <summary>
         ///     <para>Generates a &lt;T&gt;.</para>
         /// </summary>
         /// <param name="func">The argument supplied is used to get the data. The item returned will be generated.</param>
         /// <returns></returns>
-        public static T GenerateInstance<T>(Func<IGenerator<StringType>, T> func) => Generator.Generate(func);
+        public static T GenerateInstance<T>(Func<IGenerator<StringType>, T> func) => Gen.Generate(func);
 
         public override string ToString() => $"Configurement for Random Generator {Config}";
     }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Sharpy.Randomizer.Generators {
+namespace Sharpy.Implementation.Generators {
     /// <summary>
     /// </summary>
     internal sealed class MailGenerator : Unique<string> {
