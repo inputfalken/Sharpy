@@ -21,14 +21,14 @@ namespace Sharpy {
         }
 
         /// <summary>
-        ///     <para>For configuring Generator.</para>
+        ///     <para>Configures Generator.</para>
         /// </summary>
         public Config Config { get; }
 
         private static SharpyGenerator Gen { get; }
 
         /// <summary>
-        ///     <para>For configuring Generator.</para>
+        ///     <para>Configures Generator.</para>
         /// </summary>
         public static Config Configurement { get; }
 
