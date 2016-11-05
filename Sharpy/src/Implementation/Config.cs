@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 using Sharpy.Enums;
+using Sharpy.Implementation.DataObjects;
+using Sharpy.Implementation.Generators;
 using Sharpy.Properties;
-using Sharpy.Randomizer.DataObjects;
-using Sharpy.Randomizer.Generators;
 
-namespace Sharpy.Randomizer {
+namespace Sharpy.Implementation {
     /// <summary>
     ///     <para>Is used to configure Randomizer.</para>
     /// </summary>

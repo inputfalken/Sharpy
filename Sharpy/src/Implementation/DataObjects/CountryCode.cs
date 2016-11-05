@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Sharpy.Enums;
 
-namespace Sharpy.Randomizer.DataObjects {
+namespace Sharpy.Implementation.DataObjects {
     /// <summary>
     ///     Contains Country name a Country Code
     /// </summary>

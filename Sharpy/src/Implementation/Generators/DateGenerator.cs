@@ -1,7 +1,7 @@
 ﻿using System;
 using NodaTime;
 
-namespace Sharpy.Randomizer.Generators {
+namespace Sharpy.Implementation.Generators {
     /// <summary>
     ///     Is used for creating random dates
     /// </summary>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Sharpy.ExtensionMethods {
+namespace Sharpy.Implementation.ExtensionMethods {
     internal static class ListExtensions {
         internal static void Shuffle<T>(this IList<T> list, Random random) {
             var n = list.Count;
