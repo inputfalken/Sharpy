@@ -61,7 +61,7 @@
     <Compile Include="src\Enums\Origin.cs" />
     <Compile Include="src\Enums\StringType.cs" />
     <Compile Include="src\Generator.cs" />
-    <Compile Include="src\IRandomizer.cs" />
+    <Compile Include="src\IGenerator.cs" />
     <Compile Include="src\RandomGenerator.cs" />
     <Compile Include="src\Randomizer\DataObjects\CountryCode.cs" />
     <Compile Include="src\Randomizer\Generators\NumberGenerator.cs" />
@@ -70,7 +70,7 @@
     <Compile Include="src\Randomizer\Generators\MailGenerator.cs" />
     <Compile Include="src\Randomizer\DataObjects\Name.cs" />
     <Compile Include="src\Randomizer\Generators\SecurityNumberGen.cs" />
-    <Compile Include="src\Randomizer\Randomizer.cs" />
+    <Compile Include="src\Randomizer\Generator.cs" />
     <Compile Include="src\Randomizer\Unique.cs" />
   </ItemGroup>
   <ItemGroup>
