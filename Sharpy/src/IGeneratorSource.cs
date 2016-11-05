@@ -6,7 +6,7 @@ namespace Sharpy {
     ///     <para>A contract containing various Methods to generate data.</para>
     /// </summary>
     /// <typeparam name="TStringArg"></typeparam>
-    public interface IGenerator<in TStringArg> {
+    public interface IGeneratorSource<in TStringArg> {
         /// <summary>
         ///     <para>Returns a random item from the arguments given</para>
         /// </summary>

@@ -14,12 +14,12 @@ namespace ConsoleApp {
         public static void Main() {
             // First argument is the instructions on what will be generated, 
             // second argument is the Count of the IEnumerable.
-            IEnumerable<Person> people = SharpyGenerator.GenerateEnumerable(generator => new Person {
+            IEnumerable<Person> people = SharpyGenerator.GenerateEnumerable(source => new Person {
                 FirstName = generator.String(StringType.FirstName),
                 LastName = generator.String(StringType.LastName)
             }, 20);
             // Creates one person with generatord names.
-            Person person = SharpyGenerator.GenerateInstance(generator => new Person {
+            Person person = SharpyGenerator.GenerateInstance(source => new Person {
                 FirstName = generator.String(StringType.FirstName),
                 LastName = generator.String(StringType.LastName)
             });
@@ -45,7 +45,7 @@ namespace ConsoleApp {
             // when calling the String from generator when using name arguments(not usernames).
             SharpyGenerator.Configurement.Name(Country.UnitedStates);
 
-            IEnumerable<Person> people = SharpyGenerator.GenerateEnumerable(generator => new Person {
+            IEnumerable<Person> people = SharpyGenerator.GenerateEnumerable(source => new Person {
                 FirstName = generator.String(StringType.FirstName),
                 LastName = generator.String(StringType.LastName)
             }, 20);
@@ -67,7 +67,7 @@ using Sharpy.Enums;
 namespace ConsoleApp {
     internal static class Program {
         public static void Main() {
-            IEnumerable<Person> people = SharpyGenerator.GenerateEnumerable(generator => new Person {
+            IEnumerable<Person> people = SharpyGenerator.GenerateEnumerable(source => new Person {
                 FirstName = generator.String(StringType.FirstName),
                 LastName = generator.String(StringType.LastName),
                 // This shows an example of supplying your own strings.
@@ -92,13 +92,13 @@ using Sharpy.Enums;
 namespace ConsoleApp {
     internal static class Program {
         public static void Main() {
-            IEnumerable<Person> people = SharpyGenerator.GenerateEnumerable(generator => new Person {
+            IEnumerable<Person> people = SharpyGenerator.GenerateEnumerable(source => new Person {
                 FirstName = generator.String(StringType.FirstName),
                 LastName = generator.String(StringType.LastName)
             }, 20);
 
             // Just use the same generator and call GenerateMany!
-            IEnumerable<Animal> animals = SharpyGenerator.GenerateEnumerable(generator => new Animal {
+            IEnumerable<Animal> animals = SharpyGenerator.GenerateEnumerable(source => new Animal {
                 Age = generator.Integer(10, 50)
             }, 20);
         }
@@ -123,7 +123,7 @@ using Sharpy.Enums;
 namespace ConsoleApp {
     internal static class Program {
         public static void Main() {
-            IEnumerable<Person> people = SharpyGenerator.GenerateEnumerable(generator => new Person {
+            IEnumerable<Person> people = SharpyGenerator.GenerateEnumerable(source => new Person {
                 FirstName = generator.String(StringType.FirstName),
                 LastName = generator.String(StringType.LastName),
                 //Just call GenerateMany but inside the type generated!
@@ -155,7 +155,7 @@ namespace ConsoleApp {
     internal static class Program {
         public static void Main() {
             //At the moment you have to make a statement lambda.
-            IEnumerable<Person> people = SharpyGenerator.GenerateEnumerable(generator => {
+            IEnumerable<Person> people = SharpyGenerator.GenerateEnumerable(source => {
                 //Reference the result from the generator methods.
                 var firstName = generator.String(StringType.FirstName);
                 var lastName = generator.String(StringType.LastName);
