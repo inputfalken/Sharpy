@@ -16,7 +16,7 @@ namespace Sharpy {
             Configurement = Gen.Config;
         }
 
-        private SharpyGenerator(Config config) : base(new Implementation.Generator(config)) {
+        private SharpyGenerator(Config config) : base(new Generator(config)) {
             Config = config;
         }
 
@@ -66,6 +66,7 @@ namespace Sharpy {
         /// <returns></returns>
         public static T GenerateInstance<T>(Func<IGenerator<StringType>, T> func) => Gen.Generate(func);
 
+        /// <inheritdoc />
         public override string ToString() => $"Configurement for Random Generator {Config}";
     }
 }
