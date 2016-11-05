@@ -4,6 +4,10 @@ using System.Collections.Generic;
 namespace Sharpy {
     /// <summary>
     ///     <para>Is used to create one or many of &lt;T&gt; By using methods from this class.</para>
+    ///     <para> </para>
+    ///     <para>To use this class you have to create your own implementation of IGenerator.</para>
+    ///     <para>Then Create a class which inherits from this class.</para>
+    ///     <para> </para>
     /// </summary>
     /// <typeparam name="TStringArg">Argument for the method String in IGenerator</typeparam>
     public abstract class Generator<TStringArg> {
