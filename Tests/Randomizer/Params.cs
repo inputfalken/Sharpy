@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Sharpy;
 
-namespace Tests.Randomizer {
+namespace Tests.source {
     [TestFixture]
     public class Params {
         [Test]
@@ -10,7 +10,7 @@ namespace Tests.Randomizer {
             var randomGenerator = SharpyGenerator.Create();
             var args = new[] {"hello", "there", "foo"};
             var generateMany =
-                randomGenerator.GenerateMany(randomizer => randomizer.Params("hello", "there", "foo"));
+                randomGenerator.GenerateMany(source => source.Params("hello", "there", "foo"));
             Assert.IsTrue(generateMany.All(s => args.Contains(s)));
         }
     }
