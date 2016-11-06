@@ -31,40 +31,40 @@ namespace Tests.Generator {
             //Many
             const int count = 100;
             Assert.IsTrue(
-                femaleNameGenerator.GenerateMany(sourcer => sourcer.String(StringType.FemaleFirstName), count)
+                femaleNameGenerator.GenerateMany(generatorr => generatorr.String(StringType.FemaleFirstName), count)
                     .All(femaleNames.Contains));
             Assert.IsTrue(
-                maleNameGenerator.GenerateMany(sourcer => sourcer.String(StringType.MaleFirstName), count)
+                maleNameGenerator.GenerateMany(generatorr => generatorr.String(StringType.MaleFirstName), count)
                     .All(maleNames.Contains));
-            Assert.IsTrue(lastNameGenerator.GenerateMany(sourcer => sourcer.String(StringType.LastName), count)
+            Assert.IsTrue(lastNameGenerator.GenerateMany(generatorr => generatorr.String(StringType.LastName), count)
                 .All(lastNames.Contains));
             Assert.IsTrue(
-                mixedFirstNameGenerator.GenerateMany(sourcer => sourcer.String(StringType.FirstName),
+                mixedFirstNameGenerator.GenerateMany(generatorr => generatorr.String(StringType.FirstName),
                     count).All(mixedNames.Contains));
 
             //Single
             Assert.IsTrue(
                 femaleNames.Contains(
-                    femaleNameGenerator.Generate(sourcer => sourcer.String(StringType.FemaleFirstName))));
+                    femaleNameGenerator.Generate(generatorr => generatorr.String(StringType.FemaleFirstName))));
             Assert.IsTrue(
-                maleNames.Contains(maleNameGenerator.Generate(sourcer => sourcer.String(StringType.MaleFirstName))));
+                maleNames.Contains(maleNameGenerator.Generate(generatorr => generatorr.String(StringType.MaleFirstName))));
             Assert.IsTrue(
-                lastNames.Contains(lastNameGenerator.Generate(sourcer => sourcer.String(StringType.LastName))));
+                lastNames.Contains(lastNameGenerator.Generate(generatorr => generatorr.String(StringType.LastName))));
             Assert.IsTrue(
                 mixedNames.Contains(
-                    mixedFirstNameGenerator.Generate(sourcer => sourcer.String(StringType.FirstName))));
+                    mixedFirstNameGenerator.Generate(generatorr => generatorr.String(StringType.FirstName))));
         }
 
         [Test]
         public void NamesAreNotNull() {
             var generator = Sharpy.Generator.Create();
             //Many
-            var names = generator.GenerateMany(sourcer => sourcer.String(StringType.AnyName), 20).ToArray();
+            var names = generator.GenerateMany(generatorr => generatorr.String(StringType.AnyName), 20).ToArray();
             Assert.IsFalse(names.All(string.IsNullOrEmpty));
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var name = generator.Generate(sourcer => sourcer.String(StringType.AnyName));
+            var name = generator.Generate(generatorr => generatorr.String(StringType.AnyName));
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
         }
@@ -73,12 +73,12 @@ namespace Tests.Generator {
         public void UserNamesAreNotNull() {
             var generator = Sharpy.Generator.Create();
             //Many
-            var userNames = generator.GenerateMany(sourcer => sourcer.String(StringType.UserName), 20).ToArray();
+            var userNames = generator.GenerateMany(generatorr => generatorr.String(StringType.UserName), 20).ToArray();
             Assert.IsFalse(userNames.All(string.IsNullOrEmpty));
             Assert.IsFalse(userNames.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var userName = generator.Generate(sourcer => sourcer.String(StringType.UserName));
+            var userName = generator.Generate(generatorr => generatorr.String(StringType.UserName));
             Assert.IsFalse(string.IsNullOrEmpty(userName));
             Assert.IsFalse(string.IsNullOrWhiteSpace(userName));
         }
