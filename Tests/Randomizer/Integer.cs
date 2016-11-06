@@ -7,7 +7,7 @@ namespace Tests.source {
     public class Integer {
         [Test]
         public void NotDefaultValue() {
-            var generator = SharpyGenerator.Create();
+            var generator = Generator.Create();
             //many
             Assert.IsFalse(generator.GenerateMany(sourcer => sourcer.Integer(1, 100), 100).All(i => i == 0));
 

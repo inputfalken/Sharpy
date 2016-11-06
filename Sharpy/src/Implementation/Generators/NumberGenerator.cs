@@ -21,6 +21,5 @@ namespace Sharpy.Implementation.Generators {
             HashSet.Add(number);
             return number;
         }
-
     }
 }
