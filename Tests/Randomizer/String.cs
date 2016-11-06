@@ -4,7 +4,6 @@ using Sharpy;
 using Sharpy.Enums;
 using Sharpy.Implementation;
 using Sharpy.Implementation.DataObjects;
-using SharpyGenerator = Sharpy.SharpyGenerator;
 
 namespace Tests.source {
     [TestFixture]
@@ -20,15 +19,15 @@ namespace Tests.source {
         [Test]
         public void NamesAreFilteredByGender() {
             var femaleNameGenerator =
-                SharpyGenerator.Create();
+                Generator.Create();
             var femaleNames = _names.Where(name => name.Type == 1).Select(name => name.Data).ToArray();
             var maleNameGenerator =
-                SharpyGenerator.Create();
+                Generator.Create();
             var maleNames = _names.Where(name => name.Type == 2).Select(name => name.Data).ToArray();
-            var lastNameGenerator = SharpyGenerator.Create();
+            var lastNameGenerator = Generator.Create();
             var lastNames = _names.Where(name => name.Type == 3).Select(name => name.Data).ToArray();
             var mixedFirstNameGenerator =
-                SharpyGenerator.Create();
+                Generator.Create();
             var mixedNames = _names.Where(name => name.Type == 1 | name.Type == 2).Select(name => name.Data).ToArray();
             //Many
             const int count = 100;
@@ -59,7 +58,7 @@ namespace Tests.source {
 
         [Test]
         public void NamesAreNotNull() {
-            var generator = SharpyGenerator.Create();
+            var generator = Generator.Create();
             //Many
             var names = generator.GenerateMany(sourcer => sourcer.String(StringType.AnyName), 20).ToArray();
             Assert.IsFalse(names.All(string.IsNullOrEmpty));
@@ -73,7 +72,7 @@ namespace Tests.source {
 
         [Test]
         public void UserNamesAreNotNull() {
-            var generator = SharpyGenerator.Create();
+            var generator = Generator.Create();
             //Many
             var userNames = generator.GenerateMany(sourcer => sourcer.String(StringType.UserName), 20).ToArray();
             Assert.IsFalse(userNames.All(string.IsNullOrEmpty));

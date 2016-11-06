@@ -7,7 +7,7 @@ namespace Tests.source {
     public class Params {
         [Test]
         public void WithString() {
-            var randomGenerator = SharpyGenerator.Create();
+            var randomGenerator = Generator.Create();
             var args = new[] {"hello", "there", "foo"};
             var generateMany =
                 randomGenerator.GenerateMany(source => source.Params("hello", "there", "foo"));

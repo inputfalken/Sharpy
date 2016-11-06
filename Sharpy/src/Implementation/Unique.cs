@@ -39,7 +39,7 @@ namespace Sharpy.Implementation {
         }
 
         /// <summary>
-        ///  This method handle duplication of integers. the ref param is currently required...
+        ///     This method handle duplication of integers. the ref param is currently required...
         /// </summary>
         /// <param name="number"></param>
         /// <param name="min"></param>
