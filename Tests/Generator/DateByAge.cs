@@ -1,22 +1,20 @@
 ﻿using System;
 using NUnit.Framework;
-using Sharpy;
 using Sharpy.Implementation.Generators;
 
-namespace Tests.source {
+namespace Tests.Generator {
     [TestFixture]
     public class DateByAge {
         [Test]
         public void RandomDateByAgeTwentyMinusOne() {
             //Will throw exception if argument is less than 0
-            var generator = SharpyGenerator.Create();
-            Assert.Throws<ArgumentException>(() => generator.Generate(source => source.DateByAge(-1)));
+            Assert.Throws<ArgumentException>(
+                () => Sharpy.Generator.Create().Generate(generator => generator.DateByAge(-1)));
         }
 
         [Test]
         public void RandomDateByAgeTwentyYears() {
-            var generator = SharpyGenerator.Create();
-            var result = generator.Generate(source => source.DateByAge(20));
+            var result = Sharpy.Generator.Create().Generate(generator => generator.DateByAge(20));
 
             Assert.AreEqual(result.Year, DateGenerator.CurrentLocalDate.Year - 20);
         }
@@ -24,8 +22,7 @@ namespace Tests.source {
         [Test]
         [Repeat(10)]
         public void RandomDateByAgeZeroYears() {
-            var generator = SharpyGenerator.Create();
-            var result = generator.Generate(source => source.DateByAge(0));
+            var result = Sharpy.Generator.Create().Generate(generator => generator.DateByAge(0));
             //will make sure that the date created is earlier than today this year
             Assert.IsTrue(DateGenerator.CurrentLocalDate > result);
         }
