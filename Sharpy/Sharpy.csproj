@@ -60,10 +60,8 @@
     <Compile Include="src\Implementation\Config.cs" />
     <Compile Include="src\Enums\Origin.cs" />
     <Compile Include="src\Enums\StringType.cs" />
+    <Compile Include="src\IGenerator.cs" />
     <Compile Include="src\Generator.cs" />
-    <Compile Include="src\IGeneratorSource.cs" />
-    <Compile Include="src\Implementation\GeneratorSource.cs" />
-    <Compile Include="src\SharpyGenerator.cs" />
     <Compile Include="src\Implementation\DataObjects\CountryCode.cs" />
     <Compile Include="src\Implementation\Generators\NumberGenerator.cs" />
     <Compile Include="src\Implementation\Generators\DateGenerator.cs" />

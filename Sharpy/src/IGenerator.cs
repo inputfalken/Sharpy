@@ -6,7 +6,7 @@ namespace Sharpy {
     ///     <para>A contract containing various Methods to generate data.</para>
     /// </summary>
     /// <typeparam name="TStringArg"></typeparam>
-    public interface IGeneratorSource<in TStringArg> {
+    public interface IGenerator<in TStringArg> {
         /// <summary>
         ///     <para>Returns a random item from the arguments given</para>
         /// </summary>
@@ -69,8 +69,8 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>Returns a string representing a MailAddress.</para>
-        /// <param name="name">Is the first string in the mail address.</param>
-        /// <param name="secondName">Optional second string.</param>
+        ///     <param name="name">Is the first string in the mail address.</param>
+        ///     <param name="secondName">Optional second string.</param>
         /// </summary>
         string MailAddress(string name, string secondName = null);
 
