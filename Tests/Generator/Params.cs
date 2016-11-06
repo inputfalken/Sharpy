@@ -1,13 +1,12 @@
 ﻿using System.Linq;
 using NUnit.Framework;
-using Sharpy;
 
-namespace Tests.source {
+namespace Tests.Generator {
     [TestFixture]
     public class Params {
         [Test]
         public void WithString() {
-            var randomGenerator = Generator.Create();
+            var randomGenerator = Sharpy.Generator.Create();
             var args = new[] {"hello", "there", "foo"};
             var generateMany =
                 randomGenerator.GenerateMany(source => source.Params("hello", "there", "foo"));

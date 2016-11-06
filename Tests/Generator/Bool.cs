@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace Tests.source {
+namespace Tests.Generator {
     [TestFixture]
     public class Bool {
         [Test]
