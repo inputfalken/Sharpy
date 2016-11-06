@@ -1,4 +1,4 @@
-# Sharpy 1.2.2
+# Sharpy 1.1.0
 
 The idea of this project is to let users have a source to fetch random data from.
 
@@ -14,14 +14,14 @@ namespace ConsoleApp {
         public static void Main() {
             // First argument is the instructions on what will be generated, 
             // second argument is the Count of the IEnumerable.
-            IEnumerable<Person> people = SharpyGenerator.GenerateEnumerable(source => new Person {
-                FirstName = generator.String(StringType.FirstName),
-                LastName = generator.String(StringType.LastName)
+            IEnumerable<Person> people = RandomGenerator.GenerateEnumerable(randomizer => new Person {
+                FirstName = randomizer.String(StringType.FirstName),
+                LastName = randomizer.String(StringType.LastName)
             }, 20);
-            // Creates one person with generatord names.
-            Person person = SharpyGenerator.GenerateInstance(source => new Person {
-                FirstName = generator.String(StringType.FirstName),
-                LastName = generator.String(StringType.LastName)
+            // Creates one person with randomized names.
+            Person person = RandomGenerator.GenerateInstance(randomizer => new Person {
+                FirstName = randomizer.String(StringType.FirstName),
+                LastName = randomizer.String(StringType.LastName)
             });
         }
     }
@@ -41,13 +41,13 @@ using Sharpy.Enums;
 namespace ConsoleApp {
     internal static class Program {
         public static void Main() {
-            // The generator will now behave differently
-            // when calling the String from generator when using name arguments(not usernames).
-            SharpyGenerator.Configurement.Name(Country.UnitedStates);
+            // The generator will now behave differently 
+            // when calling the String method from randomizer using argument for last and first names.
+            RandomGenerator.Configurement.Name(Country.UnitedStates);
 
-            IEnumerable<Person> people = SharpyGenerator.GenerateEnumerable(source => new Person {
-                FirstName = generator.String(StringType.FirstName),
-                LastName = generator.String(StringType.LastName)
+            IEnumerable<Person> people = RandomGenerator.GenerateEnumerable(randomizer => new Person {
+                FirstName = randomizer.String(StringType.FirstName),
+                LastName = randomizer.String(StringType.LastName)
             }, 20);
         }
 
@@ -58,7 +58,7 @@ namespace ConsoleApp {
     }
 }
 ```
-#### Supplying Your Own Arguments
+#### Supplying your own collection
 ```C#
 using System.Collections.Generic;
 using Sharpy;
@@ -67,11 +67,12 @@ using Sharpy.Enums;
 namespace ConsoleApp {
     internal static class Program {
         public static void Main() {
-            IEnumerable<Person> people = SharpyGenerator.GenerateEnumerable(source => new Person {
-                FirstName = generator.String(StringType.FirstName),
-                LastName = generator.String(StringType.LastName),
-                // This shows an example of supplying your own strings.
-                WorkPlace = generator.Params("Workplace1", "workplace2")
+            IEnumerable<Person> people = RandomGenerator.GenerateEnumerable(randomizer => new Person {
+                FirstName = randomizer.String(StringType.FirstName),
+                LastName = randomizer.String(StringType.LastName),
+                // Just pass an Class using IList or params!
+                // This shows a params example.
+                WorkPlace = randomizer.CustomCollection("Workplace1", "workplace2")
             }, 20);
         }
     }
@@ -83,7 +84,7 @@ namespace ConsoleApp {
     }
 }
 ```
-#### Creating Multiple Types With The Same Generator
+#### Creating Multiple types with the same generator
 ```C#
 using System.Collections.Generic;
 using Sharpy;
@@ -92,14 +93,14 @@ using Sharpy.Enums;
 namespace ConsoleApp {
     internal static class Program {
         public static void Main() {
-            IEnumerable<Person> people = SharpyGenerator.GenerateEnumerable(source => new Person {
-                FirstName = generator.String(StringType.FirstName),
-                LastName = generator.String(StringType.LastName)
+            IEnumerable<Person> people = RandomGenerator.GenerateEnumerable(randomizer => new Person {
+                FirstName = randomizer.String(StringType.FirstName),
+                LastName = randomizer.String(StringType.LastName)
             }, 20);
 
             // Just use the same generator and call GenerateMany!
-            IEnumerable<Animal> animals = SharpyGenerator.GenerateEnumerable(source => new Animal {
-                Age = generator.Integer(10, 50)
+            IEnumerable<Animal> animals = RandomGenerator.GenerateEnumerable(randomizer => new Animal {
+                Age = randomizer.Integer(10, 50)
             }, 20);
         }
     }
@@ -114,7 +115,7 @@ namespace ConsoleApp {
     }
 }
 ```
-#### Generating With Nested IEnumerable
+#### Generating with nested IEnumerable
 ```C#
 using System.Collections.Generic;
 using Sharpy;
@@ -123,13 +124,13 @@ using Sharpy.Enums;
 namespace ConsoleApp {
     internal static class Program {
         public static void Main() {
-            IEnumerable<Person> people = SharpyGenerator.GenerateEnumerable(source => new Person {
-                FirstName = generator.String(StringType.FirstName),
-                LastName = generator.String(StringType.LastName),
+            IEnumerable<Person> people = RandomGenerator.GenerateEnumerable(randomizer => new Person {
+                FirstName = randomizer.String(StringType.FirstName),
+                LastName = randomizer.String(StringType.LastName),
                 //Just call GenerateMany but inside the type generated!
                 Animals =
-                    SharpyGenerator.GenerateEnumerable(
-                        animalgenerator => new Animal {Age = animalrandomize.Integer(10, 20)})
+                    RandomGenerator.GenerateEnumerable(
+                        animalRandomizer => new Animal {Age = animalRandomizer.Integer(10, 20)})
             }, 20);
         }
     }
@@ -145,7 +146,7 @@ namespace ConsoleApp {
     }
 }
 ```
-#### Passing Same generated Result To Multiple Arguments.
+#### Passing same generated result to multiple arguments.
 ```C#
 using System.Collections.Generic;
 using Sharpy;
@@ -155,16 +156,16 @@ namespace ConsoleApp {
     internal static class Program {
         public static void Main() {
             //At the moment you have to make a statement lambda.
-            IEnumerable<Person> people = SharpyGenerator.GenerateEnumerable(source => {
-                //Reference the result from the generator methods.
-                var firstName = generator.String(StringType.FirstName);
-                var lastName = generator.String(StringType.LastName);
+            IEnumerable<Person> people = RandomGenerator.GenerateEnumerable(randomizer => {
+                //Reference the result from the randomizer methods
+                var firstName = randomizer.String(StringType.FirstName);
+                var lastName = randomizer.String(StringType.LastName);
 
                 //Use the results and pass them to the person.
                 var person = new Person {
                     FirstName = firstName,
                     LastName = lastName,
-                    MailAddress = generator.MailAddress(firstName, lastName)
+                    MailAddress = randomizer.MailAdress(firstName, lastName)
                 };
 
                 return person;
@@ -179,9 +180,9 @@ namespace ConsoleApp {
     }
 }
 ```
-These examples show how you can use the SharpyGenerator static method & properties.
+These examples show how you can use the RandomGenerator static method & properties.
 
-You could also get SharpyGenerator instances by calling the static method Create in the SharpyGenerator class.
+You could also get RandomGenerator instances by calling the static method Create in the RandomGenerator class.
 Which works the same but got different names for Generating(Generate & GenerateMany).
 ####
 
