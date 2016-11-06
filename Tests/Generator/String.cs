@@ -1,11 +1,10 @@
 ﻿using System.Linq;
 using NUnit.Framework;
-using Sharpy;
 using Sharpy.Enums;
 using Sharpy.Implementation;
 using Sharpy.Implementation.DataObjects;
 
-namespace Tests.source {
+namespace Tests.Generator {
     [TestFixture]
     public class String {
         [SetUp]
@@ -19,15 +18,15 @@ namespace Tests.source {
         [Test]
         public void NamesAreFilteredByGender() {
             var femaleNameGenerator =
-                Generator.Create();
+                Sharpy.Generator.Create();
             var femaleNames = _names.Where(name => name.Type == 1).Select(name => name.Data).ToArray();
             var maleNameGenerator =
-                Generator.Create();
+                Sharpy.Generator.Create();
             var maleNames = _names.Where(name => name.Type == 2).Select(name => name.Data).ToArray();
-            var lastNameGenerator = Generator.Create();
+            var lastNameGenerator = Sharpy.Generator.Create();
             var lastNames = _names.Where(name => name.Type == 3).Select(name => name.Data).ToArray();
             var mixedFirstNameGenerator =
-                Generator.Create();
+                Sharpy.Generator.Create();
             var mixedNames = _names.Where(name => name.Type == 1 | name.Type == 2).Select(name => name.Data).ToArray();
             //Many
             const int count = 100;
@@ -58,7 +57,7 @@ namespace Tests.source {
 
         [Test]
         public void NamesAreNotNull() {
-            var generator = Generator.Create();
+            var generator = Sharpy.Generator.Create();
             //Many
             var names = generator.GenerateMany(sourcer => sourcer.String(StringType.AnyName), 20).ToArray();
             Assert.IsFalse(names.All(string.IsNullOrEmpty));
@@ -72,7 +71,7 @@ namespace Tests.source {
 
         [Test]
         public void UserNamesAreNotNull() {
-            var generator = Generator.Create();
+            var generator = Sharpy.Generator.Create();
             //Many
             var userNames = generator.GenerateMany(sourcer => sourcer.String(StringType.UserName), 20).ToArray();
             Assert.IsFalse(userNames.All(string.IsNullOrEmpty));

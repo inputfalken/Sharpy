@@ -1,14 +1,13 @@
 ﻿using System.Linq;
 using NUnit.Framework;
-using Sharpy;
 
-namespace Tests.source {
+namespace Tests.Generator {
     [TestFixture]
     public class SocialSecurity {
         [Test]
         [Repeat(10)]
         public void SocialSecurityNumberAllContainsDashAtSameIndex() {
-            var generator = Generator.Create();
+            var generator = Sharpy.Generator.Create();
 
             var generateMany = generator.GenerateMany(sourcer =>
                     sourcer.SocialSecurityNumber(sourcer.DateByAge(sourcer.Integer(19, 20))), 10000).ToArray();
@@ -19,7 +18,7 @@ namespace Tests.source {
         [Test]
         [Repeat(10)]
         public void SocialSecurityNumberAllSameLength() {
-            var generator = Generator.Create();
+            var generator = Sharpy.Generator.Create();
 
             var generateMany = generator.GenerateMany(sourcer =>
                     sourcer.SocialSecurityNumber(sourcer.DateByAge(sourcer.Integer(19, 20))), 10000);
@@ -29,7 +28,7 @@ namespace Tests.source {
         [Test]
         [Repeat(10)]
         public void SocialSecurityNumberAllUnique() {
-            var generator = Generator.Create();
+            var generator = Sharpy.Generator.Create();
 
             var generateMany = generator.GenerateMany(sourcer =>
                     sourcer.SocialSecurityNumber(sourcer.DateByAge(sourcer.Integer(19, 20))), 10000);
@@ -40,7 +39,7 @@ namespace Tests.source {
         [Test]
         [Repeat(10)]
         public void SocialSecurityOnlyContainsNumberWithNoFormating() {
-            var generator = Generator.Create();
+            var generator = Sharpy.Generator.Create();
 
             var generateMany = generator.GenerateMany(sourcer =>
                         sourcer.SocialSecurityNumber(sourcer.DateByAge(sourcer.Integer(19, 20)), false), 10000)
