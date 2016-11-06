@@ -19,13 +19,13 @@
       Tested on Net4.6 and Net4.5.
     </description>
     <releaseNotes>
-      1: Renames class RandomGenerator -> SharpyGenerator and IRandomizer -> IGeneratorSource.
-      2: You can now call ToString on SharpyGenerator and it will show current config.
-      3: Fixes spelling mistakes on comments and the IGeneratorSources's MailAddress method.
-      4: Adds PhoneNumber method to IGeneratorSource and removes numbergenerator from config.
-      5: Adds Long method to IGeneratorSource.
+      1: Renames class RandomGenerator -> Generator and IRandomizer -> IGenerator.
+      2: You can now call ToString on Generator and it will show current config.
+      3: Fixes spelling mistakes on comments and the IGenerators's MailAddress method.
+      4: Adds PhoneNumber method to IGenerator and removes numbergenerator from config.
+      5: Adds Long method to IGenerator.
       5: Renames CustomCollection overload with Params. To Params. it caused an overload problem with IList.
-      7: Generator Class now uses IGeneratorSource instead of TSource.
+      7: Generator Class now uses IGenerator instead of TSource.
       8: Generator class is now abstract. The method called Custom is removed.
     </releaseNotes>
     <copyright>Copyright 2016</copyright>
