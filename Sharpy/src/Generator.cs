@@ -24,7 +24,6 @@ namespace Sharpy {
         private Generator(Config config) {
             Gen = this;
             Config = config;
-            PhoneNumberGenerator = new NumberGenerator(Config.Random);
         }
 
         private IGenerator<StringType> Gen { get; }
@@ -41,7 +40,6 @@ namespace Sharpy {
         /// </summary>
         public static Config Configurement { get; }
 
-        private NumberGenerator PhoneNumberGenerator { get; }
 
         T IGenerator<StringType>.Params<T>(params T[] items) => items[Gen.Integer(items.Length)];
 
@@ -83,13 +81,13 @@ namespace Sharpy {
         string IGenerator<StringType>.PhoneNumber(int length, string prefix) {
             //If the field _phoneState not null and length inside phonestate is not changed.
             if (_phoneState != null && _phoneState.Item1 == length)
-                return prefix + PhoneNumberGenerator.RandomNumber(_phoneState.Item2, _phoneState.Item3, true);
+                return prefix + Config.PhoneNumberGenerator.RandomNumber(_phoneState.Item2, _phoneState.Item3, true);
 
             //Else assign new value to _phoneState.
             var min = (int) Math.Pow(10, length - 1);
             var max = min*10 - 1;
             _phoneState = new Tuple<int, int, int>(length, min, max);
-            return prefix + PhoneNumberGenerator.RandomNumber(_phoneState.Item2, _phoneState.Item3, true);
+            return prefix + Config.PhoneNumberGenerator.RandomNumber(_phoneState.Item2, _phoneState.Item3, true);
         }
 
         long IGenerator<StringType>.Long(long min, long max) => Config.Random.NextLong(min, max);
