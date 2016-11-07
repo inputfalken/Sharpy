@@ -22,12 +22,9 @@ namespace Sharpy {
         }
 
         private Generator(Config config) {
-            Gen = this;
             Config = config;
             PhoneNumberGenerator = new NumberGenerator(Config.Random);
         }
-
-        private IGenerator<StringType> Gen { get; }
 
         /// <summary>
         ///     <para>Configures Generator.</para>
@@ -43,9 +40,9 @@ namespace Sharpy {
 
         private NumberGenerator PhoneNumberGenerator { get; }
 
-        T IGenerator<StringType>.Params<T>(params T[] items) => items[Gen.Integer(items.Length)];
+        T IGenerator<StringType>.Params<T>(params T[] items) => items[Config.Random.Next(items.Length)];
 
-        T IGenerator<StringType>.CustomCollection<T>(IList<T> items) => items[Gen.Integer(items.Count)];
+        T IGenerator<StringType>.CustomCollection<T>(IList<T> items) => items[Config.Random.Next(items.Count)];
 
         string IGenerator<StringType>.String(StringType type) {
             if (!Config.Dictionary.ContainsKey(type))
@@ -53,7 +50,7 @@ namespace Sharpy {
             return Config.Dictionary[type].RandomItem(Config.Random);
         }
 
-        bool IGenerator<StringType>.Bool() => Gen.Integer(2) != 0;
+        bool IGenerator<StringType>.Bool() => Config.Random.Next(2) != 0;
 
         int IGenerator<StringType>.Integer(int max) => Config.Random.Next(max);
 
@@ -133,8 +130,8 @@ namespace Sharpy {
         public static T GenerateInstance<T>(Func<IGenerator<StringType>, T> func) => StaticGen.Generate(func);
 
 
-        private T Instance<T>(Func<IGenerator<StringType>, int, T> func, int i) => func(Gen, i);
-        private T Instance<T>(Func<IGenerator<StringType>, T> func) => func(Gen);
+        private T Instance<T>(Func<IGenerator<StringType>, int, T> func, int i) => func(this, i);
+        private T Instance<T>(Func<IGenerator<StringType>, T> func) => func(this);
 
         /// <summary>
         ///     <para>Will generate a &lt;T&gt;</para>
