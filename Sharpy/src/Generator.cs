@@ -21,9 +21,8 @@ namespace Sharpy {
             Configurement = StaticGen.Config;
         }
 
-        private Generator(Config config) {
+        private Generator() {
             Gen = this;
-            Config = config;
             PhoneNumberGenerator = new NumberGenerator(Config.Random);
         }
 
@@ -32,7 +31,7 @@ namespace Sharpy {
         /// <summary>
         ///     <para>Configures Generator.</para>
         /// </summary>
-        public Config Config { get; }
+        public Config Config { get; } = new Config();
 
         private static Generator StaticGen { get; }
 
@@ -102,7 +101,7 @@ namespace Sharpy {
         ///     <para>Creates a new instance of Generator.</para>
         /// </summary>
         /// <returns></returns>
-        public static Generator Create() => new Generator(new Config());
+        public static Generator Create() => new Generator();
 
         /// <summary>
         ///     <para>Generates a IEnumerable&lt;T&gt;.</para>
