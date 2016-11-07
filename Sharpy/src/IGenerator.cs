@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using NodaTime;
+using Sharpy.Enums;
 
 namespace Sharpy {
     /// <summary>
@@ -98,5 +100,32 @@ namespace Sharpy {
         ///     <para>Returns a generated long over all possible values of long</para>
         /// </summary>
         long Long();
+
+        /// <summary>
+        ///     <para>Generates a IEnumerable&lt;T&gt; </para>
+        ///     <para>Includes an integer containing the current iteration.</para>
+        /// </summary>
+        /// <param name="count">Count of IEnumerable&lt;T&gt;</param>
+        /// <param name="func">The argument supplied is used to get the data. The item returned will be generated.</param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        IEnumerable<T> GenerateMany<T>(Func<IGenerator<TStringArg>, int, T> func, int count);
+
+        /// <summary>
+        ///     <para>Generates a IEnumerable&lt;T&gt; </para>
+        /// </summary>
+        /// <param name="count">Count of IEnumerable&lt;T&gt;</param>
+        /// <param name="func">The argument supplied is used to get the data. The item returned will be generated.</param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        IEnumerable<T> GenerateMany<T>(Func<IGenerator<TStringArg>, T> func, int count);
+
+        /// <summary>
+        ///     <para>Will generate a &lt;T&gt;</para>
+        /// </summary>
+        /// <param name="func">The argument supplied is used to get the data. The item returned will be generated.</param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        T Generate<T>(Func<IGenerator<TStringArg>, T> func);
     }
 }
