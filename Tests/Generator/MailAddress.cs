@@ -91,7 +91,7 @@ namespace Tests.Generator {
         public void Mail_OneDomain_TwoStrings_NoDuplicates() {
             var randomGenerator = Sharpy.Generator.Create();
             randomGenerator.Config.MailGenerator(new[] {"test.com"}, true);
-            var generateMany = randomGenerator.GenerateMany(generator => generator.MailAddress("john", "doe"));
+            var generateMany = randomGenerator.GenerateMany(generator => generator.MailAddress("john", "doe"),30);
             Assert.IsTrue(FindDuplicates(generateMany).Count == 0);
         }
 

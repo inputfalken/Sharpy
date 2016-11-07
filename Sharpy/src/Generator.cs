@@ -111,7 +111,7 @@ namespace Sharpy {
         /// <param name="func">The argument supplied is used to get the data. The item returned will be generated.</param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static IEnumerable<T> GenerateEnumerable<T>(Func<IGenerator<StringType>, T> func, int count = 10)
+        public static IEnumerable<T> GenerateEnumerable<T>(Func<IGenerator<StringType>, T> func, int count)
             => StaticGen.GenerateMany(func, count);
 
         /// <summary>
@@ -122,8 +122,7 @@ namespace Sharpy {
         /// <param name="func">The argument supplied is used to get the data. The item returned will be generated.</param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static IEnumerable<T> GenerateEnumerable<T>(Func<IGenerator<StringType>, int, T> func,
-                int count = 10)
+        public static IEnumerable<T> GenerateEnumerable<T>(Func<IGenerator<StringType>, int, T> func, int count)
             => StaticGen.GenerateMany(func, count);
 
         /// <summary>
@@ -149,7 +148,7 @@ namespace Sharpy {
         /// </summary>
         /// <param name="count">Count of IEnumerable&lt;T&gt;</param>
         /// <param name="func">The argument supplied is used to get the data. The item returned will be generated.</param>
-        public IEnumerable<T> GenerateMany<T>(Func<IGenerator<StringType>, T> func, int count = 10) {
+        public IEnumerable<T> GenerateMany<T>(Func<IGenerator<StringType>, T> func, int count) {
             for (var i = 0; i < count; i++)
                 yield return Instance(func);
         }
@@ -160,7 +159,7 @@ namespace Sharpy {
         /// </summary>
         /// <param name="count">Count of IEnumerable&lt;T&gt;</param>
         /// <param name="func">The argument supplied is used to get the data. The item returned will be generated.</param>
-        public IEnumerable<T> GenerateMany<T>(Func<IGenerator<StringType>, int, T> func, int count = 10) {
+        public IEnumerable<T> GenerateMany<T>(Func<IGenerator<StringType>, int, T> func, int count) {
             for (var i = 0; i < count; i++)
                 yield return Instance(func, i);
         }
