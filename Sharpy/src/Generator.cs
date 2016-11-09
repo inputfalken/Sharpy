@@ -21,12 +21,6 @@ namespace Sharpy {
             Configurement = StaticGen.Config;
         }
 
-        private Generator() {
-            Gen = this;
-        }
-
-        private IGenerator<StringType> Gen { get; }
-
         /// <summary>
         ///     <para>Configures Generator.</para>
         /// </summary>
@@ -40,9 +34,9 @@ namespace Sharpy {
         public static Config Configurement { get; }
 
 
-        T IGenerator<StringType>.Params<T>(params T[] items) => items[Gen.Integer(items.Length)];
+        T IGenerator<StringType>.Params<T>(params T[] items) => items[Config.Random.Next(items.Length)];
 
-        T IGenerator<StringType>.CustomCollection<T>(IList<T> items) => items[Gen.Integer(items.Count)];
+        T IGenerator<StringType>.CustomCollection<T>(IList<T> items) => items[Config.Random.Next(items.Count)];
 
         string IGenerator<StringType>.String(StringType type) {
             if (!Config.Dictionary.ContainsKey(type))
@@ -50,7 +44,7 @@ namespace Sharpy {
             return Config.Dictionary[type].RandomItem(Config.Random);
         }
 
-        bool IGenerator<StringType>.Bool() => Gen.Integer(2) != 0;
+        bool IGenerator<StringType>.Bool() => Config.Random.Next(2) != 0;
 
         int IGenerator<StringType>.Integer(int max) => Config.Random.Next(max);
 
@@ -128,7 +122,6 @@ namespace Sharpy {
         /// <returns></returns>
         public static T Generate<T>(Func<IGenerator<StringType>, T> func)
             => GeneratorExtensions.Generate(StaticGen, func);
-
 
         /// <inheritdoc />
         public override string ToString() => $"Configurement for Random Generator {Config}";
