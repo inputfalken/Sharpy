@@ -107,8 +107,8 @@ namespace Sharpy {
         /// <param name="func">The argument supplied is used to get the data. The item returned will be generated.</param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static IEnumerable<T> GenerateEnumerable<T>(Func<IGenerator<StringType>, T> func, int count)
-            => StaticGen.GenerateMany(func, count);
+        public static IEnumerable<T> GenerateMany<T>(Func<IGenerator<StringType>, T> func, int count)
+            => GeneratorExtensions.GenerateMany(StaticGen, func, count);
 
         /// <summary>
         ///     <para>Generates a IEnumerable&lt;T&gt;.</para>
@@ -118,47 +118,17 @@ namespace Sharpy {
         /// <param name="func">The argument supplied is used to get the data. The item returned will be generated.</param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static IEnumerable<T> GenerateEnumerable<T>(Func<IGenerator<StringType>, int, T> func, int count)
-            => StaticGen.GenerateMany(func, count);
+        public static IEnumerable<T> GenerateMany<T>(Func<IGenerator<StringType>, int, T> func, int count)
+            => GeneratorExtensions.GenerateMany(StaticGen, func, count);
 
         /// <summary>
         ///     <para>Generates a &lt;T&gt;.</para>
         /// </summary>
         /// <param name="func">The argument supplied is used to get the data. The item returned will be generated.</param>
         /// <returns></returns>
-        public static T GenerateInstance<T>(Func<IGenerator<StringType>, T> func) => StaticGen.Generate(func);
+        public static T Generate<T>(Func<IGenerator<StringType>, T> func)
+            => GeneratorExtensions.Generate(StaticGen, func);
 
-
-        private T Instance<T>(Func<IGenerator<StringType>, int, T> func, int i) => func(Gen, i);
-        private T Instance<T>(Func<IGenerator<StringType>, T> func) => func(Gen);
-
-        /// <summary>
-        ///     <para>Will generate a &lt;T&gt;</para>
-        /// </summary>
-        /// <returns></returns>
-        public T Generate<T>(Func<IGenerator<StringType>, T> func) => Instance(func);
-
-
-        /// <summary>
-        ///     <para>Generates a IEnumerable&lt;T&gt; </para>
-        /// </summary>
-        /// <param name="count">Count of IEnumerable&lt;T&gt;</param>
-        /// <param name="func">The argument supplied is used to get the data. The item returned will be generated.</param>
-        public IEnumerable<T> GenerateMany<T>(Func<IGenerator<StringType>, T> func, int count) {
-            for (var i = 0; i < count; i++)
-                yield return Instance(func);
-        }
-
-        /// <summary>
-        ///     <para>Generates a IEnumerable&lt;T&gt; </para>
-        ///     <para>Includes an integer containing the current iteration.</para>
-        /// </summary>
-        /// <param name="count">Count of IEnumerable&lt;T&gt;</param>
-        /// <param name="func">The argument supplied is used to get the data. The item returned will be generated.</param>
-        public IEnumerable<T> GenerateMany<T>(Func<IGenerator<StringType>, int, T> func, int count) {
-            for (var i = 0; i < count; i++)
-                yield return Instance(func, i);
-        }
 
         /// <inheritdoc />
         public override string ToString() => $"Configurement for Random Generator {Config}";
