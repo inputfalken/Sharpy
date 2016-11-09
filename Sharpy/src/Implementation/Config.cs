@@ -14,6 +14,7 @@ namespace Sharpy.Implementation {
     /// </summary>
     public sealed class Config {
         private const string NoSet = "None Set";
+        internal NumberGenerator PhoneNumberGenerator { get; }
 
         private readonly HashSet<Enum> _origins = new HashSet<Enum>();
         private Fetcher<Name> _names;
@@ -27,6 +28,7 @@ namespace Sharpy.Implementation {
             Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
             NumberGen = new NumberGenerator(Random);
             SocialSecurityNumberGenerator = new SecurityNumberGen(Random);
+            PhoneNumberGenerator = new NumberGenerator(Random);
         }
 
         internal SecurityNumberGen SocialSecurityNumberGenerator { get; }
