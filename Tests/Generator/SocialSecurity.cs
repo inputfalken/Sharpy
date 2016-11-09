@@ -10,7 +10,7 @@ namespace Tests.Generator {
         public void SocialSecurityNumberAllContainsDashAtSameIndex() {
             var generator = Sharpy.Generator.Create();
 
-            var generateMany = GeneratorExtensions.GenerateMany(generator, generatorr =>
+            var generateMany = generator.GenerateMany(generatorr =>
                     generatorr.SocialSecurityNumber(generatorr.DateByAge(generatorr.Integer(19, 20))), 10000).ToArray();
 
             Assert.IsTrue(generateMany.All(s => s[6] == '-'));
@@ -21,7 +21,7 @@ namespace Tests.Generator {
         public void SocialSecurityNumberAllSameLength() {
             var generator = Sharpy.Generator.Create();
 
-            var generateMany = GeneratorExtensions.GenerateMany(generator, generatorr =>
+            var generateMany = generator.GenerateMany(generatorr =>
                     generatorr.SocialSecurityNumber(generatorr.DateByAge(generatorr.Integer(19, 20))), 10000);
             Assert.IsTrue(generateMany.All(s => s.Length == 11));
         }
@@ -31,7 +31,7 @@ namespace Tests.Generator {
         public void SocialSecurityNumberAllUnique() {
             var generator = Sharpy.Generator.Create();
 
-            var generateMany = GeneratorExtensions.GenerateMany(generator, generatorr =>
+            var generateMany = generator.GenerateMany(generatorr =>
                     generatorr.SocialSecurityNumber(generatorr.DateByAge(generatorr.Integer(19, 20))), 10000);
             // Will look for repeats and expected behaviour is that it should only contain 1 repeat per grouping.
             Assert.IsTrue(generateMany.GroupBy(s => s).All(grouping => grouping.Count() == 1));
@@ -42,7 +42,7 @@ namespace Tests.Generator {
         public void SocialSecurityOnlyContainsNumberWithNoFormating() {
             var generator = Sharpy.Generator.Create();
 
-            var generateMany = GeneratorExtensions.GenerateMany(generator, generatorr =>
+            var generateMany = generator.GenerateMany(generatorr =>
                         generatorr.SocialSecurityNumber(generatorr.DateByAge(generatorr.Integer(19, 20)), false), 10000)
                 .ToArray();
 

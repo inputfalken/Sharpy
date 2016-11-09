@@ -8,27 +8,27 @@ namespace Tests.Generator {
         [Test]
         public void DateByYearTwoThousand() {
             var randomGenerator = Sharpy.Generator.Create();
-            var localDate = GeneratorExtensions.Generate(randomGenerator, generator => generator.DateByYear(2000));
+            var localDate = randomGenerator.Generate(generator => generator.DateByYear(2000));
             Assert.AreEqual(2000, localDate.Year);
         }
 
         [Test]
         public void RandomDateByYearMinusOne() {
             var randomGenerator = Sharpy.Generator.Create();
-            Assert.Throws<ArgumentException>(() => GeneratorExtensions.Generate(randomGenerator, generator => generator.DateByYear(-1)));
+            Assert.Throws<ArgumentException>(() => randomGenerator.Generate(generator => generator.DateByYear(-1)));
         }
 
         [Test]
         public void RandomDateByYearTwoThousand() {
             var randomGenerator = Sharpy.Generator.Create();
-            var result = GeneratorExtensions.Generate(randomGenerator, generator => generator.DateByYear(2000));
+            var result = randomGenerator.Generate(generator => generator.DateByYear(2000));
             Assert.AreEqual(result.Year, 2000);
         }
 
         [Test]
         public void RandomDateByYearTwoThousandTen() {
             var randomGenerator = Sharpy.Generator.Create();
-            var result = GeneratorExtensions.Generate(randomGenerator, generator => generator.DateByYear(2010));
+            var result = randomGenerator.Generate(generator => generator.DateByYear(2010));
             Assert.AreEqual(result.Year, 2010);
         }
     }
