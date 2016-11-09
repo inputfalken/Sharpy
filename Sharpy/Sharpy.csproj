@@ -55,6 +55,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="src\GeneratorExtensions.cs" />
     <Compile Include="src\Implementation\ExtensionMethods\Shuffling.cs" />
     <Compile Include="src\Implementation\ExtensionMethods\RandomExtensions.cs" />
     <Compile Include="src\Implementation\Config.cs" />
