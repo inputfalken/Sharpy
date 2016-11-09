@@ -158,7 +158,7 @@ namespace Sharpy.Implementation {
                 if (origin.Equals(_origins.Last())) origins += origin;
                 else origins += $"{origin}, ";
             return
-                $"\nSeed: {_seed ?? NoSet}. Using default for System.Random\n" +
+                $"Seed: {_seed ?? NoSet}. Using default for System.Random\n" +
                 $"Mail: {Mailgen}\n" +
                 $"Name: Origins: {(string.IsNullOrEmpty(origins) ? NoSet : origins)}";
         }
