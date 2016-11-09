@@ -111,8 +111,8 @@ namespace Sharpy {
         /// <param name="func">The argument supplied is used to get the data. The item returned will be generated.</param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static IEnumerable<T> GenerateEnumerable<T>(Func<IGenerator<StringType>, T> func, int count)
-            => StaticGen.GenerateMany(func, count);
+        public static IEnumerable<T> GenerateMany<T>(Func<IGenerator<StringType>, T> func, int count)
+            => GeneratorExtensions.GenerateMany(StaticGen, func, count);
 
         /// <summary>
         ///     <para>Generates a IEnumerable&lt;T&gt;.</para>
@@ -122,15 +122,16 @@ namespace Sharpy {
         /// <param name="func">The argument supplied is used to get the data. The item returned will be generated.</param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static IEnumerable<T> GenerateEnumerable<T>(Func<IGenerator<StringType>, int, T> func, int count)
-            => StaticGen.GenerateMany(func, count);
+        public static IEnumerable<T> GenerateMany<T>(Func<IGenerator<StringType>, int, T> func, int count)
+            => GeneratorExtensions.GenerateMany(StaticGen, func, count);
 
         /// <summary>
         ///     <para>Generates a &lt;T&gt;.</para>
         /// </summary>
         /// <param name="func">The argument supplied is used to get the data. The item returned will be generated.</param>
         /// <returns></returns>
-        public static T GenerateInstance<T>(Func<IGenerator<StringType>, T> func) => GeneratorExtensions.Generate(StaticGen, func);
+        public static T Generate<T>(Func<IGenerator<StringType>, T> func)
+            => GeneratorExtensions.Generate(StaticGen, func);
 
 
         /// <inheritdoc />
