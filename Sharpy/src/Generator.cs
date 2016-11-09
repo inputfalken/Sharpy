@@ -124,6 +124,6 @@ namespace Sharpy {
             => GeneratorExtensions.Generate(StaticGen, func);
 
         /// <inheritdoc />
-        public override string ToString() => $"Configurement for Random Generator {Config}";
+        public override string ToString() => $"Configurement for Generator \n{Config}";
     }
 }
