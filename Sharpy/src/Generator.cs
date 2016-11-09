@@ -66,16 +66,15 @@ namespace Sharpy {
         LocalDate IGenerator<StringType>.DateByYear(int year) => Config.DateGenerator.RandomDateByYear(year);
 
         string IGenerator<StringType>.SocialSecurityNumber(LocalDate date, bool formated) {
-            var month = date.Month < 10 ? $"0{date.Month}" : date.Month.ToString();
-            var year = date.YearOfCentury < 10 ? $"0{date.YearOfCentury}" : date.YearOfCentury.ToString();
-            var day = date.Day < 10 ? $"0{date.Day}" : date.Day.ToString();
-            var controlNumber = Config.Random.Next(1000, 9999);
-            var res = Config
+            var securityNumber = Config
                 .SocialSecurityNumberGenerator
-                .SecurityNumber(controlNumber, year + month + day)
+                .SecurityNumber(Config.Random.Next(1000, 9999),
+                    FormatDigit(date.YearOfCentury) + FormatDigit(date.Month) + FormatDigit(date.Day))
                 .ToString();
-            return formated ? res.Insert(6, "-") : res;
+            return formated ? securityNumber.Insert(6, "-") : securityNumber;
         }
+
+        private static string FormatDigit(int i) => i < 10 ? $"0{i}" : i.ToString();
 
         string IGenerator<StringType>.MailAddress(string name, string secondName)
             => Config.Mailgen.Mail(name, secondName);
