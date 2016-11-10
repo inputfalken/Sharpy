@@ -61,7 +61,6 @@
     <Compile Include="Generator\Seed.cs" />
     <Compile Include="Generator\SocialSecurity.cs" />
     <Compile Include="Generator\String.cs" />
-    <Compile Include="NumberGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
