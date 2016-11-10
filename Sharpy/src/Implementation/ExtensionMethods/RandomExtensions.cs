@@ -46,5 +46,10 @@ namespace Sharpy.Implementation.ExtensionMethods {
         internal static long NextLong(this Random random) {
             return random.NextLong(long.MinValue, long.MaxValue);
         }
+
+        internal static double NextDouble(this Random random, double max) => random.NextDouble()*max;
+
+        internal static double NextDouble(this Random random, double min, double max)
+            => random.NextDouble()*(max - min) + min;
     }
 }
