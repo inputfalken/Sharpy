@@ -106,16 +106,16 @@ namespace Sharpy {
         double Double();
 
         /// <summary>
-        ///     <para>Returns a generated double from 0 to max</para>
+        ///     <para>Returns a generated long from 0 (inclusive) to max (exclusive)</para>
         /// </summary>
-        /// <param name="max">max value for value returned</param>
+        /// <param name="max">The exclusive maximum bound.  Must be greater than 0</param>
         double Double(double max);
 
         /// <summary>
-        ///    <para>Returns a generated double from min to max</para> 
+        ///     <para>Returns a generated double from min (inclusive) to max (exclusive)</para>
         /// </summary>
-        /// <param name="min">min value for returned value</param>
-        /// <param name="max">max value for returned value</param>
+        /// <param name="min">The inclusive minimum bound</param>
+        /// <param name="max">The exclusive maximum bound.  Must be greater than min</param>
         double Double(double min, double max);
     }
 }
