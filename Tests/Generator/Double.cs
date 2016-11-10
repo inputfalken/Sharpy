@@ -90,5 +90,12 @@ namespace Tests.Generator {
             var generateMany = generator.GenerateMany(generator1 => generator1.Double(max), 20);
             Assert.Throws<ArgumentOutOfRangeException>(() => generateMany.All(d => d < max));
         }
+
+        [Test]
+        public void No_Arguments() {
+            var generator = Sharpy.Generator.Create();
+            var generateMany = generator.GenerateMany(generator1 => generator1.Double(), 20);
+            Assert.IsTrue(generateMany.All(d => d < 1 && d > 0));
+        }
     }
 }
