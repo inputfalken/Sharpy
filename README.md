@@ -98,7 +98,7 @@ namespace ConsoleApp {
                 LastName = generator.String(StringType.LastName)
             }, 20);
 
-            // Just use the same generator and call GenerateMany!
+            // Just use the same generator and call GenerateEnumerable!
             IEnumerable<Animal> animals = Generator.GenerateEnumerable(generator => new Animal {
                 Age = generator.Integer(10, 50)
             }, 20);
@@ -127,7 +127,7 @@ namespace ConsoleApp {
             IEnumerable<Person> people = Generator.GenerateEnumerable(generator => new Person {
                 FirstName = generator.String(StringType.FirstName),
                 LastName = generator.String(StringType.LastName),
-                //Just call GenerateMany but inside the type generated!
+                //Just call GenerateEnumerable but inside the type generated!
                 Animals =
                     Generator.GenerateEnumerable(
                         animalgenerator => new Animal {Age = animalgenerator.Integer(10, 20)})
