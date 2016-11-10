@@ -96,11 +96,11 @@ namespace Sharpy {
 
         long IGenerator<StringType>.Long() => Config.Random.NextLong();
 
-        public double Double() => Config.Random.NextDouble();
+        double IGenerator<StringType>.Double() => Config.Random.NextDouble();
 
-        public double Double(double max) => Config.Random.NextDouble(max);
+        double IGenerator<StringType>.Double(double max) => Config.Random.NextDouble(max);
 
-        public double Double(double min, double max) => Config.Random.NextDouble(min, max);
+        double IGenerator<StringType>.Double(double min, double max) => Config.Random.NextDouble(min, max);
 
         /// <summary>
         ///     <para>Creates a new instance of Generator.</para>

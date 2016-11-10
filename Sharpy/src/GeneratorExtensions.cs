@@ -2,7 +2,18 @@ using System;
 using System.Collections.Generic;
 
 namespace Sharpy {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class GeneratorExtensions {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="generator"></param>
+        /// <param name="func"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TStringArg"></typeparam>
+        /// <returns></returns>
         public static T Generate<T, TStringArg>(this IGenerator<TStringArg> generator,
             Func<IGenerator<TStringArg>, T> func) => func(generator);
 
