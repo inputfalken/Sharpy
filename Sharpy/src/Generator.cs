@@ -88,6 +88,18 @@ namespace Sharpy {
 
         long IGenerator<StringType>.Long() => Config.Random.NextLong();
 
+        public double Double() {
+            throw new NotImplementedException();
+        }
+
+        public double Double(double max) {
+            throw new NotImplementedException();
+        }
+
+        public double Double(double min, double max) {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         ///     <para>Creates a new instance of Generator.</para>
         /// </summary>

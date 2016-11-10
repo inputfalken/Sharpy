@@ -99,5 +99,9 @@ namespace Sharpy {
         ///     <para>Returns a generated long over all possible values of long</para>
         /// </summary>
         long Long();
+
+        double Double();
+        double Double(double max);
+        double Double(double min, double max);
     }
 }
