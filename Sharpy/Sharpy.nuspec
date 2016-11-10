@@ -22,6 +22,7 @@
       1: GenerateMany and Generate are now extensionmethods on IGenerator.
       2: GenerateMany no longer got default value for count.
       3: Generator constructor is now Public and accepts no argument.
+      4: Adds Double to IGenerator with three overloads like Long and Integer methods.
     </releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Fakedata Generator Generic</tags>

@@ -63,6 +63,48 @@ namespace Tests.Generator {
         }
 
         [Test]
+        public void DoubleDoubleArgument() {
+            //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
+            const double max = 3.3;
+            const double min = 1.3;
+            var generator = Sharpy.Generator.Create();
+            generator.Config.Seed(TestSeed);
+            var generator2 = Sharpy.Generator.Create();
+            generator2.Config.Seed(TestSeed);
+            const int count = 1000;
+            var expected = generator2.GenerateMany(generatorr => generatorr.Double(min, max), count);
+            var result = generator.GenerateMany(generatorr => generatorr.Double(min, max), count);
+            Assert.IsTrue(result.SequenceEqual(expected));
+        }
+
+        [Test]
+        public void DoubleNoArgument() {
+            //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
+            var generator = Sharpy.Generator.Create();
+            generator.Config.Seed(TestSeed);
+            var generator2 = Sharpy.Generator.Create();
+            generator2.Config.Seed(TestSeed);
+            const int count = 1000;
+            var expected = generator2.GenerateMany(generatorr => generatorr.Double(), count);
+            var result = generator.GenerateMany(generatorr => generatorr.Double(), count);
+            Assert.IsTrue(result.SequenceEqual(expected));
+        }
+
+        [Test]
+        public void DoubleSingleArgument() {
+            //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
+            const double max = 3.3;
+            var generator = Sharpy.Generator.Create();
+            generator.Config.Seed(TestSeed);
+            var generator2 = Sharpy.Generator.Create();
+            generator2.Config.Seed(TestSeed);
+            const int count = 1000;
+            var expected = generator2.GenerateMany(generatorr => generatorr.Double(max), count);
+            var result = generator.GenerateMany(generatorr => generatorr.Double(max), count);
+            Assert.IsTrue(result.SequenceEqual(expected));
+        }
+
+        [Test]
         public void LongDoubleArgument() {
             //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             var generator = Sharpy.Generator.Create();

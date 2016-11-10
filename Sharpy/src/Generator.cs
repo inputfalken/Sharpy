@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using NodaTime;
 using Sharpy.Enums;
 using Sharpy.Implementation;
@@ -46,9 +47,16 @@ namespace Sharpy {
 
         bool IGenerator<StringType>.Bool() => Config.Random.Next(2) != 0;
 
-        int IGenerator<StringType>.Integer(int max) => Config.Random.Next(max);
+        int IGenerator<StringType>.Integer(int max) {
+            IGenerator<StringType> foo = this;
+            return foo.Integer(0, max);
+        }
 
-        int IGenerator<StringType>.Integer(int min, int max) => Config.Random.Next(min, max);
+        int IGenerator<StringType>.Integer(int min, int max) {
+            if (max <= min)
+                throw new ArgumentOutOfRangeException($"{nameof(max)} must be > {nameof(min)}");
+            return Config.Random.Next(min, max);
+        }
 
         int IGenerator<StringType>.Integer() => Config.Random.Next(int.MinValue, int.MaxValue);
 
