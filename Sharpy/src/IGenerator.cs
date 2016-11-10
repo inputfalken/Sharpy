@@ -100,8 +100,22 @@ namespace Sharpy {
         /// </summary>
         long Long();
 
+        /// <summary>
+        ///     <para>Returns a generated double from 0 to 1</para>
+        /// </summary>
         double Double();
+
+        /// <summary>
+        ///     <para>Returns a generated double from 0 to max</para>
+        /// </summary>
+        /// <param name="max">max value for value returned</param>
         double Double(double max);
+
+        /// <summary>
+        ///    <para>Returns a generated double from min to max</para> 
+        /// </summary>
+        /// <param name="min">min value for returned value</param>
+        /// <param name="max">max value for returned value</param>
         double Double(double min, double max);
     }
 }
