@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace Sharpy {
     public static class GeneratorExtensions {
-
         public static T Generate<T, TStringArg>(this IGenerator<TStringArg> generator,
             Func<IGenerator<TStringArg>, T> func) => func(generator);
 
@@ -17,7 +16,7 @@ namespace Sharpy {
         /// <typeparam name="TStringArg"></typeparam>
         /// <returns></returns>
         public static IEnumerable<T> GenerateMany<T, TStringArg>(this IGenerator<TStringArg> generator,
-            Func<IGenerator<TStringArg>, T> func, int count) {
+            Func<IGenerator<TStringArg>, T> func, int count = 10) {
             for (var i = 0; i < count; i++)
                 yield return func(generator);
         }
@@ -33,7 +32,7 @@ namespace Sharpy {
         /// <typeparam name="TStringArg"></typeparam>
         /// <returns></returns>
         public static IEnumerable<T> GenerateMany<T, TStringArg>(this IGenerator<TStringArg> generator,
-            Func<IGenerator<TStringArg>, int, T> func, int count) {
+            Func<IGenerator<TStringArg>, int, T> func, int count = 10) {
             for (var i = 0; i < count; i++)
                 yield return func(generator, i);
         }
