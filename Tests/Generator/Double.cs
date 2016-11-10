@@ -57,6 +57,15 @@ namespace Tests.Generator {
             Assert.Throws<ArgumentOutOfRangeException>(() => generateMany.All(d => d > min && d < max));
         }
 
+        [Test]
+        public void Two_Arguments_Eleven_Point_Two_And_Eleven_Point_Two() {
+            const double min = 11.2;
+            const double max = 11.2;
+            var generator = Sharpy.Generator.Create();
+            var generateMany = generator.GenerateMany(generator1 => generator1.Double(min, max), 20);
+            Assert.Throws<ArgumentOutOfRangeException>(() => generateMany.All(d => d > min && d < max));
+        }
+
 
         [Test]
         public void One_Arguments_Eleven_Point_Two() {
