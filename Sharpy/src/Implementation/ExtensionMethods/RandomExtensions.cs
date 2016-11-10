@@ -47,10 +47,10 @@ namespace Sharpy.Implementation.ExtensionMethods {
             return random.NextLong(long.MinValue, long.MaxValue);
         }
 
-        internal static double NextDouble(this Random random, double max) => random.NextDouble()*max;
+        internal static double NextDouble(this Random random, double max) => NextDouble(random, 0, max);
 
         internal static double NextDouble(this Random random, double min, double max) {
-            if (min > max) throw new ArgumentOutOfRangeException($"{nameof(max)} must be > {nameof(min)}");
+            if (min >= max) throw new ArgumentOutOfRangeException($"{nameof(max)} must be > {nameof(min)}");
             return random.NextDouble()*(max - min) + min;
         }
     }
