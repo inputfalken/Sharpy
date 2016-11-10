@@ -6,7 +6,6 @@ namespace Tests.Generator {
     [TestFixture]
     public class SocialSecurity {
         [Test]
-        [Repeat(10)]
         public void SocialSecurityNumberAllContainsDashAtSameIndex() {
             var generator = Sharpy.Generator.Create();
 
@@ -17,7 +16,6 @@ namespace Tests.Generator {
         }
 
         [Test]
-        [Repeat(10)]
         public void SocialSecurityNumberAllSameLength() {
             var generator = Sharpy.Generator.Create();
 
@@ -27,7 +25,6 @@ namespace Tests.Generator {
         }
 
         [Test]
-        [Repeat(10)]
         public void SocialSecurityNumberAllUnique() {
             var generator = Sharpy.Generator.Create();
 
@@ -38,7 +35,6 @@ namespace Tests.Generator {
         }
 
         [Test]
-        [Repeat(10)]
         public void SocialSecurityOnlyContainsNumberWithNoFormating() {
             var generator = Sharpy.Generator.Create();
 
