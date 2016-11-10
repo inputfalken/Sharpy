@@ -25,7 +25,6 @@ namespace Tests.Generator {
 
 
         [Test]
-        [Repeat(10)]
         public void PhoneNumberGotSameLengthAllUniqueWithOutPrefix() {
             var randomGenerator = Sharpy.Generator.Create();
             var generateMany = randomGenerator.GenerateMany(generatorr => generatorr.PhoneNumber(5), 10000);
@@ -34,7 +33,6 @@ namespace Tests.Generator {
         }
 
         [Test]
-        [Repeat(10)]
         public void PhoneNumberGotSameLengthAllUniqueWithPrefix() {
             var randomGenerator = Sharpy.Generator.Create();
             var generateMany = randomGenerator.GenerateMany(generatorr => generatorr.PhoneNumber(5, "07"), 10000);
@@ -43,7 +41,6 @@ namespace Tests.Generator {
         }
 
         [Test]
-        [Repeat(10)]
         public void PhoneNumberGotSameLengthNoPrefix() {
             var randomGenerator = Sharpy.Generator.Create();
             var generateMany = randomGenerator.GenerateMany(generatorr => generatorr.PhoneNumber(7), 10000);
