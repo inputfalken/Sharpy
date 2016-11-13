@@ -6,6 +6,13 @@ namespace Tests.Generator {
     [TestFixture]
     public class PhoneNumber {
         [Test]
+        public void CheckCombination() {
+            var generateMany = Sharpy.Generator.Create().GenerateMany(generator => generator.PhoneNumber(3), 900);
+            //The test checks that it works like the following algorithm (10^(length -1) * 0.9).
+            Assert.IsTrue(generateMany.GroupBy(s => s).All(grouping => grouping.Count() == 1));
+        }
+
+        [Test]
         public void PhoneNumberChangeHigherLength() {
             var randomGenerator = Sharpy.Generator.Create();
             var generateMany = randomGenerator.GenerateMany(generatorr => generatorr.PhoneNumber(5, "07"), 10000);

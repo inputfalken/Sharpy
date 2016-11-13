@@ -78,6 +78,7 @@ namespace Sharpy {
         string IGenerator<StringType>.MailAddress(string name, string secondName)
             => Config.Mailgen.Mail(name, secondName);
 
+        // Currently The combinations possible is (10^(length -1) * 0.9).
         string IGenerator<StringType>.PhoneNumber(int length, string prefix) {
             //If the field _phoneState not null and length inside phonestate is not changed.
             if (_phoneState != null && _phoneState.Item1 == length)
