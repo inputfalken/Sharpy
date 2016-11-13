@@ -45,10 +45,6 @@ namespace Sharpy.Implementation {
         /// <param name="min"></param>
         /// <param name="max"></param>
         /// <returns></returns>
-        protected static int ResolveIntDuplicate(ref int number, int min, int max) {
-            if (number == max) number = min;
-            else number++;
-            return number;
-        }
+        protected static int ResolveIntDuplicate(ref int number, int min, int max) => number == max ? min : ++number;
     }
 }
