@@ -82,23 +82,13 @@ namespace Sharpy {
 
         // The combinations possible is 10^length
         string IGenerator<StringType>.PhoneNumber(int length, string prefix) {
-            //If the field _phoneState not null and length inside phonestate is not changed.
-            if (_phoneState != null && _phoneState.Item1 == length) {
-                var randomNumber =
-                    Config.PhoneNumberGenerator.RandomNumber(0, _phoneState.Item2, true).ToString();
-                return randomNumber.Length != length
-                    ? prefix + Prefix(randomNumber, length - randomNumber.Length)
-                    : prefix + randomNumber;
-            }
-
-            //Else assign new value to _phoneState.
-            var max = (int) Math.Pow(10, length) - 1;
-            _phoneState = new Tuple<int, int>(length, max);
-
-            var randomNumber2 = Config.PhoneNumberGenerator.RandomNumber(0, _phoneState.Item2, true).ToString();
-            return randomNumber2.Length != length
-                ? prefix + Prefix(randomNumber2, length - randomNumber2.Length)
-                : prefix + randomNumber2;
+            //If phonestate has changed
+            if (_phoneState == null || _phoneState.Item1 != length)
+                _phoneState = new Tuple<int, int>(length, (int) Math.Pow(10, length) - 1);
+            var randomNumber = Config.PhoneNumberGenerator.RandomNumber(0, _phoneState.Item2, true).ToString();
+            return randomNumber.Length != length
+                ? prefix + Prefix(randomNumber, length - randomNumber.Length)
+                : prefix + randomNumber;
         }
 
         long IGenerator<StringType>.Long(long min, long max) => Config.Random.NextLong(min, max);
