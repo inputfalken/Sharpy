@@ -75,7 +75,7 @@ namespace Sharpy {
 
         private static string Prefix(string str, int ammount) => new string('0', ammount).Append(str);
 
-        private static string FormatDigit(int i) => i < 10 ? $"0{i}" : i.ToString();
+        private static string FormatDigit(int i) => i < 10 ? "0".Append(i) : i.ToString();
 
         string IGenerator<StringType>.MailAddress(string name, string secondName)
             => Config.Mailgen.Mail(name, secondName);
