@@ -46,12 +46,10 @@ namespace Sharpy.Implementation.Generators {
             return Unique ? UniqueMail(name, secondName) : RandomMail(name, secondName);
         }
 
-        private string RandomMail(string name, string secondname) {
-            return secondname == null
-                ? name.Append("@").Append(_emailDomains[Random.Next(_emailDomains.Count)])
-                : name.Append(Separators[Random.Next(Separators.Count)].ToString(), secondname, "@",
-                    _emailDomains[Random.Next(_emailDomains.Count)]);
-        }
+        private string RandomMail(string name, string secondname) => secondname == null
+            ? name.Append("@").Append(_emailDomains[Random.Next(_emailDomains.Count)])
+            : name.Append(Separators[Random.Next(Separators.Count)].ToString(), secondname, "@",
+                _emailDomains[Random.Next(_emailDomains.Count)]);
 
         private string UniqueMail(string name, string secondName) {
             while (true) {
