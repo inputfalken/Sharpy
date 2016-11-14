@@ -7,9 +7,10 @@ namespace Tests.Generator {
     public class PhoneNumber {
         [Test]
         public void CheckCombination() {
-            var generateMany = Sharpy.Generator.Create().GenerateMany(generator => generator.PhoneNumber(3), 900);
-            //The test checks that it works like the following algorithm (10^(length -1) * 0.9).
-            Assert.IsTrue(generateMany.GroupBy(s => s).All(grouping => grouping.Count() == 1));
+            var generateMany = Sharpy.Generator.Create().GenerateMany(generator => generator.PhoneNumber(3), 1000);
+            //The test checks that it works like the following algorithm 10^length and that all got same length.
+            Assert.IsTrue(generateMany.GroupBy(s => s)
+                .All(grouping => grouping.Count() == 1 && grouping.Key.Length == 3));
         }
 
         [Test]
