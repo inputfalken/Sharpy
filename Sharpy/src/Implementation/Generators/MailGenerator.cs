@@ -108,7 +108,7 @@ namespace Sharpy.Implementation.Generators {
         ///     This method currently can only be called up 1 * ammount of mail suppliers with the same argument. After that it
         ///     will throw an exception
         /// </summary>
-        public string Mail(string name) {
+        private string Mail(string name) {
             while (true) {
                 if (string.IsNullOrEmpty(name))
                     throw new NullReferenceException($"{nameof(name)} cannot be empty string or null");
