@@ -73,6 +73,8 @@ namespace Sharpy {
             return formated ? securityNumber.Insert(6, "-") : securityNumber;
         }
 
+        private static string Prefix(string str, int ammount) => new string('0', ammount).Append(str);
+
         private static string FormatDigit(int i) => i < 10 ? $"0{i}" : i.ToString();
 
         string IGenerator<StringType>.MailAddress(string name, string secondName)
