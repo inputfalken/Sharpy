@@ -48,8 +48,9 @@ namespace Sharpy.Implementation.Generators {
         public string Mail(string name, string secondName) {
             if (string.IsNullOrEmpty(name))
                 throw new NullReferenceException("Argument must contain none null/empty string");
+            name = name.ToLower();
             if (string.IsNullOrEmpty(secondName)) return Mail(name);
-
+            secondName = secondName.ToLower();
             return Unique ? UniqueMail(name, secondName) : RandomMail(name, secondName);
         }
 

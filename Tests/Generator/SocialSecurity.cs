@@ -10,9 +10,9 @@ namespace Tests.Generator {
         public void CheckCombination() {
             var generateMany =
                 Sharpy.Generator.Create()
-                    .GenerateMany(generator => generator.SocialSecurityNumber(new LocalDate(2000, 10, 10)), 9000);
-            //The test checks that it works like the following algorithm (10^(length -1) * 0.9).
-            Assert.IsTrue(generateMany.GroupBy(s => s).All(grouping => grouping.Count() == 1));
+                    .GenerateMany(generator => generator.SocialSecurityNumber(new LocalDate(2000, 10, 10)), 10000);
+            //The test checks that it works like the following algorithm (10^(4)) and that all strings got same length.
+            Assert.IsTrue(generateMany.GroupBy(s => s).All(grouping => grouping.Count() == 1 && grouping.Key.Length == 11));
         }
 
         [Test]

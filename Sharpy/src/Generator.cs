@@ -15,7 +15,7 @@ namespace Sharpy {
     /// </summary>
     /// <returns></returns>
     public sealed class Generator : IGenerator<StringType> {
-        private Tuple<int, int, int> _phoneState;
+        private Tuple<int, int> _phoneState;
 
         static Generator() {
             StaticGen = Create();
@@ -67,28 +67,30 @@ namespace Sharpy {
         string IGenerator<StringType>.SocialSecurityNumber(LocalDate date, bool formated) {
             var securityNumber = Config
                 .SocialSecurityNumberGenerator
-                .SecurityNumber(Config.Random.Next(1000, 9999),
+                .SecurityNumber(Config.Random.Next(10000),
                     FormatDigit(date.YearOfCentury).Append(FormatDigit(date.Month), FormatDigit(date.Day)))
                 .ToString();
+            if (securityNumber.Length != 10)
+                securityNumber = Prefix(securityNumber, 10 - securityNumber.Length);
             return formated ? securityNumber.Insert(6, "-") : securityNumber;
         }
 
-        private static string FormatDigit(int i) => i < 10 ? $"0{i}" : i.ToString();
+        private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
+
+        private static string FormatDigit(int i) => i < 10 ? Prefix(i, 1) : i.ToString();
 
         string IGenerator<StringType>.MailAddress(string name, string secondName)
             => Config.Mailgen.Mail(name, secondName);
 
-        // Currently The combinations possible is (10^(length -1) * 0.9).
+        // The combinations possible is 10^length
         string IGenerator<StringType>.PhoneNumber(int length, string prefix) {
-            //If the field _phoneState not null and length inside phonestate is not changed.
-            if (_phoneState != null && _phoneState.Item1 == length)
-                return prefix + Config.PhoneNumberGenerator.RandomNumber(_phoneState.Item2, _phoneState.Item3, true);
-
-            //Else assign new value to _phoneState.
-            var min = (int) Math.Pow(10, length - 1);
-            var max = min*10 - 1;
-            _phoneState = new Tuple<int, int, int>(length, min, max);
-            return prefix + Config.PhoneNumberGenerator.RandomNumber(_phoneState.Item2, _phoneState.Item3, true);
+            //If phonestate has changed
+            if (_phoneState == null || _phoneState.Item1 != length)
+                _phoneState = new Tuple<int, int>(length, (int) Math.Pow(10, length) - 1);
+            var randomNumber = Config.PhoneNumberGenerator.RandomNumber(0, _phoneState.Item2, true).ToString();
+            return randomNumber.Length != length
+                ? prefix + Prefix(randomNumber, length - randomNumber.Length)
+                : prefix + randomNumber;
         }
 
         long IGenerator<StringType>.Long(long min, long max) => Config.Random.NextLong(min, max);
