@@ -67,9 +67,11 @@ namespace Sharpy {
         string IGenerator<StringType>.SocialSecurityNumber(LocalDate date, bool formated) {
             var securityNumber = Config
                 .SocialSecurityNumberGenerator
-                .SecurityNumber(Config.Random.Next(1000, 9999),
+                .SecurityNumber(Config.Random.Next(10000),
                     FormatDigit(date.YearOfCentury).Append(FormatDigit(date.Month), FormatDigit(date.Day)))
                 .ToString();
+            if (securityNumber.Length != 10)
+                securityNumber = Prefix(securityNumber, 10 - securityNumber.Length);
             return formated ? securityNumber.Insert(6, "-") : securityNumber;
         }
 

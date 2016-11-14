@@ -9,7 +9,7 @@ namespace Sharpy.Implementation.Generators {
             var number = long.Parse(dateNumber + controlNumber);
             //OnDuplicate will only manipulate control number, DateNumber will be the same all the time.
             while (HashSet.Contains(number))
-                number = long.Parse(dateNumber.Append(controlNumber == 9999 ? controlNumber = 1000 : controlNumber += 1));
+                number = long.Parse(dateNumber.Append(controlNumber == 9999 ? controlNumber = 0 : controlNumber += 1));
             HashSet.Add(number);
             return number;
         }
