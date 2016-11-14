@@ -56,19 +56,14 @@ namespace Sharpy.Implementation.Generators {
         /// <summary>
         ///     Gives a mail address with randomed separator and domain
         /// </summary>
-        /// <param name="strings"></param>
+        /// <param name="name"></param>
+        /// <param name="secondname"></param>
         /// <returns></returns>
-        private string RandomMail(params string[] strings) {
-            string mail = null;
-            foreach (var name in strings) {
-                mail = name;
-                if (name == strings[strings.Length - 1])
-                    mail.Append("@").Append(_emailDomains[Random.Next(_emailDomains.Count)]);
-                else
-                    mail.Append(Separators[Random.Next(Separators.Count)].ToString());
-            }
-            var address = mail?.ToLower();
-            return address;
+        private string RandomMail(string name, string secondname) {
+            return secondname == null
+                ? name.Append("@").Append(_emailDomains[Random.Next(_emailDomains.Count)])
+                : name.Append(Separators[Random.Next(Separators.Count)].ToString(), secondname, "@",
+                    _emailDomains[Random.Next(_emailDomains.Count)]);
         }
 
         /// <summary>
@@ -112,10 +107,9 @@ namespace Sharpy.Implementation.Generators {
             while (true) {
                 if (string.IsNullOrEmpty(name))
                     throw new NullReferenceException($"{nameof(name)} cannot be empty string or null");
-                if (!Unique) return RandomMail(name);
+                if (!Unique) return RandomMail(name, null);
                 foreach (var emailDomain in _emailDomains) {
                     var address = name.Append("@", emailDomain);
-
                     if (HashSet.Contains(address)) continue;
                     HashSet.Add(address);
                     return address;
