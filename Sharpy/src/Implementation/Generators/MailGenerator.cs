@@ -37,14 +37,6 @@ namespace Sharpy.Implementation.Generators {
         private bool Unique { get; }
 
 
-        /// <summary>
-        ///     Returns a string representing a mail address.
-        ///     This method currently can be called up 3 * ammount of mail suppliers with the same argument. After that it will
-        ///     throw an exception
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="secondName"></param>
-        /// <returns></returns>
         public string Mail(string name, string secondName) {
             if (string.IsNullOrEmpty(name))
                 throw new NullReferenceException("Argument must contain none null/empty string");
@@ -54,12 +46,6 @@ namespace Sharpy.Implementation.Generators {
             return Unique ? UniqueMail(name, secondName) : RandomMail(name, secondName);
         }
 
-        /// <summary>
-        ///     Gives a mail address with randomed separator and domain
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="secondname"></param>
-        /// <returns></returns>
         private string RandomMail(string name, string secondname) {
             return secondname == null
                 ? name.Append("@").Append(_emailDomains[Random.Next(_emailDomains.Count)])
@@ -67,14 +53,6 @@ namespace Sharpy.Implementation.Generators {
                     _emailDomains[Random.Next(_emailDomains.Count)]);
         }
 
-        /// <summary>
-        ///     Will try to create an unique mail address
-        ///     If all possible combinations for the arguments used it will throw an exception
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="secondName"></param>
-        /// <returns></returns>
-        /// <exception cref="Exception"></exception>
         private string UniqueMail(string name, string secondName) {
             while (true) {
                 var resets = 0;
@@ -99,11 +77,6 @@ namespace Sharpy.Implementation.Generators {
         }
 
 
-        /// <summary>
-        ///     Returns a string representing a mail address.
-        ///     This method currently can only be called up 1 * ammount of mail suppliers with the same argument. After that it
-        ///     will throw an exception
-        /// </summary>
         private string Mail(string name) {
             while (true) {
                 if (string.IsNullOrEmpty(name))
