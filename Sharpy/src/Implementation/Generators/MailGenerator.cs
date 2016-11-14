@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sharpy.Implementation.ExtensionMethods;
 
 namespace Sharpy.Implementation.Generators {
     /// <summary>
@@ -58,15 +59,15 @@ namespace Sharpy.Implementation.Generators {
         /// <param name="strings"></param>
         /// <returns></returns>
         private string RandomMail(params string[] strings) {
+            string mail = null;
             foreach (var name in strings) {
-                Builder.Append(name);
+                mail = name;
                 if (name == strings[strings.Length - 1])
-                    Builder.Append("@").Append(_emailDomains[Random.Next(_emailDomains.Count)]);
+                    mail.Append("@").Append(_emailDomains[Random.Next(_emailDomains.Count)]);
                 else
-                    Builder.Append(Separators[Random.Next(Separators.Count)].ToString());
+                    mail.Append(Separators[Random.Next(Separators.Count)].ToString());
             }
-            var address = Builder.ToString().ToLower();
-            Builder.Clear();
+            var address = mail?.ToLower();
             return address;
         }
 
@@ -84,8 +85,7 @@ namespace Sharpy.Implementation.Generators {
                 while (resets < Limit)
                     if (_emailDomainsEnumerator.MoveNext()) {
                         foreach (var separator in Separators) {
-                            var address = Build(name, separator.ToString(), secondName, "@",
-                                _emailDomainsEnumerator.Current);
+                            var address = name.Append(separator, secondName, "@", _emailDomainsEnumerator.Current);
                             if (HashSet.Contains(address)) continue;
                             HashSet.Add(address);
                             return address;
@@ -114,7 +114,8 @@ namespace Sharpy.Implementation.Generators {
                     throw new NullReferenceException($"{nameof(name)} cannot be empty string or null");
                 if (!Unique) return RandomMail(name);
                 foreach (var emailDomain in _emailDomains) {
-                    var address = Build(name, "@", emailDomain);
+                    var address = name.Append("@", emailDomain);
+
                     if (HashSet.Contains(address)) continue;
                     HashSet.Add(address);
                     return address;
@@ -126,6 +127,6 @@ namespace Sharpy.Implementation.Generators {
         public override string ToString()
             => $"Providers: {_emailDomains.Aggregate((x, y) => $"{x}, {y}")} Unique addresses: {Unique}";
 
-        private string OnDuplicate(string item) => Build(item, Random.Next(10).ToString());
+        private string OnDuplicate(string item) => item.Append(Random.Next(10));
     }
 }
