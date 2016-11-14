@@ -15,7 +15,7 @@ namespace Sharpy {
     /// </summary>
     /// <returns></returns>
     public sealed class Generator : IGenerator<StringType> {
-        private Tuple<int, int, int> _phoneState;
+        private Tuple<int, int> _phoneState;
 
         static Generator() {
             StaticGen = Create();
@@ -80,17 +80,25 @@ namespace Sharpy {
         string IGenerator<StringType>.MailAddress(string name, string secondName)
             => Config.Mailgen.Mail(name, secondName);
 
-        // Currently The combinations possible is (10^(length -1) * 0.9).
+        // The combinations possible is 10^length
         string IGenerator<StringType>.PhoneNumber(int length, string prefix) {
             //If the field _phoneState not null and length inside phonestate is not changed.
-            if (_phoneState != null && _phoneState.Item1 == length)
-                return prefix + Config.PhoneNumberGenerator.RandomNumber(_phoneState.Item2, _phoneState.Item3, true);
+            if (_phoneState != null && _phoneState.Item1 == length) {
+                var randomNumber =
+                    Config.PhoneNumberGenerator.RandomNumber(0, _phoneState.Item2, true).ToString();
+                return randomNumber.Length != length
+                    ? prefix + Prefix(randomNumber, length - randomNumber.Length)
+                    : prefix + randomNumber;
+            }
 
             //Else assign new value to _phoneState.
-            var min = (int) Math.Pow(10, length - 1);
-            var max = min*10 - 1;
-            _phoneState = new Tuple<int, int, int>(length, min, max);
-            return prefix + Config.PhoneNumberGenerator.RandomNumber(_phoneState.Item2, _phoneState.Item3, true);
+            var max = (int) Math.Pow(10, length) - 1;
+            _phoneState = new Tuple<int, int>(length, max);
+
+            var randomNumber2 = Config.PhoneNumberGenerator.RandomNumber(0, _phoneState.Item2, true).ToString();
+            return randomNumber2.Length != length
+                ? prefix + Prefix(randomNumber2, length - randomNumber2.Length)
+                : prefix + randomNumber2;
         }
 
         long IGenerator<StringType>.Long(long min, long max) => Config.Random.NextLong(min, max);
