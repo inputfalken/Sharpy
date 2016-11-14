@@ -64,6 +64,7 @@
     <Compile Include="src\IGenerator.cs" />
     <Compile Include="src\Generator.cs" />
     <Compile Include="src\Implementation\DataObjects\CountryCode.cs" />
+    <Compile Include="src\Implementation\ExtensionMethods\StringExtensions.cs" />
     <Compile Include="src\Implementation\Generators\NumberGenerator.cs" />
     <Compile Include="src\Implementation\Generators\DateGenerator.cs" />
     <Compile Include="src\Implementation\Fetcher.cs" />
