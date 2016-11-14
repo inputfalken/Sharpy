@@ -41,7 +41,7 @@ namespace Sharpy.Implementation.Generators {
             if (string.IsNullOrEmpty(name))
                 throw new NullReferenceException("Argument must contain none null/empty string");
             name = name.ToLower();
-            if (string.IsNullOrEmpty(secondName)) return Mail(name);
+            if (string.IsNullOrEmpty(secondName)) return Unique ? UniqueMail(name, null) : RandomMail(name, null);
             secondName = secondName.ToLower();
             return Unique ? UniqueMail(name, secondName) : RandomMail(name, secondName);
         }
@@ -57,7 +57,9 @@ namespace Sharpy.Implementation.Generators {
                 while (resets < Limit)
                     if (_emailDomainsEnumerator.MoveNext()) {
                         foreach (var separator in Separators) {
-                            var address = name.Append(separator, secondName, "@", _emailDomainsEnumerator.Current);
+                            var address = secondName != null
+                                ? name.Append(separator, secondName, "@", _emailDomainsEnumerator.Current)
+                                : name.Append("@", _emailDomainsEnumerator.Current);
                             if (HashSet.Contains(address)) continue;
                             HashSet.Add(address);
                             return address;
@@ -71,22 +73,6 @@ namespace Sharpy.Implementation.Generators {
                     }
                 // Start adding numbers.
                 secondName = OnDuplicate(secondName);
-            }
-        }
-
-
-        private string Mail(string name) {
-            while (true) {
-                if (string.IsNullOrEmpty(name))
-                    throw new NullReferenceException($"{nameof(name)} cannot be empty string or null");
-                if (!Unique) return RandomMail(name, null);
-                foreach (var emailDomain in _emailDomains) {
-                    var address = name.Append("@", emailDomain);
-                    if (HashSet.Contains(address)) continue;
-                    HashSet.Add(address);
-                    return address;
-                }
-                name = OnDuplicate(name);
             }
         }
 
