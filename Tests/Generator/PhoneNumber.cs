@@ -8,8 +8,9 @@ namespace Tests.Generator {
         [Test]
         public void CheckCombination() {
             var generateMany = Sharpy.Generator.Create().GenerateMany(generator => generator.PhoneNumber(3), 1000);
-            //The test checks that it works like the following algorithm 10^length
-            Assert.IsTrue(generateMany.GroupBy(s => s).All(grouping => grouping.Count() == 1));
+            //The test checks that it works like the following algorithm 10^length and that all got same length.
+            Assert.IsTrue(generateMany.GroupBy(s => s)
+                .All(grouping => grouping.Count() == 1 && grouping.Key.Length == 3));
         }
 
         [Test]
