@@ -10,7 +10,7 @@ namespace Sharpy.Implementation {
         // ReSharper disable once StaticMemberInGenericType
         /// <summary>
         /// </summary>
-        protected static readonly StringBuilder Builder = new StringBuilder();
+        //protected static readonly StringBuilder Builder = new StringBuilder();
 
         /// <summary>
         /// </summary>
@@ -30,12 +30,12 @@ namespace Sharpy.Implementation {
         /// </summary>
         protected HashSet<T> HashSet { get; }
 
-        protected static string Build(params string[] strings) {
-            foreach (var s in strings)
-                Builder.Append(s);
-            var str = Builder.ToString();
-            Builder.Clear();
-            return str;
-        }
+        //protected static string Build(params string[] strings) {
+        //    foreach (var s in strings)
+        //        Builder.Append(s);
+        //    var str = Builder.ToString();
+        //    Builder.Clear();
+        //    return str;
+        //}
     }
 }
