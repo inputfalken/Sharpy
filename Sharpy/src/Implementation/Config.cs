@@ -102,19 +102,6 @@ namespace Sharpy.Implementation {
             return this;
         }
 
-        /// <summary>
-        ///     Lets you set the providers for the mail addresses.
-        ///     You can also a set a bool for wether the addreses will be unique.
-        ///     If set to unique numbers will be appended in case of replicate mail address.
-        /// </summary>
-        /// <param name="providers"></param>
-        /// <param name="uniqueAddresses">For Unique Addresses</param>
-        /// <returns></returns>
-        public Config MailGenerator(IEnumerable<string> providers) {
-            Mailgen = new MailGenerator(providers, Random);
-            return this;
-        }
-
 
         /// <summary>
         ///     Executes the predicate on each username.
