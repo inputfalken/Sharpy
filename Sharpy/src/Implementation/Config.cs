@@ -50,7 +50,7 @@ namespace Sharpy.Implementation {
         private NumberGenerator NumberGen { get; }
 
 
-        internal MailGenerator Mailgen { get; private set; }
+        internal MailGenerator Mailgen { get; }
 
         private Lazy<Fetcher<string>> LazyUsernames { get; } =
             new Lazy<Fetcher<string>>(() => new Fetcher<string>(Resources.usernames.Split(Convert.ToChar("\n"))));
@@ -63,7 +63,7 @@ namespace Sharpy.Implementation {
         internal Dictionary<StringType, Fetcher<string>> Dictionary { get; } =
             new Dictionary<StringType, Fetcher<string>>();
 
-        public void MailProviders(params string[] providers) => Mailgen = new MailGenerator(providers, Random); 
+        public void MailProviders(params string[] providers) => Mailgen.SetProviders(providers);
 
         /// <summary>
         ///     Executes the predicate on each name.
