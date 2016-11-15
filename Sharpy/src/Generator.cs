@@ -41,7 +41,7 @@ namespace Sharpy {
 
         string IGenerator<StringType>.String(StringType type) {
             if (!Config.Dictionary.ContainsKey(type))
-                Config.Dictionary.Add(type, new Fetcher<string>(Config.StringType(type)));
+                Config.Dictionary.Add(type, new Randomizer<string>(Config.StringType(type)));
             return Config.Dictionary[type].RandomItem(Config.Random);
         }
 

@@ -17,11 +17,11 @@ namespace Sharpy.Implementation {
         internal NumberGenerator PhoneNumberGenerator { get; }
 
         private readonly HashSet<Enum> _origins = new HashSet<Enum>();
-        private Fetcher<Name> _names;
+        private Randomizer<Name> _names;
 
         private string _seed;
 
-        private Fetcher<string> _userNames;
+        private Randomizer<string> _userNames;
 
         internal Config() {
             DateGenerator = new DateGenerator(Random);
@@ -33,11 +33,11 @@ namespace Sharpy.Implementation {
 
         internal SecurityNumberGen SocialSecurityNumberGenerator { get; }
 
-        private Lazy<Fetcher<Name>> LazyNames { get; } =
-            new Lazy<Fetcher<Name>>(() => new Fetcher<Name>(JsonConvert.DeserializeObject<IEnumerable<Name>>(
+        private Lazy<Randomizer<Name>> LazyNames { get; } =
+            new Lazy<Randomizer<Name>>(() => new Randomizer<Name>(JsonConvert.DeserializeObject<IEnumerable<Name>>(
                 Encoding.UTF8.GetString(Resources.NamesByOrigin))));
 
-        internal Fetcher<Name> Names {
+        internal Randomizer<Name> Names {
             get { return _names ?? LazyNames.Value; }
             private set { _names = value; }
         }
@@ -52,17 +52,17 @@ namespace Sharpy.Implementation {
 
         internal MailGenerator Mailgen { get; private set; }
 
-        private Lazy<Fetcher<string>> LazyUsernames { get; } =
-            new Lazy<Fetcher<string>>(
-                () => new Fetcher<string>(Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None)));
+        private Lazy<Randomizer<string>> LazyUsernames { get; } =
+            new Lazy<Randomizer<string>>(
+                () => new Randomizer<string>(Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None)));
 
-        private Fetcher<string> UserNames {
+        private Randomizer<string> UserNames {
             get { return _userNames ?? LazyUsernames.Value; }
             set { _userNames = value; }
         }
 
-        internal Dictionary<StringType, Fetcher<string>> Dictionary { get; } =
-            new Dictionary<StringType, Fetcher<string>>();
+        internal Dictionary<StringType, Randomizer<string>> Dictionary { get; } =
+            new Dictionary<StringType, Randomizer<string>>();
 
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Sharpy.Implementation {
         /// <param name="predicate"></param>
         /// <returns></returns>
         public Config Name(Func<string, bool> predicate) {
-            Names = new Fetcher<Name>(Names.Where(name => predicate(name.Data)));
+            Names = new Randomizer<Name>(Names.Where(name => predicate(name.Data)));
             return this;
         }
 
@@ -82,7 +82,7 @@ namespace Sharpy.Implementation {
         /// <returns></returns>
         public Config Name(params Country[] countries) {
             foreach (var country in countries) _origins.Add(country);
-            Names = new Fetcher<Name>(Names.Where(name => countries.Contains(name.Country)));
+            Names = new Randomizer<Name>(Names.Where(name => countries.Contains(name.Country)));
             return this;
         }
 
@@ -94,7 +94,7 @@ namespace Sharpy.Implementation {
         /// <returns></returns>
         public Config Name(params Region[] regions) {
             foreach (var region in regions) _origins.Add(region);
-            Names = new Fetcher<Name>(Names.Where(name => regions.Contains(name.Region)));
+            Names = new Randomizer<Name>(Names.Where(name => regions.Contains(name.Region)));
             return this;
         }
 
@@ -118,7 +118,7 @@ namespace Sharpy.Implementation {
         /// <param name="predicate"></param>
         /// <returns></returns>
         public Config UserName(Func<string, bool> predicate) {
-            UserNames = new Fetcher<string>(UserNames.Where(predicate));
+            UserNames = new Randomizer<string>(UserNames.Where(predicate));
             return this;
         }
 

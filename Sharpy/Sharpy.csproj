@@ -67,7 +67,7 @@
     <Compile Include="src\Implementation\ExtensionMethods\StringExtensions.cs" />
     <Compile Include="src\Implementation\Generators\NumberGenerator.cs" />
     <Compile Include="src\Implementation\Generators\DateGenerator.cs" />
-    <Compile Include="src\Implementation\Fetcher.cs" />
+    <Compile Include="src\Implementation\Randomizer.cs" />
     <Compile Include="src\Implementation\Generators\MailGenerator.cs" />
     <Compile Include="src\Implementation\DataObjects\Name.cs" />
     <Compile Include="src\Implementation\Generators\SecurityNumberGen.cs" />
