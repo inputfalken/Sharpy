@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Sharpy.Implementation {
     /// <summary>
@@ -11,7 +10,6 @@ namespace Sharpy.Implementation {
         /// <summary>
         /// </summary>
         //protected static readonly StringBuilder Builder = new StringBuilder();
-
         /// <summary>
         /// </summary>
         /// <param name="random"></param>
@@ -30,9 +28,10 @@ namespace Sharpy.Implementation {
         /// </summary>
         protected HashSet<T> HashSet { get; }
 
-        //protected static string Build(params string[] strings) {
-        //    foreach (var s in strings)
         //        Builder.Append(s);
+        //    foreach (var s in strings)
+
+        //protected static string Build(params string[] strings) {
         //    var str = Builder.ToString();
         //    Builder.Clear();
         //    return str;

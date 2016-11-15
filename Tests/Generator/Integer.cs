@@ -6,6 +6,17 @@ using Sharpy;
 namespace Tests.Generator {
     [TestFixture]
     public class Integer {
+        private const int Length = 1000000;
+
+        [Test]
+        public void NoArgument() {
+            var ints = Sharpy.Generator.Create().GenerateMany(generator => generator.Integer(), Length);
+            Assert.IsTrue(ints.All(l => (l > int.MinValue) && (l < int.MaxValue)));
+
+            var intInstance = Sharpy.Generator.Create().Generate(generator => generator.Integer());
+            Assert.IsTrue((intInstance > int.MinValue) && (intInstance < int.MaxValue));
+        }
+
         [Test]
         public void NotDefaultValue() {
             var generator = Sharpy.Generator.Create();
@@ -16,7 +27,42 @@ namespace Tests.Generator {
             Assert.IsFalse(generator.Generate(generatorr => generatorr.Integer(1, 100)) == 0);
         }
 
-        private const int Length = 1000000;
+        [Test]
+        public void One_Arg_MaxValue() {
+            var ints = Sharpy.Generator.Create().GenerateMany(generator => generator.Integer(int.MaxValue), Length);
+            Assert.IsTrue(ints.All(l => l >= 0));
+
+            var intInstance = Sharpy.Generator.Create().Generate(generator => generator.Integer(int.MaxValue));
+            Assert.IsTrue(intInstance >= 0);
+        }
+
+        [Test]
+        public void One_Arg_minusOne() {
+            var ints = Sharpy.Generator.Create().GenerateMany(generator => generator.Integer(-1), Length);
+            Assert.Throws<ArgumentOutOfRangeException>(() => ints.ToArray());
+
+            Assert.Throws<ArgumentOutOfRangeException>(
+                () => Sharpy.Generator.Create().Generate(generator => generator.Integer(-1)));
+        }
+
+        [Test]
+        public void One_Arg_Thousand() {
+            const int max = 1000;
+            var ints = Sharpy.Generator.Create().GenerateMany(generator => generator.Integer(max), Length);
+            Assert.IsTrue(ints.All(l => (l >= 0) && (l < max)));
+
+            var intInstance = Sharpy.Generator.Create().Generate(generator => generator.Integer(max));
+            Assert.IsTrue((intInstance >= 0) && (intInstance < max));
+        }
+
+        [Test]
+        public void One_Arg_Zero() {
+            var ints = Sharpy.Generator.Create().GenerateMany(generator => generator.Integer(0), Length);
+            Assert.Throws<ArgumentOutOfRangeException>(() => ints.ToArray());
+
+            Assert.Throws<ArgumentOutOfRangeException>(
+                () => Sharpy.Generator.Create().Generate(generator => generator.Integer(0)));
+        }
 
         [Test]
         public void Two_Args_MinusThousand_And_MinusTwoThousand() {
@@ -79,52 +125,6 @@ namespace Tests.Generator {
 
             var intInstance = Sharpy.Generator.Create().Generate(generator => generator.Integer(0, int.MaxValue));
             Assert.IsTrue(intInstance > 0);
-        }
-
-        [Test]
-        public void NoArgument() {
-            var ints = Sharpy.Generator.Create().GenerateMany(generator => generator.Integer(), Length);
-            Assert.IsTrue(ints.All(l => (l > int.MinValue) && (l < int.MaxValue)));
-
-            var intInstance = Sharpy.Generator.Create().Generate(generator => generator.Integer());
-            Assert.IsTrue((intInstance > int.MinValue) && (intInstance < int.MaxValue));
-        }
-
-        [Test]
-        public void One_Arg_minusOne() {
-            var ints = Sharpy.Generator.Create().GenerateMany(generator => generator.Integer(-1), Length);
-            Assert.Throws<ArgumentOutOfRangeException>(() => ints.ToArray());
-
-            Assert.Throws<ArgumentOutOfRangeException>(
-                () => Sharpy.Generator.Create().Generate(generator => generator.Integer(-1)));
-        }
-
-        [Test]
-        public void One_Arg_MaxValue() {
-            var ints = Sharpy.Generator.Create().GenerateMany(generator => generator.Integer(int.MaxValue), Length);
-            Assert.IsTrue(ints.All(l => l >= 0));
-
-            var intInstance = Sharpy.Generator.Create().Generate(generator => generator.Integer(int.MaxValue));
-            Assert.IsTrue(intInstance >= 0);
-        }
-
-        [Test]
-        public void One_Arg_Thousand() {
-            const int max = 1000;
-            var ints = Sharpy.Generator.Create().GenerateMany(generator => generator.Integer(max), Length);
-            Assert.IsTrue(ints.All(l => (l >= 0) && (l < max)));
-
-            var intInstance = Sharpy.Generator.Create().Generate(generator => generator.Integer(max));
-            Assert.IsTrue((intInstance >= 0) && (intInstance < max));
-        }
-
-        [Test]
-        public void One_Arg_Zero() {
-            var ints = Sharpy.Generator.Create().GenerateMany(generator => generator.Integer(0), Length);
-            Assert.Throws<ArgumentOutOfRangeException>(() => ints.ToArray());
-
-            Assert.Throws<ArgumentOutOfRangeException>(
-                () => Sharpy.Generator.Create().Generate(generator => generator.Integer(0)));
         }
     }
 }

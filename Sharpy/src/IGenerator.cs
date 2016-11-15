@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using NodaTime;
-using Sharpy.Enums;
 
 namespace Sharpy {
     /// <summary>

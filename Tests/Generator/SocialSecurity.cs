@@ -7,16 +7,6 @@ namespace Tests.Generator {
     [TestFixture]
     public class SocialSecurity {
         [Test]
-        public void CheckCombination() {
-            var generateMany =
-                Sharpy.Generator.Create()
-                    .GenerateMany(generator => generator.SocialSecurityNumber(new LocalDate(2000, 10, 10)), 10000);
-            //The test checks that it works like the following algorithm (10^(4)) and that all strings got same length.
-            Assert.IsTrue(
-                generateMany.GroupBy(s => s).All(grouping => grouping.Count() == 1 && grouping.Key.Length == 11));
-        }
-
-        [Test]
         public void AllContainsDashAtSameIndex() {
             var generator = Sharpy.Generator.Create();
 
@@ -43,6 +33,16 @@ namespace Tests.Generator {
                     generatorr.SocialSecurityNumber(generatorr.DateByAge(generatorr.Integer(19, 20))), 10000);
             // Will look for repeats and expected behaviour is that it should only contain 1 repeat per grouping.
             Assert.IsTrue(generateMany.GroupBy(s => s).All(grouping => grouping.Count() == 1));
+        }
+
+        [Test]
+        public void CheckCombination() {
+            var generateMany =
+                Sharpy.Generator.Create()
+                    .GenerateMany(generator => generator.SocialSecurityNumber(new LocalDate(2000, 10, 10)), 10000);
+            //The test checks that it works like the following algorithm (10^(4)) and that all strings got same length.
+            Assert.IsTrue(
+                generateMany.GroupBy(s => s).All(grouping => (grouping.Count() == 1) && (grouping.Key.Length == 11)));
         }
 
         [Test]
