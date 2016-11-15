@@ -19,7 +19,7 @@ namespace Tests.Generator {
         private const int Length = 1000000;
 
         [Test]
-        public void DoubleArgumentMinusThousandAndMinusTwoThousand() {
+        public void Two_Args_MinusThousand_And_MinusTwoThousand() {
             const int min = -1000;
             const int max = -2000;
             var ints = Sharpy.Generator.Create().GenerateMany(generator => generator.Integer(min, max), Length);
@@ -30,7 +30,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void DoubleArgumentMinusThousandAndTwoThousand() {
+        public void Two_Args_MinusThousand_And_TwoThousand() {
             const int min = -1000;
             const int max = 2000;
             var ints = Sharpy.Generator.Create().GenerateMany(generator => generator.Integer(min, max), Length);
@@ -41,7 +41,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void DoubleArgumentMinusTwoThousandAndMinusThousand() {
+        public void Two_Args_MinusTwoThousand_And_MinusThousand() {
             const int min = -2000;
             const int max = -1000;
             var ints = Sharpy.Generator.Create().GenerateMany(generator => generator.Integer(min, max), Length);
@@ -52,7 +52,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void DoubleArgumentMinValueAndZero() {
+        public void Two_Args_MinValue_And_Zero() {
             var ints = Sharpy.Generator.Create().GenerateMany(generator => generator.Integer(int.MinValue, 0), Length);
             Assert.IsTrue(ints.All(l => l < 0));
             var intInstance = Sharpy.Generator.Create().Generate(generator => generator.Integer(int.MinValue, 0));
@@ -62,7 +62,7 @@ namespace Tests.Generator {
 
 
         [Test]
-        public void DoubleArgumentThousandAndTwoThousand() {
+        public void Two_Args_Thousand_And_TwoThousand() {
             const int min = 1000;
             const int max = 2000;
             var ints = Sharpy.Generator.Create().GenerateMany(generator => generator.Integer(min, max), Length);
@@ -73,7 +73,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void DoubleArgumentZeroMaxValue() {
+        public void Two_Args_Zero_And_MaxValue() {
             var ints = Sharpy.Generator.Create().GenerateMany(generator => generator.Integer(0, int.MaxValue), Length);
             Assert.IsTrue(ints.All(l => l > 0));
 
@@ -91,7 +91,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void SingleArgumentLessThanZero() {
+        public void One_Arg_minusOne() {
             var ints = Sharpy.Generator.Create().GenerateMany(generator => generator.Integer(-1), Length);
             Assert.Throws<ArgumentOutOfRangeException>(() => ints.ToArray());
 
@@ -100,7 +100,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void SingleArgumentMaxValue() {
+        public void One_Arg_MaxValue() {
             var ints = Sharpy.Generator.Create().GenerateMany(generator => generator.Integer(int.MaxValue), Length);
             Assert.IsTrue(ints.All(l => l >= 0));
 
@@ -109,7 +109,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void SingleArgumentThousand() {
+        public void One_Arg_Thousand() {
             const int max = 1000;
             var ints = Sharpy.Generator.Create().GenerateMany(generator => generator.Integer(max), Length);
             Assert.IsTrue(ints.All(l => (l >= 0) && (l < max)));
@@ -119,10 +119,9 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void SingleArgumentZero() {
+        public void One_Arg_Zero() {
             var ints = Sharpy.Generator.Create().GenerateMany(generator => generator.Integer(0), Length);
             Assert.Throws<ArgumentOutOfRangeException>(() => ints.ToArray());
-
 
             Assert.Throws<ArgumentOutOfRangeException>(
                 () => Sharpy.Generator.Create().Generate(generator => generator.Integer(0)));
