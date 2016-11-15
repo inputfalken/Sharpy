@@ -91,7 +91,6 @@ namespace Sharpy.Implementation {
         /// </summary>
         //public void MailProviders(params string[] providers) => Mailgen.EmailDomains = providers;
         public IReadOnlyList<string> MailProviders {
-            get { return Mailgen.EmailDomains; }
             set { Mailgen.EmailDomains = value; }
         }
 
@@ -99,7 +98,6 @@ namespace Sharpy.Implementation {
         /// <para>Gets or Sets if mail addresses will be unique.</para>
         /// </summary>
         public bool UniqueMailAddresses {
-            get { return Mailgen.Unique; }
             set { Mailgen.Unique = value; }
         }
 
