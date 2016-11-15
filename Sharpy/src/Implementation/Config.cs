@@ -119,15 +119,15 @@ namespace Sharpy.Implementation {
             set { UserNames = new Randomizer<string>(UserNames.Where(value)); }
         }
 
+
         /// <summary>
-        ///     Will set a seed for the generator to use
+        ///     Sets the seed for Generator.
         /// </summary>
-        /// <param name="seed"></param>
-        /// <returns></returns>
-        public Config Seed(int seed) {
-            _seed = seed.ToString();
-            Random = new Random(seed);
-            return this;
+        public int Seed {
+            set {
+                _seed = value.ToString();
+                Random = new Random(value);
+            }
         }
 
         internal IEnumerable<string> StringType(StringType stringType) {
