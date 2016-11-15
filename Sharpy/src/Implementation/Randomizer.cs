@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Sharpy.Implementation {
-    internal sealed class Fetcher<TSource> : IEnumerable<TSource> {
+    internal sealed class Randomizer<TSource> : IEnumerable<TSource> {
         /// <summary>
         ///     Takes the IEnumerable and turns it into a lazy array which gets used only if needed.
         /// </summary>
         /// <param name="enumerable"></param>
         /// <exception cref="ArgumentException"></exception>
-        internal Fetcher(IEnumerable<TSource> enumerable) {
+        internal Randomizer(IEnumerable<TSource> enumerable) {
             // ReSharper disable PossibleMultipleEnumeration
             if (!enumerable.Any()) throw new ArgumentException("Sequence Is empty");
             Enumerable = enumerable;
