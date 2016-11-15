@@ -34,7 +34,7 @@ namespace Sharpy {
         }
 
         /// <summary>
-        ///     <para>Instantiates a new Generator</para>
+        ///     <para>Instantiates a new Generator and sets configurement</para>
         /// </summary>
         public Generator() {
             DateGenerator = new DateGenerator(Random);
