@@ -25,7 +25,7 @@ namespace Sharpy.Implementation {
 
         internal Config() {
             DateGenerator = new DateGenerator(Random);
-            Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
+            Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random);
             NumberGen = new NumberGenerator(Random);
             SocialSecurityNumberGenerator = new SecurityNumberGen(Random);
             PhoneNumberGenerator = new NumberGenerator(Random);
@@ -50,7 +50,7 @@ namespace Sharpy.Implementation {
         private NumberGenerator NumberGen { get; }
 
 
-        internal MailGenerator Mailgen { get; private set; }
+        internal MailGenerator Mailgen { get; }
 
         private Lazy<Randomizer<string>> LazyUsernames { get; } =
             new Lazy<Randomizer<string>>(
@@ -86,6 +86,22 @@ namespace Sharpy.Implementation {
             return this;
         }
 
+        /// <summary>
+        /// <para>Changes the mail providers used by the mailgenerator</para>
+        /// </summary>
+        //public void MailProviders(params string[] providers) => Mailgen.EmailDomains = providers;
+        public IReadOnlyList<string> MailProviders {
+            get { return Mailgen.EmailDomains; }
+            set { Mailgen.EmailDomains = value; }
+        }
+
+        /// <summary>
+        /// <para>Gets or Sets if mail addresses will be unique.</para>
+        /// </summary>
+        public bool UniqueMailAddresses {
+            get { return Mailgen.Unique; }
+            set { Mailgen.Unique = value; }
+        }
 
         /// <summary>
         ///     This filters the names by each Region provided
@@ -95,19 +111,6 @@ namespace Sharpy.Implementation {
         public Config Name(params Region[] regions) {
             foreach (var region in regions) _origins.Add(region);
             Names = new Randomizer<Name>(Names.Where(name => regions.Contains(name.Region)));
-            return this;
-        }
-
-        /// <summary>
-        ///     Lets you set the providers for the mail addresses.
-        ///     You can also a set a bool for wether the addreses will be unique.
-        ///     If set to unique numbers will be appended in case of replicate mail address.
-        /// </summary>
-        /// <param name="providers"></param>
-        /// <param name="uniqueAddresses">For Unique Addresses</param>
-        /// <returns></returns>
-        public Config MailGenerator(IEnumerable<string> providers, bool uniqueAddresses = false) {
-            Mailgen = new MailGenerator(providers, Random, uniqueAddresses);
             return this;
         }
 
