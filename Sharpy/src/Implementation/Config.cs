@@ -66,24 +66,33 @@ namespace Sharpy.Implementation {
 
 
         /// <summary>
-        ///     Executes the predicate on each name.
+        /// Executes the predicate on each firstname/lastname.
         /// </summary>
-        /// <param name="predicate"></param>
+        public Func<string, bool> NamePredicate {
+            set { Names = new Randomizer<Name>(Names.Where(name => value(name.Data))); }
+        }
+
+
+        /// <summary>
+        ///     Sets Countries which Firstname/lastname are from.
+        /// </summary>
         /// <returns></returns>
-        public Config Name(Func<string, bool> predicate) {
-            Names = new Randomizer<Name>(Names.Where(name => predicate(name.Data)));
-            return this;
+        public IReadOnlyList<Country> NameCountries {
+            set {
+                foreach (var country in value) _origins.Add(country);
+                Names = new Randomizer<Name>(Names.Where(name => value.Contains(name.Country)));
+            }
         }
 
         /// <summary>
-        ///     This filters the names by each Country provided
+        ///     Sets Regions which Firstname/lastname are from.
         /// </summary>
-        /// <param name="countries"></param>
         /// <returns></returns>
-        public Config Name(params Country[] countries) {
-            foreach (var country in countries) _origins.Add(country);
-            Names = new Randomizer<Name>(Names.Where(name => countries.Contains(name.Country)));
-            return this;
+        public IReadOnlyList<Region> NameRegion {
+            set {
+                foreach (var region in value) _origins.Add(region);
+                Names = new Randomizer<Name>(Names.Where(name => value.Contains(name.Region)));
+            }
         }
 
         /// <summary>
@@ -101,26 +110,13 @@ namespace Sharpy.Implementation {
             set { Mailgen.Unique = value; }
         }
 
-        /// <summary>
-        ///     This filters the names by each Region provided
-        /// </summary>
-        /// <param name="regions"></param>
-        /// <returns></returns>
-        public Config Name(params Region[] regions) {
-            foreach (var region in regions) _origins.Add(region);
-            Names = new Randomizer<Name>(Names.Where(name => regions.Contains(name.Region)));
-            return this;
-        }
-
 
         /// <summary>
         ///     Executes the predicate on each username.
         /// </summary>
-        /// <param name="predicate"></param>
         /// <returns></returns>
-        public Config UserName(Func<string, bool> predicate) {
-            UserNames = new Randomizer<string>(UserNames.Where(predicate));
-            return this;
+        public Func<string, bool> UserNamePredicate {
+            set { UserNames = new Randomizer<string>(UserNames.Where(value)); }
         }
 
         /// <summary>
