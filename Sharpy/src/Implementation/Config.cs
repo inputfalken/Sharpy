@@ -72,15 +72,21 @@ namespace Sharpy.Implementation {
             set { Names = new Randomizer<Name>(Names.Where(name => value(name.Data))); }
         }
 
+
         /// <summary>
-        ///     This filters the names by each Country provided
+        ///     Sets Countries which Firstname/lastname are from.
         /// </summary>
-        /// <param name="countries"></param>
         /// <returns></returns>
-        public Config Name(params Country[] countries) {
-            foreach (var country in countries) _origins.Add(country);
-            Names = new Randomizer<Name>(Names.Where(name => countries.Contains(name.Country)));
-            return this;
+        public IReadOnlyList<Country> NameCountries {
+            set { Names = new Randomizer<Name>(Names.Where(name => value.Contains(name.Country))); }
+        }
+
+        /// <summary>
+        ///     Sets Regions which Firstname/lastname are from.
+        /// </summary>
+        /// <returns></returns>
+        public IReadOnlyList<Region> NameRegion {
+            set { Names = new Randomizer<Name>(Names.Where(name => value.Contains(name.Region))); }
         }
 
         /// <summary>
