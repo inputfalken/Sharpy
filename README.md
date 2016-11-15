@@ -39,19 +39,26 @@ using Sharpy;
 using Sharpy.Enums;
 
 namespace ConsoleApp {
-    internal static class Program {
-        public static void Main() {
-            // The generator will now behave differently 
-            // when calling the String method from generator using argument for last and first names.
-            Generator.Configurement.Name(Country.UnitedStates);
+      internal static class Program {
+        private static Generator Generator { get; } = new Generator {
+            // This limits Firstnames and Lastnames to United States.
+            Countries = new[] {Country.UnitedStates},
+            // This sets the seed for the generator.
+            // if you want the same result everytime you run the rerun the program.
+            Seed = 1000
+        };
 
-            IEnumerable<Person> people = Generator.GenerateEnumerable(generator => new Person {
+        private static void Main() {
+            IEnumerable<Person> people = Generator.GenerateMany(generator => new Person {
                 FirstName = generator.String(StringType.FirstName),
                 LastName = generator.String(StringType.LastName)
             }, 20);
+            foreach (var person in people) {
+                Console.WriteLine(person.FirstName);
+            }
         }
 
-        internal class Person {
+        private class Person {
             public string FirstName { get; set; }
             public string LastName { get; set; }
         }
