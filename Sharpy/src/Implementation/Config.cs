@@ -63,7 +63,6 @@ namespace Sharpy.Implementation {
         internal Dictionary<StringType, Fetcher<string>> Dictionary { get; } =
             new Dictionary<StringType, Fetcher<string>>();
 
-        public void MailProviders(params string[] providers) => Mailgen.SetProviders(providers);
 
         /// <summary>
         ///     Executes the predicate on each name.
@@ -86,6 +85,15 @@ namespace Sharpy.Implementation {
             return this;
         }
 
+        /// <summary>
+        /// <para>Changes the mail providers used by the mailgenerator</para>
+        /// </summary>
+        /// <param name="providers">The providers to be used in the generator.</param>
+        public void MailProviders(params string[] providers) => Mailgen.SetProviders(providers);
+
+        /// <summary>
+        /// <para>Gets or Sets if mail addresses will be unique.</para>
+        /// </summary>
         public bool UniqueMailAddresses {
             get { return Mailgen.Unique; }
             set { Mailgen.Unique = value; }
