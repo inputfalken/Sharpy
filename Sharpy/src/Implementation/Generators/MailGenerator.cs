@@ -37,51 +37,29 @@ namespace Sharpy.Implementation.Generators {
         private bool Unique { get; }
 
 
-        /// <summary>
-        ///     Returns a string representing a mail address.
-        ///     This method currently can be called up 3 * ammount of mail suppliers with the same argument. After that it will
-        ///     throw an exception
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="secondName"></param>
-        /// <returns></returns>
         public string Mail(string name, string secondName) {
             if (string.IsNullOrEmpty(name))
                 throw new NullReferenceException("Argument must contain none null/empty string");
             name = name.ToLower();
-            if (string.IsNullOrEmpty(secondName)) return Mail(name);
+            if (string.IsNullOrEmpty(secondName)) return Unique ? UniqueMail(name, null) : RandomMail(name, null);
             secondName = secondName.ToLower();
             return Unique ? UniqueMail(name, secondName) : RandomMail(name, secondName);
         }
 
-        /// <summary>
-        ///     Gives a mail address with randomed separator and domain
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="secondname"></param>
-        /// <returns></returns>
-        private string RandomMail(string name, string secondname) {
-            return secondname == null
-                ? name.Append("@").Append(_emailDomains[Random.Next(_emailDomains.Count)])
-                : name.Append(Separators[Random.Next(Separators.Count)].ToString(), secondname, "@",
-                    _emailDomains[Random.Next(_emailDomains.Count)]);
-        }
+        private string RandomMail(string name, string secondname) => secondname == null
+            ? name.Append("@").Append(_emailDomains[Random.Next(_emailDomains.Count)])
+            : name.Append(Separators[Random.Next(Separators.Count)].ToString(), secondname, "@",
+                _emailDomains[Random.Next(_emailDomains.Count)]);
 
-        /// <summary>
-        ///     Will try to create an unique mail address
-        ///     If all possible combinations for the arguments used it will throw an exception
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="secondName"></param>
-        /// <returns></returns>
-        /// <exception cref="Exception"></exception>
         private string UniqueMail(string name, string secondName) {
             while (true) {
                 var resets = 0;
                 while (resets < Limit)
                     if (_emailDomainsEnumerator.MoveNext()) {
                         foreach (var separator in Separators) {
-                            var address = name.Append(separator, secondName, "@", _emailDomainsEnumerator.Current);
+                            var address = secondName != null
+                                ? name.Append(separator, secondName, "@", _emailDomainsEnumerator.Current)
+                                : name.Append("@", _emailDomainsEnumerator.Current);
                             if (HashSet.Contains(address)) continue;
                             HashSet.Add(address);
                             return address;
@@ -95,27 +73,6 @@ namespace Sharpy.Implementation.Generators {
                     }
                 // Start adding numbers.
                 secondName = OnDuplicate(secondName);
-            }
-        }
-
-
-        /// <summary>
-        ///     Returns a string representing a mail address.
-        ///     This method currently can only be called up 1 * ammount of mail suppliers with the same argument. After that it
-        ///     will throw an exception
-        /// </summary>
-        private string Mail(string name) {
-            while (true) {
-                if (string.IsNullOrEmpty(name))
-                    throw new NullReferenceException($"{nameof(name)} cannot be empty string or null");
-                if (!Unique) return RandomMail(name, null);
-                foreach (var emailDomain in _emailDomains) {
-                    var address = name.Append("@", emailDomain);
-                    if (HashSet.Contains(address)) continue;
-                    HashSet.Add(address);
-                    return address;
-                }
-                name = OnDuplicate(name);
             }
         }
 

@@ -24,13 +24,6 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void CheckMailCountUniqueFalse() {
-            var randomGenerator = Sharpy.Generator.Create();
-            randomGenerator.Config.MailGenerator(new[] {"test.com"}, false);
-            var generate = randomGenerator.Generate(generator => generator.MailAddress("hello"));
-            Assert.AreEqual(14, generate.Length);
-        }
-        [Test]
         public void CheckMailCountUniqueTrue() {
             var randomGenerator = Sharpy.Generator.Create();
             randomGenerator.Config.MailGenerator(new[] {"test.com"}, true);
@@ -44,6 +37,14 @@ namespace Tests.Generator {
             randomGenerator.Config.MailGenerator(new[] {"test.com"}, true);
             Assert.Throws<NullReferenceException>(
                 () => randomGenerator.Generate(generator => generator.MailAddress(null)));
+        }
+
+        [Test]
+        public void OneDomain_OneString_CalledOneTime_UniqueFalse() {
+            var randomGenerator = Sharpy.Generator.Create();
+            randomGenerator.Config.MailGenerator(new[] {"test.com"}, false);
+            var generate = randomGenerator.Generate(generator => generator.MailAddress("hello"));
+            Assert.AreEqual("hello@test.com", generate);
         }
 
         [Test]
