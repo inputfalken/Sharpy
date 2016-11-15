@@ -20,6 +20,11 @@ namespace Sharpy.Implementation.Generators {
 
         private IReadOnlyList<string> _emailDomains = new List<string>();
 
+
+        internal MailGenerator(IReadOnlyList<string> providers, Random random) : base(random) {
+            EmailDomains = providers;
+        }
+
         /// <summary>
         ///     Contains the email providers
         /// </summary>
@@ -35,11 +40,6 @@ namespace Sharpy.Implementation.Generators {
         ///     Contains the email providers but with saved state
         /// </summary>
         private IEnumerator<string> EmailDomainsEnumerator { get; set; }
-
-
-        internal MailGenerator(IReadOnlyList<string> providers, Random random) : base(random) {
-            EmailDomains = providers;
-        }
 
         internal bool Unique { get; set; }
 

@@ -16,6 +16,15 @@ namespace Tests.Generator {
         }
 
         [Test]
+        public void CheckMailCountUniqueTrue() {
+            var randomGenerator = Sharpy.Generator.Create();
+            randomGenerator.MailProviders = new[] {"test.com"};
+            randomGenerator.UniqueMailAddresses = true;
+            var generate = randomGenerator.Generate(generator => generator.MailAddress("hello"));
+            Assert.AreEqual(14, generate.Length);
+        }
+
+        [Test]
         public void FourDomain_TwoArgs_NoDuplicates() {
             var randomGenerator = Sharpy.Generator.Create();
             randomGenerator.MailProviders = new[] {"test.com", "test2.com", "test3.com", "test4.com"};
@@ -24,13 +33,32 @@ namespace Tests.Generator {
             Assert.IsTrue(FindDuplicates(mails).Count == 0);
         }
 
+
         [Test]
-        public void CheckMailCountUniqueTrue() {
-            var randomGenerator = Sharpy.Generator.Create();
-            randomGenerator.MailProviders = new[] {"test.com"};
-            randomGenerator.UniqueMailAddresses = true;
-            var generate = randomGenerator.Generate(generator => generator.MailAddress("hello"));
-            Assert.AreEqual(14, generate.Length);
+        public void MailAddressesAreUnique() {
+            var mailGenerator = Sharpy.Generator.Create();
+            mailGenerator.MailProviders = new[] {"gmail.com"};
+            mailGenerator.UniqueMailAddresses = true;
+
+            // Should be true since mailgenerator has been configured to produce unique mails.
+            Assert.IsTrue(
+                mailGenerator.GenerateMany(generatorr => generatorr.MailAddress(MailUserName), 100)
+                    .GroupBy(s => s)
+                    .All(grouping => grouping.Count() == 1));
+        }
+
+        [Test]
+        public void MailsAreNotnull() {
+            var generator = Sharpy.Generator.Create();
+            //Many
+            var mails = generator.GenerateMany(generatorr => generatorr.MailAddress(MailUserName), 20).ToArray();
+            Assert.IsFalse(mails.All(string.IsNullOrEmpty));
+            Assert.IsFalse(mails.All(string.IsNullOrWhiteSpace));
+
+            //Single
+            var masil = generator.Generate(generatorr => generatorr.MailAddress(MailUserName));
+            Assert.IsFalse(string.IsNullOrWhiteSpace(masil));
+            Assert.IsFalse(string.IsNullOrEmpty(masil));
         }
 
         [Test]
@@ -43,15 +71,6 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void OneDomain_OneString_CalledOneTime_UniqueFalse() {
-            var randomGenerator = Sharpy.Generator.Create();
-            randomGenerator.MailProviders = new[] {"test.com"};
-            randomGenerator.UniqueMailAddresses = false;
-            var generate = randomGenerator.Generate(generator => generator.MailAddress("hello"));
-            Assert.AreEqual("hello@test.com", generate);
-        }
-
-        [Test]
         public void OneDomain_OneString_CalledOneTime() {
             var randomGenerator = Sharpy.Generator.Create();
             randomGenerator.MailProviders = new[] {"test.com"};
@@ -59,6 +78,15 @@ namespace Tests.Generator {
             const string expected = "bob@test.com";
             var result = randomGenerator.Generate(generator => generator.MailAddress("bob"));
             Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void OneDomain_OneString_CalledOneTime_UniqueFalse() {
+            var randomGenerator = Sharpy.Generator.Create();
+            randomGenerator.MailProviders = new[] {"test.com"};
+            randomGenerator.UniqueMailAddresses = false;
+            var generate = randomGenerator.Generate(generator => generator.MailAddress("hello"));
+            Assert.AreEqual("hello@test.com", generate);
         }
 
         [Test]
@@ -212,34 +240,6 @@ namespace Tests.Generator {
             Assert.IsFalse(randomGenerator.Generate(generator => generator.MailAddress("bob", "cool")).Any(char.IsDigit));
             // All combinations have been reached now needs a number
             Assert.IsTrue(randomGenerator.Generate(generator => generator.MailAddress("bob", "cool")).Any(char.IsDigit));
-        }
-
-
-        [Test]
-        public void MailAddressesAreUnique() {
-            var mailGenerator = Sharpy.Generator.Create();
-            mailGenerator.MailProviders = new[] {"gmail.com"};
-            mailGenerator.UniqueMailAddresses = true;
-
-            // Should be true since mailgenerator has been configured to produce unique mails.
-            Assert.IsTrue(
-                mailGenerator.GenerateMany(generatorr => generatorr.MailAddress(MailUserName), 100)
-                    .GroupBy(s => s)
-                    .All(grouping => grouping.Count() == 1));
-        }
-
-        [Test]
-        public void MailsAreNotnull() {
-            var generator = Sharpy.Generator.Create();
-            //Many
-            var mails = generator.GenerateMany(generatorr => generatorr.MailAddress(MailUserName), 20).ToArray();
-            Assert.IsFalse(mails.All(string.IsNullOrEmpty));
-            Assert.IsFalse(mails.All(string.IsNullOrWhiteSpace));
-
-            //Single
-            var masil = generator.Generate(generatorr => generatorr.MailAddress(MailUserName));
-            Assert.IsFalse(string.IsNullOrWhiteSpace(masil));
-            Assert.IsFalse(string.IsNullOrEmpty(masil));
         }
     }
 }

@@ -3,11 +3,9 @@ using System.Collections.Generic;
 
 namespace Sharpy {
     /// <summary>
-    /// 
     /// </summary>
     public static class GeneratorExtensions {
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="generator"></param>
         /// <param name="func"></param>

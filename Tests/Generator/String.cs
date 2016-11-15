@@ -2,7 +2,6 @@
 using NUnit.Framework;
 using Sharpy;
 using Sharpy.Enums;
-using Sharpy.Implementation;
 using Sharpy.Implementation.DataObjects;
 
 namespace Tests.Generator {
