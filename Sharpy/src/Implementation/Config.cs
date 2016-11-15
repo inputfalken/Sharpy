@@ -53,7 +53,8 @@ namespace Sharpy.Implementation {
         internal MailGenerator Mailgen { get; private set; }
 
         private Lazy<Fetcher<string>> LazyUsernames { get; } =
-            new Lazy<Fetcher<string>>(() => new Fetcher<string>(Resources.usernames.Split(Convert.ToChar("\n"))));
+            new Lazy<Fetcher<string>>(
+                () => new Fetcher<string>(Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None)));
 
         private Fetcher<string> UserNames {
             get { return _userNames ?? LazyUsernames.Value; }
