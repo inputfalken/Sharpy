@@ -106,26 +106,13 @@ namespace Sharpy.Implementation {
             set { Mailgen.Unique = value; }
         }
 
-        /// <summary>
-        ///     This filters the names by each Region provided
-        /// </summary>
-        /// <param name="regions"></param>
-        /// <returns></returns>
-        public Config Name(params Region[] regions) {
-            foreach (var region in regions) _origins.Add(region);
-            Names = new Randomizer<Name>(Names.Where(name => regions.Contains(name.Region)));
-            return this;
-        }
-
 
         /// <summary>
         ///     Executes the predicate on each username.
         /// </summary>
-        /// <param name="predicate"></param>
         /// <returns></returns>
-        public Config UserName(Func<string, bool> predicate) {
-            UserNames = new Randomizer<string>(UserNames.Where(predicate));
-            return this;
+        public Func<string, bool> UserNamePredicate {
+            set { UserNames = new Randomizer<string>(UserNames.Where(value)); }
         }
 
         /// <summary>
