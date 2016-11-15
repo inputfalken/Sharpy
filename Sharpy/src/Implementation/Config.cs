@@ -63,6 +63,7 @@ namespace Sharpy.Implementation {
         internal Dictionary<StringType, Fetcher<string>> Dictionary { get; } =
             new Dictionary<StringType, Fetcher<string>>();
 
+        public void MailProviders(params string[] providers) => Mailgen = new MailGenerator(providers, Random); 
 
         /// <summary>
         ///     Executes the predicate on each name.
