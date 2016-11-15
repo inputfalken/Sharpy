@@ -28,8 +28,7 @@ namespace Sharpy.Implementation.Generators {
         /// </summary>
         private readonly IEnumerator<string> _emailDomainsEnumerator;
 
-        internal MailGenerator(IEnumerable<string> providers, Random random, bool unique) : base(random) {
-            Unique = unique;
+        internal MailGenerator(IEnumerable<string> providers, Random random ) : base(random) {
             foreach (var provider in providers) _emailDomains.Add(provider);
             _emailDomainsEnumerator = _emailDomains.GetEnumerator();
         }
