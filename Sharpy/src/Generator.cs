@@ -13,8 +13,8 @@ using Sharpy.Properties;
 
 namespace Sharpy {
     /// <summary>
-    ///     <para>Static generator using my implementation of IGenerator</para>
-    ///     <para>Can also create instances of the generator</para>
+    ///     <para>Static generator using my implementation of IGenerator with default configurement</para>
+    ///     <para>Instantiate this class if you wanna set configurement</para>
     ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
     /// </summary>
     /// <returns></returns>
@@ -30,7 +30,7 @@ namespace Sharpy {
         private Randomizer<string> _userNames;
 
         /// <summary>
-        ///     <para>Instantiates a new Generator and sets configurement</para>
+        ///     <para>Instantiates a new Generator</para>
         /// </summary>
         public Generator() {
             DateGenerator = new DateGenerator(Random);
