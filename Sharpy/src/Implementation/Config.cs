@@ -66,13 +66,10 @@ namespace Sharpy.Implementation {
 
 
         /// <summary>
-        ///     Executes the predicate on each name.
+        /// Executes the predicate on each firstname/lastname.
         /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns></returns>
-        public Config Name(Func<string, bool> predicate) {
-            Names = new Randomizer<Name>(Names.Where(name => predicate(name.Data)));
-            return this;
+        public Func<string, bool> NamePredicate {
+            set { Names = new Randomizer<Name>(Names.Where(name => value(name.Data))); }
         }
 
         /// <summary>
