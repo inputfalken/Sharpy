@@ -17,18 +17,20 @@ namespace Tests.Generator {
 
         [Test]
         public void CheckMailCountUniqueTrue() {
-            var randomGenerator = Sharpy.Generator.Create();
-            randomGenerator.MailProviders = new[] {"test.com"};
-            randomGenerator.UniqueMailAddresses = true;
+            var randomGenerator = new Sharpy.Generator {
+                MailProviders = new[] {"test.com"},
+                UniqueMailAddresses = true
+            };
             var generate = randomGenerator.Generate(generator => generator.MailAddress("hello"));
             Assert.AreEqual(14, generate.Length);
         }
 
         [Test]
         public void FourDomain_TwoArgs_NoDuplicates() {
-            var randomGenerator = Sharpy.Generator.Create();
-            randomGenerator.MailProviders = new[] {"test.com", "test2.com", "test3.com", "test4.com"};
-            randomGenerator.UniqueMailAddresses = true;
+            var randomGenerator = new Sharpy.Generator {
+                MailProviders = new[] {"test.com", "test2.com", "test3.com", "test4.com"},
+                UniqueMailAddresses = true
+            };
             var mails = randomGenerator.GenerateMany(generator => generator.MailAddress("john", "doe"), 12);
             Assert.IsTrue(FindDuplicates(mails).Count == 0);
         }
@@ -36,9 +38,10 @@ namespace Tests.Generator {
 
         [Test]
         public void MailAddressesAreUnique() {
-            var mailGenerator = Sharpy.Generator.Create();
-            mailGenerator.MailProviders = new[] {"gmail.com"};
-            mailGenerator.UniqueMailAddresses = true;
+            var mailGenerator = new Sharpy.Generator {
+                MailProviders = new[] {"gmail.com"},
+                UniqueMailAddresses = true
+            };
 
             // Should be true since mailgenerator has been configured to produce unique mails.
             Assert.IsTrue(
@@ -49,7 +52,7 @@ namespace Tests.Generator {
 
         [Test]
         public void MailsAreNotnull() {
-            var generator = Sharpy.Generator.Create();
+            var generator = new Sharpy.Generator();
             //Many
             var mails = generator.GenerateMany(generatorr => generatorr.MailAddress(MailUserName), 20).ToArray();
             Assert.IsFalse(mails.All(string.IsNullOrEmpty));
@@ -63,18 +66,20 @@ namespace Tests.Generator {
 
         [Test]
         public void OneDomain_null_CalledOneTime() {
-            var randomGenerator = Sharpy.Generator.Create();
-            randomGenerator.MailProviders = new[] {"test.com"};
-            randomGenerator.UniqueMailAddresses = true;
+            var randomGenerator = new Sharpy.Generator {
+                MailProviders = new[] {"test.com"},
+                UniqueMailAddresses = true
+            };
             Assert.Throws<NullReferenceException>(
                 () => randomGenerator.Generate(generator => generator.MailAddress(null)));
         }
 
         [Test]
         public void OneDomain_OneString_CalledOneTime() {
-            var randomGenerator = Sharpy.Generator.Create();
-            randomGenerator.MailProviders = new[] {"test.com"};
-            randomGenerator.UniqueMailAddresses = true;
+            var randomGenerator = new Sharpy.Generator {
+                MailProviders = new[] {"test.com"},
+                UniqueMailAddresses = true
+            };
             const string expected = "bob@test.com";
             var result = randomGenerator.Generate(generator => generator.MailAddress("bob"));
             Assert.AreEqual(expected, result);
@@ -82,18 +87,20 @@ namespace Tests.Generator {
 
         [Test]
         public void OneDomain_OneString_CalledOneTime_UniqueFalse() {
-            var randomGenerator = Sharpy.Generator.Create();
-            randomGenerator.MailProviders = new[] {"test.com"};
-            randomGenerator.UniqueMailAddresses = false;
+            var randomGenerator = new Sharpy.Generator {
+                MailProviders = new[] {"test.com"},
+                UniqueMailAddresses = false
+            };
             var generate = randomGenerator.Generate(generator => generator.MailAddress("hello"));
             Assert.AreEqual("hello@test.com", generate);
         }
 
         [Test]
         public void OneDomain_OneString_CalledTwoTimes() {
-            var randomGenerator = Sharpy.Generator.Create();
-            randomGenerator.MailProviders = new[] {"test.com"};
-            randomGenerator.UniqueMailAddresses = true;
+            var randomGenerator = new Sharpy.Generator {
+                MailProviders = new[] {"test.com"},
+                UniqueMailAddresses = true
+            };
             //Should not contain any numbers
             Assert.IsTrue(randomGenerator.Generate(generator => generator.MailAddress("bob")).Any(c => !char.IsDigit(c)));
             //Should contain a number since all possible combinations have been used
@@ -102,9 +109,10 @@ namespace Tests.Generator {
 
         [Test]
         public void OneDomain_TwoStrings_CalledOneTime() {
-            var randomGenerator = Sharpy.Generator.Create();
-            randomGenerator.MailProviders = new[] {"test.com"};
-            randomGenerator.UniqueMailAddresses = true;
+            var randomGenerator = new Sharpy.Generator {
+                MailProviders = new[] {"test.com"},
+                UniqueMailAddresses = true
+            };
             const string expected = "bob.cool@test.com";
             var result = randomGenerator.Generate(generator => generator.MailAddress("bob", "cool"));
             Assert.AreEqual(expected, result);
@@ -112,9 +120,10 @@ namespace Tests.Generator {
 
         [Test]
         public void OneDomain_TwoStrings_CalledThreeTimes() {
-            var randomGenerator = Sharpy.Generator.Create();
-            randomGenerator.MailProviders = new[] {"test.com"};
-            randomGenerator.UniqueMailAddresses = true;
+            var randomGenerator = new Sharpy.Generator {
+                MailProviders = new[] {"test.com"},
+                UniqueMailAddresses = true
+            };
             var generateMany = randomGenerator.GenerateMany(generator => generator.MailAddress("bob", "cool"), 3);
             var result = generateMany.Last();
             const string expected = "bob-cool@test.com";
@@ -123,9 +132,10 @@ namespace Tests.Generator {
 
         [Test]
         public void OneDomain_TwoStrings_CalledTwoTimes() {
-            var randomGenerator = Sharpy.Generator.Create();
-            randomGenerator.MailProviders = new[] {"test.com"};
-            randomGenerator.UniqueMailAddresses = true;
+            var randomGenerator = new Sharpy.Generator {
+                MailProviders = new[] {"test.com"},
+                UniqueMailAddresses = true
+            };
             var generate = randomGenerator.GenerateMany(generator => generator.MailAddress("bob", "cool"), 2);
             var result = generate.Last();
             const string expected = "bob_cool@test.com";
@@ -134,27 +144,30 @@ namespace Tests.Generator {
 
         [Test]
         public void OneDomain_TwoStrings_FirstNull() {
-            var randomGenerator = Sharpy.Generator.Create();
-            randomGenerator.MailProviders = new[] {"test.com"};
-            randomGenerator.UniqueMailAddresses = true;
+            var randomGenerator = new Sharpy.Generator {
+                MailProviders = new[] {"test.com"},
+                UniqueMailAddresses = true
+            };
             Assert.Throws<NullReferenceException>(
                 () => randomGenerator.Generate(generator => generator.MailAddress(null, "bob")));
         }
 
         [Test]
         public void OneDomain_TwoStrings_NoDuplicates() {
-            var randomGenerator = Sharpy.Generator.Create();
-            randomGenerator.MailProviders = new[] {"test.com"};
-            randomGenerator.UniqueMailAddresses = true;
+            var randomGenerator = new Sharpy.Generator {
+                MailProviders = new[] {"test.com"},
+                UniqueMailAddresses = true
+            };
             var generateMany = randomGenerator.GenerateMany(generator => generator.MailAddress("john", "doe"), 30);
             Assert.IsTrue(FindDuplicates(generateMany).Count == 0);
         }
 
         [Test]
         public void OneDomain_TwoStrings_SecondNull() {
-            var randomGenerator = Sharpy.Generator.Create();
-            randomGenerator.MailProviders = new[] {"test.com"};
-            randomGenerator.UniqueMailAddresses = true;
+            var randomGenerator = new Sharpy.Generator {
+                MailProviders = new[] {"test.com"},
+                UniqueMailAddresses = true
+            };
             var result = randomGenerator.Generate(generator => generator.MailAddress("bob", null));
             const string expected = "bob@test.com";
             Assert.AreEqual(expected, result);
@@ -162,35 +175,37 @@ namespace Tests.Generator {
 
         [Test]
         public void OneDomain_UniqueFalse_CheckLowerCase() {
-            var randomGenerator = Sharpy.Generator.Create();
-            randomGenerator.MailProviders = new[] {"test.com"};
+            var randomGenerator = new Sharpy.Generator {MailProviders = new[] {"test.com"}};
             var mail = randomGenerator.Generate(generator => generator.MailAddress("Bob"));
             Assert.IsTrue(mail.All(c => !char.IsUpper(c)));
         }
 
         [Test]
         public void OneDomain_UniqueTrue_CheckLowerCase() {
-            var randomGenerator = Sharpy.Generator.Create();
-            randomGenerator.MailProviders = new[] {"test.com"};
-            randomGenerator.UniqueMailAddresses = true;
+            var randomGenerator = new Sharpy.Generator {
+                MailProviders = new[] {"test.com"},
+                UniqueMailAddresses = true
+            };
             var mail = randomGenerator.Generate(generator => generator.MailAddress("Bob"));
             Assert.IsTrue(mail.All(c => !char.IsUpper(c)));
         }
 
         [Test]
         public void ThreeDomain_TwoStrings_NoDuplicates() {
-            var randomGenerator = Sharpy.Generator.Create();
-            randomGenerator.MailProviders = new[] {"test.com", "test2.com", "test3.com"};
-            randomGenerator.UniqueMailAddresses = true;
+            var randomGenerator = new Sharpy.Generator {
+                MailProviders = new[] {"test.com", "test2.com", "test3.com"},
+                UniqueMailAddresses = true
+            };
             var mails = randomGenerator.GenerateMany(generator => generator.MailAddress("john", "doe"), 9);
             Assert.IsTrue(FindDuplicates(mails).Count == 0);
         }
 
         [Test]
         public void TwoDomain_OneString_CalledOneTime() {
-            var randomGenerator = Sharpy.Generator.Create();
-            randomGenerator.MailProviders = new[] {"test.com", "foo.com"};
-            randomGenerator.UniqueMailAddresses = true;
+            var randomGenerator = new Sharpy.Generator {
+                MailProviders = new[] {"test.com", "foo.com"},
+                UniqueMailAddresses = true
+            };
             const string expected = "bob@test.com";
             var result = randomGenerator.Generate(generator => generator.MailAddress("bob"));
             Assert.AreEqual(expected, result);
@@ -198,9 +213,10 @@ namespace Tests.Generator {
 
         [Test]
         public void TwoDomain_OneString_CalledThreeTimes() {
-            var randomGenerator = Sharpy.Generator.Create();
-            randomGenerator.MailProviders = new[] {"test.com", "foo.com"};
-            randomGenerator.UniqueMailAddresses = true;
+            var randomGenerator = new Sharpy.Generator {
+                MailProviders = new[] {"test.com", "foo.com"},
+                UniqueMailAddresses = true
+            };
             Assert.IsFalse(randomGenerator.Generate(generator => generator.MailAddress("bob")).Any(char.IsDigit));
             Assert.IsFalse(randomGenerator.Generate(generator => generator.MailAddress("bob")).Any(char.IsDigit));
             // All possible combinations have been used now needs a number
@@ -209,9 +225,10 @@ namespace Tests.Generator {
 
         [Test]
         public void TwoDomain_OneString_CalledTwoTimes() {
-            var randomGenerator = Sharpy.Generator.Create();
-            randomGenerator.MailProviders = new[] {"test.com", "foo.com"};
-            randomGenerator.UniqueMailAddresses = true;
+            var randomGenerator = new Sharpy.Generator {
+                MailProviders = new[] {"test.com", "foo.com"},
+                UniqueMailAddresses = true
+            };
             const string expected = "bob@foo.com";
             var generateMany = randomGenerator.GenerateMany(generator => generator.MailAddress("bob"), 2);
 
@@ -221,18 +238,20 @@ namespace Tests.Generator {
 
         [Test]
         public void TwoDomain_TwoStrings_NoDuplicates() {
-            var randomGenerator = Sharpy.Generator.Create();
-            randomGenerator.MailProviders = new[] {"test.com", "test2.com"};
-            randomGenerator.UniqueMailAddresses = true;
+            var randomGenerator = new Sharpy.Generator {
+                MailProviders = new[] {"test.com", "test2.com"},
+                UniqueMailAddresses = true
+            };
             var mails = randomGenerator.GenerateMany(generator => generator.MailAddress("john", "doe"), 6);
             Assert.IsTrue(FindDuplicates(mails).Count == 0);
         }
 
         [Test]
         public void TwoStrings_CalledFourTimes() {
-            var randomGenerator = Sharpy.Generator.Create();
-            randomGenerator.MailProviders = new[] {"test.com"};
-            randomGenerator.UniqueMailAddresses = true;
+            var randomGenerator = new Sharpy.Generator {
+                MailProviders = new[] {"test.com"},
+                UniqueMailAddresses = true
+            };
 
 
             Assert.IsFalse(randomGenerator.Generate(generator => generator.MailAddress("bob", "cool")).Any(char.IsDigit));
