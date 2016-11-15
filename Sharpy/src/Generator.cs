@@ -13,11 +13,9 @@ using Sharpy.Properties;
 
 namespace Sharpy {
     /// <summary>
-    ///     <para>Static generator using my implementation of IGenerator with default configurement</para>
-    ///     <para>Instantiate this class if you wanna set configurement</para>
+    ///     <para>My implementation of IGenerator</para>
     ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
     /// </summary>
-    /// <returns></returns>
     public sealed class Generator : IGenerator<StringType> {
         private const string NoSet = "None Set";
 
@@ -41,7 +39,6 @@ namespace Sharpy {
         }
 
 
-        private static Generator StaticGen { get; } = new Generator();
         private NumberGenerator PhoneNumberGenerator { get; }
 
         private SecurityNumberGen SocialSecurityNumberGenerator { get; }
@@ -213,35 +210,6 @@ namespace Sharpy {
 
         private static string FormatDigit(int i) => i < 10 ? Prefix(i, 1) : i.ToString();
 
-
-        /// <summary>
-        ///     <para>Generates a IEnumerable&lt;T&gt;.</para>
-        /// </summary>
-        /// <param name="count">Count of IEnumerable&lt;T&gt;</param>
-        /// <param name="func">The argument supplied is used to get the data. The item returned will be generated.</param>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public static IEnumerable<T> GenerateEnumerable<T>(Func<IGenerator<StringType>, T> func, int count = 10)
-            => StaticGen.GenerateMany(func, count);
-
-        /// <summary>
-        ///     <para>Generates a IEnumerable&lt;T&gt;.</para>
-        ///     <para>Includes an integer counting iterations.</para>
-        /// </summary>
-        /// <param name="count">Count of IEnumerable&lt;T&gt;</param>
-        /// <param name="func">The argument supplied is used to get the data. The item returned will be generated.</param>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public static IEnumerable<T> GenerateEnumerable<T>(Func<IGenerator<StringType>, int, T> func, int count = 10)
-            => StaticGen.GenerateMany(func, count);
-
-        /// <summary>
-        ///     <para>Generates a &lt;T&gt;.</para>
-        /// </summary>
-        /// <param name="func">The argument supplied is used to get the data. The item returned will be generated.</param>
-        /// <returns></returns>
-        public static T GenerateInstance<T>(Func<IGenerator<StringType>, T> func)
-            => StaticGen.Generate(func);
 
         /// <inheritdoc />
         public override string ToString() {
