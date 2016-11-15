@@ -78,7 +78,10 @@ namespace Sharpy.Implementation {
         /// </summary>
         /// <returns></returns>
         public IReadOnlyList<Country> NameCountries {
-            set { Names = new Randomizer<Name>(Names.Where(name => value.Contains(name.Country))); }
+            set {
+                foreach (var country in value) _origins.Add(country);
+                Names = new Randomizer<Name>(Names.Where(name => value.Contains(name.Country)));
+            }
         }
 
         /// <summary>
@@ -86,7 +89,10 @@ namespace Sharpy.Implementation {
         /// </summary>
         /// <returns></returns>
         public IReadOnlyList<Region> NameRegion {
-            set { Names = new Randomizer<Name>(Names.Where(name => value.Contains(name.Region))); }
+            set {
+                foreach (var region in value) _origins.Add(region);
+                Names = new Randomizer<Name>(Names.Where(name => value.Contains(name.Region)));
+            }
         }
 
         /// <summary>
