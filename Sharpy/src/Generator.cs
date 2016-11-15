@@ -34,7 +34,7 @@ namespace Sharpy {
         }
 
         /// <summary>
-        /// Instantiates a new Generator
+        ///     <para>Instantiates a new Generator</para>
         /// </summary>
         public Generator() {
             DateGenerator = new DateGenerator(Random);
@@ -83,7 +83,7 @@ namespace Sharpy {
 
 
         /// <summary>
-        ///     Executes the predicate on each firstname/lastname.
+        ///     <para>Sets the predicate which will be executed on each Firstname/Lastname.</para>
         /// </summary>
         public Func<string, bool> NamePredicate {
             set { Names = new Randomizer<Name>(Names.Where(name => value(name.Data))); }
@@ -91,10 +91,10 @@ namespace Sharpy {
 
 
         /// <summary>
-        ///     Sets Countries which Firstname/lastname are from.
+        ///     <para>Sets Countries which Firstname/Lastname are from.</para>
         /// </summary>
         /// <returns></returns>
-        public IReadOnlyList<Country> NameCountries {
+        public IReadOnlyList<Country> Countries {
             set {
                 foreach (var country in value) _origins.Add(country);
                 Names = new Randomizer<Name>(Names.Where(name => value.Contains(name.Country)));
@@ -102,10 +102,10 @@ namespace Sharpy {
         }
 
         /// <summary>
-        ///     Sets Regions which Firstname/lastname are from.
+        ///     <para>Sets Regions which Firstname/lastname are from.</para>
         /// </summary>
         /// <returns></returns>
-        public IReadOnlyList<Region> NameRegion {
+        public IReadOnlyList<Region> Regions {
             set {
                 foreach (var region in value) _origins.Add(region);
                 Names = new Randomizer<Name>(Names.Where(name => value.Contains(name.Region)));
@@ -129,16 +129,15 @@ namespace Sharpy {
 
 
         /// <summary>
-        ///     Executes the predicate on each username.
+        ///     <para>Sets the predicate which will be executed on each UserName.</para>
         /// </summary>
-        /// <returns></returns>
         public Func<string, bool> UserNamePredicate {
             set { UserNames = new Randomizer<string>(UserNames.Where(value)); }
         }
 
 
         /// <summary>
-        ///     Sets the seed for Generator.
+        ///     <para>Sets the seed for Generator.</para>
         /// </summary>
         public int Seed {
             set {
