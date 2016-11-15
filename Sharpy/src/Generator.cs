@@ -29,10 +29,6 @@ namespace Sharpy {
 
         private Randomizer<string> _userNames;
 
-        static Generator() {
-            StaticGen = Create();
-        }
-
         /// <summary>
         ///     <para>Instantiates a new Generator and sets configurement</para>
         /// </summary>
@@ -45,7 +41,7 @@ namespace Sharpy {
         }
 
 
-        private static Generator StaticGen { get; }
+        private static Generator StaticGen { get; } = new Generator();
         private NumberGenerator PhoneNumberGenerator { get; }
 
         private SecurityNumberGen SocialSecurityNumberGenerator { get; }
@@ -217,11 +213,6 @@ namespace Sharpy {
 
         private static string FormatDigit(int i) => i < 10 ? Prefix(i, 1) : i.ToString();
 
-        /// <summary>
-        ///     <para>Creates a new instance of Generator.</para>
-        /// </summary>
-        /// <returns></returns>
-        public static Generator Create() => new Generator();
 
         /// <summary>
         ///     <para>Generates a IEnumerable&lt;T&gt;.</para>
