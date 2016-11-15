@@ -14,6 +14,7 @@ using Sharpy.Properties;
 namespace Sharpy {
     /// <summary>
     ///     <para>My implementation of IGenerator</para>
+    ///     <para>Contains properties which you can optionally set to change the behavior of the Generator.</para>
     ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
     /// </summary>
     public sealed class Generator : IGenerator<StringType> {
@@ -76,7 +77,8 @@ namespace Sharpy {
 
 
         /// <summary>
-        ///     <para>Sets the predicate which will be executed on each Firstname/Lastname.</para>
+        ///     <para>Sets the predicate which will be executed on each Firstname and Lastname.</para>
+        ///     <para>This affects IGenerator's String method when you pass FirstName and Lastname as argument.</para>
         /// </summary>
         public Func<string, bool> NamePredicate {
             set { Names = new Randomizer<Name>(Names.Where(name => value(name.Data))); }
@@ -84,7 +86,8 @@ namespace Sharpy {
 
 
         /// <summary>
-        ///     <para>Sets Countries which Firstname/Lastname are from.</para>
+        ///     <para>Sets Countries which Firstname and Lastname are from.</para>
+        ///     <para>This affects IGenerator's String method when you pass FirstName and Lastname as argument.</para>
         /// </summary>
         /// <returns></returns>
         public IReadOnlyList<Country> Countries {
@@ -95,7 +98,8 @@ namespace Sharpy {
         }
 
         /// <summary>
-        ///     <para>Sets Regions which Firstname/lastname are from.</para>
+        ///     <para>Sets Regions which Firstname and Lastname are from.</para>
+        ///     <para>This affects IGenerator's String method when you pass FirstName and Lastname as argument</para>
         /// </summary>
         /// <returns></returns>
         public IReadOnlyList<Region> Regions {
@@ -106,7 +110,8 @@ namespace Sharpy {
         }
 
         /// <summary>
-        ///     <para>Sets the mailproviders which will be used for mailgenerator.</para>
+        ///     <para>Sets the mailproviders which will be used for generating MailAddresses.</para>
+        ///     <para>This affects IGenerator's MailAddress method.</para>
         /// </summary>
         //public void MailProviders(params string[] providers) => Mailgen.EmailDomains = providers;
         public IReadOnlyList<string> MailProviders {
@@ -115,6 +120,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>Sets if mailaddresses are gonna be unique.</para>
+        ///     <para>This affects IGenerator's MailAddress method.</para>
         /// </summary>
         public bool UniqueMailAddresses {
             set { Mailgen.Unique = value; }
@@ -123,6 +129,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>Sets the predicate which will be executed on each UserName.</para>
+        ///     <para>This affects IGenerator's String method when you use UserName as argument.</para>
         /// </summary>
         public Func<string, bool> UserNamePredicate {
             set { UserNames = new Randomizer<string>(UserNames.Where(value)); }
@@ -131,6 +138,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>Sets the seed for Generator.</para>
+        ///     <para>This affects every method in IGenerator to generate same results everytime the program is executed.</para>
         /// </summary>
         public int Seed {
             set {
