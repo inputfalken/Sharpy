@@ -25,7 +25,7 @@ namespace Sharpy.Implementation {
 
         internal Config() {
             DateGenerator = new DateGenerator(Random);
-            Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random, false);
+            Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random);
             NumberGen = new NumberGenerator(Random);
             SocialSecurityNumberGenerator = new SecurityNumberGen(Random);
             PhoneNumberGenerator = new NumberGenerator(Random);
@@ -109,8 +109,8 @@ namespace Sharpy.Implementation {
         /// <param name="providers"></param>
         /// <param name="uniqueAddresses">For Unique Addresses</param>
         /// <returns></returns>
-        public Config MailGenerator(IEnumerable<string> providers, bool uniqueAddresses = false) {
-            Mailgen = new MailGenerator(providers, Random, uniqueAddresses);
+        public Config MailGenerator(IEnumerable<string> providers) {
+            Mailgen = new MailGenerator(providers, Random);
             return this;
         }
 
