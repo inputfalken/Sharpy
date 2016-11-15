@@ -85,6 +85,10 @@ namespace Sharpy.Implementation {
             return this;
         }
 
+        public bool UniqueMailAddresses {
+            get { return Mailgen.Unique; }
+            set { Mailgen.Unique = value; }
+        }
 
         /// <summary>
         ///     This filters the names by each Region provided

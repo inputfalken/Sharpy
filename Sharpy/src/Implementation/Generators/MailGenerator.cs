@@ -34,7 +34,7 @@ namespace Sharpy.Implementation.Generators {
             _emailDomainsEnumerator = _emailDomains.GetEnumerator();
         }
 
-        private bool Unique { get; }
+        internal bool Unique { get; set; }
 
 
         public string Mail(string name, string secondName) {
