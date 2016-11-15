@@ -40,10 +40,7 @@ namespace Sharpy.Implementation.Generators {
         public string Mail(string name, string secondName) {
             if (string.IsNullOrEmpty(name))
                 throw new NullReferenceException("Argument must contain none null/empty string");
-            name = name.ToLower();
-            if (string.IsNullOrEmpty(secondName)) return Unique ? UniqueMail(name, null) : RandomMail(name, null);
-            secondName = secondName.ToLower();
-            return Unique ? UniqueMail(name, secondName) : RandomMail(name, secondName);
+            return Unique ? UniqueMail(name, secondName) : RandomMail(name, secondName).ToLower();
         }
 
         private string RandomMail(string name, string secondname) => secondname == null
@@ -58,8 +55,8 @@ namespace Sharpy.Implementation.Generators {
                     if (_emailDomainsEnumerator.MoveNext()) {
                         foreach (var separator in Separators) {
                             var address = secondName != null
-                                ? name.Append(separator, secondName, "@", _emailDomainsEnumerator.Current)
-                                : name.Append("@", _emailDomainsEnumerator.Current);
+                                ? name.Append(separator, secondName, "@", _emailDomainsEnumerator.Current).ToLower()
+                                : name.Append("@", _emailDomainsEnumerator.Current).ToLower();
                             if (HashSet.Contains(address)) continue;
                             HashSet.Add(address);
                             return address;

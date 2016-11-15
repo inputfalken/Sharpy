@@ -125,7 +125,7 @@ namespace Tests.Generator {
         public void OneDomain_UniqueFalse_CheckLowerCase() {
             var randomGenerator = Sharpy.Generator.Create();
             randomGenerator.Config.MailGenerator(new[] {"test.com"});
-            var mail = randomGenerator.Generate(generator => generator.MailAddress("bob"));
+            var mail = randomGenerator.Generate(generator => generator.MailAddress("Bob"));
             Assert.IsTrue(mail.All(c => !char.IsUpper(c)));
         }
 
@@ -133,7 +133,7 @@ namespace Tests.Generator {
         public void OneDomain_UniqueTrue_CheckLowerCase() {
             var randomGenerator = Sharpy.Generator.Create();
             randomGenerator.Config.MailGenerator(new[] {"test.com"}, true);
-            var mail = randomGenerator.Generate(generator => generator.MailAddress("bob"));
+            var mail = randomGenerator.Generate(generator => generator.MailAddress("Bob"));
             Assert.IsTrue(mail.All(c => !char.IsUpper(c)));
         }
 
