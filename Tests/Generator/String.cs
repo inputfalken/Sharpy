@@ -10,8 +10,8 @@ namespace Tests.Generator {
     public class String {
         [SetUp]
         public void Setup() {
-            var config = new Config();
-            _names = config.Names.ToArray();
+            var generator = new Sharpy.Generator();
+            _names = generator.Names.ToArray();
         }
 
         private Name[] _names;

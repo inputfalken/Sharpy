@@ -58,7 +58,6 @@
     <Compile Include="src\GeneratorExtensions.cs" />
     <Compile Include="src\Implementation\ExtensionMethods\Shuffling.cs" />
     <Compile Include="src\Implementation\ExtensionMethods\RandomExtensions.cs" />
-    <Compile Include="src\Implementation\Config.cs" />
     <Compile Include="src\Enums\Origin.cs" />
     <Compile Include="src\Enums\StringType.cs" />
     <Compile Include="src\IGenerator.cs" />
