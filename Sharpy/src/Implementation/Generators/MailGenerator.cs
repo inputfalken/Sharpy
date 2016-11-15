@@ -18,23 +18,27 @@ namespace Sharpy.Implementation.Generators {
             '-'
         };
 
+        private IReadOnlyList<string> _emailDomains = new List<string>();
+
         /// <summary>
         ///     Contains the email providers
         /// </summary>
-        private IReadOnlyList<string> EmailDomains { get; set; } = new List<string>();
+        public IReadOnlyList<string> EmailDomains {
+            get { return _emailDomains; }
+            set {
+                EmailDomainsEnumerator = value.GetEnumerator();
+                _emailDomains = value;
+            }
+        }
 
         /// <summary>
         ///     Contains the email providers but with saved state
         /// </summary>
         private IEnumerator<string> EmailDomainsEnumerator { get; set; }
 
-        public void SetProviders(IReadOnlyList<string> providers) {
-            EmailDomains = providers;
-            EmailDomainsEnumerator = providers.GetEnumerator();
-        }
 
         internal MailGenerator(IReadOnlyList<string> providers, Random random) : base(random) {
-            SetProviders(providers);
+            EmailDomains = providers;
         }
 
         internal bool Unique { get; set; }

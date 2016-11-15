@@ -88,8 +88,11 @@ namespace Sharpy.Implementation {
         /// <summary>
         /// <para>Changes the mail providers used by the mailgenerator</para>
         /// </summary>
-        /// <param name="providers">The providers to be used in the generator.</param>
-        public void MailProviders(params string[] providers) => Mailgen.SetProviders(providers);
+        //public void MailProviders(params string[] providers) => Mailgen.EmailDomains = providers;
+        public IReadOnlyList<string> MailProviders {
+            get { return Mailgen.EmailDomains; }
+            set { Mailgen.EmailDomains = value; }
+        }
 
         /// <summary>
         /// <para>Gets or Sets if mail addresses will be unique.</para>
