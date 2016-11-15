@@ -87,7 +87,7 @@ namespace Sharpy.Implementation {
         }
 
         /// <summary>
-        /// <para>Changes the mail providers used by the mailgenerator</para>
+        /// <para>Sets the mailproviders which will be used for mailgenerator.</para>
         /// </summary>
         //public void MailProviders(params string[] providers) => Mailgen.EmailDomains = providers;
         public IReadOnlyList<string> MailProviders {
@@ -95,7 +95,7 @@ namespace Sharpy.Implementation {
         }
 
         /// <summary>
-        /// <para>Gets or Sets if mail addresses will be unique.</para>
+        /// <para>Sets if mailaddresses are gonna be unique.</para>
         /// </summary>
         public bool UniqueMailAddresses {
             set { Mailgen.Unique = value; }
