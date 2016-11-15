@@ -18,15 +18,15 @@ namespace Tests.Generator {
         [Test]
         public void NamesAreFilteredByGender() {
             var femaleNameGenerator =
-                Sharpy.Generator.Create();
+                new Sharpy.Generator();
             var femaleNames = _names.Where(name => name.Type == 1).Select(name => name.Data).ToArray();
             var maleNameGenerator =
-                Sharpy.Generator.Create();
+                new Sharpy.Generator();
             var maleNames = _names.Where(name => name.Type == 2).Select(name => name.Data).ToArray();
-            var lastNameGenerator = Sharpy.Generator.Create();
+            var lastNameGenerator = new Sharpy.Generator();
             var lastNames = _names.Where(name => name.Type == 3).Select(name => name.Data).ToArray();
             var mixedFirstNameGenerator =
-                Sharpy.Generator.Create();
+                new Sharpy.Generator();
             var mixedNames =
                 _names.Where(name => (name.Type == 1) | (name.Type == 2)).Select(name => name.Data).ToArray();
             //Many
@@ -58,7 +58,7 @@ namespace Tests.Generator {
 
         [Test]
         public void NamesAreNotNull() {
-            var generator = Sharpy.Generator.Create();
+            var generator = new Sharpy.Generator();
             //Many
             var names = generator.GenerateMany(generatorr => generatorr.String(StringType.AnyName), 20).ToArray();
             Assert.IsFalse(names.All(string.IsNullOrEmpty));
@@ -72,7 +72,7 @@ namespace Tests.Generator {
 
         [Test]
         public void UserNamesAreNotNull() {
-            var generator = Sharpy.Generator.Create();
+            var generator = new Sharpy.Generator();
             //Many
             var userNames = generator.GenerateMany(generatorr => generatorr.String(StringType.UserName), 20).ToArray();
             Assert.IsFalse(userNames.All(string.IsNullOrEmpty));

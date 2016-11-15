@@ -8,7 +8,7 @@ namespace Tests.Generator {
         [Test]
         public void IteratorWithEnumerable() {
             var iteration = 0;
-            var gen = Sharpy.Generator.Create();
+            var gen = new Sharpy.Generator();
             var result = gen.GenerateMany((generator, i) => iteration++ == i, 20).ToArray();
             Assert.IsTrue(result.All(b => b));
         }

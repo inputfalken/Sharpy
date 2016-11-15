@@ -8,7 +8,7 @@ namespace Tests.Generator {
     public class SocialSecurity {
         [Test]
         public void AllContainsDashAtSameIndex() {
-            var generator = Sharpy.Generator.Create();
+            var generator = new Sharpy.Generator();
 
             var generateMany = generator.GenerateMany(generatorr =>
                     generatorr.SocialSecurityNumber(generatorr.DateByAge(generatorr.Integer(19, 20))), 10000).ToArray();
@@ -18,7 +18,7 @@ namespace Tests.Generator {
 
         [Test]
         public void AllSameLength() {
-            var generator = Sharpy.Generator.Create();
+            var generator = new Sharpy.Generator();
 
             var generateMany = generator.GenerateMany(generatorr =>
                     generatorr.SocialSecurityNumber(generatorr.DateByAge(generatorr.Integer(19, 20))), 10000);
@@ -27,7 +27,7 @@ namespace Tests.Generator {
 
         [Test]
         public void AllUnique() {
-            var generator = Sharpy.Generator.Create();
+            var generator = new Sharpy.Generator();
 
             var generateMany = generator.GenerateMany(generatorr =>
                     generatorr.SocialSecurityNumber(generatorr.DateByAge(generatorr.Integer(19, 20))), 10000);
@@ -38,7 +38,7 @@ namespace Tests.Generator {
         [Test]
         public void CheckCombination() {
             var generateMany =
-                Sharpy.Generator.Create()
+                new Sharpy.Generator()
                     .GenerateMany(generator => generator.SocialSecurityNumber(new LocalDate(2000, 10, 10)), 10000);
             //The test checks that it works like the following algorithm (10^(4)) and that all strings got same length.
             Assert.IsTrue(
@@ -47,7 +47,7 @@ namespace Tests.Generator {
 
         [Test]
         public void WithNoFormating() {
-            var generator = Sharpy.Generator.Create();
+            var generator = new Sharpy.Generator();
 
             var generateMany = generator.GenerateMany(generatorr =>
                         generatorr.SocialSecurityNumber(generatorr.DateByAge(generatorr.Integer(19, 20)), false), 10000)
