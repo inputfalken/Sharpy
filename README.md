@@ -1,4 +1,4 @@
-# Sharpy 1.3.1
+# Sharpy 2.0.0
 
 The idea of this project is to let users have a source to fetch random data from.
 
@@ -11,15 +11,17 @@ using Sharpy.Enums;
 
 namespace ConsoleApp {
     internal static class Program {
+        private static Generator Generator { get; } = new Generator();
+
         public static void Main() {
             // First argument is the instructions on what will be generated, 
             // second argument is the Count of the IEnumerable.
-            IEnumerable<Person> people = Generator.GenerateEnumerable(generator => new Person {
+            IEnumerable<Person> people = Generator.GenerateMany(generator => new Person {
                 FirstName = generator.String(StringType.FirstName),
                 LastName = generator.String(StringType.LastName)
             }, 20);
             // Creates one person with randomized names.
-            Person person = Generator.GenerateInstance(generator => new Person {
+            Person person = Generator.Generate(generator => new Person {
                 FirstName = generator.String(StringType.FirstName),
                 LastName = generator.String(StringType.LastName)
             });
@@ -39,7 +41,7 @@ using Sharpy;
 using Sharpy.Enums;
 
 namespace ConsoleApp {
-      internal static class Program {
+    internal static class Program {
         private static Generator Generator { get; } = new Generator {
             // This limits Firstnames and Lastnames to United States.
             Countries = new[] {Country.UnitedStates},
@@ -53,9 +55,6 @@ namespace ConsoleApp {
                 FirstName = generator.String(StringType.FirstName),
                 LastName = generator.String(StringType.LastName)
             }, 20);
-            foreach (var person in people) {
-                Console.WriteLine(person.FirstName);
-            }
         }
 
         private class Person {
@@ -73,13 +72,15 @@ using Sharpy.Enums;
 
 namespace ConsoleApp {
     internal static class Program {
+        private static Generator Generator { get; } = new Generator();
+
         public static void Main() {
-            IEnumerable<Person> people = Generator.GenerateEnumerable(generator => new Person {
+            IEnumerable<Person> people = Generator.GenerateMany(generator => new Person {
                 FirstName = generator.String(StringType.FirstName),
                 LastName = generator.String(StringType.LastName),
                 // Just pass an Class using IList or params!
                 // This shows a params example.
-                WorkPlace = generator.CustomCollection("Workplace1", "workplace2")
+                WorkPlace = generator.Params("Workplace1", "workplace2")
             }, 20);
         }
     }
@@ -99,14 +100,16 @@ using Sharpy.Enums;
 
 namespace ConsoleApp {
     internal static class Program {
+        private static Generator Generator { get; } = new Generator();
+
         public static void Main() {
-            IEnumerable<Person> people = Generator.GenerateEnumerable(generator => new Person {
+            IEnumerable<Person> people = Generator.GenerateMany(generator => new Person {
                 FirstName = generator.String(StringType.FirstName),
                 LastName = generator.String(StringType.LastName)
             }, 20);
 
             // Just use the same generator and call GenerateEnumerable!
-            IEnumerable<Animal> animals = Generator.GenerateEnumerable(generator => new Animal {
+            IEnumerable<Animal> animals = Generator.GenerateMany(generator => new Animal {
                 Age = generator.Integer(10, 50)
             }, 20);
         }
@@ -130,8 +133,10 @@ using Sharpy.Enums;
 
 namespace ConsoleApp {
     internal static class Program {
+        private static Generator Generator { get; } = new Generator();
+
         public static void Main() {
-            IEnumerable<Person> people = Generator.GenerateEnumerable(generator => new Person {
+            IEnumerable<Person> people = Generator.GenerateMany(generator => new Person {
                 FirstName = generator.String(StringType.FirstName),
                 LastName = generator.String(StringType.LastName),
                 //Just call GenerateEnumerable but inside the type generated!
@@ -161,9 +166,11 @@ using Sharpy.Enums;
 
 namespace ConsoleApp {
     internal static class Program {
+        private static Generator Generator { get; } = new Generator();
+
         public static void Main() {
             //At the moment you have to make a statement lambda.
-            IEnumerable<Person> people = Generator.GenerateEnumerable(generator => {
+            IEnumerable<Person> people = Generator.GenerateMany(generator => {
                 //Reference the result from the generator methods
                 var firstName = generator.String(StringType.FirstName);
                 var lastName = generator.String(StringType.LastName);
@@ -186,6 +193,7 @@ namespace ConsoleApp {
         public string MailAddress { get; set; }
     }
 }
+
 ```
 These examples show how you can use the Generator static method & properties.
 
