@@ -56,6 +56,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="src\GeneratorExtensions.cs" />
+    <Compile Include="src\Implementation\ExtensionMethods\ReadOnlyListExtensions.cs" />
     <Compile Include="src\Implementation\ExtensionMethods\Shuffling.cs" />
     <Compile Include="src\Implementation\ExtensionMethods\RandomExtensions.cs" />
     <Compile Include="src\Enums\Origin.cs" />
@@ -66,7 +67,6 @@
     <Compile Include="src\Implementation\ExtensionMethods\StringExtensions.cs" />
     <Compile Include="src\Implementation\Generators\NumberGenerator.cs" />
     <Compile Include="src\Implementation\Generators\DateGenerator.cs" />
-    <Compile Include="src\Implementation\Randomizer.cs" />
     <Compile Include="src\Implementation\Generators\MailGenerator.cs" />
     <Compile Include="src\Implementation\DataObjects\Name.cs" />
     <Compile Include="src\Implementation\Generators\SecurityNumberGen.cs" />

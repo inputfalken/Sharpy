@@ -5,7 +5,6 @@ using System.Text;
 using Newtonsoft.Json;
 using NodaTime;
 using Sharpy.Enums;
-using Sharpy.Implementation;
 using Sharpy.Implementation.DataObjects;
 using Sharpy.Implementation.ExtensionMethods;
 using Sharpy.Implementation.Generators;
@@ -32,12 +31,12 @@ namespace Sharpy {
         private static readonly int DefaultSeed = (int) SystemClock.Instance.Now.Ticks & 0x0000FFFF;
 
         private readonly HashSet<Enum> _origins = new HashSet<Enum>();
-        private Randomizer<Name> _names;
+        private IEnumerable<Name> _names;
         private Tuple<int, int> _phoneState;
 
         private int _seed = DefaultSeed;
 
-        private Randomizer<string> _userNames;
+        private IEnumerable<string> _userNames;
 
         /// <summary>
         ///     <para>Instantiates a new Generator</para>
@@ -55,11 +54,11 @@ namespace Sharpy {
 
         private SecurityNumberGen SocialSecurityNumberGenerator { get; }
 
-        private Lazy<Randomizer<Name>> LazyNames { get; } =
-            new Lazy<Randomizer<Name>>(() => new Randomizer<Name>(JsonConvert.DeserializeObject<IEnumerable<Name>>(
-                Encoding.UTF8.GetString(Resources.NamesByOrigin))));
+        private Lazy<IEnumerable<Name>> LazyNames { get; } =
+            new Lazy<IEnumerable<Name>>(() => JsonConvert.DeserializeObject<IEnumerable<Name>>(
+                Encoding.UTF8.GetString(Resources.NamesByOrigin)));
 
-        internal Randomizer<Name> Names {
+        internal IEnumerable<Name> Names {
             get { return _names ?? LazyNames.Value; }
             private set { _names = value; }
         }
@@ -71,11 +70,11 @@ namespace Sharpy {
 
         private MailGenerator Mailgen { get; }
 
-        private Lazy<Randomizer<string>> LazyUsernames { get; } =
-            new Lazy<Randomizer<string>>(
-                () => new Randomizer<string>(Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None)));
+        private Lazy<IEnumerable<string>> LazyUsernames { get; } =
+            new Lazy<IEnumerable<string>>(() => Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None))
+            ;
 
-        private Randomizer<string> UserNames {
+        private IEnumerable<string> UserNames {
             get { return _userNames ?? LazyUsernames.Value; }
             set { _userNames = value; }
         }
@@ -88,7 +87,7 @@ namespace Sharpy {
         ///     <para>This affects IGenerator's String method when you pass FirstName and Lastname as argument.</para>
         /// </summary>
         public Func<string, bool> NamePredicate {
-            set { Names = new Randomizer<Name>(Names.Where(name => value(name.Data))); }
+            set { Names = Names.Where(name => value(name.Data)); }
         }
 
 
@@ -100,7 +99,7 @@ namespace Sharpy {
         public IReadOnlyList<Country> Countries {
             set {
                 foreach (var country in value) _origins.Add(country);
-                Names = new Randomizer<Name>(Names.Where(name => value.Contains(name.Country)));
+                Names = Names.Where(name => value.Contains(name.Country));
             }
         }
 
@@ -112,7 +111,7 @@ namespace Sharpy {
         public IReadOnlyList<Region> Regions {
             set {
                 foreach (var region in value) _origins.Add(region);
-                Names = new Randomizer<Name>(Names.Where(name => value.Contains(name.Region)));
+                Names = Names.Where(name => value.Contains(name.Region));
             }
         }
 
@@ -139,7 +138,7 @@ namespace Sharpy {
         ///     <para>This affects IGenerator's String method when you use UserName as argument.</para>
         /// </summary>
         public Func<string, bool> UserNamePredicate {
-            set { UserNames = new Randomizer<string>(UserNames.Where(value)); }
+            set { UserNames = UserNames.Where(value); }
         }
 
 
@@ -257,9 +256,5 @@ namespace Sharpy {
                     throw new ArgumentOutOfRangeException(nameof(stringType), stringType, null);
             }
         }
-    }
-
-    internal static class MyClass {
-        internal static T RandomItem<T>(this IReadOnlyList<T> list, Random random) => list[random.Next(list.Count)];
     }
 }
