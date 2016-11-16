@@ -185,13 +185,12 @@ namespace Sharpy {
         LocalDate IGenerator<StringType>.DateByYear(int year) => DateGenerator.RandomDateByYear(year);
 
         string IGenerator<StringType>.SocialSecurityNumber(LocalDate date, bool formated) {
-            var securityNumber =
-                SocialSecurityNumberGenerator
-                    .SecurityNumber(Random.Next(10000),
-                        FormatDigit(date.YearOfCentury).Append(FormatDigit(date.Month), FormatDigit(date.Day)))
-                    .ToString();
+            var result = SocialSecurityNumberGenerator.SecurityNumber(Random.Next(10000),
+                FormatDigit(date.YearOfCentury).Append(FormatDigit(date.Month), FormatDigit(date.Day)));
+            if (result == -1) throw new Exception("You have reached the maxium possible combinations for a controlnumber");
+            var securityNumber = result.ToString();
             if (securityNumber.Length != 10)
-                securityNumber = Prefix(securityNumber, 10 - securityNumber.Length);
+                securityNumber = Prefix(result, 10 - securityNumber.Length);
             return formated ? securityNumber.Insert(6, "-") : securityNumber;
         }
 
