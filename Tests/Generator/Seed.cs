@@ -1,6 +1,5 @@
 ﻿using System.Threading;
 using NUnit.Framework;
-using NUnit.Framework.Internal.Execution;
 using Sharpy;
 using Sharpy.Enums;
 
@@ -20,6 +19,26 @@ namespace Tests.Generator {
             var g2 = new Sharpy.Generator {Seed = TestSeed};
             var expected = g1.Generate(g => g.Bool());
             var result = g2.Generate(g => g.Bool());
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void Generate_DateByAge() {
+            var g1 = new Sharpy.Generator {Seed = TestSeed};
+            Thread.Sleep(20);
+            var g2 = new Sharpy.Generator {Seed = TestSeed};
+            var expected = g1.Generate(generator => generator.DateByAge(20));
+            var result = g2.Generate(generator => generator.DateByAge(20));
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void Generate_DateByYear() {
+            var g1 = new Sharpy.Generator {Seed = TestSeed};
+            Thread.Sleep(20);
+            var g2 = new Sharpy.Generator {Seed = TestSeed};
+            var expected = g1.Generate(generator => generator.DateByAge(2000));
+            var result = g2.Generate(generator => generator.DateByAge(2000));
             Assert.AreEqual(expected, result);
         }
 
@@ -132,22 +151,13 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void Generate_DateByAge() {
+        public void Generate_MailAddress() {
+            const string name = "bob";
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
-            var expected = g1.Generate(generator => generator.DateByAge(20));
-            var result = g2.Generate(generator => generator.DateByAge(20));
-            Assert.AreEqual(expected, result);
-        }
-
-        [Test]
-        public void Generate_DateByYear() {
-            var g1 = new Sharpy.Generator {Seed = TestSeed};
-            Thread.Sleep(20);
-            var g2 = new Sharpy.Generator {Seed = TestSeed};
-            var expected = g1.Generate(generator => generator.DateByAge(2000));
-            var result = g2.Generate(generator => generator.DateByAge(2000));
+            var expected = g1.Generate(generator => generator.MailAddress(name));
+            var result = g2.Generate(generator => generator.MailAddress(name));
             Assert.AreEqual(expected, result);
         }
 
@@ -246,6 +256,26 @@ namespace Tests.Generator {
             var g2 = new Sharpy.Generator {Seed = TestSeed};
             var expected = g1.GenerateMany(g => g.Bool());
             var result = g2.GenerateMany(g => g.Bool());
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void GenerateMany_DateByAge() {
+            var g1 = new Sharpy.Generator {Seed = TestSeed};
+            Thread.Sleep(20);
+            var g2 = new Sharpy.Generator {Seed = TestSeed};
+            var expected = g1.GenerateMany(generator => generator.DateByAge(20));
+            var result = g2.GenerateMany(generator => generator.DateByAge(20));
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void GenerateMany_DateByYear() {
+            var g1 = new Sharpy.Generator {Seed = TestSeed};
+            Thread.Sleep(20);
+            var g2 = new Sharpy.Generator {Seed = TestSeed};
+            var expected = g1.GenerateMany(generator => generator.DateByAge(2000));
+            var result = g2.GenerateMany(generator => generator.DateByAge(2000));
             Assert.AreEqual(expected, result);
         }
 
@@ -367,22 +397,13 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void GenerateMany_DateByAge() {
+        public void GenerateMany_MailAddress() {
+            const string name = "bob";
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
-            var expected = g1.GenerateMany(generator => generator.DateByAge(20));
-            var result = g2.GenerateMany(generator => generator.DateByAge(20));
-            Assert.AreEqual(expected, result);
-        }
-
-        [Test]
-        public void GenerateMany_DateByYear() {
-            var g1 = new Sharpy.Generator {Seed = TestSeed};
-            Thread.Sleep(20);
-            var g2 = new Sharpy.Generator {Seed = TestSeed};
-            var expected = g1.GenerateMany(generator => generator.DateByAge(2000));
-            var result = g2.GenerateMany(generator => generator.DateByAge(2000));
+            var expected = g1.GenerateMany(generator => generator.MailAddress(name));
+            var result = g2.GenerateMany(generator => generator.MailAddress(name));
             Assert.AreEqual(expected, result);
         }
 
