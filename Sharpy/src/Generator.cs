@@ -155,9 +155,9 @@ namespace Sharpy {
         }
 
 
-        T IGenerator<StringType>.Params<T>(params T[] items) => items[Random.Next(items.Length)];
+        T IGenerator<StringType>.Params<T>(params T[] items) => items.RandomItem(Random);
 
-        T IGenerator<StringType>.CustomCollection<T>(IList<T> items) => items[Random.Next(items.Count)];
+        T IGenerator<StringType>.CustomCollection<T>(IReadOnlyList<T> items) => items.RandomItem(Random);
 
         string IGenerator<StringType>.String(StringType type) {
             if (!Dictionary.ContainsKey(type))
