@@ -13,14 +13,15 @@ using Sharpy.Properties;
 
 namespace Sharpy {
     /// <summary>
-    ///     <para>My implementation of IGenerator</para>
-    ///     <para>
-    ///         By default multiple generator will generate the same results each execution. To change this behavior
-    ///         you can change the Seed.
-    ///     </para>
-    ///     <para>Contains properties which you can optionally set to change the behavior of the Generator.</para>
-    ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
+    ///     <para> My implementation of IGenerator</para>
     /// </summary>
+    /// <remarks>
+    ///     <para>
+    ///         By default multiple generator instances will generate the same results each execution.
+    ///     </para>
+    ///     <para> Contains properties which you can optionally set to change the behavior of the Generator.</para>
+    ///     <para> For examples please visit https://github.com/inputfalken/Sharpy </para>
+    /// </remarks>
     public sealed class Generator : IGenerator<StringType> {
         private const string NoSet = "None Set";
 
