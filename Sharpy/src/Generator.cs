@@ -203,10 +203,13 @@ namespace Sharpy {
             //If phonestate has changed
             if ((_phoneState == null) || (_phoneState.Item1 != length))
                 _phoneState = new Tuple<int, int>(length, (int) Math.Pow(10, length) - 1);
-            var randomNumber = PhoneNumberGenerator.RandomNumber(0, _phoneState.Item2, true).ToString();
-            return randomNumber.Length != length
-                ? prefix + Prefix(randomNumber, length - randomNumber.Length)
-                : prefix + randomNumber;
+            var res = PhoneNumberGenerator.RandomNumber(0, _phoneState.Item2, true);
+            if (res == -1) throw new Exception("You reached maxium Ammount of combinations for the Length used");
+
+            var phoneNumber = res.ToString();
+            return phoneNumber.Length != length
+                ? prefix + Prefix(phoneNumber, length - phoneNumber.Length)
+                : prefix + phoneNumber;
         }
 
         long IGenerator<StringType>.Long(long min, long max) => Random.NextLong(min, max);
