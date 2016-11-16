@@ -21,6 +21,30 @@ namespace Tests.Generator {
         private const int Count = 100;
 
         [Test]
+        public void Compare_Generator_Seed_Default_Default() {
+            var g1 = new Sharpy.Generator();
+            Thread.Sleep(20);
+            var g2 = new Sharpy.Generator();
+            Assert.AreEqual(g1.Seed, g2.Seed);
+        }
+
+        [Test]
+        public void Compare_Generator_Seed_Default_Set() {
+            var g1 = new Sharpy.Generator {Seed = TestSeed};
+            Thread.Sleep(20);
+            var g2 = new Sharpy.Generator();
+            Assert.AreNotEqual(g1.Seed, g2.Seed);
+        }
+
+        [Test]
+        public void Compare_Generator_Seed_Set_Set() {
+            var g1 = new Sharpy.Generator {Seed = TestSeed};
+            Thread.Sleep(20);
+            var g2 = new Sharpy.Generator {Seed = TestSeed};
+            Assert.AreEqual(g1.Seed, g2.Seed);
+        }
+
+        [Test]
         public void Generate_Bool() {
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
@@ -188,6 +212,18 @@ namespace Tests.Generator {
             const int age = 20;
             var expected = g1.Generate(g => g.SocialSecurityNumber(g.DateByAge(age)));
             var result = g2.Generate(g => g.SocialSecurityNumber(g.DateByAge(age)));
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void Generate_SecurityNumber_Formated_False() {
+            var g1 = new Sharpy.Generator {Seed = TestSeed};
+            Thread.Sleep(20);
+            var g2 = new Sharpy.Generator {Seed = TestSeed};
+
+            const int age = 20;
+            var expected = g1.Generate(g => g.SocialSecurityNumber(g.DateByAge(age), false));
+            var result = g2.Generate(g => g.SocialSecurityNumber(g.DateByAge(age), false));
             Assert.AreEqual(expected, result);
         }
 
@@ -425,6 +461,18 @@ namespace Tests.Generator {
             const int age = 20;
             var expected = g1.GenerateMany(g => g.SocialSecurityNumber(g.DateByAge(age)), Count);
             var result = g2.GenerateMany(g => g.SocialSecurityNumber(g.DateByAge(age)), Count);
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void GenerateMany_SecurityNumber_Formated_False() {
+            var g1 = new Sharpy.Generator {Seed = TestSeed};
+            Thread.Sleep(20);
+            var g2 = new Sharpy.Generator {Seed = TestSeed};
+
+            const int age = 20;
+            var expected = g1.GenerateMany(g => g.SocialSecurityNumber(g.DateByAge(age), false), Count);
+            var result = g2.GenerateMany(g => g.SocialSecurityNumber(g.DateByAge(age), false), Count);
             Assert.AreEqual(expected, result);
         }
 

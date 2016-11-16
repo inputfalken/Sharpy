@@ -14,23 +14,27 @@ using Sharpy.Properties;
 namespace Sharpy {
     /// <summary>
     ///     <para>My implementation of IGenerator</para>
+    ///     <para>
+    ///         By default multiple generator will generate the same results each execution. To change this behavior
+    ///         you can change the Seed.
+    ///     </para>
     ///     <para>Contains properties which you can optionally set to change the behavior of the Generator.</para>
     ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
     /// </summary>
     public sealed class Generator : IGenerator<StringType> {
+        private const string NoSet = "None Set";
+
         /// <summary>
         ///     <para>This captures the current Ticks once each time the program is executed.</para>
-        ///     <para>Making multiple generators have the same seed each execution.</para>
+        ///     <para>Multiple generators will have the same seed.</para>
         /// </summary>
-        private static readonly int Ticks = (int) SystemClock.Instance.Now.Ticks & 0x0000FFFF;
-
-        private const string NoSet = "None Set";
+        private static readonly int DefaultSeed = (int) SystemClock.Instance.Now.Ticks & 0x0000FFFF;
 
         private readonly HashSet<Enum> _origins = new HashSet<Enum>();
         private Randomizer<Name> _names;
         private Tuple<int, int> _phoneState;
 
-        private int _seed = Ticks;
+        private int _seed = DefaultSeed;
 
         private Randomizer<string> _userNames;
 
@@ -148,7 +152,7 @@ namespace Sharpy {
         ///     <para>This affects every method in IGenerator to generate same results everytime the program is executed.</para>
         /// </summary>
         public int Seed {
-            private get { return _seed; }
+            internal get { return _seed; }
             set {
                 _seed = value;
                 Random = new Random(value);
