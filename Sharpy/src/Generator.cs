@@ -80,8 +80,7 @@ namespace Sharpy {
             set { _userNames = value; }
         }
 
-        private Dictionary<StringType, Randomizer<string>> Dictionary { get; } =
-            new Dictionary<StringType, Randomizer<string>>();
+        private Dictionary<StringType, string[]> Dictionary { get; } = new Dictionary<StringType, string[]>();
 
 
         /// <summary>
@@ -163,7 +162,7 @@ namespace Sharpy {
 
         string IGenerator<StringType>.String(StringType type) {
             if (!Dictionary.ContainsKey(type))
-                Dictionary.Add(type, new Randomizer<string>(StringType(type)));
+                Dictionary.Add(type, StringType(type).ToArray());
             return Dictionary[type].RandomItem(Random);
         }
 
@@ -258,5 +257,9 @@ namespace Sharpy {
                     throw new ArgumentOutOfRangeException(nameof(stringType), stringType, null);
             }
         }
+    }
+
+    internal static class MyClass {
+        internal static T RandomItem<T>(this IReadOnlyList<T> list, Random random) => list[random.Next(list.Count)];
     }
 }
