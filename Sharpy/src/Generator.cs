@@ -18,13 +18,19 @@ namespace Sharpy {
     ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
     /// </summary>
     public sealed class Generator : IGenerator<StringType> {
+        /// <summary>
+        ///     <para>This captures the current Ticks once each time the program is executed.</para>
+        ///     <para>Making multiple generators have the same seed each execution.</para>
+        /// </summary>
+        private static readonly int Ticks = (int) SystemClock.Instance.Now.Ticks & 0x0000FFFF;
+
         private const string NoSet = "None Set";
 
         private readonly HashSet<Enum> _origins = new HashSet<Enum>();
         private Randomizer<Name> _names;
         private Tuple<int, int> _phoneState;
 
-        private string _seed;
+        private int _seed = Ticks;
 
         private Randomizer<string> _userNames;
 
@@ -32,6 +38,7 @@ namespace Sharpy {
         ///     <para>Instantiates a new Generator</para>
         /// </summary>
         public Generator() {
+            Random = new Random(Seed);
             DateGenerator = new DateGenerator(Random);
             Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random);
             NumberGen = new NumberGenerator(Random);
@@ -54,7 +61,7 @@ namespace Sharpy {
         }
 
 
-        private Random Random { get; set; } = new Random();
+        private Random Random { get; set; }
         private DateGenerator DateGenerator { get; }
 
 
@@ -141,8 +148,9 @@ namespace Sharpy {
         ///     <para>This affects every method in IGenerator to generate same results everytime the program is executed.</para>
         /// </summary>
         public int Seed {
+            private get { return _seed; }
             set {
-                _seed = value.ToString();
+                _seed = value;
                 Random = new Random(value);
             }
         }
@@ -226,7 +234,7 @@ namespace Sharpy {
                 if (origin.Equals(_origins.Last())) origins += origin;
                 else origins += $"{origin}, ";
             return
-                $"Seed: {_seed ?? NoSet}. Using default for System.Random\n" +
+                $"Seed: {_seed}. Using default for System.Random\n" +
                 $"Mail: {Mailgen}\n" +
                 $"Name: Origins: {(string.IsNullOrEmpty(origins) ? NoSet : origins)}";
         }
