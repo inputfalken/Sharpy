@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using NodaTime;
 using NUnit.Framework;
 using Sharpy;
@@ -6,54 +7,52 @@ using Sharpy;
 namespace Tests.Generator {
     [TestFixture]
     public class SocialSecurity {
+        /// <summary>
+        /// This number is maxium ammount of possible number per date. 
+        /// </summary>
+        private const int Limit = 10000;
+
         [Test]
-        public void AllContainsDashAtSameIndex() {
-            var generator = new Sharpy.Generator();
-
-            var generateMany = generator.GenerateMany(generatorr =>
-                    generatorr.SocialSecurityNumber(generatorr.DateByAge(generatorr.Integer(19, 20))), 10000).ToArray();
-
-            Assert.IsTrue(generateMany.All(s => s[6] == '-'));
+        public void Create_Max_Ammount_Not_Throw() {
+            var gen = new Sharpy.Generator();
+            var result = gen.GenerateMany(g => g.SocialSecurityNumber(new LocalDate(2000, 10, 10)), Limit);
+            Assert.DoesNotThrow(() => result.ToArray());
         }
 
         [Test]
-        public void AllSameLength() {
-            var generator = new Sharpy.Generator();
-
-            var generateMany = generator.GenerateMany(generatorr =>
-                    generatorr.SocialSecurityNumber(generatorr.DateByAge(generatorr.Integer(19, 20))), 10000);
-            Assert.IsTrue(generateMany.All(s => s.Length == 11));
+        public void Crate_More_Max_Combination_Throws() {
+            var gen = new Sharpy.Generator();
+            var result = gen.GenerateMany(g => g.SocialSecurityNumber(new LocalDate(2000, 10, 10)), Limit + 1);
+            Assert.Throws<Exception>(() => result.ToArray());
         }
 
         [Test]
-        public void AllUnique() {
-            var generator = new Sharpy.Generator();
-
-            var generateMany = generator.GenerateMany(generatorr =>
-                    generatorr.SocialSecurityNumber(generatorr.DateByAge(generatorr.Integer(19, 20))), 10000);
-            // Will look for repeats and expected behaviour is that it should only contain 1 repeat per grouping.
-            Assert.IsTrue(generateMany.GroupBy(s => s).All(grouping => grouping.Count() == 1));
+        public void All_Are_Unique() {
+            var gen = new Sharpy.Generator();
+            var result = gen.GenerateMany(g => g.SocialSecurityNumber(new LocalDate(2000, 10, 10)), Limit);
+            Assert.IsTrue(result.GroupBy(s => s).All(grouping => grouping.Count() == 1));
         }
 
         [Test]
-        public void CheckCombination() {
-            var generateMany =
-                new Sharpy.Generator()
-                    .GenerateMany(generator => generator.SocialSecurityNumber(new LocalDate(2000, 10, 10)), 10000);
-            //The test checks that it works like the following algorithm (10^(4)) and that all strings got same length.
-            Assert.IsTrue(
-                generateMany.GroupBy(s => s).All(grouping => (grouping.Count() == 1) && (grouping.Key.Length == 11)));
+        public void All_Contains_Dash_At_Same_Index_When_Formated() {
+            var gen = new Sharpy.Generator();
+            var result = gen.GenerateMany(g => g.SocialSecurityNumber(new LocalDate(2000, 10, 10)), Limit);
+            Assert.IsTrue(result.All(s => s[6] == '-'));
         }
 
         [Test]
-        public void WithNoFormating() {
-            var generator = new Sharpy.Generator();
+        public void All_Got_Same_Length() {
+            var gen = new Sharpy.Generator();
+            var result = gen.GenerateMany(g => g.SocialSecurityNumber(new LocalDate(2000, 10, 10)), Limit);
+            Assert.IsTrue(result.All(s => s.Length == 11));
+        }
 
-            var generateMany = generator.GenerateMany(generatorr =>
-                        generatorr.SocialSecurityNumber(generatorr.DateByAge(generatorr.Integer(19, 20)), false), 10000)
-                .ToArray();
 
-            Assert.IsTrue(generateMany.All(s => s.All(char.IsNumber)));
+        [Test]
+        public void No_Dash_With_False_Formating() {
+            var gen = new Sharpy.Generator();
+            var result = gen.GenerateMany(g => g.SocialSecurityNumber(new LocalDate(2000, 10, 10), false), Limit);
+            Assert.IsTrue(result.All(s => s.All(char.IsNumber)));
         }
     }
 }
