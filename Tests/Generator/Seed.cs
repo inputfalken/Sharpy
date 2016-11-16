@@ -10,7 +10,14 @@ namespace Tests.Generator {
     /// </summary>
     [TestFixture]
     public class Seed {
+        /// <summary>
+        /// <para>The seed given to all Generator instance created in the tests.</para>
+        /// </summary>
         private const int TestSeed = 100;
+
+        /// <summary>
+        /// <para>The ammount generated from GenrateMany Tests.</para>
+        /// </summary>
         private const int Count = 100;
 
         [Test]
