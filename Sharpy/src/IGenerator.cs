@@ -19,7 +19,7 @@ namespace Sharpy {
         /// </summary>
         /// <param name="items">The collection to be used.</param>
         /// <typeparam name="T">A random item from the collection.</typeparam>
-        T CustomCollection<T>(IList<T> items);
+        T CustomCollection<T>(IReadOnlyList<T> items);
 
         /// <summary>
         ///     <para>Returns a generated a string based on argument</para>
