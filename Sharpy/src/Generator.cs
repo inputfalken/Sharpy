@@ -160,8 +160,10 @@ namespace Sharpy {
         T IGenerator<StringType>.CustomCollection<T>(IList<T> items) => items[Random.Next(items.Count)];
 
         string IGenerator<StringType>.String(StringType type) {
-            if (!Dictionary.ContainsKey(type))
-                Dictionary.Add(type, StringType(type).ToArray());
+            if (Dictionary.ContainsKey(type)) return Dictionary[type].RandomItem(Random);
+            var strings = StringType(type).ToArray();
+            if (strings.Any()) Dictionary.Add(type, strings);
+            else throw new Exception("Can't obtain strings with this configuration");
             return Dictionary[type].RandomItem(Random);
         }
 
