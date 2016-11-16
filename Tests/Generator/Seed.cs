@@ -11,6 +11,7 @@ namespace Tests.Generator {
     [TestFixture]
     public class Seed {
         private const int TestSeed = 100;
+        private const int Count = 100;
 
         [Test]
         public void Generate_Bool() {
@@ -27,8 +28,8 @@ namespace Tests.Generator {
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
-            var expected = g1.Generate(generator => generator.DateByAge(20));
-            var result = g2.Generate(generator => generator.DateByAge(20));
+            var expected = g1.Generate(g => g.DateByAge(20));
+            var result = g2.Generate(g => g.DateByAge(20));
             Assert.AreEqual(expected, result);
         }
 
@@ -37,8 +38,8 @@ namespace Tests.Generator {
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
-            var expected = g1.Generate(generator => generator.DateByAge(2000));
-            var result = g2.Generate(generator => generator.DateByAge(2000));
+            var expected = g1.Generate(g => g.DateByAge(2000));
+            var result = g2.Generate(g => g.DateByAge(2000));
             Assert.AreEqual(expected, result);
         }
 
@@ -244,8 +245,8 @@ namespace Tests.Generator {
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
 
-            var generateManyA = g1.GenerateMany(g => g.String(StringType.UserName));
-            var generateManyB = g2.GenerateMany(g => g.String(StringType.UserName));
+            var generateManyA = g1.GenerateMany(g => g.String(StringType.UserName), Count);
+            var generateManyB = g2.GenerateMany(g => g.String(StringType.UserName), Count);
             Assert.AreEqual(generateManyA, generateManyB);
         }
 
@@ -254,8 +255,8 @@ namespace Tests.Generator {
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
-            var expected = g1.GenerateMany(g => g.Bool());
-            var result = g2.GenerateMany(g => g.Bool());
+            var expected = g1.GenerateMany(g => g.Bool(), Count);
+            var result = g2.GenerateMany(g => g.Bool(), Count);
             Assert.AreEqual(expected, result);
         }
 
@@ -264,8 +265,8 @@ namespace Tests.Generator {
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
-            var expected = g1.GenerateMany(generator => generator.DateByAge(20));
-            var result = g2.GenerateMany(generator => generator.DateByAge(20));
+            var expected = g1.GenerateMany(generator => generator.DateByAge(20), Count);
+            var result = g2.GenerateMany(generator => generator.DateByAge(20), Count);
             Assert.AreEqual(expected, result);
         }
 
@@ -274,8 +275,8 @@ namespace Tests.Generator {
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
-            var expected = g1.GenerateMany(generator => generator.DateByAge(2000));
-            var result = g2.GenerateMany(generator => generator.DateByAge(2000));
+            var expected = g1.GenerateMany(generator => generator.DateByAge(2000), Count);
+            var result = g2.GenerateMany(generator => generator.DateByAge(2000), Count);
             Assert.AreEqual(expected, result);
         }
 
@@ -285,9 +286,8 @@ namespace Tests.Generator {
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
-            const int count = 1000;
-            var expected = g2.GenerateMany(g => g.Double(), count);
-            var result = g1.GenerateMany(g => g.Double(), count);
+            var expected = g2.GenerateMany(g => g.Double(), Count);
+            var result = g1.GenerateMany(g => g.Double(), Count);
             Assert.AreEqual(result, expected);
         }
 
@@ -298,9 +298,8 @@ namespace Tests.Generator {
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
-            const int count = 1000;
-            var expected = g2.GenerateMany(g => g.Double(max), count);
-            var result = g1.GenerateMany(g => g.Double(max), count);
+            var expected = g2.GenerateMany(g => g.Double(max), Count);
+            var result = g1.GenerateMany(g => g.Double(max), Count);
             Assert.AreEqual(result, expected);
         }
 
@@ -312,9 +311,8 @@ namespace Tests.Generator {
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
-            const int count = 1000;
-            var expected = g1.GenerateMany(g => g.Double(min, max), count);
-            var result = g2.GenerateMany(g => g.Double(min, max), count);
+            var expected = g1.GenerateMany(g => g.Double(min, max), Count);
+            var result = g2.GenerateMany(g => g.Double(min, max), Count);
             Assert.AreEqual(expected, result);
         }
 
@@ -324,9 +322,8 @@ namespace Tests.Generator {
             var generator = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var generator2 = new Sharpy.Generator {Seed = TestSeed};
-            const int count = 1000;
-            var expected = generator2.GenerateMany(g => g.Integer(), count);
-            var result = generator.GenerateMany(g => g.Integer(), count);
+            var expected = generator2.GenerateMany(g => g.Integer(), Count);
+            var result = generator.GenerateMany(g => g.Integer(), Count);
             Assert.AreEqual(result, expected);
         }
 
@@ -337,9 +334,8 @@ namespace Tests.Generator {
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
-            const int count = 1000;
-            var expected = g2.GenerateMany(g => g.Integer(max), count);
-            var result = g1.GenerateMany(g => g.Integer(max), count);
+            var expected = g2.GenerateMany(g => g.Integer(max), Count);
+            var result = g1.GenerateMany(g => g.Integer(max), Count);
             Assert.AreEqual(result, expected);
         }
 
@@ -351,9 +347,8 @@ namespace Tests.Generator {
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
-            const int count = 1000;
-            var expected = g2.GenerateMany(g => g.Integer(min, max), count);
-            var result = g1.GenerateMany(g => g.Integer(min, max), count);
+            var expected = g2.GenerateMany(g => g.Integer(min, max), Count);
+            var result = g1.GenerateMany(g => g.Integer(min, max), Count);
             Assert.AreEqual(result, expected);
         }
 
@@ -363,9 +358,8 @@ namespace Tests.Generator {
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
-            const int count = 1000;
-            var expected = g2.GenerateMany(g => g.Long(), count);
-            var result = g1.GenerateMany(g => g.Long(), count);
+            var expected = g2.GenerateMany(g => g.Long(), Count);
+            var result = g1.GenerateMany(g => g.Long(), Count);
             Assert.AreEqual(result, expected);
         }
 
@@ -375,10 +369,9 @@ namespace Tests.Generator {
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
-            const int count = 1000;
             const long max = long.MaxValue - 3923329;
-            var expected = g2.GenerateMany(g => g.Long(max), count);
-            var result = g1.GenerateMany(g => g.Long(max), count);
+            var expected = g2.GenerateMany(g => g.Long(max), Count);
+            var result = g1.GenerateMany(g => g.Long(max), Count);
             Assert.AreEqual(result, expected);
         }
 
@@ -388,11 +381,10 @@ namespace Tests.Generator {
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
-            const int count = 1000;
             const long max = long.MaxValue - 3923329;
             const long min = long.MinValue + 3923329;
-            var expected = g2.GenerateMany(g => g.Long(min, max), count);
-            var result = g1.GenerateMany(g => g.Long(min, max), count);
+            var expected = g2.GenerateMany(g => g.Long(min, max), Count);
+            var result = g1.GenerateMany(g => g.Long(min, max), Count);
             Assert.AreEqual(result, expected);
         }
 
@@ -402,8 +394,8 @@ namespace Tests.Generator {
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
-            var expected = g1.GenerateMany(generator => generator.MailAddress(name));
-            var result = g2.GenerateMany(generator => generator.MailAddress(name));
+            var expected = g1.GenerateMany(generator => generator.MailAddress(name), Count);
+            var result = g2.GenerateMany(generator => generator.MailAddress(name), Count);
             Assert.AreEqual(expected, result);
         }
 
@@ -412,92 +404,85 @@ namespace Tests.Generator {
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
-            var expected = g1.GenerateMany(g => g.PhoneNumber(10));
-            var result = g2.GenerateMany(g => g.PhoneNumber(10));
+            var expected = g1.GenerateMany(g => g.PhoneNumber(10), Count);
+            var result = g2.GenerateMany(g => g.PhoneNumber(10), Count);
             Assert.AreEqual(expected, result);
         }
 
         [Test]
         public void GenerateMany_SecurityNumber_Formated_True() {
-            const int count = 100;
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
 
             const int age = 20;
-            var expected = g1.GenerateMany(g => g.SocialSecurityNumber(g.DateByAge(age)), count);
-            var result = g2.GenerateMany(g => g.SocialSecurityNumber(g.DateByAge(age)), count);
+            var expected = g1.GenerateMany(g => g.SocialSecurityNumber(g.DateByAge(age)), Count);
+            var result = g2.GenerateMany(g => g.SocialSecurityNumber(g.DateByAge(age)), Count);
             Assert.AreEqual(expected, result);
         }
 
         [Test]
         public void GenerateMany_String_AnyName() {
-            const int count = 100;
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
 
-            var expected = g1.GenerateMany(g => g.String(StringType.AnyName), count);
-            var result = g2.GenerateMany(g => g.String(StringType.AnyName), count);
+            var expected = g1.GenerateMany(g => g.String(StringType.AnyName), Count);
+            var result = g2.GenerateMany(g => g.String(StringType.AnyName), Count);
             Assert.AreEqual(expected, result);
         }
 
         [Test]
         public void GenerateMany_String_FemaleFirstName() {
-            const int count = 100;
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
 
-            var expected = g1.GenerateMany(g => g.String(StringType.FemaleFirstName), count);
-            var result = g2.GenerateMany(g => g.String(StringType.FemaleFirstName), count);
+            var expected = g1.GenerateMany(g => g.String(StringType.FemaleFirstName), Count);
+            var result = g2.GenerateMany(g => g.String(StringType.FemaleFirstName), Count);
             Assert.AreEqual(expected, result);
         }
 
         [Test]
         public void GenerateMany_String_FirstName() {
-            const int count = 100;
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
 
-            var expected = g1.GenerateMany(g => g.String(StringType.FirstName), count);
-            var result = g2.GenerateMany(g => g.String(StringType.FirstName), count);
+            var expected = g1.GenerateMany(g => g.String(StringType.FirstName), Count);
+            var result = g2.GenerateMany(g => g.String(StringType.FirstName), Count);
             Assert.AreEqual(expected, result);
         }
 
         [Test]
         public void GenerateMany_String_LastName() {
-            const int count = 100;
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
-            var expected = g1.GenerateMany(g => g.String(StringType.LastName), count);
-            var result = g2.GenerateMany(g => g.String(StringType.LastName), count);
+            var expected = g1.GenerateMany(g => g.String(StringType.LastName), Count);
+            var result = g2.GenerateMany(g => g.String(StringType.LastName), Count);
             Assert.AreEqual(expected, result);
         }
 
         [Test]
         public void GenerateMany_String_MaleFirstName() {
-            const int count = 100;
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
 
-            var generateManyA = g1.GenerateMany(g => g.String(StringType.MaleFirstName), count);
-            var generateManyB = g2.GenerateMany(g => g.String(StringType.MaleFirstName), count);
+            var generateManyA = g1.GenerateMany(g => g.String(StringType.MaleFirstName), Count);
+            var generateManyB = g2.GenerateMany(g => g.String(StringType.MaleFirstName), Count);
             Assert.AreEqual(generateManyA, generateManyB);
         }
 
         [Test]
         public void GenerateMany_String_UserName() {
-            const int count = 100;
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
 
-            var generateManyA = g1.GenerateMany(g => g.String(StringType.UserName), count);
-            var generateManyB = g2.GenerateMany(g => g.String(StringType.UserName), count);
+            var generateManyA = g1.GenerateMany(g => g.String(StringType.UserName), Count);
+            var generateManyB = g2.GenerateMany(g => g.String(StringType.UserName), Count);
             Assert.AreEqual(generateManyA, generateManyB);
         }
     }
