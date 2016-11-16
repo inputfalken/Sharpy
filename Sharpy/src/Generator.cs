@@ -46,7 +46,6 @@ namespace Sharpy {
             Random = new Random(Seed);
             DateGenerator = new DateGenerator(Random);
             Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random);
-            NumberGen = new NumberGenerator(Random);
             SocialSecurityNumberGenerator = new SecurityNumberGen(Random);
             PhoneNumberGenerator = new NumberGenerator(Random);
         }
@@ -68,9 +67,6 @@ namespace Sharpy {
 
         private Random Random { get; set; }
         private DateGenerator DateGenerator { get; }
-
-
-        private NumberGenerator NumberGen { get; }
 
 
         private MailGenerator Mailgen { get; }
