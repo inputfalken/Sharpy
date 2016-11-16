@@ -132,6 +132,26 @@ namespace Tests.Generator {
         }
 
         [Test]
+        public void Generate_DateByAge() {
+            var g1 = new Sharpy.Generator {Seed = TestSeed};
+            Thread.Sleep(20);
+            var g2 = new Sharpy.Generator {Seed = TestSeed};
+            var expected = g1.Generate(generator => generator.DateByAge(20));
+            var result = g2.Generate(generator => generator.DateByAge(20));
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void Generate_DateByYear() {
+            var g1 = new Sharpy.Generator {Seed = TestSeed};
+            Thread.Sleep(20);
+            var g2 = new Sharpy.Generator {Seed = TestSeed};
+            var expected = g1.Generate(generator => generator.DateByAge(2000));
+            var result = g2.Generate(generator => generator.DateByAge(2000));
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
         public void Generate_PhoneNumber() {
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
@@ -344,6 +364,26 @@ namespace Tests.Generator {
             var expected = g2.GenerateMany(g => g.Long(min, max), count);
             var result = g1.GenerateMany(g => g.Long(min, max), count);
             Assert.AreEqual(result, expected);
+        }
+
+        [Test]
+        public void GenerateMany_DateByAge() {
+            var g1 = new Sharpy.Generator {Seed = TestSeed};
+            Thread.Sleep(20);
+            var g2 = new Sharpy.Generator {Seed = TestSeed};
+            var expected = g1.GenerateMany(generator => generator.DateByAge(20));
+            var result = g2.GenerateMany(generator => generator.DateByAge(20));
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void GenerateMany_DateByYear() {
+            var g1 = new Sharpy.Generator {Seed = TestSeed};
+            Thread.Sleep(20);
+            var g2 = new Sharpy.Generator {Seed = TestSeed};
+            var expected = g1.GenerateMany(generator => generator.DateByAge(2000));
+            var result = g2.GenerateMany(generator => generator.DateByAge(2000));
+            Assert.AreEqual(expected, result);
         }
 
         [Test]
