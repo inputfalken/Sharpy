@@ -21,6 +21,8 @@
     <releaseNotes>
       1: Removes static Generation methods on Generator.
       2: Removes Config class, instead you have properties you can se on the generator class.
+      3: Removes ToString Option on Generator.
+      4: Adds Error handling for IGenerator's String, PhoneNumber, SocialSecurity Number.
     </releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Fakedata Generator Generic</tags>
