@@ -29,7 +29,7 @@ namespace Sharpy {
         private static readonly int DefaultSeed = (int) SystemClock.Instance.Now.Ticks & 0x0000FFFF;
 
         private IEnumerable<Name> _names;
-        private Tuple<int, int> _phoneState;
+        private Tuple<int, int> _phoneState = new Tuple<int, int>(0, 0);
 
         private int _seed = DefaultSeed;
 
@@ -194,7 +194,7 @@ namespace Sharpy {
         // The combinations possible is 10^length
         string IGenerator<StringType>.PhoneNumber(int length, string prefix) {
             //If phonestate has changed
-            if ((_phoneState == null) || (_phoneState.Item1 != length))
+            if (_phoneState.Item1 != length)
                 _phoneState = new Tuple<int, int>(length, (int) Math.Pow(10, length) - 1);
             var res = PhoneNumberGenerator.RandomNumber(0, _phoneState.Item2, true);
             if (res == -1) throw new Exception("You reached maxium Ammount of combinations for the Length used");
