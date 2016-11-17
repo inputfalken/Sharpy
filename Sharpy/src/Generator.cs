@@ -22,15 +22,12 @@ namespace Sharpy {
     ///     <para> For examples please visit https://github.com/inputfalken/Sharpy </para>
     /// </remarks>
     public sealed class Generator : IGenerator<StringType> {
-        private const string NoSet = "None Set";
-
         /// <summary>
         ///     <para>This captures the current Ticks once each time the program is executed.</para>
         ///     <para>Multiple generators will have the same seed.</para>
         /// </summary>
         private static readonly int DefaultSeed = (int) SystemClock.Instance.Now.Ticks & 0x0000FFFF;
 
-        private readonly HashSet<Enum> _origins = new HashSet<Enum>();
         private IEnumerable<Name> _names;
         private Tuple<int, int> _phoneState;
 
@@ -97,10 +94,7 @@ namespace Sharpy {
         /// </summary>
         /// <returns></returns>
         public IReadOnlyList<Country> Countries {
-            set {
-                foreach (var country in value) _origins.Add(country);
-                Names = Names.Where(name => value.Contains(name.Country));
-            }
+            set { Names = Names.Where(name => value.Contains(name.Country)); }
         }
 
         /// <summary>
@@ -109,10 +103,7 @@ namespace Sharpy {
         /// </summary>
         /// <returns></returns>
         public IReadOnlyList<Region> Regions {
-            set {
-                foreach (var region in value) _origins.Add(region);
-                Names = Names.Where(name => value.Contains(name.Region));
-            }
+            set { Names = Names.Where(name => value.Contains(name.Region)); }
         }
 
         /// <summary>
@@ -224,19 +215,6 @@ namespace Sharpy {
         private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
 
         private static string FormatDigit(int i) => i < 10 ? Prefix(i, 1) : i.ToString();
-
-
-        /// <inheritdoc />
-        public override string ToString() {
-            var origins = string.Empty;
-            foreach (var origin in _origins)
-                if (origin.Equals(_origins.Last())) origins += origin;
-                else origins += $"{origin}, ";
-            return
-                $"Seed: {_seed}. Using default for System.Random\n" +
-                $"Mail: {Mailgen}\n" +
-                $"Name: Origins: {(string.IsNullOrEmpty(origins) ? NoSet : origins)}";
-        }
 
         private IEnumerable<string> StringType(StringType stringType) {
             switch (stringType) {
