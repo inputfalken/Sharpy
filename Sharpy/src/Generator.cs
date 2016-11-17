@@ -13,35 +13,43 @@ using static Sharpy.Properties.Resources;
 
 namespace Sharpy {
     /// <summary>
-    ///     <para> My implementation of IGenerator</para>
+    ///     <para>My implementation of IGenerator</para>
     /// </summary>
     /// <remarks>
-    ///     <para>
-    ///         By default multiple generator instances will generate the same results each execution.
-    ///     </para>
-    ///     <para> Contains properties which you can optionally set to change the behavior of the Generator.</para>
-    ///     <para> For examples please visit https://github.com/inputfalken/Sharpy </para>
+    ///     <para>Contains properties which you can optionally set to change the behavior of the Generator.</para>
+    ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
     /// </remarks>
     public sealed class Generator : IGenerator<StringType> {
         /// <summary>
-        ///     <para>This captures the current Ticks once each time the program is executed.</para>
-        ///     <para>Multiple generators will have the same seed.</para>
+        ///     <para>This captures the current Ticks once each time invoked.</para>
         /// </summary>
-        private static readonly int DefaultSeed = (int) SystemClock.Instance.Now.Ticks & 0x0000FFFF;
+        private static int SeedByTick => (int) SystemClock.Instance.Now.Ticks & 0x0000FFFF;
 
         private IEnumerable<Name> _names;
         private Tuple<int, int> _phoneState = new Tuple<int, int>(0, 0);
 
-        private int _seed = DefaultSeed;
 
         private IEnumerable<string> _userNames;
         private IEnumerable<Region> _regions;
         private IEnumerable<Country> _countries;
 
         /// <summary>
-        ///     <para>Instantiates a new Generator</para>
+        ///     <para>Instantiates a new Generator which will generate random sequences of data</para>
         /// </summary>
         public Generator() {
+            Seed = SeedByTick;
+            Random = new Random(Seed);
+            DateGenerator = new DateGenerator(Random);
+            Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random);
+            SocialSecurityNumberGenerator = new SecurityNumberGen(Random);
+            PhoneNumberGenerator = new NumberGenerator(Random);
+        }
+
+        /// <summary>
+        ///     <para>Instantiates a new generator which will generate same results every execution based on seed</para>
+        /// </summary>
+        public Generator(int seed) {
+            Seed = seed;
             Random = new Random(Seed);
             DateGenerator = new DateGenerator(Random);
             Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random);
@@ -64,7 +72,7 @@ namespace Sharpy {
         }
 
 
-        private Random Random { get; set; }
+        private Random Random { get; }
         private DateGenerator DateGenerator { get; }
 
 
@@ -154,17 +162,9 @@ namespace Sharpy {
 
 
         /// <summary>
-        ///     <para>Gets And Sets the seed for Generator.</para>
-        ///     <para>This affects every method in IGenerator to generate same results everytime the program is executed.</para>
-        ///     <para>Set to the Tick when program executes by default.</para>
+        ///     <para>Gets the seed for Generator.</para>
         /// </summary>
-        public int Seed {
-            internal get { return _seed; }
-            set {
-                _seed = value;
-                Random = new Random(value);
-            }
-        }
+        public int Seed { get; }
 
 
         T IGenerator<StringType>.Params<T>(params T[] items) => items.RandomItem(Random);
