@@ -11,12 +11,12 @@ namespace Tests.Generator {
     [TestFixture]
     public class Seed {
         /// <summary>
-        /// <para>The seed given to all Generator instance created in the tests.</para>
+        ///     <para>The seed given to all Generator instance created in the tests.</para>
         /// </summary>
         private const int TestSeed = 100;
 
         /// <summary>
-        /// <para>The ammount generated from GenrateMany Tests.</para>
+        ///     <para>The ammount generated from GenrateMany Tests.</para>
         /// </summary>
         private const int Count = 100;
 
@@ -76,7 +76,6 @@ namespace Tests.Generator {
 
         [Test]
         public void Generate_Double_No_Arg() {
-            //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
@@ -87,7 +86,6 @@ namespace Tests.Generator {
 
         [Test]
         public void Generate_Double_One_Arg() {
-            //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             const double max = 3.3;
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
@@ -99,7 +97,6 @@ namespace Tests.Generator {
 
         [Test]
         public void Generate_Double_Two_Args() {
-            //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             const double max = 3.3;
             const double min = 1.3;
             var g1 = new Sharpy.Generator {Seed = TestSeed};
@@ -112,7 +109,6 @@ namespace Tests.Generator {
 
         [Test]
         public void Generate_Integer_No_Arg() {
-            //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
@@ -123,7 +119,6 @@ namespace Tests.Generator {
 
         [Test]
         public void Generate_Integer_One_Arg() {
-            //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             const int max = 100;
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
@@ -135,7 +130,6 @@ namespace Tests.Generator {
 
         [Test]
         public void Generate_Integer_Two_Args() {
-            //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             const int max = 100;
             const int min = 20;
             var g1 = new Sharpy.Generator {Seed = TestSeed};
@@ -148,7 +142,6 @@ namespace Tests.Generator {
 
         [Test]
         public void Generate_Long_No_Arg() {
-            //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
@@ -159,7 +152,6 @@ namespace Tests.Generator {
 
         [Test]
         public void Generate_Long_One_Arg() {
-            //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
@@ -171,7 +163,6 @@ namespace Tests.Generator {
 
         [Test]
         public void Generate_Long_Two_Args() {
-            //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
@@ -204,18 +195,6 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void Generate_SecurityNumber_Formated_True() {
-            var g1 = new Sharpy.Generator {Seed = TestSeed};
-            Thread.Sleep(20);
-            var g2 = new Sharpy.Generator {Seed = TestSeed};
-
-            const int age = 20;
-            var expected = g1.Generate(g => g.SocialSecurityNumber(g.DateByAge(age)));
-            var result = g2.Generate(g => g.SocialSecurityNumber(g.DateByAge(age)));
-            Assert.AreEqual(expected, result);
-        }
-
-        [Test]
         public void Generate_SecurityNumber_Formated_False() {
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
@@ -224,6 +203,18 @@ namespace Tests.Generator {
             const int age = 20;
             var expected = g1.Generate(g => g.SocialSecurityNumber(g.DateByAge(age), false));
             var result = g2.Generate(g => g.SocialSecurityNumber(g.DateByAge(age), false));
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void Generate_SecurityNumber_Formated_True() {
+            var g1 = new Sharpy.Generator {Seed = TestSeed};
+            Thread.Sleep(20);
+            var g2 = new Sharpy.Generator {Seed = TestSeed};
+
+            const int age = 20;
+            var expected = g1.Generate(g => g.SocialSecurityNumber(g.DateByAge(age)));
+            var result = g2.Generate(g => g.SocialSecurityNumber(g.DateByAge(age)));
             Assert.AreEqual(expected, result);
         }
 
@@ -325,7 +316,6 @@ namespace Tests.Generator {
 
         [Test]
         public void GenerateMany_Double_No_Arg() {
-            //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
@@ -336,7 +326,6 @@ namespace Tests.Generator {
 
         [Test]
         public void GenerateMany_Double_One_Arg() {
-            //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             const double max = 3.3;
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
@@ -348,7 +337,6 @@ namespace Tests.Generator {
 
         [Test]
         public void GenerateMany_Double_Two_Args() {
-            //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             const double max = 3.3;
             const double min = 1.3;
             var g1 = new Sharpy.Generator {Seed = TestSeed};
@@ -361,7 +349,6 @@ namespace Tests.Generator {
 
         [Test]
         public void GenerateMany_Integer_No_Arg() {
-            //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             var generator = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var generator2 = new Sharpy.Generator {Seed = TestSeed};
@@ -372,7 +359,6 @@ namespace Tests.Generator {
 
         [Test]
         public void GenerateMany_Integer_One_Arg() {
-            //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             const int max = 100;
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
@@ -384,7 +370,6 @@ namespace Tests.Generator {
 
         [Test]
         public void GenerateMany_Integer_Two_Args() {
-            //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             const int max = 100;
             const int min = 20;
             var g1 = new Sharpy.Generator {Seed = TestSeed};
@@ -397,7 +382,6 @@ namespace Tests.Generator {
 
         [Test]
         public void GenerateMany_Long_No_Arg() {
-            //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
@@ -408,7 +392,6 @@ namespace Tests.Generator {
 
         [Test]
         public void GenerateMany_Long_One_Arg() {
-            //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
@@ -420,7 +403,6 @@ namespace Tests.Generator {
 
         [Test]
         public void GenerateMany_Long_Two_Args() {
-            //This test will make sure that the generator does not do anything with the Random type. and that i get the numbers expected
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
             var g2 = new Sharpy.Generator {Seed = TestSeed};
@@ -453,18 +435,6 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void GenerateMany_SecurityNumber_Formated_True() {
-            var g1 = new Sharpy.Generator {Seed = TestSeed};
-            Thread.Sleep(20);
-            var g2 = new Sharpy.Generator {Seed = TestSeed};
-
-            const int age = 20;
-            var expected = g1.GenerateMany(g => g.SocialSecurityNumber(g.DateByAge(age)), Count);
-            var result = g2.GenerateMany(g => g.SocialSecurityNumber(g.DateByAge(age)), Count);
-            Assert.AreEqual(expected, result);
-        }
-
-        [Test]
         public void GenerateMany_SecurityNumber_Formated_False() {
             var g1 = new Sharpy.Generator {Seed = TestSeed};
             Thread.Sleep(20);
@@ -473,6 +443,18 @@ namespace Tests.Generator {
             const int age = 20;
             var expected = g1.GenerateMany(g => g.SocialSecurityNumber(g.DateByAge(age), false), Count);
             var result = g2.GenerateMany(g => g.SocialSecurityNumber(g.DateByAge(age), false), Count);
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void GenerateMany_SecurityNumber_Formated_True() {
+            var g1 = new Sharpy.Generator {Seed = TestSeed};
+            Thread.Sleep(20);
+            var g2 = new Sharpy.Generator {Seed = TestSeed};
+
+            const int age = 20;
+            var expected = g1.GenerateMany(g => g.SocialSecurityNumber(g.DateByAge(age)), Count);
+            var result = g2.GenerateMany(g => g.SocialSecurityNumber(g.DateByAge(age)), Count);
             Assert.AreEqual(expected, result);
         }
 

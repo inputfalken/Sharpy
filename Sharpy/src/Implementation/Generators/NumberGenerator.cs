@@ -16,7 +16,13 @@ namespace Sharpy.Implementation.Generators {
         }
 
         private int CreateUniqueNumber(int number, int min, int max) {
-            while (HashSet.Contains(number)) number = number == max ? min : number + 1;
+            var resets = 0;
+            while (HashSet.Contains(number))
+                if (number == max) {
+                    number = min;
+                    if (++resets == 2) return -1;
+                }
+                else number++;
             HashSet.Add(number);
             return number;
         }
