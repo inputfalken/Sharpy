@@ -8,7 +8,8 @@ using Sharpy.Enums;
 using Sharpy.Implementation.DataObjects;
 using Sharpy.Implementation.ExtensionMethods;
 using Sharpy.Implementation.Generators;
-using Sharpy.Properties;
+using static Sharpy.Enums.StringType;
+using static Sharpy.Properties.Resources;
 
 namespace Sharpy {
     /// <summary>
@@ -53,7 +54,7 @@ namespace Sharpy {
 
         private Lazy<IEnumerable<Name>> LazyNames { get; } =
             new Lazy<IEnumerable<Name>>(() => JsonConvert.DeserializeObject<IEnumerable<Name>>(
-                Encoding.UTF8.GetString(Resources.NamesByOrigin)));
+                Encoding.UTF8.GetString(NamesByOrigin)));
 
         private IEnumerable<Name> Names {
             get { return _names ?? LazyNames.Value; }
@@ -68,8 +69,7 @@ namespace Sharpy {
         private MailGenerator Mailgen { get; }
 
         private Lazy<IEnumerable<string>> LazyUsernames { get; } =
-            new Lazy<IEnumerable<string>>(() => Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None))
-            ;
+            new Lazy<IEnumerable<string>>(() => usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None));
 
         private IEnumerable<string> UserNames {
             get { return _userNames ?? LazyUsernames.Value; }
@@ -223,17 +223,17 @@ namespace Sharpy {
 
         private IEnumerable<string> StringType(StringType stringType) {
             switch (stringType) {
-                case Enums.StringType.FemaleFirstName:
+                case FemaleFirstName:
                     return Names.Where(name => name.Type == 1).Select(name => name.Data);
-                case Enums.StringType.MaleFirstName:
+                case MaleFirstName:
                     return Names.Where(name => name.Type == 2).Select(name => name.Data);
-                case Enums.StringType.LastName:
+                case LastName:
                     return Names.Where(name => name.Type == 3).Select(name => name.Data);
-                case Enums.StringType.FirstName:
+                case FirstName:
                     return Names.Where(name => (name.Type == 1) | (name.Type == 2)).Select(name => name.Data);
-                case Enums.StringType.UserName:
+                case UserName:
                     return UserNames;
-                case Enums.StringType.AnyName:
+                case AnyName:
                     return Names.Select(name => name.Data).Concat(UserNames);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(stringType), stringType, null);
