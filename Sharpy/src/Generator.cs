@@ -76,7 +76,8 @@ namespace Sharpy {
             set { _userNames = value; }
         }
 
-        private Dictionary<StringType, string[]> Dictionary { get; } = new Dictionary<StringType, string[]>();
+        private Dictionary<StringType, IReadOnlyList<string>> Dictionary { get; } =
+            new Dictionary<StringType, IReadOnlyList<string>>();
 
 
         /// <summary>
