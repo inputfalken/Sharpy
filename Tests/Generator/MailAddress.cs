@@ -16,7 +16,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void CheckMailCountUniqueTrue() {
+        public void Check_Mail_Count_Unique_True() {
             var randomGenerator = new Sharpy.Generator {
                 MailProviders = new[] {"test.com"},
                 UniqueMailAddresses = true

@@ -34,6 +34,8 @@ namespace Sharpy {
         private int _seed = DefaultSeed;
 
         private IEnumerable<string> _userNames;
+        private IEnumerable<Region> _regions;
+        private IEnumerable<Country> _countries;
 
         /// <summary>
         ///     <para>Instantiates a new Generator</para>
@@ -89,40 +91,57 @@ namespace Sharpy {
 
 
         /// <summary>
-        ///     <para>Sets Countries which Firstname and Lastname are from.</para>
+        ///     <para>Gets and Sets Countries which Firstname and Lastname are from.</para>
         ///     <para>This affects IGenerator's String method when you pass FirstName and Lastname as argument.</para>
+        ///     <para>Set to all countries by default.</para>
         /// </summary>
-        /// <returns></returns>
-        public IReadOnlyList<Country> Countries {
-            set { Names = Names.Where(name => value.Contains(name.Country)); }
+        public IEnumerable<Country> Countries {
+            get { return _countries; }
+            set {
+                Names = Names.Where(name => value.Contains(name.Country));
+                _countries = value;
+            }
         }
 
         /// <summary>
-        ///     <para>Sets Regions which Firstname and Lastname are from.</para>
+        ///     <para>Gets and Sets Regions which Firstname and Lastname are from.</para>
         ///     <para>This affects IGenerator's String method when you pass FirstName and Lastname as argument</para>
+        ///     <para>Set to all regions by default.</para>
         /// </summary>
-        /// <returns></returns>
-        public IReadOnlyList<Region> Regions {
-            set { Names = Names.Where(name => value.Contains(name.Region)); }
+        public IEnumerable<Region> Regions {
+            get { return _regions; }
+            set {
+                Names = Names.Where(name => value.Contains(name.Region));
+                _regions = value;
+            }
         }
 
         /// <summary>
-        ///     <para>Sets the mailproviders which will be used for generating MailAddresses.</para>
+        ///     <para>Gets and Sets the mailproviders which will be used for generating MailAddresses.</para>
         ///     <para>This affects IGenerator's MailAddress method.</para>
+        ///     <para>Set to gmail.com, hotmail.com and yahoo.com by default.</para>
         /// </summary>
-        //public void MailProviders(params string[] providers) => Mailgen.EmailDomains = providers;
-        public IReadOnlyList<string> MailProviders {
-            set { Mailgen.EmailDomains = value; }
+        public IEnumerable<string> MailProviders {
+            get { return Mailgen.EmailDomains; }
+            set { Mailgen.EmailDomains = value.ToArray(); }
         }
 
         /// <summary>
-        ///     <para>Sets if mailaddresses are gonna be unique.</para>
+        ///     <para>Gets and Sets if mailaddresses are gonna be unique.</para>
         ///     <para>This affects IGenerator's MailAddress method.</para>
+        ///     <para>Set to true by Default</para>
         /// </summary>
         public bool UniqueMailAddresses {
+            get { return Mailgen.Unique; }
             set { Mailgen.Unique = value; }
         }
 
+        /// <summary>
+        ///     <para>Gets and Sets if phone numbers are gonna be unique.</para>
+        ///     <para>This affects IGenerator's PhoneAddress method.</para>
+        ///     <para>Set to true by Default</para>
+        /// </summary>
+        public bool UniquePhoneNumbers { get; set; } = true;
 
         /// <summary>
         ///     <para>Sets the predicate which will be executed on each UserName.</para>
@@ -134,8 +153,9 @@ namespace Sharpy {
 
 
         /// <summary>
-        ///     <para>Sets the seed for Generator.</para>
+        ///     <para>Gets And Sets the seed for Generator.</para>
         ///     <para>This affects every method in IGenerator to generate same results everytime the program is executed.</para>
+        ///     <para>Set to the Tick when program executes by default.</para>
         /// </summary>
         public int Seed {
             internal get { return _seed; }
@@ -196,7 +216,7 @@ namespace Sharpy {
             //If phonestate has changed
             if ((_phoneState == null) || (_phoneState.Item1 != length))
                 _phoneState = new Tuple<int, int>(length, (int) Math.Pow(10, length) - 1);
-            var res = PhoneNumberGenerator.RandomNumber(0, _phoneState.Item2, true);
+            var res = PhoneNumberGenerator.RandomNumber(0, _phoneState.Item2, UniquePhoneNumbers);
             if (res == -1) throw new Exception("You reached maxium Ammount of combinations for the Length used");
 
             var phoneNumber = res.ToString();

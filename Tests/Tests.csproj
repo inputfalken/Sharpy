@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Generator\Bool.cs" />
+    <Compile Include="Generator\Config.cs" />
     <Compile Include="Generator\CustomCollection.cs" />
     <Compile Include="Generator\DateByAge.cs" />
     <Compile Include="Generator\DateByYear.cs" />
