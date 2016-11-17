@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using NUnit.Framework;
 using Sharpy;
 
@@ -6,71 +7,65 @@ namespace Tests.Generator {
     [TestFixture]
     public class PhoneNumber {
         [Test]
-        public void ChangeHigherLength() {
-            var randomGenerator = new Sharpy.Generator();
-            var generateMany = randomGenerator.GenerateMany(generatorr => generatorr.PhoneNumber(5, "07"), 10000);
+        public void All_Unique_No_Prefix() {
+            var gen = new Sharpy.Generator();
+            var res = gen.GenerateMany(g => g.PhoneNumber(5), 10000);
+            Assert.IsTrue(res.GroupBy(s => s).All(grouping => grouping.Count() == 1));
+        }
+
+        [Test]
+        public void All_Unique_With_Prefix() {
+            var gen = new Sharpy.Generator();
+            var res = gen.GenerateMany(g => g.PhoneNumber(5, "07"), 10000);
+            Assert.IsTrue(res.GroupBy(s => s).All(grouping => grouping.Count() == 1));
+        }
+
+        [Test]
+        public void Change_Higher_Length() {
+            var gen = new Sharpy.Generator();
+            var generateMany = gen.GenerateMany(g => g.PhoneNumber(5, "07"), 10000);
             Assert.IsTrue(generateMany.All(s => s.Length == 7));
-            var generateMany2 = randomGenerator.GenerateMany(generatorr => generatorr.PhoneNumber(6, "07"), 10000);
+            var generateMany2 = gen.GenerateMany(g => g.PhoneNumber(6, "07"), 10000);
             Assert.IsTrue(generateMany2.All(s => s.Length == 8));
         }
 
         [Test]
-        public void ChangeLowerLength() {
-            var randomGenerator = new Sharpy.Generator();
-            var generateMany = randomGenerator.GenerateMany(generatorr => generatorr.PhoneNumber(6, "07"), 10000);
+        public void Change_Lower_Length() {
+            var gen = new Sharpy.Generator();
+            var generateMany = gen.GenerateMany(g => g.PhoneNumber(6, "07"), 10000);
             Assert.IsTrue(generateMany.All(s => s.Length == 8));
-            var generateMany2 = randomGenerator.GenerateMany(generatorr => generatorr.PhoneNumber(5, "07"), 10000);
+            var generateMany2 = gen.GenerateMany(g => g.PhoneNumber(5, "07"), 10000);
             Assert.IsTrue(generateMany2.All(s => s.Length == 7));
         }
 
         [Test]
-        public void CheckCombination() {
-            var generateMany = new Sharpy.Generator().GenerateMany(generator => generator.PhoneNumber(3), 1000);
+        public void Create_Max_Ammount_Does_Not_Throw() {
+            var gen = new Sharpy.Generator();
+            var res = gen.GenerateMany(generator => generator.PhoneNumber(3), 1000);
             //The test checks that it works like the following algorithm 10^length and that all got same length.
-            Assert.IsTrue(generateMany.GroupBy(s => s)
-                .All(grouping => (grouping.Count() == 1) && (grouping.Key.Length == 3)));
-        }
-
-
-        [Test]
-        public void GotSameLengthAllUniqueWithOutPrefix() {
-            var randomGenerator = new Sharpy.Generator();
-            var generateMany = randomGenerator.GenerateMany(generatorr => generatorr.PhoneNumber(5), 10000);
-
-            Assert.IsTrue(generateMany.GroupBy(s => s).All(grouping => grouping.Count() == 1));
+            Assert.DoesNotThrow(() => res.ToArray());
         }
 
         [Test]
-        public void GotSameLengthAllUniqueWithPrefix() {
-            var randomGenerator = new Sharpy.Generator();
-            var generateMany = randomGenerator.GenerateMany(generatorr => generatorr.PhoneNumber(5, "07"), 10000);
-
-            Assert.IsTrue(generateMany.GroupBy(s => s).All(grouping => grouping.Count() == 1));
+        public void Create_More_Than_Max_Ammount_Throw() {
+            var gen = new Sharpy.Generator();
+            var res = gen.GenerateMany(generator => generator.PhoneNumber(3), 1001);
+            //The test checks that it works like the following algorithm 10^length and that all got same length.
+            Assert.Throws<Exception>(() => res.ToArray());
         }
 
         [Test]
-        public void GotSameLengthNoPrefix() {
-            var randomGenerator = new Sharpy.Generator();
-            var generateMany = randomGenerator.GenerateMany(generatorr => generatorr.PhoneNumber(7), 10000);
-
-            Assert.IsTrue(generateMany.All(s => s.Length == 7));
+        public void Got_Same_Length_No_Prefix() {
+            var gen = new Sharpy.Generator();
+            var res = gen.GenerateMany(g => g.PhoneNumber(5), 10000);
+            Assert.IsTrue(res.All(s => s.Length == 5));
         }
 
         [Test]
-        public void GotSameLengthWithPrefix() {
-            var randomGenerator = new Sharpy.Generator();
-            var generateMany = randomGenerator.GenerateMany(generatorr => generatorr.PhoneNumber(5, "07"), 10000);
-
-            Assert.IsTrue(generateMany.All(s => s.Length == 7));
-        }
-
-        [Test]
-        public void SameValue() {
-            var randomGenerator = new Sharpy.Generator();
-            var generateMany = randomGenerator.GenerateMany(generatorr => generatorr.PhoneNumber(6, "07"), 10000);
-            Assert.IsTrue(generateMany.All(s => s.Length == 8));
-            var generateMany2 = randomGenerator.GenerateMany(generatorr => generatorr.PhoneNumber(6, "07"), 10000);
-            Assert.IsTrue(generateMany2.All(s => s.Length == 8));
+        public void Got_Same_Length_With_Prefix() {
+            var gen = new Sharpy.Generator();
+            var res = gen.GenerateMany(g => g.PhoneNumber(5, "07"), 10000);
+            Assert.IsTrue(res.All(s => s.Length == 7));
         }
     }
 }

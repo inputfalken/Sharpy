@@ -22,15 +22,12 @@ namespace Sharpy {
     ///     <para> For examples please visit https://github.com/inputfalken/Sharpy </para>
     /// </remarks>
     public sealed class Generator : IGenerator<StringType> {
-        private const string NoSet = "None Set";
-
         /// <summary>
         ///     <para>This captures the current Ticks once each time the program is executed.</para>
         ///     <para>Multiple generators will have the same seed.</para>
         /// </summary>
         private static readonly int DefaultSeed = (int) SystemClock.Instance.Now.Ticks & 0x0000FFFF;
 
-        private readonly HashSet<Enum> _origins = new HashSet<Enum>();
         private IEnumerable<Name> _names;
         private Tuple<int, int> _phoneState;
 
@@ -58,9 +55,9 @@ namespace Sharpy {
             new Lazy<IEnumerable<Name>>(() => JsonConvert.DeserializeObject<IEnumerable<Name>>(
                 Encoding.UTF8.GetString(Resources.NamesByOrigin)));
 
-        internal IEnumerable<Name> Names {
+        private IEnumerable<Name> Names {
             get { return _names ?? LazyNames.Value; }
-            private set { _names = value; }
+            set { _names = value; }
         }
 
 
@@ -97,10 +94,7 @@ namespace Sharpy {
         /// </summary>
         /// <returns></returns>
         public IReadOnlyList<Country> Countries {
-            set {
-                foreach (var country in value) _origins.Add(country);
-                Names = Names.Where(name => value.Contains(name.Country));
-            }
+            set { Names = Names.Where(name => value.Contains(name.Country)); }
         }
 
         /// <summary>
@@ -109,10 +103,7 @@ namespace Sharpy {
         /// </summary>
         /// <returns></returns>
         public IReadOnlyList<Region> Regions {
-            set {
-                foreach (var region in value) _origins.Add(region);
-                Names = Names.Where(name => value.Contains(name.Region));
-            }
+            set { Names = Names.Where(name => value.Contains(name.Region)); }
         }
 
         /// <summary>
@@ -160,8 +151,10 @@ namespace Sharpy {
         T IGenerator<StringType>.CustomCollection<T>(IReadOnlyList<T> items) => items.RandomItem(Random);
 
         string IGenerator<StringType>.String(StringType type) {
-            if (!Dictionary.ContainsKey(type))
-                Dictionary.Add(type, StringType(type).ToArray());
+            if (Dictionary.ContainsKey(type)) return Dictionary[type].RandomItem(Random);
+            var strings = StringType(type).ToArray();
+            if (strings.Any()) Dictionary.Add(type, strings);
+            else throw new Exception("Can't obtain strings with this configuration");
             return Dictionary[type].RandomItem(Random);
         }
 
@@ -185,13 +178,13 @@ namespace Sharpy {
         LocalDate IGenerator<StringType>.DateByYear(int year) => DateGenerator.RandomDateByYear(year);
 
         string IGenerator<StringType>.SocialSecurityNumber(LocalDate date, bool formated) {
-            var securityNumber =
-                SocialSecurityNumberGenerator
-                    .SecurityNumber(Random.Next(10000),
-                        FormatDigit(date.YearOfCentury).Append(FormatDigit(date.Month), FormatDigit(date.Day)))
-                    .ToString();
+            var result = SocialSecurityNumberGenerator.SecurityNumber(Random.Next(10000),
+                FormatDigit(date.YearOfCentury).Append(FormatDigit(date.Month), FormatDigit(date.Day)));
+            if (result == -1)
+                throw new Exception("You have reached the maxium possible combinations for a controlnumber");
+            var securityNumber = result.ToString();
             if (securityNumber.Length != 10)
-                securityNumber = Prefix(securityNumber, 10 - securityNumber.Length);
+                securityNumber = Prefix(result, 10 - securityNumber.Length);
             return formated ? securityNumber.Insert(6, "-") : securityNumber;
         }
 
@@ -203,10 +196,13 @@ namespace Sharpy {
             //If phonestate has changed
             if ((_phoneState == null) || (_phoneState.Item1 != length))
                 _phoneState = new Tuple<int, int>(length, (int) Math.Pow(10, length) - 1);
-            var randomNumber = PhoneNumberGenerator.RandomNumber(0, _phoneState.Item2, true).ToString();
-            return randomNumber.Length != length
-                ? prefix + Prefix(randomNumber, length - randomNumber.Length)
-                : prefix + randomNumber;
+            var res = PhoneNumberGenerator.RandomNumber(0, _phoneState.Item2, true);
+            if (res == -1) throw new Exception("You reached maxium Ammount of combinations for the Length used");
+
+            var phoneNumber = res.ToString();
+            return phoneNumber.Length != length
+                ? prefix + Prefix(phoneNumber, length - phoneNumber.Length)
+                : prefix + phoneNumber;
         }
 
         long IGenerator<StringType>.Long(long min, long max) => Random.NextLong(min, max);
@@ -224,19 +220,6 @@ namespace Sharpy {
         private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
 
         private static string FormatDigit(int i) => i < 10 ? Prefix(i, 1) : i.ToString();
-
-
-        /// <inheritdoc />
-        public override string ToString() {
-            var origins = string.Empty;
-            foreach (var origin in _origins)
-                if (origin.Equals(_origins.Last())) origins += origin;
-                else origins += $"{origin}, ";
-            return
-                $"Seed: {_seed}. Using default for System.Random\n" +
-                $"Mail: {Mailgen}\n" +
-                $"Name: Origins: {(string.IsNullOrEmpty(origins) ? NoSet : origins)}";
-        }
 
         private IEnumerable<string> StringType(StringType stringType) {
             switch (stringType) {
