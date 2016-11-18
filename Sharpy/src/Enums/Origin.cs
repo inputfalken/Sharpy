@@ -3,7 +3,7 @@ namespace Sharpy.Enums {
     /// <summary>
     ///     Is used as argument when Filtering by country
     /// </summary>
-    public enum Country {
+    public enum Origin {
         /// <summary>
         /// </summary>
         CostaRica,
@@ -186,13 +186,8 @@ namespace Sharpy.Enums {
 
         /// <summary>
         /// </summary>
-        Paraguay
-    }
+        Paraguay,
 
-    /// <summary>
-    ///     Is used as argument when filtering by region
-    /// </summary>
-    public enum Region {
         /// <summary>
         /// </summary>
         Europe,

@@ -10,9 +10,9 @@ namespace Sharpy.Implementation.DataObjects {
         [JsonConstructor]
         internal CountryCode(string name, string code) {
             Code = code;
-            Country country;
-            if (!Enum.TryParse(name, out country)) return;
-            Name = country;
+            Origin origin;
+            if (!Enum.TryParse(name, out origin)) return;
+            Name = origin;
             IsParsed = true;
         }
 
@@ -21,7 +21,7 @@ namespace Sharpy.Implementation.DataObjects {
         /// <summary>
         ///     Name of the Country
         /// </summary>
-        public Country Name { get; }
+        public Origin Name { get; }
 
         /// <summary>
         ///     The country code for the Country

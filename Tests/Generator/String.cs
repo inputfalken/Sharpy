@@ -41,53 +41,6 @@ namespace Tests.Generator {
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
         }
 
-        [Test]
-        public void First_Name_Bad_Config_Throws() {
-            var gen = new Sharpy.Generator {
-                Countries = new[] {Country.Sweden},
-                Regions = new[] {Region.CentralAmerica}
-            };
-            //Many
-            Assert.Throws<Exception>(() => gen.GenerateMany(g => g.String(StringType.FirstName), Count).ToArray());
-            //Single
-            Assert.Throws<Exception>(() => gen.Generate(g => g.String(StringType.FirstName)));
-        }
-
-        [Test]
-        public void First_Name_Bad_Config_Throws_Different_Config_Order() {
-            var gen = new Sharpy.Generator {
-                Regions = new[] {Region.CentralAmerica},
-                Countries = new[] {Country.Sweden}
-            };
-            //Many
-            Assert.Throws<Exception>(() => gen.GenerateMany(g => g.String(StringType.FirstName), Count).ToArray());
-            //Single
-            Assert.Throws<Exception>(() => gen.Generate(g => g.String(StringType.FirstName)));
-        }
-
-        [Test]
-        public void First_Name_Good_Config_Throws() {
-            var gen = new Sharpy.Generator {
-                Countries = new[] {Country.Sweden},
-                Regions = new[] {Region.Europe}
-            };
-            //Many
-            Assert.DoesNotThrow(() => gen.GenerateMany(g => g.String(StringType.FirstName), Count).ToArray());
-            //Single
-            Assert.DoesNotThrow(() => gen.Generate(g => g.String(StringType.FirstName)));
-        }
-
-        [Test]
-        public void First_Name_Good_Config_Throws_Different_Config_Order() {
-            var gen = new Sharpy.Generator {
-                Regions = new[] {Region.Europe},
-                Countries = new[] {Country.Sweden}
-            };
-            //Many
-            Assert.DoesNotThrow(() => gen.GenerateMany(g => g.String(StringType.FirstName), Count).ToArray());
-            //Single
-            Assert.DoesNotThrow(() => gen.Generate(g => g.String(StringType.FirstName)));
-        }
 
         [Test]
         public void First_Name_Not_Null_Or_White_Space() {

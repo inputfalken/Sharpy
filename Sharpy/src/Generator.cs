@@ -98,18 +98,12 @@ namespace Sharpy {
 
 
         /// <summary>
-        ///     <para>Gets and Sets Countries which Firstname and Lastname are from.</para>
+        ///     <para>Gets and Sets Origins to filer First and Last names with.</para>
         ///     <para>This affects IGenerator's String method when you pass FirstName and Lastname as argument.</para>
         ///     <para>Set to all countries by default.</para>
         /// </summary>
-        public IEnumerable<Country> Countries { get; set; }
+        public IEnumerable<Origin> Origins { get; set; }
 
-        /// <summary>
-        ///     <para>Gets and Sets Regions which Firstname and Lastname are from.</para>
-        ///     <para>This affects IGenerator's String method when you pass FirstName and Lastname as argument</para>
-        ///     <para>Set to all regions by default.</para>
-        /// </summary>
-        public IEnumerable<Region> Regions { get; set; }
 
         /// <summary>
         ///     <para>Gets and Sets the mailproviders which will be used for generating MailAddresses.</para>
@@ -248,13 +242,9 @@ namespace Sharpy {
         }
 
         private IEnumerable<Name> Origin(IEnumerable<Name> names) {
-            var region = (Regions != null) && Regions.Any();
-            var country = (Countries != null) && Countries.Any();
-            if (region && country)
-                return names.Where(name => Regions.Contains(name.Region))
-                    .Where(name => Countries.Contains(name.Country));
-            if (region) return names.Where(name => Regions.Contains(name.Region));
-            return country ? names.Where(name => Countries.Contains(name.Country)) : names;
+            return Origins != null && Origins.Any()
+                ? names.Where(name => Origins.Contains(name.Country) | Origins.Contains(name.Region))
+                : names;
         }
     }
 }
