@@ -50,27 +50,6 @@ namespace Tests.Generator {
             Assert.AreEqual(g1.Seed, g2.Seed);
         }
 
-        [Test]
-        public void Generate_No_Seed_CustomCollection() {
-            var list = new List<string> {"Foo", "Bar", "John", "Doe"};
-            var g1 = new Sharpy.Generator();
-            Thread.Sleep(SleepDuration);
-            var g2 = new Sharpy.Generator();
-            var expected = g1.Generate(g => g.CustomCollection(list));
-            var result = g2.Generate(g => g.CustomCollection(list));
-            Assert.AreNotEqual(expected, result);
-        }
-
-        [Test]
-        public void Generate_No_Seed_Params() {
-            var list = new List<string> {"Foo", "Bar", "John", "Doe"};
-            var g1 = new Sharpy.Generator();
-            Thread.Sleep(SleepDuration);
-            var g2 = new Sharpy.Generator();
-            var expected = g1.Generate(g => g.CustomCollection(list));
-            var result = g2.Generate(g => g.CustomCollection(list));
-            Assert.AreNotEqual(expected, result);
-        }
 
         [Test]
         public void Generate_Seed_Bool() {
