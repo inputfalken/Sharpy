@@ -5,8 +5,7 @@ namespace Sharpy {
     /// <summary>
     ///     <para>A contract containing various Methods to generate data.</para>
     /// </summary>
-    /// <typeparam name="TStringArg"></typeparam>
-    public interface IGenerator<in TStringArg> {
+    public interface IGenerator {
         /// <summary>
         ///     <para>Returns one of the Arguments given.</para>
         /// </summary>
@@ -23,7 +22,7 @@ namespace Sharpy {
         ///     <para>Returns a string based on the argument</para>
         ///     <param name="type">The type of string.</param>
         /// </summary>
-        string String(TStringArg type);
+        string String(string type);
 
         /// <summary>
         ///     <para>Returns a bool</para>
