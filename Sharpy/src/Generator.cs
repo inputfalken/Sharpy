@@ -20,18 +20,11 @@ namespace Sharpy {
     ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
     /// </remarks>
     public sealed class Generator : IGenerator<StringType> {
-        /// <summary>
-        ///     <para>This captures the current Ticks once each time invoked.</para>
-        /// </summary>
-        private static int SeedByTick => (int) SystemClock.Instance.Now.Ticks & 0x0000FFFF;
-
         private IEnumerable<Name> _names;
         private Tuple<int, int> _phoneState = new Tuple<int, int>(0, 0);
 
 
         private IEnumerable<string> _userNames;
-        private IEnumerable<Region> _regions;
-        private IEnumerable<Country> _countries;
 
         /// <summary>
         ///     <para>Instantiates a new Generator which will generate random sequences of data</para>
@@ -56,6 +49,11 @@ namespace Sharpy {
             SocialSecurityNumberGenerator = new SecurityNumberGen(Random);
             PhoneNumberGenerator = new NumberGenerator(Random);
         }
+
+        /// <summary>
+        ///     <para>This captures the current Ticks once each time invoked.</para>
+        /// </summary>
+        private static int SeedByTick => (int) SystemClock.Instance.Now.Ticks & 0x0000FFFF;
 
 
         private NumberGenerator PhoneNumberGenerator { get; }
@@ -104,26 +102,14 @@ namespace Sharpy {
         ///     <para>This affects IGenerator's String method when you pass FirstName and Lastname as argument.</para>
         ///     <para>Set to all countries by default.</para>
         /// </summary>
-        public IEnumerable<Country> Countries {
-            get { return _countries; }
-            set {
-                Names = Names.Where(name => value.Contains(name.Country));
-                _countries = value;
-            }
-        }
+        public IEnumerable<Country> Countries { get; set; }
 
         /// <summary>
         ///     <para>Gets and Sets Regions which Firstname and Lastname are from.</para>
         ///     <para>This affects IGenerator's String method when you pass FirstName and Lastname as argument</para>
         ///     <para>Set to all regions by default.</para>
         /// </summary>
-        public IEnumerable<Region> Regions {
-            get { return _regions; }
-            set {
-                Names = Names.Where(name => value.Contains(name.Region));
-                _regions = value;
-            }
-        }
+        public IEnumerable<Region> Regions { get; set; }
 
         /// <summary>
         ///     <para>Gets and Sets the mailproviders which will be used for generating MailAddresses.</para>
@@ -245,13 +231,13 @@ namespace Sharpy {
         private IEnumerable<string> StringType(StringType stringType) {
             switch (stringType) {
                 case FemaleFirstName:
-                    return Names.Where(name => name.Type == 1).Select(name => name.Data);
+                    return Origin(Names.Where(name => name.Type == 1)).Select(name => name.Data);
                 case MaleFirstName:
-                    return Names.Where(name => name.Type == 2).Select(name => name.Data);
+                    return Origin(Names.Where(name => name.Type == 2)).Select(name => name.Data);
                 case LastName:
-                    return Names.Where(name => name.Type == 3).Select(name => name.Data);
+                    return Origin(Names.Where(name => name.Type == 3)).Select(name => name.Data);
                 case FirstName:
-                    return Names.Where(name => (name.Type == 1) | (name.Type == 2)).Select(name => name.Data);
+                    return Origin(Names.Where(name => (name.Type == 1) | (name.Type == 2))).Select(name => name.Data);
                 case UserName:
                     return UserNames;
                 case AnyName:
@@ -259,6 +245,16 @@ namespace Sharpy {
                 default:
                     throw new ArgumentOutOfRangeException(nameof(stringType), stringType, null);
             }
+        }
+
+        private IEnumerable<Name> Origin(IEnumerable<Name> names) {
+            var region = (Regions != null) && Regions.Any();
+            var country = (Countries != null) && Countries.Any();
+            if (region && country)
+                return names.Where(name => Regions.Contains(name.Region))
+                    .Where(name => Countries.Contains(name.Country));
+            if (region) return names.Where(name => Regions.Contains(name.Region));
+            return country ? names.Where(name => Countries.Contains(name.Country)) : names;
         }
     }
 }

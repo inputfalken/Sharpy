@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Tests.Generator {
     [TestFixture]
     public class Config {
         [Test]
-        public void UniqueMailAddresses_Default_Value() {
+        public void Countries_Default_Value_Null() {
             var gen = new Sharpy.Generator();
-            Assert.AreEqual(true, gen.UniqueMailAddresses);
+            Assert.IsNull(gen.Countries);
         }
 
         [Test]
@@ -21,21 +16,21 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void UniquePhoneNumber_Default_Value() {
-            var gen = new Sharpy.Generator();
-            Assert.AreEqual(true, gen.UniquePhoneNumbers);
-        }
-
-        [Test]
-        public void Countries_Default_Value_Null() {
-            var gen = new Sharpy.Generator();
-            Assert.IsNull(gen.Countries);
-        }
-
-        [Test]
         public void Region_Default_Value_Null() {
             var gen = new Sharpy.Generator();
             Assert.IsNull(gen.Regions);
+        }
+
+        [Test]
+        public void UniqueMailAddresses_Default_Value() {
+            var gen = new Sharpy.Generator();
+            Assert.AreEqual(true, gen.UniqueMailAddresses);
+        }
+
+        [Test]
+        public void UniquePhoneNumber_Default_Value() {
+            var gen = new Sharpy.Generator();
+            Assert.AreEqual(true, gen.UniquePhoneNumbers);
         }
     }
 }
