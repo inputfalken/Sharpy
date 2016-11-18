@@ -6,7 +6,7 @@ namespace Tests.Generator {
         [Test]
         public void Countries_Default_Value_Null() {
             var gen = new Sharpy.Generator();
-            Assert.IsNull(gen.Countries);
+            Assert.IsNull(gen.Origins);
         }
 
         [Test]
@@ -18,7 +18,7 @@ namespace Tests.Generator {
         [Test]
         public void Region_Default_Value_Null() {
             var gen = new Sharpy.Generator();
-            Assert.IsNull(gen.Regions);
+            Assert.IsNull(gen.Origins);
         }
 
         [Test]

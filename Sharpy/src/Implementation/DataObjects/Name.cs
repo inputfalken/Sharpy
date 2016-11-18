@@ -12,14 +12,14 @@ namespace Sharpy.Implementation.DataObjects {
         private Name(int type, string country, string region, string name) {
             Data = name;
             Type = type;
-            Country = (Country) Enum.Parse(typeof(Country), country);
-            Region = (Region) Enum.Parse(typeof(Region), region);
+            Country = (Origin) Enum.Parse(typeof(Origin), country);
+            Region = (Origin) Enum.Parse(typeof(Origin), region);
         }
 
         internal int Type { get; }
         internal string Data { get; }
-        internal Region Region { get; }
-        internal Country Country { get; }
+        internal Origin Region { get; }
+        internal Origin Country { get; }
 
         /// <summary>
         /// </summary>
