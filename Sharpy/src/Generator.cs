@@ -19,7 +19,13 @@ namespace Sharpy {
     ///     <para>Contains properties which you can optionally set to change the behavior of the Generator.</para>
     ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
     /// </remarks>
-    public sealed class Generator : IGenerator<StringType> {
+    public sealed class Generator : IGenerator {
+        public const string FemaleFirstName = "FemaleFirstName";
+        public const string MaleFirstName = "MaleFirstName";
+        public const string LastName = "LastName";
+        public const string FirstName = "FirstName";
+        public const string UserName = "UserName";
+        public const string AnyName = "AnyName";
         private IEnumerable<Name> _names;
         private Tuple<int, int> _phoneState = new Tuple<int, int>(0, 0);
 
@@ -84,8 +90,8 @@ namespace Sharpy {
             set { _userNames = value; }
         }
 
-        private Dictionary<StringType, IReadOnlyList<string>> Dictionary { get; } =
-            new Dictionary<StringType, IReadOnlyList<string>>();
+        private Dictionary<string, IReadOnlyList<string>> Dictionary { get; } =
+            new Dictionary<string, IReadOnlyList<string>>();
 
 
         /// <summary>
@@ -153,11 +159,11 @@ namespace Sharpy {
         public int Seed { get; }
 
 
-        T IGenerator<StringType>.Params<T>(params T[] items) => items.RandomItem(Random);
+        T IGenerator.Params<T>(params T[] items) => items.RandomItem(Random);
 
-        T IGenerator<StringType>.CustomCollection<T>(IReadOnlyList<T> items) => items.RandomItem(Random);
+        T IGenerator.CustomCollection<T>(IReadOnlyList<T> items) => items.RandomItem(Random);
 
-        string IGenerator<StringType>.String(StringType type) {
+        string IGenerator.String(string type) {
             if (Dictionary.ContainsKey(type)) return Dictionary[type].RandomItem(Random);
             var strings = StringType(type).ToArray();
             if (strings.Any()) Dictionary.Add(type, strings);
@@ -165,26 +171,26 @@ namespace Sharpy {
             return Dictionary[type].RandomItem(Random);
         }
 
-        bool IGenerator<StringType>.Bool() => Random.Next(2) != 0;
+        bool IGenerator.Bool() => Random.Next(2) != 0;
 
-        int IGenerator<StringType>.Integer(int max) {
-            IGenerator<StringType> foo = this;
+        int IGenerator.Integer(int max) {
+            IGenerator foo = this;
             return foo.Integer(0, max);
         }
 
-        int IGenerator<StringType>.Integer(int min, int max) {
+        int IGenerator.Integer(int min, int max) {
             if (max <= min)
                 throw new ArgumentOutOfRangeException($"{nameof(max)} must be > {nameof(min)}");
             return Random.Next(min, max);
         }
 
-        int IGenerator<StringType>.Integer() => Random.Next(int.MinValue, int.MaxValue);
+        int IGenerator.Integer() => Random.Next(int.MinValue, int.MaxValue);
 
-        LocalDate IGenerator<StringType>.DateByAge(int age) => DateGenerator.RandomDateByAge(age);
+        LocalDate IGenerator.DateByAge(int age) => DateGenerator.RandomDateByAge(age);
 
-        LocalDate IGenerator<StringType>.DateByYear(int year) => DateGenerator.RandomDateByYear(year);
+        LocalDate IGenerator.DateByYear(int year) => DateGenerator.RandomDateByYear(year);
 
-        string IGenerator<StringType>.SocialSecurityNumber(LocalDate date, bool formated) {
+        string IGenerator.SocialSecurityNumber(LocalDate date, bool formated) {
             var result = SocialSecurityNumberGenerator.SecurityNumber(Random.Next(10000),
                 FormatDigit(date.YearOfCentury).Append(FormatDigit(date.Month), FormatDigit(date.Day)));
             if (result == -1)
@@ -195,11 +201,11 @@ namespace Sharpy {
             return formated ? securityNumber.Insert(6, "-") : securityNumber;
         }
 
-        string IGenerator<StringType>.MailAddress(string name, string secondName)
+        string IGenerator.MailAddress(string name, string secondName)
             => Mailgen.Mail(name, secondName);
 
         // The combinations possible is 10^length
-        string IGenerator<StringType>.PhoneNumber(int length, string prefix) {
+        string IGenerator.PhoneNumber(int length, string prefix) {
             //If phonestate has changed
             if (_phoneState.Item1 != length)
                 _phoneState = new Tuple<int, int>(length, (int) Math.Pow(10, length) - 1);
@@ -212,23 +218,23 @@ namespace Sharpy {
                 : prefix + phoneNumber;
         }
 
-        long IGenerator<StringType>.Long(long min, long max) => Random.NextLong(min, max);
+        long IGenerator.Long(long min, long max) => Random.NextLong(min, max);
 
-        long IGenerator<StringType>.Long(long max) => Random.NextLong(max);
+        long IGenerator.Long(long max) => Random.NextLong(max);
 
-        long IGenerator<StringType>.Long() => Random.NextLong();
+        long IGenerator.Long() => Random.NextLong();
 
-        double IGenerator<StringType>.Double() => Random.NextDouble();
+        double IGenerator.Double() => Random.NextDouble();
 
-        double IGenerator<StringType>.Double(double max) => Random.NextDouble(max);
+        double IGenerator.Double(double max) => Random.NextDouble(max);
 
-        double IGenerator<StringType>.Double(double min, double max) => Random.NextDouble(min, max);
+        double IGenerator.Double(double min, double max) => Random.NextDouble(min, max);
 
         private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
 
         private static string FormatDigit(int i) => i < 10 ? Prefix(i, 1) : i.ToString();
 
-        private IEnumerable<string> StringType(StringType stringType) {
+        private IEnumerable<string> StringType(string stringType) {
             switch (stringType) {
                 case FemaleFirstName:
                     return Origin(Names.Where(name => name.Type == 1)).Select(name => name.Data);
