@@ -1,6 +1,4 @@
-3d
 a
-a1
 aa
 aaberg
 aachen
@@ -40205,7 +40203,6 @@ juxtaposition
 jylland
 jyoti
 k
-k2
 ka
 kab
 kablesh
@@ -45591,7 +45588,6 @@ lytton
 lyublin
 lyudmila
 m
-m16
 ma
 maag
 maas
@@ -76989,8 +76985,6 @@ uzzia
 uzzial
 uzziel
 v
-v1
-v2
 va
 vaal
 vaas
