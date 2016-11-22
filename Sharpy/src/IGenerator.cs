@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using NodaTime;
+using Sharpy.Enums;
 
 namespace Sharpy {
     /// <summary>
     ///     <para>A contract containing various Methods to generate data.</para>
     /// </summary>
-    public interface IGenerator : ILong, IDouble, IInteger {
+    public interface IGenerator : ILong, IDouble, IInteger, INameGenerator<StringType> {
         /// <summary>
         ///     <para>Returns one of the Arguments given.</para>
         /// </summary>
@@ -17,12 +18,6 @@ namespace Sharpy {
         /// <param name="items">The collection to be used.</param>
         /// <typeparam name="T">A random item from the collection.</typeparam>
         T CustomCollection<T>(IReadOnlyList<T> items);
-
-        /// <summary>
-        ///     <para>Returns a string based on the argument</para>
-        ///     <param name="type">The type of string.</param>
-        /// </summary>
-        string String(string type);
 
         /// <summary>
         ///     <para>Returns a bool</para>
@@ -84,7 +79,6 @@ namespace Sharpy {
     }
 
     public interface IInteger {
-        
         /// <summary>
         ///     <para>Returns a Integer from 0 to max.</para>
         ///     <param name="max">The max value</param>
@@ -101,6 +95,10 @@ namespace Sharpy {
         /// </summary>
         /// <returns></returns>
         int Integer();
+    }
+
+    public interface INameGenerator<in T> {
+        string Name(T arg);
     }
 
     public interface IDouble {
