@@ -2,7 +2,7 @@ namespace Sharpy.Enums {
     /// <summary>
     ///     Is used as argument when filtering names
     /// </summary>
-    public enum StringType {
+    public enum NameType {
         /// <summary>
         ///     Will give you back a random female first name.
         /// </summary>
@@ -31,6 +31,6 @@ namespace Sharpy.Enums {
         /// <summary>
         ///     Will give you either a first name, last name, username.
         /// </summary>
-        AnyName
+        Any
     }
 }

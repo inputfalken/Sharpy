@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Newtonsoft.Json;
 using NodaTime;
 using Sharpy.Enums;
-using Sharpy.Implementation.DataObjects;
 using Sharpy.Implementation.ExtensionMethods;
 using Sharpy.Implementation.Generators;
-using static Sharpy.Enums.StringType;
-using static Sharpy.Properties.Resources;
 
 namespace Sharpy {
     /// <summary>
@@ -20,13 +15,7 @@ namespace Sharpy {
     ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
     /// </remarks>
     public sealed class Generator : IGenerator {
-        private IEnumerable<Name> _names;
         private Tuple<int, int> _phoneState = new Tuple<int, int>(0, 0);
-
-
-        private IEnumerable<string> _userNames;
-        public IDouble Double { get; }
-        public IInteger Integer { get; }
 
         /// <summary>
         ///     <para>Instantiates a new Generator which will generate random sequences of data</para>
@@ -37,6 +26,7 @@ namespace Sharpy {
             Double = new DoubleRandomizer(Random);
             Integer = new IntegerRandomizer(Random);
             DateGenerator = new DateGenerator(Random);
+            Name = new NameFetcher(Random);
             Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random);
             SocialSecurityNumberGenerator = new SecurityNumberGen(Random);
             PhoneNumberGenerator = new NumberGenerator(Random);
@@ -51,10 +41,15 @@ namespace Sharpy {
             Double = new DoubleRandomizer(Random);
             Integer = new IntegerRandomizer(Random);
             DateGenerator = new DateGenerator(Random);
+            Name = new NameFetcher(Random);
             Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random);
             SocialSecurityNumberGenerator = new SecurityNumberGen(Random);
             PhoneNumberGenerator = new NumberGenerator(Random);
         }
+
+        public IName<NameType> Name { get; }
+        public IDouble Double { get; }
+        public IInteger Integer { get; }
 
         /// <summary>
         ///     <para>This captures the current Ticks once each time invoked.</para>
@@ -66,49 +61,12 @@ namespace Sharpy {
 
         private SecurityNumberGen SocialSecurityNumberGenerator { get; }
 
-        private Lazy<IEnumerable<Name>> LazyNames { get; } =
-            new Lazy<IEnumerable<Name>>(() => JsonConvert.DeserializeObject<IEnumerable<Name>>(
-                Encoding.UTF8.GetString(NamesByOrigin)));
-
-        private IEnumerable<Name> Names {
-            get { return _names ?? LazyNames.Value; }
-            set { _names = value; }
-        }
-
 
         private Random Random { get; }
         private DateGenerator DateGenerator { get; }
 
 
         private MailGenerator Mailgen { get; }
-
-        private Lazy<IEnumerable<string>> LazyUsernames { get; } =
-            new Lazy<IEnumerable<string>>(() => usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None));
-
-        private IEnumerable<string> UserNames {
-            get { return _userNames ?? LazyUsernames.Value; }
-            set { _userNames = value; }
-        }
-
-        private Dictionary<StringType, IReadOnlyList<string>> Dictionary { get; } =
-            new Dictionary<StringType, IReadOnlyList<string>>();
-
-
-        /// <summary>
-        ///     <para>Sets the predicate which will be executed on each Firstname and Lastname.</para>
-        ///     <para>This affects IGenerator's String method when you pass FirstName and Lastname as argument.</para>
-        /// </summary>
-        public Func<string, bool> NamePredicate {
-            set { Names = Names.Where(name => value(name.Data)); }
-        }
-
-
-        /// <summary>
-        ///     <para>Gets and Sets Origins to filer First and Last names with.</para>
-        ///     <para>This affects IGenerator's String method when you pass FirstName and Lastname as argument.</para>
-        ///     <para>Set to all countries by default.</para>
-        /// </summary>
-        public IEnumerable<Origin> Origins { get; set; }
 
 
         /// <summary>
@@ -138,14 +96,6 @@ namespace Sharpy {
         /// </summary>
         public bool UniquePhoneNumbers { get; set; } = true;
 
-        /// <summary>
-        ///     <para>Sets the predicate which will be executed on each UserName.</para>
-        ///     <para>This affects IGenerator's String method when you use UserName as argument.</para>
-        /// </summary>
-        public Func<string, bool> UserNamePredicate {
-            set { UserNames = UserNames.Where(value); }
-        }
-
 
         /// <summary>
         ///     <para>Gets the seed for Generator.</para>
@@ -157,13 +107,6 @@ namespace Sharpy {
 
         T IGenerator.CustomCollection<T>(IReadOnlyList<T> items) => items.RandomItem(Random);
 
-        string INameGenerator<StringType>.Name(StringType type) {
-            if (Dictionary.ContainsKey(type)) return Dictionary[type].RandomItem(Random);
-            var strings = StringType(type).ToArray();
-            if (strings.Any()) Dictionary.Add(type, strings);
-            else throw new Exception("Can't obtain strings with this configuration");
-            return Dictionary[type].RandomItem(Random);
-        }
 
         bool IGenerator.Bool() => Random.Next(2) != 0;
 
@@ -206,32 +149,6 @@ namespace Sharpy {
 
         long ILong.Long() => Random.NextLong();
 
-        private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
-
-        private static string FormatDigit(int i) => i < 10 ? Prefix(i, 1) : i.ToString();
-
-        private IEnumerable<string> StringType(StringType stringType) {
-            switch (stringType) {
-                case FemaleFirstName:
-                    return Origin(Names.Where(name => name.Type == 1)).Select(name => name.Data);
-                case MaleFirstName:
-                    return Origin(Names.Where(name => name.Type == 2)).Select(name => name.Data);
-                case LastName:
-                    return Origin(Names.Where(name => name.Type == 3)).Select(name => name.Data);
-                case FirstName:
-                    return Origin(Names.Where(name => (name.Type == 1) | (name.Type == 2))).Select(name => name.Data);
-                case UserName:
-                    return UserNames;
-                case AnyName:
-                    return Names.Select(name => name.Data).Concat(UserNames);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(stringType), stringType, null);
-            }
-        }
-
-        private IEnumerable<Name> Origin(IEnumerable<Name> names) => Origins != null && Origins.Any()
-            ? names.Where(name => Origins.Contains(name.Country) | Origins.Contains(name.Region))
-            : names;
 
         int IInteger.Integer(int max) => Integer.Integer(max);
 
@@ -244,5 +161,11 @@ namespace Sharpy {
         double IDouble.Double(double max) => Double.Double(max);
 
         double IDouble.Double(double min, double max) => Double.Double(min, max);
+
+        string IName<NameType>.Name(NameType arg) => Name.Name(arg);
+
+        private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
+
+        private static string FormatDigit(int i) => i < 10 ? Prefix(i, 1) : i.ToString();
     }
 }

@@ -6,7 +6,7 @@ namespace Sharpy {
     /// <summary>
     ///     <para>A contract containing various Methods to generate data.</para>
     /// </summary>
-    public interface IGenerator : ILong, IDouble, IInteger, INameGenerator<StringType> {
+    public interface IGenerator : ILong, IDouble, IInteger, IName<NameType> {
         /// <summary>
         ///     <para>Returns one of the Arguments given.</para>
         /// </summary>
@@ -97,7 +97,7 @@ namespace Sharpy {
         int Integer();
     }
 
-    public interface INameGenerator<in T> {
+    public interface IName<in T> {
         string Name(T arg);
     }
 
