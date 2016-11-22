@@ -73,6 +73,7 @@
     <Compile Include="src\Implementation\Generators\SecurityNumberGen.cs" />
     <Compile Include="src\Implementation\Unique.cs" />
     <Compile Include="src\IntegerRandomizer.cs" />
+    <Compile Include="src\NameFetcher.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
