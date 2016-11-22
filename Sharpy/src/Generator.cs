@@ -20,12 +20,6 @@ namespace Sharpy {
     ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
     /// </remarks>
     public sealed class Generator : IGenerator {
-        public const string FemaleFirstName = "FemaleFirstName";
-        public const string MaleFirstName = "MaleFirstName";
-        public const string LastName = "LastName";
-        public const string FirstName = "FirstName";
-        public const string UserName = "UserName";
-        public const string AnyName = "AnyName";
         private IEnumerable<Name> _names;
         private Tuple<int, int> _phoneState = new Tuple<int, int>(0, 0);
 
@@ -90,8 +84,8 @@ namespace Sharpy {
             set { _userNames = value; }
         }
 
-        private Dictionary<string, IReadOnlyList<string>> Dictionary { get; } =
-            new Dictionary<string, IReadOnlyList<string>>();
+        private Dictionary<StringType, IReadOnlyList<string>> Dictionary { get; } =
+            new Dictionary<StringType, IReadOnlyList<string>>();
 
 
         /// <summary>
@@ -157,7 +151,7 @@ namespace Sharpy {
 
         T IGenerator.CustomCollection<T>(IReadOnlyList<T> items) => items.RandomItem(Random);
 
-        string IGenerator.String(string type) {
+        string INameGenerator<StringType>.Name(StringType type) {
             if (Dictionary.ContainsKey(type)) return Dictionary[type].RandomItem(Random);
             var strings = StringType(type).ToArray();
             if (strings.Any()) Dictionary.Add(type, strings);
@@ -228,7 +222,7 @@ namespace Sharpy {
 
         private static string FormatDigit(int i) => i < 10 ? Prefix(i, 1) : i.ToString();
 
-        private IEnumerable<string> StringType(string stringType) {
+        private IEnumerable<string> StringType(StringType stringType) {
             switch (stringType) {
                 case FemaleFirstName:
                     return Origin(Names.Where(name => name.Type == 1)).Select(name => name.Data);
