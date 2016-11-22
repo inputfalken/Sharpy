@@ -25,7 +25,7 @@ namespace Sharpy {
 
 
         private IEnumerable<string> _userNames;
-
+        public IDouble Double { get; }
         public IInteger Integer { get; }
 
         /// <summary>
@@ -34,6 +34,7 @@ namespace Sharpy {
         public Generator() {
             Seed = SeedByTick;
             Random = new Random(Seed);
+            Double = new DoubleRandomizer(Random);
             Integer = new IntegerRandomizer(Random);
             DateGenerator = new DateGenerator(Random);
             Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random);
@@ -47,6 +48,7 @@ namespace Sharpy {
         public Generator(int seed) {
             Seed = seed;
             Random = new Random(Seed);
+            Double = new DoubleRandomizer(Random);
             Integer = new IntegerRandomizer(Random);
             DateGenerator = new DateGenerator(Random);
             Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random);
@@ -204,12 +206,6 @@ namespace Sharpy {
 
         long ILong.Long() => Random.NextLong();
 
-        double IDouble.Double() => Random.NextDouble();
-
-        double IDouble.Double(double max) => Random.NextDouble(max);
-
-        double IDouble.Double(double min, double max) => Random.NextDouble(min, max);
-
         private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
 
         private static string FormatDigit(int i) => i < 10 ? Prefix(i, 1) : i.ToString();
@@ -242,5 +238,11 @@ namespace Sharpy {
         int IInteger.Integer(int min, int max) => Integer.Integer(min, max);
 
         int IInteger.Integer() => Integer.Integer();
+
+        double IDouble.Double() => Double.Double();
+
+        double IDouble.Double(double max) => Double.Double(max);
+
+        double IDouble.Double(double min, double max) => Double.Double(min, max);
     }
 }
