@@ -26,12 +26,15 @@ namespace Sharpy {
 
         private IEnumerable<string> _userNames;
 
+        public IInteger Integer { get; }
+
         /// <summary>
         ///     <para>Instantiates a new Generator which will generate random sequences of data</para>
         /// </summary>
         public Generator() {
             Seed = SeedByTick;
             Random = new Random(Seed);
+            Integer = new IntegerRandomizer(Random);
             DateGenerator = new DateGenerator(Random);
             Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random);
             SocialSecurityNumberGenerator = new SecurityNumberGen(Random);
@@ -44,6 +47,7 @@ namespace Sharpy {
         public Generator(int seed) {
             Seed = seed;
             Random = new Random(Seed);
+            Integer = new IntegerRandomizer(Random);
             DateGenerator = new DateGenerator(Random);
             Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random);
             SocialSecurityNumberGenerator = new SecurityNumberGen(Random);
@@ -161,18 +165,6 @@ namespace Sharpy {
 
         bool IGenerator.Bool() => Random.Next(2) != 0;
 
-        int IInteger.Integer(int max) {
-            IGenerator foo = this;
-            return foo.Integer(0, max);
-        }
-
-        int IInteger.Integer(int min, int max) {
-            if (max <= min)
-                throw new ArgumentOutOfRangeException($"{nameof(max)} must be > {nameof(min)}");
-            return Random.Next(min, max);
-        }
-
-        int IInteger.Integer() => Random.Next(int.MinValue, int.MaxValue);
 
         LocalDate IGenerator.DateByAge(int age) => DateGenerator.RandomDateByAge(age);
 
@@ -241,10 +233,14 @@ namespace Sharpy {
             }
         }
 
-        private IEnumerable<Name> Origin(IEnumerable<Name> names) {
-            return Origins != null && Origins.Any()
-                ? names.Where(name => Origins.Contains(name.Country) | Origins.Contains(name.Region))
-                : names;
-        }
+        private IEnumerable<Name> Origin(IEnumerable<Name> names) => Origins != null && Origins.Any()
+            ? names.Where(name => Origins.Contains(name.Country) | Origins.Contains(name.Region))
+            : names;
+
+        int IInteger.Integer(int max) => Integer.Integer(max);
+
+        int IInteger.Integer(int min, int max) => Integer.Integer(min, max);
+
+        int IInteger.Integer() => Integer.Integer();
     }
 }
