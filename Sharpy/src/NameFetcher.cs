@@ -9,7 +9,7 @@ using Sharpy.Implementation.ExtensionMethods;
 using Sharpy.Properties;
 
 namespace Sharpy {
-    internal class NameFetcher : IName<NameType> {
+    internal class NameFetcher : INameProvider {
         private readonly Random _random;
 
         private IEnumerable<Name> _names;
