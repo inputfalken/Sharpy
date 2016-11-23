@@ -28,13 +28,20 @@ namespace Sharpy {
             Random = new Random(Seed);
             DoubleProvider = new DoubleRandomizer(Random);
             IntegerProvider = new IntRandomizer(Random);
-            NameProvider = new NameFetcher(Random);
+            NameProvider = new NameByOrigin(Random);
             LongProvider = new LongRandomizer(Random);
+            StringProvider = new UserNameRandomizer(Random);
             DateGenerator = new DateGenerator(Random);
             Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random);
             SocialSecurityNumberGenerator = new SecurityNumberGen(Random);
             PhoneNumberGenerator = new NumberGenerator(Random);
         }
+
+        /// <summary>
+        ///     <para>Gets and Sets the implementation of IGenerator's parameterless String method</para>
+        ///     <para>By default the strings returned are from a lazy loaded file containing common usernames</para>
+        /// </summary>
+        public IStringProvider StringProvider { get; set; }
 
         /// <summary>
         ///     <para>Gets and Sets the implementation which IGenerator's Name method use.</para>
@@ -176,5 +183,6 @@ namespace Sharpy {
         private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
 
         private static string FormatDigit(int i) => i < 10 ? Prefix(i, 1) : i.ToString();
+        string IStringProvider.String() => StringProvider.String();
     }
 }

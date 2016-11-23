@@ -12,4 +12,15 @@ namespace Sharpy.IProviders {
         /// <returns></returns>
         string Name(NameType arg);
     }
+
+    /// <summary>
+    /// Represents a parameterless method giving strings.
+    /// </summary>
+    public interface IStringProvider {
+        /// <summary>
+        /// Returns a string.
+        /// </summary>
+        /// <returns></returns>
+        string String();
+    }
 }

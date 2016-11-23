@@ -24,12 +24,7 @@ namespace Sharpy.Enums {
         FirstName,
 
         /// <summary>
-        ///     Will give you back a random username.
-        /// </summary>
-        UserName,
-
-        /// <summary>
-        ///     Will give you either a first name, last name, username.
+        ///     Will give you either a first name, last name.
         /// </summary>
         Any
     }
