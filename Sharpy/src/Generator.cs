@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using NodaTime;
 using Sharpy.Enums;
+using Sharpy.Implementation;
 using Sharpy.Implementation.ExtensionMethods;
-using Sharpy.Implementation.Generators;
+using Sharpy.IProviders;
 
 namespace Sharpy {
     /// <summary>

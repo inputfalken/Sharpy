@@ -1,7 +1,7 @@
 ﻿using System;
 using Sharpy.Implementation.ExtensionMethods;
 
-namespace Sharpy.Implementation.Generators {
+namespace Sharpy.Implementation {
     internal class SecurityNumberGen : Unique<long> {
         public SecurityNumberGen(Random random) : base(random) {}
 

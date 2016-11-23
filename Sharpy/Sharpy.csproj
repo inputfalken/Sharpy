@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Sharpy.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -55,7 +56,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="src\DoubleRandomizer.cs" />
+    <Compile Include="src\Implementation\DoubleRandomizer.cs" />
     <Compile Include="src\GeneratorExtensions.cs" />
     <Compile Include="src\Implementation\ExtensionMethods\ReadOnlyListExtensions.cs" />
     <Compile Include="src\Implementation\ExtensionMethods\Shuffling.cs" />
@@ -66,15 +67,19 @@
     <Compile Include="src\Generator.cs" />
     <Compile Include="src\Implementation\DataObjects\CountryCode.cs" />
     <Compile Include="src\Implementation\ExtensionMethods\StringExtensions.cs" />
-    <Compile Include="src\Implementation\Generators\NumberGenerator.cs" />
-    <Compile Include="src\Implementation\Generators\DateGenerator.cs" />
-    <Compile Include="src\Implementation\Generators\MailGenerator.cs" />
+    <Compile Include="src\Implementation\NumberGenerator.cs" />
+    <Compile Include="src\Implementation\DateGenerator.cs" />
+    <Compile Include="src\Implementation\MailGenerator.cs" />
     <Compile Include="src\Implementation\DataObjects\Name.cs" />
-    <Compile Include="src\Implementation\Generators\SecurityNumberGen.cs" />
+    <Compile Include="src\Implementation\SecurityNumberGen.cs" />
     <Compile Include="src\Implementation\Unique.cs" />
-    <Compile Include="src\IntegerRandomizer.cs" />
-    <Compile Include="src\LongRandomizer.cs" />
-    <Compile Include="src\NameFetcher.cs" />
+    <Compile Include="src\Implementation\IntegerRandomizer.cs" />
+    <Compile Include="src\Implementation\LongRandomizer.cs" />
+    <Compile Include="src\Implementation\NameFetcher.cs" />
+    <Compile Include="src\IProviders\IDoubleProvider.cs" />
+    <Compile Include="src\IProviders\IIntegerProvider.cs" />
+    <Compile Include="src\IProviders\ILongProvider.cs" />
+    <Compile Include="src\IProviders\INameProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
