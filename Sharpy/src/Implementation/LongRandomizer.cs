@@ -1,7 +1,8 @@
 ﻿using System;
 using Sharpy.Implementation.ExtensionMethods;
+using Sharpy.IProviders;
 
-namespace Sharpy {
+namespace Sharpy.Implementation {
     internal class LongRandomizer : ILongProvider {
         private readonly Random _random;
 

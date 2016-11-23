@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using NodaTime;
 using Sharpy.Enums;
+using Sharpy.Implementation;
 using Sharpy.Implementation.ExtensionMethods;
-using Sharpy.Implementation.Generators;
+using Sharpy.IProviders;
 
 namespace Sharpy {
     /// <summary>
@@ -98,11 +99,15 @@ namespace Sharpy {
         }
 
         /// <summary>
-        ///     <para>Gets and Sets if phone numbers are gonna be unique.</para>
-        ///     <para>This affects IGenerator's PhoneAddress method.</para>
+        ///     <para>Gets and Sets if IGenerator's NumberByLength returns unique numbers.</para>
         ///     <para>Set to true by Default</para>
+        ///     <para>
+        ///         NOTE:
+        ///         If this is true the following will happen.
+        ///         IGenerator's NumberByLength method will throw an exception if called more than Length^10
+        ///     </para>
         /// </summary>
-        public bool UniquePhoneNumbers { get; set; } = true;
+        public bool UniqueNumbers { get; set; } = true;
 
 
         /// <summary>
@@ -138,17 +143,17 @@ namespace Sharpy {
             => Mailgen.Mail(name, secondName);
 
         // The combinations possible is 10^length
-        string IGenerator.PhoneNumber(int length, string prefix) {
+        string IGenerator.NumberByLength(int length) {
             //If phonestate has changed
             if (_phoneState.Item1 != length)
                 _phoneState = new Tuple<int, int>(length, (int) Math.Pow(10, length) - 1);
-            var res = PhoneNumberGenerator.RandomNumber(0, _phoneState.Item2, UniquePhoneNumbers);
+            var res = PhoneNumberGenerator.RandomNumber(0, _phoneState.Item2, UniqueNumbers);
             if (res == -1) throw new Exception("You reached maxium Ammount of combinations for the Length used");
 
             var phoneNumber = res.ToString();
             return phoneNumber.Length != length
-                ? prefix + Prefix(phoneNumber, length - phoneNumber.Length)
-                : prefix + phoneNumber;
+                ? Prefix(phoneNumber, length - phoneNumber.Length)
+                : phoneNumber;
         }
 
 

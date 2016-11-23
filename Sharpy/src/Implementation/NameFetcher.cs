@@ -6,9 +6,10 @@ using Newtonsoft.Json;
 using Sharpy.Enums;
 using Sharpy.Implementation.DataObjects;
 using Sharpy.Implementation.ExtensionMethods;
+using Sharpy.IProviders;
 using Sharpy.Properties;
 
-namespace Sharpy {
+namespace Sharpy.Implementation {
     internal class NameFetcher : INameProvider {
         private readonly Random _random;
 
