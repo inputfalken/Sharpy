@@ -20,7 +20,8 @@ namespace Sharpy {
         }
 
         private Lazy<IEnumerable<string>> LazyUsernames { get; } =
-            new Lazy<IEnumerable<string>>(() => Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None));
+            new Lazy<IEnumerable<string>>(() => Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None))
+            ;
 
         private IEnumerable<Name> Names {
             get { return _names ?? LazyNames.Value; }
@@ -74,17 +75,17 @@ namespace Sharpy {
 
         private IEnumerable<string> StringType(NameType nameType) {
             switch (nameType) {
-                case Enums.NameType.FemaleFirstName:
+                case NameType.FemaleFirstName:
                     return Origin(Names.Where(name => name.Type == 1)).Select(name => name.Data);
-                case Enums.NameType.MaleFirstName:
+                case NameType.MaleFirstName:
                     return Origin(Names.Where(name => name.Type == 2)).Select(name => name.Data);
-                case Enums.NameType.LastName:
+                case NameType.LastName:
                     return Origin(Names.Where(name => name.Type == 3)).Select(name => name.Data);
-                case Enums.NameType.FirstName:
+                case NameType.FirstName:
                     return Origin(Names.Where(name => (name.Type == 1) | (name.Type == 2))).Select(name => name.Data);
-                case Enums.NameType.UserName:
+                case NameType.UserName:
                     return UserNames;
-                case Enums.NameType.Any:
+                case NameType.Any:
                     return Names.Select(name => name.Data).Concat(UserNames);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(nameType), nameType, null);

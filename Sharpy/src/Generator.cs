@@ -33,9 +33,28 @@ namespace Sharpy {
             PhoneNumberGenerator = new NumberGenerator(Random);
         }
 
+        /// <summary>
+        ///     <para>Gets and Sets the implementation which IGenerator's Name method use.</para>
+        ///     <para>By default the names loaded from an internal file supplied by this library then randomized</para>
+        /// </summary>
         public INameProvider NameProvider { get; set; }
+
+        /// <summary>
+        ///     <para>Gets and Sets the implementation which IGenerator's Double methods use.</para>
+        ///     <para>By Default the doubles are randomized</para>
+        /// </summary>
         public IDoubleProvider DoubleProvider { get; set; }
+
+        /// <summary>
+        ///     <para>Gets and Sets the implementation which IGenerator's Integer methods use.</para>
+        ///     <para>By Default the ints are randomized</para>
+        /// </summary>
         public IIntegerProvider IntegerProvider { get; set; }
+
+        /// <summary>
+        ///     <para>Gets and Sets the implementation which IGenerator's Long methods use.</para>
+        ///     <para>By Default the longs are randomized</para>
+        /// </summary>
         public ILongProvider LongProvider { get; set; }
 
         /// <summary>
@@ -145,14 +164,14 @@ namespace Sharpy {
 
         string INameProvider.Name(NameType arg) => NameProvider.Name(arg);
 
-        private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
-
-        private static string FormatDigit(int i) => i < 10 ? Prefix(i, 1) : i.ToString();
-
         long ILongProvider.Long(long min, long max) => LongProvider.Long(min, max);
 
         long ILongProvider.Long(long max) => LongProvider.Long(max);
 
         long ILongProvider.Long() => LongProvider.Long();
+
+        private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
+
+        private static string FormatDigit(int i) => i < 10 ? Prefix(i, 1) : i.ToString();
     }
 }
