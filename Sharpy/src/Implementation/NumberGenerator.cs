@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sharpy.Implementation.Generators {
+namespace Sharpy.Implementation {
     // ReSharper disable once ClassNeverInstantiated.Global
     // Is generated from json
     /// <summary>

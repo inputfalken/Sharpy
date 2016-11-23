@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using NodaTime;
-using Sharpy.Enums;
+using Sharpy.IProviders;
 
 namespace Sharpy {
     /// <summary>
-    ///     <para>A contract containing various Methods to generate data.</para>
+    ///     <para>Represents a Generator with methods for  generating common datatypes.</para>
     ///     <remarks>This will overtime get new methods</remarks>
     /// </summary>
     public interface IGenerator : ILongProvider, IDoubleProvider, IIntegerProvider, INameProvider {
@@ -51,73 +51,10 @@ namespace Sharpy {
         string MailAddress(string name, string secondName = null);
 
         /// <summary>
-        ///     <para>Returns a string representing a phonenumber</para>
+        ///     <para>Returns number as string with it's length equal to length argument</para>
+        ///     <para>Could be used to create  phone number for example</para>
         /// </summary>
-        /// <param name="length">The length of the number. Prefix will not be counted for this argument</param>
-        /// <param name="prefix">The prefix of the number.</param>
-        string PhoneNumber(int length, string prefix = null);
-    }
-
-    public interface ILongProvider {
-        /// <summary>
-        ///     <para>Returns a long from min (inclusive) to max (exclusive)</para>
-        /// </summary>
-        /// <param name="min">The inclusive minimum bound</param>
-        /// <param name="max">The exclusive maximum bound.  Must be greater than min</param>
-        long Long(long min, long max);
-
-        /// <summary>
-        ///     <para>Returns a long from 0 (inclusive) to max (exclusive)</para>
-        /// </summary>
-        /// <param name="max">The exclusive maximum bound.  Must be greater than 0</param>
-        long Long(long max);
-
-        /// <summary>
-        ///     <para>Returns a long within all possible values of long</para>
-        /// </summary>
-        long Long();
-    }
-
-    public interface IIntegerProvider {
-        /// <summary>
-        ///     <para>Returns a Integer from 0 to max.</para>
-        ///     <param name="max">The max value</param>
-        /// </summary>
-        int Integer(int max);
-
-        /// <summary>
-        ///     <para>Returns a Integer from min to max.</para>
-        /// </summary>
-        int Integer(int min, int max);
-
-        /// <summary>
-        ///     <para>Returns a Integer within all possible values of integer (except int.MaxValue)</para>
-        /// </summary>
-        /// <returns></returns>
-        int Integer();
-    }
-
-    public interface INameProvider {
-        string Name(NameType arg);
-    }
-
-    public interface IDoubleProvider {
-        /// <summary>
-        ///     <para>Returns a generated double from 0 to 1</para>
-        /// </summary>
-        double Double();
-
-        /// <summary>
-        ///     <para>Returns a generated long from 0 (inclusive) to max (exclusive)</para>
-        /// </summary>
-        /// <param name="max">The exclusive maximum bound.  Must be greater than 0</param>
-        double Double(double max);
-
-        /// <summary>
-        ///     <para>Returns a generated double from min (inclusive) to max (exclusive)</para>
-        /// </summary>
-        /// <param name="min">The inclusive minimum bound</param>
-        /// <param name="max">The exclusive maximum bound.  Must be greater than min</param>
-        double Double(double min, double max);
+        /// <param name="length">The length of the number.</param>
+        string NumberByLength(int length);
     }
 }
