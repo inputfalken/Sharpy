@@ -5,6 +5,7 @@ using Sharpy.Enums;
 namespace Sharpy {
     /// <summary>
     ///     <para>A contract containing various Methods to generate data.</para>
+    ///     <remarks>This will overtime get new methods</remarks>
     /// </summary>
     public interface IGenerator : ILongProvider, IDoubleProvider, IIntegerProvider, INameProvider {
         /// <summary>

@@ -12,6 +12,7 @@ namespace Sharpy {
     /// </summary>
     /// <remarks>
     ///     <para>Contains properties which you can optionally set to change the behavior of the Generator.</para>
+    ///     <para>If you want to generate data just call Generate/GenerateMany depending on what you want.</para>
     ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
     /// </remarks>
     public sealed class Generator : IGenerator {
@@ -19,6 +20,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>Instantiates a new generator which will generate same results every execution based on seed</para>
+        ///     <para>If you don't set the seed, it will be set by the current Tick</para>
         /// </summary>
         public Generator(int? seed = null) {
             Seed = seed ?? SeedByTick;
