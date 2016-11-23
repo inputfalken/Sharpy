@@ -7,7 +7,7 @@ namespace Sharpy {
     ///     <para>Represents a Generator with methods for  generating common datatypes.</para>
     ///     <remarks>This will overtime get new methods</remarks>
     /// </summary>
-    public interface IGenerator : ILongProvider, IDoubleProvider, IIntegerProvider, INameProvider {
+    public interface IGenerator : ILongProvider, IDoubleProvider, IIntegerProvider, INameProvider, IStringProvider {
         /// <summary>
         ///     <para>Returns one of the Arguments given.</para>
         /// </summary>
