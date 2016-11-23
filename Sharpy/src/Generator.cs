@@ -18,38 +18,25 @@ namespace Sharpy {
         private Tuple<int, int> _phoneState = new Tuple<int, int>(0, 0);
 
         /// <summary>
-        ///     <para>Instantiates a new Generator which will generate random sequences of data</para>
-        /// </summary>
-        public Generator() {
-            Seed = SeedByTick;
-            Random = new Random(Seed);
-            Double = new DoubleRandomizer(Random);
-            Integer = new IntegerRandomizer(Random);
-            DateGenerator = new DateGenerator(Random);
-            Name = new NameFetcher(Random);
-            Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random);
-            SocialSecurityNumberGenerator = new SecurityNumberGen(Random);
-            PhoneNumberGenerator = new NumberGenerator(Random);
-        }
-
-        /// <summary>
         ///     <para>Instantiates a new generator which will generate same results every execution based on seed</para>
         /// </summary>
-        public Generator(int seed) {
-            Seed = seed;
+        public Generator(int? seed = null) {
+            Seed = seed ?? SeedByTick;
             Random = new Random(Seed);
-            Double = new DoubleRandomizer(Random);
-            Integer = new IntegerRandomizer(Random);
+            DoubleProvider = new DoubleRandomizer(Random);
+            IntegerProvider = new IntRandomizer(Random);
+            NameProvider = new NameFetcher(Random);
+            LongProvider = new LongRandomizer(Random);
             DateGenerator = new DateGenerator(Random);
-            Name = new NameFetcher(Random);
             Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random);
             SocialSecurityNumberGenerator = new SecurityNumberGen(Random);
             PhoneNumberGenerator = new NumberGenerator(Random);
         }
 
-        public IName<NameType> Name { get; }
-        public IDouble Double { get; }
-        public IInteger Integer { get; }
+        public INameProvider NameProvider { get; set; }
+        public IDoubleProvider DoubleProvider { get; set; }
+        public IIntegerProvider IntegerProvider { get; set; }
+        public ILongProvider LongProvider { get; set; }
 
         /// <summary>
         ///     <para>This captures the current Ticks once each time invoked.</para>
@@ -143,29 +130,29 @@ namespace Sharpy {
                 : prefix + phoneNumber;
         }
 
-        long ILong.Long(long min, long max) => Random.NextLong(min, max);
 
-        long ILong.Long(long max) => Random.NextLong(max);
+        int IIntegerProvider.Integer(int max) => IntegerProvider.Integer(max);
 
-        long ILong.Long() => Random.NextLong();
+        int IIntegerProvider.Integer(int min, int max) => IntegerProvider.Integer(min, max);
 
+        int IIntegerProvider.Integer() => IntegerProvider.Integer();
 
-        int IInteger.Integer(int max) => Integer.Integer(max);
+        double IDoubleProvider.Double() => DoubleProvider.Double();
 
-        int IInteger.Integer(int min, int max) => Integer.Integer(min, max);
+        double IDoubleProvider.Double(double max) => DoubleProvider.Double(max);
 
-        int IInteger.Integer() => Integer.Integer();
+        double IDoubleProvider.Double(double min, double max) => DoubleProvider.Double(min, max);
 
-        double IDouble.Double() => Double.Double();
-
-        double IDouble.Double(double max) => Double.Double(max);
-
-        double IDouble.Double(double min, double max) => Double.Double(min, max);
-
-        string IName<NameType>.Name(NameType arg) => Name.Name(arg);
+        string INameProvider.Name(NameType arg) => NameProvider.Name(arg);
 
         private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
 
         private static string FormatDigit(int i) => i < 10 ? Prefix(i, 1) : i.ToString();
+
+        long ILongProvider.Long(long min, long max) => LongProvider.Long(min, max);
+
+        long ILongProvider.Long(long max) => LongProvider.Long(max);
+
+        long ILongProvider.Long() => LongProvider.Long();
     }
 }

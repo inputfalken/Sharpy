@@ -1,10 +1,10 @@
 ﻿using System;
 
 namespace Sharpy {
-    internal class IntegerRandomizer : IInteger {
+    internal class IntRandomizer : IIntegerProvider {
         private readonly Random _random;
 
-        public IntegerRandomizer(Random random) {
+        public IntRandomizer(Random random) {
             _random = random;
         }
 

@@ -6,7 +6,7 @@ namespace Sharpy {
     /// <summary>
     ///     <para>A contract containing various Methods to generate data.</para>
     /// </summary>
-    public interface IGenerator : ILong, IDouble, IInteger, IName<NameType> {
+    public interface IGenerator : ILongProvider, IDoubleProvider, IIntegerProvider, INameProvider {
         /// <summary>
         ///     <para>Returns one of the Arguments given.</para>
         /// </summary>
@@ -23,7 +23,6 @@ namespace Sharpy {
         ///     <para>Returns a bool</para>
         /// </summary>
         bool Bool();
-
 
         /// <summary>
         ///     <para>Returns a LocalDate with the CurrentYear minus the age and generates date and month.</para>
@@ -58,7 +57,7 @@ namespace Sharpy {
         string PhoneNumber(int length, string prefix = null);
     }
 
-    public interface ILong {
+    public interface ILongProvider {
         /// <summary>
         ///     <para>Returns a long from min (inclusive) to max (exclusive)</para>
         /// </summary>
@@ -78,7 +77,7 @@ namespace Sharpy {
         long Long();
     }
 
-    public interface IInteger {
+    public interface IIntegerProvider {
         /// <summary>
         ///     <para>Returns a Integer from 0 to max.</para>
         ///     <param name="max">The max value</param>
@@ -97,11 +96,11 @@ namespace Sharpy {
         int Integer();
     }
 
-    public interface IName<in T> {
-        string Name(T arg);
+    public interface INameProvider {
+        string Name(NameType arg);
     }
 
-    public interface IDouble {
+    public interface IDoubleProvider {
         /// <summary>
         ///     <para>Returns a generated double from 0 to 1</para>
         /// </summary>
