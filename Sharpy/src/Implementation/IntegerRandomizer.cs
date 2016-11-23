@@ -1,6 +1,7 @@
 ﻿using System;
+using Sharpy.IProviders;
 
-namespace Sharpy {
+namespace Sharpy.Implementation {
     internal class IntRandomizer : IIntegerProvider {
         private readonly Random _random;
 

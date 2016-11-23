@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Sharpy.Implementation.ExtensionMethods;
 
-namespace Sharpy.Implementation.Generators {
+namespace Sharpy.Implementation {
     /// <summary>
     /// </summary>
     internal sealed class MailGenerator : Unique<string> {
