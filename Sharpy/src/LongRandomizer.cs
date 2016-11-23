@@ -2,7 +2,7 @@
 using Sharpy.Implementation.ExtensionMethods;
 
 namespace Sharpy {
-    class LongRandomizer : ILongProvider {
+    internal class LongRandomizer : ILongProvider {
         private readonly Random _random;
 
         public LongRandomizer(Random random) {
