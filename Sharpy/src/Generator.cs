@@ -72,15 +72,13 @@ namespace Sharpy {
         /// </summary>
         private static int SeedByTick => (int) SystemClock.Instance.Now.Ticks & 0x0000FFFF;
 
-
         private NumberGenerator PhoneNumberGenerator { get; }
 
         private SecurityNumberGen SocialSecurityNumberGenerator { get; }
 
-
         private Random Random { get; }
-        private DateGenerator DateGenerator { get; }
 
+        private DateGenerator DateGenerator { get; }
 
         private MailGenerator Mailgen { get; }
 
@@ -116,20 +114,16 @@ namespace Sharpy {
         /// </summary>
         public bool UniqueNumbers { get; set; } = true;
 
-
         /// <summary>
         ///     <para>Gets the seed for Generator.</para>
         /// </summary>
         public int Seed { get; }
 
-
         T IGenerator.Params<T>(params T[] items) => items.RandomItem(Random);
 
         T IGenerator.CustomCollection<T>(IReadOnlyList<T> items) => items.RandomItem(Random);
 
-
         bool IGenerator.Bool() => Random.Next(2) != 0;
-
 
         LocalDate IGenerator.DateByAge(int age) => DateGenerator.RandomDateByAge(age);
 
@@ -183,6 +177,7 @@ namespace Sharpy {
         long ILongProvider.Long(long max) => LongProvider.Long(max);
 
         long ILongProvider.Long() => LongProvider.Long();
+
         string IStringProvider.String() => StringProvider.String();
 
         private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
