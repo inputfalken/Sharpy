@@ -284,8 +284,8 @@ namespace Tests.Generator {
             var g1 = new Sharpy.Generator(TestSeed);
             Thread.Sleep(SleepDuration);
             var g2 = new Sharpy.Generator(TestSeed);
-            var expected = g1.Generate(g => g.PhoneNumber(10));
-            var result = g2.Generate(g => g.PhoneNumber(10));
+            var expected = g1.Generate(g => g.NumberByLength(10));
+            var result = g2.Generate(g => g.NumberByLength(10));
             Assert.AreEqual(expected, result);
         }
 
@@ -545,8 +545,8 @@ namespace Tests.Generator {
             var g1 = new Sharpy.Generator();
             Thread.Sleep(SleepDuration);
             var g2 = new Sharpy.Generator();
-            var expected = g1.GenerateMany(g => g.PhoneNumber(10), Count);
-            var result = g2.GenerateMany(g => g.PhoneNumber(10), Count);
+            var expected = g1.GenerateMany(g => g.NumberByLength(10), Count);
+            var result = g2.GenerateMany(g => g.NumberByLength(10), Count);
             Assert.AreNotEqual(expected, result);
         }
 
@@ -805,8 +805,8 @@ namespace Tests.Generator {
             var g1 = new Sharpy.Generator(TestSeed);
             Thread.Sleep(SleepDuration);
             var g2 = new Sharpy.Generator(TestSeed);
-            var expected = g1.GenerateMany(g => g.PhoneNumber(10), Count);
-            var result = g2.GenerateMany(g => g.PhoneNumber(10), Count);
+            var expected = g1.GenerateMany(g => g.NumberByLength(10), Count);
+            var result = g2.GenerateMany(g => g.NumberByLength(10), Count);
             Assert.AreEqual(expected, result);
         }
 

@@ -51,10 +51,10 @@ namespace Sharpy {
         string MailAddress(string name, string secondName = null);
 
         /// <summary>
-        ///     <para>Returns a string representing a phonenumber</para>
+        ///     <para>Returns number as string with it's length equal to length argument</para>
+        ///     <para>Could be used to create  phone number for example</para>
         /// </summary>
-        /// <param name="length">The length of the number. Prefix will not be counted for this argument</param>
-        /// <param name="prefix">The prefix of the number.</param>
-        string PhoneNumber(int length, string prefix = null);
+        /// <param name="length">The length of the number.</param>
+        string NumberByLength(int length);
     }
 }
