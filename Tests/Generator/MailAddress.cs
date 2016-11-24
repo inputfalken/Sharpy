@@ -31,7 +31,7 @@ namespace Tests.Generator {
                 MailProviders = new[] {"test.com", "test2.com", "test3.com", "test4.com"},
                 UniqueMailAddresses = true
             };
-            var mails = randomGenerator.GenerateMany(generator => generator.MailAddress("john", "doe"), 12);
+            var mails = randomGenerator.GenerateSequence(generator => generator.MailAddress("john", "doe"), 12);
             Assert.IsTrue(FindDuplicates(mails).Count == 0);
         }
 
@@ -45,7 +45,7 @@ namespace Tests.Generator {
 
             // Should be true since mailgenerator has been configured to produce unique mails.
             Assert.IsTrue(
-                mailGenerator.GenerateMany(generatorr => generatorr.MailAddress(MailUserName), 100)
+                mailGenerator.GenerateSequence(generatorr => generatorr.MailAddress(MailUserName), 100)
                     .GroupBy(s => s)
                     .All(grouping => grouping.Count() == 1));
         }
@@ -54,7 +54,7 @@ namespace Tests.Generator {
         public void MailsAreNotnull() {
             var generator = new Sharpy.Generator();
             //Many
-            var mails = generator.GenerateMany(generatorr => generatorr.MailAddress(MailUserName), 20).ToArray();
+            var mails = generator.GenerateSequence(generatorr => generatorr.MailAddress(MailUserName), 20).ToArray();
             Assert.IsFalse(mails.All(string.IsNullOrEmpty));
             Assert.IsFalse(mails.All(string.IsNullOrWhiteSpace));
 
@@ -124,7 +124,7 @@ namespace Tests.Generator {
                 MailProviders = new[] {"test.com"},
                 UniqueMailAddresses = true
             };
-            var generateMany = randomGenerator.GenerateMany(generator => generator.MailAddress("bob", "cool"), 3);
+            var generateMany = randomGenerator.GenerateSequence(generator => generator.MailAddress("bob", "cool"), 3);
             var result = generateMany.Last();
             const string expected = "bob-cool@test.com";
             Assert.AreEqual(expected, result);
@@ -136,7 +136,7 @@ namespace Tests.Generator {
                 MailProviders = new[] {"test.com"},
                 UniqueMailAddresses = true
             };
-            var generate = randomGenerator.GenerateMany(generator => generator.MailAddress("bob", "cool"), 2);
+            var generate = randomGenerator.GenerateSequence(generator => generator.MailAddress("bob", "cool"), 2);
             var result = generate.Last();
             const string expected = "bob_cool@test.com";
             Assert.AreEqual(expected, result);
@@ -158,7 +158,7 @@ namespace Tests.Generator {
                 MailProviders = new[] {"test.com"},
                 UniqueMailAddresses = true
             };
-            var generateMany = randomGenerator.GenerateMany(generator => generator.MailAddress("john", "doe"), 30);
+            var generateMany = randomGenerator.GenerateSequence(generator => generator.MailAddress("john", "doe"), 30);
             Assert.IsTrue(FindDuplicates(generateMany).Count == 0);
         }
 
@@ -196,7 +196,7 @@ namespace Tests.Generator {
                 MailProviders = new[] {"test.com", "test2.com", "test3.com"},
                 UniqueMailAddresses = true
             };
-            var mails = randomGenerator.GenerateMany(generator => generator.MailAddress("john", "doe"), 9);
+            var mails = randomGenerator.GenerateSequence(generator => generator.MailAddress("john", "doe"), 9);
             Assert.IsTrue(FindDuplicates(mails).Count == 0);
         }
 
@@ -230,7 +230,7 @@ namespace Tests.Generator {
                 UniqueMailAddresses = true
             };
             const string expected = "bob@foo.com";
-            var generateMany = randomGenerator.GenerateMany(generator => generator.MailAddress("bob"), 2);
+            var generateMany = randomGenerator.GenerateSequence(generator => generator.MailAddress("bob"), 2);
 
             var result = generateMany.Last();
             Assert.AreEqual(expected, result);
@@ -242,7 +242,7 @@ namespace Tests.Generator {
                 MailProviders = new[] {"test.com", "test2.com"},
                 UniqueMailAddresses = true
             };
-            var mails = randomGenerator.GenerateMany(generator => generator.MailAddress("john", "doe"), 6);
+            var mails = randomGenerator.GenerateSequence(generator => generator.MailAddress("john", "doe"), 6);
             Assert.IsTrue(FindDuplicates(mails).Count == 0);
         }
 

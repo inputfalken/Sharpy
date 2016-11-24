@@ -9,7 +9,7 @@ namespace Tests.Generator {
         [Test]
         public void No_Arguments() {
             var generator = new Sharpy.Generator();
-            var generateMany = generator.GenerateMany(generator1 => generator1.Double(), 20);
+            var generateMany = generator.GenerateSequence(generator1 => generator1.Double(), 20);
             Assert.IsTrue(generateMany.All(d => (d < 1) && (d > 0)));
         }
 
@@ -18,7 +18,7 @@ namespace Tests.Generator {
         public void One_Arg_Eleven_Point_Two() {
             const double max = 11.2;
             var generator = new Sharpy.Generator();
-            var generateMany = generator.GenerateMany(generator1 => generator1.Double(max), 20);
+            var generateMany = generator.GenerateSequence(generator1 => generator1.Double(max), 20);
             Assert.IsTrue(generateMany.All(d => d < max));
         }
 
@@ -26,7 +26,7 @@ namespace Tests.Generator {
         public void One_Arg_Minus_Eleven_Point_Two() {
             const double max = -11.2;
             var generator = new Sharpy.Generator();
-            var generateMany = generator.GenerateMany(generator1 => generator1.Double(max), 20);
+            var generateMany = generator.GenerateSequence(generator1 => generator1.Double(max), 20);
             Assert.Throws<ArgumentOutOfRangeException>(() => generateMany.All(d => d < max));
         }
 
@@ -34,7 +34,7 @@ namespace Tests.Generator {
         public void One_Arg_Zero() {
             const double max = 0;
             var generator = new Sharpy.Generator();
-            var generateMany = generator.GenerateMany(generator1 => generator1.Double(max), 20);
+            var generateMany = generator.GenerateSequence(generator1 => generator1.Double(max), 20);
             Assert.Throws<ArgumentOutOfRangeException>(() => generateMany.All(d => d < max));
         }
 
@@ -43,7 +43,7 @@ namespace Tests.Generator {
             const double min = 11.2;
             const double max = 11.2;
             var generator = new Sharpy.Generator();
-            var generateMany = generator.GenerateMany(generator1 => generator1.Double(min, max), 20);
+            var generateMany = generator.GenerateSequence(generator1 => generator1.Double(min, max), 20);
             Assert.Throws<ArgumentOutOfRangeException>(() => generateMany.All(d => (d > min) && (d < max)));
         }
 
@@ -52,7 +52,7 @@ namespace Tests.Generator {
             const double min = 11.2;
             const double max = 10.4;
             var generator = new Sharpy.Generator();
-            var generateMany = generator.GenerateMany(generator1 => generator1.Double(min, max), 20);
+            var generateMany = generator.GenerateSequence(generator1 => generator1.Double(min, max), 20);
             Assert.Throws<ArgumentOutOfRangeException>(() => generateMany.All(d => (d > min) && (d < max)));
         }
 
@@ -61,7 +61,7 @@ namespace Tests.Generator {
             const double min = -11.4;
             const double max = -10.2;
             var generator = new Sharpy.Generator();
-            var generateMany = generator.GenerateMany(generator1 => generator1.Double(min, max), 20);
+            var generateMany = generator.GenerateSequence(generator1 => generator1.Double(min, max), 20);
             Assert.IsTrue(generateMany.All(d => (d > min) && (d < max)));
         }
 
@@ -70,7 +70,7 @@ namespace Tests.Generator {
             const double min = -10.2;
             const double max = -11.4;
             var generator = new Sharpy.Generator();
-            var generateMany = generator.GenerateMany(generator1 => generator1.Double(min, max), 20);
+            var generateMany = generator.GenerateSequence(generator1 => generator1.Double(min, max), 20);
             Assert.Throws<ArgumentOutOfRangeException>(() => generateMany.All(d => (d > min) && (d < max)));
         }
 
@@ -79,7 +79,7 @@ namespace Tests.Generator {
             const double min = 1.2;
             const double max = 3.4;
             var generator = new Sharpy.Generator();
-            var generateMany = generator.GenerateMany(generator1 => generator1.Double(min, max), 20);
+            var generateMany = generator.GenerateSequence(generator1 => generator1.Double(min, max), 20);
 
             Assert.IsTrue(generateMany.All(d => (d > min) && (d < max)));
         }
@@ -89,7 +89,7 @@ namespace Tests.Generator {
             const double min = 10.2;
             const double max = 11.4;
             var generator = new Sharpy.Generator();
-            var generateMany = generator.GenerateMany(generator1 => generator1.Double(min, max), 20);
+            var generateMany = generator.GenerateSequence(generator1 => generator1.Double(min, max), 20);
 
             Assert.IsTrue(generateMany.All(d => (d > min) && (d < max)));
         }
