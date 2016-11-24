@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Sharpy.Implementation.ExtensionMethods;
 using Sharpy.IProviders;
 using Sharpy.Properties;
@@ -15,8 +14,6 @@ namespace Sharpy.Implementation {
         private Lazy<string[]> LazyUsernames { get; } =
             new Lazy<string[]>(() => Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None));
 
-
-        private IEnumerable<string> UserNames => LazyUsernames.Value;
 
         public string String() => LazyUsernames.Value.RandomItem(_random);
     }
