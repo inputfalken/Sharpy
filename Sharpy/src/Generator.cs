@@ -13,7 +13,7 @@ namespace Sharpy {
     /// </summary>
     /// <remarks>
     ///     <para>Contains properties which you can optionally set to change the behavior of the Generator.</para>
-    ///     <para>If you want to generate data just call Generate/GenerateMany depending on what you want.</para>
+    ///     <para>If you want to generate data just call Generate/GenerateMany.</para>
     ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
     /// </remarks>
     public sealed class Generator : IGenerator {
@@ -183,10 +183,10 @@ namespace Sharpy {
         long ILongProvider.Long(long max) => LongProvider.Long(max);
 
         long ILongProvider.Long() => LongProvider.Long();
+        string IStringProvider.String() => StringProvider.String();
 
         private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
 
         private static string FormatDigit(int i) => i < 10 ? Prefix(i, 1) : i.ToString();
-        string IStringProvider.String() => StringProvider.String();
     }
 }

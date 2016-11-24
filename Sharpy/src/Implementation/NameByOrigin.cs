@@ -11,18 +11,18 @@ using Sharpy.Properties;
 
 namespace Sharpy.Implementation {
     /// <summary>
-    /// <para>Randomizes Common names by Origin.</para>
+    ///     <para>Randomizes Common names by Origin.</para>
     /// </summary>
     public class NameByOrigin : INameProvider {
-        private readonly Random _random;
         private readonly Origin[] _origins;
+        private readonly Random _random;
 
         internal NameByOrigin(Random random) {
             _random = random;
         }
 
         /// <summary>
-        /// Randomizes names with supplied random based on Origin.
+        ///     Randomizes names with supplied random based on Origin.
         /// </summary>
         /// <param name="random"></param>
         /// <param name="origins"></param>
@@ -32,7 +32,7 @@ namespace Sharpy.Implementation {
         }
 
         /// <summary>
-        /// Randomizes names based on Origin.
+        ///     Randomizes names based on Origin.
         /// </summary>
         /// <param name="origins"></param>
         public NameByOrigin(params Origin[] origins) {
@@ -53,7 +53,7 @@ namespace Sharpy.Implementation {
             new Dictionary<NameType, IReadOnlyList<string>>();
 
         /// <summary>
-        /// <para>Returns a name based on nametype.</para>
+        ///     <para>Returns a name based on nametype.</para>
         /// </summary>
         /// <param name="arg"></param>
         /// <returns></returns>
