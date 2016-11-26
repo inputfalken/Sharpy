@@ -76,7 +76,7 @@ namespace Sharpy.Implementation {
                 case NameType.FirstName:
                     return Origin(Names.Where(n => (n.Type == 1) | (n.Type == 2))).Select(n => n.Data);
                 case NameType.Any:
-                    return Names.Select(n => n.Data);
+                    return Origin(Names).Select(n => n.Data);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(nameType), nameType, null);
             }
