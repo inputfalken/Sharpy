@@ -5,12 +5,10 @@ namespace Sharpy {
     /// <summary>
     /// Contains methods for generating common datatypes.
     /// </summary>
-    public abstract class GeneratorBase : IDoubleProvider, IIntegerProvider, IStringProvider, INameProvider,
+    public abstract class GeneratorBase : IDoubleProvider, IIntegerProvider,
         ILongProvider {
         private readonly IDoubleProvider _doubleProvider;
         private readonly IIntegerProvider _integerProvider;
-        private readonly IStringProvider _stringProvider;
-        private readonly INameProvider _nameProvider;
         private readonly ILongProvider _longProvider;
 
         /// <summary>
@@ -18,15 +16,11 @@ namespace Sharpy {
         /// </summary>
         /// <param name="doubleProvider"></param>
         /// <param name="integerProvider"></param>
-        /// <param name="stringProvider"></param>
-        /// <param name="nameProvider"></param>
         /// <param name="longProvider"></param>
-        public GeneratorBase(IDoubleProvider doubleProvider, IIntegerProvider integerProvider,
-            IStringProvider stringProvider, INameProvider nameProvider, ILongProvider longProvider) {
+        protected GeneratorBase(IDoubleProvider doubleProvider, IIntegerProvider integerProvider,
+            ILongProvider longProvider) {
             _doubleProvider = doubleProvider;
             _integerProvider = integerProvider;
-            _stringProvider = stringProvider;
-            _nameProvider = nameProvider;
             _longProvider = longProvider;
         }
 
@@ -71,19 +65,6 @@ namespace Sharpy {
         /// </summary>
         /// <returns></returns>
         public int Integer() => _integerProvider.Integer();
-
-        /// <summary>
-        /// <para>Generates a String.</para>
-        /// </summary>
-        /// <returns></returns>
-        public string String() => _stringProvider.String();
-
-        /// <summary>
-        /// <para>Generates a name based on argument.</para>
-        /// </summary>
-        /// <param name="arg"></param>
-        /// <returns></returns>
-        public string Name(NameType arg) => _nameProvider.Name(arg);
 
         /// <summary>
         /// <para>Generates a long within min and max.</para>

@@ -241,8 +241,8 @@ namespace Tests.Generator {
             Thread.Sleep(SleepDuration);
             var g2 = new Sharpy.Generator(new Random(TestSeed));
 
-            var generateManyA = g1.GenerateSequence(g => g.String(), Count);
-            var generateManyB = g2.GenerateSequence(g => g.String(), Count);
+            var generateManyA = g1.GenerateSequence(g => g.UserName(), Count);
+            var generateManyB = g2.GenerateSequence(g => g.UserName(), Count);
             Assert.AreEqual(generateManyA, generateManyB);
         }
 
@@ -501,8 +501,8 @@ namespace Tests.Generator {
             Thread.Sleep(SleepDuration);
             var g2 = new Sharpy.Generator(new Random());
 
-            var generateManyA = g1.GenerateSequence(g => g.String(), Count);
-            var generateManyB = g2.GenerateSequence(g => g.String(), Count);
+            var generateManyA = g1.GenerateSequence(g => g.UserName(), Count);
+            var generateManyB = g2.GenerateSequence(g => g.UserName(), Count);
             Assert.AreNotEqual(generateManyA, generateManyB);
         }
 
@@ -762,8 +762,8 @@ namespace Tests.Generator {
             Thread.Sleep(SleepDuration);
             var g2 = new Sharpy.Generator(new Random(TestSeed));
 
-            var generateManyA = g1.GenerateSequence(g => g.String(), Count);
-            var generateManyB = g2.GenerateSequence(g => g.String(), Count);
+            var generateManyA = g1.GenerateSequence(g => g.UserName(), Count);
+            var generateManyB = g2.GenerateSequence(g => g.UserName(), Count);
             Assert.AreEqual(generateManyA, generateManyB);
         }
 

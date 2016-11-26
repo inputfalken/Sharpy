@@ -83,12 +83,12 @@ namespace Tests.Generator {
         public void User_Name_Not_Null_Or_White_Space() {
             var gen = new Sharpy.Generator(new Random());
             //Many
-            var userNames = gen.GenerateSequence(g => g.String(), Count).ToArray();
+            var userNames = gen.GenerateSequence(g => g.UserName(), Count).ToArray();
             Assert.IsFalse(userNames.All(string.IsNullOrEmpty));
             Assert.IsFalse(userNames.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var userName = gen.Generate(g => g.String());
+            var userName = gen.Generate(g => g.UserName());
             Assert.IsFalse(string.IsNullOrEmpty(userName));
             Assert.IsFalse(string.IsNullOrWhiteSpace(userName));
         }
