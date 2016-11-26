@@ -10,6 +10,7 @@ namespace Sharpy {
         /// <param name="generator"></param>
         /// <param name="func"></param>
         /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TSource"></typeparam>
         /// <returns></returns>
         public static T Generate<TSource, T>(this TSource generator,
             Func<TSource, T> func) where TSource : GeneratorBase => func(generator);
@@ -37,6 +38,7 @@ namespace Sharpy {
         /// <param name="generator"></param>
         /// <param name="func">The argument supplied is used to get the data. The item returned will be generated.</param>
         /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TSource"></typeparam>
         /// <returns></returns>
         public static IEnumerable<T> GenerateSequence<TSource, T>(this TSource generator,
             Func<TSource, int, T> func, int count = 10) where TSource : GeneratorBase {
