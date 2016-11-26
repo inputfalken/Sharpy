@@ -17,13 +17,13 @@ namespace ConsoleApp {
             // First argument is the instructions on what will be generated, 
             // second argument is the Count of the IEnumerable.
             IEnumerable<Person> people = Generator.GenerateSequence(generator => new Person {
-                FirstName = generator.String(NameType.FirstName),
-                LastName = generator.String(NameType.LastName)
+                FirstName = generator.Name(NameType.FirstName),
+                LastName = generator.Name(NameType.LastName)
             }, 20);
             // Creates one person with randomized names.
             Person person = Generator.Generate(generator => new Person {
-                FirstName = generator.String(NameType.FirstName),
-                LastName = generator.String(NameType.LastName)
+                FirstName = generator.Name(NameType.FirstName),
+                LastName = generator.Name(NameType.LastName)
             });
         }
     }
@@ -52,8 +52,8 @@ namespace ConsoleApp {
 
         private static void Main() {
             IEnumerable<Person> people = Generator.GenerateSequence(generator => new Person {
-                FirstName = generator.String(NameType.FirstName),
-                LastName = generator.String(NameType.LastName)
+                FirstName = generator.Name(NameType.FirstName),
+                LastName = generator.Name(NameType.LastName)
             }, 20);
         }
 
@@ -76,8 +76,8 @@ namespace ConsoleApp {
 
         public static void Main() {
             IEnumerable<Person> people = Generator.GenerateSequence(generator => new Person {
-                FirstName = generator.String(NameType.FirstName),
-                LastName = generator.String(NameType.LastName),
+                FirstName = generator.Name(NameType.FirstName),
+                LastName = generator.Name(NameType.LastName),
                 // Just pass an Class using IList or params!
                 // This shows a params example.
                 WorkPlace = generator.Params("Workplace1", "workplace2")
@@ -104,8 +104,8 @@ namespace ConsoleApp {
 
         public static void Main() {
             IEnumerable<Person> people = Generator.GenerateSequence(generator => new Person {
-                FirstName = generator.String(NameType.FirstName),
-                LastName = generator.String(NameType.LastName)
+                FirstName = generator.Name(NameType.FirstName),
+                LastName = generator.Name(NameType.LastName)
             }, 20);
 
             // Just use the same generator and call GenerateSequence!
@@ -137,8 +137,8 @@ namespace ConsoleApp {
 
         public static void Main() {
             IEnumerable<Person> people = Generator.GenerateSequence(generator => new Person {
-                FirstName = generator.String(NameType.FirstName),
-                LastName = generator.String(NameType.LastName),
+                FirstName = generator.Name(NameType.FirstName),
+                LastName = generator.Name(NameType.LastName),
                 //Just call GenerateSequence but inside the type generated!
                 Animals = Generator.GenerateSequence(animalgenerator => new Animal {Age = animalgenerator.Integer(10, 20)})
             }, 20);
@@ -170,8 +170,8 @@ namespace ConsoleApp {
             //At the moment you have to make a statement lambda.
             IEnumerable<Person> people = Generator.GenerateSequence(generator => {
                 //Reference the result from the generator methods
-                var firstName = generator.String(NameType.FirstName);
-                var lastName = generator.String(NameType.LastName);
+                var firstName = generator.Name(NameType.FirstName);
+                var lastName = generator.Name(NameType.LastName);
 
                 //Use the results and pass them to the person.
                 var person = new Person {
