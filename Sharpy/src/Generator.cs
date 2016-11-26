@@ -34,6 +34,19 @@ namespace Sharpy {
             PhoneNumberGenerator = new NumberGenerator(_random);
         }
 
+        public Generator(Configurment config)
+            : base(new DoubleRandomizer(config.Random),
+                new IntRandomizer(config.Random),
+                new UserNameRandomizer(config.Random),
+                new NameByOrigin(config.Random),
+                new LongRandomizer(config.Random)) {
+            _random = config.Random;
+            DateGenerator = new DateGenerator(config.Random);
+            Mailgen = new MailGenerator(config.MailProviders, config.Random);
+            SocialSecurityNumberGenerator = new SecurityNumberGen(config.Random);
+            PhoneNumberGenerator = new NumberGenerator(config.Random);
+        }
+
         private NumberGenerator PhoneNumberGenerator { get; }
 
         private SecurityNumberGen SocialSecurityNumberGenerator { get; }
@@ -43,37 +56,43 @@ namespace Sharpy {
 
         private MailGenerator Mailgen { get; }
 
+        public class Configurment {
+            public Random Random { get; set; }
 
-        /// <summary>
-        ///     <para>Gets and Sets the mailproviders which will be used for generating MailAddresses.</para>
-        ///     <para>This affects IGenerator's MailAddress method.</para>
-        ///     <para>Set to gmail.com, hotmail.com and yahoo.com by default.</para>
-        /// </summary>
-        public IEnumerable<string> MailProviders {
-            get { return Mailgen.EmailDomains; }
-            set { Mailgen.EmailDomains = value.ToArray(); }
+            /// <summary>
+            ///     <para>Gets and Sets the mailproviders which will be used for generating MailAddresses.</para>
+            ///     <para>This affects IGenerator's MailAddress method.</para>
+            ///     <para>Set to gmail.com, hotmail.com and yahoo.com by default.</para>
+            /// </summary>
+            public IReadOnlyList<string> MailProviders { get; set; }
+
+            /// <summary>
+            ///     <para>Gets and Sets if mailaddresses are gonna be unique.</para>
+            ///     <para>This affects IGenerator's MailAddress method.</para>
+            ///     <para>Set to true by Default</para>
+            /// </summary>
+            public bool UniqueMails { get; set; }
+
+            public IEnumerable<Origin> Origins { get; set; }
+
+            /// <summary>
+            ///     <para>Gets and Sets if IGenerator's NumberByLength returns unique numbers.</para>
+            ///     <para>Set to true by Default</para>
+            ///     <para>
+            ///         NOTE:
+            ///         If this is true the following will happen.
+            ///         IGenerator's NumberByLength method will throw an exception if called more than Length^10
+            ///     </para>
+            /// </summary>
+            private bool UniqueNumbers { get; set; } = true;
+
+            public Generator CreateGenerator() {
+                return new Generator(this);
+            }
         }
 
-        /// <summary>
-        ///     <para>Gets and Sets if mailaddresses are gonna be unique.</para>
-        ///     <para>This affects IGenerator's MailAddress method.</para>
-        ///     <para>Set to true by Default</para>
-        /// </summary>
-        public bool UniqueMailAddresses {
-            get { return Mailgen.Unique; }
-            set { Mailgen.Unique = value; }
-        }
 
-        /// <summary>
-        ///     <para>Gets and Sets if IGenerator's NumberByLength returns unique numbers.</para>
-        ///     <para>Set to true by Default</para>
-        ///     <para>
-        ///         NOTE:
-        ///         If this is true the following will happen.
-        ///         IGenerator's NumberByLength method will throw an exception if called more than Length^10
-        ///     </para>
-        /// </summary>
-        public bool UniqueNumbers { get; set; } = true;
+        private bool UniqueNumbers { get; } = true;
 
 
         public T Params<T>(params T[] items) => items.RandomItem(_random);
