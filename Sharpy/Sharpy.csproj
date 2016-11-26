@@ -76,7 +76,6 @@
     <Compile Include="src\Implementation\IntegerRandomizer.cs" />
     <Compile Include="src\Implementation\LongRandomizer.cs" />
     <Compile Include="src\Implementation\NameByOrigin.cs" />
-    <Compile Include="src\Implementation\UserNameRandomizer.cs" />
     <Compile Include="src\IProviders\IDoubleProvider.cs" />
     <Compile Include="src\IProviders\IIntegerProvider.cs" />
     <Compile Include="src\IProviders\ILongProvider.cs" />

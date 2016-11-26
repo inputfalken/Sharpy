@@ -4,8 +4,7 @@ namespace Sharpy {
     /// <summary>
     ///     Contains methods for generating common datatypes.
     /// </summary>
-    public abstract class GeneratorBase : IDoubleProvider, IIntegerProvider,
-        ILongProvider {
+    public abstract class GeneratorBase : IDoubleProvider, IIntegerProvider, ILongProvider {
         private readonly IDoubleProvider _doubleProvider;
         private readonly IIntegerProvider _integerProvider;
         private readonly ILongProvider _longProvider;
