@@ -75,10 +75,6 @@ namespace Sharpy {
         /// </summary>
         public bool UniqueNumbers { get; set; } = true;
 
-        /// <summary>
-        ///     <para>Gets the seed for Generator.</para>
-        /// </summary>
-        public int Seed { get; }
 
         public T Params<T>(params T[] items) => items.RandomItem(_random);
 
