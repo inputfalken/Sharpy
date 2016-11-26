@@ -27,30 +27,6 @@ namespace Tests.Generator {
         /// </summary>
         private const int SleepDuration = 20;
 
-        [Test]
-        public void Compare_Generator_Seed_Default_Default() {
-            var g1 = new Sharpy.Generator(new Random(TestSeed));
-            Thread.Sleep(SleepDuration);
-            var g2 = new Sharpy.Generator(new Random(TestSeed));
-            Assert.AreEqual(g1.Seed, g2.Seed);
-        }
-
-        [Test]
-        public void Compare_Generator_Seed_Default_Set() {
-            var g1 = new Sharpy.Generator();
-            Thread.Sleep(SleepDuration);
-            var g2 = new Sharpy.Generator();
-            Assert.AreNotEqual(g1.Seed, g2.Seed);
-        }
-
-        [Test]
-        public void Compare_Generator_Seed_Set_Set() {
-            var g1 = new Sharpy.Generator(new Random(TestSeed));
-            Thread.Sleep(SleepDuration);
-            var g2 = new Sharpy.Generator(new Random(TestSeed));
-            Assert.AreEqual(g1.Seed, g2.Seed);
-        }
-
 
         [Test]
         public void Generate_Seed_Bool() {
