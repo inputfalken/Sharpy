@@ -8,10 +8,8 @@ using Sharpy.Implementation.ExtensionMethods;
 
 namespace Sharpy {
     /// <summary>
-    ///     <para>My implementation of IGenerator</para>
     /// </summary>
     /// <remarks>
-    ///     <para>Contains properties which you can optionally set to change the behavior of the Generator.</para>
     ///     <para>If you want to generate data just call Generate/GenerateMany.</para>
     ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
     /// </remarks>
@@ -20,8 +18,7 @@ namespace Sharpy {
         private Tuple<int, int> _phoneState = new Tuple<int, int>(0, 0);
 
         /// <summary>
-        ///     <para>Instantiates a new generator which will generate same results every execution based on seed</para>
-        ///     <para>If you don't set the seed, it will be set by the current Tick</para>
+        ///     <para>Instantiates a new generator which will generate based on the random supplied</para>
         /// </summary>
         public Generator(Random random)
             : base(
@@ -34,7 +31,7 @@ namespace Sharpy {
             PhoneNumberGenerator = new NumberGenerator(_random);
         }
 
-        public Generator(Configurment config)
+        private Generator(Configurement config)
             : base(new DoubleRandomizer(config.Random),
                 new IntRandomizer(config.Random),
                 new UserNameRandomizer(config.Random),
@@ -58,16 +55,48 @@ namespace Sharpy {
 
         private bool UniqueNumbers { get; } = true;
 
+        /// <summary>
+        /// <para>Randomizes one of the arguments.</para>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="items"></param>
+        /// <returns></returns>
         public T Params<T>(params T[] items) => items.RandomItem(_random);
 
+        /// <summary>
+        /// <para>Randomizes one of the elements in the IReadOnlyList.</para>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="items"></param>
+        /// <returns></returns>
         public T CustomCollection<T>(IReadOnlyList<T> items) => items.RandomItem(_random);
 
+        /// <summary>
+        /// <para>Randomizes a bool.</para>
+        /// </summary>
+        /// <returns></returns>
         public bool Bool() => _random.Next(2) != 0;
 
+        /// <summary>
+        /// <para>Randomizes a date based on age.</para>
+        /// </summary>
+        /// <param name="age"></param>
+        /// <returns></returns>
         public LocalDate DateByAge(int age) => DateGenerator.RandomDateByAge(age);
 
+        /// <summary>
+        /// <para>Randomizes a date based on year.</para>
+        /// </summary>
+        /// <param name="year"></param>
+        /// <returns></returns>
         public LocalDate DateByYear(int year) => DateGenerator.RandomDateByYear(year);
 
+        /// <summary>
+        /// <para>Randomizes a unique SocialSecurity Number.</para>
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="formated"></param>
+        /// <returns></returns>
         public string SocialSecurityNumber(LocalDate date, bool formated = true) {
             var result = SocialSecurityNumberGenerator.SecurityNumber(_random.Next(10000),
                 FormatDigit(date.YearOfCentury).Append(FormatDigit(date.Month), FormatDigit(date.Day)));
@@ -79,10 +108,20 @@ namespace Sharpy {
             return formated ? securityNumber.Insert(6, "-") : securityNumber;
         }
 
+        /// <summary>
+        /// <para>Returns a string representing a mailaddress.</para>
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="secondName"></param>
+        /// <returns></returns>
         public string MailAddress(string name, string secondName = null)
             => Mailgen.Mail(name, secondName);
 
-        // The combinations possible is 10^length
+        /// <summary>
+        /// <para>Returns a number with the length of the argument.</para>
+        /// </summary>
+        /// <param name="length"></param>
+        /// <returns></returns>
         public string NumberByLength(int length) {
             //If phonestate has changed
             if (_phoneState.Item1 != length)
@@ -100,27 +139,37 @@ namespace Sharpy {
 
         private static string FormatDigit(int i) => i < 10 ? Prefix(i, 1) : i.ToString();
 
-        public class Configurment {
+        /// <summary>
+        /// <para>Use this class if you want to configure your Generator. then call CreateGenerator method to get the generator.</para>
+        /// </summary>
+        public class Configurement {
+            /// <summary>
+            /// <para>Gets and Sets the Random which the Generator will use.</para>
+            /// </summary>
             public Random Random { get; set; }
 
             /// <summary>
             ///     <para>Gets and Sets the mailproviders which will be used for generating MailAddresses.</para>
-            ///     <para>This affects IGenerator's MailAddress method.</para>
+            ///     <para>This affects Generator's MailAddress method.</para>
             ///     <para>Set to gmail.com, hotmail.com and yahoo.com by default.</para>
             /// </summary>
             public IReadOnlyList<string> MailProviders { get; set; }
 
             /// <summary>
             ///     <para>Gets and Sets if mailaddresses are gonna be unique.</para>
-            ///     <para>This affects IGenerator's MailAddress method.</para>
+            ///     <para>This affects Generator's MailAddress method.</para>
             ///     <para>Set to false by Default</para>
             /// </summary>
             public bool UniqueMails { get; set; }
 
+            /// <summary>
+            /// <para>Gets and Sets the origins of names returned the Generator's Name method.</para>
+            /// <para>Set to nothing by default.</para>
+            /// </summary>
             public IEnumerable<Origin> Origins { get; set; }
 
             /// <summary>
-            ///     <para>Gets and Sets if IGenerator's NumberByLength returns unique numbers.</para>
+            ///     <para>Gets and Sets if Generator's NumberByLength returns unique numbers.</para>
             ///     <para>Set to false by Default</para>
             ///     <para>
             ///         NOTE:
@@ -130,6 +179,10 @@ namespace Sharpy {
             /// </summary>
             public bool UniqueNumbers { get; set; }
 
+            /// <summary>
+            /// Creates a Generator with your configurement.
+            /// </summary>
+            /// <returns></returns>
             public Generator CreateGenerator() {
                 if (Random == null) Random = new Random();
                 if (MailProviders == null) MailProviders = new[] {"gmail.com", "hotmail.com", "yahoo.com"};
