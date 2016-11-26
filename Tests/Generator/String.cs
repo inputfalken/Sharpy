@@ -3,36 +3,24 @@ using System.Linq;
 using NUnit.Framework;
 using Sharpy;
 using Sharpy.Enums;
+using Sharpy.Implementation;
 
 namespace Tests.Generator {
     [TestFixture]
     public class Name {
         private const int Count = 100;
 
-        [Test]
-        public void Any_Name_Not_Null_Or_White_Space() {
-            var gen = new Sharpy.Generator(new Random());
-            //Many
-            var names = gen.GenerateSequence(g => g.Name(NameType.Any), Count).ToArray();
-            Assert.IsFalse(names.All(string.IsNullOrEmpty));
-            Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
-
-            //Single
-            var name = gen.Generate(g => g.Name(NameType.Any));
-            Assert.IsFalse(string.IsNullOrWhiteSpace(name));
-            Assert.IsFalse(string.IsNullOrWhiteSpace(name));
-        }
 
         [Test]
         public void Female_First_Name_Not_Null_Or_White_Space() {
             var gen = new Sharpy.Generator(new Random());
             //Many
-            var names = gen.GenerateSequence(g => g.Name(NameType.FemaleFirstName), Count).ToArray();
+            var names = gen.GenerateSequence(g => g.FirstName(Gender.Female), Count).ToArray();
             Assert.IsFalse(names.All(string.IsNullOrEmpty));
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var name = gen.Generate(g => g.Name(NameType.FemaleFirstName));
+            var name = gen.Generate(g => g.FirstName(Gender.Female));
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
         }
@@ -41,12 +29,12 @@ namespace Tests.Generator {
         public void First_Name_Not_Null_Or_White_Space() {
             var gen = new Sharpy.Generator(new Random());
             //Many
-            var names = gen.GenerateSequence(g => g.Name(NameType.FirstName), Count).ToArray();
+            var names = gen.GenerateSequence(g => g.FirstName(), Count).ToArray();
             Assert.IsFalse(names.All(string.IsNullOrEmpty));
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var name = gen.Generate(g => g.Name(NameType.FirstName));
+            var name = gen.Generate(g => g.FirstName());
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
         }
@@ -55,12 +43,12 @@ namespace Tests.Generator {
         public void Last_Name_Not_Null_Or_White_Space() {
             var gen = new Sharpy.Generator(new Random());
             //Many
-            var names = gen.GenerateSequence(g => g.Name(NameType.LastName), Count).ToArray();
+            var names = gen.GenerateSequence(g => g.LastName(), Count).ToArray();
             Assert.IsFalse(names.All(string.IsNullOrEmpty));
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var name = gen.Generate(g => g.Name(NameType.LastName));
+            var name = gen.Generate(g => g.LastName());
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
         }
@@ -69,12 +57,12 @@ namespace Tests.Generator {
         public void Male_First_Name_Not_Null_Or_White_Space() {
             var gen = new Sharpy.Generator(new Random());
             //Many
-            var names = gen.GenerateSequence(g => g.Name(NameType.MaleFirstName), Count).ToArray();
+            var names = gen.GenerateSequence(g => g.FirstName(Gender.Male), Count).ToArray();
             Assert.IsFalse(names.All(string.IsNullOrEmpty));
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var name = gen.Generate(g => g.Name(NameType.MaleFirstName));
+            var name = gen.Generate(g => g.FirstName(Gender.Male));
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
         }

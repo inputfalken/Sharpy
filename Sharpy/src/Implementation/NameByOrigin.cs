@@ -13,7 +13,7 @@ namespace Sharpy.Implementation {
     /// <summary>
     ///     <para>Randomizes Common names by Origin.</para>
     /// </summary>
-    public class NameByOrigin : INameProvider<NameType> {
+    public class NameByOrigin : INameProvider {
         private readonly Origin[] _origins;
         private readonly Random _random;
 
@@ -22,7 +22,7 @@ namespace Sharpy.Implementation {
         }
 
         /// <summary>
-        ///     Randomizes names with supplied random based on Origin.
+        ///     <para>Randomizes names with supplied random based on Origin.</para>
         /// </summary>
         /// <param name="random"></param>
         /// <param name="origins"></param>
@@ -32,7 +32,7 @@ namespace Sharpy.Implementation {
         }
 
         /// <summary>
-        ///     Randomizes names based on Origin.
+        ///     <para>Randomizes names based on Origin.</para>
         /// </summary>
         /// <param name="origins"></param>
         public NameByOrigin(params Origin[] origins) {
@@ -57,30 +57,33 @@ namespace Sharpy.Implementation {
         /// </summary>
         /// <param name="arg"></param>
         /// <returns></returns>
-        public string Name(NameType arg) {
+        private string Name(NameType arg) {
             if (Dictionary.ContainsKey(arg)) return Dictionary[arg].RandomItem(_random);
-            var strings = StringType(arg).ToArray();
+            var strings = Origin(Names.Where(n => n.Type == arg)).Select(n => n.Data).ToArray();
             if (strings.Any()) Dictionary.Add(arg, strings);
             else throw new Exception("Can't obtain strings with this configuration");
             return Dictionary[arg].RandomItem(_random);
         }
 
-        private IEnumerable<string> StringType(NameType nameType) {
-            switch (nameType) {
-                case NameType.FemaleFirstName:
-                    return Origin(Names.Where(n => n.Type == 1)).Select(n => n.Data);
-                case NameType.MaleFirstName:
-                    return Origin(Names.Where(n => n.Type == 2)).Select(n => n.Data);
-                case NameType.LastName:
-                    return Origin(Names.Where(n => n.Type == 3)).Select(n => n.Data);
-                case NameType.FirstName:
-                    return Origin(Names.Where(n => (n.Type == 1) | (n.Type == 2))).Select(n => n.Data);
-                case NameType.Any:
-                    return Origin(Names).Select(n => n.Data);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(nameType), nameType, null);
-            }
-        }
+        /// <summary>
+        /// <para>Returns a first name based on Gender.</para>
+        /// </summary>
+        /// <param name="gender"></param>
+        /// <returns></returns>
+        public string FirstName(Gender gender)
+            => Name(gender == Gender.Male ? NameType.MaleFirst : NameType.FemaleFirst);
+
+        /// <summary>
+        /// <para>Returns a random first name.</para>
+        /// </summary>
+        /// <returns></returns>
+        public string FirstName() => Name(_random.Next(2) == 0 ? NameType.FemaleFirst : NameType.MaleFirst);
+
+        /// <summary>
+        /// <para>Returns a random lastname.</para>
+        /// </summary>
+        /// <returns></returns>
+        public string LastName() => Name(NameType.Last);
 
         private IEnumerable<Name> Origin(IEnumerable<Name> names) => (_origins != null) && _origins.Any()
             ? names.Where(name => _origins.Contains(name.Country) | _origins.Contains(name.Region))
