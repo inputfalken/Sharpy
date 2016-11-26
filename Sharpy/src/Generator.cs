@@ -20,8 +20,8 @@ namespace Sharpy {
     ///     <para>If you want to map this to instantiate another class you can call Generate/GenerateSequence.</para>
     ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
     /// </summary>
-    public sealed class Generator : GeneratorBase, INameProvider<NameType> {
-        private readonly INameProvider<NameType> _nameProvider;
+    public sealed class Generator : GeneratorBase, INameProvider {
+        private readonly INameProvider _nameProvider;
         private readonly Random _random;
         private Tuple<int, int> _phoneState = new Tuple<int, int>(0, 0);
 
@@ -141,15 +141,28 @@ namespace Sharpy {
                 : phoneNumber;
         }
 
-        /// <summary>
-        ///     <para>Returns common names based on argument.</para>
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public string Name(NameType type) => _nameProvider.Name(type);
 
         /// <summary>
-        ///     <para>Returns a common username.</para>
+        /// <para>Returns a random first name.</para>
+        /// </summary>
+        /// <returns></returns>
+        public string FirstName() => _nameProvider.FirstName();
+
+        /// <summary>
+        /// <para>Returns a first name based on Gender.</para>
+        /// </summary>
+        /// <param name="gender"></param>
+        /// <returns></returns>
+        public string FirstName(Gender gender) => _nameProvider.FirstName(gender);
+
+        /// <summary>
+        /// <para>Returns a random lastname.</para>
+        /// </summary>
+        /// <returns></returns>
+        public string LastName() => _nameProvider.LastName();
+
+        /// <summary>
+        ///     <para>Returns a username.</para>
         /// </summary>
         /// <returns></returns>
         public string UserName() => LazyUsernames.Value.RandomItem(_random);

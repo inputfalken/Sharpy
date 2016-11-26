@@ -6,26 +6,16 @@ namespace Sharpy.Enums {
         /// <summary>
         ///     Will give you back a random female first name.
         /// </summary>
-        FemaleFirstName,
+        FemaleFirst = 1,
 
         /// <summary>
         ///     Will give you back a random male first name.
         /// </summary>
-        MaleFirstName,
+        MaleFirst = 2,
 
         /// <summary>
         ///     Will give you back a random last name.
         /// </summary>
-        LastName,
-
-        /// <summary>
-        ///     Will give you back a random first name.
-        /// </summary>
-        FirstName,
-
-        /// <summary>
-        ///     Will give you either a first name, last name.
-        /// </summary>
-        Any
+        Last = 3
     }
 }
