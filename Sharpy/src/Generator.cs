@@ -5,7 +5,6 @@ using NodaTime;
 using Sharpy.Enums;
 using Sharpy.Implementation;
 using Sharpy.Implementation.ExtensionMethods;
-using Sharpy.IProviders;
 
 namespace Sharpy {
     /// <summary>
@@ -16,67 +15,29 @@ namespace Sharpy {
     ///     <para>If you want to generate data just call Generate/GenerateMany.</para>
     ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
     /// </remarks>
-    public sealed class Generator : IGenerator {
+    public sealed class Generator : GeneratorBase {
+        private readonly Random _random;
         private Tuple<int, int> _phoneState = new Tuple<int, int>(0, 0);
 
         /// <summary>
         ///     <para>Instantiates a new generator which will generate same results every execution based on seed</para>
         ///     <para>If you don't set the seed, it will be set by the current Tick</para>
         /// </summary>
-        public Generator(int? seed = null) {
-            Seed = seed ?? SeedByTick;
-            Random = new Random(Seed);
-            DoubleProvider = new DoubleRandomizer(Random);
-            IntegerProvider = new IntRandomizer(Random);
-            NameProvider = new NameByOrigin(Random);
-            LongProvider = new LongRandomizer(Random);
-            StringProvider = new UserNameRandomizer(Random);
-            DateGenerator = new DateGenerator(Random);
-            Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, Random);
-            SocialSecurityNumberGenerator = new SecurityNumberGen(Random);
-            PhoneNumberGenerator = new NumberGenerator(Random);
+        public Generator(Random random = null)
+            : base(
+                new DoubleRandomizer(random), new IntRandomizer(random), new UserNameRandomizer(random),
+                new NameByOrigin(random), new LongRandomizer(random)) {
+            _random = random;
+            DateGenerator = new DateGenerator(_random);
+            Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, _random);
+            SocialSecurityNumberGenerator = new SecurityNumberGen(_random);
+            PhoneNumberGenerator = new NumberGenerator(_random);
         }
-
-        /// <summary>
-        ///     <para>Gets and Sets the implementation of IGenerator's parameterless String method</para>
-        ///     <para>By default the strings returned are from a lazy loaded file containing common usernames</para>
-        /// </summary>
-        public IStringProvider StringProvider { get; set; }
-
-        /// <summary>
-        ///     <para>Gets and Sets the implementation which IGenerator's Name method use.</para>
-        ///     <para>By default the names loaded from an internal file supplied by this library then randomized</para>
-        /// </summary>
-        public INameProvider NameProvider { get; set; }
-
-        /// <summary>
-        ///     <para>Gets and Sets the implementation which IGenerator's Double methods use.</para>
-        ///     <para>By Default the doubles are randomized</para>
-        /// </summary>
-        public IDoubleProvider DoubleProvider { get; set; }
-
-        /// <summary>
-        ///     <para>Gets and Sets the implementation which IGenerator's Integer methods use.</para>
-        ///     <para>By Default the ints are randomized</para>
-        /// </summary>
-        public IIntegerProvider IntegerProvider { get; set; }
-
-        /// <summary>
-        ///     <para>Gets and Sets the implementation which IGenerator's Long methods use.</para>
-        ///     <para>By Default the longs are randomized</para>
-        /// </summary>
-        public ILongProvider LongProvider { get; set; }
-
-        /// <summary>
-        ///     <para>This captures the current Ticks once each time invoked.</para>
-        /// </summary>
-        private static int SeedByTick => (int) SystemClock.Instance.Now.Ticks & 0x0000FFFF;
 
         private NumberGenerator PhoneNumberGenerator { get; }
 
         private SecurityNumberGen SocialSecurityNumberGenerator { get; }
 
-        private Random Random { get; }
 
         private DateGenerator DateGenerator { get; }
 
@@ -119,18 +80,18 @@ namespace Sharpy {
         /// </summary>
         public int Seed { get; }
 
-        T IGenerator.Params<T>(params T[] items) => items.RandomItem(Random);
+        public T Params<T>(params T[] items) => items.RandomItem(_random);
 
-        T IGenerator.CustomCollection<T>(IReadOnlyList<T> items) => items.RandomItem(Random);
+        public T CustomCollection<T>(IReadOnlyList<T> items) => items.RandomItem(_random);
 
-        bool IGenerator.Bool() => Random.Next(2) != 0;
+        public bool Bool() => _random.Next(2) != 0;
 
-        LocalDate IGenerator.DateByAge(int age) => DateGenerator.RandomDateByAge(age);
+        public LocalDate DateByAge(int age) => DateGenerator.RandomDateByAge(age);
 
-        LocalDate IGenerator.DateByYear(int year) => DateGenerator.RandomDateByYear(year);
+        public LocalDate DateByYear(int year) => DateGenerator.RandomDateByYear(year);
 
-        string IGenerator.SocialSecurityNumber(LocalDate date, bool formated) {
-            var result = SocialSecurityNumberGenerator.SecurityNumber(Random.Next(10000),
+        public string SocialSecurityNumber(LocalDate date, bool formated = true) {
+            var result = SocialSecurityNumberGenerator.SecurityNumber(_random.Next(10000),
                 FormatDigit(date.YearOfCentury).Append(FormatDigit(date.Month), FormatDigit(date.Day)));
             if (result == -1)
                 throw new Exception("You have reached the maxium possible combinations for a controlnumber");
@@ -140,11 +101,11 @@ namespace Sharpy {
             return formated ? securityNumber.Insert(6, "-") : securityNumber;
         }
 
-        string IGenerator.MailAddress(string name, string secondName)
+        public string MailAddress(string name, string secondName = null)
             => Mailgen.Mail(name, secondName);
 
         // The combinations possible is 10^length
-        string IGenerator.NumberByLength(int length) {
+        public string NumberByLength(int length) {
             //If phonestate has changed
             if (_phoneState.Item1 != length)
                 _phoneState = new Tuple<int, int>(length, (int) Math.Pow(10, length) - 1);
@@ -156,29 +117,6 @@ namespace Sharpy {
                 ? Prefix(phoneNumber, length - phoneNumber.Length)
                 : phoneNumber;
         }
-
-
-        int IIntegerProvider.Integer(int max) => IntegerProvider.Integer(max);
-
-        int IIntegerProvider.Integer(int min, int max) => IntegerProvider.Integer(min, max);
-
-        int IIntegerProvider.Integer() => IntegerProvider.Integer();
-
-        double IDoubleProvider.Double() => DoubleProvider.Double();
-
-        double IDoubleProvider.Double(double max) => DoubleProvider.Double(max);
-
-        double IDoubleProvider.Double(double min, double max) => DoubleProvider.Double(min, max);
-
-        string INameProvider.Name(NameType arg) => NameProvider.Name(arg);
-
-        long ILongProvider.Long(long min, long max) => LongProvider.Long(min, max);
-
-        long ILongProvider.Long(long max) => LongProvider.Long(max);
-
-        long ILongProvider.Long() => LongProvider.Long();
-
-        string IStringProvider.String() => StringProvider.String();
 
         private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
 
