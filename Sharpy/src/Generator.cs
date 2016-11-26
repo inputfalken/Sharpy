@@ -5,6 +5,7 @@ using NodaTime;
 using Sharpy.Enums;
 using Sharpy.Implementation;
 using Sharpy.Implementation.ExtensionMethods;
+using Sharpy.IProviders;
 
 namespace Sharpy {
     /// <summary>
@@ -16,33 +17,37 @@ namespace Sharpy {
     public sealed class Generator : GeneratorBase {
         private readonly Random _random;
         private Tuple<int, int> _phoneState = new Tuple<int, int>(0, 0);
+        private readonly INameProvider _nameProvider;
+        private readonly IStringProvider _stringProvider;
 
         /// <summary>
         ///     <para>Instantiates a new generator which will generate based on the random supplied</para>
         /// </summary>
         public Generator(Random random)
-            : base(
-                new DoubleRandomizer(random), new IntRandomizer(random), new UserNameRandomizer(random),
-                new NameByOrigin(random), new LongRandomizer(random)) {
+            : base(new DoubleRandomizer(random), new IntRandomizer(random), new LongRandomizer(random)) {
             _random = random;
             DateGenerator = new DateGenerator(_random);
             Mailgen = new MailGenerator(new[] {"gmail.com", "hotmail.com", "yahoo.com"}, _random);
             SocialSecurityNumberGenerator = new SecurityNumberGen(_random);
             PhoneNumberGenerator = new NumberGenerator(_random);
+            _nameProvider = new NameByOrigin(random);
+            _stringProvider = new UserNameRandomizer(random);
         }
 
         private Generator(Configurement config)
-            : base(new DoubleRandomizer(config.Random),
-                new IntRandomizer(config.Random),
-                new UserNameRandomizer(config.Random),
-                new NameByOrigin(config.Random, config.Origins.ToArray()),
-                new LongRandomizer(config.Random)) {
+            : base(
+                new DoubleRandomizer(config.Random), new IntRandomizer(config.Random), new LongRandomizer(config.Random)
+            ) {
             _random = config.Random;
             DateGenerator = new DateGenerator(config.Random);
             Mailgen = new MailGenerator(config.MailProviders, config.Random);
             SocialSecurityNumberGenerator = new SecurityNumberGen(config.Random);
             PhoneNumberGenerator = new NumberGenerator(config.Random);
             UniqueNumbers = config.UniqueNumbers;
+            _nameProvider = config.Origins == null
+                ? new NameByOrigin(config.Random)
+                : new NameByOrigin(config.Random, config.Origins.ToArray());
+            _stringProvider = new UserNameRandomizer(config.Random);
         }
 
         private NumberGenerator PhoneNumberGenerator { get; }
@@ -134,6 +139,15 @@ namespace Sharpy {
                 ? Prefix(phoneNumber, length - phoneNumber.Length)
                 : phoneNumber;
         }
+
+        /// <summary>
+        /// <para>Returns common names based on argument.</para>
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public string Name(NameType type) => _nameProvider.Name(type);
+
+        public string UserName() => _stringProvider.String();
 
         private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
 
