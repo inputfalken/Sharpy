@@ -6,6 +6,7 @@ using Sharpy.Enums;
 using Sharpy.Implementation;
 using Sharpy.Implementation.ExtensionMethods;
 using Sharpy.IProviders;
+using Sharpy.Properties;
 
 namespace Sharpy {
     /// <summary>
@@ -22,7 +23,6 @@ namespace Sharpy {
     public sealed class Generator : GeneratorBase, INameProvider<NameType> {
         private readonly INameProvider<NameType> _nameProvider;
         private readonly Random _random;
-        private readonly IStringProvider _stringProvider;
         private Tuple<int, int> _phoneState = new Tuple<int, int>(0, 0);
 
         /// <summary>
@@ -36,7 +36,6 @@ namespace Sharpy {
             SocialSecurityNumberGenerator = new SecurityNumberGen(_random);
             PhoneNumberGenerator = new NumberGenerator(_random);
             _nameProvider = new NameByOrigin(random);
-            _stringProvider = new UserNameRandomizer(random);
         }
 
         private Generator(Configurement conf)
@@ -50,7 +49,6 @@ namespace Sharpy {
             _nameProvider = conf.Origins == null
                 ? new NameByOrigin(conf.Random)
                 : new NameByOrigin(conf.Random, conf.Origins.ToArray());
-            _stringProvider = new UserNameRandomizer(conf.Random);
         }
 
         private NumberGenerator PhoneNumberGenerator { get; }
@@ -154,7 +152,10 @@ namespace Sharpy {
         ///     <para>Returns a common username.</para>
         /// </summary>
         /// <returns></returns>
-        public string UserName() => _stringProvider.String();
+        public string UserName() => LazyUsernames.Value.RandomItem(_random);
+
+        private Lazy<string[]> LazyUsernames { get; } =
+            new Lazy<string[]>(() => Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None));
 
         private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
 
@@ -162,8 +163,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Use this class if you want to configure your Generator. then call CreateGenerator method to get the
-        ///         generator.
+        ///         Use this class if you want to configure your Generator. then call CreateGenerator to get the generator.
         ///     </para>
         /// </summary>
         public class Configurement {
