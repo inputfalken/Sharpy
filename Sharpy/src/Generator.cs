@@ -23,7 +23,7 @@ namespace Sharpy {
         ///     <para>Instantiates a new generator which will generate same results every execution based on seed</para>
         ///     <para>If you don't set the seed, it will be set by the current Tick</para>
         /// </summary>
-        public Generator(Random random = null)
+        public Generator(Random random)
             : base(
                 new DoubleRandomizer(random), new IntRandomizer(random), new UserNameRandomizer(random),
                 new NameByOrigin(random), new LongRandomizer(random)) {
@@ -38,62 +38,25 @@ namespace Sharpy {
             : base(new DoubleRandomizer(config.Random),
                 new IntRandomizer(config.Random),
                 new UserNameRandomizer(config.Random),
-                new NameByOrigin(config.Random),
+                new NameByOrigin(config.Random, config.Origins.ToArray()),
                 new LongRandomizer(config.Random)) {
             _random = config.Random;
             DateGenerator = new DateGenerator(config.Random);
             Mailgen = new MailGenerator(config.MailProviders, config.Random);
             SocialSecurityNumberGenerator = new SecurityNumberGen(config.Random);
             PhoneNumberGenerator = new NumberGenerator(config.Random);
+            UniqueNumbers = config.UniqueNumbers;
         }
 
         private NumberGenerator PhoneNumberGenerator { get; }
 
         private SecurityNumberGen SocialSecurityNumberGenerator { get; }
 
-
         private DateGenerator DateGenerator { get; }
 
         private MailGenerator Mailgen { get; }
 
-        public class Configurment {
-            public Random Random { get; set; }
-
-            /// <summary>
-            ///     <para>Gets and Sets the mailproviders which will be used for generating MailAddresses.</para>
-            ///     <para>This affects IGenerator's MailAddress method.</para>
-            ///     <para>Set to gmail.com, hotmail.com and yahoo.com by default.</para>
-            /// </summary>
-            public IReadOnlyList<string> MailProviders { get; set; }
-
-            /// <summary>
-            ///     <para>Gets and Sets if mailaddresses are gonna be unique.</para>
-            ///     <para>This affects IGenerator's MailAddress method.</para>
-            ///     <para>Set to true by Default</para>
-            /// </summary>
-            public bool UniqueMails { get; set; }
-
-            public IEnumerable<Origin> Origins { get; set; }
-
-            /// <summary>
-            ///     <para>Gets and Sets if IGenerator's NumberByLength returns unique numbers.</para>
-            ///     <para>Set to true by Default</para>
-            ///     <para>
-            ///         NOTE:
-            ///         If this is true the following will happen.
-            ///         IGenerator's NumberByLength method will throw an exception if called more than Length^10
-            ///     </para>
-            /// </summary>
-            private bool UniqueNumbers { get; set; } = true;
-
-            public Generator CreateGenerator() {
-                return new Generator(this);
-            }
-        }
-
-
         private bool UniqueNumbers { get; } = true;
-
 
         public T Params<T>(params T[] items) => items.RandomItem(_random);
 
@@ -136,5 +99,42 @@ namespace Sharpy {
         private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
 
         private static string FormatDigit(int i) => i < 10 ? Prefix(i, 1) : i.ToString();
+
+        public class Configurment {
+            public Random Random { get; set; }
+
+            /// <summary>
+            ///     <para>Gets and Sets the mailproviders which will be used for generating MailAddresses.</para>
+            ///     <para>This affects IGenerator's MailAddress method.</para>
+            ///     <para>Set to gmail.com, hotmail.com and yahoo.com by default.</para>
+            /// </summary>
+            public IReadOnlyList<string> MailProviders { get; set; }
+
+            /// <summary>
+            ///     <para>Gets and Sets if mailaddresses are gonna be unique.</para>
+            ///     <para>This affects IGenerator's MailAddress method.</para>
+            ///     <para>Set to false by Default</para>
+            /// </summary>
+            public bool UniqueMails { get; set; }
+
+            public IEnumerable<Origin> Origins { get; set; }
+
+            /// <summary>
+            ///     <para>Gets and Sets if IGenerator's NumberByLength returns unique numbers.</para>
+            ///     <para>Set to false by Default</para>
+            ///     <para>
+            ///         NOTE:
+            ///         If this is true the following will happen.
+            ///         IGenerator's NumberByLength method will throw an exception if called more than Length^10
+            ///     </para>
+            /// </summary>
+            public bool UniqueNumbers { get; set; }
+
+            public Generator CreateGenerator() {
+                if (Random == null) Random = new Random();
+                if (MailProviders == null) MailProviders = new[] {"gmail.com", "hotmail.com", "yahoo.com"};
+                return new Generator(this);
+            }
+        }
     }
 }
