@@ -19,8 +19,8 @@ namespace Sharpy {
     ///     <para>If you want to map this to instantiate another class you can call Generate/GenerateSequence.</para>
     ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
     /// </summary>
-    public sealed class Generator : GeneratorBase {
-        private readonly INameProvider _nameProvider;
+    public sealed class Generator : GeneratorBase, INameProvider<NameType> {
+        private readonly INameProvider<NameType> _nameProvider;
         private readonly Random _random;
         private readonly IStringProvider _stringProvider;
         private Tuple<int, int> _phoneState = new Tuple<int, int>(0, 0);

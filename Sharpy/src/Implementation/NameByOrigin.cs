@@ -13,7 +13,7 @@ namespace Sharpy.Implementation {
     /// <summary>
     ///     <para>Randomizes Common names by Origin.</para>
     /// </summary>
-    public class NameByOrigin : INameProvider {
+    public class NameByOrigin : INameProvider<NameType> {
         private readonly Origin[] _origins;
         private readonly Random _random;
 
