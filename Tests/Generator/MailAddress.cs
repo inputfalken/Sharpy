@@ -17,7 +17,7 @@ namespace Tests.Generator {
 
         [Test]
         public void Check_Mail_Count_Unique_True() {
-            var randomGenerator = new Sharpy.Generator.Configurment {
+            var randomGenerator = new Sharpy.Generator.Configurement {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = true
             }.CreateGenerator();
@@ -27,7 +27,7 @@ namespace Tests.Generator {
 
         [Test]
         public void FourDomain_TwoArgs_NoDuplicates() {
-            var randomGenerator = new Sharpy.Generator.Configurment {
+            var randomGenerator = new Sharpy.Generator.Configurement {
                 MailProviders = new[] {"test.com", "test2.com", "test3.com", "test4.com"},
                 UniqueMails = true
             }.CreateGenerator();
@@ -38,7 +38,7 @@ namespace Tests.Generator {
 
         [Test]
         public void MailAddressesAreUnique() {
-            var mailGenerator = new Sharpy.Generator.Configurment {
+            var mailGenerator = new Sharpy.Generator.Configurement {
                 MailProviders = new[] {"gmail.com"},
                 UniqueMails = true
             }.CreateGenerator();
@@ -66,7 +66,7 @@ namespace Tests.Generator {
 
         [Test]
         public void OneDomain_null_CalledOneTime() {
-            var randomGenerator = new Sharpy.Generator.Configurment {
+            var randomGenerator = new Sharpy.Generator.Configurement {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = true
             }.CreateGenerator();
@@ -76,7 +76,7 @@ namespace Tests.Generator {
 
         [Test]
         public void OneDomain_OneString_CalledOneTime() {
-            var randomGenerator = new Sharpy.Generator.Configurment {
+            var randomGenerator = new Sharpy.Generator.Configurement {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = true
             }.CreateGenerator();
@@ -87,7 +87,7 @@ namespace Tests.Generator {
 
         [Test]
         public void OneDomain_OneString_CalledOneTime_UniqueFalse() {
-            var randomGenerator = new Sharpy.Generator.Configurment {
+            var randomGenerator = new Sharpy.Generator.Configurement {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = false
             }.CreateGenerator();
@@ -97,7 +97,7 @@ namespace Tests.Generator {
 
         [Test]
         public void OneDomain_OneString_CalledTwoTimes() {
-            var randomGenerator = new Sharpy.Generator.Configurment {
+            var randomGenerator = new Sharpy.Generator.Configurement {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = true
             }.CreateGenerator();
@@ -109,7 +109,7 @@ namespace Tests.Generator {
 
         [Test]
         public void OneDomain_TwoStrings_CalledOneTime() {
-            var randomGenerator = new Sharpy.Generator.Configurment {
+            var randomGenerator = new Sharpy.Generator.Configurement {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = true
             }.CreateGenerator();
@@ -120,7 +120,7 @@ namespace Tests.Generator {
 
         [Test]
         public void OneDomain_TwoStrings_CalledThreeTimes() {
-            var randomGenerator = new Sharpy.Generator.Configurment {
+            var randomGenerator = new Sharpy.Generator.Configurement {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = true
             }.CreateGenerator();
@@ -132,7 +132,7 @@ namespace Tests.Generator {
 
         [Test]
         public void OneDomain_TwoStrings_CalledTwoTimes() {
-            var randomGenerator = new Sharpy.Generator.Configurment {
+            var randomGenerator = new Sharpy.Generator.Configurement {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = true
             }.CreateGenerator();
@@ -144,7 +144,7 @@ namespace Tests.Generator {
 
         [Test]
         public void OneDomain_TwoStrings_FirstNull() {
-            var randomGenerator = new Sharpy.Generator.Configurment {
+            var randomGenerator = new Sharpy.Generator.Configurement {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = true
             }.CreateGenerator();
@@ -154,7 +154,7 @@ namespace Tests.Generator {
 
         [Test]
         public void OneDomain_TwoStrings_NoDuplicates() {
-            var randomGenerator = new Sharpy.Generator.Configurment {
+            var randomGenerator = new Sharpy.Generator.Configurement {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = true
             }.CreateGenerator();
@@ -164,7 +164,7 @@ namespace Tests.Generator {
 
         [Test]
         public void OneDomain_TwoStrings_SecondNull() {
-            var randomGenerator = new Sharpy.Generator.Configurment {
+            var randomGenerator = new Sharpy.Generator.Configurement {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = true
             }.CreateGenerator();
@@ -176,14 +176,14 @@ namespace Tests.Generator {
         [Test]
         public void OneDomain_UniqueFalse_CheckLowerCase() {
             var randomGenerator =
-                new Sharpy.Generator.Configurment {MailProviders = new[] {"test.com"}}.CreateGenerator();
+                new Sharpy.Generator.Configurement {MailProviders = new[] {"test.com"}}.CreateGenerator();
             var mail = randomGenerator.Generate(generator => generator.MailAddress("Bob"));
             Assert.IsTrue(mail.All(c => !char.IsUpper(c)));
         }
 
         [Test]
         public void OneDomain_UniqueTrue_CheckLowerCase() {
-            var randomGenerator = new Sharpy.Generator.Configurment {
+            var randomGenerator = new Sharpy.Generator.Configurement {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = true
             }.CreateGenerator();
@@ -193,7 +193,7 @@ namespace Tests.Generator {
 
         [Test]
         public void ThreeDomain_TwoStrings_NoDuplicates() {
-            var randomGenerator = new Sharpy.Generator.Configurment {
+            var randomGenerator = new Sharpy.Generator.Configurement {
                 MailProviders = new[] {"test.com", "test2.com", "test3.com"},
                 UniqueMails = true
             }.CreateGenerator();
@@ -203,7 +203,7 @@ namespace Tests.Generator {
 
         [Test]
         public void TwoDomain_OneString_CalledOneTime() {
-            var randomGenerator = new Sharpy.Generator.Configurment {
+            var randomGenerator = new Sharpy.Generator.Configurement {
                 MailProviders = new[] {"test.com", "foo.com"},
                 UniqueMails = true
             }.CreateGenerator();
@@ -214,7 +214,7 @@ namespace Tests.Generator {
 
         [Test]
         public void TwoDomain_OneString_CalledThreeTimes() {
-            var randomGenerator = new Sharpy.Generator.Configurment {
+            var randomGenerator = new Sharpy.Generator.Configurement {
                 MailProviders = new[] {"test.com", "foo.com"},
                 UniqueMails = true
             }.CreateGenerator();
@@ -226,7 +226,7 @@ namespace Tests.Generator {
 
         [Test]
         public void TwoDomain_OneString_CalledTwoTimes() {
-            var randomGenerator = new Sharpy.Generator.Configurment {
+            var randomGenerator = new Sharpy.Generator.Configurement {
                 MailProviders = new[] {"test.com", "foo.com"},
                 UniqueMails = true
             }.CreateGenerator();
@@ -239,7 +239,7 @@ namespace Tests.Generator {
 
         [Test]
         public void TwoDomain_TwoStrings_NoDuplicates() {
-            var randomGenerator = new Sharpy.Generator.Configurment {
+            var randomGenerator = new Sharpy.Generator.Configurement {
                 MailProviders = new[] {"test.com", "test2.com"},
                 UniqueMails = true
             }.CreateGenerator();
@@ -249,7 +249,7 @@ namespace Tests.Generator {
 
         [Test]
         public void TwoStrings_CalledFourTimes() {
-            var randomGenerator = new Sharpy.Generator.Configurment {
+            var randomGenerator = new Sharpy.Generator.Configurement {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = true
             }.CreateGenerator();
