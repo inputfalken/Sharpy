@@ -11,7 +11,7 @@ using Sharpy.Enums;
 
 namespace ConsoleApp {
     internal static class Program {
-        private static Generator Generator { get; } = new Generator();
+        private static Generator Generator { get; } = new Generator(new Random());
 
         public static void Main() {
             // First argument is the instructions on what will be generated, 
@@ -72,7 +72,7 @@ using Sharpy.Enums;
 
 namespace ConsoleApp {
     internal static class Program {
-        private static Generator Generator { get; } = new Generator();
+        private static Generator Generator { get; } = new Generator(new Random());
 
         public static void Main() {
             IEnumerable<Person> people = Generator.GenerateSequence(generator => new Person {
@@ -100,7 +100,7 @@ using Sharpy.Enums;
 
 namespace ConsoleApp {
     internal static class Program {
-        private static Generator Generator { get; } = new Generator();
+        private static Generator Generator { get; } = new Generator(new Random());
 
         public static void Main() {
             IEnumerable<Person> people = Generator.GenerateSequence(generator => new Person {
@@ -133,7 +133,7 @@ using Sharpy.Enums;
 
 namespace ConsoleApp {
     internal static class Program {
-        private static Generator Generator { get; } = new Generator();
+        private static Generator Generator { get; } = new Generator(new Random());
 
         public static void Main() {
             IEnumerable<Person> people = Generator.GenerateSequence(generator => new Person {
@@ -164,7 +164,7 @@ using Sharpy.Enums;
 
 namespace ConsoleApp {
     internal static class Program {
-        private static Generator Generator { get; } = new Generator();
+        private static Generator Generator { get; } = new Generator(new Random());
 
         public static void Main() {
             //At the moment you have to make a statement lambda.
