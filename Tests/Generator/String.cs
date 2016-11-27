@@ -4,6 +4,7 @@ using System.Linq;
 using NUnit.Framework;
 using Sharpy;
 using Sharpy.Enums;
+using Sharpy.Implementation;
 
 namespace Tests.Generator {
     [TestFixture]
@@ -16,7 +17,7 @@ namespace Tests.Generator {
             foreach (var value in values)
                 Assert.DoesNotThrow(() => {
                     new Sharpy.Generator.Configurement {
-                        Origins = new List<Origin> {(Origin) value}
+                        NameProvider = new NameByOrigin((Origin) value)
                     }.CreateGenerator().Generate(g => g.FirstName());
                 });
         }
