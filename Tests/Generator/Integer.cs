@@ -29,7 +29,8 @@ namespace Tests.Generator {
 
         [Test]
         public void One_Arg_MaxValue() {
-            var ints = new Sharpy.Generator(new Random()).GenerateSequence(generator => generator.Integer(int.MaxValue), Length);
+            var ints = new Sharpy.Generator(new Random()).GenerateSequence(
+                generator => generator.Integer(int.MaxValue), Length);
             Assert.IsTrue(ints.All(l => l >= 0));
 
             var intInstance = new Sharpy.Generator(new Random()).Generate(generator => generator.Integer(int.MaxValue));
@@ -68,7 +69,8 @@ namespace Tests.Generator {
         public void Two_Args_MinusThousand_And_MinusTwoThousand() {
             const int min = -1000;
             const int max = -2000;
-            var ints = new Sharpy.Generator(new Random()).GenerateSequence(generator => generator.Integer(min, max), Length);
+            var ints = new Sharpy.Generator(new Random()).GenerateSequence(generator => generator.Integer(min, max),
+                Length);
             Assert.Throws<ArgumentOutOfRangeException>(() => ints.ToArray());
 
             Assert.Throws<ArgumentOutOfRangeException>(
@@ -79,7 +81,8 @@ namespace Tests.Generator {
         public void Two_Args_MinusThousand_And_TwoThousand() {
             const int min = -1000;
             const int max = 2000;
-            var ints = new Sharpy.Generator(new Random()).GenerateSequence(generator => generator.Integer(min, max), Length);
+            var ints = new Sharpy.Generator(new Random()).GenerateSequence(generator => generator.Integer(min, max),
+                Length);
             Assert.IsTrue(ints.All(l => (l >= min) && (l < max)));
 
             var intInstance = new Sharpy.Generator(new Random()).Generate(generator => generator.Integer(min, max));
@@ -90,7 +93,8 @@ namespace Tests.Generator {
         public void Two_Args_MinusTwoThousand_And_MinusThousand() {
             const int min = -2000;
             const int max = -1000;
-            var ints = new Sharpy.Generator(new Random()).GenerateSequence(generator => generator.Integer(min, max), Length);
+            var ints = new Sharpy.Generator(new Random()).GenerateSequence(generator => generator.Integer(min, max),
+                Length);
             Assert.IsTrue(ints.All(l => (l >= min) && (l < max)));
 
             var intInstance = new Sharpy.Generator(new Random()).Generate(generator => generator.Integer(min, max));
@@ -99,9 +103,12 @@ namespace Tests.Generator {
 
         [Test]
         public void Two_Args_MinValue_And_Zero() {
-            var ints = new Sharpy.Generator(new Random()).GenerateSequence(generator => generator.Integer(int.MinValue, 0), Length);
+            var ints =
+                new Sharpy.Generator(new Random()).GenerateSequence(generator => generator.Integer(int.MinValue, 0),
+                    Length);
             Assert.IsTrue(ints.All(l => l < 0));
-            var intInstance = new Sharpy.Generator(new Random()).Generate(generator => generator.Integer(int.MinValue, 0));
+            var intInstance =
+                new Sharpy.Generator(new Random()).Generate(generator => generator.Integer(int.MinValue, 0));
 
             Assert.IsTrue(intInstance < 0);
         }
@@ -111,7 +118,8 @@ namespace Tests.Generator {
         public void Two_Args_Thousand_And_TwoThousand() {
             const int min = 1000;
             const int max = 2000;
-            var ints = new Sharpy.Generator(new Random()).GenerateSequence(generator => generator.Integer(min, max), Length);
+            var ints = new Sharpy.Generator(new Random()).GenerateSequence(generator => generator.Integer(min, max),
+                Length);
             Assert.IsTrue(ints.All(l => (l >= min) && (l < max)));
 
             var intInstance = new Sharpy.Generator(new Random()).Generate(generator => generator.Integer(min, max));
@@ -120,10 +128,13 @@ namespace Tests.Generator {
 
         [Test]
         public void Two_Args_Zero_And_MaxValue() {
-            var ints = new Sharpy.Generator(new Random()).GenerateSequence(generator => generator.Integer(0, int.MaxValue), Length);
+            var ints =
+                new Sharpy.Generator(new Random()).GenerateSequence(generator => generator.Integer(0, int.MaxValue),
+                    Length);
             Assert.IsTrue(ints.All(l => l > 0));
 
-            var intInstance = new Sharpy.Generator(new Random()).Generate(generator => generator.Integer(0, int.MaxValue));
+            var intInstance =
+                new Sharpy.Generator(new Random()).Generate(generator => generator.Integer(0, int.MaxValue));
             Assert.IsTrue(intInstance > 0);
         }
     }

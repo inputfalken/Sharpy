@@ -1,14 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Sharpy;
 using Sharpy.Enums;
-using Sharpy.Implementation;
 
 namespace Tests.Generator {
     [TestFixture]
     public class Name {
         private const int Count = 100;
+
+        [Test]
+        public void All_Origins_Are_Supported() {
+            var values = Enum.GetValues(typeof(Origin));
+            foreach (var value in values)
+                Assert.DoesNotThrow(() => {
+                    new Sharpy.Generator.Configurement {
+                        Origins = new List<Origin> {(Origin) value}
+                    }.CreateGenerator().Generate(g => g.FirstName());
+                });
+        }
 
 
         [Test]
