@@ -46,6 +46,7 @@ namespace Sharpy {
             SocialSecurityNumberGenerator = new SecurityNumberGen(conf.Random);
             PhoneNumberGenerator = new NumberGenerator(conf.Random);
             UniqueNumbers = conf.UniqueNumbers;
+            Mailgen.Unique = conf.UniqueMails;
             _nameProvider = conf.Origins == null
                 ? new NameByOrigin(conf.Random)
                 : new NameByOrigin(conf.Random, conf.Origins.ToArray());

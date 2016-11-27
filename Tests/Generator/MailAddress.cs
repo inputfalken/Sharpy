@@ -37,6 +37,26 @@ namespace Tests.Generator {
 
 
         [Test]
+        public void OneDomain_OneArg_UniqueMails_False() {
+            var randomGenerator = new Sharpy.Generator.Configurement {
+                MailProviders = new[] {"test.com"},
+                UniqueMails = false
+            }.CreateGenerator();
+            var mails = randomGenerator.GenerateSequence(generator => generator.MailAddress("john"), 12);
+            Assert.IsFalse(mails.SelectMany(s => s).Any(char.IsNumber));
+        }
+
+        [Test]
+        public void OneDomain_OneArg_UniqueMails_True() {
+            var randomGenerator = new Sharpy.Generator.Configurement {
+                MailProviders = new[] {"test.com"},
+                UniqueMails = true
+            }.CreateGenerator();
+            var mails = randomGenerator.GenerateSequence(generator => generator.MailAddress("john"), 12);
+            Assert.IsTrue(mails.SelectMany(s => s).Any(char.IsNumber));
+        }
+
+        [Test]
         public void MailAddressesAreUnique() {
             var mailGenerator = new Sharpy.Generator.Configurement {
                 MailProviders = new[] {"gmail.com"},
