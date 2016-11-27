@@ -53,7 +53,7 @@ namespace Sharpy.Implementation {
             new Dictionary<NameType, IReadOnlyList<string>>();
 
         /// <summary>
-        ///     <para>Returns a first name based on Gender.</para>
+        ///     <para>Returns a randomized first name based on gender.</para>
         /// </summary>
         /// <param name="gender"></param>
         /// <returns></returns>
@@ -61,13 +61,13 @@ namespace Sharpy.Implementation {
             => Name(gender == Gender.Male ? NameType.MaleFirst : NameType.FemaleFirst);
 
         /// <summary>
-        ///     <para>Returns a random first name.</para>
+        ///     <para>Returns a randomized First name</para>
         /// </summary>
         /// <returns></returns>
         public string FirstName() => Name(_random.Next(2) == 0 ? NameType.FemaleFirst : NameType.MaleFirst);
 
         /// <summary>
-        ///     <para>Returns a random lastname.</para>
+        ///     <para>Returns a randomized last name.</para>
         /// </summary>
         /// <returns></returns>
         public string LastName() => Name(NameType.Last);

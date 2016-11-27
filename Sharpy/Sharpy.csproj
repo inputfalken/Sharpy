@@ -57,7 +57,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="src\Enums\Gender.cs" />
-    <Compile Include="src\GeneratorBase.cs" />
     <Compile Include="src\Implementation\DoubleRandomizer.cs" />
     <Compile Include="src\GeneratorExtensions.cs" />
     <Compile Include="src\Implementation\ExtensionMethods\ReadOnlyListExtensions.cs" />
