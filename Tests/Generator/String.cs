@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Sharpy;
@@ -91,6 +92,18 @@ namespace Tests.Generator {
             var userName = gen.Generate(g => g.UserName());
             Assert.IsFalse(string.IsNullOrEmpty(userName));
             Assert.IsFalse(string.IsNullOrWhiteSpace(userName));
+        }
+
+        [Test]
+        public void All_Origins_Are_Supported() {
+            var values = Enum.GetValues(typeof(Origin));
+            foreach (var value in values) {
+                Assert.DoesNotThrow(() => {
+                    new Sharpy.Generator.Configurement {
+                        Origins = new List<Origin> {(Origin) value}
+                    }.CreateGenerator().Generate(g => g.Name(NameType.FirstName));
+                });
+            }
         }
     }
 }
