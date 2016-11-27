@@ -60,7 +60,7 @@ namespace Sharpy {
 
         private MailGenerator Mailgen { get; }
 
-        private bool UniqueNumbers { get; } = true;
+        private bool UniqueNumbers { get; }
 
         private Lazy<string[]> LazyUsernames { get; } =
             new Lazy<string[]>(() => Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None));
