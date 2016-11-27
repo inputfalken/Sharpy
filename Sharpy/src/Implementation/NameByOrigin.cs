@@ -53,6 +53,26 @@ namespace Sharpy.Implementation {
             new Dictionary<NameType, IReadOnlyList<string>>();
 
         /// <summary>
+        ///     <para>Returns a first name based on Gender.</para>
+        /// </summary>
+        /// <param name="gender"></param>
+        /// <returns></returns>
+        public string FirstName(Gender gender)
+            => Name(gender == Gender.Male ? NameType.MaleFirst : NameType.FemaleFirst);
+
+        /// <summary>
+        ///     <para>Returns a random first name.</para>
+        /// </summary>
+        /// <returns></returns>
+        public string FirstName() => Name(_random.Next(2) == 0 ? NameType.FemaleFirst : NameType.MaleFirst);
+
+        /// <summary>
+        ///     <para>Returns a random lastname.</para>
+        /// </summary>
+        /// <returns></returns>
+        public string LastName() => Name(NameType.Last);
+
+        /// <summary>
         ///     <para>Returns a name based on nametype.</para>
         /// </summary>
         /// <param name="arg"></param>
@@ -64,26 +84,6 @@ namespace Sharpy.Implementation {
             else throw new Exception("Can't obtain strings with this configuration");
             return Dictionary[arg].RandomItem(_random);
         }
-
-        /// <summary>
-        /// <para>Returns a first name based on Gender.</para>
-        /// </summary>
-        /// <param name="gender"></param>
-        /// <returns></returns>
-        public string FirstName(Gender gender)
-            => Name(gender == Gender.Male ? NameType.MaleFirst : NameType.FemaleFirst);
-
-        /// <summary>
-        /// <para>Returns a random first name.</para>
-        /// </summary>
-        /// <returns></returns>
-        public string FirstName() => Name(_random.Next(2) == 0 ? NameType.FemaleFirst : NameType.MaleFirst);
-
-        /// <summary>
-        /// <para>Returns a random lastname.</para>
-        /// </summary>
-        /// <returns></returns>
-        public string LastName() => Name(NameType.Last);
 
         private IEnumerable<Name> Origin(IEnumerable<Name> names) => (_origins != null) && _origins.Any()
             ? names.Where(name => _origins.Contains(name.Country) | _origins.Contains(name.Region))

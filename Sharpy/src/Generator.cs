@@ -61,6 +61,29 @@ namespace Sharpy {
 
         private bool UniqueNumbers { get; } = true;
 
+        private Lazy<string[]> LazyUsernames { get; } =
+            new Lazy<string[]>(() => Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None));
+
+
+        /// <summary>
+        ///     <para>Returns a random first name.</para>
+        /// </summary>
+        /// <returns></returns>
+        public string FirstName() => _nameProvider.FirstName();
+
+        /// <summary>
+        ///     <para>Returns a first name based on Gender.</para>
+        /// </summary>
+        /// <param name="gender"></param>
+        /// <returns></returns>
+        public string FirstName(Gender gender) => _nameProvider.FirstName(gender);
+
+        /// <summary>
+        ///     <para>Returns a random lastname.</para>
+        /// </summary>
+        /// <returns></returns>
+        public string LastName() => _nameProvider.LastName();
+
         /// <summary>
         ///     <para>Randomizes one of the arguments.</para>
         /// </summary>
@@ -141,34 +164,11 @@ namespace Sharpy {
                 : phoneNumber;
         }
 
-
-        /// <summary>
-        /// <para>Returns a random first name.</para>
-        /// </summary>
-        /// <returns></returns>
-        public string FirstName() => _nameProvider.FirstName();
-
-        /// <summary>
-        /// <para>Returns a first name based on Gender.</para>
-        /// </summary>
-        /// <param name="gender"></param>
-        /// <returns></returns>
-        public string FirstName(Gender gender) => _nameProvider.FirstName(gender);
-
-        /// <summary>
-        /// <para>Returns a random lastname.</para>
-        /// </summary>
-        /// <returns></returns>
-        public string LastName() => _nameProvider.LastName();
-
         /// <summary>
         ///     <para>Returns a username.</para>
         /// </summary>
         /// <returns></returns>
         public string UserName() => LazyUsernames.Value.RandomItem(_random);
-
-        private Lazy<string[]> LazyUsernames { get; } =
-            new Lazy<string[]>(() => Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None));
 
         private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
 
@@ -196,10 +196,10 @@ namespace Sharpy {
             ///     <para>Gets and Sets if the generator's MailAddress are return unique mail addresses.</para>
             ///     <para>This affects Generator's MailAddress method.</para>
             ///     <para>
-            ///           Set to false by Default
-            ///           NOTE:
-            ///           If this is set to true the following will happen.
-            ///           MailAddress will now append numbers to the end of the mailaddress if it  allready exist.
+            ///         Set to false by Default
+            ///         NOTE:
+            ///         If this is set to true the following will happen.
+            ///         MailAddress will now append numbers to the end of the mailaddress if it  allready exist.
             ///     </para>
             /// </summary>
             public bool UniqueMails { get; set; }

@@ -5,7 +5,7 @@ using Sharpy;
 
 namespace Tests.Generator {
     [TestFixture]
-    public class PhoneNumber {
+    public class NumberByLength {
         [Test]
         public void All_Unique_No_Prefix_Not_Unique() {
             var gen = new Sharpy.Generator.Configurement {UniqueNumbers = false}.CreateGenerator();

@@ -64,7 +64,7 @@
     <Compile Include="Generator\Long.cs" />
     <Compile Include="Generator\MailAddress.cs" />
     <Compile Include="Generator\Params.cs" />
-    <Compile Include="Generator\PhoneNumber.cs" />
+    <Compile Include="Generator\NumberByLength.cs" />
     <Compile Include="Generator\Seed.cs" />
     <Compile Include="Generator\SocialSecurity.cs" />
     <Compile Include="Generator\String.cs" />

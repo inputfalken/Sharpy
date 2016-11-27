@@ -4,7 +4,6 @@ using System.Threading;
 using NUnit.Framework;
 using Sharpy;
 using Sharpy.Enums;
-using Sharpy.Implementation;
 
 namespace Tests.Generator {
     /// <summary>
