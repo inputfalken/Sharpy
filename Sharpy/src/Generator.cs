@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using NodaTime;
 using Sharpy.Enums;
 using Sharpy.Implementation;
@@ -21,38 +20,26 @@ namespace Sharpy {
     ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
     /// </summary>
     public class Generator : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider {
-        private readonly Random _random;
-        private readonly INameProvider _nameProvider;
         private readonly IDoubleProvider _doubleProvider;
         private readonly IIntegerProvider _integerProvider;
         private readonly ILongProvider _longProvider;
+        private readonly INameProvider _nameProvider;
+        private readonly Random _random;
         private Tuple<int, int> _phoneState = new Tuple<int, int>(0, 0);
 
-        /// <summary>
-        ///     <para>Instantiates a new generator which will generate based on the random supplied</para>
-        /// </summary>
-        public Generator(Random random) : this(new Configurement {
-            Random = random,
-            IntegerProvider = new IntRandomizer(random),
-            DoubleProvider = new DoubleRandomizer(random),
-            LongProvider = new LongRandomizer(random),
-            NameProvider = new NameByOrigin(random),
-            UniqueMails = false,
-            UniqueNumbers = false
-        }) {}
-
-        private Generator(Configurement conf) {
-            _random = conf.Random;
-            _doubleProvider = conf.DoubleProvider;
-            _integerProvider = conf.IntegerProvider;
-            _longProvider = conf.LongProvider;
-            DateGenerator = new DateGenerator(conf.Random);
-            Mailgen = new MailGenerator(conf.MailProviders, conf.Random);
-            SocialSecurityNumberGenerator = new SecurityNumberGen(conf.Random);
-            PhoneNumberGenerator = new NumberGenerator(conf.Random);
-            UniqueNumbers = conf.UniqueNumbers;
-            Mailgen.Unique = conf.UniqueMails;
-            _nameProvider = conf.NameProvider;
+        internal Generator(Random random, IDoubleProvider doubleProvider, IIntegerProvider integerProvider,
+            ILongProvider longProvider, INameProvider nameProvider, IReadOnlyList<string> mailProviders, bool uniqueMail,
+            bool uniqueNumber) {
+            _random = random;
+            _doubleProvider = doubleProvider;
+            _integerProvider = integerProvider;
+            _longProvider = longProvider;
+            _nameProvider = nameProvider;
+            DateGenerator = new DateGenerator(random);
+            Mailgen = new MailGenerator(mailProviders, random) {Unique = uniqueMail};
+            SocialSecurityNumberGenerator = new SecurityNumberGen(random);
+            PhoneNumberGenerator = new NumberGenerator(random);
+            UniqueNumbers = uniqueNumber;
         }
 
         private NumberGenerator PhoneNumberGenerator { get; }
@@ -67,6 +54,69 @@ namespace Sharpy {
 
         private Lazy<string[]> LazyUsernames { get; } =
             new Lazy<string[]>(() => Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None));
+
+        /// <summary>
+        ///     <para>Generates a Double.</para>
+        /// </summary>
+        /// <returns></returns>
+        public double Double() => _doubleProvider.Double();
+
+        /// <summary>
+        ///     <para>Generates a double within max value.</para>
+        /// </summary>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        public double Double(double max) => _doubleProvider.Double(max);
+
+        /// <summary>
+        ///     <para>Generates a within min and max.</para>
+        /// </summary>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        public double Double(double min, double max) => _doubleProvider.Double(min, max);
+
+        /// <summary>
+        ///     <para>Generates a Integer.</para>
+        /// </summary>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        public int Integer(int max) => _integerProvider.Integer(max);
+
+        /// <summary>
+        ///     <para>Generates a integer within min and max.</para>
+        /// </summary>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        public int Integer(int min, int max) => _integerProvider.Integer(min, max);
+
+        /// <summary>
+        ///     <para>Generates a integer.</para>
+        /// </summary>
+        /// <returns></returns>
+        public int Integer() => _integerProvider.Integer();
+
+        /// <summary>
+        ///     <para>Generates a long within min and max.</para>
+        /// </summary>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        public long Long(long min, long max) => _longProvider.Long(min, max);
+
+        /// <summary>
+        ///     <para>Generates a long within max.</para>
+        /// </summary>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        public long Long(long max) => _longProvider.Long(max);
+
+        /// <summary>
+        ///     Generates a long.
+        /// </summary>
+        /// <returns></returns>
+        public long Long() => _longProvider.Long();
 
 
         /// <summary>
@@ -174,149 +224,28 @@ namespace Sharpy {
         /// <returns></returns>
         public string UserName() => LazyUsernames.Value.RandomItem(_random);
 
-        /// <summary>
-        ///     <para>Generates a Double.</para>
-        /// </summary>
-        /// <returns></returns>
-        public double Double() => _doubleProvider.Double();
-
-        /// <summary>
-        ///     <para>Generates a double within max value.</para>
-        /// </summary>
-        /// <param name="max"></param>
-        /// <returns></returns>
-        public double Double(double max) => _doubleProvider.Double(max);
-
-        /// <summary>
-        ///     <para>Generates a within min and max.</para>
-        /// </summary>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
-        /// <returns></returns>
-        public double Double(double min, double max) => _doubleProvider.Double(min, max);
-
-        /// <summary>
-        ///     <para>Generates a Integer.</para>
-        /// </summary>
-        /// <param name="max"></param>
-        /// <returns></returns>
-        public int Integer(int max) => _integerProvider.Integer(max);
-
-        /// <summary>
-        ///     <para>Generates a integer within min and max.</para>
-        /// </summary>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
-        /// <returns></returns>
-        public int Integer(int min, int max) => _integerProvider.Integer(min, max);
-
-        /// <summary>
-        ///     <para>Generates a integer.</para>
-        /// </summary>
-        /// <returns></returns>
-        public int Integer() => _integerProvider.Integer();
-
-        /// <summary>
-        ///     <para>Generates a long within min and max.</para>
-        /// </summary>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
-        /// <returns></returns>
-        public long Long(long min, long max) => _longProvider.Long(min, max);
-
-        /// <summary>
-        ///     <para>Generates a long within max.</para>
-        /// </summary>
-        /// <param name="max"></param>
-        /// <returns></returns>
-        public long Long(long max) => _longProvider.Long(max);
-
-        /// <summary>
-        ///     Generates a long.
-        /// </summary>
-        /// <returns></returns>
-        public long Long() => _longProvider.Long();
-
         private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
 
         private static string FormatDigit(int i) => i < 10 ? Prefix(i, 1) : i.ToString();
 
         /// <summary>
-        ///     <para>
-        ///         Use this class if you want to configure your Generator. then call CreateGenerator to get the generator.
-        ///     </para>
+        ///     <para>Returns a Generator which will randomize new results every time program is executed.</para>
         /// </summary>
-        public class Configurement {
-            /// <summary>
-            ///     <para>Gets and Sets the implementation which Generator's FirstName, LastName methods use.</para>
-            ///     <para>By default the names loaded from an internal file supplied by this library.</para>
-            /// </summary>
-            public INameProvider NameProvider { get; set; }
+        /// <returns></returns>
+        public static Generator Create() => new CustomGenerator(new Random()).Create();
 
-            /// <summary>
-            ///     <para>Gets and Sets the implementation which Generator's Double methods use.</para>
-            ///     <para>By Default the doubles are randomized</para>
-            /// </summary>
-            public IDoubleProvider DoubleProvider { get; set; }
+        /// <summary>
+        ///     <para>Returns A Generator which will Randomize the same result by the seed.</para>
+        /// </summary>
+        /// <param name="seed"></param>
+        /// <returns></returns>
+        public static Generator Create(int seed) => new CustomGenerator(new Random(seed)).Create();
 
-            /// <summary>
-            ///     <para>Gets and Sets the implementation which Generator's Integer methods use.</para>
-            ///     <para>By Default the ints are randomized</para>
-            /// </summary>
-            public IIntegerProvider IntegerProvider { get; set; }
-
-            /// <summary>
-            ///     <para>Gets and Sets the implementation which Generator's Long methods use.</para>
-            ///     <para>By Default the longs are randomized</para>
-            /// </summary>
-            public ILongProvider LongProvider { get; set; }
-
-            /// <summary>
-            ///     <para>Gets and Sets the Random which the Generator will use.</para>
-            /// </summary>
-            public Random Random { get; set; } = new Random();
-
-            /// <summary>
-            ///     <para>Gets and Sets the mailproviders which will be used for generating MailAddresses.</para>
-            ///     <para>This affects Generator's MailAddress method.</para>
-            ///     <para>Set to gmail.com, hotmail.com and yahoo.com by default.</para>
-            /// </summary>
-            public IReadOnlyList<string> MailProviders { get; set; } = new[] {"gmail.com", "hotmail.com", "yahoo.com"};
-
-            /// <summary>
-            ///     <para>Gets and Sets if the generator's MailAddress are return unique mail addresses.</para>
-            ///     <para>This affects Generator's MailAddress method.</para>
-            ///     <para>
-            ///         Set to false by Default
-            ///         NOTE:
-            ///         If this is set to true the following will happen.
-            ///         MailAddress will now append numbers to the end of the mailaddress if it  allready exist.
-            ///     </para>
-            /// </summary>
-            public bool UniqueMails { get; set; }
-
-            /// <summary>
-            ///     <para>Gets and Sets if Generator's NumberByLength returns unique numbers.</para>
-            ///     <para>Set to false by Default</para>
-            ///     <para>
-            ///         NOTE:
-            ///         If this is set to true the following will happen.
-            ///         Generator's NumberByLength method will throw an exception if called more than Length^10
-            ///     </para>
-            /// </summary>
-            public bool UniqueNumbers { get; set; }
-
-            /// <summary>
-            ///     Creates a Generator with your configurement.
-            /// </summary>
-            /// <returns></returns>
-            public Generator CreateGenerator() {
-                if (LongProvider == null) LongProvider = new LongRandomizer(Random);
-                if (IntegerProvider == null) IntegerProvider = new IntRandomizer(Random);
-                if (DoubleProvider == null) DoubleProvider = new DoubleRandomizer(Random);
-                if (NameProvider == null) NameProvider = new NameByOrigin(Random);
-                return new Generator(this);
-            }
-        }
+        /// <summary>
+        ///     <para>Returns a generator which will randomize with the random supplied.</para>
+        /// </summary>
+        /// <param name="random"></param>
+        /// <returns></returns>
+        public static Generator Create(Random random) => new CustomGenerator(random).Create();
     }
 }

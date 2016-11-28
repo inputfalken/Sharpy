@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Sharpy;
@@ -9,7 +8,7 @@ namespace Tests.Generator {
     public class CustomCollection {
         [Test]
         public void Array() {
-            var randomGenerator = new Sharpy.Generator(new Random());
+            var randomGenerator = Sharpy.Generator.Create();
             var args = new[] {"hello", "there", "foo"};
             var generateMany = randomGenerator.GenerateSequence(generator => generator.Params(args), 10);
             Assert.IsTrue(generateMany.All(s => args.Contains(s)));
@@ -17,7 +16,7 @@ namespace Tests.Generator {
 
         [Test]
         public void List() {
-            var randomGenerator = new Sharpy.Generator(new Random());
+            var randomGenerator = Sharpy.Generator.Create();
             var args = new List<string> {"hello", "there", "foo"};
             var generateMany = randomGenerator.GenerateSequence(generator => generator.CustomCollection(args), 10);
             Assert.IsTrue(generateMany.All(s => args.Contains(s)));
