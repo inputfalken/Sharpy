@@ -6,7 +6,7 @@ using Sharpy.Implementation.ExtensionMethods;
 namespace Sharpy.Implementation {
     /// <summary>
     /// </summary>
-    internal sealed class MailGenerator : Unique<string> {
+    internal sealed class EmailBuilder : Unique<string> {
         private const int Limit = 2;
 
         /// <summary>
@@ -21,14 +21,14 @@ namespace Sharpy.Implementation {
         private IReadOnlyList<string> _emailDomains = new List<string>();
 
 
-        internal MailGenerator(IReadOnlyList<string> providers, Random random) : base(random) {
+        internal EmailBuilder(IReadOnlyList<string> providers, Random random) : base(random) {
             EmailDomains = providers;
         }
 
         /// <summary>
         ///     Contains the email providers
         /// </summary>
-        public IReadOnlyList<string> EmailDomains {
+        private IReadOnlyList<string> EmailDomains {
             get { return _emailDomains; }
             set {
                 EmailDomainsEnumerator = value.GetEnumerator();
@@ -47,13 +47,12 @@ namespace Sharpy.Implementation {
         public string Mail(string name, string secondName) {
             if (string.IsNullOrEmpty(name))
                 throw new NullReferenceException($"{nameof(name)} can't be null/empty string");
-            return Unique ? UniqueMail(name, secondName) : RandomMail(name, secondName).ToLower();
+            return Unique ? UniqueMail(name, secondName).ToLower() : RandomMail(name, secondName).ToLower();
         }
 
         private string RandomMail(string name, string secondname) => secondname == null
-            ? name.Append("@").Append(EmailDomains[Random.Next(EmailDomains.Count)])
-            : name.Append(Separators[Random.Next(Separators.Count)].ToString(), secondname, "@",
-                EmailDomains[Random.Next(EmailDomains.Count)]);
+            ? name.Append("@", EmailDomains.RandomItem(Random))
+            : name.Append(Separators.RandomItem(Random), secondname, "@", EmailDomains.RandomItem(Random));
 
         private string UniqueMail(string name, string secondName) {
             while (true) {
@@ -62,8 +61,8 @@ namespace Sharpy.Implementation {
                     if (EmailDomainsEnumerator.MoveNext()) {
                         foreach (var separator in Separators) {
                             var address = secondName != null
-                                ? name.Append(separator, secondName, "@", EmailDomainsEnumerator.Current).ToLower()
-                                : name.Append("@", EmailDomainsEnumerator.Current).ToLower();
+                                ? name.Append(separator, secondName, "@", EmailDomainsEnumerator.Current)
+                                : name.Append("@", EmailDomainsEnumerator.Current);
                             if (HashSet.Contains(address)) continue;
                             HashSet.Add(address);
                             return address;
@@ -76,13 +75,13 @@ namespace Sharpy.Implementation {
                         resets += 1;
                     }
                 // Start adding numbers.
-                secondName = OnDuplicate(secondName);
+                secondName = ResolveDuplicate(secondName);
             }
         }
 
         public override string ToString()
             => $"Providers: {EmailDomains.Aggregate((x, y) => $"{x}, {y}")} Unique addresses: {Unique}";
 
-        private string OnDuplicate(string item) => item.Append(Random.Next(10));
+        private string ResolveDuplicate(string item) => item.Append(Random.Next(10));
     }
 }

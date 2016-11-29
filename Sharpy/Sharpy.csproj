@@ -70,7 +70,7 @@
     <Compile Include="src\Implementation\ExtensionMethods\StringExtensions.cs" />
     <Compile Include="src\Implementation\NumberGenerator.cs" />
     <Compile Include="src\Implementation\DateGenerator.cs" />
-    <Compile Include="src\Implementation\MailGenerator.cs" />
+    <Compile Include="src\Implementation\EmailBuilder.cs" />
     <Compile Include="src\Implementation\DataObjects\Name.cs" />
     <Compile Include="src\Implementation\SecurityNumberGen.cs" />
     <Compile Include="src\Implementation\Unique.cs" />
