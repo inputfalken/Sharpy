@@ -20,11 +20,22 @@ namespace Sharpy {
     ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
     /// </summary>
     public class Generator : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider {
+        private readonly DateGenerator _dateGenerator;
         private readonly IDoubleProvider _doubleProvider;
         private readonly IIntegerProvider _integerProvider;
+
+        private readonly Lazy<string[]> _lazyUsernames =
+            new Lazy<string[]>(() => Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None));
+
         private readonly ILongProvider _longProvider;
+        private readonly EmailBuilder _mailbuilder;
         private readonly INameProvider _nameProvider;
+        private readonly NumberGenerator _phoneNumberGenerator;
         private readonly Random _random;
+        private readonly SecurityNumberGen _socialSecurityNumberGenerator;
+
+
+        private readonly bool _uniqueNumbers;
         private Tuple<int, int> _phoneState = new Tuple<int, int>(0, 0);
 
         internal Generator(Random random, IDoubleProvider doubleProvider, IIntegerProvider integerProvider,
@@ -35,25 +46,12 @@ namespace Sharpy {
             _integerProvider = integerProvider;
             _longProvider = longProvider;
             _nameProvider = nameProvider;
-            DateGenerator = new DateGenerator(random);
-            Mailbuilder = new EmailBuilder(mailProviders, random);
-            SocialSecurityNumberGenerator = new SecurityNumberGen(random);
-            PhoneNumberGenerator = new NumberGenerator(random);
-            UniqueNumbers = uniqueNumber;
+            _dateGenerator = new DateGenerator(random);
+            _mailbuilder = new EmailBuilder(mailProviders, random);
+            _socialSecurityNumberGenerator = new SecurityNumberGen(random);
+            _phoneNumberGenerator = new NumberGenerator(random);
+            _uniqueNumbers = uniqueNumber;
         }
-
-        private NumberGenerator PhoneNumberGenerator { get; }
-
-        private SecurityNumberGen SocialSecurityNumberGenerator { get; }
-
-        private DateGenerator DateGenerator { get; }
-
-        private EmailBuilder Mailbuilder { get; }
-
-        private bool UniqueNumbers { get; }
-
-        private Lazy<string[]> LazyUsernames { get; } =
-            new Lazy<string[]>(() => Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None));
 
         /// <summary>
         ///     <para>Generates a Double.</para>
@@ -165,14 +163,14 @@ namespace Sharpy {
         /// </summary>
         /// <param name="age"></param>
         /// <returns></returns>
-        public LocalDate DateByAge(int age) => DateGenerator.RandomDateByAge(age);
+        public LocalDate DateByAge(int age) => _dateGenerator.RandomDateByAge(age);
 
         /// <summary>
         ///     <para>Randomizes a date based on year.</para>
         /// </summary>
         /// <param name="year"></param>
         /// <returns></returns>
-        public LocalDate DateByYear(int year) => DateGenerator.RandomDateByYear(year);
+        public LocalDate DateByYear(int year) => _dateGenerator.RandomDateByYear(year);
 
         /// <summary>
         ///     <para>Randomizes a unique SocialSecurity Number.</para>
@@ -181,7 +179,7 @@ namespace Sharpy {
         /// <param name="formated"></param>
         /// <returns></returns>
         public string SocialSecurityNumber(LocalDate date, bool formated = true) {
-            var result = SocialSecurityNumberGenerator.SecurityNumber(_random.Next(10000),
+            var result = _socialSecurityNumberGenerator.SecurityNumber(_random.Next(10000),
                 FormatDigit(date.YearOfCentury).Append(FormatDigit(date.Month), FormatDigit(date.Day)));
             if (result == -1)
                 throw new Exception("You have reached the maxium possible combinations for a controlnumber");
@@ -198,7 +196,7 @@ namespace Sharpy {
         /// <param name="secondName"></param>
         /// <returns></returns>
         public string MailAddress(string name, string secondName = null)
-            => Mailbuilder.Mail(name, secondName);
+            => _mailbuilder.Mail(name, secondName);
 
         /// <summary>
         ///     <para>Returns a number with the length of the argument.</para>
@@ -209,7 +207,7 @@ namespace Sharpy {
             //If phonestate has changed
             if (_phoneState.Item1 != length)
                 _phoneState = new Tuple<int, int>(length, (int) Math.Pow(10, length) - 1);
-            var res = PhoneNumberGenerator.RandomNumber(0, _phoneState.Item2, UniqueNumbers);
+            var res = _phoneNumberGenerator.RandomNumber(0, _phoneState.Item2, _uniqueNumbers);
             if (res == -1) throw new Exception("You reached maxium Ammount of combinations for the Length used");
 
             var phoneNumber = res.ToString();
@@ -222,7 +220,7 @@ namespace Sharpy {
         ///     <para>Returns a username.</para>
         /// </summary>
         /// <returns></returns>
-        public string UserName() => LazyUsernames.Value.RandomItem(_random);
+        public string UserName() => _lazyUsernames.Value.RandomItem(_random);
 
         private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
 
