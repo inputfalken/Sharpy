@@ -36,7 +36,7 @@ namespace Sharpy {
             _longProvider = longProvider;
             _nameProvider = nameProvider;
             DateGenerator = new DateGenerator(random);
-            Mailgen = new MailGenerator(mailProviders, random) {Unique = uniqueMail};
+            Mailbuilder = new EmailBuilder(mailProviders, random) {Unique = uniqueMail};
             SocialSecurityNumberGenerator = new SecurityNumberGen(random);
             PhoneNumberGenerator = new NumberGenerator(random);
             UniqueNumbers = uniqueNumber;
@@ -48,7 +48,7 @@ namespace Sharpy {
 
         private DateGenerator DateGenerator { get; }
 
-        private MailGenerator Mailgen { get; }
+        private EmailBuilder Mailbuilder { get; }
 
         private bool UniqueNumbers { get; }
 
@@ -198,7 +198,7 @@ namespace Sharpy {
         /// <param name="secondName"></param>
         /// <returns></returns>
         public string MailAddress(string name, string secondName = null)
-            => Mailgen.Mail(name, secondName);
+            => Mailbuilder.Mail(name, secondName);
 
         /// <summary>
         ///     <para>Returns a number with the length of the argument.</para>
