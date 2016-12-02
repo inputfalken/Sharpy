@@ -28,7 +28,7 @@ namespace Sharpy {
         private Tuple<int, int> _phoneState = new Tuple<int, int>(0, 0);
 
         internal Generator(Random random, IDoubleProvider doubleProvider, IIntegerProvider integerProvider,
-            ILongProvider longProvider, INameProvider nameProvider, IReadOnlyList<string> mailProviders, bool uniqueMail,
+            ILongProvider longProvider, INameProvider nameProvider, IReadOnlyList<string> mailProviders,
             bool uniqueNumber) {
             _random = random;
             _doubleProvider = doubleProvider;
@@ -36,7 +36,7 @@ namespace Sharpy {
             _longProvider = longProvider;
             _nameProvider = nameProvider;
             DateGenerator = new DateGenerator(random);
-            Mailbuilder = new EmailBuilder(mailProviders, random) {Unique = uniqueMail};
+            Mailbuilder = new EmailBuilder(mailProviders, random);
             SocialSecurityNumberGenerator = new SecurityNumberGen(random);
             PhoneNumberGenerator = new NumberGenerator(random);
             UniqueNumbers = uniqueNumber;

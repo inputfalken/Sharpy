@@ -66,18 +66,6 @@ namespace Sharpy {
         public IReadOnlyList<string> MailProviders { get; set; } = new[] {"gmail.com", "hotmail.com", "yahoo.com"};
 
         /// <summary>
-        ///     <para>Gets and Sets if the generator's MailAddress are return unique mail addresses.</para>
-        ///     <para>This affects Generator's MailAddress method.</para>
-        ///     <para>
-        ///         Set to false by Default
-        ///         NOTE:
-        ///         If this is set to true the following will happen.
-        ///         MailAddress will now append numbers to the end of the mailaddress if it  allready exist.
-        ///     </para>
-        /// </summary>
-        public bool UniqueMails { get; set; }
-
-        /// <summary>
         ///     <para>Gets and Sets if Generator's NumberByLength returns unique numbers.</para>
         ///     <para>Set to false by Default</para>
         ///     <para>
@@ -97,8 +85,7 @@ namespace Sharpy {
             if (IntegerProvider == null) IntegerProvider = new IntRandomizer(Random);
             if (DoubleProvider == null) DoubleProvider = new DoubleRandomizer(Random);
             if (NameProvider == null) NameProvider = new NameByOrigin(Random);
-            return new Generator(Random, DoubleProvider, IntegerProvider, LongProvider, NameProvider, MailProviders,
-                UniqueMails, UniqueNumbers);
+            return new Generator(Random, DoubleProvider, IntegerProvider, LongProvider, NameProvider, MailProviders, UniqueNumbers);
         }
     }
 }
