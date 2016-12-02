@@ -10,20 +10,19 @@ using Sharpy;
 using Sharpy.Enums;
 
 namespace ConsoleApp {
-    internal static class Program {
-        private static Generator Generator { get; } = new Generator(new Random());
+        private static Generator Generator { get; } = Generator.Create();
 
         public static void Main() {
             // First argument is the instructions on what will be generated, 
             // second argument is the Count of the IEnumerable.
             IEnumerable<Person> people = Generator.GenerateSequence(generator => new Person {
-                FirstName = generator.Name(NameType.FirstName),
-                LastName = generator.Name(NameType.LastName)
+                FirstName = generator.FirstName(),
+                LastName = generator.LastName()
             }, 20);
             // Creates one person with randomized names.
             Person person = Generator.Generate(generator => new Person {
-                FirstName = generator.Name(NameType.FirstName),
-                LastName = generator.Name(NameType.LastName)
+                FirstName = generator.FirstName(),
+                LastName = generator.LastName()
             });
         }
     }
@@ -32,6 +31,7 @@ namespace ConsoleApp {
         public string FirstName { get; set; }
         public string LastName { get; set; }
     }
+
 }
 ```
 #### Configure & Generating
@@ -41,19 +41,16 @@ using Sharpy;
 using Sharpy.Enums;
 
 namespace ConsoleApp {
-    internal static class Program {
-        private static Generator Generator { get; } = new Generator.Configurement {
-            // This limits Firstnames and Lastnames to United States.
-            Origins = new[] {Origin.UnitedStates},
-            // This sets the Random for the generator.
-            // if you want the same result everytime you run the rerun the program supply a seed to the random.
-            Random = 1000
-        }.CreateGenerator();
+        internal static class Program {
+        private static Generator Generator = new CustomGenerator(new Random(1000)) {
+            // Limits the FirstName and LastName method to common names in the unitedstates.
+            NameProvider = new NameByOrigin(Origin.UnitedStates)
+        }.Create();
 
         private static void Main() {
             IEnumerable<Person> people = Generator.GenerateSequence(generator => new Person {
-                FirstName = generator.Name(NameType.FirstName),
-                LastName = generator.Name(NameType.LastName)
+                FirstName = generator.FirstName(),
+                LastName = generator.LastName()
             }, 20);
         }
 
@@ -72,12 +69,12 @@ using Sharpy.Enums;
 
 namespace ConsoleApp {
     internal static class Program {
-        private static Generator Generator { get; } = new Generator(new Random());
+        private static Generator Generator { get; } = Generator.Create();
 
         public static void Main() {
             IEnumerable<Person> people = Generator.GenerateSequence(generator => new Person {
-                FirstName = generator.Name(NameType.FirstName),
-                LastName = generator.Name(NameType.LastName),
+                FirstName = generator.FirstName(),
+                LastName = generator.LastName(),
                 // Just pass an Class using IList or params!
                 // This shows a params example.
                 WorkPlace = generator.Params("Workplace1", "workplace2")
@@ -100,12 +97,12 @@ using Sharpy.Enums;
 
 namespace ConsoleApp {
     internal static class Program {
-        private static Generator Generator { get; } = new Generator(new Random());
+        private static Generator Generator { get; } = Generator.Create();
 
         public static void Main() {
             IEnumerable<Person> people = Generator.GenerateSequence(generator => new Person {
-                FirstName = generator.Name(NameType.FirstName),
-                LastName = generator.Name(NameType.LastName)
+                FirstName = generator.FirstName(),
+                LastName = generator.LastName()
             }, 20);
 
             // Just use the same generator and call GenerateSequence!
@@ -133,14 +130,15 @@ using Sharpy.Enums;
 
 namespace ConsoleApp {
     internal static class Program {
-        private static Generator Generator { get; } = new Generator(new Random());
+        private static Generator Generator { get; } = Generator.Create();
 
         public static void Main() {
             IEnumerable<Person> people = Generator.GenerateSequence(generator => new Person {
-                FirstName = generator.Name(NameType.FirstName),
-                LastName = generator.Name(NameType.LastName),
+                FirstName = generator.FirstName(),
+                LastName = generator.LastName(),
                 //Just call GenerateSequence but inside the type generated!
-                Animals = Generator.GenerateSequence(animalgenerator => new Animal {Age = animalgenerator.Integer(10, 20)})
+                Animals =
+                    Generator.GenerateSequence(animalgenerator => new Animal {Age = animalgenerator.Integer(10, 20)})
             }, 20);
         }
     }
@@ -160,18 +158,17 @@ namespace ConsoleApp {
 ```C#
 using System.Collections.Generic;
 using Sharpy;
-using Sharpy.Enums;
 
 namespace ConsoleApp {
     internal static class Program {
-        private static Generator Generator { get; } = new Generator(new Random());
+        private static Generator Generator { get; } = Generator.Create();
 
         public static void Main() {
             //At the moment you have to make a statement lambda.
             IEnumerable<Person> people = Generator.GenerateSequence(generator => {
                 //Reference the result from the generator methods
-                var firstName = generator.Name(NameType.FirstName);
-                var lastName = generator.Name(NameType.LastName);
+                var firstName = generator.FirstName();
+                var lastName = generator.LastName();
 
                 //Use the results and pass them to the person.
                 var person = new Person {
