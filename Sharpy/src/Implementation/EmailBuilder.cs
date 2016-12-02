@@ -41,18 +41,12 @@ namespace Sharpy.Implementation {
         /// </summary>
         private IEnumerator<string> EmailDomainsEnumerator { get; set; }
 
-        internal bool Unique { get; set; } = true;
-
 
         public string Mail(string name, string secondName) {
             if (string.IsNullOrEmpty(name))
                 throw new NullReferenceException($"{nameof(name)} can't be null/empty string");
-            return Unique ? UniqueMail(name, secondName).ToLower() : RandomMail(name, secondName).ToLower();
+            return UniqueMail(name, secondName).ToLower();
         }
-
-        private string RandomMail(string name, string secondname) => secondname == null
-            ? name.Append("@", EmailDomains.RandomItem(Random))
-            : name.Append(Separators.RandomItem(Random), secondname, "@", EmailDomains.RandomItem(Random));
 
         private string UniqueMail(string name, string secondName) {
             while (true) {
@@ -79,8 +73,6 @@ namespace Sharpy.Implementation {
             }
         }
 
-        public override string ToString()
-            => $"Providers: {EmailDomains.Aggregate((x, y) => $"{x}, {y}")} Unique addresses: {Unique}";
 
         private string ResolveDuplicate(string item) => item.Append(Random.Next(10));
     }
