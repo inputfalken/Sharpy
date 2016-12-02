@@ -30,7 +30,7 @@ namespace Sharpy {
         private readonly ILongProvider _longProvider;
         private readonly EmailBuilder _mailbuilder;
         private readonly INameProvider _nameProvider;
-        private readonly NumberGenerator _phoneNumberGenerator;
+        private readonly NumberGenerator _numberGenerator;
         private readonly Random _random;
         private readonly SecurityNumberGen _socialSecurityNumberGenerator;
 
@@ -49,7 +49,7 @@ namespace Sharpy {
             _dateGenerator = new DateGenerator(random);
             _mailbuilder = new EmailBuilder(mailProviders, random);
             _socialSecurityNumberGenerator = new SecurityNumberGen(random);
-            _phoneNumberGenerator = new NumberGenerator(random);
+            _numberGenerator = new NumberGenerator(random);
             _uniqueNumbers = uniqueNumber;
         }
 
@@ -207,7 +207,7 @@ namespace Sharpy {
             //If phonestate has changed
             if (_phoneState.Item1 != length)
                 _phoneState = new Tuple<int, int>(length, (int) Math.Pow(10, length) - 1);
-            var res = _phoneNumberGenerator.RandomNumber(0, _phoneState.Item2, _uniqueNumbers);
+            var res = _numberGenerator.RandomNumber(0, _phoneState.Item2, _uniqueNumbers);
             if (res == -1) throw new Exception("You reached maxium Ammount of combinations for the Length used");
 
             var phoneNumber = res.ToString();
