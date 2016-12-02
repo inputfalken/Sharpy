@@ -9,16 +9,14 @@ namespace Tests.Generator {
     public class MailAddress {
         private const string MailUserName = "mailUserName";
 
-        private static List<string> FindDuplicates(IEnumerable<string> enumerable)
-        {
+        private static List<string> FindDuplicates(IEnumerable<string> enumerable) {
             return enumerable.GroupBy(x => x)
                 .Where(group => group.Count() > 1)
                 .Select(group => group.Key).ToList();
         }
 
         [Test]
-        public void Check_Mail_Count_Unique_False()
-        {
+        public void Check_Mail_Count_Unique_False() {
             var randomGenerator = new CustomGenerator(new Random()) {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = false
@@ -28,8 +26,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void Check_Mail_Count_Unique_True()
-        {
+        public void Check_Mail_Count_Unique_True() {
             var randomGenerator = new CustomGenerator(new Random()) {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = true
@@ -39,8 +36,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void Four__Domain_Two_Args_Unique_False()
-        {
+        public void Four__Domain_Two_Args_Unique_False() {
             var randomGenerator = new CustomGenerator(new Random()) {
                 MailProviders = new[] {"test.com", "test2.com", "test3.com", "test4.com"},
                 UniqueMails = false
@@ -50,8 +46,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void Four__Domain_Two_Args_Unique_True()
-        {
+        public void Four__Domain_Two_Args_Unique_True() {
             var randomGenerator = new CustomGenerator(new Random()) {
                 MailProviders = new[] {"test.com", "test2.com", "test3.com", "test4.com"},
                 UniqueMails = true
@@ -62,8 +57,7 @@ namespace Tests.Generator {
 
 
         [Test]
-        public void MailsAreNotnull()
-        {
+        public void MailsAreNotnull() {
             var generator = Sharpy.Generator.Create();
             //Many
             var mails = generator.GenerateSequence(g => g.MailAddress(MailUserName), 20).ToArray();
@@ -77,8 +71,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void One__Domain_One_Arg_UniqueMails_True_Called_One_Time()
-        {
+        public void One__Domain_One_Arg_UniqueMails_True_Called_One_Time() {
             var randomGenerator = new CustomGenerator(new Random()) {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = true
@@ -88,8 +81,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void One__Domain_One_Arg_UniqueMails_True_Called_Two_Times()
-        {
+        public void One__Domain_One_Arg_UniqueMails_True_Called_Two_Times() {
             var randomGenerator = new CustomGenerator(new Random()) {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = true
@@ -101,8 +93,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void One__Domain_Two_Args_SecondNull_UniqueMails_True()
-        {
+        public void One__Domain_Two_Args_SecondNull_UniqueMails_True() {
             var randomGenerator = new CustomGenerator(new Random()) {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = true
@@ -113,8 +104,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void One__Domain_Unique_False_Check_All_Is_LowerCase()
-        {
+        public void One__Domain_Unique_False_Check_All_Is_LowerCase() {
             var randomGenerator =
                 new CustomGenerator(new Random()) {
                     MailProviders = new[] {"test.com"},
@@ -125,8 +115,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void One__Domain_Unique_True_Check_All_Is_LowerCase()
-        {
+        public void One__Domain_Unique_True_Check_All_Is_LowerCase() {
             var randomGenerator = new CustomGenerator(new Random()) {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = true
@@ -136,8 +125,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void One_Domain_First_Arg_Null_Second_String_UniqueMails_False_Called_One_Time()
-        {
+        public void One_Domain_First_Arg_Null_Second_String_UniqueMails_False_Called_One_Time() {
             var randomGenerator = new CustomGenerator(new Random()) {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = false
@@ -147,8 +135,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void One_Domain_First_Arg_Null_Second_String_UniqueMails_True_Called_One_Time()
-        {
+        public void One_Domain_First_Arg_Null_Second_String_UniqueMails_True_Called_One_Time() {
             var randomGenerator = new CustomGenerator(new Random()) {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = true
@@ -158,8 +145,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void One_Domain_First_Arg_Null_UniqueMails_False_Called_One_Time()
-        {
+        public void One_Domain_First_Arg_Null_UniqueMails_False_Called_One_Time() {
             var randomGenerator = new CustomGenerator(new Random()) {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = false
@@ -169,8 +155,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void One_Domain_First_Arg_Null_UniqueMails_True_Called_One_Time()
-        {
+        public void One_Domain_First_Arg_Null_UniqueMails_True_Called_One_Time() {
             var randomGenerator = new CustomGenerator(new Random()) {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = true
@@ -181,8 +166,7 @@ namespace Tests.Generator {
 
 
         [Test]
-        public void One_Domain_One_Arg_UniqueMails_False()
-        {
+        public void One_Domain_One_Arg_UniqueMails_False() {
             var randomGenerator = new CustomGenerator(new Random()) {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = false
@@ -192,8 +176,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void One_Domain_One_Arg_UniqueMails_False_Called_One_Time()
-        {
+        public void One_Domain_One_Arg_UniqueMails_False_Called_One_Time() {
             var randomGenerator = new CustomGenerator(new Random()) {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = false
@@ -203,8 +186,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void One_Domain_One_Arg_UniqueMails_True_Called_One_Time()
-        {
+        public void One_Domain_One_Arg_UniqueMails_True_Called_One_Time() {
             var randomGenerator = new CustomGenerator(new Random()) {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = true
@@ -215,8 +197,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void One_Domain_Two_Args_UniqueMails_false()
-        {
+        public void One_Domain_Two_Args_UniqueMails_false() {
             var randomGenerator = new CustomGenerator(new Random()) {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = false
@@ -226,8 +207,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void One_Domain_Two_Args_UniqueMails_false_Called_One_Time()
-        {
+        public void One_Domain_Two_Args_UniqueMails_false_Called_One_Time() {
             var randomGenerator = new CustomGenerator(new Random(10)) {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = false
@@ -238,8 +218,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void One_Domain_Two_Args_UniqueMails_false_Called_Two_Times()
-        {
+        public void One_Domain_Two_Args_UniqueMails_false_Called_Two_Times() {
             var randomGenerator = new CustomGenerator(new Random(10)) {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = false
@@ -251,8 +230,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void One_Domain_Two_Args_UniqueMails_false_FirstNull()
-        {
+        public void One_Domain_Two_Args_UniqueMails_false_FirstNull() {
             var randomGenerator = new CustomGenerator(new Random()) {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = false
@@ -262,8 +240,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void One_Domain_Two_Args_UniqueMails_True()
-        {
+        public void One_Domain_Two_Args_UniqueMails_True() {
             var randomGenerator = new CustomGenerator(new Random()) {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = true
@@ -273,8 +250,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void One_Domain_Two_Args_UniqueMails_True_Called_One_Time()
-        {
+        public void One_Domain_Two_Args_UniqueMails_True_Called_One_Time() {
             var randomGenerator = new CustomGenerator(new Random()) {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = true
@@ -285,8 +261,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void One_Domain_Two_Args_UniqueMails_True_Called_Two_Times()
-        {
+        public void One_Domain_Two_Args_UniqueMails_True_Called_Two_Times() {
             var randomGenerator = new CustomGenerator(new Random()) {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = true
@@ -298,8 +273,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void One_Domain_Two_Args_UniqueMails_True_FirstNull()
-        {
+        public void One_Domain_Two_Args_UniqueMails_True_FirstNull() {
             var randomGenerator = new CustomGenerator(new Random()) {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = true
@@ -309,8 +283,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void One_Domain_Two_UniqueMails_false_Args_Called_Three_Times()
-        {
+        public void One_Domain_Two_UniqueMails_false_Args_Called_Three_Times() {
             var randomGenerator = new CustomGenerator(new Random(10)) {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = false
@@ -322,8 +295,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void One_Domain_Two_UniqueMails_True_Args_Called_Three_Times()
-        {
+        public void One_Domain_Two_UniqueMails_True_Args_Called_Three_Times() {
             var randomGenerator = new CustomGenerator(new Random()) {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = true
@@ -335,8 +307,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void Three__Domain_Two_Strings_UniqueMails_True_Called_Nine_Times()
-        {
+        public void Three__Domain_Two_Strings_UniqueMails_True_Called_Nine_Times() {
             var randomGenerator = new CustomGenerator(new Random()) {
                 MailProviders = new[] {"test.com", "test2.com", "test3.com"},
                 UniqueMails = true
@@ -346,8 +317,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void Two__Domain_One_Arg_Called_One_Time()
-        {
+        public void Two__Domain_One_Arg_Called_One_Time() {
             var randomGenerator = new CustomGenerator(new Random()) {
                 MailProviders = new[] {"test.com", "foo.com"},
                 UniqueMails = true
@@ -358,8 +328,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void Two__Domain_One_String_UniqueMails_True_Called_Three_Times()
-        {
+        public void Two__Domain_One_String_UniqueMails_True_Called_Three_Times() {
             var randomGenerator = new CustomGenerator(new Random()) {
                 MailProviders = new[] {"test.com", "foo.com"},
                 UniqueMails = true
@@ -371,8 +340,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void Two__Domain_One_String_UniqueMails_True_Called_Two_Times()
-        {
+        public void Two__Domain_One_String_UniqueMails_True_Called_Two_Times() {
             var randomGenerator = new CustomGenerator(new Random()) {
                 MailProviders = new[] {"test.com", "foo.com"},
                 UniqueMails = true
@@ -385,8 +353,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void Two__Domain_Two_Strings_UniqueMails_Called_Six_Times()
-        {
+        public void Two__Domain_Two_Strings_UniqueMails_Called_Six_Times() {
             var randomGenerator = new CustomGenerator(new Random()) {
                 MailProviders = new[] {"test.com", "test2.com"},
                 UniqueMails = true
@@ -396,8 +363,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void Two_Strings_Called_Four_Times()
-        {
+        public void Two_Strings_Called_Four_Times() {
             var randomGenerator = new CustomGenerator(new Random()) {
                 MailProviders = new[] {"test.com"},
                 UniqueMails = true
