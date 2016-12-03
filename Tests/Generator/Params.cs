@@ -8,7 +8,7 @@ namespace Tests.Generator {
     public class Params {
         [Test]
         public void WithString() {
-            var randomGenerator = new Sharpy.Generator(new Configurement(new Random()));
+            var randomGenerator = new Sharpy.Generator();
             var args = new[] {"hello", "there", "foo"};
             var generateMany =
                 randomGenerator.GenerateSequence(generator => generator.Params("hello", "there", "foo"), 10);

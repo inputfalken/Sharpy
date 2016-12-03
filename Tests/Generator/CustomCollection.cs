@@ -9,7 +9,7 @@ namespace Tests.Generator {
     public class CustomCollection {
         [Test]
         public void Array() {
-            var randomGenerator = new Sharpy.Generator(new Configurement(new Random()));
+            var randomGenerator = new Sharpy.Generator();
             var args = new[] {"hello", "there", "foo"};
             var generateMany = randomGenerator.GenerateSequence(generator => generator.Params(args), 10);
             Assert.IsTrue(generateMany.All(s => args.Contains(s)));
@@ -17,7 +17,7 @@ namespace Tests.Generator {
 
         [Test]
         public void List() {
-            var randomGenerator = new Sharpy.Generator(new Configurement(new Random()));
+            var randomGenerator = new Sharpy.Generator();
             var args = new List<string> {"hello", "there", "foo"};
             var generateMany = randomGenerator.GenerateSequence(generator => generator.CustomCollection(args), 10);
             Assert.IsTrue(generateMany.All(s => args.Contains(s)));

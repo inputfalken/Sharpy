@@ -11,14 +11,14 @@ namespace Tests.Generator {
             //Will throw exception if argument is less than 0
             Assert.Throws<ArgumentException>(
                 () =>
-                    new Sharpy.Generator(new Configurement(new Random())).Generate(
+                    new Sharpy.Generator().Generate(
                         generator => generator.DateByAge(-1)));
         }
 
         [Test]
         public void Arg_Twenty() {
             var result =
-                new Sharpy.Generator(new Configurement(new Random())).Generate(generator => generator.DateByAge(20));
+                new Sharpy.Generator().Generate(generator => generator.DateByAge(20));
 
             Assert.AreEqual(result.Year, DateGenerator.CurrentLocalDate.Year - 20);
         }
@@ -27,7 +27,7 @@ namespace Tests.Generator {
         [Repeat(10)]
         public void Arg_Zero() {
             var result =
-                new Sharpy.Generator(new Configurement(new Random())).Generate(generator => generator.DateByAge(0));
+                new Sharpy.Generator().Generate(generator => generator.DateByAge(0));
             //will make sure that the date created is earlier than today this year
             Assert.IsTrue(DateGenerator.CurrentLocalDate > result);
         }
