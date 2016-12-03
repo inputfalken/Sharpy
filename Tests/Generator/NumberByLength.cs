@@ -8,7 +8,7 @@ namespace Tests.Generator {
     public class NumberByLength {
         [Test]
         public void All_Unique_No_Prefix_Not_Unique() {
-            Configurement configurement = new Configurement {
+            var configurement = new Configurement {
                 UniqueNumbers = false
             };
             var gen = new Sharpy.Generator(configurement);
@@ -18,7 +18,7 @@ namespace Tests.Generator {
 
         [Test]
         public void All_Unique_No_Prefix_Unique() {
-            Configurement configurement = new Configurement {
+            var configurement = new Configurement {
                 UniqueNumbers = true
             };
             var gen = new Sharpy.Generator(configurement);
@@ -28,7 +28,7 @@ namespace Tests.Generator {
 
         [Test]
         public void Create_Max_Ammount_Does_Not_Throw_Unique() {
-            Configurement configurement = new Configurement {
+            var configurement = new Configurement {
                 UniqueNumbers = true
             };
             var gen = new Sharpy.Generator(configurement);
@@ -39,7 +39,7 @@ namespace Tests.Generator {
 
         [Test]
         public void Create_More_Than_Max_Ammount_Throw_Not_Unique() {
-            Configurement configurement = new Configurement {
+            var configurement = new Configurement {
                 UniqueNumbers = false
             };
             var gen = new Sharpy.Generator(configurement);
@@ -50,7 +50,7 @@ namespace Tests.Generator {
 
         [Test]
         public void Create_More_Than_Max_Ammount_Throw_Unique() {
-            Configurement configurement = new Configurement {
+            var configurement = new Configurement {
                 UniqueNumbers = true
             };
             var gen = new Sharpy.Generator(configurement);
@@ -61,7 +61,7 @@ namespace Tests.Generator {
 
         [Test]
         public void Got_Same_Length_No_Prefix_Not_Unique() {
-            Configurement configurement = new Configurement {
+            var configurement = new Configurement {
                 UniqueNumbers = false
             };
             var gen = new Sharpy.Generator(configurement);
@@ -71,7 +71,7 @@ namespace Tests.Generator {
 
         [Test]
         public void Got_Same_Length_No_Prefix_Unique() {
-            Configurement configurement = new Configurement {
+            var configurement = new Configurement {
                 UniqueNumbers = true
             };
             var gen = new Sharpy.Generator(configurement);
