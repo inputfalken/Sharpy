@@ -16,6 +16,10 @@ namespace Sharpy {
         /// <param name="random"></param>
         public Configurement(Random random) {
             Random = random;
+            LongProvider = new LongRandomizer(Random);
+            IntegerProvider = new IntRandomizer(Random);
+            DoubleProvider = new DoubleRandomizer(Random);
+            NameProvider = new NameByOrigin(Random);
         }
 
         /// <summary>
@@ -75,18 +79,5 @@ namespace Sharpy {
         ///     </para>
         /// </summary>
         public bool UniqueNumbers { get; set; }
-
-        /// <summary>
-        ///     Creates a Generator with your configurement.
-        /// </summary>
-        /// <returns></returns>
-        internal Generator BuildGenerator() {
-            if (LongProvider == null) LongProvider = new LongRandomizer(Random);
-            if (IntegerProvider == null) IntegerProvider = new IntRandomizer(Random);
-            if (DoubleProvider == null) DoubleProvider = new DoubleRandomizer(Random);
-            if (NameProvider == null) NameProvider = new NameByOrigin(Random);
-            return new Generator(Random, DoubleProvider, IntegerProvider, LongProvider, NameProvider, MailProviders,
-                UniqueNumbers);
-        }
     }
 }

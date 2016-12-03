@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using NodaTime;
 using Sharpy.Enums;
 using Sharpy.Implementation;
@@ -38,19 +39,18 @@ namespace Sharpy {
         private readonly bool _uniqueNumbers;
         private Tuple<int, int> _phoneState = new Tuple<int, int>(0, 0);
 
-        internal Generator(Random random, IDoubleProvider doubleProvider, IIntegerProvider integerProvider,
-            ILongProvider longProvider, INameProvider nameProvider, IReadOnlyList<string> mailProviders,
-            bool uniqueNumber) {
-            _random = random;
-            _doubleProvider = doubleProvider;
-            _integerProvider = integerProvider;
-            _longProvider = longProvider;
-            _nameProvider = nameProvider;
-            _dateGenerator = new DateGenerator(random);
-            _mailbuilder = new EmailBuilder(mailProviders, random);
-            _socialSecurityNumberGenerator = new SecurityNumberGen(random);
-            _numberGenerator = new NumberGenerator(random);
-            _uniqueNumbers = uniqueNumber;
+
+        private Generator(Configurement configurement) {
+            _random = configurement.Random;
+            _doubleProvider = configurement.DoubleProvider;
+            _integerProvider = configurement.IntegerProvider;
+            _longProvider = configurement.LongProvider;
+            _nameProvider = configurement.NameProvider;
+            _dateGenerator = new DateGenerator(configurement.Random);
+            _mailbuilder = new EmailBuilder(configurement.MailProviders, configurement.Random);
+            _socialSecurityNumberGenerator = new SecurityNumberGen(configurement.Random);
+            _numberGenerator = new NumberGenerator(configurement.Random);
+            _uniqueNumbers = configurement.UniqueNumbers;
         }
 
         /// <summary>
@@ -230,27 +230,27 @@ namespace Sharpy {
         ///     <para>Returns a Generator which will randomize new results every time program is executed.</para>
         /// </summary>
         /// <returns></returns>
-        public static Generator Create() => new Configurement(new Random()).BuildGenerator();
+        public static Generator Create() => new Generator(new Configurement(new Random()));
 
         /// <summary>
         ///     <para>Returns A Generator which will Randomize the same result by the seed.</para>
         /// </summary>
         /// <param name="seed"></param>
         /// <returns></returns>
-        public static Generator Create(int seed) => new Configurement(new Random(seed)).BuildGenerator();
+        public static Generator Create(int seed) => new Generator(new Configurement(seed));
 
         /// <summary>
         ///     <para>Returns a generator which will randomize with the random supplied.</para>
         /// </summary>
         /// <param name="random"></param>
         /// <returns></returns>
-        public static Generator Create(Random random) => new Configurement(random).BuildGenerator();
+        public static Generator Create(Random random) => new Generator(new Configurement(random));
 
         /// <summary>
         /// <para>Returns a Generator with your configurement</para>
         /// </summary>
         /// <param name="configurement"></param>
         /// <returns></returns>
-        public static Generator Create(Configurement configurement) => configurement.BuildGenerator();
+        public static Generator Create(Configurement configurement) => new Generator(configurement);
     }
 }
