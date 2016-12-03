@@ -19,10 +19,13 @@
       Tested on Net4.6 and Net4.5.
     </description>
     <releaseNotes>
-      1: Removes static Generation methods on Generator.
-      2: Removes Config class, now you can use CustomGenerator to customize a generator.
-      3: Removes ToString Option on Generator.
-      4: Adds Error handling for various generation methods.
+      1: Renames GenerateMany -> GenerateSequence.
+      2: Removes static Generation methods on Generator.
+      3: Renames Config to Configurement. also changes it's properties to contain Implementation properties.
+      4: Removes ToString Option on Generator.
+      5: Adds Error handling for various generation methods.
+      6: Removes default integer for count on GenerateSequence.
+      7: Removes the String method from Generator. Instead there's 3 methods: Firstname, LastName and Username.
     </releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Fakedata Generator Generic</tags>
