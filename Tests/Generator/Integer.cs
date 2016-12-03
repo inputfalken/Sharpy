@@ -66,16 +66,6 @@ namespace Tests.Generator {
             Assert.IsTrue((intInstance >= 0) && (intInstance < max));
         }
 
-        [Test]
-        public void One_Arg_Zero() {
-            var ints =
-                new Sharpy.Generator().GenerateSequence(
-                    generator => generator.Integer(0), Length);
-            Assert.Throws<ArgumentOutOfRangeException>(() => ints.ToArray());
-
-            Assert.Throws<ArgumentOutOfRangeException>(
-                () => new Sharpy.Generator().Generate(generator => generator.Integer(0)));
-        }
 
         [Test]
         public void Two_Args_MinusThousand_And_MinusTwoThousand() {
