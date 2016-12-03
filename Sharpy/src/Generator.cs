@@ -18,7 +18,7 @@ namespace Sharpy {
     ///         If want to add your own methods you can derive from this class.
     ///     </para>
     ///     <para>If you want to map this to instantiate another class you can call Generate/GenerateSequence.</para>
-    ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
+    ///     <para>For examples please visit https://inputfalken.github.io/Sharpy/ </para>
     /// </summary>
     public class Generator : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider {
         private readonly DateGenerator _dateGenerator;
