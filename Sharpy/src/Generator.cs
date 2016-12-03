@@ -230,20 +230,27 @@ namespace Sharpy {
         ///     <para>Returns a Generator which will randomize new results every time program is executed.</para>
         /// </summary>
         /// <returns></returns>
-        public static Generator Create() => new CustomGenerator(new Random()).Create();
+        public static Generator Create() => new Configurement(new Random()).Create();
 
         /// <summary>
         ///     <para>Returns A Generator which will Randomize the same result by the seed.</para>
         /// </summary>
         /// <param name="seed"></param>
         /// <returns></returns>
-        public static Generator Create(int seed) => new CustomGenerator(new Random(seed)).Create();
+        public static Generator Create(int seed) => new Configurement(new Random(seed)).Create();
 
         /// <summary>
         ///     <para>Returns a generator which will randomize with the random supplied.</para>
         /// </summary>
         /// <param name="random"></param>
         /// <returns></returns>
-        public static Generator Create(Random random) => new CustomGenerator(random).Create();
+        public static Generator Create(Random random) => new Configurement(random).Create();
+
+        /// <summary>
+        /// <para>Returns a Generator with your configurement</para>
+        /// </summary>
+        /// <param name="configurement"></param>
+        /// <returns></returns>
+        public static Generator Create(Configurement configurement) => configurement.Create();
     }
 }

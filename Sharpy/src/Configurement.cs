@@ -9,12 +9,12 @@ namespace Sharpy {
     ///         Use this class if you want to configure your Generator. then call CreateGenerator to get the generator.
     ///     </para>
     /// </summary>
-    public class CustomGenerator {
+    public class Configurement {
         /// <summary>
         ///     <para>The random will be used for the Generator.</para>
         /// </summary>
         /// <param name="random"></param>
-        public CustomGenerator(Random random) {
+        public Configurement(Random random) {
             Random = random;
         }
 
@@ -22,12 +22,12 @@ namespace Sharpy {
         ///     <para>The seed supplied will be used to instantiate System.Random. For the Generator.</para>
         /// </summary>
         /// <param name="seed"></param>
-        public CustomGenerator(int seed) : this(new Random(seed)) {}
+        public Configurement(int seed) : this(new Random(seed)) {}
 
         /// <summary>
         ///     <para>Creates a random by Tick </para>
         /// </summary>
-        public CustomGenerator() : this(new Random()) {}
+        public Configurement() : this(new Random()) {}
 
         /// <summary>
         ///     <para>Gets and Sets the implementation which Generator's FirstName, LastName methods use.</para>
