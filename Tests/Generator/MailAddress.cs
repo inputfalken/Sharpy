@@ -18,7 +18,7 @@ namespace Tests.Generator {
 
         [Test]
         public void Check_Mail_Count_Unique_True() {
-            var randomGenerator = new CustomGenerator(new Random()) {
+            var randomGenerator = new Configurement(new Random()) {
                 MailProviders = new[] {"test.com"},
             }.Create();
             var generate = randomGenerator.Generate(generator => generator.MailAddress("hello"));
@@ -28,7 +28,7 @@ namespace Tests.Generator {
 
         [Test]
         public void Four__Domain_Two_Args_Unique_True() {
-            var randomGenerator = new CustomGenerator(new Random()) {
+            var randomGenerator = new Configurement(new Random()) {
                 MailProviders = new[] {"test.com", "test2.com", "test3.com", "test4.com"},
             }.Create();
             var mails = randomGenerator.GenerateSequence(generator => generator.MailAddress("john", "doe"), 12);
@@ -52,7 +52,7 @@ namespace Tests.Generator {
 
         [Test]
         public void One__Domain_One_Arg_UniqueMails_True_Called_One_Time() {
-            var randomGenerator = new CustomGenerator(new Random()) {
+            var randomGenerator = new Configurement(new Random()) {
                 MailProviders = new[] {"test.com"},
             }.Create();
             var mails = randomGenerator.GenerateSequence(generator => generator.MailAddress("john"), 12);
@@ -61,7 +61,7 @@ namespace Tests.Generator {
 
         [Test]
         public void One__Domain_One_Arg_UniqueMails_True_Called_Two_Times() {
-            var randomGenerator = new CustomGenerator(new Random()) {
+            var randomGenerator = new Configurement(new Random()) {
                 MailProviders = new[] {"test.com"},
             }.Create();
             //Should not contain any numbers
@@ -72,7 +72,7 @@ namespace Tests.Generator {
 
         [Test]
         public void One__Domain_Two_Args_SecondNull_UniqueMails_True() {
-            var randomGenerator = new CustomGenerator(new Random()) {
+            var randomGenerator = new Configurement(new Random()) {
                 MailProviders = new[] {"test.com"},
             }.Create();
             var result = randomGenerator.Generate(generator => generator.MailAddress("bob", null));
@@ -83,7 +83,7 @@ namespace Tests.Generator {
 
         [Test]
         public void One__Domain_Unique_True_Check_All_Is_LowerCase() {
-            var randomGenerator = new CustomGenerator(new Random()) {
+            var randomGenerator = new Configurement(new Random()) {
                 MailProviders = new[] {"test.com"},
             }.Create();
             var mail = randomGenerator.Generate(generator => generator.MailAddress("Bob"));
@@ -93,7 +93,7 @@ namespace Tests.Generator {
 
         [Test]
         public void One_Domain_First_Arg_Null_Second_String_UniqueMails_True_Called_One_Time() {
-            var randomGenerator = new CustomGenerator(new Random()) {
+            var randomGenerator = new Configurement(new Random()) {
                 MailProviders = new[] {"test.com"},
             }.Create();
             Assert.Throws<NullReferenceException>(
@@ -103,7 +103,7 @@ namespace Tests.Generator {
 
         [Test]
         public void One_Domain_First_Arg_Null_UniqueMails_True_Called_One_Time() {
-            var randomGenerator = new CustomGenerator(new Random()) {
+            var randomGenerator = new Configurement(new Random()) {
                 MailProviders = new[] {"test.com"},
             }.Create();
             Assert.Throws<NullReferenceException>(
@@ -113,7 +113,7 @@ namespace Tests.Generator {
 
         [Test]
         public void One_Domain_One_Arg_UniqueMails_True_Called_One_Time() {
-            var randomGenerator = new CustomGenerator(new Random()) {
+            var randomGenerator = new Configurement(new Random()) {
                 MailProviders = new[] {"test.com"},
             }.Create();
             const string expected = "bob@test.com";
@@ -124,7 +124,7 @@ namespace Tests.Generator {
 
         [Test]
         public void One_Domain_Two_Args_UniqueMails_True() {
-            var randomGenerator = new CustomGenerator(new Random()) {
+            var randomGenerator = new Configurement(new Random()) {
                 MailProviders = new[] {"test.com"},
             }.Create();
             var generateMany = randomGenerator.GenerateSequence(generator => generator.MailAddress("john", "doe"), 30);
@@ -133,7 +133,7 @@ namespace Tests.Generator {
 
         [Test]
         public void One_Domain_Two_Args_UniqueMails_True_Called_One_Time() {
-            var randomGenerator = new CustomGenerator(new Random()) {
+            var randomGenerator = new Configurement(new Random()) {
                 MailProviders = new[] {"test.com"},
             }.Create();
             const string expected = "bob.cool@test.com";
@@ -143,7 +143,7 @@ namespace Tests.Generator {
 
         [Test]
         public void One_Domain_Two_Args_UniqueMails_True_Called_Two_Times() {
-            var randomGenerator = new CustomGenerator(new Random()) {
+            var randomGenerator = new Configurement(new Random()) {
                 MailProviders = new[] {"test.com"},
             }.Create();
             var generate = randomGenerator.GenerateSequence(generator => generator.MailAddress("bob", "cool"), 2);
@@ -154,7 +154,7 @@ namespace Tests.Generator {
 
         [Test]
         public void One_Domain_Two_Args_UniqueMails_True_FirstNull() {
-            var randomGenerator = new CustomGenerator(new Random()) {
+            var randomGenerator = new Configurement(new Random()) {
                 MailProviders = new[] {"test.com"},
             }.Create();
             Assert.Throws<NullReferenceException>(
@@ -164,7 +164,7 @@ namespace Tests.Generator {
 
         [Test]
         public void One_Domain_Two_UniqueMails_True_Args_Called_Three_Times() {
-            var randomGenerator = new CustomGenerator(new Random()) {
+            var randomGenerator = new Configurement(new Random()) {
                 MailProviders = new[] {"test.com"},
             }.Create();
             var generateMany = randomGenerator.GenerateSequence(generator => generator.MailAddress("bob", "cool"), 3);
@@ -175,7 +175,7 @@ namespace Tests.Generator {
 
         [Test]
         public void Three__Domain_Two_Strings_UniqueMails_True_Called_Nine_Times() {
-            var randomGenerator = new CustomGenerator(new Random()) {
+            var randomGenerator = new Configurement(new Random()) {
                 MailProviders = new[] {"test.com", "test2.com", "test3.com"},
             }.Create();
             var mails = randomGenerator.GenerateSequence(generator => generator.MailAddress("john", "doe"), 9);
@@ -184,7 +184,7 @@ namespace Tests.Generator {
 
         [Test]
         public void Two__Domain_One_Arg_Called_One_Time() {
-            var randomGenerator = new CustomGenerator(new Random()) {
+            var randomGenerator = new Configurement(new Random()) {
                 MailProviders = new[] {"test.com", "foo.com"},
             }.Create();
             const string expected = "bob@test.com";
@@ -194,7 +194,7 @@ namespace Tests.Generator {
 
         [Test]
         public void Two__Domain_One_String_UniqueMails_True_Called_Three_Times() {
-            var randomGenerator = new CustomGenerator(new Random()) {
+            var randomGenerator = new Configurement(new Random()) {
                 MailProviders = new[] {"test.com", "foo.com"},
             }.Create();
             Assert.IsFalse(randomGenerator.Generate(generator => generator.MailAddress("bob")).Any(char.IsDigit));
@@ -205,7 +205,7 @@ namespace Tests.Generator {
 
         [Test]
         public void Two__Domain_One_String_UniqueMails_True_Called_Two_Times() {
-            var randomGenerator = new CustomGenerator(new Random()) {
+            var randomGenerator = new Configurement(new Random()) {
                 MailProviders = new[] {"test.com", "foo.com"},
             }.Create();
             const string expected = "bob@foo.com";
@@ -217,7 +217,7 @@ namespace Tests.Generator {
 
         [Test]
         public void Two__Domain_Two_Strings_UniqueMails_Called_Six_Times() {
-            var randomGenerator = new CustomGenerator(new Random()) {
+            var randomGenerator = new Configurement(new Random()) {
                 MailProviders = new[] {"test.com", "test2.com"},
             }.Create();
             var mails = randomGenerator.GenerateSequence(generator => generator.MailAddress("john", "doe"), 6);
@@ -226,7 +226,7 @@ namespace Tests.Generator {
 
         [Test]
         public void Two_Strings_Called_Four_Times() {
-            var randomGenerator = new CustomGenerator(new Random()) {
+            var randomGenerator = new Configurement(new Random()) {
                 MailProviders = new[] {"test.com"},
             }.Create();
 

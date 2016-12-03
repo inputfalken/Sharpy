@@ -15,7 +15,7 @@ namespace Tests.Generator {
             var values = Enum.GetValues(typeof(Origin));
             foreach (var value in values)
                 Assert.DoesNotThrow(() => {
-                    new CustomGenerator(new Random()) {
+                    new Configurement(new Random()) {
                         NameProvider = new NameByOrigin((Origin) value)
                     }.Create().Generate(g => g.FirstName());
                 });
