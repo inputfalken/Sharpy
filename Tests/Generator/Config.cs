@@ -8,9 +8,10 @@ namespace Tests.Generator {
     public class Config {
         [Test]
         public void NameProvider_Set_To_Null() {
-            var generator = Sharpy.Generator.Create(new Configurement {
+            Configurement configurement = new Configurement {
                 NameProvider = null
-            });
+            };
+            var generator = new Sharpy.Generator(configurement);
             //Name
             Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.FirstName()));
             Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.FirstName(Gender.Female)));
@@ -35,9 +36,10 @@ namespace Tests.Generator {
 
         [Test]
         public void IntegerProvider_Set_To_Null() {
-            var generator = Sharpy.Generator.Create(new Configurement {
+            Configurement configurement = new Configurement {
                 IntegerProvider = null
-            });
+            };
+            var generator = new Sharpy.Generator(configurement);
             //Integer
             Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.Integer()));
             Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.Integer(10)));
@@ -63,9 +65,10 @@ namespace Tests.Generator {
 
         [Test]
         public void DoubleProvider_Set_To_Null() {
-            var generator = Sharpy.Generator.Create(new Configurement {
+            Configurement configurement = new Configurement {
                 DoubleProvider = null
-            });
+            };
+            var generator = new Sharpy.Generator(configurement);
             //Long
             Assert.DoesNotThrow(() => generator.Generate(x => x.Long()));
             Assert.DoesNotThrow(() => generator.Generate(x => x.Long(10)));
@@ -91,9 +94,10 @@ namespace Tests.Generator {
 
         [Test]
         public void LongProvider_Set_To_Null() {
-            var generator = Sharpy.Generator.Create(new Configurement {
+            Configurement configurement = new Configurement {
                 LongProvider = null
-            });
+            };
+            var generator = new Sharpy.Generator(configurement);
             //Long
             Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.Long()));
             Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.Long(10)));
