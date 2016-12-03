@@ -63,11 +63,11 @@ namespace Sharpy {
         public Random Random { get; }
 
         /// <summary>
-        ///     <para>Gets and Sets the mailproviders which will be used for generating MailAddresses.</para>
+        ///     <para>Gets and Sets the maildomains which will be used for generating MailAddresses.</para>
         ///     <para>This affects Generator's MailAddress method.</para>
         ///     <para>Set to gmail.com, hotmail.com and yahoo.com by default.</para>
         /// </summary>
-        public IReadOnlyList<string> MailProviders { get; set; } = new[] {"gmail.com", "hotmail.com", "yahoo.com"};
+        public IReadOnlyList<string> MailDomains { get; set; } = new[] {"gmail.com", "hotmail.com", "yahoo.com"};
 
         /// <summary>
         ///     <para>Gets and Sets if Generator's NumberByLength returns unique numbers.</para>
