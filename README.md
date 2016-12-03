@@ -10,7 +10,7 @@ using Sharpy;
 using Sharpy.Enums;
 
 namespace ConsoleApp {
-        private static Generator Generator { get; } = Generator.Create();
+        private static Generator Generator { get; } = new Generator();
 
         public static void Main() {
             // First argument is the instructions on what will be generated, 
@@ -42,7 +42,7 @@ using Sharpy.Enums;
 
 namespace ConsoleApp {
         internal static class Program {
-        private static readonly Generator Generator = Generator.Create(new Configurement {
+        private static readonly Generator Generator = new Generator(new Configurement {
             // Limits the FirstName and LastName method to common names in the unitedstates.
             NameProvider = new NameByOrigin(Origin.UnitedStates)
         });
@@ -69,7 +69,7 @@ using Sharpy.Enums;
 
 namespace ConsoleApp {
     internal static class Program {
-        private static Generator Generator { get; } = Generator.Create();
+        private static Generator Generator { get; } = new Generator();
 
         public static void Main() {
             IEnumerable<Person> people = Generator.GenerateSequence(generator => new Person {
@@ -97,7 +97,7 @@ using Sharpy.Enums;
 
 namespace ConsoleApp {
     internal static class Program {
-        private static Generator Generator { get; } = Generator.Create();
+        private static Generator Generator { get; } = new Generator();
 
         public static void Main() {
             IEnumerable<Person> people = Generator.GenerateSequence(generator => new Person {
@@ -130,7 +130,7 @@ using Sharpy.Enums;
 
 namespace ConsoleApp {
     internal static class Program {
-        private static Generator Generator { get; } = Generator.Create();
+        private static Generator Generator { get; } = new Generator();
 
         public static void Main() {
             IEnumerable<Person> people = Generator.GenerateSequence(generator => new Person {
@@ -161,7 +161,7 @@ using Sharpy;
 
 namespace ConsoleApp {
     internal static class Program {
-        private static Generator Generator { get; } = Generator.Create();
+        private static Generator Generator { get; } = new Generator();
 
         public static void Main() {
             //At the moment you have to make a statement lambda.
