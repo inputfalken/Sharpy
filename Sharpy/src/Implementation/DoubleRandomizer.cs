@@ -28,7 +28,7 @@ namespace Sharpy.Implementation {
         /// </summary>
         /// <param name="max"></param>
         /// <returns></returns>
-        public double Double(double max) => _random.NextDouble(max);
+        public double Double(double max) => Double(0, max);
 
         /// <summary>
         ///     <para>Returns a randomized double within min and max.</para>
@@ -36,6 +36,9 @@ namespace Sharpy.Implementation {
         /// <param name="min"></param>
         /// <param name="max"></param>
         /// <returns></returns>
-        public double Double(double min, double max) => _random.NextDouble(min, max);
+        public double Double(double min, double max) {
+            if (max <= min) throw new ArgumentOutOfRangeException($"{nameof(max)} must be > {nameof(min)}");
+            return _random.NextDouble()*(max - min) + min;
+        }
     }
 }
