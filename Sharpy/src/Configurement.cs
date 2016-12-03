@@ -85,7 +85,8 @@ namespace Sharpy {
             if (IntegerProvider == null) IntegerProvider = new IntRandomizer(Random);
             if (DoubleProvider == null) DoubleProvider = new DoubleRandomizer(Random);
             if (NameProvider == null) NameProvider = new NameByOrigin(Random);
-            return new Generator(Random, DoubleProvider, IntegerProvider, LongProvider, NameProvider, MailProviders, UniqueNumbers);
+            return new Generator(Random, DoubleProvider, IntegerProvider, LongProvider, NameProvider, MailProviders,
+                UniqueNumbers);
         }
     }
 }
