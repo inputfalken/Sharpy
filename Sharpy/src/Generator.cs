@@ -10,12 +10,12 @@ using Sharpy.Properties;
 namespace Sharpy {
     /// <summary>
     ///     <para>
-    ///         Contains various methods for Generating data and utility methods which you can combine with the generation
+    ///         Contains various methods for generating data and utility methods which you can combine with the generation
     ///         methods.
     ///         If you would want the same result every time you invoke these methods you can set the seed for the random
     ///         required
     ///         by the constructor.
-    ///         If you would like to add your own methods you can derive from this class.
+    ///         If want to add your own methods you can derive from this class.
     ///     </para>
     ///     <para>If you want to map this to instantiate another class you can call Generate/GenerateSequence.</para>
     ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
@@ -41,10 +41,11 @@ namespace Sharpy {
 
 
         /// <summary>
-        /// 
+        ///     <para>Returns a generator with your configurement</para>
         /// </summary>
         /// <param name="configurement"></param>
-        protected Generator(Configurement configurement) {
+        /// <returns></returns>
+        public Generator(Configurement configurement) {
             _random = configurement.Random;
             _doubleProvider = configurement.DoubleProvider;
             _integerProvider = configurement.IntegerProvider;
@@ -58,7 +59,27 @@ namespace Sharpy {
         }
 
         /// <summary>
-        ///     <para>Generates a Double.</para>
+        ///     <para>Returns a generator which will Randomize the same result by the seed.</para>
+        /// </summary>
+        /// <param name="seed"></param>
+        /// <returns></returns>
+        public Generator(int seed) : this(new Configurement(seed)) {}
+
+        /// <summary>
+        ///     <para>Returns a generator which will randomize with the random supplied.</para>
+        /// </summary>
+        /// <param name="random"></param>
+        /// <returns></returns>
+        public Generator(Random random) : this(new Configurement(random)) {}
+
+        /// <summary>
+        ///     <para>Returns a generator which will randomize new results every time program is executed.</para>
+        /// </summary>
+        /// <returns></returns>
+        public Generator() : this(new Configurement()) {}
+
+        /// <summary>
+        ///     <para>Generates a double.</para>
         /// </summary>
         /// <returns></returns>
         public double Double() => _doubleProvider.Double();
@@ -79,7 +100,7 @@ namespace Sharpy {
         public double Double(double min, double max) => _doubleProvider.Double(min, max);
 
         /// <summary>
-        ///     <para>Generates a Integer.</para>
+        ///     <para>Generates a integer.</para>
         /// </summary>
         /// <param name="max"></param>
         /// <returns></returns>
@@ -229,32 +250,5 @@ namespace Sharpy {
         private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
 
         private static string FormatDigit(int i) => i < 10 ? Prefix(i, 1) : i.ToString();
-
-        /// <summary>
-        ///     <para>Returns a Generator which will randomize new results every time program is executed.</para>
-        /// </summary>
-        /// <returns></returns>
-        public static Generator Create() => new Generator(new Configurement(new Random()));
-
-        /// <summary>
-        ///     <para>Returns A Generator which will Randomize the same result by the seed.</para>
-        /// </summary>
-        /// <param name="seed"></param>
-        /// <returns></returns>
-        public static Generator Create(int seed) => new Generator(new Configurement(seed));
-
-        /// <summary>
-        ///     <para>Returns a generator which will randomize with the random supplied.</para>
-        /// </summary>
-        /// <param name="random"></param>
-        /// <returns></returns>
-        public static Generator Create(Random random) => new Generator(new Configurement(random));
-
-        /// <summary>
-        ///     <para>Returns a Generator with your configurement</para>
-        /// </summary>
-        /// <param name="configurement"></param>
-        /// <returns></returns>
-        public static Generator Create(Configurement configurement) => new Generator(configurement);
     }
 }
