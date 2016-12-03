@@ -42,10 +42,10 @@ using Sharpy.Enums;
 
 namespace ConsoleApp {
         internal static class Program {
-        private static Generator Generator = new CustomGenerator(new Random(1000)) {
+        private static readonly Generator Generator = Generator.Create(new Configurement {
             // Limits the FirstName and LastName method to common names in the unitedstates.
             NameProvider = new NameByOrigin(Origin.UnitedStates)
-        }.Create();
+        });
 
         private static void Main() {
             IEnumerable<Person> people = Generator.GenerateSequence(generator => new Person {
