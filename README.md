@@ -3,6 +3,7 @@
 The idea of this project is to let users have a source to fetch random data from.
 
 ###Examples
+
 #### Generating
 ```C#
 using System.Collections.Generic;
@@ -34,6 +35,7 @@ namespace ConsoleApp {
 
 }
 ```
+
 #### Configure & Generating
 ```C#
 using System.Collections.Generic;
@@ -61,6 +63,7 @@ namespace ConsoleApp {
     }
 }
 ```
+
 #### Supplying your own collection
 ```C#
 using System.Collections.Generic;
@@ -89,6 +92,7 @@ namespace ConsoleApp {
     }
 }
 ```
+
 #### Creating Multiple types with the same generator
 ```C#
 using System.Collections.Generic;
@@ -122,6 +126,7 @@ namespace ConsoleApp {
     }
 }
 ```
+
 #### Generating with nested IEnumerable
 ```C#
 using System.Collections.Generic;
@@ -154,6 +159,7 @@ namespace ConsoleApp {
     }
 }
 ```
+
 #### Passing same generated result to multiple arguments.
 ```C#
 using System.Collections.Generic;
@@ -188,12 +194,57 @@ namespace ConsoleApp {
         public string MailAddress { get; set; }
     }
 }
+```
+
+#### Using anonymous types
+```C#
+using Sharpy;
+
+namespace ConsoleApplication1 {
+    class Program {
+        static void Main(string[] args) {
+            var generator = new Generator();
+            // Return a anonymous type here.
+            generator.Generate(x => new {
+                FirstName = x.FirstName(),
+                Integer = x.Integer()
+            });
+        }
+    }
+}
+```
+
+#### Adding your own methods
+```C#
+using Sharpy;
+
+namespace ConsoleApplication1 {
+    class Program {
+        static void Main(string[] args) {
+            var myGenerator = new MyGenerator();
+            myGenerator.Generate(g => new MyClass {
+                ResultFromMyStringMethod = g.MyStringMethod(),
+                RandomNumber = g.Integer()
+            });
+        }
+    }
+
+    class MyClass {
+        public string ResultFromMyStringMethod { get; set; }
+        public int RandomNumber { get; set; }
+    }
+
+    // Derive from Generator in order to get all methods from it.
+    class MyGenerator : Generator {
+        public string MyStringMethod() {
+            return "";
+        }
+    }
+}
 
 ```
 These examples show how to use my implementation of IGenerator.
-####
 
-======
 ### Install
 Use the Nuget Package Manager Console and type Install-Package Sharpy
 
