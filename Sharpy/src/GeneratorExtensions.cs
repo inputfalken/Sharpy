@@ -25,7 +25,7 @@ namespace Sharpy {
         /// <typeparam name="TSource"></typeparam>
         /// <returns></returns>
         public static IEnumerable<T> GenerateSequence<TSource, T>(this TSource generator,
-            Func<TSource, T> func, int count = 10) where TSource : Generator {
+            Func<TSource, T> func, int count) where TSource : Generator {
             for (var i = 0; i < count; i++)
                 yield return func(generator);
         }
@@ -41,7 +41,7 @@ namespace Sharpy {
         /// <typeparam name="TSource"></typeparam>
         /// <returns></returns>
         public static IEnumerable<T> GenerateSequence<TSource, T>(this TSource generator,
-            Func<TSource, int, T> func, int count = 10) where TSource : Generator {
+            Func<TSource, int, T> func, int count) where TSource : Generator {
             for (var i = 0; i < count; i++)
                 yield return func(generator, i);
         }
