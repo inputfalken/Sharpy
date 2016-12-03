@@ -80,7 +80,7 @@ namespace Sharpy {
         ///     Creates a Generator with your configurement.
         /// </summary>
         /// <returns></returns>
-        public Generator Create() {
+        internal Generator BuildGenerator() {
             if (LongProvider == null) LongProvider = new LongRandomizer(Random);
             if (IntegerProvider == null) IntegerProvider = new IntRandomizer(Random);
             if (DoubleProvider == null) DoubleProvider = new DoubleRandomizer(Random);
