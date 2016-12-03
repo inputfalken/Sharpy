@@ -18,8 +18,8 @@ namespace Tests.Generator {
 
         [Test]
         public void Check_Mail_Count_Unique_True() {
-            var configurement = new Configurement {
-                MailDomains = new[] {"test.com"}
+            Configurement configurement = new Configurement {
+                MailDomains = new[] {"test.com"},
             };
             var randomGenerator = new Sharpy.Generator(configurement);
             var generate = randomGenerator.Generate(generator => generator.MailAddress("hello"));
@@ -29,8 +29,8 @@ namespace Tests.Generator {
 
         [Test]
         public void Four__Domain_Two_Args_Unique_True() {
-            var configurement = new Configurement {
-                MailDomains = new[] {"test.com", "test2.com", "test3.com", "test4.com"}
+            Configurement configurement = new Configurement {
+                MailDomains = new[] {"test.com", "test2.com", "test3.com", "test4.com"},
             };
             var randomGenerator = new Sharpy.Generator(configurement);
             var mails = randomGenerator.GenerateSequence(generator => generator.MailAddress("john", "doe"), 12);
@@ -40,7 +40,7 @@ namespace Tests.Generator {
 
         [Test]
         public void MailsAreNotnull() {
-            var generator = new Sharpy.Generator(new Configurement(new Random()));
+            var generator = new Sharpy.Generator();
             //Many
             var mails = generator.GenerateSequence(g => g.MailAddress(MailUserName), 20).ToArray();
             Assert.IsFalse(mails.All(string.IsNullOrEmpty));
@@ -54,8 +54,8 @@ namespace Tests.Generator {
 
         [Test]
         public void One__Domain_One_Arg_UniqueMails_True_Called_One_Time() {
-            var configurement = new Configurement {
-                MailDomains = new[] {"test.com"}
+            Configurement configurement = new Configurement {
+                MailDomains = new[] {"test.com"},
             };
             var randomGenerator = new Sharpy.Generator(configurement);
             var mails = randomGenerator.GenerateSequence(generator => generator.MailAddress("john"), 12);
@@ -64,8 +64,8 @@ namespace Tests.Generator {
 
         [Test]
         public void One__Domain_One_Arg_UniqueMails_True_Called_Two_Times() {
-            var configurement = new Configurement {
-                MailDomains = new[] {"test.com"}
+            Configurement configurement = new Configurement {
+                MailDomains = new[] {"test.com"},
             };
             var randomGenerator = new Sharpy.Generator(configurement);
             //Should not contain any numbers
@@ -76,8 +76,8 @@ namespace Tests.Generator {
 
         [Test]
         public void One__Domain_Two_Args_SecondNull_UniqueMails_True() {
-            var configurement = new Configurement {
-                MailDomains = new[] {"test.com"}
+            Configurement configurement = new Configurement {
+                MailDomains = new[] {"test.com"},
             };
             var randomGenerator = new Sharpy.Generator(configurement);
             var result = randomGenerator.Generate(generator => generator.MailAddress("bob", null));
@@ -88,8 +88,8 @@ namespace Tests.Generator {
 
         [Test]
         public void One__Domain_Unique_True_Check_All_Is_LowerCase() {
-            var configurement = new Configurement {
-                MailDomains = new[] {"test.com"}
+            Configurement configurement = new Configurement {
+                MailDomains = new[] {"test.com"},
             };
             var randomGenerator = new Sharpy.Generator(configurement);
             var mail = randomGenerator.Generate(generator => generator.MailAddress("Bob"));
@@ -99,8 +99,8 @@ namespace Tests.Generator {
 
         [Test]
         public void One_Domain_First_Arg_Null_Second_String_UniqueMails_True_Called_One_Time() {
-            var configurement = new Configurement {
-                MailDomains = new[] {"test.com"}
+            Configurement configurement = new Configurement {
+                MailDomains = new[] {"test.com"},
             };
             var randomGenerator = new Sharpy.Generator(configurement);
             Assert.Throws<NullReferenceException>(
@@ -110,8 +110,8 @@ namespace Tests.Generator {
 
         [Test]
         public void One_Domain_First_Arg_Null_UniqueMails_True_Called_One_Time() {
-            var configurement = new Configurement {
-                MailDomains = new[] {"test.com"}
+            Configurement configurement = new Configurement {
+                MailDomains = new[] {"test.com"},
             };
             var randomGenerator = new Sharpy.Generator(configurement);
             Assert.Throws<NullReferenceException>(
@@ -121,8 +121,8 @@ namespace Tests.Generator {
 
         [Test]
         public void One_Domain_One_Arg_UniqueMails_True_Called_One_Time() {
-            var configurement = new Configurement {
-                MailDomains = new[] {"test.com"}
+            Configurement configurement = new Configurement {
+                MailDomains = new[] {"test.com"},
             };
             var randomGenerator = new Sharpy.Generator(configurement);
             const string expected = "bob@test.com";
@@ -133,8 +133,8 @@ namespace Tests.Generator {
 
         [Test]
         public void One_Domain_Two_Args_UniqueMails_True() {
-            var configurement = new Configurement {
-                MailDomains = new[] {"test.com"}
+            Configurement configurement = new Configurement {
+                MailDomains = new[] {"test.com"},
             };
             var randomGenerator = new Sharpy.Generator(configurement);
             var generateMany = randomGenerator.GenerateSequence(generator => generator.MailAddress("john", "doe"), 30);
@@ -143,8 +143,8 @@ namespace Tests.Generator {
 
         [Test]
         public void One_Domain_Two_Args_UniqueMails_True_Called_One_Time() {
-            var configurement = new Configurement {
-                MailDomains = new[] {"test.com"}
+            Configurement configurement = new Configurement {
+                MailDomains = new[] {"test.com"},
             };
             var randomGenerator = new Sharpy.Generator(configurement);
             const string expected = "bob.cool@test.com";
@@ -154,8 +154,8 @@ namespace Tests.Generator {
 
         [Test]
         public void One_Domain_Two_Args_UniqueMails_True_Called_Two_Times() {
-            var configurement = new Configurement {
-                MailDomains = new[] {"test.com"}
+            Configurement configurement = new Configurement {
+                MailDomains = new[] {"test.com"},
             };
             var randomGenerator = new Sharpy.Generator(configurement);
             var generate = randomGenerator.GenerateSequence(generator => generator.MailAddress("bob", "cool"), 2);
@@ -166,7 +166,7 @@ namespace Tests.Generator {
 
         [Test]
         public void One_Domain_Two_Args_UniqueMails_True_FirstNull() {
-            var configurement = new Configurement {MailDomains = new[] {"test.com"}};
+            Configurement configurement = new Configurement {MailDomains = new[] {"test.com"},};
             var randomGenerator = new Sharpy.Generator(configurement);
             Assert.Throws<NullReferenceException>(
                 () => randomGenerator.Generate(generator => generator.MailAddress(null, "bob")));
@@ -175,8 +175,8 @@ namespace Tests.Generator {
 
         [Test]
         public void One_Domain_Two_UniqueMails_True_Args_Called_Three_Times() {
-            var configurement = new Configurement {
-                MailDomains = new[] {"test.com"}
+            Configurement configurement = new Configurement {
+                MailDomains = new[] {"test.com"},
             };
             var randomGenerator = new Sharpy.Generator(configurement);
             var generateMany = randomGenerator.GenerateSequence(generator => generator.MailAddress("bob", "cool"), 3);
@@ -187,8 +187,8 @@ namespace Tests.Generator {
 
         [Test]
         public void Three__Domain_Two_Strings_UniqueMails_True_Called_Nine_Times() {
-            var configurement = new Configurement {
-                MailDomains = new[] {"test.com", "test2.com", "test3.com"}
+            Configurement configurement = new Configurement {
+                MailDomains = new[] {"test.com", "test2.com", "test3.com"},
             };
             var randomGenerator = new Sharpy.Generator(configurement);
             var mails = randomGenerator.GenerateSequence(generator => generator.MailAddress("john", "doe"), 9);
@@ -197,8 +197,8 @@ namespace Tests.Generator {
 
         [Test]
         public void Two__Domain_One_Arg_Called_One_Time() {
-            var configurement = new Configurement {
-                MailDomains = new[] {"test.com", "foo.com"}
+            Configurement configurement = new Configurement {
+                MailDomains = new[] {"test.com", "foo.com"},
             };
             var randomGenerator = new Sharpy.Generator(configurement);
             const string expected = "bob@test.com";
@@ -208,8 +208,8 @@ namespace Tests.Generator {
 
         [Test]
         public void Two__Domain_One_String_UniqueMails_True_Called_Three_Times() {
-            var configurement = new Configurement {
-                MailDomains = new[] {"test.com", "foo.com"}
+            Configurement configurement = new Configurement {
+                MailDomains = new[] {"test.com", "foo.com"},
             };
             var randomGenerator = new Sharpy.Generator(configurement);
             Assert.IsFalse(randomGenerator.Generate(generator => generator.MailAddress("bob")).Any(char.IsDigit));
@@ -220,8 +220,8 @@ namespace Tests.Generator {
 
         [Test]
         public void Two__Domain_One_String_UniqueMails_True_Called_Two_Times() {
-            var configurement = new Configurement {
-                MailDomains = new[] {"test.com", "foo.com"}
+            Configurement configurement = new Configurement {
+                MailDomains = new[] {"test.com", "foo.com"},
             };
             var randomGenerator = new Sharpy.Generator(configurement);
             const string expected = "bob@foo.com";
@@ -233,8 +233,8 @@ namespace Tests.Generator {
 
         [Test]
         public void Two__Domain_Two_Strings_UniqueMails_Called_Six_Times() {
-            var configurement = new Configurement {
-                MailDomains = new[] {"test.com", "test2.com"}
+            Configurement configurement = new Configurement {
+                MailDomains = new[] {"test.com", "test2.com"},
             };
             var randomGenerator = new Sharpy.Generator(configurement);
             var mails = randomGenerator.GenerateSequence(generator => generator.MailAddress("john", "doe"), 6);
@@ -243,8 +243,8 @@ namespace Tests.Generator {
 
         [Test]
         public void Two_Strings_Called_Four_Times() {
-            var configurement = new Configurement {
-                MailDomains = new[] {"test.com"}
+            Configurement configurement = new Configurement {
+                MailDomains = new[] {"test.com"},
             };
             var randomGenerator = new Sharpy.Generator(configurement);
 
