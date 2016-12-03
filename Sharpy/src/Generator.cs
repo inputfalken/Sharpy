@@ -40,7 +40,11 @@ namespace Sharpy {
         private Tuple<int, int> _phoneState = new Tuple<int, int>(0, 0);
 
 
-        public Generator(Configurement configurement) {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="configurement"></param>
+        protected Generator(Configurement configurement) {
             _random = configurement.Random;
             _doubleProvider = configurement.DoubleProvider;
             _integerProvider = configurement.IntegerProvider;
