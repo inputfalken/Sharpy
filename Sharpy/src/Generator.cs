@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using NodaTime;
 using Sharpy.Enums;
 using Sharpy.Implementation;
@@ -16,6 +15,7 @@ namespace Sharpy {
     ///         If you would want the same result every time you invoke these methods you can set the seed for the random
     ///         required
     ///         by the constructor.
+    ///         If you would like to add your own methods you can derive from this class.
     ///     </para>
     ///     <para>If you want to map this to instantiate another class you can call Generate/GenerateSequence.</para>
     ///     <para>For examples please visit https://github.com/inputfalken/Sharpy </para>
@@ -247,7 +247,7 @@ namespace Sharpy {
         public static Generator Create(Random random) => new Generator(new Configurement(random));
 
         /// <summary>
-        /// <para>Returns a Generator with your configurement</para>
+        ///     <para>Returns a Generator with your configurement</para>
         /// </summary>
         /// <param name="configurement"></param>
         /// <returns></returns>
