@@ -1,5 +1,4 @@
 ﻿using System;
-using Sharpy.Implementation.ExtensionMethods;
 using Sharpy.IProviders;
 
 namespace Sharpy.Implementation {

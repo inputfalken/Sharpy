@@ -15,7 +15,7 @@ namespace Tests.Generator {
             var values = Enum.GetValues(typeof(Origin));
             foreach (var value in values)
                 Assert.DoesNotThrow(() => {
-                    Configurement configurement = new Configurement {
+                    var configurement = new Configurement {
                         NameProvider = new NameByOrigin((Origin) value)
                     };
                     new Sharpy.Generator(configurement).Generate(g => g.FirstName());
