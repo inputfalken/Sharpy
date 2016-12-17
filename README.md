@@ -2,9 +2,7 @@
 
 This is a hobby project of mine where the goal is to have an easy way of generating some fake data.
 
-It works abit like Select from LINQ. Except that the in parameter is the Generator.
-
-Examples are now moved to a seperate page since it cluttered this page.
+To generate data you can either map the generator by calling Generate/GenerateSequence or use the methods given by the generator.
 
 Use the following link for [Examples](https://inputfalken.github.io/Sharpy/)
 
