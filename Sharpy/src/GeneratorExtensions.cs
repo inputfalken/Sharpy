@@ -11,10 +11,10 @@ namespace Sharpy {
         /// <param name="generator"></param>
         /// <param name="func">The generator supplied is used to provide data for your object.</param>
         /// <typeparam name="TResult">Your object.</typeparam>
-        /// <typeparam name="TSource">Data provider.</typeparam>
+        /// <typeparam name="TGenerator">Data provider.</typeparam>
         /// <returns></returns>
-        public static TResult Generate<TSource, TResult>(this TSource generator,
-            Func<TSource, TResult> func) where TSource : Generator => func(generator);
+        public static TResult Generate<TGenerator, TResult>(this TGenerator generator,
+            Func<TGenerator, TResult> func) where TGenerator : Generator => func(generator);
 
         /// <summary>
         ///     <para>Generates an IEnumerable&lt;TResult&gt; </para>
@@ -23,10 +23,10 @@ namespace Sharpy {
         /// <param name="generator"></param>
         /// <param name="func">The generator supplied is used to provide data for your object.</param>
         /// <typeparam name="TResult">Your object.</typeparam>
-        /// <typeparam name="TSource">Data Provider.</typeparam>
+        /// <typeparam name="TGenerator">Data Provider.</typeparam>
         /// <returns></returns>
-        public static IEnumerable<TResult> GenerateSequence<TSource, TResult>(this TSource generator,
-            Func<TSource, TResult> func, int count) where TSource : Generator {
+        public static IEnumerable<TResult> GenerateSequence<TGenerator, TResult>(this TGenerator generator,
+            Func<TGenerator, TResult> func, int count) where TGenerator : Generator {
             for (var i = 0; i < count; i++)
                 yield return func(generator);
         }
@@ -39,10 +39,10 @@ namespace Sharpy {
         /// <param name="generator"></param>
         /// <param name="func">The argument supplied is used to provide data for your object.</param>
         /// <typeparam name="TResult">Your object.</typeparam>
-        /// <typeparam name="TSource">Data provider.</typeparam>
+        /// <typeparam name="TGenerator">Data provider.</typeparam>
         /// <returns></returns>
-        public static IEnumerable<TResult> GenerateSequence<TSource, TResult>(this TSource generator,
-            Func<TSource, int, TResult> func, int count) where TSource : Generator {
+        public static IEnumerable<TResult> GenerateSequence<TGenerator, TResult>(this TGenerator generator,
+            Func<TGenerator, int, TResult> func, int count) where TGenerator : Generator {
             for (var i = 0; i < count; i++)
                 yield return func(generator, i);
         }
