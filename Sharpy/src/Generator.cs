@@ -143,20 +143,20 @@ namespace Sharpy {
 
 
         /// <summary>
-        ///     <para>Returns a random first name.</para>
+        ///     <para>Returns a string representing a first name.</para>
         /// </summary>
         /// <returns></returns>
         public string FirstName() => _nameProvider.FirstName();
 
         /// <summary>
-        ///     <para>Returns a first name based on Gender.</para>
+        ///     <para>Returns a string representing a first name based on Gender.</para>
         /// </summary>
         /// <param name="gender"></param>
         /// <returns></returns>
         public string FirstName(Gender gender) => _nameProvider.FirstName(gender);
 
         /// <summary>
-        ///     <para>Returns a random lastname.</para>
+        ///     <para>Returns a string representing a last name.</para>
         /// </summary>
         /// <returns></returns>
         public string LastName() => _nameProvider.LastName();
@@ -242,7 +242,7 @@ namespace Sharpy {
         }
 
         /// <summary>
-        ///     <para>Returns a username.</para>
+        ///     <para>Returns a random username from a huge collection.</para>
         /// </summary>
         /// <returns></returns>
         public string UserName() => _lazyUsernames.Value.RandomItem(_random);
