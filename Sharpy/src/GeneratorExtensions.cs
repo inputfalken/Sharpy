@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Sharpy {
     /// <summary>
@@ -11,7 +10,7 @@ namespace Sharpy {
         /// </summary>
         /// <param name="generator"></param>
         /// <param name="func">The generator supplied is used to provide data for your object.</param>
-        /// <typeparam name="TResult">Your object.</typeparam>
+        /// <typeparam name="TResult">Mapping result.</typeparam>
         /// <typeparam name="TGenerator">Data provider.</typeparam>
         /// <returns></returns>
         public static TResult Generate<TGenerator, TResult>(this TGenerator generator,
@@ -23,7 +22,7 @@ namespace Sharpy {
         /// <param name="count">Count of IEnumerable&lt;TResult&gt;</param>
         /// <param name="generator"></param>
         /// <param name="func">The generator supplied is used to provide data for your object.</param>
-        /// <typeparam name="TResult">Your object.</typeparam>
+        /// <typeparam name="TResult">Mapping result.</typeparam>
         /// <typeparam name="TGenerator">Data Provider.</typeparam>
         /// <returns></returns>
         public static IEnumerable<TResult> GenerateSequence<TGenerator, TResult>(this TGenerator generator,
@@ -39,7 +38,7 @@ namespace Sharpy {
         /// <param name="count">Count of IEnumerable&lt;TResult&gt;</param>
         /// <param name="generator"></param>
         /// <param name="func">The argument supplied is used to provide data for your object.</param>
-        /// <typeparam name="TResult">Your object.</typeparam>
+        /// <typeparam name="TResult">Mapping result.</typeparam>
         /// <typeparam name="TGenerator">Data provider.</typeparam>
         /// <returns></returns>
         public static IEnumerable<TResult> GenerateSequence<TGenerator, TResult>(this TGenerator generator,
@@ -49,15 +48,17 @@ namespace Sharpy {
         }
 
         /// <summary>
-        ///     <para>Generates an IEnumerable&lt;TResult&gt;</para>
+        ///     <para>
+        ///         Iterates through IEnumerable&lt;TSource&gt; exposing each element together with a generator.
+        ///     </para>
         /// </summary>
         /// <typeparam name="TGenerator">Data provider.</typeparam>
-        /// <typeparam name="TSource">The sequence provided</typeparam>
-        /// <typeparam name="TResult">Your object</typeparam>
+        /// <typeparam name="TSource">Your Collection</typeparam>
+        /// <typeparam name="TResult">Mapping result.</typeparam>
         /// <returns></returns>
         public static IEnumerable<TResult> GenerateBySequence<TGenerator, TSource, TResult>(this TGenerator generator,
-            IEnumerable<TSource> sourceSequence, Func<TGenerator, TSource, TResult> func) where TGenerator : Generator {
-            foreach (var source in sourceSequence) yield return func(generator, source);
+            IEnumerable<TSource> source, Func<TGenerator, TSource, TResult> func) where TGenerator : Generator {
+            foreach (var element in source) yield return func(generator, element);
         }
     }
 }
