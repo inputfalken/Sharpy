@@ -57,8 +57,8 @@ namespace Sharpy {
         /// <typeparam name="TResult">Your object</typeparam>
         /// <returns></returns>
         public static IEnumerable<TResult> GenerateBySequence<TGenerator, TSource, TResult>(this TGenerator generator,
-            IEnumerable<TSource> sourceSequence, Func<TGenerator, TSource, TResult> func) where TGenerator : Generator {
-            foreach (var source in sourceSequence) yield return func(generator, source);
+            IEnumerable<TSource> source, Func<TGenerator, TSource, TResult> func) where TGenerator : Generator {
+            foreach (var element in source) yield return func(generator, element);
         }
     }
 }
