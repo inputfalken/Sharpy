@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Sharpy {
     /// <summary>
@@ -49,7 +48,9 @@ namespace Sharpy {
         }
 
         /// <summary>
-        ///     <para>Generates an IEnumerable&lt;TResult&gt;</para>
+        ///     <para>
+        ///         Iterates through IEnumerable&lt;TSource&gt; exposing each element together with a generator.
+        ///     </para>
         /// </summary>
         /// <typeparam name="TGenerator">Data provider.</typeparam>
         /// <typeparam name="TSource">The sequence provided</typeparam>
