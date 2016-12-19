@@ -17,7 +17,7 @@ namespace Sharpy {
             Func<TGenerator, TResult> func) where TGenerator : Generator => func(generator);
 
         /// <summary>
-        ///     <para>Generates an IEnumerable&lt;TResult&gt; </para>
+        ///     <para>Creates an IEnumerable&lt;TResult&gt; by using your mapping instruction.</para>
         /// </summary>
         /// <param name="count">Count of IEnumerable&lt;TResult&gt;</param>
         /// <param name="generator"></param>
@@ -32,7 +32,7 @@ namespace Sharpy {
         }
 
         /// <summary>
-        ///     <para>Generates an IEnumerable&lt;TResult&gt; </para>
+        ///     <para>Creates an IEnumerable&lt;TResult&gt; by using your mapping instruction.</para>
         ///     <para>Includes an integer containing the current iteration.</para>
         /// </summary>
         /// <param name="count">Count of IEnumerable&lt;TResult&gt;</param>
@@ -53,7 +53,7 @@ namespace Sharpy {
         ///     </para>
         /// </summary>
         /// <typeparam name="TGenerator">Data provider.</typeparam>
-        /// <typeparam name="TSource">Your Collection</typeparam>
+        /// <typeparam name="TSource">Your Collection.</typeparam>
         /// <typeparam name="TResult">Mapping result.</typeparam>
         /// <returns></returns>
         public static IEnumerable<TResult> GenerateBySequence<TGenerator, TSource, TResult>(this TGenerator generator,
