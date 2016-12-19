@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Sharpy {
     /// <summary>
@@ -45,6 +46,18 @@ namespace Sharpy {
             Func<TGenerator, int, TResult> func, int count) where TGenerator : Generator {
             for (var i = 0; i < count; i++)
                 yield return func(generator, i);
+        }
+
+        /// <summary>
+        ///     <para>Generates an IEnumerable&lt;TResult&gt;</para>
+        /// </summary>
+        /// <typeparam name="TGenerator">Data provider.</typeparam>
+        /// <typeparam name="TSource">The sequence provided</typeparam>
+        /// <typeparam name="TResult">Your object</typeparam>
+        /// <returns></returns>
+        public static IEnumerable<TResult> GenerateBySequence<TGenerator, TSource, TResult>(this TGenerator generator,
+            IEnumerable<TSource> sourceSequence, Func<TGenerator, TSource, TResult> func) where TGenerator : Generator {
+            foreach (var source in sourceSequence) yield return func(generator, source);
         }
     }
 }
