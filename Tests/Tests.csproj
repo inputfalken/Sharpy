@@ -59,6 +59,7 @@
     <Compile Include="Generator\DateByAge.cs" />
     <Compile Include="Generator\DateByYear.cs" />
     <Compile Include="Generator\Double.cs" />
+    <Compile Include="Generator\GenerateBySequence.cs" />
     <Compile Include="Generator\Integer.cs" />
     <Compile Include="Generator\Iteration.cs" />
     <Compile Include="Generator\Long.cs" />
