@@ -12,9 +12,7 @@ namespace Sharpy {
     ///     <para>
     ///         Contains various methods for generating data and utility methods which you can combine with the generation
     ///         methods.
-    ///         If you would want the same result every time you invoke these methods you can set the seed for the random
-    ///         required
-    ///         by the constructor.
+    ///         If you would want the same result every time you invoke these methods you can supply an integer as a seed to the constructor.
     ///         If want to add your own methods you can derive from this class.
     ///     </para>
     ///     <para>If you want to map this to instantiate another class you can call Generate/GenerateSequence.</para>
@@ -63,20 +61,23 @@ namespace Sharpy {
         /// </summary>
         /// <param name="seed"></param>
         /// <returns></returns>
-        public Generator(int seed) : this(new Configurement(seed)) {}
+        public Generator(int seed) : this(new Configurement(seed)) {
+        }
 
         /// <summary>
         ///     <para>Returns a generator which will randomize with the random supplied.</para>
         /// </summary>
         /// <param name="random"></param>
         /// <returns></returns>
-        public Generator(Random random) : this(new Configurement(random)) {}
+        public Generator(Random random) : this(new Configurement(random)) {
+        }
 
         /// <summary>
         ///     <para>Returns a generator which will randomize new results every time program is executed.</para>
         /// </summary>
         /// <returns></returns>
-        public Generator() : this(new Configurement()) {}
+        public Generator() : this(new Configurement()) {
+        }
 
         /// <summary>
         ///     <para>Generates a double.</para>
