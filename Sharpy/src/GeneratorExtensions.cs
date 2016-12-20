@@ -59,5 +59,21 @@ namespace Sharpy {
             IEnumerable<TSource> source, Func<TGenerator, TSource, TResult> func) where TGenerator : Generator {
             foreach (var element in source) yield return func(generator, element);
         }
+
+        /// <summary>
+        ///     <para>
+        ///         Iterates through IEnumerable&lt;TSource&gt; exposing each element together with a generator.
+        ///     </para>
+        ///     <para>Includes an integer containing the current iteration.</para>
+        /// </summary>
+        /// <typeparam name="TGenerator">Data provider.</typeparam>
+        /// <typeparam name="TSource">Your Collection.</typeparam>
+        /// <typeparam name="TResult">Mapping result.</typeparam>
+        /// <returns></returns>
+        public static IEnumerable<TResult> GenerateBySequence<TGenerator, TSource, TResult>(this TGenerator generator,
+            IEnumerable<TSource> source, Func<TGenerator, TSource, int, TResult> func) where TGenerator : Generator {
+            var i = 0;
+            foreach (var element in source) yield return func(generator, element, i++);
+        }
     }
 }

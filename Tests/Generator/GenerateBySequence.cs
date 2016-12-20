@@ -37,6 +37,23 @@ namespace Tests.Generator {
         }
 
         [Test]
+        public void Works_With_Iterator_Integer() {
+            var generator = new Sharpy.Generator();
+            var sequence = new List<string> {
+                "Foo",
+                "Bar",
+                "John",
+                "Doe"
+            };
+
+            var result = generator.GenerateBySequence(sequence, (g, s, i) => s + i).ToArray();
+            Assert.AreEqual("Foo0", result[0]);
+            Assert.AreEqual("Bar1", result[1]);
+            Assert.AreEqual("John2", result[2]);
+            Assert.AreEqual("Doe3", result[3]);
+        }
+
+        [Test]
         public void Works_With_Generator() {
             var generator = new Sharpy.Generator();
             var ages = new List<int> {
