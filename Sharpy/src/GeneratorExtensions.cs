@@ -43,8 +43,7 @@ namespace Sharpy {
         /// <returns></returns>
         public static IEnumerable<TResult> GenerateSequence<TGenerator, TResult>(this TGenerator generator,
             Func<TGenerator, int, TResult> func, int count) where TGenerator : Generator {
-            for (var i = 0; i < count; i++)
-                yield return func(generator, i);
+            for (var i = 0; i < count; i++) yield return func(generator, i);
         }
 
         /// <summary>
