@@ -7,7 +7,8 @@ namespace Sharpy.Implementation {
     /// </summary>
     internal sealed class NumberGenerator : Unique<int> {
         internal NumberGenerator(Random random)
-            : base(random) {}
+            : base(random) {
+        }
 
 
         internal int RandomNumber(int min, int max, bool unique = false) {
@@ -18,11 +19,11 @@ namespace Sharpy.Implementation {
         private int CreateUniqueNumber(int number, int min, int max) {
             var resets = 0;
             while (HashSet.Contains(number))
-                if (number == max) {
+                if (number < max) number++;
+                else {
                     number = min;
-                    if (++resets == 2) return -1;
+                    if (resets++ == 2) return -1;
                 }
-                else number++;
             HashSet.Add(number);
             return number;
         }
