@@ -7,7 +7,7 @@ namespace Tests.Generator {
     [TestFixture]
     public class NumberByLength {
         [Test]
-        public void All_Unique_No_Prefix_Not_Unique() {
+        public void Not_Unique() {
             var configurement = new Configurement {
                 UniqueNumbers = false
             };
@@ -17,7 +17,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void All_Unique_No_Prefix_Unique() {
+        public void Unique() {
             var configurement = new Configurement {
                 UniqueNumbers = true
             };
@@ -27,7 +27,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void Create_Max_Ammount_Does_Not_Throw_Unique() {
+        public void Unique_Create_Max_Ammount_Does_Not_Throw() {
             var configurement = new Configurement {
                 UniqueNumbers = true
             };
@@ -38,7 +38,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void Create_More_Than_Max_Ammount_Throw_Not_Unique() {
+        public void Not_Unique_Create_More_Than_Max_Ammount_Does_Not_Throw() {
             var configurement = new Configurement {
                 UniqueNumbers = false
             };
@@ -49,7 +49,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void Create_More_Than_Max_Ammount_Throw_Unique() {
+        public void Unique_Create_More_Than_Max_Ammount_Does_Throw() {
             var configurement = new Configurement {
                 UniqueNumbers = true
             };
@@ -60,7 +60,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void Got_Same_Length_No_Prefix_Not_Unique() {
+        public void Not_Unique_Got_Same_Length() {
             var configurement = new Configurement {
                 UniqueNumbers = false
             };
@@ -70,7 +70,7 @@ namespace Tests.Generator {
         }
 
         [Test]
-        public void Got_Same_Length_No_Prefix_Unique() {
+        public void Unique_Got_Same_Length() {
             var configurement = new Configurement {
                 UniqueNumbers = true
             };
