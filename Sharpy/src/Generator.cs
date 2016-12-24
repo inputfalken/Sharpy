@@ -10,12 +10,11 @@ using Sharpy.Properties;
 namespace Sharpy {
     /// <summary>
     ///     <para>
-    ///         Contains various methods for generating data and utility methods which you can combine with the generation
-    ///         methods.
-    ///         If you would want the same result every time you invoke these methods you can supply an integer as a seed to the constructor.
+    ///         Contains various methods for generating data.
+    ///         To get the same result every time you execute the program, supply an integer as a seed to the constructor.
     ///         If want to add your own methods you can derive from this class.
     ///     </para>
-    ///     <para>If you want to map this to instantiate another class you can call Generate/GenerateSequence.</para>
+    ///     <para>To generate any type can call Generate/GenerateSequence.</para>
     ///     <para>For examples please visit https://inputfalken.github.io/Sharpy/ </para>
     /// </summary>
     public class Generator : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider {
