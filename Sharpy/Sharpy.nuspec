@@ -19,16 +19,11 @@
       Tested on Net4.6 and Net4.5.
     </description>
     <releaseNotes>
-      1: Renames GenerateMany -> GenerateSequence.
-      2: Removes static Generation methods on Generator.
-      3: Renames Config to Configurement. also changes it's properties to contain Implementation properties.
-      4: Removes ToString Option on Generator.
-      5: Adds Error handling for various generation methods.
-      6: Removes default integer for count on GenerateSequence.
-      7: Removes the String method from Generator. Instead there's 3 methods: Firstname, LastName and Username.
+      1: Adds extension method GenerateBySequence.
+      2: Updates comments.
     </releaseNotes>
     <copyright>Copyright 2016</copyright>
-    <tags>Fakedata Generator Generic</tags>
+    <tags>Fakedata Generator Generic Lazy</tags>
     <dependencies>
       <dependency id="Newtonsoft.Json" version="9.0.1" />
       <dependency id="NodaTime" version="1.3.2" />
