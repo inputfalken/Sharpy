@@ -60,23 +60,20 @@ namespace Sharpy {
         /// </summary>
         /// <param name="seed"></param>
         /// <returns></returns>
-        public Generator(int seed) : this(new Configurement(seed)) {
-        }
+        public Generator(int seed) : this(new Configurement(seed)) { }
 
         /// <summary>
         ///     <para>Returns a generator which will randomize with the random supplied.</para>
         /// </summary>
         /// <param name="random"></param>
         /// <returns></returns>
-        public Generator(Random random) : this(new Configurement(random)) {
-        }
+        public Generator(Random random) : this(new Configurement(random)) { }
 
         /// <summary>
         ///     <para>Returns a generator which will randomize new results every time program is executed.</para>
         /// </summary>
         /// <returns></returns>
-        public Generator() : this(new Configurement()) {
-        }
+        public Generator() : this(new Configurement()) { }
 
         /// <summary>
         ///     <para>Generates a double.</para>
