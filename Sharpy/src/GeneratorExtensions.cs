@@ -21,8 +21,7 @@ namespace Sharpy {
         /// <param name="count">Count of IEnumerable&lt;TResult&gt;</param>
         public static IEnumerable<TResult> GenerateSequence<TGenerator, TResult>(this TGenerator generator,
             Func<TGenerator, TResult> func, int count) where TGenerator : Generator {
-            for (var i = 0; i < count; i++)
-                yield return func(generator);
+            for (var i = 0; i < count; i++) yield return func(generator);
         }
 
         /// <summary>
