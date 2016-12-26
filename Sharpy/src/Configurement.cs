@@ -26,12 +26,12 @@ namespace Sharpy {
         ///     <para>The seed supplied will be used to instantiate System.Random. For the Generator.</para>
         /// </summary>
         /// <param name="seed"></param>
-        public Configurement(int seed) : this(new Random(seed)) {}
+        public Configurement(int seed) : this(new Random(seed)) { }
 
         /// <summary>
         ///     <para>Creates a random by Tick </para>
         /// </summary>
-        public Configurement() : this(new Random()) {}
+        public Configurement() : this(new Random()) { }
 
         /// <summary>
         ///     <para>Gets and Sets the implementation which Generator's FirstName, LastName methods use.</para>
