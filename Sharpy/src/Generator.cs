@@ -41,7 +41,6 @@ namespace Sharpy {
         ///     <para>Returns a generator with your configurement</para>
         /// </summary>
         /// <param name="configurement"></param>
-        /// <returns></returns>
         public Generator(Configurement configurement) {
             _random = configurement.Random;
             _doubleProvider = configurement.DoubleProvider;
@@ -59,33 +58,28 @@ namespace Sharpy {
         ///     <para>Returns a generator which will Randomize the same result by the seed.</para>
         /// </summary>
         /// <param name="seed"></param>
-        /// <returns></returns>
         public Generator(int seed) : this(new Configurement(seed)) { }
 
         /// <summary>
         ///     <para>Returns a generator which will randomize with the random supplied.</para>
         /// </summary>
         /// <param name="random"></param>
-        /// <returns></returns>
         public Generator(Random random) : this(new Configurement(random)) { }
 
         /// <summary>
         ///     <para>Returns a generator which will randomize new results every time program is executed.</para>
         /// </summary>
-        /// <returns></returns>
         public Generator() : this(new Configurement()) { }
 
         /// <summary>
         ///     <para>Generates a double.</para>
         /// </summary>
-        /// <returns></returns>
         public double Double() => _doubleProvider.Double();
 
         /// <summary>
         ///     <para>Generates a double within max value.</para>
         /// </summary>
         /// <param name="max"></param>
-        /// <returns></returns>
         public double Double(double max) => _doubleProvider.Double(max);
 
         /// <summary>
@@ -93,14 +87,12 @@ namespace Sharpy {
         /// </summary>
         /// <param name="min"></param>
         /// <param name="max"></param>
-        /// <returns></returns>
         public double Double(double min, double max) => _doubleProvider.Double(min, max);
 
         /// <summary>
         ///     <para>Generates a integer.</para>
         /// </summary>
         /// <param name="max"></param>
-        /// <returns></returns>
         public int Integer(int max) => _integerProvider.Integer(max);
 
         /// <summary>
@@ -108,13 +100,11 @@ namespace Sharpy {
         /// </summary>
         /// <param name="min"></param>
         /// <param name="max"></param>
-        /// <returns></returns>
         public int Integer(int min, int max) => _integerProvider.Integer(min, max);
 
         /// <summary>
         ///     <para>Generates a integer.</para>
         /// </summary>
-        /// <returns></returns>
         public int Integer() => _integerProvider.Integer();
 
         /// <summary>
@@ -122,40 +112,34 @@ namespace Sharpy {
         /// </summary>
         /// <param name="min"></param>
         /// <param name="max"></param>
-        /// <returns></returns>
         public long Long(long min, long max) => _longProvider.Long(min, max);
 
         /// <summary>
         ///     <para>Generates a long within max.</para>
         /// </summary>
         /// <param name="max"></param>
-        /// <returns></returns>
         public long Long(long max) => _longProvider.Long(max);
 
         /// <summary>
-        ///     Generates a long.
+        ///     <para>Generates a long.</para>
         /// </summary>
-        /// <returns></returns>
         public long Long() => _longProvider.Long();
 
 
         /// <summary>
         ///     <para>Returns a string representing a first name.</para>
         /// </summary>
-        /// <returns></returns>
         public string FirstName() => _nameProvider.FirstName();
 
         /// <summary>
         ///     <para>Returns a string representing a first name based on Gender.</para>
         /// </summary>
         /// <param name="gender"></param>
-        /// <returns></returns>
         public string FirstName(Gender gender) => _nameProvider.FirstName(gender);
 
         /// <summary>
         ///     <para>Returns a string representing a last name.</para>
         /// </summary>
-        /// <returns></returns>
         public string LastName() => _nameProvider.LastName();
 
         /// <summary>
@@ -163,7 +147,6 @@ namespace Sharpy {
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="items"></param>
-        /// <returns></returns>
         public T Params<T>(params T[] items) => items.RandomItem(_random);
 
         /// <summary>
@@ -171,27 +154,23 @@ namespace Sharpy {
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="items"></param>
-        /// <returns></returns>
         public T CustomCollection<T>(IReadOnlyList<T> items) => items.RandomItem(_random);
 
         /// <summary>
         ///     <para>Randomizes a bool.</para>
         /// </summary>
-        /// <returns></returns>
         public bool Bool() => _random.Next(2) != 0;
 
         /// <summary>
         ///     <para>Randomizes a date based on age.</para>
         /// </summary>
         /// <param name="age"></param>
-        /// <returns></returns>
         public LocalDate DateByAge(int age) => _dateGenerator.RandomDateByAge(age);
 
         /// <summary>
         ///     <para>Randomizes a date based on year.</para>
         /// </summary>
         /// <param name="year"></param>
-        /// <returns></returns>
         public LocalDate DateByYear(int year) => _dateGenerator.RandomDateByYear(year);
 
         /// <summary>
@@ -199,7 +178,6 @@ namespace Sharpy {
         /// </summary>
         /// <param name="date"></param>
         /// <param name="formated"></param>
-        /// <returns></returns>
         public string SocialSecurityNumber(LocalDate date, bool formated = true) {
             var result = _socialSecurityNumberGenerator.SecurityNumber(_random.Next(10000),
                 FormatDigit(date.YearOfCentury).Append(FormatDigit(date.Month), FormatDigit(date.Day)));
@@ -216,7 +194,6 @@ namespace Sharpy {
         /// </summary>
         /// <param name="name"></param>
         /// <param name="secondName"></param>
-        /// <returns></returns>
         public string MailAddress(string name, string secondName = null)
             => _mailbuilder.Mail(name, secondName);
 
@@ -224,7 +201,6 @@ namespace Sharpy {
         ///     <para>Returns a number with the length of the argument.</para>
         /// </summary>
         /// <param name="length"></param>
-        /// <returns></returns>
         public string NumberByLength(int length) {
             //If phonestate has changed
             if (_phoneState.Item1 != length)
@@ -241,7 +217,6 @@ namespace Sharpy {
         /// <summary>
         ///     <para>Returns a random username from a huge collection.</para>
         /// </summary>
-        /// <returns></returns>
         public string UserName() => _lazyUsernames.Value.RandomItem(_random);
 
         private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
