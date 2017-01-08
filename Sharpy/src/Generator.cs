@@ -14,7 +14,7 @@ namespace Sharpy {
     ///         To get the same result every time you execute the program use the seed overload constructor.
     ///         If want you to add your own methods you can derive from this class.
     ///     </para>
-    ///     <para>To generate any type can call Generate/GenerateSequence.</para>
+    ///     <para>To generate any type call Generate/GenerateSequence.</para>
     ///     <para>For examples please visit https://inputfalken.github.io/Sharpy/ </para>
     /// </summary>
     public class Generator : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider {
