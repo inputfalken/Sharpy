@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Sharpy {
     /// <summary>
@@ -64,6 +65,145 @@ namespace Sharpy {
             IEnumerable<TSource> source, Func<TGenerator, TSource, int, TResult> func) where TGenerator : Generator {
             var i = 0;
             foreach (var element in source) yield return func(generator, element, i++);
+        }
+
+        /// <summary>
+        ///     <para>
+        ///         A custom delegate with generation purpose.
+        ///     </para>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        public delegate T Generator<out T>();
+
+        /// <summary>
+        ///     <para>
+        ///         Turns the Generator into delegate Generator&lt;out T&gt;
+        ///     </para>
+        /// </summary>
+        /// <param name="generator"></param>
+        /// <param name="func"></param>
+        /// <typeparam name="TSource"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <returns></returns>
+        public static Generator<TResult> ToDelegate<TSource, TResult>(this TSource generator,
+            Func<TSource, TResult> func) where TSource : Generator => () => generator.Generate(func);
+
+        /// <summary>
+        ///     <para>
+        ///         Maps Generator&lt;out TSource&gt; to Generator&lt;out TResult&gt;.
+        ///     </para>
+        /// </summary>
+        /// <param name="generator"></param>
+        /// <param name="func"></param>
+        /// <typeparam name="TSource"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <returns></returns>
+        public static Generator<TResult> Map<TSource, TResult>(this Generator<TSource> generator,
+            Func<TSource, TResult> func) => () => func(generator());
+
+        /// <summary>
+        ///     <para>
+        ///         Flattens nested Generator&lt;out T&gt;
+        ///     </para>
+        /// </summary>
+        /// <param name="generator"></param>
+        /// <param name="func"></param>
+        /// <typeparam name="TSource"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <returns></returns>
+        public static Generator<TResult> Bind<TSource, TResult>(this Generator<TSource> generator,
+            Func<TSource, Generator<TResult>> func) => () => func(generator())();
+
+        /// <summary>
+        ///     <para>
+        ///         Flattens nested Generator&lt;out T&gt;
+        ///     </para>
+        /// </summary>
+        /// <param name="generator"></param>
+        /// <param name="func"></param>
+        /// <param name="func2"></param>
+        /// <typeparam name="TSource"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static Generator<TResult> Bind<TSource, TResult, T>(this Generator<TSource> generator,
+            Func<TSource, Generator<T>> func, Func<TSource, T, TResult> func2) {
+            return () => {
+                var invoke = generator();
+                return func2(invoke, func(invoke)());
+            };
+        }
+
+        private const int Threshold = 10000;
+
+        /// <summary>
+        ///     <para>
+        ///         Invokes Generator&lt;out TSource&gt;, and passes the result to the predicate. If it succeeds the result is returned.
+        ///         If it fails it will invoke Generator&lt;out TSource&gt; and repeat the process til threshold is reached.
+        ///     </para>
+        ///     <para>
+        ///         Threshold is 10000 in this overload. You can specify it yourself in the other overload.
+        ///     </para>
+        /// </summary>
+        /// <param name="generator"></param>
+        /// <param name="prediciate"></param>
+        /// <typeparam name="TSource"></typeparam>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static Generator<TSource> Filter<TSource>(this Generator<TSource> generator,
+            Func<TSource, bool> prediciate) {
+            return () => {
+                for (var i = 0; i < Threshold; i++) {
+                    var result = generator();
+
+                    if (prediciate(result)) return result;
+                }
+                //Is called if the for loop does not succeed in getting a true predicate
+                throw new ArgumentException(
+                    $"Could not match the predicate with {Threshold} attempts. Try using the overload where you can set your own threshold");
+            };
+        }
+
+        /// <summary>
+        ///     <para>
+        ///         Invokes Generator&lt;out TSource&gt;, and passes the result to the predicate. If it succeeds the result is returned.
+        ///         If it fails it will invoke Generator&lt;out TSource&gt; and repeat the process til threshold is reached.
+        ///     </para>
+        /// </summary>
+        /// <param name="generator"></param>
+        /// <param name="prediciate"></param>
+        /// <param name="threshold"></param>
+        /// <typeparam name="TResult"></typeparam>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static Generator<TResult> Filter<TResult>(this Generator<TResult> generator,
+            Func<TResult, bool> prediciate, int threshold) {
+            return () => {
+                for (var i = 0; i < threshold; i++) {
+                    var result = generator();
+                    if (prediciate(result)) return result;
+                }
+                //Is called if the for loop does not succeed in getting a true predicate.
+                throw new ArgumentException($"Could not match the predicate with {threshold} attempts.");
+            };
+        }
+
+        /// <summary>
+        ///     <para>
+        ///         Exposes &lt;TSource&gt;.
+        ///     </para>
+        /// </summary>
+        /// <param name="generator"></param>
+        /// <param name="action"></param>
+        /// <typeparam name="TSource"></typeparam>
+        /// <returns></returns>
+        public static Generator<TSource> Do<TSource>(this Generator<TSource> generator,
+            Action<TSource> action) {
+            return () => {
+                var source = generator();
+                action(source);
+                return source;
+            };
         }
     }
 }
