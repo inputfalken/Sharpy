@@ -10,6 +10,8 @@ namespace Sharpy {
     ///     </para>
     /// </summary>
     public class Configurement {
+        private IReadOnlyList<string> _mailDomains;
+
         /// <summary>
         ///     <para>The random will be used for the Generator.</para>
         /// </summary>
@@ -20,7 +22,18 @@ namespace Sharpy {
             IntegerProvider = new IntRandomizer(Random);
             DoubleProvider = new DoubleRandomizer(Random);
             NameProvider = new NameByOrigin(Random);
+            DateGenerator = new DateGenerator(Random);
+            SecurityNumberGen = new SecurityNumberGen(Random);
+            NumberGenerator = new NumberGenerator(Random);
+            MailDomains = new[] {"gmail.com", "hotmail.com", "yahoo.com"};
         }
+        internal EmailBuilder EmailBuilder { get; set; }
+
+        internal DateGenerator DateGenerator { get; }
+
+        internal SecurityNumberGen SecurityNumberGen { get; }
+
+        internal NumberGenerator NumberGenerator { get; }
 
         /// <summary>
         ///     <para>The seed supplied will be used to instantiate System.Random. For the Generator.</para>
@@ -67,7 +80,13 @@ namespace Sharpy {
         ///     <para>This affects Generator's MailAddress method.</para>
         ///     <para>Set to gmail.com, hotmail.com and yahoo.com by default.</para>
         /// </summary>
-        public IReadOnlyList<string> MailDomains { get; set; } = new[] {"gmail.com", "hotmail.com", "yahoo.com"};
+        public IReadOnlyList<string> MailDomains {
+            get { return _mailDomains; }
+            set {
+                EmailBuilder = new EmailBuilder(value, Random);
+                _mailDomains = value;
+            }
+        }
 
         /// <summary>
         ///     <para>Gets and Sets if Generator's NumberByLength returns unique numbers.</para>
