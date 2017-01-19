@@ -17,8 +17,6 @@ namespace Sharpy.Implementation {
             '-'
         };
 
-        private IReadOnlyList<string> _emailDomains = new List<string>();
-
 
         internal EmailBuilder(IReadOnlyList<string> providers, Random random) : base(random) {
             EmailDomains = providers;
@@ -28,10 +26,7 @@ namespace Sharpy.Implementation {
         ///     Contains the email providers
         /// </summary>
         private IReadOnlyList<string> EmailDomains {
-            set {
-                EmailDomainsEnumerator = value.GetEnumerator();
-                _emailDomains = value;
-            }
+            set { EmailDomainsEnumerator = value.GetEnumerator(); }
         }
 
         /// <summary>
