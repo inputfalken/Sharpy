@@ -12,7 +12,19 @@ namespace Tests.Generator {
         private static List<string> FindDuplicates(IEnumerable<string> enumerable) {
             return enumerable.GroupBy(x => x)
                 .Where(group => group.Count() > 1)
-                .Select(group => group.Key).ToList();
+                .Select(group => group.Key)
+                .ToList();
+        }
+
+
+        [Test]
+        public void Single_Argurment_Does_Not_Contain_Seperator() {
+            var generator = new Sharpy.Generator(new Configurement {MailDomains = new[] {"test.com"}}).GenerateSequence(g => g.MailAddress("Bob"), 2).ToArray();
+            var first = generator.First();
+            var last = generator.Last();
+
+            Assert.AreEqual("bob@test.com", first);
+            Assert.IsFalse(last.Any(char.IsSeparator));
         }
 
 
