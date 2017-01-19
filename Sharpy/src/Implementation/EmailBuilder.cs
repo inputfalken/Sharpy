@@ -28,7 +28,6 @@ namespace Sharpy.Implementation {
         ///     Contains the email providers
         /// </summary>
         private IReadOnlyList<string> EmailDomains {
-            get { return _emailDomains; }
             set {
                 EmailDomainsEnumerator = value.GetEnumerator();
                 _emailDomains = value;
@@ -47,15 +46,17 @@ namespace Sharpy.Implementation {
             return UniqueMail(name, secondName).ToLower();
         }
 
+        //todo restructure so the inner scopes don't have to do checkos for secondArgumetExists.
         private string UniqueMail(string name, string secondName) {
+            var singleArgument = string.IsNullOrEmpty(secondName);
             while (true) {
                 var resets = 0;
                 while (resets < Limit)
                     if (EmailDomainsEnumerator.MoveNext()) {
                         foreach (var separator in Separators) {
-                            var address = secondName != null
-                                ? name.Append(separator, secondName, "@", EmailDomainsEnumerator.Current)
-                                : name.Append("@", EmailDomainsEnumerator.Current);
+                            var address = singleArgument
+                                ? name.Append("@", EmailDomainsEnumerator.Current) //Does not need to be in for each loop.
+                                : name.Append(separator, secondName, "@", EmailDomainsEnumerator.Current);
                             if (HashSet.Contains(address)) continue;
                             HashSet.Add(address);
                             return address;
@@ -68,7 +69,9 @@ namespace Sharpy.Implementation {
                         resets += 1;
                     }
                 // Start adding numbers.
-                secondName = ResolveDuplicate(secondName);
+
+                if (singleArgument) name = ResolveDuplicate(name);
+                else secondName = ResolveDuplicate(secondName);
             }
         }
 

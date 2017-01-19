@@ -47,10 +47,10 @@ namespace Sharpy {
             _integerProvider = configurement.IntegerProvider;
             _longProvider = configurement.LongProvider;
             _nameProvider = configurement.NameProvider;
-            _dateGenerator = new DateGenerator(configurement.Random);
-            _mailbuilder = new EmailBuilder(configurement.MailDomains, configurement.Random);
-            _socialSecurityNumberGenerator = new SecurityNumberGen(configurement.Random);
-            _numberGenerator = new NumberGenerator(configurement.Random);
+            _dateGenerator = configurement.DateGenerator;
+            _mailbuilder = configurement.EmailBuilder;
+            _socialSecurityNumberGenerator = configurement.SecurityNumberGen;
+            _numberGenerator = configurement.NumberGenerator;
             _uniqueNumbers = configurement.UniqueNumbers;
         }
 
