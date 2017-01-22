@@ -180,6 +180,27 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
+        ///         Creates an IEnumerable&lt;TResult&gt;
+        ///     </para>
+        /// </summary>
+        /// <param name="generator"></param>
+        /// <param name="count"></param>
+        /// <typeparam name="TSource"></typeparam>
+        /// <returns></returns>
+        public static IEnumerable<TSource> GenerateSequence<TSource>(this Generator<TSource> generator, int count) {
+            for (var i = 0; i < count; i++)
+                yield return generator();
+        }
+
+        /// <summary>
+        ///     <para>
+        ///         Invokes the delegate.
+        ///     </para>
+        /// </summary>
+        public static TSource Generate<TSource>(this Generator<TSource> generator) => generator();
+
+        /// <summary>
+        ///     <para>
         ///         Exposes &lt;TSource&gt;.
         ///     </para>
         /// </summary>
