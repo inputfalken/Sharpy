@@ -80,7 +80,6 @@ namespace Sharpy {
         /// <param name="func"></param>
         /// <typeparam name="TSource"></typeparam>
         /// <typeparam name="TResult"></typeparam>
-        /// <returns></returns>
         public static Generator<TResult> ToDelegate<TSource, TResult>(this TSource generator,
             Func<TSource, TResult> func) where TSource : Generator => () => generator.Generate(func);
 
@@ -93,7 +92,6 @@ namespace Sharpy {
         /// <param name="func"></param>
         /// <typeparam name="TSource"></typeparam>
         /// <typeparam name="TResult"></typeparam>
-        /// <returns></returns>
         public static Generator<TResult> Map<TSource, TResult>(this Generator<TSource> generator,
             Func<TSource, TResult> func) => () => func(generator());
 
@@ -106,7 +104,6 @@ namespace Sharpy {
         /// <param name="func"></param>
         /// <typeparam name="TSource"></typeparam>
         /// <typeparam name="TResult"></typeparam>
-        /// <returns></returns>
         public static Generator<TResult> Bind<TSource, TResult>(this Generator<TSource> generator,
             Func<TSource, Generator<TResult>> func) => () => func(generator())();
 
@@ -121,7 +118,6 @@ namespace Sharpy {
         /// <typeparam name="TSource"></typeparam>
         /// <typeparam name="TResult"></typeparam>
         /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
         public static Generator<TResult> Bind<TSource, TResult, T>(this Generator<TSource> generator,
             Func<TSource, Generator<T>> func, Func<TSource, T, TResult> func2) {
             return () => {
@@ -144,7 +140,6 @@ namespace Sharpy {
         /// <param name="generator"></param>
         /// <param name="prediciate"></param>
         /// <typeparam name="TSource"></typeparam>
-        /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
         public static Generator<TSource> Filter<TSource>(this Generator<TSource> generator,
             Func<TSource, bool> prediciate) {
@@ -170,7 +165,6 @@ namespace Sharpy {
         /// <param name="prediciate"></param>
         /// <param name="threshold"></param>
         /// <typeparam name="TSource"></typeparam>
-        /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
         public static Generator<TSource> Filter<TSource>(this Generator<TSource> generator,
             Func<TSource, bool> prediciate, int threshold) {
@@ -192,7 +186,6 @@ namespace Sharpy {
         /// <param name="generator"></param>
         /// <param name="action"></param>
         /// <typeparam name="TSource"></typeparam>
-        /// <returns></returns>
         public static Generator<TSource> Do<TSource>(this Generator<TSource> generator,
             Action<TSource> action) {
             return () => {
