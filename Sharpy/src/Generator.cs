@@ -10,6 +10,14 @@ using Sharpy.Properties;
 namespace Sharpy {
     /// <summary>
     ///     <para>
+    ///         A custom delegate with generation purpose.
+    ///     </para>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public delegate T Generator<out T>();
+
+    /// <summary>
+    ///     <para>
     ///         Contains various methods for generating data.
     ///         To get the same result every time you execute the program use the seed overload constructor.
     ///         If want you to add your own methods you can derive from this class.
