@@ -169,11 +169,11 @@ namespace Sharpy {
         /// <param name="generator"></param>
         /// <param name="prediciate"></param>
         /// <param name="threshold"></param>
-        /// <typeparam name="TResult"></typeparam>
+        /// <typeparam name="TSource"></typeparam>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public static Generator<TResult> Filter<TResult>(this Generator<TResult> generator,
-            Func<TResult, bool> prediciate, int threshold) {
+        public static Generator<TSource> Filter<TSource>(this Generator<TSource> generator,
+            Func<TSource, bool> prediciate, int threshold) {
             return () => {
                 for (var i = 0; i < threshold; i++) {
                     var result = generator();
