@@ -187,7 +187,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Invokes the delegate.
+        ///         Invokes Generator&lt;out TSource&gt;.
         ///     </para>
         /// </summary>
         public static TSource Generate<TSource>(this Generator<TSource> generator) => generator();
