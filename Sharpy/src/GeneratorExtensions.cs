@@ -63,13 +63,6 @@ namespace Sharpy {
         public static IEnumerable<TResult> GenerateBySequence<TGenerator, TSource, TResult>(this TGenerator generator,
             IEnumerable<TSource> source, Func<TGenerator, TSource, int, TResult> func) where TGenerator : Generator => source.Select((element, i) => func(generator, element, i));
 
-        /// <summary>
-        ///     <para>
-        ///         A custom delegate with generation purpose.
-        ///     </para>
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        public delegate T Generator<out T>();
 
         /// <summary>
         ///     <para>
