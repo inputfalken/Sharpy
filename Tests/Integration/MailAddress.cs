@@ -4,7 +4,7 @@ using System.Linq;
 using NUnit.Framework;
 using Sharpy;
 
-namespace Tests.Generator {
+namespace Tests.Integration {
     [TestFixture]
     public class MailAddress {
         private const string MailUserName = "mailUserName";
@@ -19,7 +19,7 @@ namespace Tests.Generator {
 
         [Test]
         public void Single_Argurment_Does_Not_Contain_Seperator() {
-            var generator = new Sharpy.Generator(new Configurement {MailDomains = new[] {"test.com"}}).GenerateSequence(g => g.MailAddress("Bob"), 2).ToArray();
+            var generator = new Generator(new Configurement {MailDomains = new[] {"test.com"}}).GenerateSequence(g => g.MailAddress("Bob"), 2).ToArray();
             var first = generator.First();
             var last = generator.Last();
 
@@ -33,7 +33,7 @@ namespace Tests.Generator {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = new Sharpy.Generator(configurement);
+            var randomGenerator = new Generator(configurement);
             var generate = randomGenerator.Generate(generator => generator.MailAddress("hello"));
             Assert.AreEqual(14, generate.Length);
         }
@@ -44,7 +44,7 @@ namespace Tests.Generator {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com", "test2.com", "test3.com", "test4.com"}
             };
-            var randomGenerator = new Sharpy.Generator(configurement);
+            var randomGenerator = new Generator(configurement);
             var mails = randomGenerator.GenerateSequence(generator => generator.MailAddress("john", "doe"), 12);
             Assert.IsTrue(FindDuplicates(mails).Count == 0);
         }
@@ -52,7 +52,7 @@ namespace Tests.Generator {
 
         [Test]
         public void MailsAreNotnull() {
-            var generator = new Sharpy.Generator();
+            var generator = new Generator();
             //Many
             var mails = generator.GenerateSequence(g => g.MailAddress(MailUserName), 20).ToArray();
             Assert.IsFalse(mails.All(string.IsNullOrEmpty));
@@ -69,7 +69,7 @@ namespace Tests.Generator {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = new Sharpy.Generator(configurement);
+            var randomGenerator = new Generator(configurement);
             var mails = randomGenerator.GenerateSequence(generator => generator.MailAddress("john"), 12);
             Assert.IsTrue(mails.SelectMany(s => s).Any(char.IsNumber));
         }
@@ -79,7 +79,7 @@ namespace Tests.Generator {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = new Sharpy.Generator(configurement);
+            var randomGenerator = new Generator(configurement);
             //Should not contain any numbers
             Assert.IsTrue(randomGenerator.Generate(generator => generator.MailAddress("bob")).Any(c => !char.IsDigit(c)));
             //Should contain a number since all possible combinations have been used
@@ -91,7 +91,7 @@ namespace Tests.Generator {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = new Sharpy.Generator(configurement);
+            var randomGenerator = new Generator(configurement);
             var result = randomGenerator.Generate(generator => generator.MailAddress("bob", null));
             const string expected = "bob@test.com";
             Assert.AreEqual(expected, result);
@@ -103,7 +103,7 @@ namespace Tests.Generator {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = new Sharpy.Generator(configurement);
+            var randomGenerator = new Generator(configurement);
             var mail = randomGenerator.Generate(generator => generator.MailAddress("Bob"));
             Assert.IsFalse(mail.Any(char.IsUpper));
         }
@@ -114,7 +114,7 @@ namespace Tests.Generator {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = new Sharpy.Generator(configurement);
+            var randomGenerator = new Generator(configurement);
             Assert.Throws<NullReferenceException>(
                 () => randomGenerator.Generate(generator => generator.MailAddress(null, "hello")));
         }
@@ -125,7 +125,7 @@ namespace Tests.Generator {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = new Sharpy.Generator(configurement);
+            var randomGenerator = new Generator(configurement);
             Assert.Throws<NullReferenceException>(
                 () => randomGenerator.Generate(generator => generator.MailAddress(null)));
         }
@@ -136,7 +136,7 @@ namespace Tests.Generator {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = new Sharpy.Generator(configurement);
+            var randomGenerator = new Generator(configurement);
             const string expected = "bob@test.com";
             var result = randomGenerator.Generate(generator => generator.MailAddress("bob"));
             Assert.AreEqual(expected, result);
@@ -148,7 +148,7 @@ namespace Tests.Generator {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = new Sharpy.Generator(configurement);
+            var randomGenerator = new Generator(configurement);
             var generateMany = randomGenerator.GenerateSequence(generator => generator.MailAddress("john", "doe"), 30);
             Assert.IsTrue(FindDuplicates(generateMany).Count == 0);
         }
@@ -158,7 +158,7 @@ namespace Tests.Generator {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = new Sharpy.Generator(configurement);
+            var randomGenerator = new Generator(configurement);
             const string expected = "bob.cool@test.com";
             var result = randomGenerator.Generate(generator => generator.MailAddress("bob", "cool"));
             Assert.AreEqual(expected, result);
@@ -169,7 +169,7 @@ namespace Tests.Generator {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = new Sharpy.Generator(configurement);
+            var randomGenerator = new Generator(configurement);
             var generate = randomGenerator.GenerateSequence(generator => generator.MailAddress("bob", "cool"), 2);
             var result = generate.Last();
             const string expected = "bob_cool@test.com";
@@ -179,7 +179,7 @@ namespace Tests.Generator {
         [Test]
         public void One_Domain_Two_Args_UniqueMails_True_FirstNull() {
             var configurement = new Configurement {MailDomains = new[] {"test.com"}};
-            var randomGenerator = new Sharpy.Generator(configurement);
+            var randomGenerator = new Generator(configurement);
             Assert.Throws<NullReferenceException>(
                 () => randomGenerator.Generate(generator => generator.MailAddress(null, "bob")));
         }
@@ -190,7 +190,7 @@ namespace Tests.Generator {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = new Sharpy.Generator(configurement);
+            var randomGenerator = new Generator(configurement);
             var generateMany = randomGenerator.GenerateSequence(generator => generator.MailAddress("bob", "cool"), 3);
             var result = generateMany.Last();
             const string expected = "bob-cool@test.com";
@@ -202,7 +202,7 @@ namespace Tests.Generator {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com", "test2.com", "test3.com"}
             };
-            var randomGenerator = new Sharpy.Generator(configurement);
+            var randomGenerator = new Generator(configurement);
             var mails = randomGenerator.GenerateSequence(generator => generator.MailAddress("john", "doe"), 9);
             Assert.IsTrue(FindDuplicates(mails).Count == 0);
         }
@@ -212,7 +212,7 @@ namespace Tests.Generator {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com", "foo.com"}
             };
-            var randomGenerator = new Sharpy.Generator(configurement);
+            var randomGenerator = new Generator(configurement);
             const string expected = "bob@test.com";
             var result = randomGenerator.Generate(generator => generator.MailAddress("bob"));
             Assert.AreEqual(expected, result);
@@ -223,7 +223,7 @@ namespace Tests.Generator {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com", "foo.com"}
             };
-            var randomGenerator = new Sharpy.Generator(configurement);
+            var randomGenerator = new Generator(configurement);
             Assert.IsFalse(randomGenerator.Generate(generator => generator.MailAddress("bob")).Any(char.IsDigit));
             Assert.IsFalse(randomGenerator.Generate(generator => generator.MailAddress("bob")).Any(char.IsDigit));
             // All possible combinations have been used now needs a number
@@ -235,7 +235,7 @@ namespace Tests.Generator {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com", "foo.com"}
             };
-            var randomGenerator = new Sharpy.Generator(configurement);
+            var randomGenerator = new Generator(configurement);
             const string expected = "bob@foo.com";
             var generateMany = randomGenerator.GenerateSequence(generator => generator.MailAddress("bob"), 2);
 
@@ -248,7 +248,7 @@ namespace Tests.Generator {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com", "test2.com"}
             };
-            var randomGenerator = new Sharpy.Generator(configurement);
+            var randomGenerator = new Generator(configurement);
             var mails = randomGenerator.GenerateSequence(generator => generator.MailAddress("john", "doe"), 6);
             Assert.IsTrue(FindDuplicates(mails).Count == 0);
         }
@@ -258,7 +258,7 @@ namespace Tests.Generator {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = new Sharpy.Generator(configurement);
+            var randomGenerator = new Generator(configurement);
 
             Assert.IsFalse(randomGenerator.Generate(generator => generator.MailAddress("bob", "cool")).Any(char.IsDigit));
             Assert.IsFalse(randomGenerator.Generate(generator => generator.MailAddress("bob", "cool")).Any(char.IsDigit));

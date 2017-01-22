@@ -53,23 +53,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileTests.cs" />
-    <Compile Include="Generator\Bool.cs" />
-    <Compile Include="Generator\Config.cs" />
-    <Compile Include="Generator\CustomCollection.cs" />
-    <Compile Include="Generator\DateByAge.cs" />
-    <Compile Include="Generator\DateByYear.cs" />
-    <Compile Include="Generator\Delegate.cs" />
-    <Compile Include="Generator\Double.cs" />
-    <Compile Include="Generator\GenerateBySequence.cs" />
-    <Compile Include="Generator\Integer.cs" />
-    <Compile Include="Generator\Iteration.cs" />
-    <Compile Include="Generator\Long.cs" />
-    <Compile Include="Generator\MailAddress.cs" />
-    <Compile Include="Generator\Params.cs" />
-    <Compile Include="Generator\NumberByLength.cs" />
-    <Compile Include="Generator\Seed.cs" />
-    <Compile Include="Generator\SocialSecurity.cs" />
-    <Compile Include="Generator\String.cs" />
+    <Compile Include="Integration\Bool.cs" />
+    <Compile Include="Integration\Config.cs" />
+    <Compile Include="Integration\CustomCollection.cs" />
+    <Compile Include="Integration\DateByAge.cs" />
+    <Compile Include="Integration\DateByYear.cs" />
+    <Compile Include="Integration\Delegate.cs" />
+    <Compile Include="Integration\Double.cs" />
+    <Compile Include="Integration\GenerateBySequence.cs" />
+    <Compile Include="Integration\Integer.cs" />
+    <Compile Include="Integration\Iteration.cs" />
+    <Compile Include="Integration\Long.cs" />
+    <Compile Include="Integration\MailAddress.cs" />
+    <Compile Include="Integration\Params.cs" />
+    <Compile Include="Integration\NumberByLength.cs" />
+    <Compile Include="Integration\Seed.cs" />
+    <Compile Include="Integration\SocialSecurity.cs" />
+    <Compile Include="Integration\String.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
