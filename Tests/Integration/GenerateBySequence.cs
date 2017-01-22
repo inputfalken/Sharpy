@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
 using Sharpy;
 using Sharpy.Implementation;
 
-namespace Tests.Generator {
+namespace Tests.Integration {
     [TestFixture]
     public class GenerateBySequence {
         [Test]
         public void Same_Count() {
-            var generator = new Sharpy.Generator();
+            var generator = new Generator();
             var sequence = new List<string> {
                 "Foo",
                 "Bar",
@@ -25,7 +22,7 @@ namespace Tests.Generator {
 
         [Test]
         public void Does_Not_Mutate_Sequence() {
-            var generator = new Sharpy.Generator();
+            var generator = new Generator();
             var sequence = new List<string> {
                 "Foo",
                 "Bar",
@@ -38,7 +35,7 @@ namespace Tests.Generator {
 
         [Test]
         public void Works_With_Iterator_Integer() {
-            var generator = new Sharpy.Generator();
+            var generator = new Generator();
             var sequence = new List<string> {
                 "Foo",
                 "Bar",
@@ -55,7 +52,7 @@ namespace Tests.Generator {
 
         [Test]
         public void Works_With_Generator() {
-            var generator = new Sharpy.Generator();
+            var generator = new Generator();
             var ages = new List<int> {
                 20,
                 21,

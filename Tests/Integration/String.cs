@@ -5,7 +5,7 @@ using Sharpy;
 using Sharpy.Enums;
 using Sharpy.Implementation;
 
-namespace Tests.Generator {
+namespace Tests.Integration {
     [TestFixture]
     public class Name {
         private const int Count = 100;
@@ -18,14 +18,14 @@ namespace Tests.Generator {
                     var configurement = new Configurement {
                         NameProvider = new NameByOrigin((Origin) value)
                     };
-                    new Sharpy.Generator(configurement).Generate(g => g.FirstName());
+                    new Generator(configurement).Generate(g => g.FirstName());
                 });
         }
 
 
         [Test]
         public void Female_First_Name_Not_Null_Or_White_Space() {
-            var gen = new Sharpy.Generator();
+            var gen = new Generator();
             //Many
             var names = gen.GenerateSequence(g => g.FirstName(Gender.Female), Count).ToArray();
             Assert.IsFalse(names.All(string.IsNullOrEmpty));
@@ -39,7 +39,7 @@ namespace Tests.Generator {
 
         [Test]
         public void First_Name_Not_Null_Or_White_Space() {
-            var gen = new Sharpy.Generator();
+            var gen = new Generator();
             //Many
             var names = gen.GenerateSequence(g => g.FirstName(), Count).ToArray();
             Assert.IsFalse(names.All(string.IsNullOrEmpty));
@@ -53,7 +53,7 @@ namespace Tests.Generator {
 
         [Test]
         public void Last_Name_Not_Null_Or_White_Space() {
-            var gen = new Sharpy.Generator();
+            var gen = new Generator();
             //Many
             var names = gen.GenerateSequence(g => g.LastName(), Count).ToArray();
             Assert.IsFalse(names.All(string.IsNullOrEmpty));
@@ -67,7 +67,7 @@ namespace Tests.Generator {
 
         [Test]
         public void Male_First_Name_Not_Null_Or_White_Space() {
-            var gen = new Sharpy.Generator();
+            var gen = new Generator();
             //Many
             var names = gen.GenerateSequence(g => g.FirstName(Gender.Male), Count).ToArray();
             Assert.IsFalse(names.All(string.IsNullOrEmpty));
@@ -81,7 +81,7 @@ namespace Tests.Generator {
 
         [Test]
         public void User_Name_Not_Null_Or_White_Space() {
-            var gen = new Sharpy.Generator();
+            var gen = new Generator();
             //Many
             var userNames = gen.GenerateSequence(g => g.UserName(), Count).ToArray();
             Assert.IsFalse(userNames.All(string.IsNullOrEmpty));

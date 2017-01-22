@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace Tests.Generator {
+namespace Tests.Integration {
     [TestFixture]
     public class Bool {
         [Test]

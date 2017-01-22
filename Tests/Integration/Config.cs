@@ -3,7 +3,7 @@ using NUnit.Framework;
 using Sharpy;
 using Sharpy.Enums;
 
-namespace Tests.Generator {
+namespace Tests.Integration {
     [TestFixture]
     public class Config {
         [Test]
@@ -11,7 +11,7 @@ namespace Tests.Generator {
             var configurement = new Configurement {
                 DoubleProvider = null
             };
-            var generator = new Sharpy.Generator(configurement);
+            var generator = new Generator(configurement);
             //Long
             Assert.DoesNotThrow(() => generator.Generate(x => x.Long()));
             Assert.DoesNotThrow(() => generator.Generate(x => x.Long(10)));
@@ -40,7 +40,7 @@ namespace Tests.Generator {
             var configurement = new Configurement {
                 IntegerProvider = null
             };
-            var generator = new Sharpy.Generator(configurement);
+            var generator = new Generator(configurement);
             //Integer
             Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.Integer()));
             Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.Integer(10)));
@@ -69,7 +69,7 @@ namespace Tests.Generator {
             var configurement = new Configurement {
                 LongProvider = null
             };
-            var generator = new Sharpy.Generator(configurement);
+            var generator = new Generator(configurement);
             //Long
             Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.Long()));
             Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.Long(10)));
@@ -98,7 +98,7 @@ namespace Tests.Generator {
             var configurement = new Configurement {
                 NameProvider = null
             };
-            var generator = new Sharpy.Generator(configurement);
+            var generator = new Generator(configurement);
             //Name
             Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.FirstName()));
             Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.FirstName(Gender.Female)));
