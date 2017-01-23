@@ -6,7 +6,7 @@ using Sharpy.IProviders;
 namespace Sharpy {
     /// <summary>
     ///     <para>
-    ///         Use this class if you want to configure your Generator. then call CreateGenerator to get the generator.
+    ///         Pass an instance of this class to a generator constructor if you want to change the default behaviour of the generator.
     ///     </para>
     /// </summary>
     public class Configurement {
