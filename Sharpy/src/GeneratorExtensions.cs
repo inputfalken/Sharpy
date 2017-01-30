@@ -20,6 +20,9 @@ namespace Sharpy {
         ///     <para>
         ///         Generates IEnumerable of the result given by the high order function.
         ///     </para>
+        ///     <para>
+        ///         The count argument is the Count of the IEnumerable&lt;TResult&gt;
+        ///     </para>
         /// </summary>
         /// <param name="generator"></param>
         /// <param name="func">Supplies a generator.</param>
@@ -35,6 +38,9 @@ namespace Sharpy {
         ///     </para>
         ///     <para>
         ///         Includes an integer containing the current iteration.
+        ///     </para>
+        ///     <para>
+        ///         The count argument is the Count of the IEnumerable&lt;TResult&gt;
         ///     </para>
         /// </summary>
         /// <param name="generator"></param>
@@ -187,6 +193,9 @@ namespace Sharpy {
         /// <summary>
         ///     <para>
         ///         Creates an IEnumerable&lt;TResult&gt;
+        ///     </para>
+        ///     <para>
+        ///         The count argument is the Count of the IEnumerable&lt;TSource&gt;
         ///     </para>
         /// </summary>
         /// <param name="generator"></param>
