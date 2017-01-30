@@ -7,7 +7,9 @@ namespace Sharpy {
     /// </summary>
     public static class GeneratorExtensions {
         /// <summary>
-        ///     <para>Creates a &lt;TResult&gt;of the type returned from the function</para>
+        ///     <para>
+        ///         Generates the result given by the high order function.
+        ///     </para>
         /// </summary>
         /// <param name="generator"></param>
         /// <param name="func">Supplies a generator.</param>
@@ -15,7 +17,9 @@ namespace Sharpy {
             Func<TGenerator, TResult> func) where TGenerator : Generator => func(generator);
 
         /// <summary>
-        ///     <para>Creates an IEnumerable&lt;TResult&gt; of the type returned from the function.</para>
+        ///     <para>
+        ///         Generates IEnumerable of the result given by the high order function.
+        ///     </para>
         /// </summary>
         /// <param name="generator"></param>
         /// <param name="func">Supplies a generator.</param>
@@ -26,8 +30,12 @@ namespace Sharpy {
         }
 
         /// <summary>
-        ///     <para>Creates an IEnumerable&lt;TResult&gt; of the type returned from the function.</para>
-        ///     <para>Includes an integer containing the current iteration.</para>
+        ///     <para>
+        ///         Generates IEnumerable of the result given by the high order function.
+        ///     </para>
+        ///     <para>
+        ///         Includes an integer containing the current iteration.
+        ///     </para>
         /// </summary>
         /// <param name="generator"></param>
         /// <param name="func">Supplies a generator combines with an integer tracking the current iteration.</param>
@@ -41,7 +49,9 @@ namespace Sharpy {
         ///     <para>
         ///         Iterates through IEnumerable&lt;TSource&gt; exposing each element together with a generator.
         ///     </para>
-        ///     <para>Creates an IEnumerable&lt;TResult&gt; of the type returned from the function.</para>
+        ///     <para>
+        ///         Generates IEnumerable of the result given by the high order function.
+        ///     </para>
         /// <param name="generator"></param>
         /// <param name="func">Supplies a generator combined with &lt;TSource&gt; from the source parameter.</param>
         /// <param name="source">TheIEnumerable&lt;TSource&gt; that will be iterated through</param>
@@ -53,8 +63,12 @@ namespace Sharpy {
         ///     <para>
         ///         Iterates through IEnumerable&lt;TSource&gt; exposing each element together with a generator.
         ///     </para>
-        ///     <para>Creates an IEnumerable&lt;TResult&gt; of the type returned from the function.</para>
-        ///     <para>Includes an integer containing the current iteration.</para>
+        ///     <para>
+        ///         Generates IEnumerable of the result given by the high order function.
+        ///     </para>
+        ///     <para>
+        ///         Includes an integer containing the current iteration.
+        ///     </para>
         /// <param name="generator"></param>
         /// <param name="func">Supplies a generator combined with &lt;TSource&gt; from the source parameter and an integer tracking the current iteration</param>
         /// <param name="source">The IEnumerable&lt;TSource&gt; that will be iterated through</param>
