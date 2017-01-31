@@ -22,8 +22,12 @@ namespace Sharpy {
     ///         To get the same result every time you execute the program use the seed overload constructor.
     ///         If want you to add your own methods you can derive from this class.
     ///     </para>
-    ///     <para>To generate any type call Generate/GenerateSequence.</para>
-    ///     <para>For examples please visit https://inputfalken.github.io/sharpy-API/ </para>
+    ///     <para>
+    ///         To generate any type call Generate/GenerateSequence.
+    ///     </para>
+    ///     <para>
+    ///         For examples please visit https://inputfalken.github.io/sharpy-API/
+    ///     </para>
     /// </summary>
     public class Generator : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider {
         private readonly DateGenerator _dateGenerator;
@@ -46,7 +50,9 @@ namespace Sharpy {
 
 
         /// <summary>
-        ///     <para>Returns a generator with your configurement</para>
+        ///     <para>
+        ///         Returns a generator with your configurement
+        ///     </para>
         /// </summary>
         /// <param name="configurement"></param>
         public Generator(Configurement configurement) {
@@ -63,126 +69,168 @@ namespace Sharpy {
         }
 
         /// <summary>
-        ///     <para>Returns a generator which will Randomize the same result by the seed.</para>
+        ///     <para>
+        ///         Returns a generator which will Randomize the same result by the seed.
+        ///     </para>
         /// </summary>
         /// <param name="seed"></param>
         public Generator(int seed) : this(new Configurement(seed)) { }
 
         /// <summary>
-        ///     <para>Returns a generator which will randomize with the random supplied.</para>
+        ///     <para>
+        ///         Returns a generator which will randomize with the random supplied.
+        ///     </para>
         /// </summary>
         /// <param name="random"></param>
         public Generator(Random random) : this(new Configurement(random)) { }
 
         /// <summary>
-        ///     <para>Returns a generator which will randomize new results every time program is executed.</para>
+        ///     <para>
+        ///         Returns a generator which will randomize new results every time program is executed.
+        ///     </para>
         /// </summary>
         public Generator() : this(new Configurement()) { }
 
         /// <summary>
-        ///     <para>Generates a double.</para>
+        ///     <para>
+        ///         Generates a double.
+        ///     </para>
         /// </summary>
         public double Double() => _doubleProvider.Double();
 
         /// <summary>
-        ///     <para>Generates a double within max value.</para>
+        ///     <para>
+        ///         Generates a double within max value.
+        ///     </para>
         /// </summary>
         /// <param name="max"></param>
         public double Double(double max) => _doubleProvider.Double(max);
 
         /// <summary>
-        ///     <para>Generates a within min and max.</para>
+        ///     <para>
+        ///         Generates a within min and max.
+        ///     </para>
         /// </summary>
         /// <param name="min"></param>
         /// <param name="max"></param>
         public double Double(double min, double max) => _doubleProvider.Double(min, max);
 
         /// <summary>
-        ///     <para>Generates a integer.</para>
+        ///     <para>
+        ///         Generates a integer.
+        ///     </para>
         /// </summary>
         /// <param name="max"></param>
         public int Integer(int max) => _integerProvider.Integer(max);
 
         /// <summary>
-        ///     <para>Generates a integer within min and max.</para>
+        ///     <para>
+        ///         Generates a integer within min and max.
+        ///     </para>
         /// </summary>
         /// <param name="min"></param>
         /// <param name="max"></param>
         public int Integer(int min, int max) => _integerProvider.Integer(min, max);
 
         /// <summary>
-        ///     <para>Generates a integer.</para>
+        ///     <para>
+        ///         Generates a integer.
+        ///     </para>
         /// </summary>
         public int Integer() => _integerProvider.Integer();
 
         /// <summary>
-        ///     <para>Generates a long within min and max.</para>
+        ///     <para>
+        ///         Generates a long within min and max.
+        ///     </para>
         /// </summary>
         /// <param name="min"></param>
         /// <param name="max"></param>
         public long Long(long min, long max) => _longProvider.Long(min, max);
 
         /// <summary>
-        ///     <para>Generates a long within max.</para>
+        ///     <para>
+        ///         Generates a long within max.
+        ///     </para>
         /// </summary>
         /// <param name="max"></param>
         public long Long(long max) => _longProvider.Long(max);
 
         /// <summary>
-        ///     <para>Generates a long.</para>
+        ///     <para>
+        ///         Generates a long.
+        ///     </para>
         /// </summary>
         public long Long() => _longProvider.Long();
 
 
         /// <summary>
-        ///     <para>Returns a string representing a first name.</para>
+        ///     <para>
+        ///         Returns a string representing a first name.
+        ///     </para>
         /// </summary>
         public string FirstName() => _nameProvider.FirstName();
 
         /// <summary>
-        ///     <para>Returns a string representing a first name based on Gender.</para>
+        ///     <para>
+        ///         Returns a string representing a first name based on Gender.
+        ///     </para>
         /// </summary>
         /// <param name="gender"></param>
         public string FirstName(Gender gender) => _nameProvider.FirstName(gender);
 
         /// <summary>
-        ///     <para>Returns a string representing a last name.</para>
+        ///     <para>
+        ///         Returns a string representing a last name.
+        ///     </para>
         /// </summary>
         public string LastName() => _nameProvider.LastName();
 
         /// <summary>
-        ///     <para>Randomizes one of the arguments.</para>
+        ///     <para>
+        ///         Randomizes one of the arguments.
+        ///     </para>
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="items"></param>
         public T Params<T>(params T[] items) => items.RandomItem(_random);
 
         /// <summary>
-        ///     <para>Randomizes one of the elements in the IReadOnlyList.</para>
+        ///     <para>
+        ///         Randomizes one of the elements in the IReadOnlyList.
+        ///     </para>
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="items"></param>
         public T CustomCollection<T>(IReadOnlyList<T> items) => items.RandomItem(_random);
 
         /// <summary>
-        ///     <para>Randomizes a bool.</para>
+        ///     <para>
+        ///         Randomizes a bool.
+        ///     </para>
         /// </summary>
         public bool Bool() => _random.Next(2) != 0;
 
         /// <summary>
-        ///     <para>Randomizes a date based on age.</para>
+        ///     <para>
+        ///         Randomizes a date based on age.
+        ///     </para>
         /// </summary>
         /// <param name="age"></param>
         public LocalDate DateByAge(int age) => _dateGenerator.RandomDateByAge(age);
 
         /// <summary>
-        ///     <para>Randomizes a date based on year.</para>
+        ///     <para>
+        ///         Randomizes a date based on year.
+        ///     </para>
         /// </summary>
         /// <param name="year"></param>
         public LocalDate DateByYear(int year) => _dateGenerator.RandomDateByYear(year);
 
         /// <summary>
-        ///     <para>Randomizes a unique SocialSecurity Number.</para>
+        ///     <para>
+        ///         Randomizes a unique SocialSecurity Number.
+        ///     </para>
         /// </summary>
         /// <param name="date"></param>
         /// <param name="formated"></param>
@@ -198,7 +246,9 @@ namespace Sharpy {
         }
 
         /// <summary>
-        ///     <para>Returns a string representing a mailaddress.</para>
+        ///     <para>
+        ///         Returns a string representing a mailaddress.
+        ///     </para>
         /// </summary>
         /// <param name="name"></param>
         /// <param name="secondName"></param>
@@ -206,7 +256,9 @@ namespace Sharpy {
             => _mailbuilder.Mail(name, secondName);
 
         /// <summary>
-        ///     <para>Returns a number with the length of the argument.</para>
+        ///     <para>
+        ///         Returns a number with the length of the argument.
+        ///     </para>
         /// </summary>
         /// <param name="length"></param>
         public string NumberByLength(int length) {
@@ -223,7 +275,9 @@ namespace Sharpy {
         }
 
         /// <summary>
-        ///     <para>Returns a random username from a huge collection.</para>
+        ///     <para>
+        ///         Returns a random username from a huge collection.
+        ///     </para>
         /// </summary>
         public string UserName() => _lazyUsernames.Value.RandomItem(_random);
 
