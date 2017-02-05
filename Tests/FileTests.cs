@@ -11,33 +11,65 @@ namespace Tests {
     [TestFixture]
     internal class FileTests {
         [Test]
+        public void Name_Starts_With_Capital_Letter() {
+            var deserializeObject = JsonConvert.DeserializeObject<IEnumerable<Name>>(
+                Encoding.UTF8.GetString(Resources.NamesByOrigin));
+            var startsWithUpperCase = deserializeObject.Select(name => name.Data).All(s => char.IsUpper(s.First()));
+            Assert.IsTrue(startsWithUpperCase);
+        }
+
+        [Test]
         public void Name_Contains_No_Numbers() {
             var deserializeObject = JsonConvert.DeserializeObject<IEnumerable<Name>>(
                 Encoding.UTF8.GetString(Resources.NamesByOrigin));
-            var noNumber = deserializeObject.Select(name => name.Data).All(s => s.All(c => !char.IsNumber(c)));
-            Assert.IsTrue(noNumber);
+            var containsNumber = deserializeObject.Select(name => name.Data).All(s => s.Any(char.IsNumber));
+            Assert.IsFalse(containsNumber);
         }
 
         [Test]
         public void Name_Contains_No_Symbols() {
             var deserializeObject = JsonConvert.DeserializeObject<IEnumerable<Name>>(
                 Encoding.UTF8.GetString(Resources.NamesByOrigin));
-            var noSymbol = deserializeObject.Select(name => name.Data).All(s => s.All(c => !char.IsSymbol(c)));
-            Assert.IsTrue(noSymbol);
+            var containsSymbols = deserializeObject.Select(name => name.Data).All(s => s.Any(char.IsSymbol));
+            Assert.IsFalse(containsSymbols);
+        }
+
+        [Test]
+        public void Name_Contains_No_Punctation() {
+            var deserializeObject = JsonConvert.DeserializeObject<IEnumerable<Name>>(
+                Encoding.UTF8.GetString(Resources.NamesByOrigin));
+            var containsPuncation = deserializeObject.Select(name => name.Data).All(s => s.Any(char.IsPunctuation));
+            Assert.IsFalse(containsPuncation);
+        }
+
+        [Test]
+        public void Name_Contains_No_Separator() {
+            var deserializeObject = JsonConvert.DeserializeObject<IEnumerable<Name>>(
+                Encoding.UTF8.GetString(Resources.NamesByOrigin));
+            var containsSeperator = deserializeObject.Select(name => name.Data).All(s => s.Any(char.IsSeparator));
+            Assert.IsFalse(containsSeperator);
+        }
+
+        [Test]
+        public void Name_Contains_No_White_Space() {
+            var deserializeObject = JsonConvert.DeserializeObject<IEnumerable<Name>>(
+                Encoding.UTF8.GetString(Resources.NamesByOrigin));
+            var containsWhiteSpace = deserializeObject.Select(name => name.Data).All(s => s.Any(char.IsWhiteSpace));
+            Assert.IsFalse(containsWhiteSpace);
         }
 
         [Test]
         public void User_Name_Contains_No_Numbers() {
-            var noNumber = Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None)
-                .All(s => s.All(c => !char.IsNumber(c)));
-            Assert.IsTrue(noNumber);
+            var containsNumber = Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None)
+                .All(s => s.Any(char.IsNumber));
+            Assert.IsFalse(containsNumber);
         }
 
         [Test]
         public void User_Name_Contains_No_Symbols() {
-            var noSymbols = Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None)
-                .All(s => s.All(c => !char.IsSymbol(c)));
-            Assert.IsTrue(noSymbols);
+            var containsSymbols = Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None)
+                .All(s => s.Any(char.IsSymbol));
+            Assert.IsFalse(containsSymbols);
         }
     }
 }
