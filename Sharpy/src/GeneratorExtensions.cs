@@ -6,6 +6,8 @@ namespace Sharpy {
     /// <summary>
     /// </summary>
     public static class GeneratorExtensions {
+        private const int Threshold = 10000;
+
         /// <summary>
         ///     <para>
         ///         Generates the result from the Func argument.
@@ -61,12 +63,13 @@ namespace Sharpy {
         ///     <para>
         ///         The count will be the same as the Count of IEnumerable&lt;TSource&gt;
         ///     </para>
-        /// <param name="generator"></param>
-        /// <param name="func">Supplies a generator combined with &lt;TSource&gt; from the source parameter.</param>
-        /// <param name="source">TheIEnumerable&lt;TSource&gt; that will be iterated through</param>
+        ///     <param name="generator"></param>
+        ///     <param name="func">Supplies a generator combined with &lt;TSource&gt; from the source parameter.</param>
+        ///     <param name="source">TheIEnumerable&lt;TSource&gt; that will be iterated through</param>
         /// </summary>
         public static IEnumerable<TResult> GenerateBySequence<TGenerator, TSource, TResult>(this TGenerator generator,
-            IEnumerable<TSource> source, Func<TGenerator, TSource, TResult> func) where TGenerator : Generator => source.Select(element => func(generator, element));
+            IEnumerable<TSource> source, Func<TGenerator, TSource, TResult> func) where TGenerator : Generator
+            => source.Select(element => func(generator, element));
 
         /// <summary>
         ///     <para>
@@ -81,12 +84,16 @@ namespace Sharpy {
         ///     <para>
         ///         Includes an integer containing the current iteration.
         ///     </para>
-        /// <param name="generator"></param>
-        /// <param name="func">Supplies a generator combined with &lt;TSource&gt; from the source parameter and an integer tracking the current iteration</param>
-        /// <param name="source">The IEnumerable&lt;TSource&gt; that will be iterated through</param>
+        ///     <param name="generator"></param>
+        ///     <param name="func">
+        ///         Supplies a generator combined with &lt;TSource&gt; from the source parameter and an integer
+        ///         tracking the current iteration
+        ///     </param>
+        ///     <param name="source">The IEnumerable&lt;TSource&gt; that will be iterated through</param>
         /// </summary>
         public static IEnumerable<TResult> GenerateBySequence<TGenerator, TSource, TResult>(this TGenerator generator,
-            IEnumerable<TSource> source, Func<TGenerator, TSource, int, TResult> func) where TGenerator : Generator => source.Select((element, i) => func(generator, element, i));
+            IEnumerable<TSource> source, Func<TGenerator, TSource, int, TResult> func) where TGenerator : Generator
+            => source.Select((element, i) => func(generator, element, i));
 
 
         /// <summary>
@@ -144,11 +151,10 @@ namespace Sharpy {
             };
         }
 
-        private const int Threshold = 10000;
-
         /// <summary>
         ///     <para>
-        ///         Invokes Generator&lt;out TSource&gt;, and passes the result to the predicate. If it succeeds the result is returned.
+        ///         Invokes Generator&lt;out TSource&gt;, and passes the result to the predicate. If it succeeds the result is
+        ///         returned.
         ///         If it fails it will invoke Generator&lt;out TSource&gt; and repeat the process til threshold is reached.
         ///     </para>
         ///     <para>
@@ -175,7 +181,8 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Invokes Generator&lt;out TSource&gt;, and passes the result to the predicate. If it succeeds the result is returned.
+        ///         Invokes Generator&lt;out TSource&gt;, and passes the result to the predicate. If it succeeds the result is
+        ///         returned.
         ///         If it fails it will invoke Generator&lt;out TSource&gt; and repeat the process til threshold is reached.
         ///     </para>
         /// </summary>

@@ -37,9 +37,9 @@ namespace Sharpy.Implementation {
                 var buf = new byte[8];
                 _random.NextBytes(buf);
                 ulongRand = (ulong) BitConverter.ToInt64(buf, 0);
-            } while (ulongRand > ulong.MaxValue - (ulong.MaxValue%uRange + 1)%uRange);
+            } while (ulongRand > ulong.MaxValue - (ulong.MaxValue % uRange + 1) % uRange);
 
-            return (long) (ulongRand%uRange) + min;
+            return (long) (ulongRand % uRange) + min;
         }
 
         /// <summary>

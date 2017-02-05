@@ -10,7 +10,7 @@ namespace Tests.Integration {
         public void No_Arguments() {
             var generator = new Generator();
             var generateMany = generator.GenerateSequence(generator1 => generator1.Double(), 20);
-            Assert.IsTrue(generateMany.All(d => (d < 1) && (d > 0)));
+            Assert.IsTrue(generateMany.All(d => d < 1 && d > 0));
         }
 
 
@@ -44,7 +44,7 @@ namespace Tests.Integration {
             const double max = 11.2;
             var generator = new Generator();
             var generateMany = generator.GenerateSequence(generator1 => generator1.Double(min, max), 20);
-            Assert.Throws<ArgumentOutOfRangeException>(() => generateMany.All(d => (d > min) && (d < max)));
+            Assert.Throws<ArgumentOutOfRangeException>(() => generateMany.All(d => d > min && d < max));
         }
 
         [Test]
@@ -53,7 +53,7 @@ namespace Tests.Integration {
             const double max = 10.4;
             var generator = new Generator();
             var generateMany = generator.GenerateSequence(generator1 => generator1.Double(min, max), 20);
-            Assert.Throws<ArgumentOutOfRangeException>(() => generateMany.All(d => (d > min) && (d < max)));
+            Assert.Throws<ArgumentOutOfRangeException>(() => generateMany.All(d => d > min && d < max));
         }
 
         [Test]
@@ -62,7 +62,7 @@ namespace Tests.Integration {
             const double max = -10.2;
             var generator = new Generator();
             var generateMany = generator.GenerateSequence(generator1 => generator1.Double(min, max), 20);
-            Assert.IsTrue(generateMany.All(d => (d > min) && (d < max)));
+            Assert.IsTrue(generateMany.All(d => d > min && d < max));
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace Tests.Integration {
             const double max = -11.4;
             var generator = new Generator();
             var generateMany = generator.GenerateSequence(generator1 => generator1.Double(min, max), 20);
-            Assert.Throws<ArgumentOutOfRangeException>(() => generateMany.All(d => (d > min) && (d < max)));
+            Assert.Throws<ArgumentOutOfRangeException>(() => generateMany.All(d => d > min && d < max));
         }
 
         [Test]
@@ -81,7 +81,7 @@ namespace Tests.Integration {
             var generator = new Generator();
             var generateMany = generator.GenerateSequence(generator1 => generator1.Double(min, max), 20);
 
-            Assert.IsTrue(generateMany.All(d => (d > min) && (d < max)));
+            Assert.IsTrue(generateMany.All(d => d > min && d < max));
         }
 
         [Test]
@@ -91,7 +91,7 @@ namespace Tests.Integration {
             var generator = new Generator();
             var generateMany = generator.GenerateSequence(generator1 => generator1.Double(min, max), 20);
 
-            Assert.IsTrue(generateMany.All(d => (d > min) && (d < max)));
+            Assert.IsTrue(generateMany.All(d => d > min && d < max));
         }
     }
 }

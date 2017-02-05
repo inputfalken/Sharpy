@@ -13,11 +13,11 @@ namespace Tests.Integration {
             var ints =
                 new Generator().GenerateSequence(
                     generator => generator.Integer(), Length);
-            Assert.IsTrue(ints.All(l => (l > int.MinValue) && (l < int.MaxValue)));
+            Assert.IsTrue(ints.All(l => l > int.MinValue && l < int.MaxValue));
 
             var intInstance =
                 new Generator().Generate(generator => generator.Integer());
-            Assert.IsTrue((intInstance > int.MinValue) && (intInstance < int.MaxValue));
+            Assert.IsTrue(intInstance > int.MinValue && intInstance < int.MaxValue);
         }
 
         [Test]
@@ -59,11 +59,11 @@ namespace Tests.Integration {
             var ints =
                 new Generator().GenerateSequence(
                     generator => generator.Integer(max), Length);
-            Assert.IsTrue(ints.All(l => (l >= 0) && (l < max)));
+            Assert.IsTrue(ints.All(l => l >= 0 && l < max));
 
             var intInstance =
                 new Generator().Generate(generator => generator.Integer(max));
-            Assert.IsTrue((intInstance >= 0) && (intInstance < max));
+            Assert.IsTrue(intInstance >= 0 && intInstance < max);
         }
 
 
@@ -91,11 +91,11 @@ namespace Tests.Integration {
                 new Generator().GenerateSequence(
                     generator => generator.Integer(min, max),
                     Length);
-            Assert.IsTrue(ints.All(l => (l >= min) && (l < max)));
+            Assert.IsTrue(ints.All(l => l >= min && l < max));
 
             var intInstance =
                 new Generator().Generate(generator => generator.Integer(min, max));
-            Assert.IsTrue((intInstance >= min) && (intInstance < max));
+            Assert.IsTrue(intInstance >= min && intInstance < max);
         }
 
         [Test]
@@ -106,11 +106,11 @@ namespace Tests.Integration {
                 new Generator().GenerateSequence(
                     generator => generator.Integer(min, max),
                     Length);
-            Assert.IsTrue(ints.All(l => (l >= min) && (l < max)));
+            Assert.IsTrue(ints.All(l => l >= min && l < max));
 
             var intInstance =
                 new Generator().Generate(generator => generator.Integer(min, max));
-            Assert.IsTrue((intInstance >= min) && (intInstance < max));
+            Assert.IsTrue(intInstance >= min && intInstance < max);
         }
 
         [Test]
@@ -136,11 +136,11 @@ namespace Tests.Integration {
                 new Generator().GenerateSequence(
                     generator => generator.Integer(min, max),
                     Length);
-            Assert.IsTrue(ints.All(l => (l >= min) && (l < max)));
+            Assert.IsTrue(ints.All(l => l >= min && l < max));
 
             var intInstance =
                 new Generator().Generate(generator => generator.Integer(min, max));
-            Assert.IsTrue((intInstance >= min) && (intInstance < max));
+            Assert.IsTrue(intInstance >= min && intInstance < max);
         }
 
         [Test]

@@ -6,7 +6,8 @@ using Sharpy.IProviders;
 namespace Sharpy {
     /// <summary>
     ///     <para>
-    ///         Pass an instance of this class to a generator constructor if you want to change the default behaviour of the generator.
+    ///         Pass an instance of this class to a generator constructor if you want to change the default behaviour of the
+    ///         generator.
     ///     </para>
     /// </summary>
     public class Configurement {
@@ -29,13 +30,6 @@ namespace Sharpy {
             NumberGenerator = new NumberGenerator(Random);
             MailDomains = new[] {"gmail.com", "hotmail.com", "yahoo.com"};
         }
-        internal EmailBuilder EmailBuilder { get; set; }
-
-        internal DateGenerator DateGenerator { get; }
-
-        internal SecurityNumberGen SecurityNumberGen { get; }
-
-        internal NumberGenerator NumberGenerator { get; }
 
         /// <summary>
         ///     <para>
@@ -43,14 +37,24 @@ namespace Sharpy {
         ///     </para>
         /// </summary>
         /// <param name="seed"></param>
-        public Configurement(int seed) : this(new Random(seed)) { }
+        public Configurement(int seed) : this(new Random(seed)) {
+        }
 
         /// <summary>
         ///     <para>
         ///         Creates a random by Tick.
         ///     </para>
         /// </summary>
-        public Configurement() : this(new Random()) { }
+        public Configurement() : this(new Random()) {
+        }
+
+        internal EmailBuilder EmailBuilder { get; set; }
+
+        internal DateGenerator DateGenerator { get; }
+
+        internal SecurityNumberGen SecurityNumberGen { get; }
+
+        internal NumberGenerator NumberGenerator { get; }
 
         /// <summary>
         ///     <para>

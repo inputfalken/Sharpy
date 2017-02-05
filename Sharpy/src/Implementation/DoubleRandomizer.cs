@@ -37,7 +37,7 @@ namespace Sharpy.Implementation {
         /// <returns></returns>
         public double Double(double min, double max) {
             if (max <= min) throw new ArgumentOutOfRangeException($"{nameof(max)} must be > {nameof(min)}");
-            return _random.NextDouble()*(max - min) + min;
+            return _random.NextDouble() * (max - min) + min;
         }
     }
 }

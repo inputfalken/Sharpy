@@ -19,7 +19,9 @@ namespace Sharpy.Implementation {
         private int CreateUniqueNumber(int number, int min, int max) {
             var resets = 0;
             while (HashSet.Contains(number))
-                if (number < max) number++;
+                if (number < max) {
+                    number++;
+                }
                 else {
                     number = min;
                     if (resets++ == 2) return -1;

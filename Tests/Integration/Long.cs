@@ -13,11 +13,11 @@ namespace Tests.Integration {
             var longs =
                 new Generator().GenerateSequence(generator => generator.Long(),
                     Length);
-            Assert.IsTrue(longs.All(l => (l > long.MinValue) && (l < long.MaxValue)));
+            Assert.IsTrue(longs.All(l => l > long.MinValue && l < long.MaxValue));
 
             var longInstance =
                 new Generator().Generate(generator => generator.Long());
-            Assert.IsTrue((longInstance > long.MinValue) && (longInstance < long.MaxValue));
+            Assert.IsTrue(longInstance > long.MinValue && longInstance < long.MaxValue);
         }
 
         [Test]
@@ -51,11 +51,11 @@ namespace Tests.Integration {
             var longs =
                 new Generator().GenerateSequence(
                     generator => generator.Long(max), Length);
-            Assert.IsTrue(longs.All(l => (l >= 0) && (l < max)));
+            Assert.IsTrue(longs.All(l => l >= 0 && l < max));
 
             var longInstance =
                 new Generator().Generate(generator => generator.Long(max));
-            Assert.IsTrue((longInstance >= 0) && (longInstance < max));
+            Assert.IsTrue(longInstance >= 0 && longInstance < max);
         }
 
         [Test]
@@ -94,11 +94,11 @@ namespace Tests.Integration {
                 new Generator().GenerateSequence(
                     generator => generator.Long(min, max),
                     Length);
-            Assert.IsTrue(longs.All(l => (l >= min) && (l < max)));
+            Assert.IsTrue(longs.All(l => l >= min && l < max));
 
             var longInstance =
                 new Generator().Generate(generator => generator.Long(min, max));
-            Assert.IsTrue((longInstance >= min) && (longInstance < max));
+            Assert.IsTrue(longInstance >= min && longInstance < max);
         }
 
         [Test]
@@ -109,11 +109,11 @@ namespace Tests.Integration {
                 new Generator().GenerateSequence(
                     generator => generator.Long(min, max),
                     Length);
-            Assert.IsTrue(longs.All(l => (l >= min) && (l < max)));
+            Assert.IsTrue(longs.All(l => l >= min && l < max));
 
             var longInstance =
                 new Generator().Generate(generator => generator.Long(min, max));
-            Assert.IsTrue((longInstance >= min) && (longInstance < max));
+            Assert.IsTrue(longInstance >= min && longInstance < max);
         }
 
         [Test]
@@ -139,11 +139,11 @@ namespace Tests.Integration {
                 new Generator().GenerateSequence(
                     generator => generator.Long(min, max),
                     Length);
-            Assert.IsTrue(longs.All(l => (l >= min) && (l < max)));
+            Assert.IsTrue(longs.All(l => l >= min && l < max));
 
             var longInstance =
                 new Generator().Generate(generator => generator.Long(min, max));
-            Assert.IsTrue((longInstance >= min) && (longInstance < max));
+            Assert.IsTrue(longInstance >= min && longInstance < max);
         }
 
         [Test]

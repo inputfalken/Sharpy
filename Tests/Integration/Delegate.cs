@@ -6,6 +6,34 @@ using Sharpy;
 namespace Tests.Integration {
     [TestFixture]
     public class Delegate {
+        private class TestClas {
+            public string Text { get; set; }
+        }
+
+        [Test]
+        public void Bind_Number_Generators() {
+            var doubledGeneration = new Generator(100)
+                .ToDelegate(x => x.Integer(20))
+                .GenerateSequence(20)
+                .Select(x => x * 2);
+            var gen = new Generator(100)
+                .ToDelegate(x => x.Integer(20));
+            var gen2 = new Generator(100)
+                .ToDelegate(x => x.Integer(20));
+            var addedGenerations = gen.Bind(i => gen2, (i, i1) => i + i1).GenerateSequence(20);
+
+            Assert.IsTrue(addedGenerations.SequenceEqual(doubledGeneration));
+        }
+
+        [Test]
+        public void Do_Set_String() {
+            var gen = new Generator()
+                .ToDelegate(g => new TestClas {Text = g.FirstName()})
+                .Do(clas => clas.Text = "World")
+                .Generate();
+            Assert.AreEqual("World", gen.Text);
+        }
+
         [Test]
         public void Filter_Integers_Is_Dividable_By_Two() {
             var numbers = new Generator()
@@ -41,34 +69,6 @@ namespace Tests.Integration {
                 .Map(x => x.Length)
                 .GenerateSequence(20);
             Assert.IsTrue(names.Select(x => x.Length).SequenceEqual(nameLenghts));
-        }
-
-        [Test]
-        public void Do_Set_String() {
-            var gen = new Generator()
-                .ToDelegate(g => new TestClas {Text = g.FirstName()})
-                .Do(clas => clas.Text = "World")
-                .Generate();
-            Assert.AreEqual("World", gen.Text);
-        }
-
-        [Test]
-        public void Bind_Number_Generators() {
-            var doubledGeneration = new Generator(100)
-                .ToDelegate(x => x.Integer(20))
-                .GenerateSequence(20)
-                .Select(x => x * 2);
-            var gen = new Generator(100)
-                .ToDelegate(x => x.Integer(20));
-            var gen2 = new Generator(100)
-                .ToDelegate(x => x.Integer(20));
-            var addedGenerations = gen.Bind(i => gen2, (i, i1) => i + i1).GenerateSequence(20);
-
-            Assert.IsTrue(addedGenerations.SequenceEqual(doubledGeneration));
-        }
-
-        private class TestClas {
-            public string Text { get; set; }
         }
     }
 }
