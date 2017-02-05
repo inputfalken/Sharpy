@@ -85,7 +85,7 @@ namespace Sharpy.Implementation {
             return Dictionary[arg].RandomItem(_random);
         }
 
-        private IEnumerable<Name> Origin(IEnumerable<Name> names) => (_origins != null) && _origins.Any()
+        private IEnumerable<Name> Origin(IEnumerable<Name> names) => _origins != null && _origins.Any()
             ? names.Where(name => _origins.Contains(name.Country) | _origins.Contains(name.Region))
             : names;
     }

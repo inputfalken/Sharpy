@@ -50,7 +50,8 @@ namespace Sharpy.Implementation {
                     if (EmailDomainsEnumerator.MoveNext()) {
                         foreach (var separator in Separators) {
                             var address = singleArgument
-                                ? name.Append("@", EmailDomainsEnumerator.Current) //Does not need to be in for each loop.
+                                ? name.Append("@", EmailDomainsEnumerator.Current)
+                                //Does not need to be in for each loop.
                                 : name.Append(separator, secondName, "@", EmailDomainsEnumerator.Current);
                             if (HashSet.Contains(address)) continue;
                             HashSet.Add(address);

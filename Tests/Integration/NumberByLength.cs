@@ -17,6 +17,27 @@ namespace Tests.Integration {
         }
 
         [Test]
+        public void Not_Unique_Create_More_Than_Max_Ammount_Does_Not_Throw() {
+            var configurement = new Configurement {
+                UniqueNumbers = false
+            };
+            var gen = new Generator(configurement);
+            var res = gen.GenerateSequence(generator => generator.NumberByLength(3), 1001);
+            //The test checks that it works like the following algorithm 10^length and that all got same length.
+            Assert.DoesNotThrow(() => res.ToArray());
+        }
+
+        [Test]
+        public void Not_Unique_Got_Same_Length() {
+            var configurement = new Configurement {
+                UniqueNumbers = false
+            };
+            var gen = new Generator(configurement);
+            var res = gen.GenerateSequence(g => g.NumberByLength(5), 10000);
+            Assert.IsTrue(res.All(s => s.Length == 5));
+        }
+
+        [Test]
         public void Unique() {
             var configurement = new Configurement {
                 UniqueNumbers = true
@@ -38,17 +59,6 @@ namespace Tests.Integration {
         }
 
         [Test]
-        public void Not_Unique_Create_More_Than_Max_Ammount_Does_Not_Throw() {
-            var configurement = new Configurement {
-                UniqueNumbers = false
-            };
-            var gen = new Generator(configurement);
-            var res = gen.GenerateSequence(generator => generator.NumberByLength(3), 1001);
-            //The test checks that it works like the following algorithm 10^length and that all got same length.
-            Assert.DoesNotThrow(() => res.ToArray());
-        }
-
-        [Test]
         public void Unique_Create_More_Than_Max_Ammount_Does_Throw() {
             var configurement = new Configurement {
                 UniqueNumbers = true
@@ -57,16 +67,6 @@ namespace Tests.Integration {
             var res = gen.GenerateSequence(generator => generator.NumberByLength(3), 1001);
             //The test checks that it works like the following algorithm 10^length and that all got same length.
             Assert.Throws<Exception>(() => res.ToArray());
-        }
-
-        [Test]
-        public void Not_Unique_Got_Same_Length() {
-            var configurement = new Configurement {
-                UniqueNumbers = false
-            };
-            var gen = new Generator(configurement);
-            var res = gen.GenerateSequence(g => g.NumberByLength(5), 10000);
-            Assert.IsTrue(res.All(s => s.Length == 5));
         }
 
         [Test]

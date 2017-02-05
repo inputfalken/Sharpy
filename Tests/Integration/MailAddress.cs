@@ -18,17 +18,6 @@ namespace Tests.Integration {
 
 
         [Test]
-        public void Single_Argurment_Does_Not_Contain_Seperator() {
-            var generator = new Generator(new Configurement {MailDomains = new[] {"test.com"}}).GenerateSequence(g => g.MailAddress("Bob"), 2).ToArray();
-            var first = generator.First();
-            var last = generator.Last();
-
-            Assert.AreEqual("bob@test.com", first);
-            Assert.IsFalse(last.Any(char.IsSeparator));
-        }
-
-
-        [Test]
         public void Check_Mail_Count_Unique_True() {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
@@ -195,6 +184,19 @@ namespace Tests.Integration {
             var result = generateMany.Last();
             const string expected = "bob-cool@test.com";
             Assert.AreEqual(expected, result);
+        }
+
+
+        [Test]
+        public void Single_Argurment_Does_Not_Contain_Seperator() {
+            var generator =
+                new Generator(new Configurement {MailDomains = new[] {"test.com"}}).GenerateSequence(
+                    g => g.MailAddress("Bob"), 2).ToArray();
+            var first = generator.First();
+            var last = generator.Last();
+
+            Assert.AreEqual("bob@test.com", first);
+            Assert.IsFalse(last.Any(char.IsSeparator));
         }
 
         [Test]
