@@ -8,7 +8,7 @@ namespace Sharpy {
     public static class GeneratorExtensions {
         /// <summary>
         ///     <para>
-        ///         Generates the result of the Func argument.
+        ///         Generates the result from the Func argument.
         ///     </para>
         /// </summary>
         /// <param name="generator"></param>
