@@ -8,7 +8,7 @@ namespace Sharpy {
     public static class GeneratorExtensions {
         /// <summary>
         ///     <para>
-        ///         Generates the result given by the high order function.
+        ///         Generates the result of the Func argument.
         ///     </para>
         /// </summary>
         /// <param name="generator"></param>
@@ -18,7 +18,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Generates IEnumerable of the result given by the high order function.
+        ///         Generates an IEnumerable of the result from the Func.
         ///     </para>
         ///     <para>
         ///         The count argument is the Count of the IEnumerable&lt;TResult&gt;
@@ -34,7 +34,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Generates IEnumerable of the result given by the high order function.
+        ///         Generates an IEnumerable of the result from the Func.
         ///     </para>
         ///     <para>
         ///         Includes an integer containing the current iteration.
@@ -56,7 +56,7 @@ namespace Sharpy {
         ///         Iterates through IEnumerable&lt;TSource&gt; exposing each element together with a generator.
         ///     </para>
         ///     <para>
-        ///         Generates IEnumerable of the result given by the high order function.
+        ///         Generates an IEnumerable of the result from the Func.
         ///     </para>
         /// <param name="generator"></param>
         /// <param name="func">Supplies a generator combined with &lt;TSource&gt; from the source parameter.</param>
@@ -70,7 +70,7 @@ namespace Sharpy {
         ///         Iterates through IEnumerable&lt;TSource&gt; exposing each element together with a generator.
         ///     </para>
         ///     <para>
-        ///         Generates IEnumerable of the result given by the high order function.
+        ///         Generates an IEnumerable of the result from the Func.
         ///     </para>
         ///     <para>
         ///         Includes an integer containing the current iteration.
