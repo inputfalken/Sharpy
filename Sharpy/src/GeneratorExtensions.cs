@@ -198,7 +198,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Creates an IEnumerable&lt;TResult&gt;
+        ///         Generates an IEnumerable of the result from the Func.
         ///     </para>
         ///     <para>
         ///         The count argument is the Count of the IEnumerable&lt;TSource&gt;
