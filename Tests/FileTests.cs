@@ -19,18 +19,11 @@ namespace Tests {
         }
 
         [Test]
-        public void Name_Contains_No_Symbol() {
+        public void Name_Contains_No_Symbols() {
             var deserializeObject = JsonConvert.DeserializeObject<IEnumerable<Name>>(
                 Encoding.UTF8.GetString(Resources.NamesByOrigin));
             var noSymbol = deserializeObject.Select(name => name.Data).All(s => s.All(c => !char.IsSymbol(c)));
             Assert.IsTrue(noSymbol);
-        }
-
-        [Test]
-        public void Name_Contains_No_Symbols() {
-            var noSymbols = Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None)
-                .All(s => s.All(c => !char.IsSymbol(c)));
-            Assert.IsTrue(noSymbols);
         }
 
         [Test]
