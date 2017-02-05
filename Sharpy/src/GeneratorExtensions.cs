@@ -58,6 +58,9 @@ namespace Sharpy {
         ///     <para>
         ///         Generates an IEnumerable of the result from the Func.
         ///     </para>
+        ///     <para>
+        ///         The count will be the same as the Count of IEnumerable&lt;TSource&gt;
+        ///     </para>
         /// <param name="generator"></param>
         /// <param name="func">Supplies a generator combined with &lt;TSource&gt; from the source parameter.</param>
         /// <param name="source">TheIEnumerable&lt;TSource&gt; that will be iterated through</param>
@@ -71,6 +74,9 @@ namespace Sharpy {
         ///     </para>
         ///     <para>
         ///         Generates an IEnumerable of the result from the Func.
+        ///     </para>
+        ///     <para>
+        ///         The count will be the same as the Count of IEnumerable&lt;TSource&gt;
         ///     </para>
         ///     <para>
         ///         Includes an integer containing the current iteration.
