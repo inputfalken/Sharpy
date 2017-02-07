@@ -35,7 +35,7 @@ namespace Tests {
         }
 
         [Test]
-        public void Name_Contains_No_Punctation() {
+        public void Name_Contains_No_Punctuations() {
             var deserializeObject = JsonConvert.DeserializeObject<IEnumerable<Name>>(
                 Encoding.UTF8.GetString(Resources.NamesByOrigin));
             var containsPuncation = deserializeObject.Select(name => name.Data).All(s => s.Any(char.IsPunctuation));
@@ -56,6 +56,25 @@ namespace Tests {
                 Encoding.UTF8.GetString(Resources.NamesByOrigin));
             var containsWhiteSpace = deserializeObject.Select(name => name.Data).All(s => s.Any(char.IsWhiteSpace));
             Assert.IsFalse(containsWhiteSpace);
+        }
+
+        [Test]
+        public void User_Name_Contains_No_Separator() {
+            var containsSeparator = Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None).All(s => s.Any(char.IsSeparator));
+            Assert.IsFalse(containsSeparator);
+        }
+
+
+        [Test]
+        public void User_Name_Contains_No_Punctuations() {
+            var containsPunctuations = Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None).All(s => s.Any(char.IsPunctuation));
+            Assert.IsFalse(containsPunctuations);
+        }
+
+        [Test]
+        public void User_Name_Contains_No_White_Space() {
+            var containsWhitespace = Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None).All(s => s.Any(char.IsWhiteSpace));
+            Assert.IsFalse(containsWhitespace);
         }
 
         [Test]
