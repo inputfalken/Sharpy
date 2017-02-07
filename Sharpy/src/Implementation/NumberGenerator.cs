@@ -7,8 +7,7 @@ namespace Sharpy.Implementation {
     /// </summary>
     internal sealed class NumberGenerator : Unique<int> {
         internal NumberGenerator(Random random)
-            : base(random) {
-        }
+            : base(random) {}
 
 
         internal int RandomNumber(int min, int max, bool unique = false) {
