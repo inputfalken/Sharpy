@@ -37,16 +37,14 @@ namespace Sharpy {
         ///     </para>
         /// </summary>
         /// <param name="seed"></param>
-        public Configurement(int seed) : this(new Random(seed)) {
-        }
+        public Configurement(int seed) : this(new Random(seed)) { }
 
         /// <summary>
         ///     <para>
         ///         Creates a random by Tick.
         ///     </para>
         /// </summary>
-        public Configurement() : this(new Random()) {
-        }
+        public Configurement() : this(new Random()) { }
 
         internal EmailBuilder EmailBuilder { get; set; }
 
