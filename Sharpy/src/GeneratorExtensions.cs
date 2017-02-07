@@ -101,7 +101,8 @@ namespace Sharpy {
         ///         Turns the Generator into delegate Generator&lt;out T&gt;
         ///     </para>
         ///     <para>
-        ///         This delegate contains experimental extension methods similiar to methods such as Where, Select, SelectMany from LINQ.
+        ///         This delegate contains experimental extension methods similiar to methods such as Where, Select, SelectMany
+        ///         from LINQ.
         ///         Which might be changed.
         ///     </para>
         /// </summary>

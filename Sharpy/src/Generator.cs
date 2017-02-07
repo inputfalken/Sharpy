@@ -74,7 +74,7 @@ namespace Sharpy {
         ///     </para>
         /// </summary>
         /// <param name="seed"></param>
-        public Generator(int seed) : this(new Configurement(seed)) { }
+        public Generator(int seed) : this(new Configurement(seed)) {}
 
         /// <summary>
         ///     <para>
@@ -82,14 +82,14 @@ namespace Sharpy {
         ///     </para>
         /// </summary>
         /// <param name="random"></param>
-        public Generator(Random random) : this(new Configurement(random)) { }
+        public Generator(Random random) : this(new Configurement(random)) {}
 
         /// <summary>
         ///     <para>
         ///         Returns a generator which will randomize new results every time program is executed.
         ///     </para>
         /// </summary>
-        public Generator() : this(new Configurement()) { }
+        public Generator() : this(new Configurement()) {}
 
         /// <summary>
         ///     <para>
