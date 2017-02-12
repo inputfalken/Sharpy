@@ -23,7 +23,7 @@
       2: Adds an experimental custom generic delegate with extension methods such as Filter and Map similiar to Where and Select in LINQ.
       3: Adds extension method "ToDelegate" for Generator and it's children which converts it to the custom delegate.
     </releaseNotes>
-    <copyright>Copyright 2016</copyright>
+    <copyright>Copyright 2017</copyright>
     <tags>Fakedata Generator Generic Lazy</tags>
     <dependencies>
       <dependency id="Newtonsoft.Json" version="9.0.1" />
