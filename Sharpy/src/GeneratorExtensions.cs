@@ -158,7 +158,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Invokes Generator&lt;out TSource&gt;, and passes the result to the predicate. If it succeeds the result is
+        ///         Invokes Generator&lt;out TSource&gt; and passes the result to the predicate. If it succeeds the result is
         ///         returned.
         ///         If it fails it will invoke Generator&lt;out TSource&gt; and repeat the process til threshold is reached.
         ///     </para>
