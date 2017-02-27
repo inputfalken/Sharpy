@@ -1,4 +1,4 @@
-# Sharpy 2.2.0
+# Sharpy
 
 This is a hobby project of mine where the goal is to have an easy way of generating some fake data.
 
