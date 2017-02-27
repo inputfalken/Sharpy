@@ -46,7 +46,7 @@ namespace Sharpy {
 
 
         private readonly bool _uniqueNumbers;
-        private Tuple<int, int> _phoneState = new Tuple<int, int>(0, 0);
+        private Tuple<int, int> _numberByLengthState = new Tuple<int, int>(0, 0);
 
 
         /// <summary>
@@ -263,9 +263,9 @@ namespace Sharpy {
         /// <param name="length"></param>
         public string NumberByLength(int length) {
             //If phonestate has changed
-            if (_phoneState.Item1 != length)
-                _phoneState = new Tuple<int, int>(length, (int) Math.Pow(10, length) - 1);
-            var res = _numberGenerator.RandomNumber(0, _phoneState.Item2, _uniqueNumbers);
+            if (_numberByLengthState.Item1 != length)
+                _numberByLengthState = new Tuple<int, int>(length, (int) Math.Pow(10, length) - 1);
+            var res = _numberGenerator.RandomNumber(0, _numberByLengthState.Item2, _uniqueNumbers);
             if (res == -1) throw new Exception("You reached maxium Ammount of combinations for the Length used");
 
             var phoneNumber = res.ToString();
