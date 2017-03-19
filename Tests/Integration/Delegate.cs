@@ -11,7 +11,15 @@ namespace Tests.Integration {
         }
 
         [Test]
-        public void Bind_Number_Generators() {
+        public void Bind_Flattens() {
+            var generator = new Generator()
+                .ToDelegate(g => g.ToDelegate(g2 => g2.Integer()))
+                .Bind(g => g);
+            Assert.IsInstanceOf<Generator<int>>(generator);
+        }
+
+        [Test]
+        public void Bind_Flattens_And_Combines() {
             var doubledGeneration = new Generator(100)
                 .ToDelegate(x => x.Integer(20))
                 .GenerateSequence(20)
@@ -20,9 +28,13 @@ namespace Tests.Integration {
                 .ToDelegate(x => x.Integer(20));
             var gen2 = new Generator(100)
                 .ToDelegate(x => x.Integer(20));
-            var addedGenerations = gen.Bind(i => gen2, (i, i1) => i + i1).GenerateSequence(20);
+            var combinedGenerators = gen.Bind(i => gen2, (i, i1) => i + i1);
 
-            Assert.IsTrue(addedGenerations.SequenceEqual(doubledGeneration));
+            Assert.IsInstanceOf<Generator<int>>(combinedGenerators);
+            Assert.IsTrue(combinedGenerators
+                .GenerateSequence(20)
+                .SequenceEqual(doubledGeneration)
+            );
         }
 
         [Test]
@@ -35,10 +47,27 @@ namespace Tests.Integration {
         }
 
         [Test]
-        public void Filter_Integers_Is_Dividable_By_Two() {
+        public void Filter_Custom_Threshold_Reached() {
+            var badPredicate = new Generator()
+                .ToDelegate(g => g.Bool())
+                .Filter(x => false, 1000);
+            Assert.Throws<ArgumentException>(() => badPredicate());
+        }
+
+        [Test]
+        public void Filter_Integers_Are_Dividable_By_Two() {
             var numbers = new Generator()
                 .ToDelegate(g => g.Integer(20))
                 .Filter(x => x % 2 == 0)
+                .GenerateSequence(20);
+            Assert.IsTrue(numbers.All(x => x % 2 == 0));
+        }
+
+        [Test]
+        public void Filter_Integers_Are_Dividable_By_Two_CustomThreshold() {
+            var numbers = new Generator()
+                .ToDelegate(g => g.Integer(20))
+                .Filter(x => x % 2 == 0, 1000)
                 .GenerateSequence(20);
             Assert.IsTrue(numbers.All(x => x % 2 == 0));
         }
@@ -54,8 +83,20 @@ namespace Tests.Integration {
         }
 
         [Test]
+        public void Filter_String_Contains_Mail_Custom_ThreshHold() {
+            var mails = new Generator(new Configurement {MailDomains = new[] {"gmail.com", "foobar.com"}})
+                .ToDelegate(x => x.MailAddress("bob", "doe"))
+                .Filter(x => x.Contains("mail"), 1000)
+                .GenerateSequence(20);
+
+            Assert.IsTrue(mails.All(s => s.Contains("mail")));
+        }
+
+        [Test]
         public void Filter_Threshold_Reached() {
-            var badPredicate = new Generator().ToDelegate(g => g.Bool()).Filter(x => false);
+            var badPredicate = new Generator()
+                .ToDelegate(g => g.Bool())
+                .Filter(x => false);
             Assert.Throws<ArgumentException>(() => badPredicate());
         }
 
