@@ -314,6 +314,31 @@ namespace Sharpy {
             /// <returns></returns>
             public static T Generate<T>(Func<Generator, T> fn, Configurement config)
                 => new Generator(config).Generate(fn);
+
+            /// <summary>
+            ///     <para>
+            ///         Creates a Generator delegate.
+            ///     </para>
+            /// </summary>
+            /// <param name="fn"></param>
+            /// <typeparam name="T"></typeparam>
+            public static Generator<T> GenerationDelegate<T>(Func<Generator, T> fn) {
+                var generator = new Generator();
+                return () => generator.Generate(fn);
+            }
+
+            /// <summary>
+            ///     <para>
+            ///         Creates a Generator delegate using the configurement.
+            ///     </para>
+            /// </summary>
+            /// <param name="fn"></param>
+            /// <param name="config"></param>
+            /// <typeparam name="T"></typeparam>
+            public static Generator<T> GenerationDelegate<T>(Func<Generator, T> fn, Configurement config) {
+                var generator = new Generator(config);
+                return () => generator.Generate(fn);
+            }
         }
     }
 }
