@@ -289,7 +289,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Contains Factory methods
+        ///         Contains Factory methods for generating data by using some of the extension methods on Generator.
         ///     </para>
         /// </summary>
         public static class Builder {
