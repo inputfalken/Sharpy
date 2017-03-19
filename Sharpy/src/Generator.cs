@@ -8,6 +8,7 @@ using Sharpy.IProviders;
 using Sharpy.Properties;
 
 //TODO create static Generation method which uses a new generator every time used.
+
 namespace Sharpy {
     /// <summary>
     ///     <para>
@@ -285,13 +286,34 @@ namespace Sharpy {
         private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
 
         private static string FormatDigit(int i) => i < 10 ? Prefix(i, 1) : i.ToString();
+
         /// <summary>
         ///     <para>
         ///         Contains Factory methods
         ///     </para>
         /// </summary>
         public static class Builder {
-            
+            /// <summary>
+            ///     <para>
+            ///         Creates a new Generator and invokes Generate passing the function.
+            ///     </para>
+            /// </summary>
+            /// <typeparam name="T"></typeparam>
+            /// <param name="fn"></param>
+            /// <returns></returns>
+            public static T Generate<T>(Func<Generator, T> fn) => new Generator().Generate(fn);
+
+            /// <summary>
+            ///     <para>
+            ///         Creates a new Generator using the Configurement and invokes Generate passing the function.
+            ///     </para>
+            /// </summary>
+            /// <typeparam name="T"></typeparam>
+            /// <param name="fn"></param>
+            /// <param name="config"></param>
+            /// <returns></returns>
+            public static T Generate<T>(Func<Generator, T> fn, Configurement config)
+                => new Generator(config).Generate(fn);
         }
     }
 }
