@@ -285,5 +285,13 @@ namespace Sharpy {
         private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
 
         private static string FormatDigit(int i) => i < 10 ? Prefix(i, 1) : i.ToString();
+        /// <summary>
+        ///     <para>
+        ///         Contains Factory methods
+        ///     </para>
+        /// </summary>
+        public static class Builder {
+            
+        }
     }
 }
