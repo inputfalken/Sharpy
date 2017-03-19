@@ -317,6 +317,31 @@ namespace Sharpy {
 
             /// <summary>
             ///     <para>
+            ///         Creates a new Generator and invokes GenerateSequence passing the function and count.
+            ///     </para>
+            /// </summary>
+            /// <typeparam name="T"></typeparam>
+            /// <param name="fn"></param>
+            /// <param name="count"></param>
+            /// <returns></returns>
+            public static IEnumerable<T> GenerateSequence<T>(Func<Generator, T> fn, int count)
+                => new Generator().GenerateSequence(fn, count);
+
+            /// <summary>
+            ///     <para>
+            ///         Creates a new Generator using the Configurement and invokes GenerateSequence passing the function and count.
+            ///     </para>
+            /// </summary>
+            /// <typeparam name="T"></typeparam>
+            /// <param name="fn"></param>
+            /// <param name="count"></param>
+            /// <param name="config"></param>
+            /// <returns></returns>
+            public static IEnumerable<T> GenerateSequence<T>(Func<Generator, T> fn, int count, Configurement config)
+                => new Generator(config).GenerateSequence(fn, count);
+
+            /// <summary>
+            ///     <para>
             ///         Creates a Generator delegate.
             ///     </para>
             /// </summary>
