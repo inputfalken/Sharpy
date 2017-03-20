@@ -14,10 +14,20 @@ namespace Sharpy.Implementation {
     ///     <para>Randomizes Common names by Origin.</para>
     /// </summary>
     public class NameByOrigin : INameProvider {
-        private readonly Origin[] _origins;
-        private readonly Random _random;
+        private static readonly ISet<Origin> Regions = new HashSet<Origin> {
+            Enums.Origin.Europe,
+            Enums.Origin.NorthAmerica,
+            Enums.Origin.CentralAmerica,
+            Enums.Origin.SouthAmerica
+        };
 
-        internal NameByOrigin(Random random) {
+        private readonly ISet<Origin> _origins;
+        private readonly Random _random;
+        private readonly ISet<Origin> _selectedCountries = new HashSet<Origin>();
+        private readonly ISet<Origin> _selectedRegions = new HashSet<Origin>();
+
+
+        private NameByOrigin(Random random) {
             _random = random;
         }
 
@@ -26,25 +36,24 @@ namespace Sharpy.Implementation {
         /// </summary>
         /// <param name="random"></param>
         /// <param name="origins"></param>
-        public NameByOrigin(Random random, params Origin[] origins) {
-            _random = random;
-            _origins = origins;
+        public NameByOrigin(Random random, params Origin[] origins) : this(random) {
+            _origins = new HashSet<Origin>(origins);
+            foreach (var origin in _origins)
+                if (Regions.Contains(origin)) _selectedRegions.Add(origin);
+                else _selectedCountries.Add(origin);
         }
 
         /// <summary>
         ///     <para>Randomizes names based on Origin.</para>
         /// </summary>
         /// <param name="origins"></param>
-        public NameByOrigin(params Origin[] origins) {
-            _random = new Random();
-            _origins = origins;
-        }
+        public NameByOrigin(params Origin[] origins) : this(new Random(), origins) {}
 
 
-        private IEnumerable<Name> Names => LazyNames.Value;
+        private static IEnumerable<Name> Names => LazyNames.Value;
 
 
-        private Lazy<IEnumerable<Name>> LazyNames { get; } =
+        private static Lazy<IEnumerable<Name>> LazyNames { get; } =
             new Lazy<IEnumerable<Name>>(() => JsonConvert.DeserializeObject<IEnumerable<Name>>(
                 Encoding.UTF8.GetString(Resources.NamesByOrigin)));
 
@@ -73,6 +82,21 @@ namespace Sharpy.Implementation {
         public string LastName() => Name(NameType.Last);
 
         /// <summary>
+        ///     <para>
+        ///         Returns the collection used for randomizing names.
+        ///         No argument will get every name.
+        ///         With argument/arguments filters will be used for the origin.
+        ///     </para>
+        /// </summary>
+        /// <param name="origins"></param>
+        /// <returns></returns>
+        public static IEnumerable<string> GetCollection(params Origin[] origins) => origins.Any()
+            ? Names
+                .Where(n => origins.Contains(n.Country) || origins.Contains(n.Region))
+                .Select(n => n.Data)
+            : Names.Select(n => n.Data);
+
+        /// <summary>
         ///     <para>Returns a name based on nametype.</para>
         /// </summary>
         /// <param name="arg"></param>
@@ -85,8 +109,11 @@ namespace Sharpy.Implementation {
             return Dictionary[arg].RandomItem(_random);
         }
 
-        private IEnumerable<Name> Origin(IEnumerable<Name> names) => _origins != null && _origins.Any()
-            ? names.Where(name => _origins.Contains(name.Country) | _origins.Contains(name.Region))
-            : names;
+
+        private IEnumerable<Name> Origin(IEnumerable<Name> names) {
+            return _origins != null && _origins.Any()
+                ? names.Where(name => _selectedCountries.Contains(name.Country) | _selectedRegions.Contains(name.Region))
+                : names;
+        }
     }
 }
