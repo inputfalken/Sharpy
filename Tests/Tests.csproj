@@ -69,7 +69,7 @@
     <Compile Include="Integration\NumberByLength.cs" />
     <Compile Include="Integration\Seed.cs" />
     <Compile Include="Integration\SocialSecurity.cs" />
-    <Compile Include="Integration\String.cs" />
+    <Compile Include="Integration\NameProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
