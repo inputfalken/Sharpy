@@ -297,6 +297,12 @@ namespace Sharpy {
             ///     <para>
             ///         Creates a new Generator and invokes Generate passing the function.
             ///     </para>
+            ///     <para>&#160;</para>
+            ///     <remarks>
+            ///         This method should not be called more than once.
+            ///         Since every invokation will create a new Generator instance.
+            ///         Consider using your own Generator instance and call respective method.
+            ///     </remarks>
             /// </summary>
             /// <typeparam name="T"></typeparam>
             /// <param name="fn"></param>
@@ -307,6 +313,12 @@ namespace Sharpy {
             ///     <para>
             ///         Creates a new Generator using the Configurement and invokes Generate passing the function.
             ///     </para>
+            ///     <para>&#160;</para>
+            ///     <remarks>
+            ///         This method should not be called more than once.
+            ///         Since every invokation will create a new Generator instance.
+            ///         Consider using your own Generator instance and call respective method.
+            ///     </remarks>
             /// </summary>
             /// <typeparam name="T"></typeparam>
             /// <param name="fn"></param>
@@ -319,6 +331,12 @@ namespace Sharpy {
             ///     <para>
             ///         Creates a new Generator and invokes GenerateSequence passing the function and count.
             ///     </para>
+            ///     <para>&#160;</para>
+            ///     <remarks>
+            ///         This method should not be called more than once.
+            ///         Since every invokation will create a new Generator instance.
+            ///         Consider using your own Generator instance and call respective method.
+            ///     </remarks>
             /// </summary>
             /// <typeparam name="T"></typeparam>
             /// <param name="fn"></param>
@@ -331,6 +349,12 @@ namespace Sharpy {
             ///     <para>
             ///         Creates a new Generator using the Configurement and invokes GenerateSequence passing the function and count.
             ///     </para>
+            ///     <para>&#160;</para>
+            ///     <remarks>
+            ///         This method should not be called more than once.
+            ///         Since every invokation will create a new Generator instance.
+            ///         Consider using your own Generator instance and call respective method.
+            ///     </remarks>
             /// </summary>
             /// <typeparam name="T"></typeparam>
             /// <param name="fn"></param>
