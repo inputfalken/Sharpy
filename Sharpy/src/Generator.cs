@@ -7,8 +7,6 @@ using Sharpy.Implementation.ExtensionMethods;
 using Sharpy.IProviders;
 using Sharpy.Properties;
 
-//TODO create static Generation method which uses a new generator every time used.
-
 namespace Sharpy {
     /// <summary>
     ///     <para>
