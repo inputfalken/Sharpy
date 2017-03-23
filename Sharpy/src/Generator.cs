@@ -284,5 +284,102 @@ namespace Sharpy {
         private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
 
         private static string FormatDigit(int i) => i < 10 ? Prefix(i, 1) : i.ToString();
+
+
+        /// <summary>
+        ///     <para>
+        ///         Creates a new Generator and invokes Generate passing the function.
+        ///     </para>
+        ///     <para>&#160;</para>
+        ///     <remarks>
+        ///         This method should not be called more than once.
+        ///         Since every invokation will create a new Generator instance.
+        ///         Consider using your own Generator instance and call Generate.
+        ///     </remarks>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="fn"></param>
+        /// <returns></returns>
+        public static T Element<T>(Func<Generator, T> fn) => new Generator().Generate(fn);
+
+        /// <summary>
+        ///     <para>
+        ///         Creates a new Generator using the Configurement and invokes Generate passing the function.
+        ///     </para>
+        ///     <para>&#160;</para>
+        ///     <remarks>
+        ///         This method should not be called more than once.
+        ///         Since every invokation will create a new Generator instance.
+        ///         Consider using your own Generator instance and call Generate.
+        ///     </remarks>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="fn"></param>
+        /// <param name="config"></param>
+        /// <returns></returns>
+        public static T Element<T>(Func<Generator, T> fn, Configurement config)
+            => new Generator(config).Generate(fn);
+
+        /// <summary>
+        ///     <para>
+        ///         Creates a new Generator and invokes GenerateSequence passing the function and count.
+        ///     </para>
+        ///     <para>&#160;</para>
+        ///     <remarks>
+        ///         This method should not be called more than once.
+        ///         Since every invokation will create a new Generator instance.
+        ///         Consider using your own Generator instance and call GenerateSequence.
+        ///     </remarks>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="fn"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> Sequence<T>(Func<Generator, T> fn, int count)
+            => new Generator().GenerateSequence(fn, count);
+
+        /// <summary>
+        ///     <para>
+        ///         Creates a new Generator using the Configurement and invokes GenerateSequence passing the function and count.
+        ///     </para>
+        ///     <para>&#160;</para>
+        ///     <remarks>
+        ///         This method should not be called more than once.
+        ///         Since every invokation will create a new Generator instance.
+        ///         Consider using your own Generator instance and call GenerateSequence
+        ///     </remarks>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="fn"></param>
+        /// <param name="count"></param>
+        /// <param name="config"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> Sequence<T>(Func<Generator, T> fn, int count, Configurement config)
+            => new Generator(config).GenerateSequence(fn, count);
+
+        /// <summary>
+        ///     <para>
+        ///         Creates a Generator delegate.
+        ///     </para>
+        /// </summary>
+        /// <param name="fn"></param>
+        /// <typeparam name="T"></typeparam>
+        public static Generator<T> Expression<T>(Func<Generator, T> fn) {
+            var generator = new Generator();
+            return () => generator.Generate(fn);
+        }
+
+        /// <summary>
+        ///     <para>
+        ///         Creates a Generator delegate using the configurement.
+        ///     </para>
+        /// </summary>
+        /// <param name="fn"></param>
+        /// <param name="config"></param>
+        /// <typeparam name="T"></typeparam>
+        public static Generator<T> Expression<T>(Func<Generator, T> fn, Configurement config) {
+            var generator = new Generator(config);
+            return () => generator.Generate(fn);
+        }
     }
 }
