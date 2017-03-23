@@ -95,7 +95,6 @@ namespace Sharpy {
             IEnumerable<TSource> source, Func<TGenerator, TSource, int, TResult> func) where TGenerator : Generator
             => source.Select((element, i) => func(generator, element, i));
 
-
         /// <summary>
         ///     <para>
         ///         Turns the Generator into delegate Generator&lt;out T&gt;
@@ -110,7 +109,7 @@ namespace Sharpy {
         /// <typeparam name="TSource"></typeparam>
         /// <typeparam name="TResult"></typeparam>
         public static Generator<TResult> ToDelegate<TSource, TResult>(this TSource generator,
-            Func<TSource, TResult> func) where TSource : Generator => () => generator.Generate(func);
+            Func<TSource, TResult> func) where TSource : Generator => () => generator.Generate(func); //TODO Use expression rather than Func so  optimizations can be done.
 
         /// <summary>
         ///     <para>
