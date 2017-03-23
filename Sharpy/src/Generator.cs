@@ -296,7 +296,7 @@ namespace Sharpy {
         ///     <remarks>
         ///         This method should not be called more than once.
         ///         Since every invokation will create a new Generator instance.
-        ///         Consider using your own Generator instance and call respective method.
+        ///         Consider using your own Generator instance and call Generate.
         ///     </remarks>
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -312,7 +312,7 @@ namespace Sharpy {
         ///     <remarks>
         ///         This method should not be called more than once.
         ///         Since every invokation will create a new Generator instance.
-        ///         Consider using your own Generator instance and call respective method.
+        ///         Consider using your own Generator instance and call Generate.
         ///     </remarks>
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -330,7 +330,7 @@ namespace Sharpy {
         ///     <remarks>
         ///         This method should not be called more than once.
         ///         Since every invokation will create a new Generator instance.
-        ///         Consider using your own Generator instance and call respective method.
+        ///         Consider using your own Generator instance and call GenerateSequence.
         ///     </remarks>
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -348,7 +348,7 @@ namespace Sharpy {
         ///     <remarks>
         ///         This method should not be called more than once.
         ///         Since every invokation will create a new Generator instance.
-        ///         Consider using your own Generator instance and call respective method.
+        ///         Consider using your own Generator instance and call GenerateSequence
         ///     </remarks>
         /// </summary>
         /// <typeparam name="T"></typeparam>
