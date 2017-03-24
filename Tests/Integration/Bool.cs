@@ -4,7 +4,6 @@ namespace Tests.Integration {
     [TestFixture]
     public class Bool {
         [Test]
-        public void Todo() {
-        }
+        public void Todo() {}
     }
 }
