@@ -109,7 +109,9 @@ namespace Sharpy {
         /// <typeparam name="TSource"></typeparam>
         /// <typeparam name="TResult"></typeparam>
         public static Generator<TResult> ToDelegate<TSource, TResult>(this TSource generator,
-            Func<TSource, TResult> func) where TSource : Generator => () => generator.Generate(func); //TODO Use expression rather than Func so  optimizations can be done.
+            Func<TSource, TResult> func) where TSource : Generator => () => generator.Generate(func);
+
+        //TODO Use expression rather than Func so  optimizations can be done.
 
         /// <summary>
         ///     <para>
@@ -120,7 +122,7 @@ namespace Sharpy {
         /// <param name="func"></param>
         /// <typeparam name="TSource"></typeparam>
         /// <typeparam name="TResult"></typeparam>
-        public static Generator<TResult> Map<TSource, TResult>(this Generator<TSource> generator,
+        public static Generator<TResult> Select<TSource, TResult>(this Generator<TSource> generator,
             Func<TSource, TResult> func) => () => func(generator());
 
         /// <summary>
@@ -132,7 +134,7 @@ namespace Sharpy {
         /// <param name="func"></param>
         /// <typeparam name="TSource"></typeparam>
         /// <typeparam name="TResult"></typeparam>
-        public static Generator<TResult> Bind<TSource, TResult>(this Generator<TSource> generator,
+        public static Generator<TResult> SelectMany<TSource, TResult>(this Generator<TSource> generator,
             Func<TSource, Generator<TResult>> func) => () => func(generator())();
 
         /// <summary>
@@ -146,7 +148,7 @@ namespace Sharpy {
         /// <typeparam name="TSource"></typeparam>
         /// <typeparam name="TResult"></typeparam>
         /// <typeparam name="T"></typeparam>
-        public static Generator<TResult> Bind<TSource, TResult, T>(this Generator<TSource> generator,
+        public static Generator<TResult> SelectMany<TSource, TResult, T>(this Generator<TSource> generator,
             Func<TSource, Generator<T>> func, Func<TSource, T, TResult> func2) {
             return () => {
                 var invoke = generator();
@@ -168,7 +170,7 @@ namespace Sharpy {
         /// <param name="prediciate"></param>
         /// <typeparam name="TSource"></typeparam>
         /// <exception cref="ArgumentException"></exception>
-        public static Generator<TSource> Filter<TSource>(this Generator<TSource> generator,
+        public static Generator<TSource> Where<TSource>(this Generator<TSource> generator,
             Func<TSource, bool> prediciate) {
             return () => {
                 for (var i = 0; i < Threshold; i++) {
@@ -194,7 +196,7 @@ namespace Sharpy {
         /// <param name="threshold"></param>
         /// <typeparam name="TSource"></typeparam>
         /// <exception cref="ArgumentException"></exception>
-        public static Generator<TSource> Filter<TSource>(this Generator<TSource> generator,
+        public static Generator<TSource> Where<TSource>(this Generator<TSource> generator,
             Func<TSource, bool> prediciate, int threshold) {
             return () => {
                 for (var i = 0; i < threshold; i++) {
