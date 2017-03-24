@@ -14,7 +14,7 @@ namespace Tests.Integration {
         public void Bind_Flattens() {
             var generator = new Generator()
                 .ToDelegate(g => g.ToDelegate(g2 => g2.Integer()))
-                .Bind(g => g);
+                .SelectMany(g => g);
             Assert.IsInstanceOf<Generator<int>>(generator);
         }
 
@@ -28,7 +28,7 @@ namespace Tests.Integration {
                 .ToDelegate(x => x.Integer(20));
             var gen2 = new Generator(100)
                 .ToDelegate(x => x.Integer(20));
-            var combinedGenerators = gen.Bind(i => gen2, (i, i1) => i + i1);
+            var combinedGenerators = gen.SelectMany(i => gen2, (i, i1) => i + i1);
 
             Assert.IsInstanceOf<Generator<int>>(combinedGenerators);
             Assert.IsTrue(combinedGenerators
@@ -50,7 +50,7 @@ namespace Tests.Integration {
         public void Filter_Custom_Threshold_Reached() {
             var badPredicate = new Generator()
                 .ToDelegate(g => g.Bool())
-                .Filter(x => false, 1000);
+                .Where(x => false, 1000);
             Assert.Throws<ArgumentException>(() => badPredicate());
         }
 
@@ -58,7 +58,7 @@ namespace Tests.Integration {
         public void Filter_Integers_Are_Dividable_By_Two() {
             var numbers = new Generator()
                 .ToDelegate(g => g.Integer(20))
-                .Filter(x => x % 2 == 0)
+                .Where(x => x % 2 == 0)
                 .GenerateSequence(20);
             Assert.IsTrue(numbers.All(x => x % 2 == 0));
         }
@@ -67,7 +67,7 @@ namespace Tests.Integration {
         public void Filter_Integers_Are_Dividable_By_Two_CustomThreshold() {
             var numbers = new Generator()
                 .ToDelegate(g => g.Integer(20))
-                .Filter(x => x % 2 == 0, 1000)
+                .Where(x => x % 2 == 0, 1000)
                 .GenerateSequence(20);
             Assert.IsTrue(numbers.All(x => x % 2 == 0));
         }
@@ -76,7 +76,7 @@ namespace Tests.Integration {
         public void Filter_String_Contains_Mail() {
             var mails = new Generator(new Configurement {MailDomains = new[] {"gmail.com", "foobar.com"}})
                 .ToDelegate(x => x.MailAddress("bob", "doe"))
-                .Filter(x => x.Contains("mail"))
+                .Where(x => x.Contains("mail"))
                 .GenerateSequence(20);
 
             Assert.IsTrue(mails.All(s => s.Contains("mail")));
@@ -86,7 +86,7 @@ namespace Tests.Integration {
         public void Filter_String_Contains_Mail_Custom_ThreshHold() {
             var mails = new Generator(new Configurement {MailDomains = new[] {"gmail.com", "foobar.com"}})
                 .ToDelegate(x => x.MailAddress("bob", "doe"))
-                .Filter(x => x.Contains("mail"), 1000)
+                .Where(x => x.Contains("mail"), 1000)
                 .GenerateSequence(20);
 
             Assert.IsTrue(mails.All(s => s.Contains("mail")));
@@ -96,7 +96,7 @@ namespace Tests.Integration {
         public void Filter_Threshold_Reached() {
             var badPredicate = new Generator()
                 .ToDelegate(g => g.Bool())
-                .Filter(x => false);
+                .Where(x => false);
             Assert.Throws<ArgumentException>(() => badPredicate());
         }
 
@@ -107,7 +107,7 @@ namespace Tests.Integration {
                 .GenerateSequence(20);
             var nameLenghts = new Generator(20)
                 .ToDelegate(x => x.FirstName())
-                .Map(x => x.Length)
+                .Select(x => x.Length)
                 .GenerateSequence(20);
             Assert.IsTrue(names.Select(x => x.Length).SequenceEqual(nameLenghts));
         }

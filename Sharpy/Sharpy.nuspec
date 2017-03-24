@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Sharpy</id>
-    <version>2.2.2</version>
+    <version>2.3.0</version>
     <title>Sharpy</title>
     <authors>Robert Andersson</authors>
     <owners>Robert Andersson</owners>
@@ -19,9 +19,8 @@
       Tested on Net4.6 and Net4.5.
     </description>
     <releaseNotes>
-      1: Updates comments.
-      2: Adds an experimental custom generic delegate with extension methods such as Filter and Map similiar to Where and Select in LINQ.
-      3: Adds extension method "ToDelegate" for Generator and it's children which converts it to the custom delegate.
+      Renames Extension methods of delegate Generator&lt;T&gt; to respective name of LINQ.
+      Adds Static methods to Generator for generating data.
     </releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>Fakedata Generator Generic Lazy</tags>
