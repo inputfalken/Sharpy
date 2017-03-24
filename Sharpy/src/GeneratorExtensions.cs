@@ -14,9 +14,9 @@ namespace Sharpy {
         ///     </para>
         /// </summary>
         /// <param name="generator"></param>
-        /// <param name="func">Supplies a generator.</param>
+        /// <param name="fn">Supplies a generator.</param>
         public static TResult Generate<TGenerator, TResult>(this TGenerator generator,
-            Func<TGenerator, TResult> func) where TGenerator : Generator => func(generator);
+            Func<TGenerator, TResult> fn) where TGenerator : Generator => fn(generator);
 
         /// <summary>
         ///     <para>
@@ -27,11 +27,11 @@ namespace Sharpy {
         ///     </para>
         /// </summary>
         /// <param name="generator"></param>
-        /// <param name="func">Supplies a generator.</param>
+        /// <param name="fn">Supplies a generator.</param>
         /// <param name="count">Count of IEnumerable&lt;TResult&gt;</param>
         public static IEnumerable<TResult> GenerateSequence<TGenerator, TResult>(this TGenerator generator,
-            Func<TGenerator, TResult> func, int count) where TGenerator : Generator {
-            for (var i = 0; i < count; i++) yield return func(generator);
+            Func<TGenerator, TResult> fn, int count) where TGenerator : Generator {
+            for (var i = 0; i < count; i++) yield return fn(generator);
         }
 
         /// <summary>
@@ -46,11 +46,11 @@ namespace Sharpy {
         ///     </para>
         /// </summary>
         /// <param name="generator"></param>
-        /// <param name="func">Supplies a generator combines with an integer tracking the current iteration.</param>
+        /// <param name="fn">Supplies a generator combines with an integer tracking the current iteration.</param>
         /// <param name="count">Count of IEnumerable&lt;TResult&gt;</param>
         public static IEnumerable<TResult> GenerateSequence<TGenerator, TResult>(this TGenerator generator,
-            Func<TGenerator, int, TResult> func, int count) where TGenerator : Generator {
-            for (var i = 0; i < count; i++) yield return func(generator, i);
+            Func<TGenerator, int, TResult> fn, int count) where TGenerator : Generator {
+            for (var i = 0; i < count; i++) yield return fn(generator, i);
         }
 
         /// <summary>
@@ -64,12 +64,12 @@ namespace Sharpy {
         ///         The count will be the same as the Count of IEnumerable&lt;TSource&gt;
         ///     </para>
         ///     <param name="generator"></param>
-        ///     <param name="func">Supplies a generator combined with &lt;TSource&gt; from the source parameter.</param>
+        ///     <param name="fn">Supplies a generator combined with &lt;TSource&gt; from the source parameter.</param>
         ///     <param name="source">TheIEnumerable&lt;TSource&gt; that will be iterated through</param>
         /// </summary>
         public static IEnumerable<TResult> GenerateBySequence<TGenerator, TSource, TResult>(this TGenerator generator,
-            IEnumerable<TSource> source, Func<TGenerator, TSource, TResult> func) where TGenerator : Generator
-            => source.Select(element => func(generator, element));
+            IEnumerable<TSource> source, Func<TGenerator, TSource, TResult> fn) where TGenerator : Generator
+            => source.Select(element => fn(generator, element));
 
         /// <summary>
         ///     <para>
@@ -85,15 +85,15 @@ namespace Sharpy {
         ///         Includes an integer containing the current iteration.
         ///     </para>
         ///     <param name="generator"></param>
-        ///     <param name="func">
+        ///     <param name="fn">
         ///         Supplies a generator combined with &lt;TSource&gt; from the source parameter and an integer
         ///         tracking the current iteration
         ///     </param>
         ///     <param name="source">The IEnumerable&lt;TSource&gt; that will be iterated through</param>
         /// </summary>
         public static IEnumerable<TResult> GenerateBySequence<TGenerator, TSource, TResult>(this TGenerator generator,
-            IEnumerable<TSource> source, Func<TGenerator, TSource, int, TResult> func) where TGenerator : Generator
-            => source.Select((element, i) => func(generator, element, i));
+            IEnumerable<TSource> source, Func<TGenerator, TSource, int, TResult> fn) where TGenerator : Generator
+            => source.Select((element, i) => fn(generator, element, i));
 
         /// <summary>
         ///     <para>
@@ -105,11 +105,11 @@ namespace Sharpy {
         ///     </para>
         /// </summary>
         /// <param name="generator"></param>
-        /// <param name="func"></param>
+        /// <param name="fn"></param>
         /// <typeparam name="TSource"></typeparam>
         /// <typeparam name="TResult"></typeparam>
         public static Generator<TResult> ToDelegate<TSource, TResult>(this TSource generator,
-            Func<TSource, TResult> func) where TSource : Generator => () => generator.Generate(func);
+            Func<TSource, TResult> fn) where TSource : Generator => () => generator.Generate(fn);
 
         //TODO Use expression rather than Func so  optimizations can be done.
 
@@ -119,11 +119,11 @@ namespace Sharpy {
         ///     </para>
         /// </summary>
         /// <param name="generator"></param>
-        /// <param name="func"></param>
+        /// <param name="fn"></param>
         /// <typeparam name="TSource"></typeparam>
         /// <typeparam name="TResult"></typeparam>
         public static Generator<TResult> Select<TSource, TResult>(this Generator<TSource> generator,
-            Func<TSource, TResult> func) => () => func(generator());
+            Func<TSource, TResult> fn) => () => fn(generator());
 
         /// <summary>
         ///     <para>
@@ -131,11 +131,11 @@ namespace Sharpy {
         ///     </para>
         /// </summary>
         /// <param name="generator"></param>
-        /// <param name="func"></param>
+        /// <param name="fn"></param>
         /// <typeparam name="TSource"></typeparam>
         /// <typeparam name="TResult"></typeparam>
         public static Generator<TResult> SelectMany<TSource, TResult>(this Generator<TSource> generator,
-            Func<TSource, Generator<TResult>> func) => () => func(generator())();
+            Func<TSource, Generator<TResult>> fn) => () => fn(generator())();
 
         /// <summary>
         ///     <para>
@@ -143,16 +143,16 @@ namespace Sharpy {
         ///     </para>
         /// </summary>
         /// <param name="generator"></param>
-        /// <param name="func"></param>
-        /// <param name="func2"></param>
+        /// <param name="fn"></param>
+        /// <param name="composer"></param>
         /// <typeparam name="TSource"></typeparam>
         /// <typeparam name="TResult"></typeparam>
         /// <typeparam name="T"></typeparam>
         public static Generator<TResult> SelectMany<TSource, TResult, T>(this Generator<TSource> generator,
-            Func<TSource, Generator<T>> func, Func<TSource, T, TResult> func2) {
+            Func<TSource, Generator<T>> fn, Func<TSource, T, TResult> composer) {
             return () => {
                 var invoke = generator();
-                return func2(invoke, func(invoke)());
+                return composer(invoke, fn(invoke)());
             };
         }
 
@@ -238,13 +238,13 @@ namespace Sharpy {
         ///     </para>
         /// </summary>
         /// <param name="generator"></param>
-        /// <param name="action"></param>
+        /// <param name="fn"></param>
         /// <typeparam name="TSource"></typeparam>
         public static Generator<TSource> Do<TSource>(this Generator<TSource> generator,
-            Action<TSource> action) {
+            Action<TSource> fn) {
             return () => {
                 var source = generator();
-                action(source);
+                fn(source);
                 return source;
             };
         }
