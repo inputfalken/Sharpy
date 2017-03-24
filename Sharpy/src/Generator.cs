@@ -364,7 +364,7 @@ namespace Sharpy {
         /// </summary>
         /// <param name="fn"></param>
         /// <typeparam name="T"></typeparam>
-        public static Generator<T> Expression<T>(Func<Generator, T> fn) {
+        public static Generator<T> Delegate<T>(Func<Generator, T> fn) {
             var generator = new Generator();
             return () => generator.Generate(fn);
         }
@@ -377,7 +377,7 @@ namespace Sharpy {
         /// <param name="fn"></param>
         /// <param name="config"></param>
         /// <typeparam name="T"></typeparam>
-        public static Generator<T> Expression<T>(Func<Generator, T> fn, Configurement config) {
+        public static Generator<T> Delegate<T>(Func<Generator, T> fn, Configurement config) {
             var generator = new Generator(config);
             return () => generator.Generate(fn);
         }
