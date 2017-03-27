@@ -3,7 +3,7 @@ using Sharpy.Implementation.ExtensionMethods;
 
 namespace Sharpy.Implementation {
     internal class SecurityNumberGen : Unique<long> {
-        public SecurityNumberGen(Random random) : base(random) {}
+        public SecurityNumberGen(Random random) : base(random) { }
 
 
         internal long SecurityNumber(int controlNumber, string dateNumber) {

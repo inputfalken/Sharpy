@@ -47,7 +47,7 @@ namespace Sharpy.Implementation {
         ///     <para>Randomizes names based on Origin.</para>
         /// </summary>
         /// <param name="origins"></param>
-        public NameByOrigin(params Origin[] origins) : this(new Random(), origins) {}
+        public NameByOrigin(params Origin[] origins) : this(new Random(), origins) { }
 
 
         private static IEnumerable<Name> Names => LazyNames.Value;
@@ -66,20 +66,25 @@ namespace Sharpy.Implementation {
         /// </summary>
         /// <param name="gender"></param>
         /// <returns></returns>
-        public string FirstName(Gender gender)
-            => Name(gender == Gender.Male ? NameType.MaleFirst : NameType.FemaleFirst);
+        public string FirstName(Gender gender) {
+            return Name(gender == Gender.Male ? NameType.MaleFirst : NameType.FemaleFirst);
+        }
 
         /// <summary>
         ///     <para>Returns a randomized First name</para>
         /// </summary>
         /// <returns></returns>
-        public string FirstName() => Name(_random.Next(2) == 0 ? NameType.FemaleFirst : NameType.MaleFirst);
+        public string FirstName() {
+            return Name(_random.Next(2) == 0 ? NameType.FemaleFirst : NameType.MaleFirst);
+        }
 
         /// <summary>
         ///     <para>Returns a randomized last name.</para>
         /// </summary>
         /// <returns></returns>
-        public string LastName() => Name(NameType.Last);
+        public string LastName() {
+            return Name(NameType.Last);
+        }
 
         /// <summary>
         ///     <para>
@@ -90,11 +95,13 @@ namespace Sharpy.Implementation {
         /// </summary>
         /// <param name="origins"></param>
         /// <returns></returns>
-        public static IEnumerable<string> GetCollection(params Origin[] origins) => origins.Any()
-            ? Names
-                .Where(n => origins.Contains(n.Country) || origins.Contains(n.Region))
-                .Select(n => n.Data)
-            : Names.Select(n => n.Data);
+        public static IEnumerable<string> GetCollection(params Origin[] origins) {
+            return origins.Any()
+                ? Names
+                    .Where(n => origins.Contains(n.Country) || origins.Contains(n.Region))
+                    .Select(n => n.Data)
+                : Names.Select(n => n.Data);
+        }
 
         /// <summary>
         ///     <para>Returns a name based on nametype.</para>
@@ -112,7 +119,8 @@ namespace Sharpy.Implementation {
 
         private IEnumerable<Name> Origin(IEnumerable<Name> names) {
             return _origins != null && _origins.Any()
-                ? names.Where(name => _selectedCountries.Contains(name.Country) | _selectedRegions.Contains(name.Region))
+                ? names.Where(
+                    name => _selectedCountries.Contains(name.Country) | _selectedRegions.Contains(name.Region))
                 : names;
         }
     }

@@ -17,7 +17,8 @@ namespace Sharpy.Implementation.ExtensionMethods {
     }
 
     internal static class EnumerableExtensions {
-        internal static IEnumerable<T> Randomize<T>(this IEnumerable<T> source, Random rnd)
-            => source.OrderBy(item => rnd.Next());
+        internal static IEnumerable<T> Randomize<T>(this IEnumerable<T> source, Random rnd) {
+            return source.OrderBy(item => rnd.Next());
+        }
     }
 }

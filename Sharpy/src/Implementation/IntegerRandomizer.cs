@@ -21,7 +21,9 @@ namespace Sharpy.Implementation {
         /// </summary>
         /// <param name="max"></param>
         /// <returns></returns>
-        public int Integer(int max) => _random.Next(max);
+        public int Integer(int max) {
+            return _random.Next(max);
+        }
 
         /// <summary>
         ///     <para>Returns a randomized integer within min and max</para>
@@ -39,6 +41,8 @@ namespace Sharpy.Implementation {
         ///     <para>Returns a randomized integer within 0 and int.MaxValue</para>
         /// </summary>
         /// <returns></returns>
-        public int Integer() => _random.Next();
+        public int Integer() {
+            return _random.Next();
+        }
     }
 }

@@ -8,61 +8,64 @@ namespace Tests.Integration {
     public class Integer {
         private const int Length = 1000000;
 
+
         [Test]
         public void NoArgument() {
-            var ints =
-                new Generator().GenerateSequence(
-                    generator => generator.Integer(), Length);
+            var ints = Productor.Return(new Provider())
+                .Select(generator => generator.Integer())
+                .Take(Length);
             Assert.IsTrue(ints.All(l => l > int.MinValue && l < int.MaxValue));
 
-            var intInstance =
-                new Generator().Generate(generator => generator.Integer());
+            var intInstance = Productor.Return(new Provider()).Select(generator => generator.Integer()).Produce();
             Assert.IsTrue(intInstance > int.MinValue && intInstance < int.MaxValue);
         }
 
         [Test]
         public void NotDefaultValue() {
-            var generator = new Generator();
+            var generator = Productor.Return(new Provider());
             //many
-            Assert.IsFalse(generator.GenerateSequence(generatorr => generatorr.Integer(1, 100), 100).All(i => i == 0));
+            Assert.IsFalse(
+                generator.Select(generatorr => generatorr.Integer(1, 100)).Take(100).All(i => i == 0)
+            );
 
             //Single
-            Assert.IsFalse(generator.Generate(generatorr => generatorr.Integer(1, 100)) == 0);
+            Assert.IsFalse(generator.Select(generatorr => generatorr.Integer(1, 100)).Produce() == 0);
         }
 
         [Test]
         public void One_Arg_MaxValue() {
-            var ints = new Generator().GenerateSequence(
-                generator => generator.Integer(int.MaxValue), Length);
+            var ints = Productor.Return(new Provider())
+                .Select(generator => generator.Integer(int.MaxValue))
+                .Take(Length);
             Assert.IsTrue(ints.All(l => l >= 0));
 
             var intInstance =
-                new Generator().Generate(
-                    generator => generator.Integer(int.MaxValue));
+                Productor.Return(new Provider()).Select(generator => generator.Integer(int.MaxValue)).Produce();
             Assert.IsTrue(intInstance >= 0);
         }
 
         [Test]
         public void One_Arg_minusOne() {
             var ints =
-                new Generator().GenerateSequence(
-                    generator => generator.Integer(-1), Length);
+                Productor.Return(new Provider())
+                    .Select(generator => generator.Integer(-1))
+                    .Take(Length);
             Assert.Throws<ArgumentOutOfRangeException>(() => ints.ToArray());
 
             Assert.Throws<ArgumentOutOfRangeException>(
-                () => new Generator().Generate(generator => generator.Integer(-1)));
+                () => Productor.Return(new Provider()).Select(generator => generator.Integer(-1)).Produce());
         }
 
         [Test]
         public void One_Arg_Thousand() {
             const int max = 1000;
             var ints =
-                new Generator().GenerateSequence(
-                    generator => generator.Integer(max), Length);
+                Productor.Return(new Provider())
+                    .Select(generator => generator.Integer(max))
+                    .Take(Length);
             Assert.IsTrue(ints.All(l => l >= 0 && l < max));
 
-            var intInstance =
-                new Generator().Generate(generator => generator.Integer(max));
+            var intInstance = Productor.Return(new Provider()).Select(generator => generator.Integer(max)).Produce();
             Assert.IsTrue(intInstance >= 0 && intInstance < max);
         }
 
@@ -72,15 +75,14 @@ namespace Tests.Integration {
             const int min = -1000;
             const int max = -2000;
             var ints =
-                new Generator().GenerateSequence(
-                    generator => generator.Integer(min, max),
-                    Length);
+                Productor.Return(new Provider())
+                    .Select(generator => generator.Integer(min, max))
+                    .Take(Length);
             Assert.Throws<ArgumentOutOfRangeException>(() => ints.ToArray());
 
             Assert.Throws<ArgumentOutOfRangeException>(
                 () =>
-                    new Generator().Generate(
-                        generator => generator.Integer(min, max)));
+                    Productor.Return(new Provider()).Select(generator => generator.Integer(min, max)).Produce());
         }
 
         [Test]
@@ -88,13 +90,13 @@ namespace Tests.Integration {
             const int min = -1000;
             const int max = 2000;
             var ints =
-                new Generator().GenerateSequence(
-                    generator => generator.Integer(min, max),
-                    Length);
+                Productor.Return(new Provider())
+                    .Select(generator => generator.Integer(min, max))
+                    .Take(Length);
             Assert.IsTrue(ints.All(l => l >= min && l < max));
 
             var intInstance =
-                new Generator().Generate(generator => generator.Integer(min, max));
+                Productor.Return(new Provider()).Select(generator => generator.Integer(min, max)).Produce();
             Assert.IsTrue(intInstance >= min && intInstance < max);
         }
 
@@ -103,26 +105,25 @@ namespace Tests.Integration {
             const int min = -2000;
             const int max = -1000;
             var ints =
-                new Generator().GenerateSequence(
-                    generator => generator.Integer(min, max),
-                    Length);
+                Productor.Return(new Provider())
+                    .Select(generator => generator.Integer(min, max))
+                    .Take(Length);
             Assert.IsTrue(ints.All(l => l >= min && l < max));
 
             var intInstance =
-                new Generator().Generate(generator => generator.Integer(min, max));
+                Productor.Return(new Provider()).Select(generator => generator.Integer(min, max)).Produce();
             Assert.IsTrue(intInstance >= min && intInstance < max);
         }
 
         [Test]
         public void Two_Args_MinValue_And_Zero() {
             var ints =
-                new Generator().GenerateSequence(
-                    generator => generator.Integer(int.MinValue, 0),
-                    Length);
+                Productor.Return(new Provider())
+                    .Select(generator => generator.Integer(int.MinValue, 0))
+                    .Take(Length);
             Assert.IsTrue(ints.All(l => l < 0));
             var intInstance =
-                new Generator().Generate(
-                    generator => generator.Integer(int.MinValue, 0));
+                Productor.Return(new Provider()).Select(generator => generator.Integer(int.MinValue, 0)).Produce();
 
             Assert.IsTrue(intInstance < 0);
         }
@@ -133,27 +134,26 @@ namespace Tests.Integration {
             const int min = 1000;
             const int max = 2000;
             var ints =
-                new Generator().GenerateSequence(
-                    generator => generator.Integer(min, max),
-                    Length);
+                Productor.Return(new Provider())
+                    .Select(generator => generator.Integer(min, max))
+                    .Take(Length);
             Assert.IsTrue(ints.All(l => l >= min && l < max));
 
             var intInstance =
-                new Generator().Generate(generator => generator.Integer(min, max));
+                Productor.Return(new Provider()).Select(generator => generator.Integer(min, max)).Produce();
             Assert.IsTrue(intInstance >= min && intInstance < max);
         }
 
         [Test]
         public void Two_Args_Zero_And_MaxValue() {
             var ints =
-                new Generator().GenerateSequence(
-                    generator => generator.Integer(0, int.MaxValue),
-                    Length);
+                Productor.Return(new Provider())
+                    .Select(generator => generator.Integer(0, int.MaxValue))
+                    .Take(Length);
             Assert.IsTrue(ints.All(l => l > 0));
 
             var intInstance =
-                new Generator().Generate(
-                    generator => generator.Integer(0, int.MaxValue));
+                Productor.Return(new Provider()).Select(generator => generator.Integer(0, int.MaxValue)).Produce();
             Assert.IsTrue(intInstance > 0);
         }
     }
