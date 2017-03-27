@@ -11,63 +11,65 @@ namespace Tests.Integration {
         [Test]
         public void NoArgument() {
             var longs =
-                new Generator().GenerateSequence(generator => generator.Long(),
-                    Length);
+                Productor.Return(new Provider())
+                    .Select(generator => generator.Long())
+                    .Take(Length);
             Assert.IsTrue(longs.All(l => l > long.MinValue && l < long.MaxValue));
 
             var longInstance =
-                new Generator().Generate(generator => generator.Long());
+                Productor.Return(new Provider()).Select(generator => generator.Long()).Produce();
             Assert.IsTrue(longInstance > long.MinValue && longInstance < long.MaxValue);
         }
 
         [Test]
         public void One_Arg_MaxValue() {
             var longs =
-                new Generator().GenerateSequence(
-                    generator => generator.Long(long.MaxValue),
-                    Length);
+                Productor.Return(new Provider())
+                    .Select(generator => generator.Long(long.MaxValue))
+                    .Take(Length);
             Assert.IsTrue(longs.All(l => l >= 0));
 
             var longInstance =
-                new Generator().Generate(
-                    generator => generator.Long(long.MaxValue));
+                Productor.Return(new Provider()).Select(generator => generator.Long(long.MaxValue)).Produce();
             Assert.IsTrue(longInstance >= 0);
         }
 
         [Test]
         public void One_Arg_MinusOne() {
             var longs =
-                new Generator().GenerateSequence(generator => generator.Long(-1),
-                    Length);
+                Productor.Return(new Provider())
+                    .Select(generator => generator.Long(-1))
+                    .Take(Length);
             Assert.Throws<ArgumentOutOfRangeException>(() => longs.ToArray());
 
             Assert.Throws<ArgumentOutOfRangeException>(
-                () => new Generator().Generate(generator => generator.Long(-1)));
+                () => Productor.Return(new Provider()).Select(generator => generator.Long(-1)).Produce());
         }
 
         [Test]
         public void One_Arg_Thousand() {
             const int max = 1000;
             var longs =
-                new Generator().GenerateSequence(
-                    generator => generator.Long(max), Length);
+                Productor.Return(new Provider())
+                    .Select(generator => generator.Long(max))
+                    .Take(Length);
             Assert.IsTrue(longs.All(l => l >= 0 && l < max));
 
-            var longInstance =
-                new Generator().Generate(generator => generator.Long(max));
+            var longInstance =Productor.Return(new Provider()).Select(generator => generator.Long(max)).Produce();
             Assert.IsTrue(longInstance >= 0 && longInstance < max);
         }
 
         [Test]
         public void One_Arg_Zero() {
             var longs =
-                new Generator().GenerateSequence(generator => generator.Long(0),
-                    Length);
+                Productor.Return(new Provider())
+                    .Select(generator => generator.Long(0))
+                    .Take(Length);
             Assert.Throws<ArgumentOutOfRangeException>(() => longs.ToArray());
 
 
             Assert.Throws<ArgumentOutOfRangeException>(
-                () => new Generator().Generate(generator => generator.Long(0)));
+                () => Productor.Return(new Provider()).Select(generator => generator.Long(0)).Produce());
         }
 
         [Test]
@@ -75,15 +77,14 @@ namespace Tests.Integration {
             const int min = -1000;
             const int max = -2000;
             var longs =
-                new Generator().GenerateSequence(
-                    generator => generator.Long(min, max),
-                    Length);
+                Productor.Return(new Provider())
+                    .Select(generator => generator.Long(min, max))
+                    .Take(Length);
             Assert.Throws<ArgumentOutOfRangeException>(() => longs.ToArray());
 
             Assert.Throws<ArgumentOutOfRangeException>(
                 () =>
-                    new Generator().Generate(
-                        generator => generator.Long(min, max)));
+                    Productor.Return(new Provider()).Select(generator => generator.Long(min, max)).Produce());
         }
 
         [Test]
@@ -91,13 +92,12 @@ namespace Tests.Integration {
             const int min = -1000;
             const int max = 2000;
             var longs =
-                new Generator().GenerateSequence(
-                    generator => generator.Long(min, max),
-                    Length);
+                Productor.Return(new Provider())
+                    .Select(generator => generator.Long(min, max))
+                    .Take(Length);
             Assert.IsTrue(longs.All(l => l >= min && l < max));
 
-            var longInstance =
-                new Generator().Generate(generator => generator.Long(min, max));
+            var longInstance =Productor.Return(new Provider()).Select(generator => generator.Long(min, max)).Produce();
             Assert.IsTrue(longInstance >= min && longInstance < max);
         }
 
@@ -106,26 +106,25 @@ namespace Tests.Integration {
             const int min = -2000;
             const int max = -1000;
             var longs =
-                new Generator().GenerateSequence(
-                    generator => generator.Long(min, max),
-                    Length);
+                Productor.Return(new Provider())
+                    .Select(generator => generator.Long(min, max))
+                    .Take(Length);
             Assert.IsTrue(longs.All(l => l >= min && l < max));
 
             var longInstance =
-                new Generator().Generate(generator => generator.Long(min, max));
+                Productor.Return(new Provider()).Select(generator => generator.Long(min, max)).Produce();
             Assert.IsTrue(longInstance >= min && longInstance < max);
         }
 
         [Test]
         public void Two_Args_MinValue_And_Zero() {
             var longs =
-                new Generator().GenerateSequence(
-                    generator => generator.Long(long.MinValue, 0),
-                    Length);
+                Productor.Return(new Provider())
+                    .Select(generator => generator.Long(long.MinValue, 0))
+                    .Take(Length);
             Assert.IsTrue(longs.All(l => l < 0));
             var longInstance =
-                new Generator().Generate(
-                    generator => generator.Long(long.MinValue, 0));
+                Productor.Return(new Provider()).Select(generator => generator.Long(long.MinValue, 0)).Produce();
 
             Assert.IsTrue(longInstance < 0);
         }
@@ -136,27 +135,26 @@ namespace Tests.Integration {
             const int min = 1000;
             const int max = 2000;
             var longs =
-                new Generator().GenerateSequence(
-                    generator => generator.Long(min, max),
-                    Length);
+                Productor.Return(new Provider())
+                    .Select(generator => generator.Long(min, max))
+                    .Take(Length);
             Assert.IsTrue(longs.All(l => l >= min && l < max));
 
             var longInstance =
-                new Generator().Generate(generator => generator.Long(min, max));
+                Productor.Return(new Provider()).Select(generator => generator.Long(min, max)).Produce();
             Assert.IsTrue(longInstance >= min && longInstance < max);
         }
 
         [Test]
         public void Two_Args_Zero_And_MaxValue() {
             var longs =
-                new Generator().GenerateSequence(
-                    generator => generator.Long(0, long.MaxValue),
-                    Length);
+                Productor.Return(new Provider())
+                    .Select(generator => generator.Long(0, long.MaxValue))
+                    .Take(Length);
             Assert.IsTrue(longs.All(l => l > 0));
 
             var longInstance =
-                new Generator().Generate(
-                    generator => generator.Long(0, long.MaxValue));
+                Productor.Return(new Provider()).Select(generator => generator.Long(0, long.MaxValue)).Produce();
             Assert.IsTrue(longInstance > 0);
         }
     }

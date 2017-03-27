@@ -18,71 +18,80 @@ namespace Tests.Integration {
                     var configurement = new Configurement {
                         NameProvider = new NameByOrigin((Origin) value)
                     };
-                    new Generator(configurement).Generate(g => g.FirstName());
+                    Productor.Return(new Provider(configurement)).Select(g => g.FirstName()).Produce();
                 });
         }
 
         [Test]
         public void Female_First_Name_Not_Null_Or_White_Space() {
-            var gen = new Generator();
+            var gen = Productor.Return(new Provider());
             //Many
-            var names = gen.GenerateSequence(g => g.FirstName(Gender.Female), Count).ToArray();
+            var names = gen.Select(g => g.FirstName(Gender.Female)).Take(Count).ToArray();
             Assert.IsFalse(names.All(string.IsNullOrEmpty));
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var name = gen.Generate(g => g.FirstName(Gender.Female));
+            var name = gen.Select(g => g.FirstName(Gender.Female)).Produce();
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
         }
 
         [Test]
         public void First_Name_Not_Null_Or_White_Space() {
-            var gen = new Generator();
+            var gen = Productor.Return(new Provider());
             //Many
-            var names = gen.GenerateSequence(g => g.FirstName(), Count).ToArray();
+            var names = gen
+                .Select(g => g.FirstName())
+                .Take(Count).ToArray();
             Assert.IsFalse(names.All(string.IsNullOrEmpty));
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var name = gen.Generate(g => g.FirstName());
+            var name = gen.Select(g => g.FirstName()).Produce();
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
         }
 
         [Test]
         public void Last_Name_Not_Null_Or_White_Space() {
-            var gen = new Generator();
+            var gen = Productor.Return(new Provider());
             //Many
-            var names = gen.GenerateSequence(g => g.LastName(), Count).ToArray();
+            var names = gen
+                .Select(g => g.LastName())
+                .Take(Count)
+                .ToArray();
             Assert.IsFalse(names.All(string.IsNullOrEmpty));
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var name = gen.Generate(g => g.LastName());
+            var name =gen.Select(g => g.LastName()).Produce();
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
         }
 
         [Test]
         public void Male_First_Name_Not_Null_Or_White_Space() {
-            var gen = new Generator();
+            var gen = Productor.Return(new Provider());
             //Many
-            var names = gen.GenerateSequence(g => g.FirstName(Gender.Male), Count).ToArray();
+            var names = gen
+                .Select(g => g.FirstName(Gender.Male))
+                .Take(Count).ToArray();
             Assert.IsFalse(names.All(string.IsNullOrEmpty));
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var name = gen.Generate(g => g.FirstName(Gender.Male));
+            var name =gen.Select(g => g.FirstName(Gender.Male)).Produce();
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
         }
 
         [Test]
         public void Origin_Restricted_Constructor_With_One_Country() {
-            var swedishNameGenerator = new Generator(new Configurement {NameProvider = new NameByOrigin(Origin.Sweden)});
+            var swedishNameGenerator =
+                Productor.Return(new Provider(new Configurement {NameProvider = new NameByOrigin(Origin.Sweden)}));
             var swedishNames = swedishNameGenerator
-                .GenerateSequence(g => g.FirstName(), Count)
+                .Select(g => g.FirstName())
+                .Take(Count)
                 .ToArray();
             var allFinishNames = NameByOrigin.GetCollection(Origin.Finland);
             var allSwedishNames = NameByOrigin.GetCollection(Origin.Sweden);
@@ -92,13 +101,14 @@ namespace Tests.Integration {
 
         [Test]
         public void Origin_Restricted_Constructor_With_One_Country_And_One_Region() {
-            var svDkGenerator = new Generator(
+            var svDkGenerator = Productor.Return(new Provider(
                 new Configurement {
                     NameProvider = new NameByOrigin(Origin.Sweden, Origin.NorthAmerica)
                 }
-            );
+            ));
             var swedishNorthAmericanNames = svDkGenerator
-                .GenerateSequence(g => g.FirstName(), Count)
+                .Select(g => g.FirstName())
+                .Take(Count)
                 .ToArray();
             var allSwedishAndNorthAmericanNames = NameByOrigin.GetCollection(Origin.Sweden, Origin.NorthAmerica);
             var allDanishNames = NameByOrigin.GetCollection(Origin.Denmark);
@@ -108,13 +118,14 @@ namespace Tests.Integration {
 
         [Test]
         public void Origin_Restricted_Constructor_With_Two_Countries() {
-            var svDkGenerator = new Generator(
+            var svDkGenerator = Productor.Return(new Provider(
                 new Configurement {
                     NameProvider = new NameByOrigin(Origin.Sweden, Origin.Denmark)
                 }
-            );
+            ));
             var svDkNames = svDkGenerator
-                .GenerateSequence(g => g.FirstName(), Count)
+                .Select(g => g.FirstName())
+                .Take(Count)
                 .ToArray();
             var allFinishNames = NameByOrigin.GetCollection(Origin.Finland);
             var allSvDkNames = NameByOrigin.GetCollection(Origin.Sweden, Origin.Denmark);
@@ -124,13 +135,14 @@ namespace Tests.Integration {
 
         [Test]
         public void Origin_Restricted_Constructor_With_Two_Regions() {
-            var svDkGenerator = new Generator(
+            var svDkGenerator = Productor.Return(new Provider(
                 new Configurement {
                     NameProvider = new NameByOrigin(Origin.Europe, Origin.NorthAmerica)
                 }
-            );
+            ));
             var europeanAndNorthAmericanNames = svDkGenerator
-                .GenerateSequence(g => g.FirstName(), Count)
+                .Select(g => g.FirstName())
+                .Take(Count)
                 .ToArray();
             var allEuropeanAndNorthAmericanNames = NameByOrigin.GetCollection(Origin.Europe, Origin.NorthAmerica);
             var allBrazilianNames = NameByOrigin.GetCollection(Origin.Brazil);
@@ -140,14 +152,14 @@ namespace Tests.Integration {
 
         [Test]
         public void User_Name_Not_Null_Or_White_Space() {
-            var gen = new Generator();
+            var gen = Productor.Return(new Provider());
             //Many
-            var userNames = gen.GenerateSequence(g => g.UserName(), Count).ToArray();
+            var userNames = gen.Select(g => g.UserName()).Take(Count).ToArray();
             Assert.IsFalse(userNames.All(string.IsNullOrEmpty));
             Assert.IsFalse(userNames.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var userName = gen.Generate(g => g.UserName());
+            var userName =gen.Select(g => g.UserName()).Produce();
             Assert.IsFalse(string.IsNullOrEmpty(userName));
             Assert.IsFalse(string.IsNullOrWhiteSpace(userName));
         }

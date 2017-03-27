@@ -7,21 +7,22 @@ namespace Tests.Integration {
     public class DateByYear {
         [Test]
         public void Arg_MinusOne() {
-            var randomGenerator = new Generator();
-            Assert.Throws<ArgumentException>(() => randomGenerator.Generate(generator => generator.DateByYear(-1)));
+            var randomGenerator =  Productor.Return(new Provider());
+            Assert.Throws<ArgumentException>(
+                () => randomGenerator.Select(generator => generator.DateByYear(-1)).Produce());
         }
 
         [Test]
         public void Arg_TwoThousand() {
-            var randomGenerator = new Generator();
-            var result = randomGenerator.Generate(generator => generator.DateByYear(2000));
+            var randomGenerator =  Productor.Return(new Provider());
+            var result = randomGenerator.Select(generator => generator.DateByYear(2000)).Produce();
             Assert.AreEqual(result.Year, 2000);
         }
 
         [Test]
         public void Arg_TwoThousandTen() {
-            var randomGenerator = new Generator();
-            var result = randomGenerator.Generate(generator => generator.DateByYear(2010));
+            var randomGenerator =  Productor.Return(new Provider());
+            var result = randomGenerator.Select(generator => generator.DateByYear(2010)).Produce();
             Assert.AreEqual(result.Year, 2010);
         }
     }

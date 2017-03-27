@@ -46,12 +46,16 @@ namespace Sharpy.Implementation {
         ///     Returns a random long from 0 (inclusive) to max (exclusive)
         /// </summary>
         /// <param name="max">The exclusive maximum bound.  Must be greater than 0</param>
-        public long Long(long max) => Long(0, max);
+        public long Long(long max) {
+            return Long(0, max);
+        }
 
         /// <summary>
         ///     Returns a random long over all possible values of long (except long.MaxValue, similar to
         ///     random.Next())
         /// </summary>
-        public long Long() => Long(long.MinValue, long.MaxValue);
+        public long Long() {
+            return Long(long.MinValue, long.MaxValue);
+        }
     }
 }

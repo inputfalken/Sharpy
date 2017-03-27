@@ -15,7 +15,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         The random will be used for the Generator.
+        ///         The random will be used for the Provider.
         ///     </para>
         /// </summary>
         /// <param name="random"></param>
@@ -33,18 +33,18 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         The seed supplied will be used to instantiate System.Random, for the Generator.
+        ///         The seed supplied will be used to instantiate System.Random, for the Provider.
         ///     </para>
         /// </summary>
         /// <param name="seed"></param>
-        public Configurement(int seed) : this(new Random(seed)) {}
+        public Configurement(int seed) : this(new Random(seed)) { }
 
         /// <summary>
         ///     <para>
         ///         Creates a random by Tick.
         ///     </para>
         /// </summary>
-        public Configurement() : this(new Random()) {}
+        public Configurement() : this(new Random()) { }
 
         internal EmailBuilder EmailBuilder { get; set; }
 
@@ -56,7 +56,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Gets and Sets the implementation which Generator's FirstName, LastName methods use.
+        ///         Gets and Sets the implementation which Provider's FirstName, LastName methods use.
         ///     </para>
         ///     <para>
         ///         By default the names loaded from an internal file supplied by this library.
@@ -66,7 +66,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Gets and Sets the implementation which Generator's Double methods use.
+        ///         Gets and Sets the implementation which Provider's Double methods use.
         ///     </para>
         ///     <para>
         ///         By Default the doubles are randomized.
@@ -76,7 +76,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Gets and Sets the implementation which Generator's Integer methods use.
+        ///         Gets and Sets the implementation which Provider's Integer methods use.
         ///     </para>
         ///     <para>
         ///         By Default the ints are randomized.
@@ -86,7 +86,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Gets and Sets the implementation which Generator's Long methods use.
+        ///         Gets and Sets the implementation which Provider's Long methods use.
         ///     </para>
         ///     <para>
         ///         By Default the longs are randomized.
@@ -96,7 +96,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Gets the Random which the Generator will use.
+        ///         Gets the Random which the Provider will use.
         ///     </para>
         /// </summary>
         public Random Random { get; }
@@ -106,14 +106,14 @@ namespace Sharpy {
         ///         Gets and Sets the maildomains which will be used for generating MailAddresses.
         ///     </para>
         ///     <para>
-        ///         This affects Generator's MailAddress method.
+        ///         This affects Provider's MailAddress method.
         ///     </para>
         ///     <para>
         ///         Set to gmail.com, hotmail.com and yahoo.com by default.
         ///     </para>
         /// </summary>
         public IReadOnlyList<string> MailDomains {
-            get { return _mailDomains; }
+            get => _mailDomains;
             set {
                 EmailBuilder = new EmailBuilder(value, Random);
                 _mailDomains = value;
@@ -122,7 +122,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Gets and Sets if Generator's NumberByLength returns unique numbers.
+        ///         Gets and Sets if Provider's NumberByLength returns unique numbers.
         ///     </para>
         ///     <para>
         ///         Set to false by Default
@@ -130,7 +130,7 @@ namespace Sharpy {
         ///     <para>
         ///         NOTE:
         ///         If this is set to true the following will happen.
-        ///         Generator's NumberByLength method will throw an exception if called more than Length^10
+        ///         Provider's NumberByLength method will throw an exception if called more than Length^10
         ///     </para>
         /// </summary>
         public bool UniqueNumbers { get; set; }

@@ -26,7 +26,7 @@ namespace Sharpy.Implementation {
         ///     Contains the email providers
         /// </summary>
         private IReadOnlyList<string> EmailDomains {
-            set { EmailDomainsEnumerator = value.GetEnumerator(); }
+            set => EmailDomainsEnumerator = value.GetEnumerator();
         }
 
         /// <summary>
@@ -72,6 +72,8 @@ namespace Sharpy.Implementation {
         }
 
 
-        private string ResolveDuplicate(string item) => item.Append(Random.Next(10));
+        private string ResolveDuplicate(string item) {
+            return item.Append(Random.Next(10));
+        }
     }
 }

@@ -22,8 +22,8 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = new Generator(configurement);
-            var generate = randomGenerator.Generate(generator => generator.MailAddress("hello"));
+            var randomGenerator = Productor.Return(new Provider(configurement));
+            var generate = randomGenerator.Select(generator => generator.MailAddress("hello")).Produce();
             Assert.AreEqual(14, generate.Length);
         }
 
@@ -33,24 +33,29 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com", "test2.com", "test3.com", "test4.com"}
             };
-            var randomGenerator = new Generator(configurement);
-            var mails = randomGenerator.GenerateSequence(generator => generator.MailAddress("john", "doe"), 12);
+            var randomGenerator = Productor.Return(new Provider(configurement));
+            var mails = randomGenerator.
+                Select(generator => generator.MailAddress("john", "doe"))
+                .Take(12);
             Assert.IsTrue(FindDuplicates(mails).Count == 0);
         }
 
 
         [Test]
         public void MailsAreNotnull() {
-            var generator = new Generator();
+            var generator = Productor.Return(new Provider());
             //Many
-            var mails = generator.GenerateSequence(g => g.MailAddress(MailUserName), 20).ToArray();
+            var mails = generator
+                .Select(g => g.MailAddress(MailUserName))
+                .Take(20)
+                .ToArray();
             Assert.IsFalse(mails.All(string.IsNullOrEmpty));
             Assert.IsFalse(mails.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var masil = generator.Generate(g => g.MailAddress(MailUserName));
-            Assert.IsFalse(string.IsNullOrWhiteSpace(masil));
-            Assert.IsFalse(string.IsNullOrEmpty(masil));
+            var mail = generator.Select(g => g.MailAddress(MailUserName)).Produce();
+            Assert.IsFalse(string.IsNullOrWhiteSpace(mail));
+            Assert.IsFalse(string.IsNullOrEmpty(mail));
         }
 
         [Test]
@@ -58,8 +63,10 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = new Generator(configurement);
-            var mails = randomGenerator.GenerateSequence(generator => generator.MailAddress("john"), 12);
+            var randomGenerator = Productor.Return(new Provider(configurement));
+            var mails = randomGenerator
+                .Select(generator => generator.MailAddress("john"))
+                .Take(12);
             Assert.IsTrue(mails.SelectMany(s => s).Any(char.IsNumber));
         }
 
@@ -68,11 +75,13 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = new Generator(configurement);
+            var randomGenerator = Productor.Return(new Provider(configurement));
             //Should not contain any numbers
-            Assert.IsTrue(randomGenerator.Generate(generator => generator.MailAddress("bob")).Any(c => !char.IsDigit(c)));
+            Assert.IsTrue(
+                randomGenerator.Select(generator => generator.MailAddress("bob")).Produce().Any(c => !char.IsDigit(c)));
             //Should contain a number since all possible combinations have been used
-            Assert.IsTrue(randomGenerator.Generate(generator => generator.MailAddress("bob")).Any(char.IsDigit));
+            Assert.IsTrue(
+                randomGenerator.Select(generator => generator.MailAddress("bob")).Produce().Any(char.IsDigit));
         }
 
         [Test]
@@ -80,8 +89,8 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = new Generator(configurement);
-            var result = randomGenerator.Generate(generator => generator.MailAddress("bob", null));
+            var randomGenerator = Productor.Return(new Provider(configurement));
+            var result =randomGenerator.Select(generator => generator.MailAddress("bob")).Produce();
             const string expected = "bob@test.com";
             Assert.AreEqual(expected, result);
         }
@@ -92,8 +101,8 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = new Generator(configurement);
-            var mail = randomGenerator.Generate(generator => generator.MailAddress("Bob"));
+            var randomGenerator = Productor.Return(new Provider(configurement));
+            var mail =randomGenerator.Select(generator => generator.MailAddress("Bob")).Produce();
             Assert.IsFalse(mail.Any(char.IsUpper));
         }
 
@@ -103,9 +112,9 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = new Generator(configurement);
+            var randomGenerator = Productor.Return(new Provider(configurement));
             Assert.Throws<NullReferenceException>(
-                () => randomGenerator.Generate(generator => generator.MailAddress(null, "hello")));
+                () =>randomGenerator.Select(generator => generator.MailAddress(null, "hello")).Produce());
         }
 
 
@@ -114,9 +123,9 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = new Generator(configurement);
+            var randomGenerator = Productor.Return(new Provider(configurement));
             Assert.Throws<NullReferenceException>(
-                () => randomGenerator.Generate(generator => generator.MailAddress(null)));
+                () =>randomGenerator.Select(generator => generator.MailAddress(null)).Produce());
         }
 
 
@@ -125,9 +134,9 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = new Generator(configurement);
+            var randomGenerator = Productor.Return(new Provider(configurement));
             const string expected = "bob@test.com";
-            var result = randomGenerator.Generate(generator => generator.MailAddress("bob"));
+            var result =randomGenerator.Select(generator => generator.MailAddress("bob")).Produce();
             Assert.AreEqual(expected, result);
         }
 
@@ -137,8 +146,11 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = new Generator(configurement);
-            var generateMany = randomGenerator.GenerateSequence(generator => generator.MailAddress("john", "doe"), 30);
+            var randomGenerator = Productor.Return(new Provider(configurement));
+            var generateMany =
+                randomGenerator.
+                    Select(generator => generator.MailAddress("john", "doe"))
+                    .Take(30);
             Assert.IsTrue(FindDuplicates(generateMany).Count == 0);
         }
 
@@ -147,9 +159,9 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = new Generator(configurement);
+            var randomGenerator = Productor.Return(new Provider(configurement));
             const string expected = "bob.cool@test.com";
-            var result = randomGenerator.Generate(generator => generator.MailAddress("bob", "cool"));
+            var result =randomGenerator.Select(generator => generator.MailAddress("bob", "cool")).Produce();
             Assert.AreEqual(expected, result);
         }
 
@@ -158,8 +170,10 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = new Generator(configurement);
-            var generate = randomGenerator.GenerateSequence(generator => generator.MailAddress("bob", "cool"), 2);
+            var randomGenerator = Productor.Return(new Provider(configurement));
+            var generate = randomGenerator
+                .Select(generator => generator.MailAddress("bob", "cool"))
+                .Take(2);
             var result = generate.Last();
             const string expected = "bob_cool@test.com";
             Assert.AreEqual(expected, result);
@@ -168,9 +182,9 @@ namespace Tests.Integration {
         [Test]
         public void One_Domain_Two_Args_UniqueMails_True_FirstNull() {
             var configurement = new Configurement {MailDomains = new[] {"test.com"}};
-            var randomGenerator = new Generator(configurement);
+            var randomGenerator = Productor.Return(new Provider(configurement));
             Assert.Throws<NullReferenceException>(
-                () => randomGenerator.Generate(generator => generator.MailAddress(null, "bob")));
+                () =>randomGenerator.Select(generator => generator.MailAddress(null, "bob")).Produce());
         }
 
 
@@ -179,8 +193,10 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = new Generator(configurement);
-            var generateMany = randomGenerator.GenerateSequence(generator => generator.MailAddress("bob", "cool"), 3);
+            var randomGenerator = Productor.Return(new Provider(configurement));
+            var generateMany = randomGenerator
+                .Select(generator => generator.MailAddress("bob", "cool"))
+                .Take(3);
             var result = generateMany.Last();
             const string expected = "bob-cool@test.com";
             Assert.AreEqual(expected, result);
@@ -190,8 +206,10 @@ namespace Tests.Integration {
         [Test]
         public void Single_Argurment_Does_Not_Contain_Seperator() {
             var generator =
-                new Generator(new Configurement {MailDomains = new[] {"test.com"}}).GenerateSequence(
-                    g => g.MailAddress("Bob"), 2).ToArray();
+                Productor.Return(new Provider(new Configurement {MailDomains = new[] {"test.com"}}))
+                    .Select(g => g.MailAddress("Bob"))
+                    .Take(2)
+                    .ToArray();
             var first = generator.First();
             var last = generator.Last();
 
@@ -204,8 +222,10 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com", "test2.com", "test3.com"}
             };
-            var randomGenerator = new Generator(configurement);
-            var mails = randomGenerator.GenerateSequence(generator => generator.MailAddress("john", "doe"), 9);
+            var randomGenerator = Productor.Return(new Provider(configurement));
+            var mails = randomGenerator
+                .Select(generator => generator.MailAddress("john", "doe"))
+                .Take(9);
             Assert.IsTrue(FindDuplicates(mails).Count == 0);
         }
 
@@ -214,9 +234,9 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com", "foo.com"}
             };
-            var randomGenerator = new Generator(configurement);
+            var randomGenerator = Productor.Return(new Provider(configurement));
             const string expected = "bob@test.com";
-            var result = randomGenerator.Generate(generator => generator.MailAddress("bob"));
+            var result =randomGenerator.Select(generator => generator.MailAddress("bob")).Produce();
             Assert.AreEqual(expected, result);
         }
 
@@ -225,11 +245,14 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com", "foo.com"}
             };
-            var randomGenerator = new Generator(configurement);
-            Assert.IsFalse(randomGenerator.Generate(generator => generator.MailAddress("bob")).Any(char.IsDigit));
-            Assert.IsFalse(randomGenerator.Generate(generator => generator.MailAddress("bob")).Any(char.IsDigit));
+            var randomGenerator = Productor.Return(new Provider(configurement));
+            Assert.IsFalse(randomGenerator.Select(generator => generator.MailAddress("bob")).Produce()
+                .Any(char.IsDigit));
+            Assert.IsFalse(randomGenerator.Select(generator => generator.MailAddress("bob")).Produce()
+                .Any(char.IsDigit));
             // All possible combinations have been used now needs a number
-            Assert.IsTrue(randomGenerator.Generate(generator => generator.MailAddress("bob")).Any(char.IsDigit));
+            Assert.IsTrue(
+                randomGenerator.Select(generator => generator.MailAddress("bob")).Produce().Any(char.IsDigit));
         }
 
         [Test]
@@ -237,9 +260,11 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com", "foo.com"}
             };
-            var randomGenerator = new Generator(configurement);
+            var randomGenerator = Productor.Return(new Provider(configurement));
             const string expected = "bob@foo.com";
-            var generateMany = randomGenerator.GenerateSequence(generator => generator.MailAddress("bob"), 2);
+            var generateMany = randomGenerator
+                .Select(generator => generator.MailAddress("bob"))
+                .Take(2);
 
             var result = generateMany.Last();
             Assert.AreEqual(expected, result);
@@ -250,8 +275,10 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com", "test2.com"}
             };
-            var randomGenerator = new Generator(configurement);
-            var mails = randomGenerator.GenerateSequence(generator => generator.MailAddress("john", "doe"), 6);
+            var randomGenerator = Productor.Return(new Provider(configurement));
+            var mails = randomGenerator
+                .Select(generator => generator.MailAddress("john", "doe"))
+                .Take(6);
             Assert.IsTrue(FindDuplicates(mails).Count == 0);
         }
 
@@ -260,13 +287,21 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = new Generator(configurement);
+            var randomGenerator = Productor.Return(new Provider(configurement));
 
-            Assert.IsFalse(randomGenerator.Generate(generator => generator.MailAddress("bob", "cool")).Any(char.IsDigit));
-            Assert.IsFalse(randomGenerator.Generate(generator => generator.MailAddress("bob", "cool")).Any(char.IsDigit));
-            Assert.IsFalse(randomGenerator.Generate(generator => generator.MailAddress("bob", "cool")).Any(char.IsDigit));
+            Assert.IsFalse(
+                randomGenerator.Select(generator => generator.MailAddress("bob", "cool")).Produce()
+                    .Any(char.IsDigit));
+            Assert.IsFalse(
+                randomGenerator.Select(generator => generator.MailAddress("bob", "cool")).Produce()
+                    .Any(char.IsDigit));
+            Assert.IsFalse(
+                randomGenerator.Select(generator => generator.MailAddress("bob", "cool")).Produce()
+                    .Any(char.IsDigit));
             // All combinations have been reached now needs a number
-            Assert.IsTrue(randomGenerator.Generate(generator => generator.MailAddress("bob", "cool")).Any(char.IsDigit));
+            Assert.IsTrue(
+                randomGenerator.Select(generator => generator.MailAddress("bob", "cool")).Produce()
+                    .Any(char.IsDigit));
         }
     }
 }

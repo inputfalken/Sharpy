@@ -57,14 +57,17 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="src\Configurement.cs" />
+    <Compile Include="src\Defered.cs" />
+    <Compile Include="src\EnumerableCacheExtensions.cs" />
+    <Compile Include="src\Sequence.cs" />
     <Compile Include="src\Enums\Gender.cs" />
+    <Compile Include="src\Identity.cs" />
     <Compile Include="src\Implementation\DataObjects\NameType.cs" />
     <Compile Include="src\Implementation\DoubleRandomizer.cs" />
-    <Compile Include="src\GeneratorExtensions.cs" />
     <Compile Include="src\Implementation\ExtensionMethods\ReadOnlyListExtensions.cs" />
     <Compile Include="src\Implementation\ExtensionMethods\Shuffling.cs" />
     <Compile Include="src\Enums\Origin.cs" />
-    <Compile Include="src\Generator.cs" />
+    <Compile Include="src\Productor.cs" />
     <Compile Include="src\Implementation\DataObjects\CountryCode.cs" />
     <Compile Include="src\Implementation\ExtensionMethods\StringExtensions.cs" />
     <Compile Include="src\Implementation\NumberGenerator.cs" />
@@ -80,6 +83,7 @@
     <Compile Include="src\IProviders\IIntegerProvider.cs" />
     <Compile Include="src\IProviders\ILongProvider.cs" />
     <Compile Include="src\IProviders\INameProvider.cs" />
+    <Compile Include="src\Provider.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
