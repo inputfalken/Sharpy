@@ -58,6 +58,7 @@
     <Compile Include="Integration\CustomCollection.cs" />
     <Compile Include="Integration\DateByAge.cs" />
     <Compile Include="Integration\DateByYear.cs" />
+    <Compile Include="Integration\DeferedTests.cs" />
     <Compile Include="Integration\Double.cs" />
     <Compile Include="Integration\ReturnTests.cs" />
     <Compile Include="Integration\Integer.cs" />

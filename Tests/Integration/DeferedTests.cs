@@ -1,23 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NUnit.Framework.Internal;
 using NUnit.Framework;
 using Sharpy;
 
 namespace Tests.Integration {
     [TestFixture]
-    public class ReturnTests {
+    internal class DeferedTests {
         [Test(
             Author = "Robert",
-            Description = "Check to see if select succeeds in mapping as from Return"
+            Description = "Check to see if select succeeds in mapping as from defer"
         )]
-        public void Return_Select() {
+        public void Defer_Select() {
             var result = Productor
-                .Return("Hej")
+                .Defer(() => "Hej")
                 .Select(s => s.Length)
                 .Produce();
             Assert.AreEqual(3, result);
@@ -25,36 +23,36 @@ namespace Tests.Integration {
 
         [Test(
             Author = "Robert",
-            Description = "If you can combine two Returns"
+            Description = "If you can zip two defered"
         )]
         public void Return_Zip_Return() {
             var result = Productor
-                .Return("Hej")
-                .Zip(Productor.Return(20), (s, i) => s.Length + i)
+                .Defer(() => "Hej")
+                .Zip(Productor.Defer(() => 20), (s, i) => s.Length + i)
                 .Produce();
             Assert.AreEqual(23, result);
         }
 
         [Test(
             Author = "Robert",
-            Description = "Checks if ziped random works like a wrapped random"
+            Description = "Checks if zip random works like a wrapped random"
         )]
-        public void Return_Zip_Return_Random() {
+        public void Defered_Zip_Defered_Random() {
             const int seed = 10;
             var result = Productor
-                .Return(new Random(seed))
-                .Zip(Productor.Return(new Random(seed)), (rand, zipedRand) => rand.Next() == zipedRand.Next())
+                .Defer(() => new Random(seed))
+                .Zip(Productor.Defer(() => new Random(seed)), (rand, zipedRand) => rand.Next() == zipedRand.Next())
                 .ToArray(40);
             Assert.IsTrue(result.All(b => b));
         }
 
         [Test(
             Author = "Robert",
-            Description = "If you can zip IEnumerable with a Return"
+            Description = "If you can zip IEnumerable with a Defer"
         )]
         public void Return_Zip_Enumerable() {
             var result = Productor
-                .Return("hej")
+                .Defer(() => "hej")
                 .Zip(Enumerable.Range(0, 10), (s, i) => s + i)
                 .Take(10)
                 .ToArray();
@@ -64,11 +62,11 @@ namespace Tests.Integration {
 
         [Test(
             Author = "Robert",
-            Description = "If you can zip sequence with a Return"
+            Description = "If you can zip sequence with a Defer"
         )]
         public void Return_Zip_Sequence() {
             var result = Productor
-                .Return("hej")
+                .Defer(() => "hej")
                 .Zip(Productor.Sequence(Enumerable.Range(0, 10)), (s, i) => s + i)
                 .Take(10)
                 .ToArray();
@@ -78,11 +76,11 @@ namespace Tests.Integration {
 
         [Test(
             Author = "Robert",
-            Description = "If you can zip Defered with a Return"
+            Description = "If you can zip Defered with a Defer"
         )]
         public void Return_Zip_Defered() {
             var result = Productor
-                .Return("hej")
+                .Defer(() => "hej")
                 .Zip(Productor.Defer(() => 10), (s, i) => s + i)
                 .Produce();
             Assert.AreEqual("hej10", result);
