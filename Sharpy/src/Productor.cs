@@ -4,12 +4,16 @@ using System.Linq;
 
 namespace Sharpy {
     /// <summary>
-    ///     Represents something which can produce
+    ///     <para>
+    ///         Represents something which can produce
+    ///     </para>
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public interface IProductor<out T> {
         /// <summary>
-        ///     Produces T
+        ///     <para>
+        ///         Produces T
+        ///     </para>
         /// </summary>
         /// <returns></returns>
         T Produce();
@@ -19,7 +23,9 @@ namespace Sharpy {
     /// </summary>
     public static class Productor {
         /// <summary>
-        /// Wrap the returning type into IProductor.
+        ///     <para>
+        ///         Wrap the returning type into IProductor.
+        ///     </para>
         /// </summary>
         /// <param name="item"></param>
         /// <typeparam name="T"></typeparam>
@@ -29,7 +35,9 @@ namespace Sharpy {
         }
 
         /// <summary>
-        /// Wrap the returning type into defered IProductor.
+        ///     <para>
+        ///         Wrap the returning type into defered IProductor.
+        ///     </para>
         /// </summary>
         /// <param name="fn"></param>
         /// <typeparam name="T"></typeparam>
@@ -39,7 +47,9 @@ namespace Sharpy {
         }
 
         /// <summary>
-        /// Turn an IEnumerable into IProductor.
+        ///     <para>
+        ///         Turn an IEnumerable into IProductor.
+        ///     </para>
         /// </summary>
         /// <param name="enumerable"></param>
         /// <typeparam name="T"></typeparam>
@@ -48,7 +58,9 @@ namespace Sharpy {
         }
 
         /// <summary>
-        /// Maps TSource to Tresult.
+        ///     <para>
+        ///         Maps TSource to Tresult.
+        ///     </para>
         /// </summary>
         /// <param name="productor"></param>
         /// <param name="fn"></param>
@@ -61,6 +73,8 @@ namespace Sharpy {
         }
 
         /// <summary>
+        ///     <para>
+        ///     </para>
         /// </summary>
         /// <param name="productor"></param>
         /// <param name="secondProductor"></param>
@@ -103,7 +117,9 @@ namespace Sharpy {
         }
 
         /// <summary>
-        /// Creates an array as long as count
+        ///     <para>
+        ///         Creates an array as long as count
+        ///     </para>
         /// </summary>
         /// <typeparam name="TSource"></typeparam>
         /// <param name="productor"></param>
@@ -114,7 +130,9 @@ namespace Sharpy {
         }
 
         /// <summary>
-        /// Creates a list as long as count
+        ///     <para>
+        ///         Creates a List as long as count
+        ///     </para>
         /// </summary>
         /// <typeparam name="TSource"></typeparam>
         /// <param name="productor"></param>
