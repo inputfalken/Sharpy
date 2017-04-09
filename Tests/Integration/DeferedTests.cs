@@ -15,7 +15,7 @@ namespace Tests.Integration {
         )]
         public void Defer_Select() {
             var result = Productor
-                .Defer(() => "Hej")
+                .Function(() => "Hej")
                 .Select(s => s.Length)
                 .Produce();
             Assert.AreEqual(3, result);
@@ -27,8 +27,8 @@ namespace Tests.Integration {
         )]
         public void Return_Zip_Return() {
             var result = Productor
-                .Defer(() => "Hej")
-                .Zip(Productor.Defer(() => 20), (s, i) => s.Length + i)
+                .Function(() => "Hej")
+                .Zip(Productor.Function(() => 20), (s, i) => s.Length + i)
                 .Produce();
             Assert.AreEqual(23, result);
         }
@@ -40,19 +40,19 @@ namespace Tests.Integration {
         public void Defered_Zip_Defered_Random() {
             const int seed = 10;
             var result = Productor
-                .Defer(() => new Random(seed))
-                .Zip(Productor.Defer(() => new Random(seed)), (rand, zipedRand) => rand.Next() == zipedRand.Next())
+                .Function(() => new Random(seed))
+                .Zip(Productor.Function(() => new Random(seed)), (rand, zipedRand) => rand.Next() == zipedRand.Next())
                 .ToArray(40);
             Assert.IsTrue(result.All(b => b));
         }
 
         [Test(
             Author = "Robert",
-            Description = "If you can zip IEnumerable with a Defer"
+            Description = "If you can zip IEnumerable with a YieldFunction"
         )]
         public void Return_Zip_Enumerable() {
             var result = Productor
-                .Defer(() => "hej")
+                .Function(() => "hej")
                 .Zip(Enumerable.Range(0, 10), (s, i) => s + i)
                 .Take(10)
                 .ToArray();
@@ -62,11 +62,11 @@ namespace Tests.Integration {
 
         [Test(
             Author = "Robert",
-            Description = "If you can zip sequence with a Defer"
+            Description = "If you can zip sequence with a YieldFunction"
         )]
         public void Return_Zip_Sequence() {
             var result = Productor
-                .Defer(() => "hej")
+                .Function(() => "hej")
                 .Zip(Productor.Sequence(Enumerable.Range(0, 10)), (s, i) => s + i)
                 .Take(10)
                 .ToArray();
@@ -76,12 +76,12 @@ namespace Tests.Integration {
 
         [Test(
             Author = "Robert",
-            Description = "If you can zip Defered with a Defer"
+            Description = "If you can zip Defered with a YieldFunction"
         )]
         public void Return_Zip_Defered() {
             var result = Productor
-                .Defer(() => "hej")
-                .Zip(Productor.Defer(() => 10), (s, i) => s + i)
+                .Function(() => "hej")
+                .Zip(Productor.Function(() => 10), (s, i) => s + i)
                 .Produce();
             Assert.AreEqual("hej10", result);
         }

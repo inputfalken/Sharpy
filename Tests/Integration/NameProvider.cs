@@ -18,13 +18,13 @@ namespace Tests.Integration {
                     var configurement = new Configurement {
                         NameProvider = new NameByOrigin((Origin) value)
                     };
-                    Productor.Return(new Provider(configurement)).Select(g => g.FirstName()).Produce();
+                    Productor.Yield(new Provider(configurement)).Select(g => g.FirstName()).Produce();
                 });
         }
 
         [Test]
         public void Female_First_Name_Not_Null_Or_White_Space() {
-            var gen = Productor.Return(new Provider());
+            var gen = Productor.Yield(new Provider());
             //Many
             var names = gen.Select(g => g.FirstName(Gender.Female)).Take(Count).ToArray();
             Assert.IsFalse(names.All(string.IsNullOrEmpty));
@@ -38,7 +38,7 @@ namespace Tests.Integration {
 
         [Test]
         public void First_Name_Not_Null_Or_White_Space() {
-            var gen = Productor.Return(new Provider());
+            var gen = Productor.Yield(new Provider());
             //Many
             var names = gen
                 .Select(g => g.FirstName())
@@ -54,7 +54,7 @@ namespace Tests.Integration {
 
         [Test]
         public void Last_Name_Not_Null_Or_White_Space() {
-            var gen = Productor.Return(new Provider());
+            var gen = Productor.Yield(new Provider());
             //Many
             var names = gen
                 .Select(g => g.LastName())
@@ -71,7 +71,7 @@ namespace Tests.Integration {
 
         [Test]
         public void Male_First_Name_Not_Null_Or_White_Space() {
-            var gen = Productor.Return(new Provider());
+            var gen = Productor.Yield(new Provider());
             //Many
             var names = gen
                 .Select(g => g.FirstName(Gender.Male))
@@ -88,7 +88,7 @@ namespace Tests.Integration {
         [Test]
         public void Origin_Restricted_Constructor_With_One_Country() {
             var swedishNameGenerator =
-                Productor.Return(new Provider(new Configurement {NameProvider = new NameByOrigin(Origin.Sweden)}));
+                Productor.Yield(new Provider(new Configurement {NameProvider = new NameByOrigin(Origin.Sweden)}));
             var swedishNames = swedishNameGenerator
                 .Select(g => g.FirstName())
                 .Take(Count)
@@ -101,7 +101,7 @@ namespace Tests.Integration {
 
         [Test]
         public void Origin_Restricted_Constructor_With_One_Country_And_One_Region() {
-            var svDkGenerator = Productor.Return(new Provider(
+            var svDkGenerator = Productor.Yield(new Provider(
                 new Configurement {
                     NameProvider = new NameByOrigin(Origin.Sweden, Origin.NorthAmerica)
                 }
@@ -118,7 +118,7 @@ namespace Tests.Integration {
 
         [Test]
         public void Origin_Restricted_Constructor_With_Two_Countries() {
-            var svDkGenerator = Productor.Return(new Provider(
+            var svDkGenerator = Productor.Yield(new Provider(
                 new Configurement {
                     NameProvider = new NameByOrigin(Origin.Sweden, Origin.Denmark)
                 }
@@ -135,7 +135,7 @@ namespace Tests.Integration {
 
         [Test]
         public void Origin_Restricted_Constructor_With_Two_Regions() {
-            var svDkGenerator = Productor.Return(new Provider(
+            var svDkGenerator = Productor.Yield(new Provider(
                 new Configurement {
                     NameProvider = new NameByOrigin(Origin.Europe, Origin.NorthAmerica)
                 }
@@ -152,7 +152,7 @@ namespace Tests.Integration {
 
         [Test]
         public void User_Name_Not_Null_Or_White_Space() {
-            var gen = Productor.Return(new Provider());
+            var gen = Productor.Yield(new Provider());
             //Many
             var userNames = gen.Select(g => g.UserName()).Take(Count).ToArray();
             Assert.IsFalse(userNames.All(string.IsNullOrEmpty));

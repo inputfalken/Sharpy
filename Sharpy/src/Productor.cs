@@ -24,25 +24,25 @@ namespace Sharpy {
     public static class Productor {
         /// <summary>
         ///     <para>
-        ///         Wrap the returning type into IProductor.
+        ///         Every time produce gets called this instance will be used.
         ///     </para>
         /// </summary>
         /// <param name="item"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static IProductor<T> Return<T>(T item) {
+        public static IProductor<T> Yield<T>(T item) {
             return new Identity<T>(item);
         }
 
         /// <summary>
         ///     <para>
-        ///         Wrap the returning type into defered IProductor.
+        ///         Every time Produce gets invoked this function will be invoked.
         ///     </para>
         /// </summary>
         /// <param name="fn"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static IProductor<T> Defer<T>(Func<T> fn) {
+        public static IProductor<T> Function<T>(Func<T> fn) {
             return new Defered<T>(fn);
         }
 
@@ -59,8 +59,11 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Maps TSource to Tresult.
+        ///         Maps TSource to Tresult. 
         ///     </para>
+        ///     <remarks>
+        ///         This will be invoked for every element generated.
+        ///     </remarks>
         /// </summary>
         /// <param name="productor"></param>
         /// <param name="fn"></param>
@@ -69,7 +72,20 @@ namespace Sharpy {
         /// <returns></returns>
         public static IProductor<TResult> Select<TSource, TResult>(this IProductor<TSource> productor,
             Func<TSource, TResult> fn) {
-            return Defer(() => fn(productor.Produce()));
+            return Function(() => fn(productor.Produce()));
+        }
+
+        /// <summary>
+        ///     <para>
+        ///         Maps TSource to Tresult. 
+        ///     </para>
+        ///     <remarks>
+        ///         This will be invoked once.
+        ///     </remarks>
+        /// </summary>
+        public static IProductor<TResult> SelectOnce<TSource, TResult>(this IProductor<TSource> productor,
+            Func<TSource, TResult> fn) {
+            return Yield(fn(productor.Produce()));
         }
 
         /// <summary>
@@ -85,7 +101,12 @@ namespace Sharpy {
         /// <returns></returns>
         public static IProductor<TResult> Zip<TResult, TSource, TSecond>(this IProductor<TSource> productor,
             IProductor<TSecond> secondProductor, Func<TSource, TSecond, TResult> func) {
-            return new Defered<TResult>(() => func(productor.Produce(), secondProductor.Produce()));
+            return Function(() => func(productor.Produce(), secondProductor.Produce()));
+        }
+
+        public static IProductor<TResult> ZipOnce<TResult, TSource, TSecond>(this IProductor<TSource> productor,
+            IProductor<TSecond> secondProductor, Func<TSource, TSecond, TResult> func) {
+            return Yield(func(productor.Produce(), secondProductor.Produce()));
         }
 
         /// <summary>

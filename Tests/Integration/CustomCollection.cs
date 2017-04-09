@@ -8,7 +8,7 @@ namespace Tests.Integration {
     public class CustomCollection {
         [Test]
         public void Array() {
-            var randomGenerator = Productor.Return(new Provider());
+            var randomGenerator = Productor.Yield(new Provider());
 
             var args = new[] {"hello", "there", "foo"};
             var generateMany = randomGenerator
@@ -19,7 +19,7 @@ namespace Tests.Integration {
 
         [Test]
         public void List() {
-            var randomGenerator = Productor.Return(new Provider());
+            var randomGenerator = Productor.Yield(new Provider());
             var args = new List<string> {"hello", "there", "foo"};
             var generateMany = randomGenerator
                 .Select(provider => provider.CustomCollection(args))
