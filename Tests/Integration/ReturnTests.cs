@@ -13,11 +13,11 @@ namespace Tests.Integration {
     public class ReturnTests {
         [Test(
             Author = "Robert",
-            Description = "Check to see if select succeeds in mapping as from Return"
+            Description = "Check to see if select succeeds in mapping as from SingleSelect"
         )]
         public void Return_Select() {
             var result = Productor
-                .Return("Hej")
+                .Yield("Hej")
                 .Select(s => s.Length)
                 .Produce();
             Assert.AreEqual(3, result);
@@ -29,8 +29,8 @@ namespace Tests.Integration {
         )]
         public void Return_Zip_Return() {
             var result = Productor
-                .Return("Hej")
-                .Zip(Productor.Return(20), (s, i) => s.Length + i)
+                .Yield("Hej")
+                .Zip(Productor.Yield(20), (s, i) => s.Length + i)
                 .Produce();
             Assert.AreEqual(23, result);
         }
@@ -42,19 +42,19 @@ namespace Tests.Integration {
         public void Return_Zip_Return_Random() {
             const int seed = 10;
             var result = Productor
-                .Return(new Random(seed))
-                .Zip(Productor.Return(new Random(seed)), (rand, zipedRand) => rand.Next() == zipedRand.Next())
+                .Yield(new Random(seed))
+                .Zip(Productor.Yield(new Random(seed)), (rand, zipedRand) => rand.Next() == zipedRand.Next())
                 .ToArray(40);
             Assert.IsTrue(result.All(b => b));
         }
 
         [Test(
             Author = "Robert",
-            Description = "If you can zip IEnumerable with a Return"
+            Description = "If you can zip IEnumerable with a SingleSelect"
         )]
         public void Return_Zip_Enumerable() {
             var result = Productor
-                .Return("hej")
+                .Yield("hej")
                 .Zip(Enumerable.Range(0, 10), (s, i) => s + i)
                 .Take(10)
                 .ToArray();
@@ -64,11 +64,11 @@ namespace Tests.Integration {
 
         [Test(
             Author = "Robert",
-            Description = "If you can zip sequence with a Return"
+            Description = "If you can zip sequence with a SingleSelect"
         )]
         public void Return_Zip_Sequence() {
             var result = Productor
-                .Return("hej")
+                .Yield("hej")
                 .Zip(Productor.Sequence(Enumerable.Range(0, 10)), (s, i) => s + i)
                 .Take(10)
                 .ToArray();
@@ -78,12 +78,12 @@ namespace Tests.Integration {
 
         [Test(
             Author = "Robert",
-            Description = "If you can zip Defered with a Return"
+            Description = "If you can zip Defered with a SingleSelect"
         )]
         public void Return_Zip_Defered() {
             var result = Productor
-                .Return("hej")
-                .Zip(Productor.Defer(() => 10), (s, i) => s + i)
+                .Yield("hej")
+                .Zip(Productor.Function(() => 10), (s, i) => s + i)
                 .Produce();
             Assert.AreEqual("hej10", result);
         }

@@ -22,7 +22,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = Productor.Return(new Provider(configurement));
+            var randomGenerator = Productor.Yield(new Provider(configurement));
             var generate = randomGenerator.Select(generator => generator.MailAddress("hello")).Produce();
             Assert.AreEqual(14, generate.Length);
         }
@@ -33,7 +33,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com", "test2.com", "test3.com", "test4.com"}
             };
-            var randomGenerator = Productor.Return(new Provider(configurement));
+            var randomGenerator = Productor.Yield(new Provider(configurement));
             var mails = randomGenerator.
                 Select(generator => generator.MailAddress("john", "doe"))
                 .Take(12);
@@ -43,7 +43,7 @@ namespace Tests.Integration {
 
         [Test]
         public void MailsAreNotnull() {
-            var generator = Productor.Return(new Provider());
+            var generator = Productor.Yield(new Provider());
             //Many
             var mails = generator
                 .Select(g => g.MailAddress(MailUserName))
@@ -63,7 +63,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = Productor.Return(new Provider(configurement));
+            var randomGenerator = Productor.Yield(new Provider(configurement));
             var mails = randomGenerator
                 .Select(generator => generator.MailAddress("john"))
                 .Take(12);
@@ -75,7 +75,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = Productor.Return(new Provider(configurement));
+            var randomGenerator = Productor.Yield(new Provider(configurement));
             //Should not contain any numbers
             Assert.IsTrue(
                 randomGenerator.Select(generator => generator.MailAddress("bob")).Produce().Any(c => !char.IsDigit(c)));
@@ -89,7 +89,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = Productor.Return(new Provider(configurement));
+            var randomGenerator = Productor.Yield(new Provider(configurement));
             var result =randomGenerator.Select(generator => generator.MailAddress("bob")).Produce();
             const string expected = "bob@test.com";
             Assert.AreEqual(expected, result);
@@ -101,7 +101,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = Productor.Return(new Provider(configurement));
+            var randomGenerator = Productor.Yield(new Provider(configurement));
             var mail =randomGenerator.Select(generator => generator.MailAddress("Bob")).Produce();
             Assert.IsFalse(mail.Any(char.IsUpper));
         }
@@ -112,7 +112,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = Productor.Return(new Provider(configurement));
+            var randomGenerator = Productor.Yield(new Provider(configurement));
             Assert.Throws<NullReferenceException>(
                 () =>randomGenerator.Select(generator => generator.MailAddress(null, "hello")).Produce());
         }
@@ -123,7 +123,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = Productor.Return(new Provider(configurement));
+            var randomGenerator = Productor.Yield(new Provider(configurement));
             Assert.Throws<NullReferenceException>(
                 () =>randomGenerator.Select(generator => generator.MailAddress(null)).Produce());
         }
@@ -134,7 +134,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = Productor.Return(new Provider(configurement));
+            var randomGenerator = Productor.Yield(new Provider(configurement));
             const string expected = "bob@test.com";
             var result =randomGenerator.Select(generator => generator.MailAddress("bob")).Produce();
             Assert.AreEqual(expected, result);
@@ -146,7 +146,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = Productor.Return(new Provider(configurement));
+            var randomGenerator = Productor.Yield(new Provider(configurement));
             var generateMany =
                 randomGenerator.
                     Select(generator => generator.MailAddress("john", "doe"))
@@ -159,7 +159,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = Productor.Return(new Provider(configurement));
+            var randomGenerator = Productor.Yield(new Provider(configurement));
             const string expected = "bob.cool@test.com";
             var result =randomGenerator.Select(generator => generator.MailAddress("bob", "cool")).Produce();
             Assert.AreEqual(expected, result);
@@ -170,7 +170,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = Productor.Return(new Provider(configurement));
+            var randomGenerator = Productor.Yield(new Provider(configurement));
             var generate = randomGenerator
                 .Select(generator => generator.MailAddress("bob", "cool"))
                 .Take(2);
@@ -182,7 +182,7 @@ namespace Tests.Integration {
         [Test]
         public void One_Domain_Two_Args_UniqueMails_True_FirstNull() {
             var configurement = new Configurement {MailDomains = new[] {"test.com"}};
-            var randomGenerator = Productor.Return(new Provider(configurement));
+            var randomGenerator = Productor.Yield(new Provider(configurement));
             Assert.Throws<NullReferenceException>(
                 () =>randomGenerator.Select(generator => generator.MailAddress(null, "bob")).Produce());
         }
@@ -193,7 +193,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = Productor.Return(new Provider(configurement));
+            var randomGenerator = Productor.Yield(new Provider(configurement));
             var generateMany = randomGenerator
                 .Select(generator => generator.MailAddress("bob", "cool"))
                 .Take(3);
@@ -206,7 +206,7 @@ namespace Tests.Integration {
         [Test]
         public void Single_Argurment_Does_Not_Contain_Seperator() {
             var generator =
-                Productor.Return(new Provider(new Configurement {MailDomains = new[] {"test.com"}}))
+                Productor.Yield(new Provider(new Configurement {MailDomains = new[] {"test.com"}}))
                     .Select(g => g.MailAddress("Bob"))
                     .Take(2)
                     .ToArray();
@@ -222,7 +222,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com", "test2.com", "test3.com"}
             };
-            var randomGenerator = Productor.Return(new Provider(configurement));
+            var randomGenerator = Productor.Yield(new Provider(configurement));
             var mails = randomGenerator
                 .Select(generator => generator.MailAddress("john", "doe"))
                 .Take(9);
@@ -234,7 +234,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com", "foo.com"}
             };
-            var randomGenerator = Productor.Return(new Provider(configurement));
+            var randomGenerator = Productor.Yield(new Provider(configurement));
             const string expected = "bob@test.com";
             var result =randomGenerator.Select(generator => generator.MailAddress("bob")).Produce();
             Assert.AreEqual(expected, result);
@@ -245,7 +245,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com", "foo.com"}
             };
-            var randomGenerator = Productor.Return(new Provider(configurement));
+            var randomGenerator = Productor.Yield(new Provider(configurement));
             Assert.IsFalse(randomGenerator.Select(generator => generator.MailAddress("bob")).Produce()
                 .Any(char.IsDigit));
             Assert.IsFalse(randomGenerator.Select(generator => generator.MailAddress("bob")).Produce()
@@ -260,7 +260,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com", "foo.com"}
             };
-            var randomGenerator = Productor.Return(new Provider(configurement));
+            var randomGenerator = Productor.Yield(new Provider(configurement));
             const string expected = "bob@foo.com";
             var generateMany = randomGenerator
                 .Select(generator => generator.MailAddress("bob"))
@@ -275,7 +275,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com", "test2.com"}
             };
-            var randomGenerator = Productor.Return(new Provider(configurement));
+            var randomGenerator = Productor.Yield(new Provider(configurement));
             var mails = randomGenerator
                 .Select(generator => generator.MailAddress("john", "doe"))
                 .Take(6);
@@ -287,7 +287,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = Productor.Return(new Provider(configurement));
+            var randomGenerator = Productor.Yield(new Provider(configurement));
 
             Assert.IsFalse(
                 randomGenerator.Select(generator => generator.MailAddress("bob", "cool")).Produce()

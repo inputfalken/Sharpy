@@ -11,7 +11,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 UniqueNumbers = false
             };
-            var gen = Productor.Return(new Provider(configurement));
+            var gen = Productor.Yield(new Provider(configurement));
             var res = gen.Select(g => g.NumberByLength(5)).Take(10000);
             Assert.IsFalse(res.GroupBy(s => s).All(grouping => grouping.Count() == 1));
         }
@@ -21,7 +21,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 UniqueNumbers = false
             };
-            var gen = Productor.Return(new Provider(configurement));
+            var gen = Productor.Yield(new Provider(configurement));
             var res = gen.Select(generator => generator.NumberByLength(3)).Take(1001);
             //The test checks that it works like the following algorithm 10^length and that all got same length.
             Assert.DoesNotThrow(() => res.ToArray());
@@ -32,7 +32,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 UniqueNumbers = false
             };
-            var gen = Productor.Return(new Provider(configurement));
+            var gen = Productor.Yield(new Provider(configurement));
             var res = gen.Select(g => g.NumberByLength(5)).Take(10000);
             Assert.IsTrue(res.All(s => s.Length == 5));
         }
@@ -42,7 +42,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 UniqueNumbers = true
             };
-            var gen = Productor.Return(new Provider(configurement));
+            var gen = Productor.Yield(new Provider(configurement));
             var res = gen.Select(g => g.NumberByLength(5)).Take(10000);
             Assert.IsTrue(res.GroupBy(s => s).All(grouping => grouping.Count() == 1));
         }
@@ -52,7 +52,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 UniqueNumbers = true
             };
-            var gen = Productor.Return(new Provider(configurement));
+            var gen = Productor.Yield(new Provider(configurement));
             var res = gen.Select(generator => generator.NumberByLength(3)).Take(1000);
             //The test checks that it works like the following algorithm 10^length and that all got same length.
             Assert.DoesNotThrow(() => res.ToArray());
@@ -63,7 +63,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 UniqueNumbers = true
             };
-            var gen = Productor.Return(new Provider(configurement));
+            var gen = Productor.Yield(new Provider(configurement));
             var res = gen.Select(generator => generator.NumberByLength(3)).Take(1001);
             //The test checks that it works like the following algorithm 10^length and that all got same length.
             Assert.Throws<Exception>(() => res.ToArray());
@@ -74,7 +74,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 UniqueNumbers = true
             };
-            var gen = Productor.Return(new Provider(configurement));
+            var gen = Productor.Yield(new Provider(configurement));
             var res = gen.Select(g => g.NumberByLength(5)).Take(10000);
             Assert.IsTrue(res.All(s => s.Length == 5));
         }

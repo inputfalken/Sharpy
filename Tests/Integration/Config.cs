@@ -11,7 +11,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 DoubleProvider = null
             };
-            var generator = Productor.Return(new Provider(configurement));
+            var generator = Productor.Yield(new Provider(configurement));
             //Long
             Assert.DoesNotThrow(() => generator.Select(x => x.Long()).Produce());
             Assert.DoesNotThrow(() => generator.Select(x => x.Long(10)).Produce());
@@ -40,7 +40,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 IntegerProvider = null
             };
-            var generator = Productor.Return(new Provider(configurement));
+            var generator = Productor.Yield(new Provider(configurement));
             //Integer
             Assert.Throws<NullReferenceException>(() => generator.Select(x => x.Integer()).Produce());
             Assert.Throws<NullReferenceException>(() => generator.Select(x => x.Integer(10)).Produce());
@@ -69,7 +69,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 LongProvider = null
             };
-            var generator = Productor.Return(new Provider(configurement));
+            var generator = Productor.Yield(new Provider(configurement));
             //Long
             Assert.Throws<NullReferenceException>(() => generator.Select(x => x.Long()).Produce());
             Assert.Throws<NullReferenceException>(() => generator.Select(x => x.Long(10)).Produce());
@@ -98,7 +98,7 @@ namespace Tests.Integration {
             var configurement = new Configurement {
                 NameProvider = null
             };
-            var generator = Productor.Return(new Provider(configurement));
+            var generator = Productor.Yield(new Provider(configurement));
             //Name
             Assert.Throws<NullReferenceException>(() => generator.Select(x => x.FirstName()).Produce());
             Assert.Throws<NullReferenceException>(() => generator.Select(x => x.FirstName(Gender.Female)).Produce());

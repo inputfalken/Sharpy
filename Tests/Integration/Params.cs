@@ -7,7 +7,7 @@ namespace Tests.Integration {
     public class Params {
         [Test]
         public void WithString() {
-            var randomGenerator = Productor.Return(new Provider());
+            var randomGenerator = Productor.Yield(new Provider());
             var args = new[] {"hello", "there", "foo"};
             var generateMany =
                 randomGenerator.Select(generator => generator.Params("hello", "there", "foo")).Take(10);

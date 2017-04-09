@@ -83,7 +83,7 @@ namespace Tests.Integration {
         public void Number_Sequence_Zip_With_Defered_String() {
             var result = Productor
                 .Sequence(Range(0, 10))
-                .Zip(Productor.Defer(() => "test"), (i, s) => s + i)
+                .Zip(Productor.Function(() => "test"), (i, s) => s + i)
                 .Take(4);
             string[] expected = {"test0", "test1", "test2", "test3"};
             Assert.AreEqual(result, expected);
@@ -106,12 +106,12 @@ namespace Tests.Integration {
 
         [Test(
             Author = "Robert",
-            Description = "Zip a Sequence with a Return string"
+            Description = "Zip a Sequence with a SingleSelect string"
         )]
         public void Number_Sequence_Zip_With_Return_String() {
             var result = Productor
                 .Sequence(Range(0, 10))
-                .Zip(Productor.Return("test"), (i, s) => s + i)
+                .Zip(Productor.Yield("test"), (i, s) => s + i)
                 .Take(4);
             string[] expected = {"test0", "test1", "test2", "test3"};
             Assert.AreEqual(result, expected);
