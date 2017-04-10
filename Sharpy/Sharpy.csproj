@@ -57,6 +57,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="src\Configurement.cs" />
+    <Compile Include="src\Deferred.cs" />
     <Compile Include="src\Function.cs" />
     <Compile Include="src\EnumerableCacheExtensions.cs" />
     <Compile Include="src\Sequence.cs" />
