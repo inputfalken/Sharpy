@@ -12,7 +12,7 @@ namespace Tests.Integration {
 
             var args = new[] {"hello", "there", "foo"};
             var generateMany = randomGenerator
-                .Select(provider => provider.Params(args))
+                .Generate(provider => provider.Params(args))
                 .Take(10);
             Assert.IsTrue(generateMany.All(s => args.Contains(s)));
         }
@@ -22,7 +22,7 @@ namespace Tests.Integration {
             var randomGenerator = Productor.Yield(new Provider());
             var args = new List<string> {"hello", "there", "foo"};
             var generateMany = randomGenerator
-                .Select(provider => provider.CustomCollection(args))
+                .Generate(provider => provider.CustomCollection(args))
                 .Take(10);
             Assert.IsTrue(generateMany.All(s => args.Contains(s)));
         }

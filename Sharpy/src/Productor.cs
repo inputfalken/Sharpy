@@ -67,7 +67,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Maps TSource to Tresult. 
+        ///         Generates fn
         ///     </para>
         ///     <remarks>
         ///         This will be invoked for every element generated.
@@ -78,7 +78,7 @@ namespace Sharpy {
         /// <typeparam name="TSource"></typeparam>
         /// <typeparam name="TResult"></typeparam>
         /// <returns></returns>
-        public static IProductor<TResult> Select<TSource, TResult>(this IProductor<TSource> productor,
+        public static IProductor<TResult> Generate<TSource, TResult>(this IProductor<TSource> productor,
             Func<TSource, TResult> fn) {
             return Function(() => fn(productor.Produce()));
         }
@@ -91,10 +91,11 @@ namespace Sharpy {
         ///         This will be invoked once.
         ///     </remarks>
         /// </summary>
-        public static IProductor<TResult> SelectOnce<TSource, TResult>(this IProductor<TSource> productor,
+        public static IProductor<TResult> Select<TSource, TResult>(this IProductor<TSource> productor,
             Func<TSource, TResult> fn) {
-            return Yield(fn(productor.Produce()));
+            return Deferred(() => fn(productor.Produce()));
         }
+
 
         /// <summary>
         ///     <para>
@@ -107,14 +108,14 @@ namespace Sharpy {
         /// <typeparam name="TSource"></typeparam>
         /// <typeparam name="TSecond"></typeparam>
         /// <returns></returns>
-        public static IProductor<TResult> Zip<TResult, TSource, TSecond>(this IProductor<TSource> productor,
+        public static IProductor<TResult> GenerateZip<TResult, TSource, TSecond>(this IProductor<TSource> productor,
             IProductor<TSecond> secondProductor, Func<TSource, TSecond, TResult> func) {
             return Function(() => func(productor.Produce(), secondProductor.Produce()));
         }
 
-        public static IProductor<TResult> ZipOnce<TResult, TSource, TSecond>(this IProductor<TSource> productor,
+        public static IProductor<TResult> Zip<TResult, TSource, TSecond>(this IProductor<TSource> productor,
             IProductor<TSecond> secondProductor, Func<TSource, TSecond, TResult> func) {
-            return Yield(func(productor.Produce(), secondProductor.Produce()));
+            return Deferred(() => func(productor.Produce(), secondProductor.Produce()));
         }
 
         /// <summary>
@@ -126,7 +127,7 @@ namespace Sharpy {
         /// <typeparam name="TSource"></typeparam>
         /// <typeparam name="TSecond"></typeparam>
         /// <returns></returns>
-        public static IProductor<TResult> Zip<TResult, TSource, TSecond>(this IProductor<TSource> productor,
+        public static IProductor<TResult> GenerateZip<TResult, TSource, TSecond>(this IProductor<TSource> productor,
             IEnumerable<TSecond> secondEnumerable, Func<TSource, TSecond, TResult> func) {
             var enumerable = productor as IEnumerable<TSource>;
             return enumerable != null

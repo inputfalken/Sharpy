@@ -9,20 +9,20 @@ namespace Tests.Integration {
         public void Arg_MinusOne() {
             var randomGenerator =  Productor.Yield(new Provider());
             Assert.Throws<ArgumentException>(
-                () => randomGenerator.Select(generator => generator.DateByYear(-1)).Produce());
+                () => randomGenerator.Generate(generator => generator.DateByYear(-1)).Produce());
         }
 
         [Test]
         public void Arg_TwoThousand() {
             var randomGenerator =  Productor.Yield(new Provider());
-            var result = randomGenerator.Select(generator => generator.DateByYear(2000)).Produce();
+            var result = randomGenerator.Generate(generator => generator.DateByYear(2000)).Produce();
             Assert.AreEqual(result.Year, 2000);
         }
 
         [Test]
         public void Arg_TwoThousandTen() {
             var randomGenerator =  Productor.Yield(new Provider());
-            var result = randomGenerator.Select(generator => generator.DateByYear(2010)).Produce();
+            var result = randomGenerator.Generate(generator => generator.DateByYear(2010)).Produce();
             Assert.AreEqual(result.Year, 2010);
         }
     }

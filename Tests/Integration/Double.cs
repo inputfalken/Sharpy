@@ -9,7 +9,7 @@ namespace Tests.Integration {
         [Test]
         public void No_Arguments() {
             var generator = Productor.Yield(new Provider());
-            var generateMany = generator.Select(generator1 => generator1.Double()).Take(20);
+            var generateMany = generator.Generate(generator1 => generator1.Double()).Take(20);
             Assert.IsTrue(generateMany.All(d => d < 1 && d > 0));
         }
 
@@ -18,7 +18,7 @@ namespace Tests.Integration {
         public void One_Arg_Eleven_Point_Two() {
             const double max = 11.2;
             var generator = Productor.Yield(new Provider());
-            var generateMany = generator.Select(generator1 => generator1.Double(max)).Take(20);
+            var generateMany = generator.Generate(generator1 => generator1.Double(max)).Take(20);
             Assert.IsTrue(generateMany.All(d => d < max));
         }
 
@@ -27,7 +27,7 @@ namespace Tests.Integration {
             const double max = -11.2;
             var generator = Productor.Yield(new Provider());
             var generateMany = generator
-                .Select(generator1 => generator1.Double(max))
+                .Generate(generator1 => generator1.Double(max))
                 .Take(20);
             Assert.Throws<ArgumentOutOfRangeException>(() => generateMany.All(d => d < max));
         }
@@ -37,7 +37,7 @@ namespace Tests.Integration {
             const double max = 0;
             var generator = Productor.Yield(new Provider());
             var generateMany = generator
-                .Select(generator1 => generator1.Double(max))
+                .Generate(generator1 => generator1.Double(max))
                 .Take(20);
             Assert.Throws<ArgumentOutOfRangeException>(() => generateMany.All(d => d < max));
         }
@@ -48,7 +48,7 @@ namespace Tests.Integration {
             const double max = 11.2;
             var generator = Productor.Yield(new Provider());
             var generateMany = generator
-                .Select(generator1 => generator1.Double(min, max))
+                .Generate(generator1 => generator1.Double(min, max))
                 .Take(20);
             Assert.Throws<ArgumentOutOfRangeException>(() => generateMany.All(d => d > min && d < max));
         }
@@ -59,7 +59,7 @@ namespace Tests.Integration {
             const double max = 10.4;
             var generator = Productor.Yield(new Provider());
             var generateMany = generator
-                .Select(generator1 => generator1.Double(min, max))
+                .Generate(generator1 => generator1.Double(min, max))
                 .Take(20);
             Assert.Throws<ArgumentOutOfRangeException>(() => generateMany.All(d => d > min && d < max));
         }
@@ -70,7 +70,7 @@ namespace Tests.Integration {
             const double max = -10.2;
             var generator = Productor.Yield(new Provider());
             var generateMany = generator
-                .Select(generator1 => generator1.Double(min, max))
+                .Generate(generator1 => generator1.Double(min, max))
                 .Take(20);
             Assert.IsTrue(generateMany.All(d => d > min && d < max));
         }
@@ -81,7 +81,7 @@ namespace Tests.Integration {
             const double max = -11.4;
             var generator = Productor.Yield(new Provider());
             var generateMany = generator
-                .Select(generator1 => generator1.Double(min, max))
+                .Generate(generator1 => generator1.Double(min, max))
                 .Take(20);
             Assert.Throws<ArgumentOutOfRangeException>(() => generateMany.All(d => d > min && d < max));
         }
@@ -92,7 +92,7 @@ namespace Tests.Integration {
             const double max = 3.4;
             var generator = Productor.Yield(new Provider());
             var generateMany = generator
-                .Select(generator1 => generator1.Double(min, max))
+                .Generate(generator1 => generator1.Double(min, max))
                 .Take(20);
 
             Assert.IsTrue(generateMany.All(d => d > min && d < max));
@@ -104,7 +104,7 @@ namespace Tests.Integration {
             const double max = 11.4;
             var generator = Productor.Yield(new Provider());
             var generateMany = generator
-                .Select(generator1 => generator1.Double(min, max))
+                .Generate(generator1 => generator1.Double(min, max))
                 .Take(20);
 
             Assert.IsTrue(generateMany.All(d => d > min && d < max));
