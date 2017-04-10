@@ -35,12 +35,14 @@ namespace Sharpy {
         }
 
         /// <summary>
-        ///  Works like Yield except it will be deffered until produce gets called.
+        ///     Works like Yield except it will be deffered until produce gets called.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="fn"></param>
         /// <returns></returns>
-        public static IProductor<T> Deferred<T>(Func<T> fn) => new Deferred<T>(fn);
+        public static IProductor<T> Deferred<T>(Func<T> fn) {
+            return new Deferred<T>(fn);
+        }
 
         /// <summary>
         ///     <para>
@@ -66,11 +68,8 @@ namespace Sharpy {
         }
 
         /// <summary>
-        ///     <para>
-        ///         Generates fn
-        ///     </para>
         ///     <remarks>
-        ///         This will be invoked for every element generated.
+        ///         Generates the result of the functions for every invokation of produce.
         ///     </remarks>
         /// </summary>
         /// <param name="productor"></param>
@@ -85,10 +84,11 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Maps TSource to Tresult. 
+        ///         Maps TSource to Tresult for one invokation of produce.
         ///     </para>
         ///     <remarks>
-        ///         This will be invoked once.
+        ///         If you call this after any Generate method all generation results will be the same.
+        ///         This should be used if you only want to Map once. for example System.Random.
         ///     </remarks>
         /// </summary>
         public static IProductor<TResult> Select<TSource, TResult>(this IProductor<TSource> productor,
@@ -99,6 +99,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
+        ///         Zips two IProductors together and generates the result of the function for every invokation of produce.
         ///     </para>
         /// </summary>
         /// <param name="productor"></param>
@@ -113,12 +114,32 @@ namespace Sharpy {
             return Generate(() => func(productor.Produce(), secondProductor.Produce()));
         }
 
+        /// <summary>
+        ///     <para>
+        ///         Zips two IProductors together for one invokation of produce.
+        ///     </para>
+        ///     <remarks>
+        ///         If you call this after any Generate method all generation results will be the same.
+        ///         This should be used if you only want to Map once. for example System.Random.
+        ///     </remarks>
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <typeparam name="TSource"></typeparam>
+        /// <typeparam name="TSecond"></typeparam>
+        /// <param name="productor"></param>
+        /// <param name="secondProductor"></param>
+        /// <param name="func"></param>
+        /// <returns></returns>
         public static IProductor<TResult> Zip<TResult, TSource, TSecond>(this IProductor<TSource> productor,
             IProductor<TSecond> secondProductor, Func<TSource, TSecond, TResult> func) {
             return Deferred(() => func(productor.Produce(), secondProductor.Produce()));
         }
 
         /// <summary>
+        ///     <para>
+        ///         Zips a IProductor together with a IEnumerable and generates the result of the function for every invokation of
+        ///         produce.
+        ///     </para>
         /// </summary>
         /// <param name="productor"></param>
         /// <param name="secondEnumerable"></param>
