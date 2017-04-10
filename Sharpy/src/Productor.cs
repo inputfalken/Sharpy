@@ -35,6 +35,14 @@ namespace Sharpy {
         }
 
         /// <summary>
+        ///  Works like Yield except it will be deffered until produce gets called.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="fn"></param>
+        /// <returns></returns>
+        public static IProductor<T> Deferred<T>(Func<T> fn) => new Deferred<T>(fn);
+
+        /// <summary>
         ///     <para>
         ///         Every time Produce gets invoked this function will be invoked.
         ///     </para>
