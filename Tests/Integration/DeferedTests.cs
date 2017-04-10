@@ -16,7 +16,7 @@ namespace Tests.Integration {
         public void Defer_Select() {
             var result = Productor
                 .Function(() => "Hej")
-                .Select(s => s.Length)
+                .Generate(s => s.Length)
                 .Produce();
             Assert.AreEqual(3, result);
         }

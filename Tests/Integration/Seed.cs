@@ -32,8 +32,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
-            var expected =g1.Select(g => g.Bool()).Produce();
-            var result =g2.Select(g => g.Bool()).Produce();
+            var expected =g1.Generate(g => g.Bool()).Produce();
+            var result =g2.Generate(g => g.Bool()).Produce();
             Assert.AreEqual(expected, result);
         }
 
@@ -44,8 +44,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
-            var expected =g1.Select(g => g.CustomCollection(list)).Produce();
-            var result =g2.Select(g => g.CustomCollection(list)).Produce();
+            var expected =g1.Generate(g => g.CustomCollection(list)).Produce();
+            var result =g2.Generate(g => g.CustomCollection(list)).Produce();
             Assert.AreEqual(expected, result);
         }
 
@@ -54,8 +54,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
-            var expected =g1.Select(g => g.DateByAge(20)).Produce();
-            var result =g2.Select(g => g.DateByAge(20)).Produce();
+            var expected =g1.Generate(g => g.DateByAge(20)).Produce();
+            var result =g2.Generate(g => g.DateByAge(20)).Produce();
             Assert.AreEqual(expected, result);
         }
 
@@ -64,8 +64,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
-            var expected =g1.Select(g => g.DateByAge(2000)).Produce();
-            var result =g2.Select(g => g.DateByAge(2000)).Produce();
+            var expected =g1.Generate(g => g.DateByAge(2000)).Produce();
+            var result =g2.Generate(g => g.DateByAge(2000)).Produce();
             Assert.AreEqual(expected, result);
         }
 
@@ -74,8 +74,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
-            var expected =g2.Select(g => g.Double()).Produce();
-            var result =g1.Select(g => g.Double()).Produce();
+            var expected =g2.Generate(g => g.Double()).Produce();
+            var result =g1.Generate(g => g.Double()).Produce();
             Assert.AreEqual(result, expected);
         }
 
@@ -85,8 +85,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
-            var expected =g2.Select(g => g.Double(max)).Produce();
-            var result =g1.Select(g => g.Double(max)).Produce();
+            var expected =g2.Generate(g => g.Double(max)).Produce();
+            var result =g1.Generate(g => g.Double(max)).Produce();
             Assert.AreEqual(result, expected);
         }
 
@@ -97,8 +97,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
-            var expected = g1.Select(g => g.Double(min, max)).Produce();
-            var result = g2.Select(g => g.Double(min, max)).Produce();
+            var expected = g1.Generate(g => g.Double(min, max)).Produce();
+            var result = g2.Generate(g => g.Double(min, max)).Produce();
             Assert.AreEqual(expected, result);
         }
 
@@ -107,8 +107,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
-            var expected = g2.Select(g => g.Integer()).Produce();
-            var result = g1.Select(g => g.Integer()).Produce();
+            var expected = g2.Generate(g => g.Integer()).Produce();
+            var result = g1.Generate(g => g.Integer()).Produce();
             Assert.AreEqual(result, expected);
         }
 
@@ -118,8 +118,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
-            var expected = g2.Select(g => g.Integer(max)).Produce();
-            var result = g1.Select(g => g.Integer(max)).Produce();
+            var expected = g2.Generate(g => g.Integer(max)).Produce();
+            var result = g1.Generate(g => g.Integer(max)).Produce();
             Assert.AreEqual(result, expected);
         }
 
@@ -130,8 +130,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
-            var expected = g2.Select(g => g.Integer(min, max)).Produce();
-            var result = g1.Select(g => g.Integer(min, max)).Produce();
+            var expected = g2.Generate(g => g.Integer(min, max)).Produce();
+            var result = g1.Generate(g => g.Integer(min, max)).Produce();
             Assert.AreEqual(result, expected);
         }
 
@@ -140,8 +140,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
-            var expected = g2.Select(g => g.Long()).Produce();
-            var result = g1.Select(g => g.Long()).Produce();
+            var expected = g2.Generate(g => g.Long()).Produce();
+            var result = g1.Generate(g => g.Long()).Produce();
             Assert.AreEqual(result, expected);
         }
 
@@ -151,8 +151,8 @@ namespace Tests.Integration {
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
             const long max = long.MaxValue - 3923329;
-            var expected = g2.Select(g => g.Long(max)).Produce();
-            var result = g1.Select(g => g.Long(max)).Produce();
+            var expected = g2.Generate(g => g.Long(max)).Produce();
+            var result = g1.Generate(g => g.Long(max)).Produce();
             Assert.AreEqual(result, expected);
         }
 
@@ -163,8 +163,8 @@ namespace Tests.Integration {
             var g2 = Productor.Yield(new Provider(TestSeed));
             const long max = long.MaxValue - 3923329;
             const long min = long.MinValue + 3923329;
-            var expected = g2.Select(g => g.Long(min, max)).Produce();
-            var result = g1.Select(g => g.Long(min, max)).Produce();
+            var expected = g2.Generate(g => g.Long(min, max)).Produce();
+            var result = g1.Generate(g => g.Long(min, max)).Produce();
             Assert.AreEqual(result, expected);
         }
 
@@ -174,8 +174,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
-            var expected = g1.Select(generator => generator.MailAddress(name)).Produce();
-            var result = g2.Select(generator => generator.MailAddress(name)).Produce();
+            var expected = g1.Generate(generator => generator.MailAddress(name)).Produce();
+            var result = g2.Generate(generator => generator.MailAddress(name)).Produce();
             Assert.AreEqual(expected, result);
         }
 
@@ -186,8 +186,8 @@ namespace Tests.Integration {
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
 
-            var expected = g1.Select(g => g.FirstName(Gender.Female)).Produce();
-            var result = g2.Select(g => g.FirstName(Gender.Female)).Produce();
+            var expected = g1.Generate(g => g.FirstName(Gender.Female)).Produce();
+            var result = g2.Generate(g => g.FirstName(Gender.Female)).Produce();
             Assert.AreEqual(expected, result);
         }
 
@@ -197,8 +197,8 @@ namespace Tests.Integration {
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
 
-            var expected = g1.Select(g => g.FirstName()).Produce();
-            var result = g2.Select(g => g.FirstName()).Produce();
+            var expected = g1.Generate(g => g.FirstName()).Produce();
+            var result = g2.Generate(g => g.FirstName()).Produce();
             Assert.AreEqual(expected, result);
         }
 
@@ -208,8 +208,8 @@ namespace Tests.Integration {
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
 
-            var expected = g1.Select(g => g.LastName()).Produce();
-            var result = g2.Select(g => g.LastName()).Produce();
+            var expected = g1.Generate(g => g.LastName()).Produce();
+            var result = g2.Generate(g => g.LastName()).Produce();
             Assert.AreEqual(expected, result);
         }
 
@@ -219,8 +219,8 @@ namespace Tests.Integration {
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
 
-            var generateManyA = g1.Select(g => g.FirstName(Gender.Male)).Produce();
-            var generateManyB = g2.Select(g => g.FirstName(Gender.Male)).Produce();
+            var generateManyA = g1.Generate(g => g.FirstName(Gender.Male)).Produce();
+            var generateManyB = g2.Generate(g => g.FirstName(Gender.Male)).Produce();
             Assert.AreEqual(generateManyA, generateManyB);
         }
 
@@ -230,8 +230,8 @@ namespace Tests.Integration {
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
 
-            var generateManyA = g1.Select(g => g.UserName()).Take(Count);
-            var generateManyB = g2.Select(g => g.UserName()).Take(Count);
+            var generateManyA = g1.Generate(g => g.UserName()).Take(Count);
+            var generateManyB = g2.Generate(g => g.UserName()).Take(Count);
             Assert.AreEqual(generateManyA, generateManyB);
         }
 
@@ -240,8 +240,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
-            var expected = g1.Select(g => g.Params("Foo", "Bar", "John", "Doe")).Produce();
-            var result = g2.Select(g => g.Params("Foo", "Bar", "John", "Doe")).Produce();
+            var expected = g1.Generate(g => g.Params("Foo", "Bar", "John", "Doe")).Produce();
+            var result = g2.Generate(g => g.Params("Foo", "Bar", "John", "Doe")).Produce();
             Assert.AreEqual(expected, result);
         }
 
@@ -250,8 +250,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
-            var expected = g1.Select(g => g.NumberByLength(10)).Produce();
-            var result = g2.Select(g => g.NumberByLength(10)).Produce();
+            var expected = g1.Generate(g => g.NumberByLength(10)).Produce();
+            var result = g2.Generate(g => g.NumberByLength(10)).Produce();
             Assert.AreEqual(expected, result);
         }
 
@@ -262,8 +262,8 @@ namespace Tests.Integration {
             var g2 = Productor.Yield(new Provider(TestSeed));
 
             const int age = 20;
-            var expected = g1.Select(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Produce();
-            var result = g2.Select(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Produce();
+            var expected = g1.Generate(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Produce();
+            var result = g2.Generate(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Produce();
             Assert.AreEqual(expected, result);
         }
 
@@ -274,8 +274,8 @@ namespace Tests.Integration {
             var g2 = Productor.Yield(new Provider(TestSeed));
 
             const int age = 20;
-            var expected = g1.Select(g => g.SocialSecurityNumber(g.DateByAge(age))).Produce();
-            var result = g2.Select(g => g.SocialSecurityNumber(g.DateByAge(age))).Produce();
+            var expected = g1.Generate(g => g.SocialSecurityNumber(g.DateByAge(age))).Produce();
+            var result = g2.Generate(g => g.SocialSecurityNumber(g.DateByAge(age))).Produce();
             Assert.AreEqual(expected, result);
         }
 
@@ -284,8 +284,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider());
-            var expected = g1.Select(g => g.Bool()).Take(Count);
-            var result = g2.Select(g => g.Bool()).Take(Count);
+            var expected = g1.Generate(g => g.Bool()).Take(Count);
+            var result = g2.Generate(g => g.Bool()).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
@@ -295,8 +295,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider());
-            var expected = g1.Select(g => g.CustomCollection(list)).Take(Count);
-            var result = g2.Select(g => g.CustomCollection(list)).Take(Count);
+            var expected = g1.Generate(g => g.CustomCollection(list)).Take(Count);
+            var result = g2.Generate(g => g.CustomCollection(list)).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
@@ -305,8 +305,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider());
-            var expected = g1.Select(generator => generator.DateByAge(20)).Take(Count);
-            var result = g2.Select(generator => generator.DateByAge(20)).Take(Count);
+            var expected = g1.Generate(generator => generator.DateByAge(20)).Take(Count);
+            var result = g2.Generate(generator => generator.DateByAge(20)).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
@@ -315,8 +315,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider());
-            var expected = g1.Select(generator => generator.DateByAge(2000)).Take(Count);
-            var result = g2.Select(generator => generator.DateByAge(2000)).Take(Count);
+            var expected = g1.Generate(generator => generator.DateByAge(2000)).Take(Count);
+            var result = g2.Generate(generator => generator.DateByAge(2000)).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
@@ -325,8 +325,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider());
-            var expected = g2.Select(g => g.Double()).Take(Count);
-            var result = g1.Select(g => g.Double()).Take(Count);
+            var expected = g2.Generate(g => g.Double()).Take(Count);
+            var result = g1.Generate(g => g.Double()).Take(Count);
             Assert.AreNotEqual(result, expected);
         }
 
@@ -336,8 +336,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider());
-            var expected = g2.Select(g => g.Double(max)).Take(Count);
-            var result = g1.Select(g => g.Double(max)).Take(Count);
+            var expected = g2.Generate(g => g.Double(max)).Take(Count);
+            var result = g1.Generate(g => g.Double(max)).Take(Count);
             Assert.AreNotEqual(result, expected);
         }
 
@@ -348,8 +348,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider());
-            var expected = g1.Select(g => g.Double(min, max)).Take(Count);
-            var result = g2.Select(g => g.Double(min, max)).Take(Count);
+            var expected = g1.Generate(g => g.Double(min, max)).Take(Count);
+            var result = g2.Generate(g => g.Double(min, max)).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
@@ -358,8 +358,8 @@ namespace Tests.Integration {
             var generator = Productor.Yield(new Provider());
             Thread.Sleep(SleepDuration);
             var generator2 = Productor.Yield(new Provider());
-            var expected = generator2.Select(g => g.Integer()).Take(Count);
-            var result = generator.Select(g => g.Integer()).Take(Count);
+            var expected = generator2.Generate(g => g.Integer()).Take(Count);
+            var result = generator.Generate(g => g.Integer()).Take(Count);
             Assert.AreNotEqual(result, expected);
         }
 
@@ -369,8 +369,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider());
-            var expected = g2.Select(g => g.Integer(max)).Take(Count);
-            var result = g1.Select(g => g.Integer(max)).Take(Count);
+            var expected = g2.Generate(g => g.Integer(max)).Take(Count);
+            var result = g1.Generate(g => g.Integer(max)).Take(Count);
             Assert.AreNotEqual(result, expected);
         }
 
@@ -381,8 +381,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider());
-            var expected = g2.Select(g => g.Integer(min, max)).Take(Count);
-            var result = g1.Select(g => g.Integer(min, max)).Take(Count);
+            var expected = g2.Generate(g => g.Integer(min, max)).Take(Count);
+            var result = g1.Generate(g => g.Integer(min, max)).Take(Count);
             Assert.AreNotEqual(result, expected);
         }
 
@@ -391,8 +391,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider());
-            var expected = g2.Select(g => g.Long()).Take(Count);
-            var result = g1.Select(g => g.Long()).Take(Count);
+            var expected = g2.Generate(g => g.Long()).Take(Count);
+            var result = g1.Generate(g => g.Long()).Take(Count);
             Assert.AreNotEqual(result, expected);
         }
 
@@ -402,8 +402,8 @@ namespace Tests.Integration {
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider());
             const long max = long.MaxValue - 3923329;
-            var expected = g2.Select(g => g.Long(max)).Take(Count);
-            var result = g1.Select(g => g.Long(max)).Take(Count);
+            var expected = g2.Generate(g => g.Long(max)).Take(Count);
+            var result = g1.Generate(g => g.Long(max)).Take(Count);
             Assert.AreNotEqual(result, expected);
         }
 
@@ -414,8 +414,8 @@ namespace Tests.Integration {
             var g2 = Productor.Yield(new Provider());
             const long max = long.MaxValue - 3923329;
             const long min = long.MinValue + 3923329;
-            var expected = g2.Select(g => g.Long(min, max)).Take(Count);
-            var result = g1.Select(g => g.Long(min, max)).Take(Count);
+            var expected = g2.Generate(g => g.Long(min, max)).Take(Count);
+            var result = g1.Generate(g => g.Long(min, max)).Take(Count);
             Assert.AreNotEqual(result, expected);
         }
 
@@ -425,8 +425,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider());
-            var expected = g1.Select(generator => generator.MailAddress(name)).Take(Count);
-            var result = g2.Select(generator => generator.MailAddress(name)).Take(Count);
+            var expected = g1.Generate(generator => generator.MailAddress(name)).Take(Count);
+            var result = g2.Generate(generator => generator.MailAddress(name)).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
@@ -437,8 +437,8 @@ namespace Tests.Integration {
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider());
 
-            var expected = g1.Select(g => g.FirstName(Gender.Female)).Take(Count);
-            var result = g2.Select(g => g.FirstName(Gender.Male)).Take(Count);
+            var expected = g1.Generate(g => g.FirstName(Gender.Female)).Take(Count);
+            var result = g2.Generate(g => g.FirstName(Gender.Male)).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
@@ -448,8 +448,8 @@ namespace Tests.Integration {
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider());
 
-            var expected = g1.Select(g => g.FirstName()).Take(Count);
-            var result = g2.Select(g => g.FirstName()).Take(Count);
+            var expected = g1.Generate(g => g.FirstName()).Take(Count);
+            var result = g2.Generate(g => g.FirstName()).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
@@ -458,8 +458,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider());
-            var expected = g1.Select(g => g.LastName()).Take(Count);
-            var result = g2.Select(g => g.LastName()).Take(Count);
+            var expected = g1.Generate(g => g.LastName()).Take(Count);
+            var result = g2.Generate(g => g.LastName()).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
@@ -469,8 +469,8 @@ namespace Tests.Integration {
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider());
 
-            var generateManyA = g1.Select(g => g.FirstName(Gender.Male)).Take(Count);
-            var generateManyB = g2.Select(g => g.FirstName(Gender.Male)).Take(Count);
+            var generateManyA = g1.Generate(g => g.FirstName(Gender.Male)).Take(Count);
+            var generateManyB = g2.Generate(g => g.FirstName(Gender.Male)).Take(Count);
             Assert.AreNotEqual(generateManyA, generateManyB);
         }
 
@@ -480,8 +480,8 @@ namespace Tests.Integration {
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider());
 
-            var generateManyA = g1.Select(g => g.UserName()).Take(Count);
-            var generateManyB = g2.Select(g => g.UserName()).Take(Count);
+            var generateManyA = g1.Generate(g => g.UserName()).Take(Count);
+            var generateManyB = g2.Generate(g => g.UserName()).Take(Count);
             Assert.AreNotEqual(generateManyA, generateManyB);
         }
 
@@ -491,8 +491,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider());
-            var expected = g1.Select(g => g.CustomCollection(list)).Take(Count);
-            var result = g2.Select(g => g.CustomCollection(list)).Take(Count);
+            var expected = g1.Generate(g => g.CustomCollection(list)).Take(Count);
+            var result = g2.Generate(g => g.CustomCollection(list)).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
@@ -501,8 +501,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider());
-            var expected = g1.Select(g => g.NumberByLength(10)).Take(Count);
-            var result = g2.Select(g => g.NumberByLength(10)).Take(Count);
+            var expected = g1.Generate(g => g.NumberByLength(10)).Take(Count);
+            var result = g2.Generate(g => g.NumberByLength(10)).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
@@ -513,8 +513,8 @@ namespace Tests.Integration {
             var g2 = Productor.Yield(new Provider());
 
             const int age = 20;
-            var expected = g1.Select(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Take(Count);
-            var result = g2.Select(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Take(Count);
+            var expected = g1.Generate(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Take(Count);
+            var result = g2.Generate(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
@@ -525,8 +525,8 @@ namespace Tests.Integration {
             var g2 = Productor.Yield(new Provider());
 
             const int age = 20;
-            var expected = g1.Select(g => g.SocialSecurityNumber(g.DateByAge(age))).Take(Count);
-            var result = g2.Select(g => g.SocialSecurityNumber(g.DateByAge(age))).Take(Count);
+            var expected = g1.Generate(g => g.SocialSecurityNumber(g.DateByAge(age))).Take(Count);
+            var result = g2.Generate(g => g.SocialSecurityNumber(g.DateByAge(age))).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
@@ -535,8 +535,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
-            var expected = g1.Select(g => g.Bool()).Take(Count);
-            var result = g2.Select(g => g.Bool()).Take(Count);
+            var expected = g1.Generate(g => g.Bool()).Take(Count);
+            var result = g2.Generate(g => g.Bool()).Take(Count);
             Assert.AreEqual(expected, result);
         }
 
@@ -546,8 +546,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
-            var expected = g1.Select(g => g.CustomCollection(list)).Take(Count);
-            var result = g2.Select(g => g.CustomCollection(list)).Take(Count);
+            var expected = g1.Generate(g => g.CustomCollection(list)).Take(Count);
+            var result = g2.Generate(g => g.CustomCollection(list)).Take(Count);
             Assert.AreEqual(expected, result);
         }
 
@@ -556,8 +556,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
-            var expected = g1.Select(generator => generator.DateByAge(20)).Take(Count);
-            var result = g2.Select(generator => generator.DateByAge(20)).Take(Count);
+            var expected = g1.Generate(generator => generator.DateByAge(20)).Take(Count);
+            var result = g2.Generate(generator => generator.DateByAge(20)).Take(Count);
             Assert.AreEqual(expected, result);
         }
 
@@ -566,8 +566,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
-            var expected = g1.Select(generator => generator.DateByAge(2000)).Take(Count);
-            var result = g2.Select(generator => generator.DateByAge(2000)).Take(Count);
+            var expected = g1.Generate(generator => generator.DateByAge(2000)).Take(Count);
+            var result = g2.Generate(generator => generator.DateByAge(2000)).Take(Count);
             Assert.AreEqual(expected, result);
         }
 
@@ -576,8 +576,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
-            var expected = g2.Select(g => g.Double()).Take(Count);
-            var result = g1.Select(g => g.Double()).Take(Count);
+            var expected = g2.Generate(g => g.Double()).Take(Count);
+            var result = g1.Generate(g => g.Double()).Take(Count);
             Assert.AreEqual(result, expected);
         }
 
@@ -587,8 +587,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
-            var expected = g2.Select(g => g.Double(max)).Take(Count);
-            var result = g1.Select(g => g.Double(max)).Take(Count);
+            var expected = g2.Generate(g => g.Double(max)).Take(Count);
+            var result = g1.Generate(g => g.Double(max)).Take(Count);
             Assert.AreEqual(result, expected);
         }
 
@@ -599,8 +599,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
-            var expected = g1.Select(g => g.Double(min, max)).Take(Count);
-            var result = g2.Select(g => g.Double(min, max)).Take(Count);
+            var expected = g1.Generate(g => g.Double(min, max)).Take(Count);
+            var result = g2.Generate(g => g.Double(min, max)).Take(Count);
             Assert.AreEqual(expected, result);
         }
 
@@ -609,8 +609,8 @@ namespace Tests.Integration {
             var generator = Productor.Yield(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var generator2 = Productor.Yield(new Provider(TestSeed));
-            var expected = generator2.Select(g => g.Integer()).Take(Count);
-            var result = generator.Select(g => g.Integer()).Take(Count);
+            var expected = generator2.Generate(g => g.Integer()).Take(Count);
+            var result = generator.Generate(g => g.Integer()).Take(Count);
             Assert.AreEqual(result, expected);
         }
 
@@ -620,8 +620,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
-            var expected = g2.Select(g => g.Integer(max)).Take(Count);
-            var result = g1.Select(g => g.Integer(max)).Take(Count);
+            var expected = g2.Generate(g => g.Integer(max)).Take(Count);
+            var result = g1.Generate(g => g.Integer(max)).Take(Count);
             Assert.AreEqual(result, expected);
         }
 
@@ -632,8 +632,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
-            var expected = g2.Select(g => g.Integer(min, max)).Take(Count);
-            var result = g1.Select(g => g.Integer(min, max)).Take(Count);
+            var expected = g2.Generate(g => g.Integer(min, max)).Take(Count);
+            var result = g1.Generate(g => g.Integer(min, max)).Take(Count);
             Assert.AreEqual(result, expected);
         }
 
@@ -642,8 +642,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
-            var expected = g2.Select(g => g.Long()).Take(Count);
-            var result = g1.Select(g => g.Long()).Take(Count);
+            var expected = g2.Generate(g => g.Long()).Take(Count);
+            var result = g1.Generate(g => g.Long()).Take(Count);
             Assert.AreEqual(result, expected);
         }
 
@@ -653,8 +653,8 @@ namespace Tests.Integration {
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
             const long max = long.MaxValue - 3923329;
-            var expected = g2.Select(g => g.Long(max)).Take(Count);
-            var result = g1.Select(g => g.Long(max)).Take(Count);
+            var expected = g2.Generate(g => g.Long(max)).Take(Count);
+            var result = g1.Generate(g => g.Long(max)).Take(Count);
             Assert.AreEqual(result, expected);
         }
 
@@ -665,8 +665,8 @@ namespace Tests.Integration {
             var g2 = Productor.Yield(new Provider(TestSeed));
             const long max = long.MaxValue - 3923329;
             const long min = long.MinValue + 3923329;
-            var expected = g2.Select(g => g.Long(min, max)).Take(Count);
-            var result = g1.Select(g => g.Long(min, max)).Take(Count);
+            var expected = g2.Generate(g => g.Long(min, max)).Take(Count);
+            var result = g1.Generate(g => g.Long(min, max)).Take(Count);
             Assert.AreEqual(result, expected);
         }
 
@@ -676,8 +676,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
-            var expected = g1.Select(generator => generator.MailAddress(name)).Take(Count);
-            var result = g2.Select(generator => generator.MailAddress(name)).Take(Count);
+            var expected = g1.Generate(generator => generator.MailAddress(name)).Take(Count);
+            var result = g2.Generate(generator => generator.MailAddress(name)).Take(Count);
             Assert.AreEqual(expected, result);
         }
 
@@ -688,8 +688,8 @@ namespace Tests.Integration {
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
 
-            var expected = g1.Select(g => g.FirstName(Gender.Female)).Take(Count);
-            var result = g2.Select(g => g.FirstName(Gender.Female)).Take(Count);
+            var expected = g1.Generate(g => g.FirstName(Gender.Female)).Take(Count);
+            var result = g2.Generate(g => g.FirstName(Gender.Female)).Take(Count);
             Assert.AreEqual(expected, result);
         }
 
@@ -699,8 +699,8 @@ namespace Tests.Integration {
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
 
-            var expected = g1.Select(g => g.FirstName()).Take(Count);
-            var result = g2.Select(g => g.FirstName()).Take(Count);
+            var expected = g1.Generate(g => g.FirstName()).Take(Count);
+            var result = g2.Generate(g => g.FirstName()).Take(Count);
             Assert.AreEqual(expected, result);
         }
 
@@ -709,8 +709,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
-            var expected = g1.Select(g => g.LastName()).Take(Count);
-            var result = g2.Select(g => g.LastName()).Take(Count);
+            var expected = g1.Generate(g => g.LastName()).Take(Count);
+            var result = g2.Generate(g => g.LastName()).Take(Count);
             Assert.AreEqual(expected, result);
         }
 
@@ -720,8 +720,8 @@ namespace Tests.Integration {
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
 
-            var generateManyA = g1.Select(g => g.FirstName(Gender.Male)).Take(Count);
-            var generateManyB = g2.Select(g => g.FirstName(Gender.Male)).Take(Count);
+            var generateManyA = g1.Generate(g => g.FirstName(Gender.Male)).Take(Count);
+            var generateManyB = g2.Generate(g => g.FirstName(Gender.Male)).Take(Count);
             Assert.AreEqual(generateManyA, generateManyB);
         }
 
@@ -731,8 +731,8 @@ namespace Tests.Integration {
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
 
-            var generateManyA = g1.Select(g => g.UserName()).Take(Count);
-            var generateManyB = g2.Select(g => g.UserName()).Take(Count);
+            var generateManyA = g1.Generate(g => g.UserName()).Take(Count);
+            var generateManyB = g2.Generate(g => g.UserName()).Take(Count);
             Assert.AreEqual(generateManyA, generateManyB);
         }
 
@@ -741,8 +741,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
-            var expected = g1.Select(g => g.Params("Foo", "Bar", "John", "Doe")).Take(Count);
-            var result = g2.Select(g => g.Params("Foo", "Bar", "John", "Doe")).Take(Count);
+            var expected = g1.Generate(g => g.Params("Foo", "Bar", "John", "Doe")).Take(Count);
+            var result = g2.Generate(g => g.Params("Foo", "Bar", "John", "Doe")).Take(Count);
             Assert.AreEqual(expected, result);
         }
 
@@ -751,8 +751,8 @@ namespace Tests.Integration {
             var g1 = Productor.Yield(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Productor.Yield(new Provider(TestSeed));
-            var expected = g1.Select(g => g.NumberByLength(10)).Take(Count);
-            var result = g2.Select(g => g.NumberByLength(10)).Take(Count);
+            var expected = g1.Generate(g => g.NumberByLength(10)).Take(Count);
+            var result = g2.Generate(g => g.NumberByLength(10)).Take(Count);
             Assert.AreEqual(expected, result);
         }
 
@@ -763,8 +763,8 @@ namespace Tests.Integration {
             var g2 = Productor.Yield(new Provider(TestSeed));
 
             const int age = 20;
-            var expected = g1.Select(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Take(Count);
-            var result = g2.Select(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Take(Count);
+            var expected = g1.Generate(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Take(Count);
+            var result = g2.Generate(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Take(Count);
             Assert.AreEqual(expected, result);
         }
 
@@ -775,8 +775,8 @@ namespace Tests.Integration {
             var g2 = Productor.Yield(new Provider(TestSeed));
 
             const int age = 20;
-            var expected = g1.Select(g => g.SocialSecurityNumber(g.DateByAge(age))).Take(Count);
-            var result = g2.Select(g => g.SocialSecurityNumber(g.DateByAge(age))).Take(Count);
+            var expected = g1.Generate(g => g.SocialSecurityNumber(g.DateByAge(age))).Take(Count);
+            var result = g2.Generate(g => g.SocialSecurityNumber(g.DateByAge(age))).Take(Count);
             Assert.AreEqual(expected, result);
         }
     }

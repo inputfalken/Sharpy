@@ -38,7 +38,7 @@ namespace Tests.Integration {
         public void Number_Sequence_Select_Times_Two() {
             var result = Productor
                 .Sequence(Range(0, 10))
-                .Select(i => i * 2)
+                .Generate(i => i * 2)
                 .Take(10);
             int[] expected = {0, 2, 4, 6, 8, 10, 12, 14, 16, 18};
             Assert.AreEqual(expected, result);
@@ -106,7 +106,7 @@ namespace Tests.Integration {
 
         [Test(
             Author = "Robert",
-            Description = "Zip a Sequence with a SingleSelect string"
+            Description = "Zip a Sequence with a Select string"
         )]
         public void Number_Sequence_Zip_With_Return_String() {
             var result = Productor

@@ -13,12 +13,12 @@ namespace Tests.Integration {
     public class ReturnTests {
         [Test(
             Author = "Robert",
-            Description = "Check to see if select succeeds in mapping as from SingleSelect"
+            Description = "Check to see if select succeeds in mapping as from Select"
         )]
         public void Return_Select() {
             var result = Productor
                 .Yield("Hej")
-                .Select(s => s.Length)
+                .Generate(s => s.Length)
                 .Produce();
             Assert.AreEqual(3, result);
         }
@@ -50,7 +50,7 @@ namespace Tests.Integration {
 
         [Test(
             Author = "Robert",
-            Description = "If you can zip IEnumerable with a SingleSelect"
+            Description = "If you can zip IEnumerable with a Select"
         )]
         public void Return_Zip_Enumerable() {
             var result = Productor
@@ -64,7 +64,7 @@ namespace Tests.Integration {
 
         [Test(
             Author = "Robert",
-            Description = "If you can zip sequence with a SingleSelect"
+            Description = "If you can zip sequence with a Select"
         )]
         public void Return_Zip_Sequence() {
             var result = Productor
@@ -78,7 +78,7 @@ namespace Tests.Integration {
 
         [Test(
             Author = "Robert",
-            Description = "If you can zip Function with a SingleSelect"
+            Description = "If you can zip Function with a Select"
         )]
         public void Return_Zip_Defered() {
             var result = Productor
