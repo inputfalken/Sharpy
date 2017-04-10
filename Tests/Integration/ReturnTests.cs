@@ -30,7 +30,7 @@ namespace Tests.Integration {
         public void Return_Zip_Return() {
             var result = Productor
                 .Yield("Hej")
-                .Zip(Productor.Yield(20), (s, i) => s.Length + i)
+                .GenerateZip(Productor.Yield(20), (s, i) => s.Length + i)
                 .Produce();
             Assert.AreEqual(23, result);
         }
@@ -43,7 +43,7 @@ namespace Tests.Integration {
             const int seed = 10;
             var result = Productor
                 .Yield(new Random(seed))
-                .Zip(Productor.Yield(new Random(seed)), (rand, zipedRand) => rand.Next() == zipedRand.Next())
+                .GenerateZip(Productor.Yield(new Random(seed)), (rand, zipedRand) => rand.Next() == zipedRand.Next())
                 .ToArray(40);
             Assert.IsTrue(result.All(b => b));
         }
@@ -55,7 +55,7 @@ namespace Tests.Integration {
         public void Return_Zip_Enumerable() {
             var result = Productor
                 .Yield("hej")
-                .Zip(Enumerable.Range(0, 10), (s, i) => s + i)
+                .GenerateZip(Enumerable.Range(0, 10), (s, i) => s + i)
                 .Take(10)
                 .ToArray();
             var expected = new[] {"hej0", "hej1", "hej2", "hej3", "hej4", "hej5", "hej6", "hej7", "hej8", "hej9"};
@@ -69,7 +69,7 @@ namespace Tests.Integration {
         public void Return_Zip_Sequence() {
             var result = Productor
                 .Yield("hej")
-                .Zip(Productor.Sequence(Enumerable.Range(0, 10)), (s, i) => s + i)
+                .GenerateZip(Productor.Sequence(Enumerable.Range(0, 10)), (s, i) => s + i)
                 .Take(10)
                 .ToArray();
             var expected = new[] {"hej0", "hej1", "hej2", "hej3", "hej4", "hej5", "hej6", "hej7", "hej8", "hej9"};
@@ -78,12 +78,12 @@ namespace Tests.Integration {
 
         [Test(
             Author = "Robert",
-            Description = "If you can zip Function with a Select"
+            Description = "If you can zip Deferred with a Select"
         )]
         public void Return_Zip_Defered() {
             var result = Productor
                 .Yield("hej")
-                .Zip(Productor.Function(() => 10), (s, i) => s + i)
+                .GenerateZip(Productor.Deferred(() => 10), (s, i) => s + i)
                 .Produce();
             Assert.AreEqual("hej10", result);
         }

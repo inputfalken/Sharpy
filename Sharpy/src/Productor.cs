@@ -50,7 +50,7 @@ namespace Sharpy {
         /// <param name="fn"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static IProductor<T> Function<T>(Func<T> fn) {
+        private static IProductor<T> Generate<T>(Func<T> fn) {
             return new Function<T>(fn);
         }
 
@@ -80,7 +80,7 @@ namespace Sharpy {
         /// <returns></returns>
         public static IProductor<TResult> Generate<TSource, TResult>(this IProductor<TSource> productor,
             Func<TSource, TResult> fn) {
-            return Function(() => fn(productor.Produce()));
+            return Generate(() => fn(productor.Produce()));
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace Sharpy {
         /// <returns></returns>
         public static IProductor<TResult> GenerateZip<TResult, TSource, TSecond>(this IProductor<TSource> productor,
             IProductor<TSecond> secondProductor, Func<TSource, TSecond, TResult> func) {
-            return Function(() => func(productor.Produce(), secondProductor.Produce()));
+            return Generate(() => func(productor.Produce(), secondProductor.Produce()));
         }
 
         public static IProductor<TResult> Zip<TResult, TSource, TSecond>(this IProductor<TSource> productor,
