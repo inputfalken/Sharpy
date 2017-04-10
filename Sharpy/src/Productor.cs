@@ -43,7 +43,7 @@ namespace Sharpy {
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public static IProductor<T> Function<T>(Func<T> fn) {
-            return new Defered<T>(fn);
+            return new Function<T>(fn);
         }
 
         /// <summary>

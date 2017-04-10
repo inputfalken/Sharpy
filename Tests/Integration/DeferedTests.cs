@@ -76,7 +76,7 @@ namespace Tests.Integration {
 
         [Test(
             Author = "Robert",
-            Description = "If you can zip Defered with a YieldFunction"
+            Description = "If you can zip Function with a YieldFunction"
         )]
         public void Return_Zip_Defered() {
             var result = Productor

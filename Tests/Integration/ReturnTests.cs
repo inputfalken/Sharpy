@@ -78,7 +78,7 @@ namespace Tests.Integration {
 
         [Test(
             Author = "Robert",
-            Description = "If you can zip Defered with a SingleSelect"
+            Description = "If you can zip Function with a SingleSelect"
         )]
         public void Return_Zip_Defered() {
             var result = Productor

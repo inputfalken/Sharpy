@@ -57,7 +57,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="src\Configurement.cs" />
-    <Compile Include="src\Defered.cs" />
+    <Compile Include="src\Function.cs" />
     <Compile Include="src\EnumerableCacheExtensions.cs" />
     <Compile Include="src\Sequence.cs" />
     <Compile Include="src\Enums\Gender.cs" />
