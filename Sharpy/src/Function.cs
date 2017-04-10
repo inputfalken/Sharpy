@@ -1,10 +1,10 @@
 ﻿using System;
 
 namespace Sharpy {
-    internal class Defered<T> : IProductor<T> {
+    internal class Function<T> : IProductor<T> {
         private readonly Func<T> _fn;
 
-        public Defered(Func<T> fn) {
+        public Function(Func<T> fn) {
             _fn = fn;
         }
 
