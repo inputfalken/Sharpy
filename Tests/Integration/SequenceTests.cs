@@ -78,12 +78,12 @@ namespace Tests.Integration {
 
         [Test(
             Author = "Robert",
-            Description = "Zip a Sequence with a defered string"
+            Description = "GenerateZip a Sequence with a defered string"
         )]
         public void Number_Sequence_Zip_With_Defered_String() {
             var result = Productor
                 .Sequence(Range(0, 10))
-                .Zip(Productor.Function(() => "test"), (i, s) => s + i)
+                .GenerateZip(Productor.Deferred(() => "test"), (i, s) => s + i)
                 .Take(4);
             string[] expected = {"test0", "test1", "test2", "test3"};
             Assert.AreEqual(result, expected);
@@ -92,13 +92,13 @@ namespace Tests.Integration {
 
         [Test(
             Author = "Robert",
-            Description = "Zip a Sequence with IEnumerable"
+            Description = "GenerateZip a Sequence with IEnumerable"
         )]
         public void Number_Sequence_Zip_With_Enumerable() {
             const int count = 10;
             var result = Productor
                 .Sequence(Range(0, 10))
-                .Zip(Range(0, count), (i, i1) => i + i1)
+                .GenerateZip(Range(0, count), (i, i1) => i + i1)
                 .Take(count);
             int[] expected = {0, 2, 4, 6, 8, 10, 12, 14, 16, 18};
             Assert.AreEqual(expected, result);
@@ -106,12 +106,12 @@ namespace Tests.Integration {
 
         [Test(
             Author = "Robert",
-            Description = "Zip a Sequence with a Select string"
+            Description = "GenerateZip a Sequence with a Select string"
         )]
         public void Number_Sequence_Zip_With_Return_String() {
             var result = Productor
                 .Sequence(Range(0, 10))
-                .Zip(Productor.Yield("test"), (i, s) => s + i)
+                .GenerateZip(Productor.Yield("test"), (i, s) => s + i)
                 .Take(4);
             string[] expected = {"test0", "test1", "test2", "test3"};
             Assert.AreEqual(result, expected);
@@ -119,12 +119,12 @@ namespace Tests.Integration {
 
         [Test(
             Author = "Robert",
-            Description = "Zip a Sequence with another sequence"
+            Description = "GenerateZip a Sequence with another sequence"
         )]
         public void Number_Sequence_Zip_With_Sequence() {
             var result = Productor
                 .Sequence(Range(0, 10))
-                .Zip(Productor.Sequence(Range(0, 10)), (i, i1) => i + i1)
+                .GenerateZip(Productor.Sequence(Range(0, 10)), (i, i1) => i + i1)
                 .Take(10);
             int[] expected = {0, 2, 4, 6, 8, 10, 12, 14, 16, 18};
             Assert.AreEqual(expected, result);
