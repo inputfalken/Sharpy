@@ -13,26 +13,26 @@ namespace Tests.Integration {
             };
             var generator = Productor.Yield(new Provider(configurement));
             //Long
-            Assert.DoesNotThrow(() => generator.Generate(x => x.Long()).Produce());
-            Assert.DoesNotThrow(() => generator.Generate(x => x.Long(10)).Produce());
-            Assert.DoesNotThrow(() => generator.Generate(x => x.Long(1, 10)).Produce());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.Long()).Take());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.Long(10)).Take());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.Long(1, 10)).Take());
 
             //Double
-            Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.Double()).Produce());
-            Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.Double(10)).Produce());
-            Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.Double(1, 10)).Produce());
+            Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.Double()).Take());
+            Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.Double(10)).Take());
+            Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.Double(1, 10)).Take());
 
             //Integer
-            Assert.DoesNotThrow(() => generator.Generate(x => x.Integer()).Produce());
-            Assert.DoesNotThrow(() => generator.Generate(x => x.Integer(10)).Produce());
-            Assert.DoesNotThrow(() => generator.Generate(x => x.Integer(1, 10)).Produce());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.Integer()).Take());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.Integer(10)).Take());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.Integer(1, 10)).Take());
 
 
             //Name
-            Assert.DoesNotThrow(() => generator.Generate(x => x.FirstName()).Produce());
-            Assert.DoesNotThrow(() => generator.Generate(x => x.FirstName(Gender.Female)).Produce());
-            Assert.DoesNotThrow(() => generator.Generate(x => x.FirstName(Gender.Male)).Produce());
-            Assert.DoesNotThrow(() => generator.Generate(x => x.LastName()).Produce());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.FirstName()).Take());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.FirstName(Gender.Female)).Take());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.FirstName(Gender.Male)).Take());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.LastName()).Take());
         }
 
         [Test]
@@ -42,26 +42,26 @@ namespace Tests.Integration {
             };
             var generator = Productor.Yield(new Provider(configurement));
             //Integer
-            Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.Integer()).Produce());
-            Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.Integer(10)).Produce());
-            Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.Integer(1, 10)).Produce());
+            Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.Integer()).Take());
+            Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.Integer(10)).Take());
+            Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.Integer(1, 10)).Take());
 
             //Long
-            Assert.DoesNotThrow(() => generator.Generate(x => x.Long()).Produce());
-            Assert.DoesNotThrow(() => generator.Generate(x => x.Long(10)).Produce());
-            Assert.DoesNotThrow(() => generator.Generate(x => x.Long(1, 10)).Produce());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.Long()).Take());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.Long(10)).Take());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.Long(1, 10)).Take());
 
             //Double
-            Assert.DoesNotThrow(() => generator.Generate(x => x.Double()).Produce());
-            Assert.DoesNotThrow(() => generator.Generate(x => x.Double(10)).Produce());
-            Assert.DoesNotThrow(() => generator.Generate(x => x.Double(1, 10)).Produce());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.Double()).Take());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.Double(10)).Take());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.Double(1, 10)).Take());
 
 
             //Name
-            Assert.DoesNotThrow(() => generator.Generate(x => x.FirstName()).Produce());
-            Assert.DoesNotThrow(() => generator.Generate(x => x.FirstName(Gender.Female)).Produce());
-            Assert.DoesNotThrow(() => generator.Generate(x => x.FirstName(Gender.Male)).Produce());
-            Assert.DoesNotThrow(() => generator.Generate(x => x.LastName()).Produce());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.FirstName()).Take());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.FirstName(Gender.Female)).Take());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.FirstName(Gender.Male)).Take());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.LastName()).Take());
         }
 
         [Test]
@@ -71,26 +71,26 @@ namespace Tests.Integration {
             };
             var generator = Productor.Yield(new Provider(configurement));
             //Long
-            Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.Long()).Produce());
-            Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.Long(10)).Produce());
-            Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.Long(1, 10)).Produce());
+            Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.Long()).Take());
+            Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.Long(10)).Take());
+            Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.Long(1, 10)).Take());
 
             //Double
-            Assert.DoesNotThrow(() => generator.Generate(x => x.Double()).Produce());
-            Assert.DoesNotThrow(() => generator.Generate(x => x.Double(10)).Produce());
-            Assert.DoesNotThrow(() => generator.Generate(x => x.Double(1, 10)).Produce());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.Double()).Take());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.Double(10)).Take());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.Double(1, 10)).Take());
 
             //Integer
-            Assert.DoesNotThrow(() => generator.Generate(x => x.Integer()).Produce());
-            Assert.DoesNotThrow(() => generator.Generate(x => x.Integer(10)).Produce());
-            Assert.DoesNotThrow(() => generator.Generate(x => x.Integer(1, 10)).Produce());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.Integer()).Take());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.Integer(10)).Take());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.Integer(1, 10)).Take());
 
 
             //Name
-            Assert.DoesNotThrow(() => generator.Generate(x => x.FirstName()).Produce());
-            Assert.DoesNotThrow(() => generator.Generate(x => x.FirstName(Gender.Female)).Produce());
-            Assert.DoesNotThrow(() => generator.Generate(x => x.FirstName(Gender.Male)).Produce());
-            Assert.DoesNotThrow(() => generator.Generate(x => x.LastName()).Produce());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.FirstName()).Take());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.FirstName(Gender.Female)).Take());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.FirstName(Gender.Male)).Take());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.LastName()).Take());
         }
 
         [Test]
@@ -100,25 +100,25 @@ namespace Tests.Integration {
             };
             var generator = Productor.Yield(new Provider(configurement));
             //Name
-            Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.FirstName()).Produce());
-            Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.FirstName(Gender.Female)).Produce());
-            Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.FirstName(Gender.Male)).Produce());
-            Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.LastName()).Produce());
+            Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.FirstName()).Take());
+            Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.FirstName(Gender.Female)).Take());
+            Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.FirstName(Gender.Male)).Take());
+            Assert.Throws<NullReferenceException>(() => generator.Generate(x => x.LastName()).Take());
 
             //Integer
-            Assert.DoesNotThrow(() => generator.Generate(x => x.Integer()).Produce());
-            Assert.DoesNotThrow(() => generator.Generate(x => x.Integer(10)).Produce());
-            Assert.DoesNotThrow(() => generator.Generate(x => x.Integer(1, 10)).Produce());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.Integer()).Take());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.Integer(10)).Take());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.Integer(1, 10)).Take());
 
             //Long
-            Assert.DoesNotThrow(() => generator.Generate(x => x.Long()).Produce());
-            Assert.DoesNotThrow(() => generator.Generate(x => x.Long(10)).Produce());
-            Assert.DoesNotThrow(() => generator.Generate(x => x.Long(1, 10)).Produce());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.Long()).Take());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.Long(10)).Take());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.Long(1, 10)).Take());
 
             //Double
-            Assert.DoesNotThrow(() => generator.Generate(x => x.Double()).Produce());
-            Assert.DoesNotThrow(() => generator.Generate(x => x.Double(10)).Produce());
-            Assert.DoesNotThrow(() => generator.Generate(x => x.Double(1, 10)).Produce());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.Double()).Take());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.Double(10)).Take());
+            Assert.DoesNotThrow(() => generator.Generate(x => x.Double(1, 10)).Take());
         }
     }
 }

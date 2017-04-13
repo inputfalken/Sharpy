@@ -18,7 +18,7 @@ namespace Tests.Integration {
                     var configurement = new Configurement {
                         NameProvider = new NameByOrigin((Origin) value)
                     };
-                    Productor.Yield(new Provider(configurement)).Generate(g => g.FirstName()).Produce();
+                    Productor.Yield(new Provider(configurement)).Generate(g => g.FirstName()).Take();
                 });
         }
 
@@ -31,7 +31,7 @@ namespace Tests.Integration {
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var name = gen.Generate(g => g.FirstName(Gender.Female)).Produce();
+            var name = gen.Generate(g => g.FirstName(Gender.Female)).Take();
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
         }
@@ -47,7 +47,7 @@ namespace Tests.Integration {
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var name = gen.Generate(g => g.FirstName()).Produce();
+            var name = gen.Generate(g => g.FirstName()).Take();
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
         }
@@ -64,7 +64,7 @@ namespace Tests.Integration {
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var name =gen.Generate(g => g.LastName()).Produce();
+            var name =gen.Generate(g => g.LastName()).Take();
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
         }
@@ -80,7 +80,7 @@ namespace Tests.Integration {
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var name =gen.Generate(g => g.FirstName(Gender.Male)).Produce();
+            var name =gen.Generate(g => g.FirstName(Gender.Male)).Take();
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
         }
@@ -159,7 +159,7 @@ namespace Tests.Integration {
             Assert.IsFalse(userNames.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var userName =gen.Generate(g => g.UserName()).Produce();
+            var userName =gen.Generate(g => g.UserName()).Take();
             Assert.IsFalse(string.IsNullOrEmpty(userName));
             Assert.IsFalse(string.IsNullOrWhiteSpace(userName));
         }
