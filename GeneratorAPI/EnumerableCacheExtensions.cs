@@ -10,7 +10,7 @@ using System.Collections.Generic;
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Sharpy {
+namespace GeneratorAPI {
     /// <summary>
     ///     Extension methods for <see cref="IEnumerable{T}" /> types.
     /// </summary>

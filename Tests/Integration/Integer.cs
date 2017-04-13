@@ -16,7 +16,7 @@ namespace Tests.Integration {
                 .Take(Length);
             Assert.IsTrue(ints.All(l => l > int.MinValue && l < int.MaxValue));
 
-            var intInstance = Productor.Yield(new Provider()).Generate(generator => generator.Integer()).Produce();
+            var intInstance = Productor.Yield(new Provider()).Generate(generator => generator.Integer()).Take();
             Assert.IsTrue(intInstance > int.MinValue && intInstance < int.MaxValue);
         }
 
@@ -29,7 +29,7 @@ namespace Tests.Integration {
             );
 
             //Single
-            Assert.IsFalse(generator.Generate(generatorr => generatorr.Integer(1, 100)).Produce() == 0);
+            Assert.IsFalse(generator.Generate(generatorr => generatorr.Integer(1, 100)).Take() == 0);
         }
 
         [Test]
@@ -40,7 +40,7 @@ namespace Tests.Integration {
             Assert.IsTrue(ints.All(l => l >= 0));
 
             var intInstance =
-                Productor.Yield(new Provider()).Generate(generator => generator.Integer(int.MaxValue)).Produce();
+                Productor.Yield(new Provider()).Generate(generator => generator.Integer(int.MaxValue)).Take();
             Assert.IsTrue(intInstance >= 0);
         }
 
@@ -53,7 +53,7 @@ namespace Tests.Integration {
             Assert.Throws<ArgumentOutOfRangeException>(() => ints.ToArray());
 
             Assert.Throws<ArgumentOutOfRangeException>(
-                () => Productor.Yield(new Provider()).Generate(generator => generator.Integer(-1)).Produce());
+                () => Productor.Yield(new Provider()).Generate(generator => generator.Integer(-1)).Take());
         }
 
         [Test]
@@ -65,7 +65,7 @@ namespace Tests.Integration {
                     .Take(Length);
             Assert.IsTrue(ints.All(l => l >= 0 && l < max));
 
-            var intInstance = Productor.Yield(new Provider()).Generate(generator => generator.Integer(max)).Produce();
+            var intInstance = Productor.Yield(new Provider()).Generate(generator => generator.Integer(max)).Take();
             Assert.IsTrue(intInstance >= 0 && intInstance < max);
         }
 
@@ -82,7 +82,7 @@ namespace Tests.Integration {
 
             Assert.Throws<ArgumentOutOfRangeException>(
                 () =>
-                    Productor.Yield(new Provider()).Generate(generator => generator.Integer(min, max)).Produce());
+                    Productor.Yield(new Provider()).Generate(generator => generator.Integer(min, max)).Take());
         }
 
         [Test]
@@ -96,7 +96,7 @@ namespace Tests.Integration {
             Assert.IsTrue(ints.All(l => l >= min && l < max));
 
             var intInstance =
-                Productor.Yield(new Provider()).Generate(generator => generator.Integer(min, max)).Produce();
+                Productor.Yield(new Provider()).Generate(generator => generator.Integer(min, max)).Take();
             Assert.IsTrue(intInstance >= min && intInstance < max);
         }
 
@@ -111,7 +111,7 @@ namespace Tests.Integration {
             Assert.IsTrue(ints.All(l => l >= min && l < max));
 
             var intInstance =
-                Productor.Yield(new Provider()).Generate(generator => generator.Integer(min, max)).Produce();
+                Productor.Yield(new Provider()).Generate(generator => generator.Integer(min, max)).Take();
             Assert.IsTrue(intInstance >= min && intInstance < max);
         }
 
@@ -123,7 +123,7 @@ namespace Tests.Integration {
                     .Take(Length);
             Assert.IsTrue(ints.All(l => l < 0));
             var intInstance =
-                Productor.Yield(new Provider()).Generate(generator => generator.Integer(int.MinValue, 0)).Produce();
+                Productor.Yield(new Provider()).Generate(generator => generator.Integer(int.MinValue, 0)).Take();
 
             Assert.IsTrue(intInstance < 0);
         }
@@ -140,7 +140,7 @@ namespace Tests.Integration {
             Assert.IsTrue(ints.All(l => l >= min && l < max));
 
             var intInstance =
-                Productor.Yield(new Provider()).Generate(generator => generator.Integer(min, max)).Produce();
+                Productor.Yield(new Provider()).Generate(generator => generator.Integer(min, max)).Take();
             Assert.IsTrue(intInstance >= min && intInstance < max);
         }
 
@@ -153,7 +153,7 @@ namespace Tests.Integration {
             Assert.IsTrue(ints.All(l => l > 0));
 
             var intInstance =
-                Productor.Yield(new Provider()).Generate(generator => generator.Integer(0, int.MaxValue)).Produce();
+                Productor.Yield(new Provider()).Generate(generator => generator.Integer(0, int.MaxValue)).Take();
             Assert.IsTrue(intInstance > 0);
         }
     }

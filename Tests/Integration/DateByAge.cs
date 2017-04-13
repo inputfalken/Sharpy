@@ -10,12 +10,12 @@ namespace Tests.Integration {
         public void Arg_MinusOne() {
             //Will throw exception if argument is less than 0
             Assert.Throws<ArgumentException>(
-                () => Productor.Yield(new Provider()).Generate(generator => generator.DateByAge(-1)).Produce());
+                () => Productor.Yield(new Provider()).Generate(generator => generator.DateByAge(-1)).Take());
         }
 
         [Test]
         public void Arg_Twenty() {
-            var result = Productor.Yield(new Provider()).Generate(generator => generator.DateByAge(20)).Produce();
+            var result = Productor.Yield(new Provider()).Generate(generator => generator.DateByAge(20)).Take();
 
             Assert.AreEqual(result.Year, DateGenerator.CurrentLocalDate.Year - 20);
         }
@@ -23,7 +23,7 @@ namespace Tests.Integration {
         [Test]
         [Repeat(10)]
         public void Arg_Zero() {
-            var result = Productor.Yield(new Provider()).Generate(generator => generator.DateByAge(0)).Produce();
+            var result = Productor.Yield(new Provider()).Generate(generator => generator.DateByAge(0)).Take();
 
             //will make sure that the date created is earlier than today this year
             Assert.IsTrue(DateGenerator.CurrentLocalDate > result);

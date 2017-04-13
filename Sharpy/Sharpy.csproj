@@ -57,18 +57,13 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="src\Configurement.cs" />
-    <Compile Include="src\Deferred.cs" />
-    <Compile Include="src\Function.cs" />
-    <Compile Include="src\EnumerableCacheExtensions.cs" />
-    <Compile Include="src\Sequence.cs" />
     <Compile Include="src\Enums\Gender.cs" />
-    <Compile Include="src\Identity.cs" />
+    <Compile Include="src\Generator.cs" />
     <Compile Include="src\Implementation\DataObjects\NameType.cs" />
     <Compile Include="src\Implementation\DoubleRandomizer.cs" />
     <Compile Include="src\Implementation\ExtensionMethods\ReadOnlyListExtensions.cs" />
     <Compile Include="src\Implementation\ExtensionMethods\Shuffling.cs" />
     <Compile Include="src\Enums\Origin.cs" />
-    <Compile Include="src\Productor.cs" />
     <Compile Include="src\Implementation\DataObjects\CountryCode.cs" />
     <Compile Include="src\Implementation\ExtensionMethods\StringExtensions.cs" />
     <Compile Include="src\Implementation\NumberGenerator.cs" />
@@ -85,6 +80,7 @@
     <Compile Include="src\IProviders\ILongProvider.cs" />
     <Compile Include="src\IProviders\INameProvider.cs" />
     <Compile Include="src\Provider.cs" />
+    <Compile Include="src\RandomGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -99,6 +95,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\usernames.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GeneratorAPI\GeneratorAPI.csproj">
+      <Project>{4763d497-df9e-487c-b210-9de72f5ecace}</Project>
+      <Name>GeneratorAPI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

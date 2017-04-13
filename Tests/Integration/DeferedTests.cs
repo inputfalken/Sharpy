@@ -17,7 +17,7 @@ namespace Tests.Integration {
             var result = Productor
                 .Deferred(() => "Hej")
                 .Generate(s => s.Length)
-                .Produce();
+                .Take();
             Assert.AreEqual(3, result);
         }
 
@@ -29,7 +29,7 @@ namespace Tests.Integration {
             var result = Productor
                 .Deferred(() => "Hej")
                 .GenerateZip(Productor.Deferred(() => 20), (s, i) => s.Length + i)
-                .Produce();
+                .GetProvider();
             Assert.AreEqual(23, result);
         }
 
@@ -82,7 +82,7 @@ namespace Tests.Integration {
             var result = Productor
                 .Deferred(() => "hej")
                 .GenerateZip(Productor.Deferred(() => 10), (s, i) => s + i)
-                .Produce();
+                .GetProvider();
             Assert.AreEqual("hej10", result);
         }
     }

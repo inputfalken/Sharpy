@@ -30,6 +30,10 @@
     </dependencies>
   </metadata>
   <files>
-        <file src="src\**" target="build" />
+    <file src="src\**" target="build" />
   </files>
 </package>
+<!--
+     Run this command below to create the package.
+     nuget pack Sharpy.csproj -IncludeReferencedProjects -Prop configuration=release
+-->
