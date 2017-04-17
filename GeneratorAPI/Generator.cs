@@ -23,6 +23,8 @@ namespace GeneratorAPI {
     }
 
     public class GeneratorFactory {
-        public Generator<Random> RandomGenerator(Random random) => new Generator<Random>(random);
+        public Generator<Random> RandomGenerator(Random random) => Create(random);
+
+        public Generator<TProvider> Create<TProvider>(TProvider provider) => new Generator<TProvider>(provider);
     }
 }
