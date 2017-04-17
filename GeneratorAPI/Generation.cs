@@ -19,6 +19,7 @@ namespace GeneratorAPI {
                 _infiniteEnumerable.SelectMany(result => fn(result)._infiniteEnumerable));
         }
 
+        //BUG Runs forever since _infiniteEnumerable never ends.
         public Generation<TCompose> SelectMany<T, TCompose>(Func<TResult, Generation<T>> fn,
             Func<TResult, T, TCompose> composer) {
             return new Generation<TCompose>(
