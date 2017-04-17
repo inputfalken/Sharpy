@@ -18,9 +18,8 @@ namespace Sharpy.Implementation {
         };
 
 
-        internal EmailBuilder(IReadOnlyList<string> providers, Random random) : base(random) {
-            EmailDomains = providers;
-        }
+        internal EmailBuilder(IReadOnlyList<string> providers, Random random) : base(random) => EmailDomains =
+            providers;
 
         /// <summary>
         ///     Contains the email providers
@@ -72,8 +71,6 @@ namespace Sharpy.Implementation {
         }
 
 
-        private string ResolveDuplicate(string item) {
-            return item.Append(Random.Next(10));
-        }
+        private string ResolveDuplicate(string item) => item.Append(Random.Next(10));
     }
 }

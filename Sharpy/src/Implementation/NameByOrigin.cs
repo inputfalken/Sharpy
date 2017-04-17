@@ -27,9 +27,7 @@ namespace Sharpy.Implementation {
         private readonly ISet<Origin> _selectedRegions = new HashSet<Origin>();
 
 
-        private NameByOrigin(Random random) {
-            _random = random;
-        }
+        private NameByOrigin(Random random) => _random = random;
 
         /// <summary>
         ///     <para>Randomizes names with supplied random based on Origin.</para>
@@ -66,25 +64,20 @@ namespace Sharpy.Implementation {
         /// </summary>
         /// <param name="gender"></param>
         /// <returns></returns>
-        public string FirstName(Gender gender) {
-            return Name(gender == Gender.Male ? NameType.MaleFirst : NameType.FemaleFirst);
-        }
+        public string FirstName(Gender gender) => Name(
+            gender == Gender.Male ? NameType.MaleFirst : NameType.FemaleFirst);
 
         /// <summary>
         ///     <para>Returns a randomized First name</para>
         /// </summary>
         /// <returns></returns>
-        public string FirstName() {
-            return Name(_random.Next(2) == 0 ? NameType.FemaleFirst : NameType.MaleFirst);
-        }
+        public string FirstName() => Name(_random.Next(2) == 0 ? NameType.FemaleFirst : NameType.MaleFirst);
 
         /// <summary>
         ///     <para>Returns a randomized last name.</para>
         /// </summary>
         /// <returns></returns>
-        public string LastName() {
-            return Name(NameType.Last);
-        }
+        public string LastName() => Name(NameType.Last);
 
         /// <summary>
         ///     <para>
