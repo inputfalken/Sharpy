@@ -17,4 +17,12 @@ namespace GeneratorAPI {
         public Generation<TResult> Generate<TResult>(Func<TProvider, TResult> fn) => new Generation<TResult>(
             InfiniteEnumerable(fn));
     }
+
+    public class Generator {
+        public static GeneratorFactory Factory { get; } = new GeneratorFactory();
+    }
+
+    public class GeneratorFactory {
+        public Generator<Random> RandomGenerator(Random random) => new Generator<Random>(random);
+    }
 }
