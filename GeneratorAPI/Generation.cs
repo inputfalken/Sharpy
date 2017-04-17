@@ -8,10 +8,6 @@ namespace GeneratorAPI {
 
         public Generation(IEnumerable<TResult> infiniteEnumerable) => _infiniteEnumerable = infiniteEnumerable;
 
-        /// <summary>
-        /// </summary>
-        /// <returns></returns>
-        //This will not make IEnumerable box and unbox itself.
         public Generation<T> Select<T>(Func<TResult, T> fn) => new Generation<T>(_infiniteEnumerable.Select(fn));
 
         public TResult Take() => _infiniteEnumerable.First();
