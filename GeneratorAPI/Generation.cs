@@ -3,30 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace GeneratorAPI {
-    public class Generation<TResult> {
-        private readonly IEnumerable<TResult> _infiniteEnumerable;
+    public class Generation<T> {
+        private readonly IEnumerable<T> _infiniteEnumerable;
 
-        public Generation(IEnumerable<TResult> infiniteEnumerable) => _infiniteEnumerable = infiniteEnumerable;
+        public Generation(IEnumerable<T> infiniteEnumerable) => _infiniteEnumerable = infiniteEnumerable;
 
-        public Generation<T> Select<T>(Func<TResult, T> fn) => new Generation<T>(_infiniteEnumerable.Select(fn));
+        public Generation<TResult> Select<TResult>(Func<T, TResult> fn) => new Generation<TResult>(_infiniteEnumerable
+            .Select(fn));
 
-        public TResult Take() => _infiniteEnumerable.First();
+        public T Take() => _infiniteEnumerable.First();
 
-        public IEnumerable<TResult> Take(int count) => _infiniteEnumerable.Take(count);
+        public IEnumerable<T> Take(int count) => _infiniteEnumerable.Take(count);
 
-        public Generation<T> SelectMany<T>(Func<TResult, Generation<T>> fn) {
-            return new Generation<T>(
+        public Generation<TResult> SelectMany<TResult>(Func<T, Generation<TResult>> fn) {
+            return new Generation<TResult>(
                 _infiniteEnumerable.SelectMany(result => fn(result)._infiniteEnumerable));
         }
 
         //BUG Runs forever since _infiniteEnumerable never ends.
-        public Generation<TCompose> SelectMany<T, TCompose>(Func<TResult, Generation<T>> fn,
-            Func<TResult, T, TCompose> composer) {
+        public Generation<TCompose> SelectMany<TResult, TCompose>(Func<T, Generation<TResult>> fn,
+            Func<T, TResult, TCompose> composer) {
             return new Generation<TCompose>(
                 _infiniteEnumerable.SelectMany(result => fn(result)._infiniteEnumerable, composer));
         }
 
-        public Generation<TResult> Where(Func<TResult, bool> predicate) => new Generation<TResult>(
+        public Generation<T> Where(Func<T, bool> predicate) => new Generation<T>(
             _infiniteEnumerable.Where(predicate));
     }
 }
