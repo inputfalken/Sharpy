@@ -24,7 +24,7 @@ namespace GeneratorAPI {
             InfiniteEnumerable(fn));
     }
 
-    public class Generator {
+    public static class Generator {
         /// <summary>
         /// Contains methods for creating Generators with various Providers.
         /// </summary>
