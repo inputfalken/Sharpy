@@ -4,10 +4,6 @@ using System.Linq;
 
 namespace GeneratorAPI {
     public class Generation<T> {
-        private static IEnumerable<TResult> InfiniteEnumerable<TResult>(Func<TResult> fn) {
-            while (true) yield return fn();
-        }
-
         private readonly IEnumerable<T> _infiniteEnumerable;
 
         public Generation(IEnumerable<T> infiniteEnumerable) => _infiniteEnumerable = infiniteEnumerable;
@@ -15,8 +11,14 @@ namespace GeneratorAPI {
 
         private Generation(Func<T> fn) : this(InfiniteEnumerable(fn)) { }
 
+        private static IEnumerable<TResult> InfiniteEnumerable<TResult>(Func<TResult> fn) {
+            while (true) yield return fn();
+        }
+
         /// <summary>
-        /// Maps Generation&lt;T&gt; into Generation&lt;TResult&gt;
+        ///     <para>
+        ///         Maps Generation&lt;T&gt; into Generation&lt;TResult&gt;
+        ///     </para>
         /// </summary>
         /// <typeparam name="TResult"></typeparam>
         /// <param name="fn"></param>
@@ -26,20 +28,26 @@ namespace GeneratorAPI {
 
 
         /// <summary>
-        /// Gives &lt;T&gt;
+        ///     <para>
+        ///         Gives &lt;T&gt;
+        ///     </para>
         /// </summary>
         /// <returns></returns>
         public T Take() => _infiniteEnumerable.First();
 
         /// <summary>
-        /// Yields count ammount of items into an IEnumerable&lt;T&gt;.
+        ///     <para>
+        ///         Yields count ammount of items into an IEnumerable&lt;T&gt;.
+        ///     </para>
         /// </summary>
         /// <param name="count"></param>
         /// <returns></returns>
         public IEnumerable<T> Take(int count) => _infiniteEnumerable.Take(count);
 
         /// <summary>
-        /// Flattens Generation&lt;T&gt;
+        ///     <para>
+        ///         Flattens Generation&lt;T&gt;
+        ///     </para>
         /// </summary>
         /// <typeparam name="TResult"></typeparam>
         /// <param name="fn"></param>
@@ -52,8 +60,10 @@ namespace GeneratorAPI {
             new Generation<TResult>(() => fn(Take()).Take());
 
         /// <summary>
-        /// Flattens Generation&lt;T&gt;
-        /// With a compose function using &lt;T&gt; and &lt;TResult&gt;
+        ///     <para>
+        ///         Flattens Generation&lt;T&gt;
+        ///         With a compose function using &lt;T&gt; and &lt;TResult&gt;
+        ///     </para>
         /// </summary>
         /// <typeparam name="TResult"></typeparam>
         /// <typeparam name="TCompose"></typeparam>
@@ -65,10 +75,12 @@ namespace GeneratorAPI {
             => SelectMany(a => fn(a).SelectMany(r => new Generation<TCompose>(() => composer(a, r))));
 
         /// <summary>
-        /// Filters the generation to fit the predicate.
-        /// <remarks>
-        ///     Use with Caution: Bad predicates will make this method run forever.
-        /// </remarks>
+        ///     <para>
+        ///         Filters the generation to fit the predicate.
+        ///     </para>
+        ///     <remarks>
+        ///         Use with Caution: Bad predicates will make this method run forever.
+        ///     </remarks>
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>

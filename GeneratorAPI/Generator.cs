@@ -15,7 +15,9 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        /// Turn Generator into Generation&lt;TResult&gt;
+        ///     <para>
+        ///         Turn Generator into Generation&lt;TResult&gt;
+        ///     </para>
         /// </summary>
         /// <typeparam name="TResult"></typeparam>
         /// <param name="fn"></param>
@@ -26,24 +28,32 @@ namespace GeneratorAPI {
 
     public static class Generator {
         /// <summary>
-        /// Contains methods for creating Generators with various Providers.
+        ///     <para>
+        ///         Contains methods for creating Generators with various Providers.
+        ///     </para>
         /// </summary>
         public static GeneratorFactory Factory { get; } = new GeneratorFactory();
     }
 
     /// <summary>
-    /// Contains methods for creating Generators with various Providers.
+    ///     <para>
+    ///         Contains methods for creating Generators with various Providers.
+    ///     </para>
     /// </summary>
     public class GeneratorFactory {
         /// <summary>
-        /// A Generator using System.Random as provider.
+        ///     <para>
+        ///         A Generator using System.Random as provider.
+        ///     </para>
         /// </summary>
         /// <param name="random"></param>
         /// <returns></returns>
         public Generator<Random> RandomGenerator(Random random) => Create(random);
 
         /// <summary>
-        /// Create a Generator with TProivder as provider.
+        ///     <para>
+        ///         Create a Generator with TProivder as provider.
+        ///     </para>
         /// </summary>
         /// <typeparam name="TProvider"></typeparam>
         /// <param name="provider"></param>
