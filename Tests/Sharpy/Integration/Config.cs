@@ -4,7 +4,7 @@ using NUnit.Framework;
 using Sharpy;
 using Sharpy.Enums;
 
-namespace Tests.Integration {
+namespace Tests.Sharpy.Integration {
     [TestFixture]
     public class Config {
         [Test]

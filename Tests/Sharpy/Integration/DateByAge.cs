@@ -4,7 +4,7 @@ using NUnit.Framework;
 using Sharpy;
 using Sharpy.Implementation;
 
-namespace Tests.Integration {
+namespace Tests.Sharpy.Integration {
     [TestFixture]
     public class DateByAge {
         [Test]

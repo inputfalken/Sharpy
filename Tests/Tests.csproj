@@ -52,21 +52,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileTests.cs" />
-    <Compile Include="Integration\Bool.cs" />
-    <Compile Include="Integration\Config.cs" />
-    <Compile Include="Integration\CustomCollection.cs" />
-    <Compile Include="Integration\DateByAge.cs" />
-    <Compile Include="Integration\DateByYear.cs" />
-    <Compile Include="Integration\Double.cs" />
-    <Compile Include="Integration\Integer.cs" />
-    <Compile Include="Integration\Long.cs" />
-    <Compile Include="Integration\MailAddress.cs" />
-    <Compile Include="Integration\Params.cs" />
-    <Compile Include="Integration\NumberByLength.cs" />
-    <Compile Include="Integration\Seed.cs" />
-    <Compile Include="Integration\SocialSecurity.cs" />
-    <Compile Include="Integration\NameProvider.cs" />
+    <Compile Include="Sharpy\FileTests.cs" />
+    <Compile Include="Sharpy\Integration\Bool.cs" />
+    <Compile Include="Sharpy\Integration\Config.cs" />
+    <Compile Include="Sharpy\Integration\CustomCollection.cs" />
+    <Compile Include="Sharpy\Integration\DateByAge.cs" />
+    <Compile Include="Sharpy\Integration\DateByYear.cs" />
+    <Compile Include="Sharpy\Integration\Double.cs" />
+    <Compile Include="Sharpy\Integration\Integer.cs" />
+    <Compile Include="Sharpy\Integration\Long.cs" />
+    <Compile Include="Sharpy\Integration\MailAddress.cs" />
+    <Compile Include="Sharpy\Integration\Params.cs" />
+    <Compile Include="Sharpy\Integration\NumberByLength.cs" />
+    <Compile Include="Sharpy\Integration\Seed.cs" />
+    <Compile Include="Sharpy\Integration\SocialSecurity.cs" />
+    <Compile Include="Sharpy\Integration\NameProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -81,6 +81,9 @@
       <Project>{e4c60589-e7ce-471c-82e3-28c356cd1191}</Project>
       <Name>Sharpy</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="GeneratorAPI\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

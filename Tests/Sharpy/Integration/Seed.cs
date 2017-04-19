@@ -5,7 +5,7 @@ using NUnit.Framework;
 using Sharpy;
 using Sharpy.Enums;
 
-namespace Tests.Integration {
+namespace Tests.Sharpy.Integration {
     /// <summary>
     ///     <para>These tests check that the result will be the same when setting a seed.</para>
     ///     <para>Thread.Sleep is for making sure a new seed would be given if the Seed given does not work.</para>
