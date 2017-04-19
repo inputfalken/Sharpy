@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using GeneratorAPI;
 using NUnit.Framework;
 using Sharpy;
 using Sharpy.Enums;
@@ -18,13 +19,13 @@ namespace Tests.Integration {
                     var configurement = new Configurement {
                         NameProvider = new NameByOrigin((Origin) value)
                     };
-                    Productor.Yield(new Provider(configurement)).Generate(g => g.FirstName()).Take();
+                    Generator.Factory.SharpyGenerator(new Provider(configurement)).Generate(g => g.FirstName()).Take();
                 });
         }
 
         [Test]
         public void Female_First_Name_Not_Null_Or_White_Space() {
-            var gen = Productor.Yield(new Provider());
+            var gen = Generator.Factory.SharpyGenerator(new Provider());
             //Many
             var names = gen.Generate(g => g.FirstName(Gender.Female)).Take(Count).ToArray();
             Assert.IsFalse(names.All(string.IsNullOrEmpty));
@@ -38,11 +39,12 @@ namespace Tests.Integration {
 
         [Test]
         public void First_Name_Not_Null_Or_White_Space() {
-            var gen = Productor.Yield(new Provider());
+            var gen = Generator.Factory.SharpyGenerator(new Provider());
             //Many
             var names = gen
                 .Generate(g => g.FirstName())
-                .Take(Count).ToArray();
+                .Take(Count)
+                .ToArray();
             Assert.IsFalse(names.All(string.IsNullOrEmpty));
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
 
@@ -54,7 +56,7 @@ namespace Tests.Integration {
 
         [Test]
         public void Last_Name_Not_Null_Or_White_Space() {
-            var gen = Productor.Yield(new Provider());
+            var gen = Generator.Factory.SharpyGenerator(new Provider());
             //Many
             var names = gen
                 .Generate(g => g.LastName())
@@ -64,23 +66,24 @@ namespace Tests.Integration {
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var name =gen.Generate(g => g.LastName()).Take();
+            var name = gen.Generate(g => g.LastName()).Take();
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
         }
 
         [Test]
         public void Male_First_Name_Not_Null_Or_White_Space() {
-            var gen = Productor.Yield(new Provider());
+            var gen = Generator.Factory.SharpyGenerator(new Provider());
             //Many
             var names = gen
                 .Generate(g => g.FirstName(Gender.Male))
-                .Take(Count).ToArray();
+                .Take(Count)
+                .ToArray();
             Assert.IsFalse(names.All(string.IsNullOrEmpty));
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var name =gen.Generate(g => g.FirstName(Gender.Male)).Take();
+            var name = gen.Generate(g => g.FirstName(Gender.Male)).Take();
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
         }
@@ -88,7 +91,8 @@ namespace Tests.Integration {
         [Test]
         public void Origin_Restricted_Constructor_With_One_Country() {
             var swedishNameGenerator =
-                Productor.Yield(new Provider(new Configurement {NameProvider = new NameByOrigin(Origin.Sweden)}));
+                Generator.Factory.SharpyGenerator(
+                    new Provider(new Configurement {NameProvider = new NameByOrigin(Origin.Sweden)}));
             var swedishNames = swedishNameGenerator
                 .Generate(g => g.FirstName())
                 .Take(Count)
@@ -101,7 +105,7 @@ namespace Tests.Integration {
 
         [Test]
         public void Origin_Restricted_Constructor_With_One_Country_And_One_Region() {
-            var svDkGenerator = Productor.Yield(new Provider(
+            var svDkGenerator = Generator.Factory.SharpyGenerator(new Provider(
                 new Configurement {
                     NameProvider = new NameByOrigin(Origin.Sweden, Origin.NorthAmerica)
                 }
@@ -118,7 +122,7 @@ namespace Tests.Integration {
 
         [Test]
         public void Origin_Restricted_Constructor_With_Two_Countries() {
-            var svDkGenerator = Productor.Yield(new Provider(
+            var svDkGenerator = Generator.Factory.SharpyGenerator(new Provider(
                 new Configurement {
                     NameProvider = new NameByOrigin(Origin.Sweden, Origin.Denmark)
                 }
@@ -135,7 +139,7 @@ namespace Tests.Integration {
 
         [Test]
         public void Origin_Restricted_Constructor_With_Two_Regions() {
-            var svDkGenerator = Productor.Yield(new Provider(
+            var svDkGenerator = Generator.Factory.SharpyGenerator(new Provider(
                 new Configurement {
                     NameProvider = new NameByOrigin(Origin.Europe, Origin.NorthAmerica)
                 }
@@ -152,14 +156,14 @@ namespace Tests.Integration {
 
         [Test]
         public void User_Name_Not_Null_Or_White_Space() {
-            var gen = Productor.Yield(new Provider());
+            var gen = Generator.Factory.SharpyGenerator(new Provider());
             //Many
             var userNames = gen.Generate(g => g.UserName()).Take(Count).ToArray();
             Assert.IsFalse(userNames.All(string.IsNullOrEmpty));
             Assert.IsFalse(userNames.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var userName =gen.Generate(g => g.UserName()).Take();
+            var userName = gen.Generate(g => g.UserName()).Take();
             Assert.IsFalse(string.IsNullOrEmpty(userName));
             Assert.IsFalse(string.IsNullOrWhiteSpace(userName));
         }

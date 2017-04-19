@@ -58,16 +58,13 @@
     <Compile Include="Integration\CustomCollection.cs" />
     <Compile Include="Integration\DateByAge.cs" />
     <Compile Include="Integration\DateByYear.cs" />
-    <Compile Include="Integration\DeferedTests.cs" />
     <Compile Include="Integration\Double.cs" />
-    <Compile Include="Integration\ReturnTests.cs" />
     <Compile Include="Integration\Integer.cs" />
     <Compile Include="Integration\Long.cs" />
     <Compile Include="Integration\MailAddress.cs" />
     <Compile Include="Integration\Params.cs" />
     <Compile Include="Integration\NumberByLength.cs" />
     <Compile Include="Integration\Seed.cs" />
-    <Compile Include="Integration\SequenceTests.cs" />
     <Compile Include="Integration\SocialSecurity.cs" />
     <Compile Include="Integration\NameProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -76,6 +73,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GeneratorAPI\GeneratorAPI.csproj">
+      <Project>{4763d497-df9e-487c-b210-9de72f5ecace}</Project>
+      <Name>GeneratorAPI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sharpy\Sharpy.csproj">
       <Project>{e4c60589-e7ce-471c-82e3-28c356cd1191}</Project>
       <Name>Sharpy</Name>
