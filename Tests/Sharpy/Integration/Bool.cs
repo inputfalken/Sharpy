@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace Tests.Integration {
+namespace Tests.Sharpy.Integration {
     [TestFixture]
     public class Bool {
         [Test]

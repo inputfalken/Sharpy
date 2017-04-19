@@ -6,7 +6,7 @@ using Sharpy;
 using Sharpy.Enums;
 using Sharpy.Implementation;
 
-namespace Tests.Integration {
+namespace Tests.Sharpy.Integration {
     [TestFixture]
     public class NameProvider {
         private const int Count = 100;

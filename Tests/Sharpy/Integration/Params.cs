@@ -3,7 +3,7 @@ using GeneratorAPI;
 using NUnit.Framework;
 using Sharpy;
 
-namespace Tests.Integration {
+namespace Tests.Sharpy.Integration {
     [TestFixture]
     public class Params {
         [Test]
