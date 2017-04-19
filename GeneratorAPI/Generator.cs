@@ -15,12 +15,12 @@ namespace GeneratorAPI {
     /// </summary>
     /// <typeparam name="TProvider"></typeparam>
     public class Generator<TProvider> {
-        private readonly TProvider _provider;
+        public TProvider Provider { get; }
 
-        public Generator(TProvider provider) => _provider = provider;
+        public Generator(TProvider provider) => Provider = provider;
 
         private IEnumerable<TResult> InfiniteEnumerable<TResult>(Func<TProvider, TResult> fn) {
-            while (true) yield return fn(_provider);
+            while (true) yield return fn(Provider);
         }
 
         /// <summary>
