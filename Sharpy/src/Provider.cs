@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using GeneratorAPI;
 using NodaTime;
 using Sharpy.Enums;
 using Sharpy.Implementation;
@@ -276,18 +275,5 @@ namespace Sharpy {
         private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
 
         private static string FormatDigit(int i) => i < 10 ? Prefix(i, 1) : i.ToString();
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public static class Extensions {
-        /// <summary>
-        /// </summary>
-        /// <param name="factory"></param>
-        /// <param name="provider"></param>
-        /// <returns></returns>
-        public static Generator<Provider> SharpyGenerator(this GeneratorFactory factory,
-            Provider provider) => factory.Create(provider);
     }
 }
