@@ -2,6 +2,15 @@
 using System.Collections.Generic;
 
 namespace GeneratorAPI {
+    public static class Generator {
+        /// <summary>
+        ///     <para>
+        ///         Contains methods for creating Generators with various Providers.
+        ///     </para>
+        /// </summary>
+        public static GeneratorFactory Factory { get; } = new GeneratorFactory();
+    }
+
     /// <summary>
     /// </summary>
     /// <typeparam name="TProvider"></typeparam>
@@ -26,14 +35,6 @@ namespace GeneratorAPI {
             InfiniteEnumerable(fn));
     }
 
-    public static class Generator {
-        /// <summary>
-        ///     <para>
-        ///         Contains methods for creating Generators with various Providers.
-        ///     </para>
-        /// </summary>
-        public static GeneratorFactory Factory { get; } = new GeneratorFactory();
-    }
 
     /// <summary>
     ///     <para>
