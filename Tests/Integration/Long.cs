@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using GeneratorAPI;
 using NUnit.Framework;
 using Sharpy;
 
@@ -11,65 +12,73 @@ namespace Tests.Integration {
         [Test]
         public void NoArgument() {
             var longs =
-                Productor.Yield(new Provider())
+                Generator.Factory.SharpyGenerator(new Provider())
                     .Generate(generator => generator.Long())
                     .Take(Length);
             Assert.IsTrue(longs.All(l => l > long.MinValue && l < long.MaxValue));
 
             var longInstance =
-                Productor.Yield(new Provider()).Generate(generator => generator.Long()).Take();
+                Generator.Factory.SharpyGenerator(new Provider()).Generate(generator => generator.Long()).Take();
             Assert.IsTrue(longInstance > long.MinValue && longInstance < long.MaxValue);
         }
 
         [Test]
         public void One_Arg_MaxValue() {
             var longs =
-                Productor.Yield(new Provider())
+                Generator.Factory.SharpyGenerator(new Provider())
                     .Generate(generator => generator.Long(long.MaxValue))
                     .Take(Length);
             Assert.IsTrue(longs.All(l => l >= 0));
 
             var longInstance =
-                Productor.Yield(new Provider()).Generate(generator => generator.Long(long.MaxValue)).Take();
+                Generator.Factory.SharpyGenerator(new Provider())
+                    .Generate(generator => generator.Long(long.MaxValue))
+                    .Take();
             Assert.IsTrue(longInstance >= 0);
         }
 
         [Test]
         public void One_Arg_MinusOne() {
             var longs =
-                Productor.Yield(new Provider())
+                Generator.Factory.SharpyGenerator(new Provider())
                     .Generate(generator => generator.Long(-1))
                     .Take(Length);
             Assert.Throws<ArgumentOutOfRangeException>(() => longs.ToArray());
 
             Assert.Throws<ArgumentOutOfRangeException>(
-                () => Productor.Yield(new Provider()).Generate(generator => generator.Long(-1)).Take());
+                () => Generator.Factory.SharpyGenerator(new Provider())
+                    .Generate(generator => generator.Long(-1))
+                    .Take());
         }
 
         [Test]
         public void One_Arg_Thousand() {
             const int max = 1000;
             var longs =
-                Productor.Yield(new Provider())
+                Generator.Factory.SharpyGenerator(new Provider())
                     .Generate(generator => generator.Long(max))
                     .Take(Length);
             Assert.IsTrue(longs.All(l => l >= 0 && l < max));
 
-            var longInstance =Productor.Yield(new Provider()).Generate(generator => generator.Long(max)).Take();
+            var longInstance = Generator.Factory.SharpyGenerator(new Provider())
+                .Generate(generator => generator.Long(max))
+                .Take();
             Assert.IsTrue(longInstance >= 0 && longInstance < max);
         }
 
         [Test]
         public void One_Arg_Zero() {
             var longs =
-                Productor.Yield(new Provider())
+                Generator.Factory.SharpyGenerator(new Provider())
                     .Generate(generator => generator.Long(0))
                     .Take(Length);
             Assert.Throws<ArgumentOutOfRangeException>(() => longs.ToArray());
 
 
             Assert.Throws<ArgumentOutOfRangeException>(
-                () => Productor.Yield(new Provider()).Generate(generator => generator.Long(0)).Take());
+                () => Generator.Factory.SharpyGenerator(new Provider())
+                    .Generate(generator => generator.Long(0))
+                    .Take());
         }
 
         [Test]
@@ -77,14 +86,16 @@ namespace Tests.Integration {
             const int min = -1000;
             const int max = -2000;
             var longs =
-                Productor.Yield(new Provider())
+                Generator.Factory.SharpyGenerator(new Provider())
                     .Generate(generator => generator.Long(min, max))
                     .Take(Length);
             Assert.Throws<ArgumentOutOfRangeException>(() => longs.ToArray());
 
             Assert.Throws<ArgumentOutOfRangeException>(
                 () =>
-                    Productor.Yield(new Provider()).Generate(generator => generator.Long(min, max)).Take());
+                    Generator.Factory.SharpyGenerator(new Provider())
+                        .Generate(generator => generator.Long(min, max))
+                        .Take());
         }
 
         [Test]
@@ -92,12 +103,14 @@ namespace Tests.Integration {
             const int min = -1000;
             const int max = 2000;
             var longs =
-                Productor.Yield(new Provider())
+                Generator.Factory.SharpyGenerator(new Provider())
                     .Generate(generator => generator.Long(min, max))
                     .Take(Length);
             Assert.IsTrue(longs.All(l => l >= min && l < max));
 
-            var longInstance =Productor.Yield(new Provider()).Generate(generator => generator.Long(min, max)).Take();
+            var longInstance = Generator.Factory.SharpyGenerator(new Provider())
+                .Generate(generator => generator.Long(min, max))
+                .Take();
             Assert.IsTrue(longInstance >= min && longInstance < max);
         }
 
@@ -106,25 +119,29 @@ namespace Tests.Integration {
             const int min = -2000;
             const int max = -1000;
             var longs =
-                Productor.Yield(new Provider())
+                Generator.Factory.SharpyGenerator(new Provider())
                     .Generate(generator => generator.Long(min, max))
                     .Take(Length);
             Assert.IsTrue(longs.All(l => l >= min && l < max));
 
             var longInstance =
-                Productor.Yield(new Provider()).Generate(generator => generator.Long(min, max)).Take();
+                Generator.Factory.SharpyGenerator(new Provider())
+                    .Generate(generator => generator.Long(min, max))
+                    .Take();
             Assert.IsTrue(longInstance >= min && longInstance < max);
         }
 
         [Test]
         public void Two_Args_MinValue_And_Zero() {
             var longs =
-                Productor.Yield(new Provider())
+                Generator.Factory.SharpyGenerator(new Provider())
                     .Generate(generator => generator.Long(long.MinValue, 0))
                     .Take(Length);
             Assert.IsTrue(longs.All(l => l < 0));
             var longInstance =
-                Productor.Yield(new Provider()).Generate(generator => generator.Long(long.MinValue, 0)).Take();
+                Generator.Factory.SharpyGenerator(new Provider())
+                    .Generate(generator => generator.Long(long.MinValue, 0))
+                    .Take();
 
             Assert.IsTrue(longInstance < 0);
         }
@@ -135,26 +152,30 @@ namespace Tests.Integration {
             const int min = 1000;
             const int max = 2000;
             var longs =
-                Productor.Yield(new Provider())
+                Generator.Factory.SharpyGenerator(new Provider())
                     .Generate(generator => generator.Long(min, max))
                     .Take(Length);
             Assert.IsTrue(longs.All(l => l >= min && l < max));
 
             var longInstance =
-                Productor.Yield(new Provider()).Generate(generator => generator.Long(min, max)).Take();
+                Generator.Factory.SharpyGenerator(new Provider())
+                    .Generate(generator => generator.Long(min, max))
+                    .Take();
             Assert.IsTrue(longInstance >= min && longInstance < max);
         }
 
         [Test]
         public void Two_Args_Zero_And_MaxValue() {
             var longs =
-                Productor.Yield(new Provider())
+                Generator.Factory.SharpyGenerator(new Provider())
                     .Generate(generator => generator.Long(0, long.MaxValue))
                     .Take(Length);
             Assert.IsTrue(longs.All(l => l > 0));
 
             var longInstance =
-                Productor.Yield(new Provider()).Generate(generator => generator.Long(0, long.MaxValue)).Take();
+                Generator.Factory.SharpyGenerator(new Provider())
+                    .Generate(generator => generator.Long(0, long.MaxValue))
+                    .Take();
             Assert.IsTrue(longInstance > 0);
         }
     }
