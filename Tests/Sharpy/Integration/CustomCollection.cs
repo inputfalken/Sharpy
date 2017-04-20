@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using GeneratorAPI;
 using NUnit.Framework;
 using Sharpy;
 
-namespace Tests.Integration {
+namespace Tests.Sharpy.Integration {
     [TestFixture]
     public class CustomCollection {
         [Test]
         public void Array() {
-            var randomGenerator = Productor.Yield(new Provider());
+            var randomGenerator = Generator.Factory.SharpyGenerator(new Provider());
 
             var args = new[] {"hello", "there", "foo"};
             var generateMany = randomGenerator
@@ -19,7 +20,7 @@ namespace Tests.Integration {
 
         [Test]
         public void List() {
-            var randomGenerator = Productor.Yield(new Provider());
+            var randomGenerator = Generator.Factory.SharpyGenerator(new Provider());
             var args = new List<string> {"hello", "there", "foo"};
             var generateMany = randomGenerator
                 .Generate(provider => provider.CustomCollection(args))

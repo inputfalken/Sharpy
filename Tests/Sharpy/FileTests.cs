@@ -7,7 +7,7 @@ using NUnit.Framework;
 using Sharpy.Implementation.DataObjects;
 using Sharpy.Properties;
 
-namespace Tests {
+namespace Tests.Sharpy {
     [TestFixture]
     internal class FileTests {
         [Test]
