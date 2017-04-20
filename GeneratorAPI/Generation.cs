@@ -5,15 +5,16 @@ using System.Linq;
 namespace GeneratorAPI {
     public class Generation<T> {
         /// <summary>
-        /// <para>
-        ///     The generation.
-        /// </para>
+        ///     <para>
+        ///         The generation.
+        ///     </para>
         /// </summary>
         private readonly Func<T> _generation;
+
         /// <summary>
-        /// <para>
-        ///     Infinite deferred invocations of _generation.
-        /// </para>
+        ///     <para>
+        ///         Infinite deferred invocations of _generation.
+        ///     </para>
         /// </summary>
         private readonly IEnumerable<T> _generations;
 
