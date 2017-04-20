@@ -112,7 +112,9 @@ namespace GeneratorAPI {
             /// <returns>
             ///     An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
             /// </returns>
-            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+            IEnumerator IEnumerable.GetEnumerator() {
+                return GetEnumerator();
+            }
 
             #endregion
 
@@ -167,7 +169,9 @@ namespace GeneratorAPI {
                 /// <returns>
                 ///     The element in the collection at the current position of the enumerator.
                 /// </returns>
-                object IEnumerator.Current => Current;
+                object IEnumerator.Current {
+                    get { return Current; }
+                }
 
                 #endregion
 

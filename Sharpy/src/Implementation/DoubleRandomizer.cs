@@ -12,20 +12,26 @@ namespace Sharpy.Implementation {
         ///     <para>Randomizes doubles with the random supplied.</para>
         /// </summary>
         /// <param name="random"></param>
-        public DoubleRandomizer(Random random) => _random = random;
+        public DoubleRandomizer(Random random) {
+            _random = random;
+        }
 
         /// <summary>
         ///     <para>Returns a randomized double within 0 and 1.</para>
         /// </summary>
         /// <returns></returns>
-        public double Double() => _random.NextDouble();
+        public double Double() {
+            return _random.NextDouble();
+        }
 
         /// <summary>
         ///     <para>Returns a randomized double within 0 and max.</para>
         /// </summary>
         /// <param name="max"></param>
         /// <returns></returns>
-        public double Double(double max) => Double(0, max);
+        public double Double(double max) {
+            return Double(0, max);
+        }
 
         /// <summary>
         ///     <para>Returns a randomized double within min and max.</para>

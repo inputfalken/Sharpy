@@ -14,7 +14,10 @@ namespace GeneratorAPI {
     /// </summary>
     /// <typeparam name="TProvider"></typeparam>
     public class Generator<TProvider> {
-        public Generator(TProvider provider) => Provider = provider;
+        public Generator(TProvider provider) {
+            Provider = provider;
+        }
+
         public TProvider Provider { get; }
 
         /// <summary>
@@ -25,8 +28,10 @@ namespace GeneratorAPI {
         /// <typeparam name="TResult"></typeparam>
         /// <param name="fn"></param>
         /// <returns></returns>
-        public Generation<TResult> Generate<TResult>(Func<TProvider, TResult> fn) => new Generation<TResult>(
-            () => fn(Provider));
+        public Generation<TResult> Generate<TResult>(Func<TProvider, TResult> fn) {
+            return new Generation<TResult>(
+                () => fn(Provider));
+        }
     }
 
 
@@ -43,7 +48,9 @@ namespace GeneratorAPI {
         /// </summary>
         /// <param name="random"></param>
         /// <returns></returns>
-        public Generator<Random> RandomGenerator(Random random) => Create(random);
+        public Generator<Random> RandomGenerator(Random random) {
+            return Create(random);
+        }
 
         /// <summary>
         ///     <para>
@@ -53,6 +60,8 @@ namespace GeneratorAPI {
         /// <typeparam name="TProvider"></typeparam>
         /// <param name="provider"></param>
         /// <returns></returns>
-        public Generator<TProvider> Create<TProvider>(TProvider provider) => new Generator<TProvider>(provider);
+        public Generator<TProvider> Create<TProvider>(TProvider provider) {
+            return new Generator<TProvider>(provider);
+        }
     }
 }
