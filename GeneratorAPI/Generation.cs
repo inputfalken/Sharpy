@@ -4,12 +4,13 @@ using System.Linq;
 
 namespace GeneratorAPI {
     public class Generation<T> {
+        private readonly Func<T> _fn;
         private readonly IEnumerable<T> _infiniteEnumerable;
 
-        public Generation(IEnumerable<T> infiniteEnumerable) => _infiniteEnumerable = infiniteEnumerable;
+        private Generation(IEnumerable<T> infiniteEnumerable) => _infiniteEnumerable = infiniteEnumerable;
 
 
-        private Generation(Func<T> fn) : this(InfiniteEnumerable(fn)) { }
+        public Generation(Func<T> fn) : this(InfiniteEnumerable(fn)) => _fn = fn;
 
         private static IEnumerable<TResult> InfiniteEnumerable<TResult>(Func<TResult> fn) {
             while (true) yield return fn();
@@ -33,7 +34,7 @@ namespace GeneratorAPI {
         ///     </para>
         /// </summary>
         /// <returns></returns>
-        public T Take() => _infiniteEnumerable.First();
+        public T Take() => _fn();
 
         /// <summary>
         ///     <para>
