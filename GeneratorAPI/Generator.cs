@@ -14,9 +14,8 @@ namespace GeneratorAPI {
     /// </summary>
     /// <typeparam name="TProvider"></typeparam>
     public class Generator<TProvider> {
-        public TProvider Provider { get; }
-
         public Generator(TProvider provider) => Provider = provider;
+        public TProvider Provider { get; }
 
         /// <summary>
         ///     <para>
@@ -26,7 +25,8 @@ namespace GeneratorAPI {
         /// <typeparam name="TResult"></typeparam>
         /// <param name="fn"></param>
         /// <returns></returns>
-        public Generation<TResult> Generate<TResult>(Func<TProvider, TResult> fn) => new Generation<TResult>(() => fn(Provider));
+        public Generation<TResult> Generate<TResult>(Func<TProvider, TResult> fn) => new Generation<TResult>(
+            () => fn(Provider));
     }
 
 
