@@ -24,7 +24,8 @@ namespace GeneratorAPI {
 
 
         public Generation(Func<T> fn) : this(InfiniteEnumerable(fn)) {
-            _generation = fn ?? throw new ArgumentNullException(nameof(fn));
+            if (fn != null) _generation = fn;
+            else throw new ArgumentNullException(nameof(fn));
         }
 
         private static IEnumerable<TResult> InfiniteEnumerable<TResult>(Func<TResult> fn) {
