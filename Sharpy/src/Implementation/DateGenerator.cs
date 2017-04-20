@@ -8,13 +8,16 @@ namespace Sharpy.Implementation {
     internal sealed class DateGenerator {
         private readonly Random _random;
 
-        internal DateGenerator(Random random) => _random = random;
+        internal DateGenerator(Random random) {
+            _random = random;
+        }
 
         /// <summary>
         ///     Is used for getting the current time.
         /// </summary>
-        internal static LocalDate CurrentLocalDate
-            => SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
+        internal static LocalDate CurrentLocalDate {
+            get { return SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date; }
+        }
 
         /// <summary>
         ///     Will give and random date minus the argument in years

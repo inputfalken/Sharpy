@@ -18,10 +18,14 @@ namespace GeneratorAPI {
         /// </summary>
         private readonly IEnumerable<T> _generations;
 
-        private Generation(IEnumerable<T> infiniteEnumerable) => _generations = infiniteEnumerable;
+        private Generation(IEnumerable<T> infiniteEnumerable) {
+            _generations = infiniteEnumerable;
+        }
 
 
-        public Generation(Func<T> fn) : this(InfiniteEnumerable(fn)) => _generation = fn ?? throw new ArgumentNullException(nameof(fn));
+        public Generation(Func<T> fn) : this(InfiniteEnumerable(fn)) {
+            _generation = fn ?? throw new ArgumentNullException(nameof(fn));
+        }
 
         private static IEnumerable<TResult> InfiniteEnumerable<TResult>(Func<TResult> fn) {
             while (true) yield return fn();
@@ -35,8 +39,9 @@ namespace GeneratorAPI {
         /// <typeparam name="TResult"></typeparam>
         /// <param name="fn"></param>
         /// <returns></returns>
-        public Generation<TResult> Select<TResult>(Func<T, TResult> fn)
-            => new Generation<TResult>(_generations.Select(fn));
+        public Generation<TResult> Select<TResult>(Func<T, TResult> fn) {
+            return new Generation<TResult>(_generations.Select(fn));
+        }
 
 
         /// <summary>
@@ -45,7 +50,9 @@ namespace GeneratorAPI {
         ///     </para>
         /// </summary>
         /// <returns></returns>
-        public T Take() => _generation();
+        public T Take() {
+            return _generation();
+        }
 
         /// <summary>
         ///     <para>
@@ -54,7 +61,9 @@ namespace GeneratorAPI {
         /// </summary>
         /// <param name="count"></param>
         /// <returns></returns>
-        public IEnumerable<T> Take(int count) => _generations.Take(count);
+        public IEnumerable<T> Take(int count) {
+            return _generations.Take(count);
+        }
 
         /// <summary>
         ///     <para>
@@ -64,12 +73,9 @@ namespace GeneratorAPI {
         /// <typeparam name="TResult"></typeparam>
         /// <param name="fn"></param>
         /// <returns></returns>
-        public Generation<TResult> SelectMany<TResult>(Func<T, Generation<TResult>> fn) =>
-            // If SelectMany was used on _infiniteEnumerable<T> with _infiniteEnumerable<TResult> the following would happen.
-            // The first generation of _infiniteEnumerable<T> would be used and we would iterate forever on _infiniteEnumerable<TResult>
-            // With current approach a new Generation<TResult> is created and given a Func<TResult> to its constructor.
-            // The Func passed Generates from the result.
-            new Generation<TResult>(() => fn(Take()).Take());
+        public Generation<TResult> SelectMany<TResult>(Func<T, Generation<TResult>> fn) {
+            return new Generation<TResult>(() => fn(Take()).Take());
+        }
 
         /// <summary>
         ///     <para>
@@ -83,8 +89,9 @@ namespace GeneratorAPI {
         /// <param name="composer"></param>
         /// <returns></returns>
         public Generation<TCompose> SelectMany<TResult, TCompose>(Func<T, Generation<TResult>> fn,
-            Func<T, TResult, TCompose> composer)
-            => SelectMany(a => fn(a).SelectMany(r => new Generation<TCompose>(() => composer(a, r))));
+            Func<T, TResult, TCompose> composer) {
+            return SelectMany(a => fn(a).SelectMany(r => new Generation<TCompose>(() => composer(a, r))));
+        }
 
         /// <summary>
         ///     <para>
@@ -96,7 +103,8 @@ namespace GeneratorAPI {
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public Generation<T> Where(Func<T, bool> predicate)
-            => new Generation<T>(_generations.Where(predicate));
+        public Generation<T> Where(Func<T, bool> predicate) {
+            return new Generation<T>(_generations.Where(predicate));
+        }
     }
 }

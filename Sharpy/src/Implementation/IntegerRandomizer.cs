@@ -12,14 +12,18 @@ namespace Sharpy.Implementation {
         ///     <para>Randomizes integers with the random supplied.</para>
         /// </summary>
         /// <param name="random"></param>
-        public IntRandomizer(Random random) => _random = random;
+        public IntRandomizer(Random random) {
+            _random = random;
+        }
 
         /// <summary>
         ///     <para>Returns a randomized integer within 0 - max.</para>
         /// </summary>
         /// <param name="max"></param>
         /// <returns></returns>
-        public int Integer(int max) => _random.Next(max);
+        public int Integer(int max) {
+            return _random.Next(max);
+        }
 
         /// <summary>
         ///     <para>Returns a randomized integer within min and max</para>
@@ -37,6 +41,8 @@ namespace Sharpy.Implementation {
         ///     <para>Returns a randomized integer within 0 and int.MaxValue</para>
         /// </summary>
         /// <returns></returns>
-        public int Integer() => _random.Next();
+        public int Integer() {
+            return _random.Next();
+        }
     }
 }
