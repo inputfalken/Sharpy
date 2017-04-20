@@ -4,13 +4,21 @@ using System.Linq;
 
 namespace GeneratorAPI {
     public class Generation<T> {
-        private readonly Func<T> _fn;
-        private readonly IEnumerable<T> _infiniteEnumerable;
+        /// <summary>
+        /// The generation.
+        /// </summary>
+        private readonly Func<T> _generation;
+        /// <summary>
+        /// <para>
+        ///     Infinite deferred invocations of _generation.
+        /// </para>
+        /// </summary>
+        private readonly IEnumerable<T> _generations;
 
-        private Generation(IEnumerable<T> infiniteEnumerable) => _infiniteEnumerable = infiniteEnumerable;
+        private Generation(IEnumerable<T> infiniteEnumerable) => _generations = infiniteEnumerable;
 
 
-        public Generation(Func<T> fn) : this(InfiniteEnumerable(fn)) => _fn = fn;
+        public Generation(Func<T> fn) : this(InfiniteEnumerable(fn)) => _generation = fn;
 
         private static IEnumerable<TResult> InfiniteEnumerable<TResult>(Func<TResult> fn) {
             while (true) yield return fn();
@@ -25,7 +33,7 @@ namespace GeneratorAPI {
         /// <param name="fn"></param>
         /// <returns></returns>
         public Generation<TResult> Select<TResult>(Func<T, TResult> fn)
-            => new Generation<TResult>(_infiniteEnumerable.Select(fn));
+            => new Generation<TResult>(_generations.Select(fn));
 
 
         /// <summary>
@@ -34,7 +42,7 @@ namespace GeneratorAPI {
         ///     </para>
         /// </summary>
         /// <returns></returns>
-        public T Take() => _fn();
+        public T Take() => _generation();
 
         /// <summary>
         ///     <para>
@@ -43,7 +51,7 @@ namespace GeneratorAPI {
         /// </summary>
         /// <param name="count"></param>
         /// <returns></returns>
-        public IEnumerable<T> Take(int count) => _infiniteEnumerable.Take(count);
+        public IEnumerable<T> Take(int count) => _generations.Take(count);
 
         /// <summary>
         ///     <para>
@@ -86,6 +94,6 @@ namespace GeneratorAPI {
         /// <param name="predicate"></param>
         /// <returns></returns>
         public Generation<T> Where(Func<T, bool> predicate)
-            => new Generation<T>(_infiniteEnumerable.Where(predicate));
+            => new Generation<T>(_generations.Where(predicate));
     }
 }
