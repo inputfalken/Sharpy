@@ -52,6 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GeneratorAPI\GenerationTests.cs" />
+    <Compile Include="GeneratorAPI\GeneratorTests.cs" />
     <Compile Include="Sharpy\FileTests.cs" />
     <Compile Include="Sharpy\Integration\Bool.cs" />
     <Compile Include="Sharpy\Integration\Config.cs" />
@@ -83,7 +85,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="GeneratorAPI\" />
     <Folder Include="Sharpy\Unit\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

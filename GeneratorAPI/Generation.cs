@@ -21,7 +21,7 @@ namespace GeneratorAPI {
         private Generation(IEnumerable<T> infiniteEnumerable) => _generations = infiniteEnumerable;
 
 
-        public Generation(Func<T> fn) : this(InfiniteEnumerable(fn)) => _generation = fn;
+        public Generation(Func<T> fn) : this(InfiniteEnumerable(fn)) => _generation = fn ?? throw new ArgumentNullException(nameof(fn));
 
         private static IEnumerable<TResult> InfiniteEnumerable<TResult>(Func<TResult> fn) {
             while (true) yield return fn();
