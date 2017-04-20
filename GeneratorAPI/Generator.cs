@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace GeneratorAPI {
     public static class Generator {
@@ -19,10 +18,6 @@ namespace GeneratorAPI {
 
         public Generator(TProvider provider) => Provider = provider;
 
-        private IEnumerable<TResult> InfiniteEnumerable<TResult>(Func<TProvider, TResult> fn) {
-            while (true) yield return fn(Provider);
-        }
-
         /// <summary>
         ///     <para>
         ///         Turn Generator into Generation&lt;TResult&gt;
@@ -31,8 +26,7 @@ namespace GeneratorAPI {
         /// <typeparam name="TResult"></typeparam>
         /// <param name="fn"></param>
         /// <returns></returns>
-        public Generation<TResult> Generate<TResult>(Func<TProvider, TResult> fn) => new Generation<TResult>(
-            InfiniteEnumerable(fn));
+        public Generation<TResult> Generate<TResult>(Func<TProvider, TResult> fn) => new Generation<TResult>(() => fn(Provider));
     }
 
 
