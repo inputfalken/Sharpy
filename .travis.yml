@@ -1,0 +1,9 @@
+language: csharp
+solution: Sharpy.sln
+install:
+  - sudo apt-get install nunit-console
+  - nuget restore Sharpy.sln
+script:
+  - xbuild /p:Configuration=Release Sharpy.sln
+  - nunit-console Tests/bin/Release/Tests.dll
+
