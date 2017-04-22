@@ -48,6 +48,64 @@ namespace Tests.GeneratorAPI {
 
         [Test(
             Author = "Robert",
+            Description = "Check if nested generation using argument with composer can be flattened"
+        )]
+        public void SelectMany_Double_Arg_Using_Arg_Flatten_Nested_Generation() {
+            var number = 0;
+            var result = _generation
+                .SelectMany(s => new Generation<string>(() => s + number++), (s, s1) => s + s1)
+                .Take(10);
+            var randomizer = new Randomizer(Seed);
+
+            var expected = Enumerable
+                .Range(0, 10)
+                .Select(i => {
+                    var txt = randomizer.GetString();
+                    return txt + txt + i;
+                });
+
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test(
+            Author = "Robert",
+            Description = "Check if nested generation can be flattened"
+        )]
+        public void SelectMany_Single_Arg_Flatten_Nested_Generation() {
+            var randomizer = new Randomizer(Seed);
+            //Nested Generation
+            var generation = new Generation<Generation<string>>(
+                () => new Generation<string>(
+                    () => randomizer.GetString()
+                )
+            );
+            var result = generation.SelectMany(g => g);
+            var takeResult = result.Take(10);
+            var takeExpected = _generation.Take(10);
+
+            Assert.AreEqual(takeExpected, takeResult);
+        }
+
+        [Test(
+            Author = "Robert",
+            Description = "Check if nested generation using argument with composer can be flattened"
+        )]
+        public void SelectMany_Single_Arg_Using_Arg_Flatten_Nested_Generation() {
+            var number = 0;
+            var result = _generation
+                .SelectMany(s => new Generation<string>(() => s + number++))
+                .Take(10);
+            var randomizer = new Randomizer(Seed);
+
+            var expected = Enumerable
+                .Range(0, 10)
+                .Select(i => randomizer.GetString() + i);
+
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test(
+            Author = "Robert",
             Description = "Check that Take gives the expected ammount of elements"
         )]
         public void Take_Gives_Expected_Ammount() {
