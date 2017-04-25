@@ -107,5 +107,19 @@ namespace GeneratorAPI {
         public Generation<T> Where(Func<T, bool> predicate) {
             return new Generation<T>(_generations.Where(predicate));
         }
+
+        /// <summary>
+        ///     <para>
+        ///         Combine generation and compose the generation.
+        ///     </para>
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <typeparam name="TSecond"></typeparam>
+        /// <param name="generation"></param>
+        /// <param name="fn"></param>
+        /// <returns></returns>
+        public Generation<TResult> Zip<TResult, TSecond>(Generation<TSecond> generation, Func<T, TSecond, TResult> fn) {
+            return generation.Select(second => fn(Take(), second));
+        }
     }
 }
