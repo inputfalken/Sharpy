@@ -120,5 +120,12 @@ namespace Tests.GeneratorAPI {
                 .ToArray();
             Assert.AreEqual(true, result.All(s => s.Contains("A")));
         }
+
+        [Test(
+            Author = "Robert"
+        )]
+        public void Zip_Number_String() {
+            
+        }
     }
 }
