@@ -31,6 +31,15 @@ namespace Tests.GeneratorAPI {
 
         [Test(
             Author = "Robert",
+            Description = "Check that Select does not return null"
+        )]
+        public void Select_Does_Not_Return_Null() {
+            var result = _generation.Select(s => s.Length);
+            Assert.IsNotNull(result);
+        }
+
+        [Test(
+            Author = "Robert",
             Description = "Check that Select works like extension method Select On IEnumerable<T>"
         )]
         public void Select_String_Length() {
@@ -44,15 +53,6 @@ namespace Tests.GeneratorAPI {
                 .Select(i => randomizer.GetString())
                 .Select(s => s.Length);
             Assert.AreEqual(expected, result);
-        }
-
-        [Test(
-            Author = "Robert",
-            Description = "Check that Select does not return null"
-        )]
-        public void Select_Does_Not_Return_Null() {
-            var result = _generation.Select(s => s.Length);
-            Assert.IsNotNull(result);
         }
 
         [Test(
@@ -137,6 +137,39 @@ namespace Tests.GeneratorAPI {
                 .Take(count)
                 .ToArray();
             Assert.AreEqual(true, result.All(s => s.Contains("A")));
+        }
+
+        [Test(
+            Author = "Robert",
+            Description = "Check that Zip does not return null"
+        )]
+        public void Zip_Does_Not_Return_Null() {
+            var resultRandomizer = new Randomizer(Seed);
+            var resultGeneration = new Generation<int>(() => resultRandomizer.Next());
+            var result = _generation
+                .Zip(resultGeneration, (s, i) => s + i)
+                .Take(100);
+            Assert.IsNotNull(result);
+        }
+
+        [Test(
+            Author = "Robert",
+            Description = "Check if Generations of string and number can be ziped together"
+        )]
+        public void Zip_Int_String() {
+            var resultRandomizer = new Randomizer(Seed);
+            var resultGeneration = new Generation<int>(() => resultRandomizer.Next());
+            var result = _generation
+                .Zip(resultGeneration, (s, i) => s + i)
+                .Take(100);
+
+            var expectedRandomizerOne = new Randomizer(Seed);
+            var expectedRandomizerTwo = new Randomizer(Seed);
+            var expected = new Generation<string>(
+                () => expectedRandomizerOne.GetString() + expectedRandomizerTwo.Next()
+            ).Take(100);
+
+            Assert.AreEqual(expected, result);
         }
     }
 }
