@@ -40,6 +40,55 @@ namespace Tests.GeneratorAPI {
 
         [Test(
             Author = "Robert",
+            Description = "Check that passing null does not work"
+        )]
+        public void Select_Null_Param_Throws() {
+            Assert.Throws<ArgumentNullException>(() => _generation.Select<string>(null));
+        }
+
+        [Test(
+            Author = "Robert",
+            Description = "Check that passing null does not work"
+        )]
+        public void Where_Null_Param_Throws() {
+            Assert.Throws<ArgumentNullException>(() => _generation.Where(null));
+        }
+
+        [Test(
+            Author = "Robert",
+            Description = "Check that passing null does not work"
+        )]
+        public void SelectMany_Null_Param_Throws() {
+            Assert.Throws<ArgumentNullException>(() => _generation.SelectMany<string>(null));
+        }
+
+        [Test(
+            Author = "Robert",
+            Description = "Check that passing null for both argument does not work"
+        )]
+        public void Zip_Null_Both_Param_Throws() {
+            Assert.Throws<ArgumentNullException>(() => _generation.Zip<string, int>(null, null));
+        }
+
+        [Test(
+            Author = "Robert",
+            Description = "Check that passing null for first argument does not work"
+        )]
+        public void Zip_Null_First_Param_Throws() {
+            Assert.Throws<ArgumentNullException>(() => _generation.Zip<string, int>(null, (s, i) => s + i));
+        }
+
+        [Test(
+            Author = "Robert",
+            Description = "Check that passing null for second does not work"
+        )]
+        public void Zip_Null_Second_Param_Throws() {
+            Assert.Throws<ArgumentNullException>(
+                () => _generation.Zip<string, int>(new Generation<int>(() => 1), null));
+        }
+
+        [Test(
+            Author = "Robert",
             Description = "Check that Select works like extension method Select On IEnumerable<T>"
         )]
         public void Select_String_Length() {
