@@ -48,6 +48,15 @@ namespace Tests.GeneratorAPI {
 
         [Test(
             Author = "Robert",
+            Description = "Check that Select does not return null"
+        )]
+        public void Select_Does_Not_Return_Null() {
+            var result = _generation.Select(s => s.Length);
+            Assert.IsNotNull(result);
+        }
+
+        [Test(
+            Author = "Robert",
             Description = "Check that Take gives the expected ammount of elements"
         )]
         public void Take_Gives_Expected_Ammount() {
@@ -93,6 +102,15 @@ namespace Tests.GeneratorAPI {
         )]
         public void Take_No_Param_Is_Not_Null() {
             var result = _generation.Take();
+            Assert.IsNotNull(result);
+        }
+
+        [Test(
+            Author = "Robert",
+            Description = "Check that where does not return null"
+        )]
+        public void Where_Does_Not_Return_Null() {
+            var result = _generation.Where(s => s.Length > 1);
             Assert.IsNotNull(result);
         }
 
