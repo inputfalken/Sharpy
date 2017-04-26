@@ -75,7 +75,10 @@ namespace GeneratorAPI {
         /// <param name="fn"></param>
         /// <returns></returns>
         public Generation<TResult> SelectMany<TResult>(Func<T, Generation<TResult>> fn) {
-            return new Generation<TResult>(() => fn(Take()).Take());
+            if (fn != null) {
+                return new Generation<TResult>(() => fn(Take()).Take());
+            }
+            throw new ArgumentNullException(nameof(fn));
         }
 
         /// <summary>
@@ -119,6 +122,8 @@ namespace GeneratorAPI {
         /// <param name="fn"></param>
         /// <returns></returns>
         public Generation<TResult> Zip<TResult, TSecond>(Generation<TSecond> generation, Func<T, TSecond, TResult> fn) {
+            if (generation == null) throw new ArgumentNullException(nameof(generation));
+            if (fn == null) throw new ArgumentNullException(nameof(fn));
             return generation.Select(second => fn(Take(), second));
         }
     }
