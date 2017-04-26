@@ -122,10 +122,36 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Author = "Robert"
+            Author = "Robert",
+            Description = "Check if Generations of string and number can be ziped together"
         )]
-        public void Zip_Number_String() {
-            
+        public void Zip_Int_String() {
+            var resultRandomizer = new Randomizer(Seed);
+            var resultGeneration = new Generation<int>(() => resultRandomizer.Next());
+            var result = _generation
+                .Zip(resultGeneration, (s, i) => s + i)
+                .Take(100);
+
+            var expectedRandomizerOne = new Randomizer(Seed);
+            var expectedRandomizerTwo = new Randomizer(Seed);
+            var expected = new Generation<string>(
+                () => expectedRandomizerOne.GetString() + expectedRandomizerTwo.Next()
+            ).Take(100);
+
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test(
+            Author = "Robert",
+            Description = "Check that Zip does not return null"
+        )]
+        public void Zip_Does_Not_Return_Null() {
+            var resultRandomizer = new Randomizer(Seed);
+            var resultGeneration = new Generation<int>(() => resultRandomizer.Next());
+            var result = _generation
+                .Zip(resultGeneration, (s, i) => s + i)
+                .Take(100);
+            Assert.IsNotNull(result);
         }
     }
 }
