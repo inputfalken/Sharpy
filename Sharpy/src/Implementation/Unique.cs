@@ -13,6 +13,6 @@ namespace Sharpy.Implementation {
         /// <summary>
         ///     This hashset will be the history of all the created elements in derived classes
         /// </summary>
-        protected HashSet<T> HashSet { get; }
+        protected ISet<T> HashSet { get; }
     }
 }
