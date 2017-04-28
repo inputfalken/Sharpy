@@ -176,7 +176,7 @@ namespace Tests.GeneratorAPI {
             Author = "Robert",
             Description = "Check that Take without parameter gives expected result"
         )]
-        public void Take_Gives_Expected_Element() {
+        public void Take_Gives_Expected_Elements() {
             const int count = 10;
             var result = _generation.Take(count);
             var randomizer = new Randomizer(Seed);
