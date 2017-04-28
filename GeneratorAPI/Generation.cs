@@ -75,10 +75,8 @@ namespace GeneratorAPI {
         /// <param name="fn"></param>
         /// <returns></returns>
         public Generation<TResult> SelectMany<TResult>(Func<T, Generation<TResult>> fn) {
-            if (fn != null) {
-                return new Generation<TResult>(() => fn(Take()).Take());
-            }
-            throw new ArgumentNullException(nameof(fn));
+            if (fn == null) throw new ArgumentNullException(nameof(fn));
+            return new Generation<TResult>(() => fn(Take()).Take());
         }
 
         /// <summary>
