@@ -48,47 +48,6 @@ namespace Tests.GeneratorAPI {
 
         [Test(
             Author = "Robert",
-            Description = "Check that passing null does not work"
-        )]
-        public void Where_Null_Param_Throws() {
-            Assert.Throws<ArgumentNullException>(() => _generation.Where(null));
-        }
-
-        [Test(
-            Author = "Robert",
-            Description = "Check that passing null does not work"
-        )]
-        public void SelectMany_Null_Param_Throws() {
-            Assert.Throws<ArgumentNullException>(() => _generation.SelectMany<string>(null));
-        }
-
-        [Test(
-            Author = "Robert",
-            Description = "Check that passing null for both argument does not work"
-        )]
-        public void Zip_Null_Both_Param_Throws() {
-            Assert.Throws<ArgumentNullException>(() => _generation.Zip<string, int>(null, null));
-        }
-
-        [Test(
-            Author = "Robert",
-            Description = "Check that passing null for first argument does not work"
-        )]
-        public void Zip_Null_First_Param_Throws() {
-            Assert.Throws<ArgumentNullException>(() => _generation.Zip<string, int>(null, (s, i) => s + i));
-        }
-
-        [Test(
-            Author = "Robert",
-            Description = "Check that passing null for second does not work"
-        )]
-        public void Zip_Null_Second_Param_Throws() {
-            Assert.Throws<ArgumentNullException>(
-                () => _generation.Zip<string, int>(new Generation<int>(() => 1), null));
-        }
-
-        [Test(
-            Author = "Robert",
             Description = "Check that Select works like extension method Select On IEnumerable<T>"
         )]
         public void Select_String_Length() {
@@ -123,6 +82,14 @@ namespace Tests.GeneratorAPI {
                 });
 
             Assert.AreEqual(expected, result);
+        }
+
+        [Test(
+            Author = "Robert",
+            Description = "Check that passing null does not work"
+        )]
+        public void SelectMany_Null_Param_Throws() {
+            Assert.Throws<ArgumentNullException>(() => _generation.SelectMany<string>(null));
         }
 
         [Test(
@@ -235,6 +202,14 @@ namespace Tests.GeneratorAPI {
 
         [Test(
             Author = "Robert",
+            Description = "Check that passing null does not work"
+        )]
+        public void Where_Null_Param_Throws() {
+            Assert.Throws<ArgumentNullException>(() => _generation.Where(null));
+        }
+
+        [Test(
+            Author = "Robert",
             Description = "Check to see that where only returns data fiting the predicate"
         )]
         public void Where_String_Contains_Letter_A() {
@@ -277,6 +252,31 @@ namespace Tests.GeneratorAPI {
             ).Take(100);
 
             Assert.AreEqual(expected, result);
+        }
+
+        [Test(
+            Author = "Robert",
+            Description = "Check that passing null for both argument does not work"
+        )]
+        public void Zip_Null_Both_Param_Throws() {
+            Assert.Throws<ArgumentNullException>(() => _generation.Zip<string, int>(null, null));
+        }
+
+        [Test(
+            Author = "Robert",
+            Description = "Check that passing null for first argument does not work"
+        )]
+        public void Zip_Null_First_Param_Throws() {
+            Assert.Throws<ArgumentNullException>(() => _generation.Zip<string, int>(null, (s, i) => s + i));
+        }
+
+        [Test(
+            Author = "Robert",
+            Description = "Check that passing null for second does not work"
+        )]
+        public void Zip_Null_Second_Param_Throws() {
+            Assert.Throws<ArgumentNullException>(
+                () => _generation.Zip<string, int>(new Generation<int>(() => 1), null));
         }
     }
 }
