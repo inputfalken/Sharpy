@@ -1,8 +1,6 @@
 ﻿using System;
 
 namespace Sharpy.Implementation {
-    // ReSharper disable once ClassNeverInstantiated.Global
-    // Is generated from json
     /// <summary>
     /// </summary>
     internal sealed class NumberGenerator : Unique<int> {
