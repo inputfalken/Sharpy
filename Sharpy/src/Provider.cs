@@ -10,12 +10,9 @@ using Sharpy.Properties;
 namespace Sharpy {
     /// <summary>
     ///     <para>
-    ///         Contains various methods for generating data.
+    ///         Contains various methods for providing data by using System.Random.
     ///         To get the same result every time you execute the program use the seed overload constructor.
     ///         If want you to add your own methods you can derive from this class.
-    ///     </para>
-    ///     <para>
-    ///         To generate any type call Generate/GenerateSequence.
     ///     </para>
     ///     <para>
     ///         For examples please visit https://inputfalken.github.io/sharpy-API/
@@ -43,7 +40,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a generator with your configurement
+        ///         Returns a provider with your configurement
         ///     </para>
         /// </summary>
         /// <param name="configurement"></param>
@@ -62,7 +59,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a generator which will Randomize the same result by the seed.
+        ///         Returns a provider which will Randomize the same result by the seed.
         ///     </para>
         /// </summary>
         /// <param name="seed"></param>
@@ -70,7 +67,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a generator which will randomize with the random supplied.
+        ///         Returns a provider which will randomize with the random supplied.
         ///     </para>
         /// </summary>
         /// <param name="random"></param>
@@ -78,7 +75,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a generator which will randomize new results every time program is executed.
+        ///         Returns a provider which will randomize new results every time program is executed.
         ///     </para>
         /// </summary>
         public Provider() : this(new Configurement()) { }
