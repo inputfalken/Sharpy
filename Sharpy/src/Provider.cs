@@ -34,7 +34,7 @@ namespace Sharpy {
         private readonly INameProvider _nameProvider;
         private readonly NumberGenerator _numberGenerator;
         private readonly Random _random;
-        private readonly SecurityNumberGen _socialSecurityNumberGenerator;
+        private readonly SecurityNumberGen _securityNumberGen;
 
 
         private readonly bool _uniqueNumbers;
@@ -55,7 +55,7 @@ namespace Sharpy {
             _nameProvider = configurement.NameProvider;
             _dateGenerator = configurement.DateGenerator;
             _mailbuilder = configurement.EmailBuilder;
-            _socialSecurityNumberGenerator = configurement.SecurityNumberGen;
+            _securityNumberGen = configurement.SecurityNumberGen;
             _numberGenerator = configurement.NumberGenerator;
             _uniqueNumbers = configurement.UniqueNumbers;
         }
@@ -261,7 +261,7 @@ namespace Sharpy {
         /// <param name="date"></param>
         /// <param name="formated"></param>
         public string SocialSecurityNumber(LocalDate date, bool formated = true) {
-            var result = _socialSecurityNumberGenerator.SecurityNumber(_random.Next(10000),
+            var result = _securityNumberGen.SecurityNumber(_random.Next(10000),
                 FormatDigit(date.YearOfCentury).Append(FormatDigit(date.Month), FormatDigit(date.Day)));
             if (result == -1)
                 throw new Exception("You have reached the maxium possible combinations for a controlnumber");
