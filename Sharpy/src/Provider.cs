@@ -295,10 +295,10 @@ namespace Sharpy {
             var res = _numberGenerator.RandomNumber(0, _numberByLengthState.Item2, _uniqueNumbers);
             if (res == -1) throw new Exception("You reached maxium Ammount of combinations for the Length used");
 
-            var phoneNumber = res.ToString();
-            return phoneNumber.Length != length
-                ? Prefix(phoneNumber, length - phoneNumber.Length)
-                : phoneNumber;
+            var number = res.ToString();
+            return number.Length != length
+                ? Prefix(number, length - number.Length)
+                : number;
         }
 
         /// <summary>
