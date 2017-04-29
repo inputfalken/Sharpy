@@ -29,8 +29,7 @@ namespace GeneratorAPI {
         /// <param name="fn"></param>
         /// <returns></returns>
         public Generation<TResult> Generate<TResult>(Func<TProvider, TResult> fn) {
-            return new Generation<TResult>(
-                () => fn(Provider));
+            return new Generation<TResult>(() => fn(Provider));
         }
     }
 
