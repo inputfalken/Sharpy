@@ -27,6 +27,9 @@ namespace GeneratorAPI {
     /// <typeparam name="TProvider"></typeparam>
     public class Generator<TProvider> {
         public Generator(TProvider provider) {
+            if (provider == null) {
+                throw new ArgumentNullException(nameof(provider));
+            }
             Provider = provider;
         }
 
@@ -41,6 +44,9 @@ namespace GeneratorAPI {
         /// <param name="fn"></param>
         /// <returns></returns>
         public Generation<TResult> Generate<TResult>(Func<TProvider, TResult> fn) {
+            if (fn == null) {
+                throw new ArgumentNullException(nameof(fn));
+            }
             return new Generation<TResult>(() => fn(Provider));
         }
     }

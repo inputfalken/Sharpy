@@ -41,7 +41,7 @@ namespace Tests.GeneratorAPI {
             Description = "Checks that an exception is thrown when generate argument is null"
         )]
         public void Generate_With_Null() {
-            Assert.Throws<ArgumentNullException>(() => _generator.Generate<string>(randomizer => null));
+            Assert.Throws<ArgumentNullException>(() => _generator.Generate<string>(null));
         }
 
         [Test(
