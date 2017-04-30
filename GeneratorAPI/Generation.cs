@@ -92,6 +92,8 @@ namespace GeneratorAPI {
         /// <returns></returns>
         public Generation<TCompose> SelectMany<TResult, TCompose>(Func<T, Generation<TResult>> fn,
             Func<T, TResult, TCompose> composer) {
+            if (fn == null) throw new ArgumentNullException();
+            if (composer == null) throw new ArgumentNullException();
             return SelectMany(a => fn(a).SelectMany(r => new Generation<TCompose>(() => composer(a, r))));
         }
 
