@@ -86,6 +86,33 @@ namespace Tests.GeneratorAPI {
 
         [Test(
             Author = "Robert",
+            Description = "Check that passing null to both arguments will throw exception"
+        )]
+        public void SelectMany_Double_Arg_Using_Arg_Null_Both_Arg() {
+            Assert.Throws<ArgumentNullException>(() => _generation.SelectMany<string, string>(null, null));
+        }
+
+        [Test(
+            Author = "Robert",
+            Description = "Check that passing null to first argument will throw exception"
+        )]
+        public void SelectMany_Double_Arg_Using_Arg_Null_First_Arg() {
+            Assert.Throws<ArgumentNullException>(() => _generation.SelectMany<string, string>(null, (s, s1) => s + s1));
+        }
+
+        [Test(
+            Author = "Robert",
+            Description = "Check that passing null to second argument will throw exception"
+        )]
+        public void SelectMany_Double_Arg_Using_Arg_Null_Second_Arg() {
+            var number = 0;
+            Assert.Throws<ArgumentNullException>(
+                () => _generation.SelectMany<string, string>(s => new Generation<string>(() => s + number++), null)
+            );
+        }
+
+        [Test(
+            Author = "Robert",
             Description = "Check that passing null does not work"
         )]
         public void SelectMany_Null_Param_Throws() {
