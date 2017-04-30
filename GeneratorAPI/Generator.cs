@@ -8,6 +8,18 @@ namespace GeneratorAPI {
         ///     </para>
         /// </summary>
         public static GeneratorFactory Factory { get; } = new GeneratorFactory();
+
+        /// <summary>
+        ///  Creates a generation by using the first argument as provider and second for the Generation result.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="provider"></param>
+        /// <param name="fn"></param>
+        /// <returns></returns>
+        public static Generation<TResult> Generate<T, TResult>(T provider, Func<T, TResult> fn) {
+            return Factory.Create(provider).Generate(fn);
+        }
     }
 
     /// <summary>
