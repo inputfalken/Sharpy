@@ -126,5 +126,21 @@ namespace GeneratorAPI {
             if (fn == null) throw new ArgumentNullException(nameof(fn));
             return generation.Select(second => fn(Take(), second));
         }
+
+        /// <summary>
+        /// Exposes &lt;T&gt;.
+        /// </summary>
+        /// <param name="fn"></param>
+        /// <returns></returns>
+        public Generation<T> Do(Action<T> fn) {
+            if (fn == null) {
+                throw new ArgumentNullException(nameof(fn));
+            }
+            return new Generation<T>(() => {
+                var generation = _generation();
+                fn(generation);
+                return generation;
+            });
+        }
     }
 }
