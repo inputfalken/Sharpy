@@ -40,6 +40,29 @@ namespace Tests.GeneratorAPI {
 
         [Test(
             Author = "Robert",
+            Description = "Checks that the select Func is only invoked if take is called"
+        )]
+        public void Select_Is_Not_Invoked_Before_Take_Is_Invoked() {
+            string temp = null;
+            _generation
+                .Select(s => temp = s);
+            Assert.IsNull(temp);
+        }
+
+        [Test(
+            Author = "Robert",
+            Description = "Checks that the select Func is only invoked if take is called"
+        )]
+        public void Select_Is_Invoked_After_Take_Is_Invoked() {
+            string temp = null;
+            _generation
+                .Select(s => temp = s)
+                .Take();
+            Assert.IsNotNull(temp);
+        }
+
+        [Test(
+            Author = "Robert",
             Description = "Check that passing null does not work"
         )]
         public void Select_Null_Param_Throws() {
