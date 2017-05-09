@@ -18,6 +18,7 @@ namespace GeneratorAPI {
         /// </summary>
         private readonly IEnumerable<T> _generations;
 
+        ///TODO Maybe remove this and assign enumerable inside the Func ctor.
         private Generation(IEnumerable<T> infiniteEnumerable) {
             _generations = infiniteEnumerable;
         }
