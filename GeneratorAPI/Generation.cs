@@ -6,26 +6,27 @@ namespace GeneratorAPI {
     public class Generation<T> {
         /// <summary>
         ///     <para>
-        ///         The generation.
-        ///     </para>
-        /// </summary>
-        private readonly Func<T> _generation;
-
-        /// <summary>
-        ///     <para>
         ///         Infinite deferred invocations of _generation.
         ///     </para>
         /// </summary>
         private readonly IEnumerable<T> _generations;
 
-        ///TODO Maybe remove this and assign enumerable inside the Func ctor.
-        private Generation(IEnumerable<T> infiniteEnumerable) {
-            _generations = infiniteEnumerable;
+        private readonly Lazy<IEnumerator<T>> _enumerator;
+
+        private IEnumerator<T> Enumerator {
+            get { return _enumerator.Value; }
         }
 
+        private Generation(IEnumerable<T> infiniteEnumerable) {
+            _generations = infiniteEnumerable;
+            _enumerator = new Lazy<IEnumerator<T>>(_generations.GetEnumerator);
+        }
 
-        public Generation(Func<T> fn) : this(InfiniteEnumerable(fn)) {
-            if (fn != null) _generation = fn;
+        public Generation(Func<T> fn) {
+            if (fn != null) {
+                _generations = InfiniteEnumerable(fn);
+                _enumerator = new Lazy<IEnumerator<T>>(_generations.GetEnumerator);
+            }
             else throw new ArgumentNullException(nameof(fn));
         }
 
@@ -42,7 +43,6 @@ namespace GeneratorAPI {
         /// <param name="fn"></param>
         /// <returns></returns>
         public Generation<TResult> Select<TResult>(Func<T, TResult> fn) {
-            //BUG CTOR does not assign the FUNC!
             return new Generation<TResult>(_generations.Select(fn));
         }
 
@@ -54,7 +54,8 @@ namespace GeneratorAPI {
         /// </summary>
         /// <returns></returns>
         public T Take() {
-            return _generation();
+            Enumerator.MoveNext();
+            return Enumerator.Current;
         }
 
         /// <summary>
@@ -110,7 +111,6 @@ namespace GeneratorAPI {
         /// <param name="predicate"></param>
         /// <returns></returns>
         public Generation<T> Where(Func<T, bool> predicate) {
-            //BUG CTOR does not assign the FUNC!
             return new Generation<T>(_generations.Where(predicate));
         }
 
