@@ -41,6 +41,7 @@ namespace GeneratorAPI {
         /// <param name="fn"></param>
         /// <returns></returns>
         public Generation<TResult> Select<TResult>(Func<T, TResult> fn) {
+            //BUG CTOR does not assign the FUNC!
             return new Generation<TResult>(_generations.Select(fn));
         }
 
@@ -108,6 +109,7 @@ namespace GeneratorAPI {
         /// <param name="predicate"></param>
         /// <returns></returns>
         public Generation<T> Where(Func<T, bool> predicate) {
+            //BUG CTOR does not assign the FUNC!
             return new Generation<T>(_generations.Where(predicate));
         }
 
