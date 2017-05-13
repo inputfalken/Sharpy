@@ -358,7 +358,7 @@ namespace Tests.GeneratorAPI {
             Author = "Robert",
             Description = "Do should not do anything."
         )]
-        public void Do_Is_Not_Invoked_Before_Take() {
+        public void Do_Is_Not_Invoked_Before_Take_Is_Invoked() {
             string result = null;
             _generation.Do(s => result = s);
             Assert.IsNull(result);
@@ -368,7 +368,7 @@ namespace Tests.GeneratorAPI {
             Author = "Robert",
             Description = "Do should be invoked."
         )]
-        public void Do_Is_Invoked_After_Take() {
+        public void Do_Is_Invoked_After_Take_Is_invoked() {
             string result = null;
             _generation
                 .Do(s => result = s)
