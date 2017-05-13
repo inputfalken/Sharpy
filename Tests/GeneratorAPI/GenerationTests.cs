@@ -144,23 +144,6 @@ namespace Tests.GeneratorAPI {
             Assert.AreEqual(expected, result);
         }
 
-        [Test]
-        public void SelectMany_Is_Not_Invoked_Before_Take_Is_Invoked() {
-            string result = null;
-            _generation
-                .SelectMany(s => new Generation<string>(() => result = s), (s, s1) => s + s1);
-            Assert.IsNull(result);
-        }
-
-        [Test]
-        public void SelectMany_Is_Invoked_After_Take_Is_Invoked() {
-            string result = null;
-            _generation
-                .SelectMany(s => new Generation<string>(() => result = s), (s, s1) => s + s1)
-                .Take();
-            Assert.IsNotNull(result);
-        }
-
         [Test(
             Description = "Check that passing null to both arguments will throw exception"
         )]
@@ -183,6 +166,23 @@ namespace Tests.GeneratorAPI {
             Assert.Throws<ArgumentNullException>(
                 () => _generation.SelectMany<string, string>(s => new Generation<string>(() => s + number++), null)
             );
+        }
+
+        [Test]
+        public void SelectMany_Is_Invoked_After_Take_Is_Invoked() {
+            string result = null;
+            _generation
+                .SelectMany(s => new Generation<string>(() => result = s), (s, s1) => s + s1)
+                .Take();
+            Assert.IsNotNull(result);
+        }
+
+        [Test]
+        public void SelectMany_Is_Not_Invoked_Before_Take_Is_Invoked() {
+            string result = null;
+            _generation
+                .SelectMany(s => new Generation<string>(() => result = s), (s, s1) => s + s1);
+            Assert.IsNull(result);
         }
 
         [Test(
@@ -280,6 +280,26 @@ namespace Tests.GeneratorAPI {
             Assert.IsNotNull(result);
         }
 
+        [Test]
+        public void Where_Is_Invoked_After_Take_Is_Invoked() {
+            string result = null;
+            _generation.Where(s => {
+                result = s;
+                return true;
+            });
+            Assert.IsNull(result);
+        }
+
+        [Test]
+        public void Where_Is_Not_Invoked_Before_Take_Is_Invoked() {
+            string result = null;
+            _generation.Where(s => {
+                result = s;
+                return true;
+            }).Take();
+            Assert.IsNotNull(result);
+        }
+
         [Test(
             Description = "Check to see that Where is required for the assertion to succeed"
         )]
@@ -339,6 +359,24 @@ namespace Tests.GeneratorAPI {
             ).Take(100);
 
             Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void Zip_Is_Invoked_After_Take_Is_Invoked() {
+            string result = null;
+            var randomizer = new Randomizer(Seed);
+            var generation = new Generation<int>(() => randomizer.Next());
+            _generation.Zip(generation, (s, i) => result = s + i).Take();
+            Assert.IsNotNull(result);
+        }
+
+        [Test]
+        public void Zip_Is_Not_Invoked_Before_Take_Is_Invoked() {
+            string result = null;
+            var randomizer = new Randomizer(Seed);
+            var generation = new Generation<int>(() => randomizer.Next());
+            _generation.Zip(generation, (s, i) => result = s + i);
+            Assert.IsNull(result);
         }
 
         [Test(
