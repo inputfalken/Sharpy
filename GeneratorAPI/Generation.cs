@@ -140,7 +140,7 @@ namespace GeneratorAPI {
                 throw new ArgumentNullException(nameof(fn));
             }
             return new Generation<T>(() => {
-                var generation = _generation();
+                var generation = Take();
                 fn(generation);
                 return generation;
             });
