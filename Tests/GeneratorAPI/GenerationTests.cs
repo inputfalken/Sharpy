@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using GeneratorAPI;
 using NUnit.Framework;
@@ -327,6 +328,53 @@ namespace Tests.GeneratorAPI {
         public void Zip_Null_Second_Param_Throws() {
             Assert.Throws<ArgumentNullException>(
                 () => _generation.Zip<string, int>(new Generation<int>(() => 1), null));
+        }
+
+        [Test(
+            Author = "Robert",
+            Description = "Check that Do gets various elements and not the same element"
+        )]
+        public void Do_Gets_Various_Elements() {
+            var container = new List<string>();
+            var result = _generation
+                .Do(container.Add)
+                .Take(10);
+            var randomizer = new Randomizer(Seed);
+            var expected = new Generation<string>(() => randomizer.GetString())
+                .Take(10);
+
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test(
+            Author = "Robert",
+            Description = "Check that Do throws exception if the Action<T> is null"
+        )]
+        public void Do_Null_Argument() {
+            Assert.Throws<ArgumentNullException>(() => _generation.Do(null));
+        }
+
+        [Test(
+            Author = "Robert",
+            Description = "Do should not do anything."
+        )]
+        public void Do_Is_Not_Invoked_Before_Take() {
+            string result = null;
+            _generation.Do(s => result = s);
+            Assert.IsNull(result);
+        }
+
+        [Test(
+            Author = "Robert",
+            Description = "Do should be invoked."
+        )]
+        public void Do_Is_Invoked_After_Take() {
+            string result = null;
+            _generation
+                .Do(s => result = s)
+                .Take();
+
+            Assert.IsNotNull(result);
         }
     }
 }
