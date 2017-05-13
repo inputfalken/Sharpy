@@ -45,7 +45,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Do should be invoked."
+            Description = "Checks that the Action is only invoked if take is called"
         )]
         public void Do_Is_Invoked_After_Take_Is_invoked() {
             string result = null;
@@ -57,7 +57,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Do should not do anything."
+            Description = "Checks that the Action is only invoked if take is called"
         )]
         public void Do_Is_Not_Invoked_Before_Take_Is_Invoked() {
             string result = null;
@@ -81,7 +81,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Checks that the select Func is only invoked if take is called"
+            Description = "Checks that the Func is only invoked if take is called"
         )]
         public void Select_Is_Invoked_After_Take_Is_Invoked() {
             string temp = null;
@@ -92,7 +92,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Checks that the select Func is only invoked if take is called"
+            Description = "Checks that the Func is only invoked if take is called"
         )]
         public void Select_Is_Not_Invoked_Before_Take_Is_Invoked() {
             string temp = null;
@@ -168,7 +168,9 @@ namespace Tests.GeneratorAPI {
             );
         }
 
-        [Test]
+        [Test(
+            Description = "Checks that the Func is only invoked if take is called"
+        )]
         public void SelectMany_Is_Invoked_After_Take_Is_Invoked() {
             string result = null;
             _generation
@@ -177,7 +179,9 @@ namespace Tests.GeneratorAPI {
             Assert.IsNotNull(result);
         }
 
-        [Test]
+        [Test(
+            Description = "Checks that the Func is only invoked if take is called"
+        )]
         public void SelectMany_Is_Not_Invoked_Before_Take_Is_Invoked() {
             string result = null;
             _generation
@@ -280,7 +284,9 @@ namespace Tests.GeneratorAPI {
             Assert.IsNotNull(result);
         }
 
-        [Test]
+        [Test(
+            Description = "Checks that the Func is only invoked if take is called"
+        )]
         public void Where_Is_Invoked_After_Take_Is_Invoked() {
             string result = null;
             _generation.Where(s => {
@@ -290,7 +296,9 @@ namespace Tests.GeneratorAPI {
             Assert.IsNull(result);
         }
 
-        [Test]
+        [Test(
+            Description = "Checks that the Func is only invoked if take is called"
+        )]
         public void Where_Is_Not_Invoked_Before_Take_Is_Invoked() {
             string result = null;
             _generation.Where(s => {
@@ -361,7 +369,9 @@ namespace Tests.GeneratorAPI {
             Assert.AreEqual(expected, result);
         }
 
-        [Test]
+        [Test(
+            Description = "Checks that the Func is only invoked if take is called"
+        )]
         public void Zip_Is_Invoked_After_Take_Is_Invoked() {
             string result = null;
             var randomizer = new Randomizer(Seed);
@@ -370,7 +380,9 @@ namespace Tests.GeneratorAPI {
             Assert.IsNotNull(result);
         }
 
-        [Test]
+        [Test(
+            Description = "Checks that the Func is only invoked if take is called"
+        )]
         public void Zip_Is_Not_Invoked_Before_Take_Is_Invoked() {
             string result = null;
             var randomizer = new Randomizer(Seed);
