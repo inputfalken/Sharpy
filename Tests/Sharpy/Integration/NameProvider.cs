@@ -19,7 +19,7 @@ namespace Tests.Sharpy.Integration {
                     var configurement = new Configurement {
                         NameProvider = new NameByOrigin((Origin) value)
                     };
-                    Generator.Factory.SharpyGenerator(new Provider(configurement)).Generate(g => g.FirstName()).Take();
+                    Generator.Factory.SharpyGenerator(new Provider(configurement)).Select(g => g.FirstName()).Take();
                 });
         }
 
@@ -27,12 +27,12 @@ namespace Tests.Sharpy.Integration {
         public void Female_First_Name_Not_Null_Or_White_Space() {
             var gen = Generator.Factory.SharpyGenerator(new Provider());
             //Many
-            var names = gen.Generate(g => g.FirstName(Gender.Female)).Take(Count).ToArray();
+            var names = gen.Select(g => g.FirstName(Gender.Female)).Take(Count).ToArray();
             Assert.IsFalse(names.All(string.IsNullOrEmpty));
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var name = gen.Generate(g => g.FirstName(Gender.Female)).Take();
+            var name = gen.Select(g => g.FirstName(Gender.Female)).Take();
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
         }
@@ -42,14 +42,14 @@ namespace Tests.Sharpy.Integration {
             var gen = Generator.Factory.SharpyGenerator(new Provider());
             //Many
             var names = gen
-                .Generate(g => g.FirstName())
+                .Select(g => g.FirstName())
                 .Take(Count)
                 .ToArray();
             Assert.IsFalse(names.All(string.IsNullOrEmpty));
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var name = gen.Generate(g => g.FirstName()).Take();
+            var name = gen.Select(g => g.FirstName()).Take();
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
         }
@@ -59,14 +59,14 @@ namespace Tests.Sharpy.Integration {
             var gen = Generator.Factory.SharpyGenerator(new Provider());
             //Many
             var names = gen
-                .Generate(g => g.LastName())
+                .Select(g => g.LastName())
                 .Take(Count)
                 .ToArray();
             Assert.IsFalse(names.All(string.IsNullOrEmpty));
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var name = gen.Generate(g => g.LastName()).Take();
+            var name = gen.Select(g => g.LastName()).Take();
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
         }
@@ -76,14 +76,14 @@ namespace Tests.Sharpy.Integration {
             var gen = Generator.Factory.SharpyGenerator(new Provider());
             //Many
             var names = gen
-                .Generate(g => g.FirstName(Gender.Male))
+                .Select(g => g.FirstName(Gender.Male))
                 .Take(Count)
                 .ToArray();
             Assert.IsFalse(names.All(string.IsNullOrEmpty));
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var name = gen.Generate(g => g.FirstName(Gender.Male)).Take();
+            var name = gen.Select(g => g.FirstName(Gender.Male)).Take();
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
         }
@@ -94,7 +94,7 @@ namespace Tests.Sharpy.Integration {
                 Generator.Factory.SharpyGenerator(
                     new Provider(new Configurement {NameProvider = new NameByOrigin(Origin.Sweden)}));
             var swedishNames = swedishNameGenerator
-                .Generate(g => g.FirstName())
+                .Select(g => g.FirstName())
                 .Take(Count)
                 .ToArray();
             var allFinishNames = NameByOrigin.GetCollection(Origin.Finland);
@@ -111,7 +111,7 @@ namespace Tests.Sharpy.Integration {
                 }
             ));
             var swedishNorthAmericanNames = svDkGenerator
-                .Generate(g => g.FirstName())
+                .Select(g => g.FirstName())
                 .Take(Count)
                 .ToArray();
             var allSwedishAndNorthAmericanNames = NameByOrigin.GetCollection(Origin.Sweden, Origin.NorthAmerica);
@@ -128,7 +128,7 @@ namespace Tests.Sharpy.Integration {
                 }
             ));
             var svDkNames = svDkGenerator
-                .Generate(g => g.FirstName())
+                .Select(g => g.FirstName())
                 .Take(Count)
                 .ToArray();
             var allFinishNames = NameByOrigin.GetCollection(Origin.Finland);
@@ -145,7 +145,7 @@ namespace Tests.Sharpy.Integration {
                 }
             ));
             var europeanAndNorthAmericanNames = svDkGenerator
-                .Generate(g => g.FirstName())
+                .Select(g => g.FirstName())
                 .Take(Count)
                 .ToArray();
             var allEuropeanAndNorthAmericanNames = NameByOrigin.GetCollection(Origin.Europe, Origin.NorthAmerica);
@@ -158,12 +158,12 @@ namespace Tests.Sharpy.Integration {
         public void User_Name_Not_Null_Or_White_Space() {
             var gen = Generator.Factory.SharpyGenerator(new Provider());
             //Many
-            var userNames = gen.Generate(g => g.UserName()).Take(Count).ToArray();
+            var userNames = gen.Select(g => g.UserName()).Take(Count).ToArray();
             Assert.IsFalse(userNames.All(string.IsNullOrEmpty));
             Assert.IsFalse(userNames.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var userName = gen.Generate(g => g.UserName()).Take();
+            var userName = gen.Select(g => g.UserName()).Take();
             Assert.IsFalse(string.IsNullOrEmpty(userName));
             Assert.IsFalse(string.IsNullOrWhiteSpace(userName));
         }

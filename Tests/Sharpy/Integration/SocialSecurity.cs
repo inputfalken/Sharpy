@@ -16,35 +16,35 @@ namespace Tests.Sharpy.Integration {
         [Test]
         public void All_Are_Unique() {
             var gen = Generator.Factory.SharpyGenerator(new Provider());
-            var result = gen.Generate(g => g.SocialSecurityNumber(new LocalDate(2000, 10, 10))).Take(Limit);
+            var result = gen.Select(g => g.SocialSecurityNumber(new LocalDate(2000, 10, 10))).Take(Limit);
             Assert.IsTrue(result.GroupBy(s => s).All(grouping => grouping.Count() == 1));
         }
 
         [Test]
         public void All_Contains_Dash_At_Same_Index_When_Formated() {
             var gen = Generator.Factory.SharpyGenerator(new Provider());
-            var result = gen.Generate(g => g.SocialSecurityNumber(new LocalDate(2000, 10, 10))).Take(Limit);
+            var result = gen.Select(g => g.SocialSecurityNumber(new LocalDate(2000, 10, 10))).Take(Limit);
             Assert.IsTrue(result.All(s => s[6] == '-'));
         }
 
         [Test]
         public void All_Got_Same_Length() {
             var gen = Generator.Factory.SharpyGenerator(new Provider());
-            var result = gen.Generate(g => g.SocialSecurityNumber(new LocalDate(2000, 10, 10))).Take(Limit);
+            var result = gen.Select(g => g.SocialSecurityNumber(new LocalDate(2000, 10, 10))).Take(Limit);
             Assert.IsTrue(result.All(s => s.Length == 11));
         }
 
         [Test]
         public void Crate_More_Max_Combination_Throws() {
             var gen = Generator.Factory.SharpyGenerator(new Provider());
-            var result = gen.Generate(g => g.SocialSecurityNumber(new LocalDate(2000, 10, 10))).Take(Limit + 1);
+            var result = gen.Select(g => g.SocialSecurityNumber(new LocalDate(2000, 10, 10))).Take(Limit + 1);
             Assert.Throws<Exception>(() => result.ToArray());
         }
 
         [Test]
         public void Create_Max_Ammount_Not_Throw() {
             var gen = Generator.Factory.SharpyGenerator(new Provider());
-            var result = gen.Generate(g => g.SocialSecurityNumber(new LocalDate(2000, 10, 10))).Take(Limit);
+            var result = gen.Select(g => g.SocialSecurityNumber(new LocalDate(2000, 10, 10))).Take(Limit);
             Assert.DoesNotThrow(() => result.ToArray());
         }
 
@@ -53,7 +53,7 @@ namespace Tests.Sharpy.Integration {
         public void No_Dash_With_False_Formating() {
             var gen = Generator.Factory.SharpyGenerator(new Provider());
             var result =
-                gen.Generate(g => g.SocialSecurityNumber(new LocalDate(2000, 10, 10), false)).Take(Limit);
+                gen.Select(g => g.SocialSecurityNumber(new LocalDate(2000, 10, 10), false)).Take(Limit);
             Assert.IsTrue(result.All(s => s.All(char.IsNumber)));
         }
     }

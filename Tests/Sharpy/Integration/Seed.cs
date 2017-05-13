@@ -29,755 +29,755 @@ namespace Tests.Sharpy.Integration {
 
 
         [Test]
-        public void Generate_Seed_Bool() {
+        public void Select_Seed_Bool() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
-            var expected = g1.Generate(g => g.Bool()).Take();
-            var result = g2.Generate(g => g.Bool()).Take();
+            var expected = g1.Select(g => g.Bool()).Take();
+            var result = g2.Select(g => g.Bool()).Take();
             Assert.AreEqual(expected, result);
         }
 
 
         [Test]
-        public void Generate_Seed_CustomCollection() {
+        public void Select_Seed_CustomCollection() {
             var list = new List<string> {"Foo", "Bar", "John", "Doe"};
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
-            var expected = g1.Generate(g => g.CustomCollection(list)).Take();
-            var result = g2.Generate(g => g.CustomCollection(list)).Take();
+            var expected = g1.Select(g => g.CustomCollection(list)).Take();
+            var result = g2.Select(g => g.CustomCollection(list)).Take();
             Assert.AreEqual(expected, result);
         }
 
         [Test]
-        public void Generate_Seed_DateByAge() {
+        public void Select_Seed_DateByAge() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
-            var expected = g1.Generate(g => g.DateByAge(20)).Take();
-            var result = g2.Generate(g => g.DateByAge(20)).Take();
+            var expected = g1.Select(g => g.DateByAge(20)).Take();
+            var result = g2.Select(g => g.DateByAge(20)).Take();
             Assert.AreEqual(expected, result);
         }
 
         [Test]
-        public void Generate_Seed_DateByYear() {
+        public void Select_Seed_DateByYear() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
-            var expected = g1.Generate(g => g.DateByAge(2000)).Take();
-            var result = g2.Generate(g => g.DateByAge(2000)).Take();
+            var expected = g1.Select(g => g.DateByAge(2000)).Take();
+            var result = g2.Select(g => g.DateByAge(2000)).Take();
             Assert.AreEqual(expected, result);
         }
 
         [Test]
-        public void Generate_Seed_Double_No_Arg() {
+        public void Select_Seed_Double_No_Arg() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
-            var expected = g2.Generate(g => g.Double()).Take();
-            var result = g1.Generate(g => g.Double()).Take();
+            var expected = g2.Select(g => g.Double()).Take();
+            var result = g1.Select(g => g.Double()).Take();
             Assert.AreEqual(result, expected);
         }
 
         [Test]
-        public void Generate_Seed_Double_One_Arg() {
+        public void Select_Seed_Double_One_Arg() {
             const double max = 3.3;
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
-            var expected = g2.Generate(g => g.Double(max)).Take();
-            var result = g1.Generate(g => g.Double(max)).Take();
+            var expected = g2.Select(g => g.Double(max)).Take();
+            var result = g1.Select(g => g.Double(max)).Take();
             Assert.AreEqual(result, expected);
         }
 
         [Test]
-        public void Generate_Seed_Double_Two_Args() {
+        public void Select_Seed_Double_Two_Args() {
             const double max = 3.3;
             const double min = 1.3;
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
-            var expected = g1.Generate(g => g.Double(min, max)).Take();
-            var result = g2.Generate(g => g.Double(min, max)).Take();
+            var expected = g1.Select(g => g.Double(min, max)).Take();
+            var result = g2.Select(g => g.Double(min, max)).Take();
             Assert.AreEqual(expected, result);
         }
 
         [Test]
-        public void Generate_Seed_Integer_No_Arg() {
+        public void Select_Seed_Integer_No_Arg() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
-            var expected = g2.Generate(g => g.Integer()).Take();
-            var result = g1.Generate(g => g.Integer()).Take();
+            var expected = g2.Select(g => g.Integer()).Take();
+            var result = g1.Select(g => g.Integer()).Take();
             Assert.AreEqual(result, expected);
         }
 
         [Test]
-        public void Generate_Seed_Integer_One_Arg() {
+        public void Select_Seed_Integer_One_Arg() {
             const int max = 100;
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
-            var expected = g2.Generate(g => g.Integer(max)).Take();
-            var result = g1.Generate(g => g.Integer(max)).Take();
+            var expected = g2.Select(g => g.Integer(max)).Take();
+            var result = g1.Select(g => g.Integer(max)).Take();
             Assert.AreEqual(result, expected);
         }
 
         [Test]
-        public void Generate_Seed_Integer_Two_Args() {
+        public void Select_Seed_Integer_Two_Args() {
             const int max = 100;
             const int min = 20;
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
-            var expected = g2.Generate(g => g.Integer(min, max)).Take();
-            var result = g1.Generate(g => g.Integer(min, max)).Take();
+            var expected = g2.Select(g => g.Integer(min, max)).Take();
+            var result = g1.Select(g => g.Integer(min, max)).Take();
             Assert.AreEqual(result, expected);
         }
 
         [Test]
-        public void Generate_Seed_Long_No_Arg() {
+        public void Select_Seed_Long_No_Arg() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
-            var expected = g2.Generate(g => g.Long()).Take();
-            var result = g1.Generate(g => g.Long()).Take();
+            var expected = g2.Select(g => g.Long()).Take();
+            var result = g1.Select(g => g.Long()).Take();
             Assert.AreEqual(result, expected);
         }
 
         [Test]
-        public void Generate_Seed_Long_One_Arg() {
+        public void Select_Seed_Long_One_Arg() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             const long max = long.MaxValue - 3923329;
-            var expected = g2.Generate(g => g.Long(max)).Take();
-            var result = g1.Generate(g => g.Long(max)).Take();
+            var expected = g2.Select(g => g.Long(max)).Take();
+            var result = g1.Select(g => g.Long(max)).Take();
             Assert.AreEqual(result, expected);
         }
 
         [Test]
-        public void Generate_Seed_Long_Two_Args() {
+        public void Select_Seed_Long_Two_Args() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             const long max = long.MaxValue - 3923329;
             const long min = long.MinValue + 3923329;
-            var expected = g2.Generate(g => g.Long(min, max)).Take();
-            var result = g1.Generate(g => g.Long(min, max)).Take();
+            var expected = g2.Select(g => g.Long(min, max)).Take();
+            var result = g1.Select(g => g.Long(min, max)).Take();
             Assert.AreEqual(result, expected);
         }
 
         [Test]
-        public void Generate_Seed_MailAddress() {
+        public void Select_Seed_MailAddress() {
             const string name = "bob";
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
-            var expected = g1.Generate(generator => generator.MailAddress(name)).Take();
-            var result = g2.Generate(generator => generator.MailAddress(name)).Take();
+            var expected = g1.Select(generator => generator.MailAddress(name)).Take();
+            var result = g2.Select(generator => generator.MailAddress(name)).Take();
             Assert.AreEqual(expected, result);
         }
 
 
         [Test]
-        public void Generate_Seed_Name_FemaleFirstName() {
+        public void Select_Seed_Name_FemaleFirstName() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
 
-            var expected = g1.Generate(g => g.FirstName(Gender.Female)).Take();
-            var result = g2.Generate(g => g.FirstName(Gender.Female)).Take();
+            var expected = g1.Select(g => g.FirstName(Gender.Female)).Take();
+            var result = g2.Select(g => g.FirstName(Gender.Female)).Take();
             Assert.AreEqual(expected, result);
         }
 
         [Test]
-        public void Generate_Seed_Name_FirstName() {
+        public void Select_Seed_Name_FirstName() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
 
-            var expected = g1.Generate(g => g.FirstName()).Take();
-            var result = g2.Generate(g => g.FirstName()).Take();
+            var expected = g1.Select(g => g.FirstName()).Take();
+            var result = g2.Select(g => g.FirstName()).Take();
             Assert.AreEqual(expected, result);
         }
 
         [Test]
-        public void Generate_Seed_Name_LastName() {
+        public void Select_Seed_Name_LastName() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
 
-            var expected = g1.Generate(g => g.LastName()).Take();
-            var result = g2.Generate(g => g.LastName()).Take();
+            var expected = g1.Select(g => g.LastName()).Take();
+            var result = g2.Select(g => g.LastName()).Take();
             Assert.AreEqual(expected, result);
         }
 
         [Test]
-        public void Generate_Seed_Name_MaleFirstName() {
+        public void Select_Seed_Name_MaleFirstName() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
 
-            var generateManyA = g1.Generate(g => g.FirstName(Gender.Male)).Take();
-            var generateManyB = g2.Generate(g => g.FirstName(Gender.Male)).Take();
+            var generateManyA = g1.Select(g => g.FirstName(Gender.Male)).Take();
+            var generateManyB = g2.Select(g => g.FirstName(Gender.Male)).Take();
             Assert.AreEqual(generateManyA, generateManyB);
         }
 
         [Test]
-        public void Generate_Seed_Name_UserName() {
+        public void Select_Seed_Name_UserName() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
 
-            var generateManyA = g1.Generate(g => g.UserName()).Take(Count);
-            var generateManyB = g2.Generate(g => g.UserName()).Take(Count);
+            var generateManyA = g1.Select(g => g.UserName()).Take(Count);
+            var generateManyB = g2.Select(g => g.UserName()).Take(Count);
             Assert.AreEqual(generateManyA, generateManyB);
         }
 
         [Test]
-        public void Generate_Seed_Params() {
+        public void Select_Seed_Params() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
-            var expected = g1.Generate(g => g.Params("Foo", "Bar", "John", "Doe")).Take();
-            var result = g2.Generate(g => g.Params("Foo", "Bar", "John", "Doe")).Take();
+            var expected = g1.Select(g => g.Params("Foo", "Bar", "John", "Doe")).Take();
+            var result = g2.Select(g => g.Params("Foo", "Bar", "John", "Doe")).Take();
             Assert.AreEqual(expected, result);
         }
 
         [Test]
-        public void Generate_Seed_PhoneNumber() {
+        public void Select_Seed_PhoneNumber() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
-            var expected = g1.Generate(g => g.NumberByLength(10)).Take();
-            var result = g2.Generate(g => g.NumberByLength(10)).Take();
+            var expected = g1.Select(g => g.NumberByLength(10)).Take();
+            var result = g2.Select(g => g.NumberByLength(10)).Take();
             Assert.AreEqual(expected, result);
         }
 
         [Test]
-        public void Generate_Seed_SecurityNumber_Formated_False() {
+        public void Select_Seed_SecurityNumber_Formated_False() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
 
             const int age = 20;
-            var expected = g1.Generate(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Take();
-            var result = g2.Generate(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Take();
+            var expected = g1.Select(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Take();
+            var result = g2.Select(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Take();
             Assert.AreEqual(expected, result);
         }
 
         [Test]
-        public void Generate_Seed_SecurityNumber_Formated_True() {
+        public void Select_Seed_SecurityNumber_Formated_True() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
 
             const int age = 20;
-            var expected = g1.Generate(g => g.SocialSecurityNumber(g.DateByAge(age))).Take();
-            var result = g2.Generate(g => g.SocialSecurityNumber(g.DateByAge(age))).Take();
+            var expected = g1.Select(g => g.SocialSecurityNumber(g.DateByAge(age))).Take();
+            var result = g2.Select(g => g.SocialSecurityNumber(g.DateByAge(age))).Take();
             Assert.AreEqual(expected, result);
         }
 
         [Test]
-        public void GenerateMany_No_Seed_Bool() {
+        public void SelectMany_No_Seed_Bool() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider());
-            var expected = g1.Generate(g => g.Bool()).Take(Count);
-            var result = g2.Generate(g => g.Bool()).Take(Count);
+            var expected = g1.Select(g => g.Bool()).Take(Count);
+            var result = g2.Select(g => g.Bool()).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
         [Test]
-        public void GenerateMany_No_Seed_CustomCollection() {
+        public void SelectMany_No_Seed_CustomCollection() {
             var list = new List<string> {"Foo", "Bar", "John", "Doe"};
             var g1 = Generator.Factory.SharpyGenerator(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider());
-            var expected = g1.Generate(g => g.CustomCollection(list)).Take(Count);
-            var result = g2.Generate(g => g.CustomCollection(list)).Take(Count);
+            var expected = g1.Select(g => g.CustomCollection(list)).Take(Count);
+            var result = g2.Select(g => g.CustomCollection(list)).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
         [Test]
-        public void GenerateMany_No_Seed_DateByAge() {
+        public void SelectMany_No_Seed_DateByAge() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider());
-            var expected = g1.Generate(generator => generator.DateByAge(20)).Take(Count);
-            var result = g2.Generate(generator => generator.DateByAge(20)).Take(Count);
+            var expected = g1.Select(generator => generator.DateByAge(20)).Take(Count);
+            var result = g2.Select(generator => generator.DateByAge(20)).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
         [Test]
-        public void GenerateMany_No_Seed_DateByYear() {
+        public void SelectMany_No_Seed_DateByYear() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider());
-            var expected = g1.Generate(generator => generator.DateByAge(2000)).Take(Count);
-            var result = g2.Generate(generator => generator.DateByAge(2000)).Take(Count);
+            var expected = g1.Select(generator => generator.DateByAge(2000)).Take(Count);
+            var result = g2.Select(generator => generator.DateByAge(2000)).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
         [Test]
-        public void GenerateMany_No_Seed_Double_No_Arg() {
+        public void SelectMany_No_Seed_Double_No_Arg() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider());
-            var expected = g2.Generate(g => g.Double()).Take(Count);
-            var result = g1.Generate(g => g.Double()).Take(Count);
+            var expected = g2.Select(g => g.Double()).Take(Count);
+            var result = g1.Select(g => g.Double()).Take(Count);
             Assert.AreNotEqual(result, expected);
         }
 
         [Test]
-        public void GenerateMany_No_Seed_Double_One_Arg() {
+        public void SelectMany_No_Seed_Double_One_Arg() {
             const double max = 3.3;
             var g1 = Generator.Factory.SharpyGenerator(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider());
-            var expected = g2.Generate(g => g.Double(max)).Take(Count);
-            var result = g1.Generate(g => g.Double(max)).Take(Count);
+            var expected = g2.Select(g => g.Double(max)).Take(Count);
+            var result = g1.Select(g => g.Double(max)).Take(Count);
             Assert.AreNotEqual(result, expected);
         }
 
         [Test]
-        public void GenerateMany_No_Seed_Double_Two_Args() {
+        public void SelectMany_No_Seed_Double_Two_Args() {
             const double max = 3.3;
             const double min = 1.3;
             var g1 = Generator.Factory.SharpyGenerator(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider());
-            var expected = g1.Generate(g => g.Double(min, max)).Take(Count);
-            var result = g2.Generate(g => g.Double(min, max)).Take(Count);
+            var expected = g1.Select(g => g.Double(min, max)).Take(Count);
+            var result = g2.Select(g => g.Double(min, max)).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
         [Test]
-        public void GenerateMany_No_Seed_Integer_No_Arg() {
+        public void SelectMany_No_Seed_Integer_No_Arg() {
             var generator = Generator.Factory.SharpyGenerator(new Provider());
             Thread.Sleep(SleepDuration);
             var generator2 = Generator.Factory.SharpyGenerator(new Provider());
-            var expected = generator2.Generate(g => g.Integer()).Take(Count);
-            var result = generator.Generate(g => g.Integer()).Take(Count);
+            var expected = generator2.Select(g => g.Integer()).Take(Count);
+            var result = generator.Select(g => g.Integer()).Take(Count);
             Assert.AreNotEqual(result, expected);
         }
 
         [Test]
-        public void GenerateMany_No_Seed_Integer_One_Arg() {
+        public void SelectMany_No_Seed_Integer_One_Arg() {
             const int max = 100;
             var g1 = Generator.Factory.SharpyGenerator(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider());
-            var expected = g2.Generate(g => g.Integer(max)).Take(Count);
-            var result = g1.Generate(g => g.Integer(max)).Take(Count);
+            var expected = g2.Select(g => g.Integer(max)).Take(Count);
+            var result = g1.Select(g => g.Integer(max)).Take(Count);
             Assert.AreNotEqual(result, expected);
         }
 
         [Test]
-        public void GenerateMany_No_Seed_Integer_Two_Args() {
+        public void SelectMany_No_Seed_Integer_Two_Args() {
             const int max = 100;
             const int min = 20;
             var g1 = Generator.Factory.SharpyGenerator(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider());
-            var expected = g2.Generate(g => g.Integer(min, max)).Take(Count);
-            var result = g1.Generate(g => g.Integer(min, max)).Take(Count);
+            var expected = g2.Select(g => g.Integer(min, max)).Take(Count);
+            var result = g1.Select(g => g.Integer(min, max)).Take(Count);
             Assert.AreNotEqual(result, expected);
         }
 
         [Test]
-        public void GenerateMany_No_Seed_Long_No_Arg() {
+        public void SelectMany_No_Seed_Long_No_Arg() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider());
-            var expected = g2.Generate(g => g.Long()).Take(Count);
-            var result = g1.Generate(g => g.Long()).Take(Count);
+            var expected = g2.Select(g => g.Long()).Take(Count);
+            var result = g1.Select(g => g.Long()).Take(Count);
             Assert.AreNotEqual(result, expected);
         }
 
         [Test]
-        public void GenerateMany_No_Seed_Long_One_Arg() {
+        public void SelectMany_No_Seed_Long_One_Arg() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider());
             const long max = long.MaxValue - 3923329;
-            var expected = g2.Generate(g => g.Long(max)).Take(Count);
-            var result = g1.Generate(g => g.Long(max)).Take(Count);
+            var expected = g2.Select(g => g.Long(max)).Take(Count);
+            var result = g1.Select(g => g.Long(max)).Take(Count);
             Assert.AreNotEqual(result, expected);
         }
 
         [Test]
-        public void GenerateMany_No_Seed_Long_Two_Args() {
+        public void SelectMany_No_Seed_Long_Two_Args() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider());
             const long max = long.MaxValue - 3923329;
             const long min = long.MinValue + 3923329;
-            var expected = g2.Generate(g => g.Long(min, max)).Take(Count);
-            var result = g1.Generate(g => g.Long(min, max)).Take(Count);
+            var expected = g2.Select(g => g.Long(min, max)).Take(Count);
+            var result = g1.Select(g => g.Long(min, max)).Take(Count);
             Assert.AreNotEqual(result, expected);
         }
 
         [Test]
-        public void GenerateMany_No_Seed_MailAddress() {
+        public void SelectMany_No_Seed_MailAddress() {
             const string name = "bob";
             var g1 = Generator.Factory.SharpyGenerator(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider());
-            var expected = g1.Generate(generator => generator.MailAddress(name)).Take(Count);
-            var result = g2.Generate(generator => generator.MailAddress(name)).Take(Count);
+            var expected = g1.Select(generator => generator.MailAddress(name)).Take(Count);
+            var result = g2.Select(generator => generator.MailAddress(name)).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
 
         [Test]
-        public void GenerateMany_No_Seed_Name_FemaleFirstName() {
+        public void SelectMany_No_Seed_Name_FemaleFirstName() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider());
 
-            var expected = g1.Generate(g => g.FirstName(Gender.Female)).Take(Count);
-            var result = g2.Generate(g => g.FirstName(Gender.Male)).Take(Count);
+            var expected = g1.Select(g => g.FirstName(Gender.Female)).Take(Count);
+            var result = g2.Select(g => g.FirstName(Gender.Male)).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
         [Test]
-        public void GenerateMany_No_Seed_Name_FirstName() {
+        public void SelectMany_No_Seed_Name_FirstName() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider());
 
-            var expected = g1.Generate(g => g.FirstName()).Take(Count);
-            var result = g2.Generate(g => g.FirstName()).Take(Count);
+            var expected = g1.Select(g => g.FirstName()).Take(Count);
+            var result = g2.Select(g => g.FirstName()).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
         [Test]
-        public void GenerateMany_No_Seed_Name_LastName() {
+        public void SelectMany_No_Seed_Name_LastName() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider());
-            var expected = g1.Generate(g => g.LastName()).Take(Count);
-            var result = g2.Generate(g => g.LastName()).Take(Count);
+            var expected = g1.Select(g => g.LastName()).Take(Count);
+            var result = g2.Select(g => g.LastName()).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
         [Test]
-        public void GenerateMany_No_Seed_Name_MaleFirstName() {
+        public void SelectMany_No_Seed_Name_MaleFirstName() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider());
 
-            var generateManyA = g1.Generate(g => g.FirstName(Gender.Male)).Take(Count);
-            var generateManyB = g2.Generate(g => g.FirstName(Gender.Male)).Take(Count);
+            var generateManyA = g1.Select(g => g.FirstName(Gender.Male)).Take(Count);
+            var generateManyB = g2.Select(g => g.FirstName(Gender.Male)).Take(Count);
             Assert.AreNotEqual(generateManyA, generateManyB);
         }
 
         [Test]
-        public void GenerateMany_No_Seed_Name_UserName() {
+        public void SelectMany_No_Seed_Name_UserName() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider());
 
-            var generateManyA = g1.Generate(g => g.UserName()).Take(Count);
-            var generateManyB = g2.Generate(g => g.UserName()).Take(Count);
+            var generateManyA = g1.Select(g => g.UserName()).Take(Count);
+            var generateManyB = g2.Select(g => g.UserName()).Take(Count);
             Assert.AreNotEqual(generateManyA, generateManyB);
         }
 
         [Test]
-        public void GenerateMany_No_Seed_Params() {
+        public void SelectMany_No_Seed_Params() {
             var list = new List<string> {"Foo", "Bar", "John", "Doe"};
             var g1 = Generator.Factory.SharpyGenerator(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider());
-            var expected = g1.Generate(g => g.CustomCollection(list)).Take(Count);
-            var result = g2.Generate(g => g.CustomCollection(list)).Take(Count);
+            var expected = g1.Select(g => g.CustomCollection(list)).Take(Count);
+            var result = g2.Select(g => g.CustomCollection(list)).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
         [Test]
-        public void GenerateMany_No_Seed_PhoneNumber() {
+        public void SelectMany_No_Seed_PhoneNumber() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider());
-            var expected = g1.Generate(g => g.NumberByLength(10)).Take(Count);
-            var result = g2.Generate(g => g.NumberByLength(10)).Take(Count);
+            var expected = g1.Select(g => g.NumberByLength(10)).Take(Count);
+            var result = g2.Select(g => g.NumberByLength(10)).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
         [Test]
-        public void GenerateMany_No_Seed_SecurityNumber_Formated_False() {
+        public void SelectMany_No_Seed_SecurityNumber_Formated_False() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider());
 
             const int age = 20;
-            var expected = g1.Generate(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Take(Count);
-            var result = g2.Generate(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Take(Count);
+            var expected = g1.Select(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Take(Count);
+            var result = g2.Select(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
         [Test]
-        public void GenerateMany_No_Seed_SecurityNumber_Formated_True() {
+        public void SelectMany_No_Seed_SecurityNumber_Formated_True() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider());
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider());
 
             const int age = 20;
-            var expected = g1.Generate(g => g.SocialSecurityNumber(g.DateByAge(age))).Take(Count);
-            var result = g2.Generate(g => g.SocialSecurityNumber(g.DateByAge(age))).Take(Count);
+            var expected = g1.Select(g => g.SocialSecurityNumber(g.DateByAge(age))).Take(Count);
+            var result = g2.Select(g => g.SocialSecurityNumber(g.DateByAge(age))).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
         [Test]
-        public void GenerateMany_Seed_Bool() {
+        public void SelectMany_Seed_Bool() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
-            var expected = g1.Generate(g => g.Bool()).Take(Count);
-            var result = g2.Generate(g => g.Bool()).Take(Count);
+            var expected = g1.Select(g => g.Bool()).Take(Count);
+            var result = g2.Select(g => g.Bool()).Take(Count);
             Assert.AreEqual(expected, result);
         }
 
         [Test]
-        public void GenerateMany_Seed_CustomCollection() {
+        public void SelectMany_Seed_CustomCollection() {
             var list = new List<string> {"Foo", "Bar", "John", "Doe"};
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
-            var expected = g1.Generate(g => g.CustomCollection(list)).Take(Count);
-            var result = g2.Generate(g => g.CustomCollection(list)).Take(Count);
+            var expected = g1.Select(g => g.CustomCollection(list)).Take(Count);
+            var result = g2.Select(g => g.CustomCollection(list)).Take(Count);
             Assert.AreEqual(expected, result);
         }
 
         [Test]
-        public void GenerateMany_Seed_DateByAge() {
+        public void SelectMany_Seed_DateByAge() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
-            var expected = g1.Generate(generator => generator.DateByAge(20)).Take(Count);
-            var result = g2.Generate(generator => generator.DateByAge(20)).Take(Count);
+            var expected = g1.Select(generator => generator.DateByAge(20)).Take(Count);
+            var result = g2.Select(generator => generator.DateByAge(20)).Take(Count);
             Assert.AreEqual(expected, result);
         }
 
         [Test]
-        public void GenerateMany_Seed_DateByYear() {
+        public void SelectMany_Seed_DateByYear() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
-            var expected = g1.Generate(generator => generator.DateByAge(2000)).Take(Count);
-            var result = g2.Generate(generator => generator.DateByAge(2000)).Take(Count);
+            var expected = g1.Select(generator => generator.DateByAge(2000)).Take(Count);
+            var result = g2.Select(generator => generator.DateByAge(2000)).Take(Count);
             Assert.AreEqual(expected, result);
         }
 
         [Test]
-        public void GenerateMany_Seed_Double_No_Arg() {
+        public void SelectMany_Seed_Double_No_Arg() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
-            var expected = g2.Generate(g => g.Double()).Take(Count);
-            var result = g1.Generate(g => g.Double()).Take(Count);
+            var expected = g2.Select(g => g.Double()).Take(Count);
+            var result = g1.Select(g => g.Double()).Take(Count);
             Assert.AreEqual(result, expected);
         }
 
         [Test]
-        public void GenerateMany_Seed_Double_One_Arg() {
+        public void SelectMany_Seed_Double_One_Arg() {
             const double max = 3.3;
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
-            var expected = g2.Generate(g => g.Double(max)).Take(Count);
-            var result = g1.Generate(g => g.Double(max)).Take(Count);
+            var expected = g2.Select(g => g.Double(max)).Take(Count);
+            var result = g1.Select(g => g.Double(max)).Take(Count);
             Assert.AreEqual(result, expected);
         }
 
         [Test]
-        public void GenerateMany_Seed_Double_Two_Args() {
+        public void SelectMany_Seed_Double_Two_Args() {
             const double max = 3.3;
             const double min = 1.3;
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
-            var expected = g1.Generate(g => g.Double(min, max)).Take(Count);
-            var result = g2.Generate(g => g.Double(min, max)).Take(Count);
+            var expected = g1.Select(g => g.Double(min, max)).Take(Count);
+            var result = g2.Select(g => g.Double(min, max)).Take(Count);
             Assert.AreEqual(expected, result);
         }
 
         [Test]
-        public void GenerateMany_Seed_Integer_No_Arg() {
+        public void SelectMany_Seed_Integer_No_Arg() {
             var generator = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var generator2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
-            var expected = generator2.Generate(g => g.Integer()).Take(Count);
-            var result = generator.Generate(g => g.Integer()).Take(Count);
+            var expected = generator2.Select(g => g.Integer()).Take(Count);
+            var result = generator.Select(g => g.Integer()).Take(Count);
             Assert.AreEqual(result, expected);
         }
 
         [Test]
-        public void GenerateMany_Seed_Integer_One_Arg() {
+        public void SelectMany_Seed_Integer_One_Arg() {
             const int max = 100;
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
-            var expected = g2.Generate(g => g.Integer(max)).Take(Count);
-            var result = g1.Generate(g => g.Integer(max)).Take(Count);
+            var expected = g2.Select(g => g.Integer(max)).Take(Count);
+            var result = g1.Select(g => g.Integer(max)).Take(Count);
             Assert.AreEqual(result, expected);
         }
 
         [Test]
-        public void GenerateMany_Seed_Integer_Two_Args() {
+        public void SelectMany_Seed_Integer_Two_Args() {
             const int max = 100;
             const int min = 20;
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
-            var expected = g2.Generate(g => g.Integer(min, max)).Take(Count);
-            var result = g1.Generate(g => g.Integer(min, max)).Take(Count);
+            var expected = g2.Select(g => g.Integer(min, max)).Take(Count);
+            var result = g1.Select(g => g.Integer(min, max)).Take(Count);
             Assert.AreEqual(result, expected);
         }
 
         [Test]
-        public void GenerateMany_Seed_Long_No_Arg() {
+        public void SelectMany_Seed_Long_No_Arg() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
-            var expected = g2.Generate(g => g.Long()).Take(Count);
-            var result = g1.Generate(g => g.Long()).Take(Count);
+            var expected = g2.Select(g => g.Long()).Take(Count);
+            var result = g1.Select(g => g.Long()).Take(Count);
             Assert.AreEqual(result, expected);
         }
 
         [Test]
-        public void GenerateMany_Seed_Long_One_Arg() {
+        public void SelectMany_Seed_Long_One_Arg() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             const long max = long.MaxValue - 3923329;
-            var expected = g2.Generate(g => g.Long(max)).Take(Count);
-            var result = g1.Generate(g => g.Long(max)).Take(Count);
+            var expected = g2.Select(g => g.Long(max)).Take(Count);
+            var result = g1.Select(g => g.Long(max)).Take(Count);
             Assert.AreEqual(result, expected);
         }
 
         [Test]
-        public void GenerateMany_Seed_Long_Two_Args() {
+        public void SelectMany_Seed_Long_Two_Args() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             const long max = long.MaxValue - 3923329;
             const long min = long.MinValue + 3923329;
-            var expected = g2.Generate(g => g.Long(min, max)).Take(Count);
-            var result = g1.Generate(g => g.Long(min, max)).Take(Count);
+            var expected = g2.Select(g => g.Long(min, max)).Take(Count);
+            var result = g1.Select(g => g.Long(min, max)).Take(Count);
             Assert.AreEqual(result, expected);
         }
 
         [Test]
-        public void GenerateMany_Seed_MailAddress() {
+        public void SelectMany_Seed_MailAddress() {
             const string name = "bob";
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
-            var expected = g1.Generate(generator => generator.MailAddress(name)).Take(Count);
-            var result = g2.Generate(generator => generator.MailAddress(name)).Take(Count);
+            var expected = g1.Select(generator => generator.MailAddress(name)).Take(Count);
+            var result = g2.Select(generator => generator.MailAddress(name)).Take(Count);
             Assert.AreEqual(expected, result);
         }
 
 
         [Test]
-        public void GenerateMany_Seed_Name_FemaleFirstName() {
+        public void SelectMany_Seed_Name_FemaleFirstName() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
 
-            var expected = g1.Generate(g => g.FirstName(Gender.Female)).Take(Count);
-            var result = g2.Generate(g => g.FirstName(Gender.Female)).Take(Count);
+            var expected = g1.Select(g => g.FirstName(Gender.Female)).Take(Count);
+            var result = g2.Select(g => g.FirstName(Gender.Female)).Take(Count);
             Assert.AreEqual(expected, result);
         }
 
         [Test]
-        public void GenerateMany_Seed_Name_FirstName() {
+        public void SelectMany_Seed_Name_FirstName() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
 
-            var expected = g1.Generate(g => g.FirstName()).Take(Count);
-            var result = g2.Generate(g => g.FirstName()).Take(Count);
+            var expected = g1.Select(g => g.FirstName()).Take(Count);
+            var result = g2.Select(g => g.FirstName()).Take(Count);
             Assert.AreEqual(expected, result);
         }
 
         [Test]
-        public void GenerateMany_Seed_Name_LastName() {
+        public void SelectMany_Seed_Name_LastName() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
-            var expected = g1.Generate(g => g.LastName()).Take(Count);
-            var result = g2.Generate(g => g.LastName()).Take(Count);
+            var expected = g1.Select(g => g.LastName()).Take(Count);
+            var result = g2.Select(g => g.LastName()).Take(Count);
             Assert.AreEqual(expected, result);
         }
 
         [Test]
-        public void GenerateMany_Seed_Name_MaleFirstName() {
+        public void SelectMany_Seed_Name_MaleFirstName() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
 
-            var generateManyA = g1.Generate(g => g.FirstName(Gender.Male)).Take(Count);
-            var generateManyB = g2.Generate(g => g.FirstName(Gender.Male)).Take(Count);
+            var generateManyA = g1.Select(g => g.FirstName(Gender.Male)).Take(Count);
+            var generateManyB = g2.Select(g => g.FirstName(Gender.Male)).Take(Count);
             Assert.AreEqual(generateManyA, generateManyB);
         }
 
         [Test]
-        public void GenerateMany_Seed_Name_UserName() {
+        public void SelectMany_Seed_Name_UserName() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
 
-            var generateManyA = g1.Generate(g => g.UserName()).Take(Count);
-            var generateManyB = g2.Generate(g => g.UserName()).Take(Count);
+            var generateManyA = g1.Select(g => g.UserName()).Take(Count);
+            var generateManyB = g2.Select(g => g.UserName()).Take(Count);
             Assert.AreEqual(generateManyA, generateManyB);
         }
 
         [Test]
-        public void GenerateMany_Seed_Params() {
+        public void SelectMany_Seed_Params() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
-            var expected = g1.Generate(g => g.Params("Foo", "Bar", "John", "Doe")).Take(Count);
-            var result = g2.Generate(g => g.Params("Foo", "Bar", "John", "Doe")).Take(Count);
+            var expected = g1.Select(g => g.Params("Foo", "Bar", "John", "Doe")).Take(Count);
+            var result = g2.Select(g => g.Params("Foo", "Bar", "John", "Doe")).Take(Count);
             Assert.AreEqual(expected, result);
         }
 
         [Test]
-        public void GenerateMany_Seed_PhoneNumber() {
+        public void SelectMany_Seed_PhoneNumber() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
-            var expected = g1.Generate(g => g.NumberByLength(10)).Take(Count);
-            var result = g2.Generate(g => g.NumberByLength(10)).Take(Count);
+            var expected = g1.Select(g => g.NumberByLength(10)).Take(Count);
+            var result = g2.Select(g => g.NumberByLength(10)).Take(Count);
             Assert.AreEqual(expected, result);
         }
 
         [Test]
-        public void GenerateMany_Seed_SecurityNumber_Formated_False() {
+        public void SelectMany_Seed_SecurityNumber_Formated_False() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
 
             const int age = 20;
-            var expected = g1.Generate(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Take(Count);
-            var result = g2.Generate(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Take(Count);
+            var expected = g1.Select(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Take(Count);
+            var result = g2.Select(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Take(Count);
             Assert.AreEqual(expected, result);
         }
 
         [Test]
-        public void GenerateMany_Seed_SecurityNumber_Formated_True() {
+        public void SelectMany_Seed_SecurityNumber_Formated_True() {
             var g1 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.SharpyGenerator(new Provider(TestSeed));
 
             const int age = 20;
-            var expected = g1.Generate(g => g.SocialSecurityNumber(g.DateByAge(age))).Take(Count);
-            var result = g2.Generate(g => g.SocialSecurityNumber(g.DateByAge(age))).Take(Count);
+            var expected = g1.Select(g => g.SocialSecurityNumber(g.DateByAge(age))).Take(Count);
+            var result = g2.Select(g => g.SocialSecurityNumber(g.DateByAge(age))).Take(Count);
             Assert.AreEqual(expected, result);
         }
     }
