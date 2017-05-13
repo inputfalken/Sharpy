@@ -32,22 +32,58 @@ namespace Tests.GeneratorAPI {
 
         [Test(
             Author = "Robert",
-            Description = "Check that Select does not return null"
+            Description = "Check that Do gets various elements and not the same element"
         )]
-        public void Select_Does_Not_Return_Null() {
-            var result = _generation.Select(s => s.Length);
+        public void Do_Gets_Various_Elements() {
+            var container = new List<string>();
+            var result = _generation
+                .Do(container.Add)
+                .Take(10);
+            var randomizer = new Randomizer(Seed);
+            var expected = new Generation<string>(() => randomizer.GetString())
+                .Take(10);
+
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test(
+            Author = "Robert",
+            Description = "Do should be invoked."
+        )]
+        public void Do_Is_Invoked_After_Take_Is_invoked() {
+            string result = null;
+            _generation
+                .Do(s => result = s)
+                .Take();
+
             Assert.IsNotNull(result);
         }
 
         [Test(
             Author = "Robert",
-            Description = "Checks that the select Func is only invoked if take is called"
+            Description = "Do should not do anything."
         )]
-        public void Select_Is_Not_Invoked_Before_Take_Is_Invoked() {
-            string temp = null;
-            _generation
-                .Select(s => temp = s);
-            Assert.IsNull(temp);
+        public void Do_Is_Not_Invoked_Before_Take_Is_Invoked() {
+            string result = null;
+            _generation.Do(s => result = s);
+            Assert.IsNull(result);
+        }
+
+        [Test(
+            Author = "Robert",
+            Description = "Check that Do throws exception if the Action<T> is null"
+        )]
+        public void Do_Null_Argument() {
+            Assert.Throws<ArgumentNullException>(() => _generation.Do(null));
+        }
+
+        [Test(
+            Author = "Robert",
+            Description = "Check that Select does not return null"
+        )]
+        public void Select_Does_Not_Return_Null() {
+            var result = _generation.Select(s => s.Length);
+            Assert.IsNotNull(result);
         }
 
         [Test(
@@ -60,6 +96,17 @@ namespace Tests.GeneratorAPI {
                 .Select(s => temp = s)
                 .Take();
             Assert.IsNotNull(temp);
+        }
+
+        [Test(
+            Author = "Robert",
+            Description = "Checks that the select Func is only invoked if take is called"
+        )]
+        public void Select_Is_Not_Invoked_Before_Take_Is_Invoked() {
+            string temp = null;
+            _generation
+                .Select(s => temp = s);
+            Assert.IsNull(temp);
         }
 
         [Test(
@@ -328,53 +375,6 @@ namespace Tests.GeneratorAPI {
         public void Zip_Null_Second_Param_Throws() {
             Assert.Throws<ArgumentNullException>(
                 () => _generation.Zip<string, int>(new Generation<int>(() => 1), null));
-        }
-
-        [Test(
-            Author = "Robert",
-            Description = "Check that Do gets various elements and not the same element"
-        )]
-        public void Do_Gets_Various_Elements() {
-            var container = new List<string>();
-            var result = _generation
-                .Do(container.Add)
-                .Take(10);
-            var randomizer = new Randomizer(Seed);
-            var expected = new Generation<string>(() => randomizer.GetString())
-                .Take(10);
-
-            Assert.AreEqual(expected, result);
-        }
-
-        [Test(
-            Author = "Robert",
-            Description = "Check that Do throws exception if the Action<T> is null"
-        )]
-        public void Do_Null_Argument() {
-            Assert.Throws<ArgumentNullException>(() => _generation.Do(null));
-        }
-
-        [Test(
-            Author = "Robert",
-            Description = "Do should not do anything."
-        )]
-        public void Do_Is_Not_Invoked_Before_Take_Is_Invoked() {
-            string result = null;
-            _generation.Do(s => result = s);
-            Assert.IsNull(result);
-        }
-
-        [Test(
-            Author = "Robert",
-            Description = "Do should be invoked."
-        )]
-        public void Do_Is_Invoked_After_Take_Is_invoked() {
-            string result = null;
-            _generation
-                .Do(s => result = s)
-                .Take();
-
-            Assert.IsNotNull(result);
         }
     }
 }
