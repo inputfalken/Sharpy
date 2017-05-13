@@ -13,7 +13,7 @@ namespace Tests.Sharpy.Integration {
 
             var args = new[] {"hello", "there", "foo"};
             var generateMany = randomGenerator
-                .Generate(provider => provider.Params(args))
+                .Select(provider => provider.Params(args))
                 .Take(10);
             Assert.IsTrue(generateMany.All(s => args.Contains(s)));
         }
@@ -23,7 +23,7 @@ namespace Tests.Sharpy.Integration {
             var randomGenerator = Generator.Factory.SharpyGenerator(new Provider());
             var args = new List<string> {"hello", "there", "foo"};
             var generateMany = randomGenerator
-                .Generate(provider => provider.CustomCollection(args))
+                .Select(provider => provider.CustomCollection(args))
                 .Take(10);
             Assert.IsTrue(generateMany.All(s => args.Contains(s)));
         }
