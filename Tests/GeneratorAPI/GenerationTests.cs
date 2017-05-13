@@ -156,6 +156,27 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
+            Author = "Robert"
+        )]
+        public void SelectMany_Is_Not_Invoked_Before_Take_Is_Invoked() {
+            string result = null;
+            _generation
+                .SelectMany(s => new Generation<string>(() => result = s), (s, s1) => s + s1);
+            Assert.IsNull(result);
+        }
+
+        [Test(
+            Author = "Robert"
+        )]
+        public void SelectMany_Is_Invoked_After_Take_Is_Invoked() {
+            string result = null;
+            _generation
+                .SelectMany(s => new Generation<string>(() => result = s), (s, s1) => s + s1)
+                .Take();
+            Assert.IsNotNull(result);
+        }
+
+        [Test(
             Author = "Robert",
             Description = "Check that passing null to both arguments will throw exception"
         )]
