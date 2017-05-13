@@ -20,7 +20,6 @@ namespace Tests.GeneratorAPI {
         private const int Seed = 100;
 
         [Test(
-            Author = "Robert",
             Description = "Check that constructor throws exception if argument is null"
         )]
         public void Constructor_Null_Argument() {
@@ -28,7 +27,6 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Author = "Robert",
             Description = "Checks that the result from Generate is not null"
         )]
         public void Generate_Does_Not_Return_With_Valid_Arg() {
@@ -37,7 +35,6 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Author = "Robert",
             Description = "Checks that an exception is thrown when generate argument is null"
         )]
         public void Generate_With_Null() {
@@ -45,7 +42,6 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Author = "Robert",
             Description = "Checks that provider is assigned in the constructor."
         )]
         public void Provider_Is_not_Null() {
