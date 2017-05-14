@@ -30,7 +30,6 @@ namespace Tests.Sharpy.Integration {
             Assert.IsFalse(
                 generator.Select(generatorr => generatorr.Integer(1, 100)).Take(100).All(i => i == 0)
             );
-
             //Single
             Assert.IsFalse(generator.Select(generatorr => generatorr.Integer(1, 100)).Take() == 0);
         }
