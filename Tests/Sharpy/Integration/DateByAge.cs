@@ -11,14 +11,14 @@ namespace Tests.Sharpy.Integration {
         public void Arg_MinusOne() {
             //Will throw exception if argument is less than 0
             Assert.Throws<ArgumentException>(
-                () => Generator.Factory.SharpyGenerator(new Provider())
+                () => Generator.Factory.Provider(new Provider())
                     .Select(generator => generator.DateByAge(-1))
                     .Take());
         }
 
         [Test]
         public void Arg_Twenty() {
-            var result = Generator.Factory.SharpyGenerator(new Provider())
+            var result = Generator.Factory.Provider(new Provider())
                 .Select(generator => generator.DateByAge(20))
                 .Take();
 
@@ -28,7 +28,7 @@ namespace Tests.Sharpy.Integration {
         [Test]
         [Repeat(10)]
         public void Arg_Zero() {
-            var result = Generator.Factory.SharpyGenerator(new Provider())
+            var result = Generator.Factory.Provider(new Provider())
                 .Select(generator => generator.DateByAge(0))
                 .Take();
 

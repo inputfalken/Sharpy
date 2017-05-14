@@ -13,7 +13,7 @@ namespace Tests.Sharpy.Integration {
                 DoubleProvider = null
             };
 
-            var generator = Generator.Factory.SharpyGenerator(new Provider(configurement));
+            var generator = Generator.Factory.Provider(new Provider(configurement));
             //Long
             Assert.DoesNotThrow(() => generator.Select(x => x.Long()).Take());
             Assert.DoesNotThrow(() => generator.Select(x => x.Long(10)).Take());
@@ -42,7 +42,7 @@ namespace Tests.Sharpy.Integration {
             var configurement = new Configurement {
                 IntegerProvider = null
             };
-            var generator = Generator.Factory.SharpyGenerator(new Provider(configurement));
+            var generator = Generator.Factory.Provider(new Provider(configurement));
             //Integer
             Assert.Throws<NullReferenceException>(() => generator.Select(x => x.Integer()).Take());
             Assert.Throws<NullReferenceException>(() => generator.Select(x => x.Integer(10)).Take());
@@ -71,7 +71,7 @@ namespace Tests.Sharpy.Integration {
             var configurement = new Configurement {
                 LongProvider = null
             };
-            var generator = Generator.Factory.SharpyGenerator(new Provider(configurement));
+            var generator = Generator.Factory.Provider(new Provider(configurement));
             //Long
             Assert.Throws<NullReferenceException>(() => generator.Select(x => x.Long()).Take());
             Assert.Throws<NullReferenceException>(() => generator.Select(x => x.Long(10)).Take());
@@ -100,7 +100,7 @@ namespace Tests.Sharpy.Integration {
             var configurement = new Configurement {
                 NameProvider = null
             };
-            var generator = Generator.Factory.SharpyGenerator(new Provider(configurement));
+            var generator = Generator.Factory.Provider(new Provider(configurement));
             //Name
             Assert.Throws<NullReferenceException>(() => generator.Select(x => x.FirstName()).Take());
             Assert.Throws<NullReferenceException>(() => generator.Select(x => x.FirstName(Gender.Female)).Take());
