@@ -174,19 +174,7 @@ namespace GeneratorAPI {
         /// <param name="random"></param>
         /// <returns></returns>
         public Generator<Random> Random(Random random) {
-            return Create(random);
-        }
-
-        /// <summary>
-        ///     <para>
-        ///         Create a Generator with TProivder as provider.
-        ///     </para>
-        /// </summary>
-        /// <typeparam name="TProvider"></typeparam>
-        /// <param name="provider"></param>
-        /// <returns></returns>
-        public Generator<TProvider> Create<TProvider>(TProvider provider) {
-            return new Generator<TProvider>(() => provider);
+            return Generator.Create(random);
         }
     }
 }
