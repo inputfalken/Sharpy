@@ -23,6 +23,22 @@ namespace Tests.GeneratorAPI {
         private const int Seed = 100;
 
         [Test(
+            Description = "Verifies that Generator.Create uses same instance"
+        )]
+        public void Create_Use_Same_Instance() {
+            var generator = Generator.Create(new Randomizer());
+            Assert.AreSame(generator.Take(), generator.Take());
+        }
+
+        [Test(
+            Description = "Verifies that Generator.Create uses same instance"
+        )]
+        public void Constructor_Not_Same_Instance() {
+            var generator = new Generator<Random>(() => new Random());
+            Assert.AreNotSame(generator.Take(), generator.Take());
+        }
+
+        [Test(
             Description = "Check to see that constructor throw exception when null is used"
         )]
         public void Constructor_Throw_Exception_When_Null() {
