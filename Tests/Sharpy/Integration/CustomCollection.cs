@@ -9,7 +9,7 @@ namespace Tests.Sharpy.Integration {
     public class CustomCollection {
         [Test]
         public void Array() {
-            var randomGenerator = Generator.Factory.SharpyGenerator(new Provider());
+            var randomGenerator = Generator.Factory.Provider(new Provider());
 
             var args = new[] {"hello", "there", "foo"};
             var generateMany = randomGenerator
@@ -20,7 +20,7 @@ namespace Tests.Sharpy.Integration {
 
         [Test]
         public void List() {
-            var randomGenerator = Generator.Factory.SharpyGenerator(new Provider());
+            var randomGenerator = Generator.Factory.Provider(new Provider());
             var args = new List<string> {"hello", "there", "foo"};
             var generateMany = randomGenerator
                 .Select(provider => provider.CustomCollection(args))

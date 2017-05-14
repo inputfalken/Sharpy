@@ -19,13 +19,13 @@ namespace Tests.Sharpy.Integration {
                     var configurement = new Configurement {
                         NameProvider = new NameByOrigin((Origin) value)
                     };
-                    Generator.Factory.SharpyGenerator(new Provider(configurement)).Select(g => g.FirstName()).Take();
+                    Generator.Factory.Provider(new Provider(configurement)).Select(g => g.FirstName()).Take();
                 });
         }
 
         [Test]
         public void Female_First_Name_Not_Null_Or_White_Space() {
-            var gen = Generator.Factory.SharpyGenerator(new Provider());
+            var gen = Generator.Factory.Provider(new Provider());
             //Many
             var names = gen.Select(g => g.FirstName(Gender.Female)).Take(Count).ToArray();
             Assert.IsFalse(names.All(string.IsNullOrEmpty));
@@ -39,7 +39,7 @@ namespace Tests.Sharpy.Integration {
 
         [Test]
         public void First_Name_Not_Null_Or_White_Space() {
-            var gen = Generator.Factory.SharpyGenerator(new Provider());
+            var gen = Generator.Factory.Provider(new Provider());
             //Many
             var names = gen
                 .Select(g => g.FirstName())
@@ -56,7 +56,7 @@ namespace Tests.Sharpy.Integration {
 
         [Test]
         public void Last_Name_Not_Null_Or_White_Space() {
-            var gen = Generator.Factory.SharpyGenerator(new Provider());
+            var gen = Generator.Factory.Provider(new Provider());
             //Many
             var names = gen
                 .Select(g => g.LastName())
@@ -73,7 +73,7 @@ namespace Tests.Sharpy.Integration {
 
         [Test]
         public void Male_First_Name_Not_Null_Or_White_Space() {
-            var gen = Generator.Factory.SharpyGenerator(new Provider());
+            var gen = Generator.Factory.Provider(new Provider());
             //Many
             var names = gen
                 .Select(g => g.FirstName(Gender.Male))
@@ -91,7 +91,7 @@ namespace Tests.Sharpy.Integration {
         [Test]
         public void Origin_Restricted_Constructor_With_One_Country() {
             var swedishNameGenerator =
-                Generator.Factory.SharpyGenerator(
+                Generator.Factory.Provider(
                     new Provider(new Configurement {NameProvider = new NameByOrigin(Origin.Sweden)}));
             var swedishNames = swedishNameGenerator
                 .Select(g => g.FirstName())
@@ -105,7 +105,7 @@ namespace Tests.Sharpy.Integration {
 
         [Test]
         public void Origin_Restricted_Constructor_With_One_Country_And_One_Region() {
-            var svDkGenerator = Generator.Factory.SharpyGenerator(new Provider(
+            var svDkGenerator = Generator.Factory.Provider(new Provider(
                 new Configurement {
                     NameProvider = new NameByOrigin(Origin.Sweden, Origin.NorthAmerica)
                 }
@@ -122,7 +122,7 @@ namespace Tests.Sharpy.Integration {
 
         [Test]
         public void Origin_Restricted_Constructor_With_Two_Countries() {
-            var svDkGenerator = Generator.Factory.SharpyGenerator(new Provider(
+            var svDkGenerator = Generator.Factory.Provider(new Provider(
                 new Configurement {
                     NameProvider = new NameByOrigin(Origin.Sweden, Origin.Denmark)
                 }
@@ -139,7 +139,7 @@ namespace Tests.Sharpy.Integration {
 
         [Test]
         public void Origin_Restricted_Constructor_With_Two_Regions() {
-            var svDkGenerator = Generator.Factory.SharpyGenerator(new Provider(
+            var svDkGenerator = Generator.Factory.Provider(new Provider(
                 new Configurement {
                     NameProvider = new NameByOrigin(Origin.Europe, Origin.NorthAmerica)
                 }
@@ -156,7 +156,7 @@ namespace Tests.Sharpy.Integration {
 
         [Test]
         public void User_Name_Not_Null_Or_White_Space() {
-            var gen = Generator.Factory.SharpyGenerator(new Provider());
+            var gen = Generator.Factory.Provider(new Provider());
             //Many
             var userNames = gen.Select(g => g.UserName()).Take(Count).ToArray();
             Assert.IsFalse(userNames.All(string.IsNullOrEmpty));
