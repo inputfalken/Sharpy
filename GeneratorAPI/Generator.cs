@@ -54,8 +54,11 @@ namespace GeneratorAPI {
 
     /// <summary>
     ///     <para>
-    ///         Contains methods for creating Generators with various Providers.
+    ///         Contains methods for creating Generators. 
     ///     </para>
+    ///     <remarks>
+    ///         The point of this class is to contain extension methods from other libraries.
+    ///     </remarks>
     /// </summary>
     public class GeneratorFactory {
         /// <summary>
