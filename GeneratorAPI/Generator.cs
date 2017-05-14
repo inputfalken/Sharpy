@@ -173,7 +173,7 @@ namespace GeneratorAPI {
         /// </summary>
         /// <param name="random"></param>
         /// <returns></returns>
-        public Generator<Random> RandomGenerator(Random random) {
+        public Generator<Random> Random(Random random) {
             return Create(random);
         }
 
