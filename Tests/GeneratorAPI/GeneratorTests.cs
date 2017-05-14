@@ -7,7 +7,7 @@ using NUnit.Framework.Internal;
 
 namespace Tests.GeneratorAPI {
     [TestFixture]
-    internal class GenerationTests {
+    internal class GeneratorTests {
         [SetUp]
         public void Initiate() {
             var randomizer = new Randomizer(Seed);
