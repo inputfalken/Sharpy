@@ -11,8 +11,14 @@ namespace GeneratorAPI {
         /// </summary>
         public static GeneratorFactory Factory { get; } = new GeneratorFactory();
 
-        public static Generator<TResult> Create<TResult>(TResult t) {
-            return new Generator<TResult>(() => t);
+        /// <summary>
+        ///     Creates a Generator&lt;T&gt; by using the same reference of &lt;T&gt;
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static Generator<T> Create<T>(T t) {
+            return new Generator<T>(() => t);
         }
     }
 
@@ -35,6 +41,15 @@ namespace GeneratorAPI {
             _enumerator = new Lazy<IEnumerator<T>>(_generations.GetEnumerator);
         }
 
+        /// <summary>
+        /// Creates a Generator&lt;T&gt; where each generation will invoke <see cref="fn"/>
+        /// <remarks>
+        ///     Do not instantiate types here.
+        /// <para />
+        ///     If you want to instantiate types use  static method Generator.<see cref="Generator.Create{T}"/>
+        /// </remarks>
+        /// </summary>
+        /// <param name="fn"></param>
         public Generator(Func<T> fn) {
             if (fn != null) {
                 _generations = InfiniteEnumerable(fn);
