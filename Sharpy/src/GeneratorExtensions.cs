@@ -15,8 +15,8 @@ namespace Sharpy {
         /// <param name="factory"></param>
         /// <param name="provider"></param>
         /// <returns></returns>
-        public static Generator<Provider> SharpyGenerator(this GeneratorFactory factory, Provider provider) {
-            return factory.Create(provider);
+        public static Generator<Provider> Provider(this GeneratorFactory factory, Provider provider) {
+            return Generator.Create(provider);
         }
 
         /// <summary>
@@ -27,8 +27,8 @@ namespace Sharpy {
         /// <param name="factory"></param>
         /// <param name="provider"></param>
         /// <returns></returns>
-        public static Generator<INameProvider> NameGenerator(this GeneratorFactory factory, INameProvider provider) {
-            return factory.Create(provider);
+        public static Generator<INameProvider> Name(this GeneratorFactory factory, INameProvider provider) {
+            return Generator.Create(provider);
         }
 
         /// <summary>
@@ -39,8 +39,8 @@ namespace Sharpy {
         /// <param name="factory"></param>
         /// <param name="provider"></param>
         /// <returns></returns>
-        public static Generator<ILongProvider> LongGenerator(this GeneratorFactory factory, ILongProvider provider) {
-            return factory.Create(provider);
+        public static Generator<ILongProvider> Long(this GeneratorFactory factory, ILongProvider provider) {
+            return Generator.Create(provider);
         }
 
         /// <summary>
@@ -51,9 +51,8 @@ namespace Sharpy {
         /// <param name="factory"></param>
         /// <param name="provider"></param>
         /// <returns></returns>
-        public static Generator<IDoubleProvider> DoubleGenerator(this GeneratorFactory factory,
-            IDoubleProvider provider) {
-            return factory.Create(provider);
+        public static Generator<IDoubleProvider> Double(this GeneratorFactory factory, IDoubleProvider provider) {
+            return Generator.Create(provider);
         }
 
         /// <summary>
@@ -64,9 +63,8 @@ namespace Sharpy {
         /// <param name="factory"></param>
         /// <param name="provider"></param>
         /// <returns></returns>
-        public static Generator<IIntegerProvider> IntegerGenerator(this GeneratorFactory factory,
-            IIntegerProvider provider) {
-            return factory.Create(provider);
+        public static Generator<IIntegerProvider> Integer(this GeneratorFactory factory, IIntegerProvider provider) {
+            return Generator.Create(provider);
         }
     }
 }

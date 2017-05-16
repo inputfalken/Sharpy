@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumerableCacheExtensions.cs" />
-    <Compile Include="Generation.cs" />
     <Compile Include="Generator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
