@@ -25,14 +25,6 @@ namespace Tests.GeneratorAPI {
         [Test(
             Description = "Verifies that Generator.Create uses same instance"
         )]
-        public void Create_Use_Same_Instance() {
-            var generator = Generator.Create(new Randomizer());
-            Assert.AreSame(generator.Take(), generator.Take());
-        }
-
-        [Test(
-            Description = "Verifies that Generator.Create uses same instance"
-        )]
         public void Constructor_Not_Same_Instance() {
             var generator = new Generator<Random>(() => new Random());
             Assert.AreNotSame(generator.Take(), generator.Take());
@@ -43,6 +35,46 @@ namespace Tests.GeneratorAPI {
         )]
         public void Constructor_Throw_Exception_When_Null() {
             Assert.Throws<ArgumentNullException>(() => new Generator<string>(null), "Argument cannot be null");
+        }
+
+        [Test(
+            Description = "Verify that Create is lazy"
+        )]
+        public void Create_Lazy_Is_Invoked_After_Take_Is_Invoked() {
+            string val = null;
+            Generator.Create(() => {
+                val = "val";
+                return new Randomizer();
+            }).Take();
+            Assert.IsNotNull(val);
+        }
+
+        [Test(
+            Description = "Verify that Create is lazy"
+        )]
+        public void Create_Lazy_Is_Not_Invoked_Before_Take_Is_Invoked() {
+            string val = null;
+            Generator.Create(() => {
+                val = "val";
+                return new Randomizer();
+            });
+            Assert.IsNull(val);
+        }
+
+        [Test(
+            Description = "Verifies that Generator.Create uses same instance"
+        )]
+        public void Create_Lazy_Use_Same_Instance() {
+            var generator = Generator.Create(() => new Randomizer());
+            Assert.AreSame(generator.Take(), generator.Take());
+        }
+
+        [Test(
+            Description = "Verifies that Generator.Create uses same instance"
+        )]
+        public void Create_Use_Same_Instance() {
+            var generator = Generator.Create(new Randomizer());
+            Assert.AreSame(generator.Take(), generator.Take());
         }
 
         [Test(

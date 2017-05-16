@@ -20,6 +20,18 @@ namespace GeneratorAPI {
         public static Generator<T> Create<T>(T t) {
             return new Generator<T>(() => t);
         }
+
+
+        /// <summary>
+        ///     Creates a lazy Generator&lt;T&gt; by using the same reference of &lt;T&gt;
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="fn"></param>
+        /// <returns></returns>
+        public static Generator<T> Create<T>(Func<T> fn) {
+            var lazy = new Lazy<T>(fn);
+            return new Generator<T>(() => lazy.Value);
+        }
     }
 
     public class Generator<T> {
