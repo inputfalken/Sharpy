@@ -9,21 +9,21 @@ namespace Tests.Sharpy.Integration {
     public class CustomCollection {
         [Test]
         public void Array() {
-            var randomGenerator = Generator.Factory.SharpyGenerator(new Provider());
+            var randomGenerator = Generator.Factory.Provider(new Provider());
 
             var args = new[] {"hello", "there", "foo"};
             var generateMany = randomGenerator
-                .Generate(provider => provider.Params(args))
+                .Select(provider => provider.Params(args))
                 .Take(10);
             Assert.IsTrue(generateMany.All(s => args.Contains(s)));
         }
 
         [Test]
         public void List() {
-            var randomGenerator = Generator.Factory.SharpyGenerator(new Provider());
+            var randomGenerator = Generator.Factory.Provider(new Provider());
             var args = new List<string> {"hello", "there", "foo"};
             var generateMany = randomGenerator
-                .Generate(provider => provider.CustomCollection(args))
+                .Select(provider => provider.CustomCollection(args))
                 .Take(10);
             Assert.IsTrue(generateMany.All(s => args.Contains(s)));
         }
