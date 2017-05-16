@@ -41,24 +41,24 @@ namespace Tests.GeneratorAPI {
             Description = "Verify that Create is lazy"
         )]
         public void Create_Lazy_Is_Invoked_After_Take_Is_Invoked() {
-            string val = null;
+            var invoked = false;
             Generator.Create(() => {
-                val = "val";
+                invoked = true;
                 return new Randomizer();
             }).Take();
-            Assert.IsNotNull(val);
+            Assert.IsTrue(invoked);
         }
 
         [Test(
             Description = "Verify that Create is lazy"
         )]
         public void Create_Lazy_Is_Not_Invoked_Before_Take_Is_Invoked() {
-            string val = null;
+            var invoked = false;
             Generator.Create(() => {
-                val = "val";
+                invoked = true;
                 return new Randomizer();
             });
-            Assert.IsNull(val);
+            Assert.IsFalse(invoked);
         }
 
         [Test(
@@ -96,21 +96,21 @@ namespace Tests.GeneratorAPI {
             Description = "Verifys that the Action is only invoked if take is called"
         )]
         public void Do_Is_Invoked_After_Take_Is_invoked() {
-            string result = null;
+            var invoked = false;
             _generator
-                .Do(s => result = s)
+                .Do(s => invoked = true)
                 .Take();
 
-            Assert.IsNotNull(result);
+            Assert.IsTrue(invoked);
         }
 
         [Test(
             Description = "Verifys that the Action is only invoked if take is called"
         )]
         public void Do_Is_Not_Invoked_Before_Take_Is_Invoked() {
-            string result = null;
-            _generator.Do(s => result = s);
-            Assert.IsNull(result);
+            var invoked = false;
+            _generator.Do(s => invoked = true);
+            Assert.IsFalse(invoked);
         }
 
         [Test(
@@ -132,21 +132,21 @@ namespace Tests.GeneratorAPI {
             Description = "Verifys that the Func is only invoked if take is called"
         )]
         public void Select_Is_Invoked_After_Take_Is_Invoked() {
-            string temp = null;
+            var invoked = false;
             _generator
-                .Select(s => temp = s)
+                .Select(s => invoked = true)
                 .Take();
-            Assert.IsNotNull(temp);
+            Assert.IsTrue(invoked);
         }
 
         [Test(
             Description = "Verifys that the Func is only invoked if take is called"
         )]
         public void Select_Is_Not_Invoked_Before_Take_Is_Invoked() {
-            string temp = null;
+            var invoked = false;
             _generator
-                .Select(s => temp = s);
-            Assert.IsNull(temp);
+                .Select(s => invoked = true);
+            Assert.IsFalse(invoked);
         }
 
         [Test(
@@ -220,21 +220,21 @@ namespace Tests.GeneratorAPI {
             Description = "Verifys that the Func is only invoked if take is called"
         )]
         public void SelectMany_Is_Invoked_After_Take_Is_Invoked() {
-            string result = null;
+            var invoked = false;
             _generator
-                .SelectMany(s => new Generator<string>(() => result = s), (s, s1) => s + s1)
+                .SelectMany(s => new Generator<bool>(() => invoked = true), (s, s1) => s + s1)
                 .Take();
-            Assert.IsNotNull(result);
+            Assert.IsTrue(invoked);
         }
 
         [Test(
             Description = "Verifys that the Func is only invoked if take is called"
         )]
         public void SelectMany_Is_Not_Invoked_Before_Take_Is_Invoked() {
-            string result = null;
+            var invoked = false;
             _generator
-                .SelectMany(s => new Generator<string>(() => result = s), (s, s1) => s + s1);
-            Assert.IsNull(result);
+                .SelectMany(s => new Generator<bool>(() => invoked = true), (s, s1) => s + s1);
+            Assert.IsFalse(invoked);
         }
 
         [Test(
@@ -336,24 +336,24 @@ namespace Tests.GeneratorAPI {
             Description = "Verifys that the Func is only invoked if take is called"
         )]
         public void Where_Is_Invoked_After_Take_Is_Invoked() {
-            string result = null;
+            var invoked = false;
             _generator.Where(s => {
-                result = s;
+                invoked = true;
                 return true;
             });
-            Assert.IsNull(result);
+            Assert.IsFalse(invoked);
         }
 
         [Test(
             Description = "Verifys that the Func is only invoked if take is called"
         )]
         public void Where_Is_Not_Invoked_Before_Take_Is_Invoked() {
-            string result = null;
+            var invoked = false;
             _generator.Where(s => {
-                result = s;
+                invoked = true;
                 return true;
             }).Take();
-            Assert.IsNotNull(result);
+            Assert.IsTrue(invoked);
         }
 
         [Test(
@@ -421,22 +421,22 @@ namespace Tests.GeneratorAPI {
             Description = "Verifys that the Func is only invoked if take is called"
         )]
         public void Zip_Is_Invoked_After_Take_Is_Invoked() {
-            string result = null;
+            var invoked = false;
             var randomizer = new Randomizer(Seed);
             var generation = new Generator<int>(() => randomizer.Next());
-            _generator.Zip(generation, (s, i) => result = s + i).Take();
-            Assert.IsNotNull(result);
+            _generator.Zip(generation, (s, i) => invoked = true).Take();
+            Assert.IsTrue(invoked);
         }
 
         [Test(
             Description = "Verifys that the Func is only invoked if take is called"
         )]
         public void Zip_Is_Not_Invoked_Before_Take_Is_Invoked() {
-            string result = null;
+            var invoked = false;
             var randomizer = new Randomizer(Seed);
             var generation = new Generator<int>(() => randomizer.Next());
-            _generator.Zip(generation, (s, i) => result = s + i);
-            Assert.IsNull(result);
+            _generator.Zip(generation, (s, i) => invoked = true);
+            Assert.IsFalse(invoked);
         }
 
         [Test(
