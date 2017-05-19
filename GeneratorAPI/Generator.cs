@@ -35,44 +35,22 @@ namespace GeneratorAPI {
     }
 
     public class Generator<T> {
-        /// <summary>
-        ///     <para>
-        ///         Infinite deferred invocations of _generation.
-        ///     </para>
-        /// </summary>
-        private readonly IEnumerable<T> _generations;
-
-        private readonly Lazy<IEnumerator<T>> _enumerator;
-
-        private IEnumerator<T> Enumerator {
-            get { return _enumerator.Value; }
-        }
-
-        private Generator(IEnumerable<T> infiniteEnumerable) {
-            _generations = infiniteEnumerable;
-            _enumerator = new Lazy<IEnumerator<T>>(_generations.GetEnumerator);
-        }
+        private readonly Func<T> _fn;
 
         /// <summary>
         /// Creates a Generator&lt;T&gt; where each generation will invoke <see cref="fn"/>
         /// <remarks>
         ///     Do not instantiate types here.
         /// <para />
-        ///     If you want to instantiate types use  static method Generator.<see cref="Generator.Create{T}"/>
+        ///     If you want to instantiate types use  static method Generator.<see cref="Generator.Create{T}(T)"/>
         /// </remarks>
         /// </summary>
         /// <param name="fn"></param>
         public Generator(Func<T> fn) {
-            if (fn != null) {
-                _generations = InfiniteEnumerable(fn);
-                _enumerator = new Lazy<IEnumerator<T>>(_generations.GetEnumerator);
-            }
+            if (fn != null) _fn = fn;
             else throw new ArgumentNullException(nameof(fn));
         }
 
-        private static IEnumerable<TResult> InfiniteEnumerable<TResult>(Func<TResult> fn) {
-            while (true) yield return fn();
-        }
 
         /// <summary>
         ///     <para>
@@ -83,7 +61,8 @@ namespace GeneratorAPI {
         /// <param name="fn"></param>
         /// <returns></returns>
         public Generator<TResult> Select<TResult>(Func<T, TResult> fn) {
-            return new Generator<TResult>(_generations.Select(fn));
+            if (fn != null) return new Generator<TResult>(() => fn(_fn()));
+            throw new ArgumentNullException(nameof(fn));
         }
 
 
@@ -94,8 +73,7 @@ namespace GeneratorAPI {
         /// </summary>
         /// <returns></returns>
         public T Take() {
-            Enumerator.MoveNext();
-            return Enumerator.Current;
+            return _fn();
         }
 
         /// <summary>
@@ -106,7 +84,9 @@ namespace GeneratorAPI {
         /// <param name="count"></param>
         /// <returns></returns>
         public IEnumerable<T> Take(int count) {
-            return _generations.Take(count);
+            for (var i = 0; i < count; i++) {
+                yield return Take();
+            }
         }
 
         /// <summary>
@@ -149,9 +129,17 @@ namespace GeneratorAPI {
         ///     </remarks>
         /// </summary>
         /// <param name="predicate"></param>
+        /// <param name="threshold"></param>
         /// <returns></returns>
-        public Generator<T> Where(Func<T, bool> predicate) {
-            return new Generator<T>(_generations.Where(predicate));
+        public Generator<T> Where(Func<T, bool> predicate, int threshold = 100000) {
+            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            return new Generator<T>(() => {
+                for (var i = 0; i < threshold; i++) {
+                    var generation = Take();
+                    if (predicate(generation)) return generation;
+                }
+                throw new ArgumentException($"Could not match the predicate with {threshold} attempts. ");
+            });
         }
 
         /// <summary>
@@ -176,9 +164,7 @@ namespace GeneratorAPI {
         /// <param name="fn"></param>
         /// <returns></returns>
         public Generator<T> Do(Action<T> fn) {
-            if (fn == null) {
-                throw new ArgumentNullException(nameof(fn));
-            }
+            if (fn == null) throw new ArgumentNullException(nameof(fn));
             return new Generator<T>(() => {
                 var generation = Take();
                 fn(generation);
