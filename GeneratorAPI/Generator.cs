@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GeneratorAPI {
     public interface IGenerator<out T> {
-        T Take();
+        T Generate();
     }
 
     public static class Generator {
@@ -33,6 +33,11 @@ namespace GeneratorAPI {
             return new Generator<T>(() => lazy.Value);
         }
 
+        /// <summary>
+        ///     Creates a lazy Generator&lt;T&gt; by using the same reference of &lt;T&gt;
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public static IGenerator<T> CreateLazy<T>(Func<T> fn) {
             var lazy = new Lazy<T>(fn);
             return CreateLazy(lazy);
@@ -71,7 +76,7 @@ namespace GeneratorAPI {
             if (predicate == null) throw new ArgumentNullException(nameof(predicate));
             return new Generator<TSource>(() => {
                 for (var i = 0; i < threshold; i++) {
-                    var generation = generator.Take();
+                    var generation = generator.Generate();
                     if (predicate(generation)) return generation;
                 }
                 throw new ArgumentException($"Could not match the predicate with {threshold} attempts. ");
@@ -88,7 +93,7 @@ namespace GeneratorAPI {
         public static IGenerator<TSource> Do<TSource>(this IGenerator<TSource> generator, Action<TSource> fn) {
             if (fn == null) throw new ArgumentNullException(nameof(fn));
             return new Generator<TSource>(() => {
-                var generation = generator.Take();
+                var generation = generator.Generate();
                 fn(generation);
                 return generation;
             });
@@ -107,7 +112,7 @@ namespace GeneratorAPI {
         public static IGenerator<TResult> Select<TSource, TResult>(this IGenerator<TSource> generator,
             Func<TSource, TResult> fn) {
             if (fn == null) throw new ArgumentNullException(nameof(fn));
-            return new Generator<TResult>(() => fn(generator.Take()));
+            return new Generator<TResult>(() => fn(generator.Generate()));
         }
 
         /// <summary>
@@ -125,7 +130,7 @@ namespace GeneratorAPI {
         }
 
         private static IEnumerable<TSource> Iterator<TSource>(int count, IGenerator<TSource> generator) {
-            for (var i = 0; i < count; i++) yield return generator.Take();
+            for (var i = 0; i < count; i++) yield return generator.Generate();
         }
 
         /// <summary>
@@ -140,7 +145,7 @@ namespace GeneratorAPI {
         public static IGenerator<TResult> SelectMany<TSource, TResult>(this IGenerator<TSource> generator,
             Func<TSource, IGenerator<TResult>> fn) {
             if (fn == null) throw new ArgumentNullException(nameof(fn));
-            return new Generator<TResult>(() => fn(generator.Take()).Take());
+            return new Generator<TResult>(() => fn(generator.Generate()).Generate());
         }
 
         /// <summary>
@@ -182,7 +187,7 @@ namespace GeneratorAPI {
             if (firstGenerator == null) throw new ArgumentNullException(nameof(firstGenerator));
             if (secondGenerator == null) throw new ArgumentNullException(nameof(secondGenerator));
             if (fn == null) throw new ArgumentNullException(nameof(fn));
-            return new Generator<TResult>(() => fn(firstGenerator.Take(), secondGenerator.Take()));
+            return new Generator<TResult>(() => fn(firstGenerator.Generate(), secondGenerator.Generate()));
         }
     }
 
@@ -210,7 +215,7 @@ namespace GeneratorAPI {
         ///     </para>
         /// </summary>
         /// <returns></returns>
-        public T Take() {
+        public T Generate() {
             return _fn();
         }
     }

@@ -33,8 +33,8 @@ namespace Tests.Sharpy.Integration {
             var g1 = Generator.Factory.Provider(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.Provider(new Provider(TestSeed));
-            var expected = g1.Select(g => g.Bool()).Take();
-            var result = g2.Select(g => g.Bool()).Take();
+            var expected = g1.Select(g => g.Bool()).Generate();
+            var result = g2.Select(g => g.Bool()).Generate();
             Assert.AreEqual(expected, result);
         }
 
@@ -45,8 +45,8 @@ namespace Tests.Sharpy.Integration {
             var g1 = Generator.Factory.Provider(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.Provider(new Provider(TestSeed));
-            var expected = g1.Select(g => g.CustomCollection(list)).Take();
-            var result = g2.Select(g => g.CustomCollection(list)).Take();
+            var expected = g1.Select(g => g.CustomCollection(list)).Generate();
+            var result = g2.Select(g => g.CustomCollection(list)).Generate();
             Assert.AreEqual(expected, result);
         }
 
@@ -55,8 +55,8 @@ namespace Tests.Sharpy.Integration {
             var g1 = Generator.Factory.Provider(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.Provider(new Provider(TestSeed));
-            var expected = g1.Select(g => g.DateByAge(20)).Take();
-            var result = g2.Select(g => g.DateByAge(20)).Take();
+            var expected = g1.Select(g => g.DateByAge(20)).Generate();
+            var result = g2.Select(g => g.DateByAge(20)).Generate();
             Assert.AreEqual(expected, result);
         }
 
@@ -65,8 +65,8 @@ namespace Tests.Sharpy.Integration {
             var g1 = Generator.Factory.Provider(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.Provider(new Provider(TestSeed));
-            var expected = g1.Select(g => g.DateByAge(2000)).Take();
-            var result = g2.Select(g => g.DateByAge(2000)).Take();
+            var expected = g1.Select(g => g.DateByAge(2000)).Generate();
+            var result = g2.Select(g => g.DateByAge(2000)).Generate();
             Assert.AreEqual(expected, result);
         }
 
@@ -75,8 +75,8 @@ namespace Tests.Sharpy.Integration {
             var g1 = Generator.Factory.Provider(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.Provider(new Provider(TestSeed));
-            var expected = g2.Select(g => g.Double()).Take();
-            var result = g1.Select(g => g.Double()).Take();
+            var expected = g2.Select(g => g.Double()).Generate();
+            var result = g1.Select(g => g.Double()).Generate();
             Assert.AreEqual(result, expected);
         }
 
@@ -86,8 +86,8 @@ namespace Tests.Sharpy.Integration {
             var g1 = Generator.Factory.Provider(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.Provider(new Provider(TestSeed));
-            var expected = g2.Select(g => g.Double(max)).Take();
-            var result = g1.Select(g => g.Double(max)).Take();
+            var expected = g2.Select(g => g.Double(max)).Generate();
+            var result = g1.Select(g => g.Double(max)).Generate();
             Assert.AreEqual(result, expected);
         }
 
@@ -98,8 +98,8 @@ namespace Tests.Sharpy.Integration {
             var g1 = Generator.Factory.Provider(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.Provider(new Provider(TestSeed));
-            var expected = g1.Select(g => g.Double(min, max)).Take();
-            var result = g2.Select(g => g.Double(min, max)).Take();
+            var expected = g1.Select(g => g.Double(min, max)).Generate();
+            var result = g2.Select(g => g.Double(min, max)).Generate();
             Assert.AreEqual(expected, result);
         }
 
@@ -108,8 +108,8 @@ namespace Tests.Sharpy.Integration {
             var g1 = Generator.Factory.Provider(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.Provider(new Provider(TestSeed));
-            var expected = g2.Select(g => g.Integer()).Take();
-            var result = g1.Select(g => g.Integer()).Take();
+            var expected = g2.Select(g => g.Integer()).Generate();
+            var result = g1.Select(g => g.Integer()).Generate();
             Assert.AreEqual(result, expected);
         }
 
@@ -119,8 +119,8 @@ namespace Tests.Sharpy.Integration {
             var g1 = Generator.Factory.Provider(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.Provider(new Provider(TestSeed));
-            var expected = g2.Select(g => g.Integer(max)).Take();
-            var result = g1.Select(g => g.Integer(max)).Take();
+            var expected = g2.Select(g => g.Integer(max)).Generate();
+            var result = g1.Select(g => g.Integer(max)).Generate();
             Assert.AreEqual(result, expected);
         }
 
@@ -131,8 +131,8 @@ namespace Tests.Sharpy.Integration {
             var g1 = Generator.Factory.Provider(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.Provider(new Provider(TestSeed));
-            var expected = g2.Select(g => g.Integer(min, max)).Take();
-            var result = g1.Select(g => g.Integer(min, max)).Take();
+            var expected = g2.Select(g => g.Integer(min, max)).Generate();
+            var result = g1.Select(g => g.Integer(min, max)).Generate();
             Assert.AreEqual(result, expected);
         }
 
@@ -141,8 +141,8 @@ namespace Tests.Sharpy.Integration {
             var g1 = Generator.Factory.Provider(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.Provider(new Provider(TestSeed));
-            var expected = g2.Select(g => g.Long()).Take();
-            var result = g1.Select(g => g.Long()).Take();
+            var expected = g2.Select(g => g.Long()).Generate();
+            var result = g1.Select(g => g.Long()).Generate();
             Assert.AreEqual(result, expected);
         }
 
@@ -152,8 +152,8 @@ namespace Tests.Sharpy.Integration {
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.Provider(new Provider(TestSeed));
             const long max = long.MaxValue - 3923329;
-            var expected = g2.Select(g => g.Long(max)).Take();
-            var result = g1.Select(g => g.Long(max)).Take();
+            var expected = g2.Select(g => g.Long(max)).Generate();
+            var result = g1.Select(g => g.Long(max)).Generate();
             Assert.AreEqual(result, expected);
         }
 
@@ -164,8 +164,8 @@ namespace Tests.Sharpy.Integration {
             var g2 = Generator.Factory.Provider(new Provider(TestSeed));
             const long max = long.MaxValue - 3923329;
             const long min = long.MinValue + 3923329;
-            var expected = g2.Select(g => g.Long(min, max)).Take();
-            var result = g1.Select(g => g.Long(min, max)).Take();
+            var expected = g2.Select(g => g.Long(min, max)).Generate();
+            var result = g1.Select(g => g.Long(min, max)).Generate();
             Assert.AreEqual(result, expected);
         }
 
@@ -175,8 +175,8 @@ namespace Tests.Sharpy.Integration {
             var g1 = Generator.Factory.Provider(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.Provider(new Provider(TestSeed));
-            var expected = g1.Select(generator => generator.MailAddress(name)).Take();
-            var result = g2.Select(generator => generator.MailAddress(name)).Take();
+            var expected = g1.Select(generator => generator.MailAddress(name)).Generate();
+            var result = g2.Select(generator => generator.MailAddress(name)).Generate();
             Assert.AreEqual(expected, result);
         }
 
@@ -187,8 +187,8 @@ namespace Tests.Sharpy.Integration {
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.Provider(new Provider(TestSeed));
 
-            var expected = g1.Select(g => g.FirstName(Gender.Female)).Take();
-            var result = g2.Select(g => g.FirstName(Gender.Female)).Take();
+            var expected = g1.Select(g => g.FirstName(Gender.Female)).Generate();
+            var result = g2.Select(g => g.FirstName(Gender.Female)).Generate();
             Assert.AreEqual(expected, result);
         }
 
@@ -198,8 +198,8 @@ namespace Tests.Sharpy.Integration {
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.Provider(new Provider(TestSeed));
 
-            var expected = g1.Select(g => g.FirstName()).Take();
-            var result = g2.Select(g => g.FirstName()).Take();
+            var expected = g1.Select(g => g.FirstName()).Generate();
+            var result = g2.Select(g => g.FirstName()).Generate();
             Assert.AreEqual(expected, result);
         }
 
@@ -209,8 +209,8 @@ namespace Tests.Sharpy.Integration {
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.Provider(new Provider(TestSeed));
 
-            var expected = g1.Select(g => g.LastName()).Take();
-            var result = g2.Select(g => g.LastName()).Take();
+            var expected = g1.Select(g => g.LastName()).Generate();
+            var result = g2.Select(g => g.LastName()).Generate();
             Assert.AreEqual(expected, result);
         }
 
@@ -220,8 +220,8 @@ namespace Tests.Sharpy.Integration {
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.Provider(new Provider(TestSeed));
 
-            var generateManyA = g1.Select(g => g.FirstName(Gender.Male)).Take();
-            var generateManyB = g2.Select(g => g.FirstName(Gender.Male)).Take();
+            var generateManyA = g1.Select(g => g.FirstName(Gender.Male)).Generate();
+            var generateManyB = g2.Select(g => g.FirstName(Gender.Male)).Generate();
             Assert.AreEqual(generateManyA, generateManyB);
         }
 
@@ -241,8 +241,8 @@ namespace Tests.Sharpy.Integration {
             var g1 = Generator.Factory.Provider(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.Provider(new Provider(TestSeed));
-            var expected = g1.Select(g => g.Params("Foo", "Bar", "John", "Doe")).Take();
-            var result = g2.Select(g => g.Params("Foo", "Bar", "John", "Doe")).Take();
+            var expected = g1.Select(g => g.Params("Foo", "Bar", "John", "Doe")).Generate();
+            var result = g2.Select(g => g.Params("Foo", "Bar", "John", "Doe")).Generate();
             Assert.AreEqual(expected, result);
         }
 
@@ -251,8 +251,8 @@ namespace Tests.Sharpy.Integration {
             var g1 = Generator.Factory.Provider(new Provider(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Factory.Provider(new Provider(TestSeed));
-            var expected = g1.Select(g => g.NumberByLength(10)).Take();
-            var result = g2.Select(g => g.NumberByLength(10)).Take();
+            var expected = g1.Select(g => g.NumberByLength(10)).Generate();
+            var result = g2.Select(g => g.NumberByLength(10)).Generate();
             Assert.AreEqual(expected, result);
         }
 
@@ -263,8 +263,8 @@ namespace Tests.Sharpy.Integration {
             var g2 = Generator.Factory.Provider(new Provider(TestSeed));
 
             const int age = 20;
-            var expected = g1.Select(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Take();
-            var result = g2.Select(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Take();
+            var expected = g1.Select(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Generate();
+            var result = g2.Select(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Generate();
             Assert.AreEqual(expected, result);
         }
 
@@ -275,8 +275,8 @@ namespace Tests.Sharpy.Integration {
             var g2 = Generator.Factory.Provider(new Provider(TestSeed));
 
             const int age = 20;
-            var expected = g1.Select(g => g.SocialSecurityNumber(g.DateByAge(age))).Take();
-            var result = g2.Select(g => g.SocialSecurityNumber(g.DateByAge(age))).Take();
+            var expected = g1.Select(g => g.SocialSecurityNumber(g.DateByAge(age))).Generate();
+            var result = g2.Select(g => g.SocialSecurityNumber(g.DateByAge(age))).Generate();
             Assert.AreEqual(expected, result);
         }
 
