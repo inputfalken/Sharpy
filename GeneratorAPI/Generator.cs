@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace GeneratorAPI {
     public static class Generator {
@@ -38,12 +37,12 @@ namespace GeneratorAPI {
         private readonly Func<T> _fn;
 
         /// <summary>
-        /// Creates a Generator&lt;T&gt; where each generation will invoke <see cref="fn"/>
-        /// <remarks>
-        ///     Do not instantiate types here.
-        /// <para />
-        ///     If you want to instantiate types use  static method Generator.<see cref="Generator.Create{T}(T)"/>
-        /// </remarks>
+        ///     Creates a Generator&lt;T&gt; where each generation will invoke <see cref="fn" />
+        ///     <remarks>
+        ///         Do not instantiate types here.
+        ///         <para />
+        ///         If you want to instantiate types use  static method Generator.<see cref="Generator.Create{T}(T)" />
+        ///     </remarks>
         /// </summary>
         /// <param name="fn"></param>
         public Generator(Func<T> fn) {
@@ -84,9 +83,13 @@ namespace GeneratorAPI {
         /// <param name="count"></param>
         /// <returns></returns>
         public IEnumerable<T> Take(int count) {
-            for (var i = 0; i < count; i++) {
-                yield return Take();
-            }
+            if (count <= 0) throw new ArgumentException($"{nameof(count)} Must be more than zero");
+            //Is needed so the above if statement is checked.
+            return Iterator(count);
+        }
+
+        private IEnumerable<T> Iterator(int count) {
+            for (var i = 0; i < count; i++) yield return Take();
         }
 
         /// <summary>
@@ -159,7 +162,7 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        /// Exposes &lt;T&gt;.
+        ///     Exposes &lt;T&gt;.
         /// </summary>
         /// <param name="fn"></param>
         /// <returns></returns>
@@ -175,7 +178,7 @@ namespace GeneratorAPI {
 
     /// <summary>
     ///     <para>
-    ///         Contains methods for creating Generators. 
+    ///         Contains methods for creating Generators.
     ///     </para>
     ///     <remarks>
     ///         The point of this class is to contain extension methods from other libraries.
@@ -194,9 +197,9 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        /// <para>
-        ///     A Guid Generator
-        /// </para>
+        ///     <para>
+        ///         A Guid Generator
+        ///     </para>
         /// </summary>
         /// <returns></returns>
         public Generator<Guid> Guid() {

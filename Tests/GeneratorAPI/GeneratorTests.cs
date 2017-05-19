@@ -280,6 +280,20 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
+            Description = "Verify that take with negative argument throws exception"
+        )]
+        public void Take_Arg_Negative() {
+            Assert.Throws<ArgumentException>(() => _generator.Take(-1));
+        }
+
+        [Test(
+            Description = "Verify that take with argument zero throws exception"
+        )]
+        public void Take_Arg_Zero() {
+            Assert.Throws<ArgumentException>(() => _generator.Take(0));
+        }
+
+        [Test(
             Description = "Verify that Take gives the expected ammount of elements"
         )]
         public void Take_Gives_Expected_Ammount() {
