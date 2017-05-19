@@ -192,5 +192,15 @@ namespace GeneratorAPI {
         public Generator<Random> Random(Random random) {
             return Generator.Create(random);
         }
+
+        /// <summary>
+        /// <para>
+        ///     A Guid Generator
+        /// </para>
+        /// </summary>
+        /// <returns></returns>
+        public Generator<Guid> Guid() {
+            return new Generator<Guid>(System.Guid.NewGuid);
+        }
     }
 }
