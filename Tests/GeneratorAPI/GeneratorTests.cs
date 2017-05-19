@@ -27,7 +27,7 @@ namespace Tests.GeneratorAPI {
         )]
         public void Constructor_Not_Same_Instance() {
             var generator = Generator.Create(() => new Random());
-            Assert.AreNotSame(generator.Take(), generator.Take());
+            Assert.AreNotSame(generator.Generate(), generator.Generate());
         }
 
         [Test(
@@ -45,7 +45,7 @@ namespace Tests.GeneratorAPI {
             Generator.Create(() => {
                 invoked = true;
                 return new Randomizer();
-            }).Take();
+            }).Generate();
             Assert.IsTrue(invoked);
         }
 
@@ -66,7 +66,7 @@ namespace Tests.GeneratorAPI {
         )]
         public void Create_Lazy_Use_Same_Instance() {
             var generator = Generator.CreateLazy(() => new Randomizer());
-            Assert.AreSame(generator.Take(), generator.Take());
+            Assert.AreSame(generator.Generate(), generator.Generate());
         }
 
         [Test(
@@ -74,7 +74,7 @@ namespace Tests.GeneratorAPI {
         )]
         public void Create_Use_Same_Instance() {
             var generator = Generator.CreateWithProvider(new Randomizer());
-            Assert.AreSame(generator.Take(), generator.Take());
+            Assert.AreSame(generator.Generate(), generator.Generate());
         }
 
         [Test(
@@ -99,7 +99,7 @@ namespace Tests.GeneratorAPI {
             var invoked = false;
             _generator
                 .Do(s => invoked = true)
-                .Take();
+                .Generate();
 
             Assert.IsTrue(invoked);
         }
@@ -135,7 +135,7 @@ namespace Tests.GeneratorAPI {
             var invoked = false;
             _generator
                 .Select(s => invoked = true)
-                .Take();
+                .Generate();
             Assert.IsTrue(invoked);
         }
 
@@ -225,7 +225,7 @@ namespace Tests.GeneratorAPI {
             var invoked = false;
             _generator
                 .SelectMany(s => Generator.Create(() => invoked = true), (s, s1) => s + s1)
-                .Take();
+                .Generate();
             Assert.IsTrue(invoked);
         }
 
@@ -327,7 +327,7 @@ namespace Tests.GeneratorAPI {
             Description = "Verify that Take without parameter gives expected result"
         )]
         public void Take_No_Param_Gives_Expected_Element() {
-            var result = _generator.Take();
+            var result = _generator.Generate();
             var expected = new Randomizer(Seed).GetString();
             Assert.AreEqual(expected, result);
         }
@@ -336,7 +336,7 @@ namespace Tests.GeneratorAPI {
             Description = "Verify that take without a parameter does not return null"
         )]
         public void Take_No_Param_Is_Not_Null() {
-            var result = _generator.Take();
+            var result = _generator.Generate();
             Assert.IsNotNull(result);
         }
 
@@ -368,7 +368,7 @@ namespace Tests.GeneratorAPI {
             _generator.Where(s => {
                 invoked = true;
                 return true;
-            }).Take();
+            }).Generate();
             Assert.IsTrue(invoked);
         }
 
@@ -440,7 +440,7 @@ namespace Tests.GeneratorAPI {
             var invoked = false;
             var randomizer = new Randomizer(Seed);
             var generation = Generator.Create(() => randomizer.Next());
-            _generator.Zip(generation, (s, i) => invoked = true).Take();
+            _generator.Zip(generation, (s, i) => invoked = true).Generate();
             Assert.IsTrue(invoked);
         }
 
