@@ -74,6 +74,7 @@ namespace GeneratorAPI {
             Func<TSource, bool> predicate,
             int threshold = 100000) {
             if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (generator == null) throw new ArgumentNullException(nameof(generator));
             return new Generator<TSource>(() => {
                 for (var i = 0; i < threshold; i++) {
                     var generation = generator.Generate();
@@ -92,6 +93,7 @@ namespace GeneratorAPI {
         /// <returns></returns>
         public static IGenerator<TSource> Do<TSource>(this IGenerator<TSource> generator, Action<TSource> fn) {
             if (fn == null) throw new ArgumentNullException(nameof(fn));
+            if (generator == null) throw new ArgumentNullException(nameof(generator));
             return new Generator<TSource>(() => {
                 var generation = generator.Generate();
                 fn(generation);
@@ -112,6 +114,7 @@ namespace GeneratorAPI {
         public static IGenerator<TResult> Select<TSource, TResult>(this IGenerator<TSource> generator,
             Func<TSource, TResult> fn) {
             if (fn == null) throw new ArgumentNullException(nameof(fn));
+            if (generator == null) throw new ArgumentNullException(nameof(generator));
             return new Generator<TResult>(() => fn(generator.Generate()));
         }
 
@@ -124,6 +127,7 @@ namespace GeneratorAPI {
         /// <param name="count"></param>
         /// <returns></returns>
         public static IEnumerable<TSource> Take<TSource>(this IGenerator<TSource> generator, int count) {
+            if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (count <= 0) throw new ArgumentException($"{nameof(count)} Must be more than zero");
             //Is needed so the above if statement is checked.
             return Iterator(count, generator);
@@ -144,6 +148,7 @@ namespace GeneratorAPI {
         /// <returns></returns>
         public static IGenerator<TResult> SelectMany<TSource, TResult>(this IGenerator<TSource> generator,
             Func<TSource, IGenerator<TResult>> fn) {
+            if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (fn == null) throw new ArgumentNullException(nameof(fn));
             return new Generator<TResult>(() => fn(generator.Generate()).Generate());
         }
@@ -164,6 +169,7 @@ namespace GeneratorAPI {
         public static IGenerator<TCompose> SelectMany<TSource, TResult, TCompose>(this IGenerator<TSource> generator,
             Func<TSource, IGenerator<TResult>> fn,
             Func<TSource, TResult, TCompose> composer) {
+            if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (fn == null) throw new ArgumentNullException(nameof(fn));
             if (composer == null) throw new ArgumentNullException(nameof(composer));
             return generator.SelectMany(a => fn(a).SelectMany(r => new Generator<TCompose>(() => composer(a, r))));
