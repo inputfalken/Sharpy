@@ -121,6 +121,22 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
+            Description = "Verify that Do with null Generator and argument throws exception"
+        )]
+        public void Do_Null_Generator_And_Arg_Throws() {
+            IGenerator<string> x = null;
+            Assert.Throws<ArgumentNullException>(() => x.Do(null));
+        }
+
+        [Test(
+            Description = "Verify that Do with null Generator throws exception"
+        )]
+        public void Do_Null_Generator_Throws() {
+            IGenerator<string> x = null;
+            Assert.Throws<ArgumentNullException>(() => x.Do(s => { }));
+        }
+
+        [Test(
             Description = "Verify that Select does not return null"
         )]
         public void Select_Does_Not_Return_Null() {
@@ -150,6 +166,22 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
+            Description = "Verify that Select with null Generator and Argument"
+        )]
+        public void Select_Null_Generator_And_Arg_Throws() {
+            IGenerator<string> generator = null;
+            Assert.Throws<ArgumentNullException>(() => generator.Select<string, int>(null));
+        }
+
+        [Test(
+            Description = "Verify that Select with null Generator throws"
+        )]
+        public void Select_Null_Generator_Throws() {
+            IGenerator<string> generator = null;
+            Assert.Throws<ArgumentNullException>(() => generator.Select(s => s.Length));
+        }
+
+        [Test(
             Description = "Verify that passing null does not work"
         )]
         public void Select_Null_Param_Throws() {
@@ -170,6 +202,33 @@ namespace Tests.GeneratorAPI {
                 .Select(i => randomizer.GetString())
                 .Select(s => s.Length);
             Assert.AreEqual(expected, result);
+        }
+
+        [Test(
+            Description = "Verify that SelectMany double arg with null Generator and null first arg"
+        )]
+        public void SelectMany_Double_Arg_Null_Generator_And_Arg_Throws() {
+            IGenerator<string> generator = null;
+            Assert.Throws<ArgumentNullException>(
+                () => generator.SelectMany<string, int, string>(null, (s, i) => s + i));
+        }
+
+        [Test(
+            Description = "Verify that SelectMany double arg with null Generator and null on args"
+        )]
+        public void SelectMany_Double_Arg_Null_Generator_And_Null_Args_Throws() {
+            IGenerator<string> generator = null;
+            Assert.Throws<ArgumentNullException>(
+                () => generator.SelectMany<string, int, string>(null, null));
+        }
+
+        [Test(
+            Description = "Verify that SelectMany double arg with null Generator throws"
+        )]
+        public void SelectMany_Double_Arg_Null_Generator_Throws() {
+            IGenerator<string> generator = null;
+            Assert.Throws<ArgumentNullException>(
+                () => generator.SelectMany(s => Generator.CreateWithProvider(s.Length), (s, i) => s + i));
         }
 
         [Test(
@@ -237,6 +296,23 @@ namespace Tests.GeneratorAPI {
             _generator
                 .SelectMany(s => Generator.Create(() => invoked = true), (s, s1) => s + s1);
             Assert.IsFalse(invoked);
+        }
+
+        [Test(
+            Description = "Verify that SelectMany with null Generator and Argument"
+        )]
+        public void SelectMany_Null_Generator_And_Arg_Throws() {
+            IGenerator<string> generator = null;
+            Assert.Throws<ArgumentNullException>(() => generator.SelectMany<string, int>(null));
+        }
+
+        [Test(
+            Description = "Verify that SelectMany with null Generator throws"
+        )]
+        public void SelectMany_Null_Generator_Throws() {
+            IGenerator<string> generator = null;
+            Assert.Throws<ArgumentNullException>(
+                () => generator.SelectMany(s => Generator.CreateWithProvider(s.Length)));
         }
 
         [Test(
@@ -384,6 +460,22 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
+            Description = "Verify that Where with null Generator and Argument"
+        )]
+        public void Where_Null_Generator_And_Arg_Throws() {
+            IGenerator<string> generator = null;
+            Assert.Throws<ArgumentNullException>(() => generator.Where(null));
+        }
+
+        [Test(
+            Description = "Verify that Where with null Generator throws"
+        )]
+        public void Where_Null_Generator_Throws() {
+            IGenerator<string> generator = null;
+            Assert.Throws<ArgumentNullException>(() => generator.Where(s => s.Length == 0));
+        }
+
+        [Test(
             Description = "Verify that passing null does not work"
         )]
         public void Where_Null_Param_Throws() {
@@ -456,6 +548,31 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
+            Description = "Verify that Zip with null Generator and null first arg"
+        )]
+        public void Zip_Null__Generator_Null_First_Arg() {
+            IGenerator<string> generator = null;
+            Assert.Throws<ArgumentNullException>(() => generator.Zip<string, string, string>(null, (s, s1) => s + s1));
+        }
+
+        [Test(
+            Description = "Verify that Zip with null Generator and null second arg"
+        )]
+        public void Zip_Null__Generator_Null_Second_Arg() {
+            IGenerator<string> generator = null;
+            Assert.Throws<ArgumentNullException>(
+                () => generator.Zip<string, string, string>(Generator.Create(() => ""), null));
+        }
+
+        [Test(
+            Description = "Verify that Zip with null Generator throws"
+        )]
+        public void Zip_Null__Generator_Throws() {
+            IGenerator<string> generator = null;
+            Assert.Throws<ArgumentNullException>(() => generator.Zip(Generator.Create(() => ""), (s, s1) => s + s1));
+        }
+
+        [Test(
             Description = "Verify that passing null for both argument does not work"
         )]
         public void Zip_Null_Both_Param_Throws() {
@@ -467,6 +584,14 @@ namespace Tests.GeneratorAPI {
         )]
         public void Zip_Null_First_Param_Throws() {
             Assert.Throws<ArgumentNullException>(() => _generator.Zip<string, int, string>(null, (s, i) => s + i));
+        }
+
+        [Test(
+            Description = "Verify that Zip with null Generator and Arguments"
+        )]
+        public void Zip_Null_Generator_And_Args_Throws() {
+            IGenerator<string> generator = null;
+            Assert.Throws<ArgumentNullException>(() => generator.Zip<string, int, string>(null, null));
         }
 
         [Test(
