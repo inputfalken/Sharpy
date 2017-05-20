@@ -24,7 +24,7 @@ namespace Tests.Sharpy.Integration {
                 MailDomains = new[] {"test.com"}
             };
             var randomGenerator = Generator.Factory.Provider(new Provider(configurement));
-            var generate = randomGenerator.Select(generator => generator.MailAddress("hello")).Take();
+            var generate = randomGenerator.Select(generator => generator.MailAddress("hello")).Generate();
             Assert.AreEqual(14, generate.Length);
         }
 
@@ -53,7 +53,7 @@ namespace Tests.Sharpy.Integration {
             Assert.IsFalse(mails.All(string.IsNullOrWhiteSpace));
 
             //Single
-            var mail = generator.Select(g => g.MailAddress(MailUserName)).Take();
+            var mail = generator.Select(g => g.MailAddress(MailUserName)).Generate();
             Assert.IsFalse(string.IsNullOrWhiteSpace(mail));
             Assert.IsFalse(string.IsNullOrEmpty(mail));
         }
@@ -78,10 +78,10 @@ namespace Tests.Sharpy.Integration {
             var randomGenerator = Generator.Factory.Provider(new Provider(configurement));
             //Should not contain any numbers
             Assert.IsTrue(
-                randomGenerator.Select(generator => generator.MailAddress("bob")).Take().Any(c => !char.IsDigit(c)));
+                randomGenerator.Select(generator => generator.MailAddress("bob")).Generate().Any(c => !char.IsDigit(c)));
             //Should contain a number since all possible combinations have been used
             Assert.IsTrue(
-                randomGenerator.Select(generator => generator.MailAddress("bob")).Take().Any(char.IsDigit));
+                randomGenerator.Select(generator => generator.MailAddress("bob")).Generate().Any(char.IsDigit));
         }
 
         [Test]
@@ -90,7 +90,7 @@ namespace Tests.Sharpy.Integration {
                 MailDomains = new[] {"test.com"}
             };
             var randomGenerator = Generator.Factory.Provider(new Provider(configurement));
-            var result = randomGenerator.Select(generator => generator.MailAddress("bob")).Take();
+            var result = randomGenerator.Select(generator => generator.MailAddress("bob")).Generate();
             const string expected = "bob@test.com";
             Assert.AreEqual(expected, result);
         }
@@ -102,7 +102,7 @@ namespace Tests.Sharpy.Integration {
                 MailDomains = new[] {"test.com"}
             };
             var randomGenerator = Generator.Factory.Provider(new Provider(configurement));
-            var mail = randomGenerator.Select(generator => generator.MailAddress("Bob")).Take();
+            var mail = randomGenerator.Select(generator => generator.MailAddress("Bob")).Generate();
             Assert.IsFalse(mail.Any(char.IsUpper));
         }
 
@@ -114,7 +114,7 @@ namespace Tests.Sharpy.Integration {
             };
             var randomGenerator = Generator.Factory.Provider(new Provider(configurement));
             Assert.Throws<NullReferenceException>(
-                () => randomGenerator.Select(generator => generator.MailAddress(null, "hello")).Take());
+                () => randomGenerator.Select(generator => generator.MailAddress(null, "hello")).Generate());
         }
 
 
@@ -125,7 +125,7 @@ namespace Tests.Sharpy.Integration {
             };
             var randomGenerator = Generator.Factory.Provider(new Provider(configurement));
             Assert.Throws<NullReferenceException>(
-                () => randomGenerator.Select(generator => generator.MailAddress(null)).Take());
+                () => randomGenerator.Select(generator => generator.MailAddress(null)).Generate());
         }
 
 
@@ -136,7 +136,7 @@ namespace Tests.Sharpy.Integration {
             };
             var randomGenerator = Generator.Factory.Provider(new Provider(configurement));
             const string expected = "bob@test.com";
-            var result = randomGenerator.Select(generator => generator.MailAddress("bob")).Take();
+            var result = randomGenerator.Select(generator => generator.MailAddress("bob")).Generate();
             Assert.AreEqual(expected, result);
         }
 
@@ -160,7 +160,7 @@ namespace Tests.Sharpy.Integration {
             };
             var randomGenerator = Generator.Factory.Provider(new Provider(configurement));
             const string expected = "bob.cool@test.com";
-            var result = randomGenerator.Select(generator => generator.MailAddress("bob", "cool")).Take();
+            var result = randomGenerator.Select(generator => generator.MailAddress("bob", "cool")).Generate();
             Assert.AreEqual(expected, result);
         }
 
@@ -183,7 +183,7 @@ namespace Tests.Sharpy.Integration {
             var configurement = new Configurement {MailDomains = new[] {"test.com"}};
             var randomGenerator = Generator.Factory.Provider(new Provider(configurement));
             Assert.Throws<NullReferenceException>(
-                () => randomGenerator.Select(generator => generator.MailAddress(null, "bob")).Take());
+                () => randomGenerator.Select(generator => generator.MailAddress(null, "bob")).Generate());
         }
 
 
@@ -235,7 +235,7 @@ namespace Tests.Sharpy.Integration {
             };
             var randomGenerator = Generator.Factory.Provider(new Provider(configurement));
             const string expected = "bob@test.com";
-            var result = randomGenerator.Select(generator => generator.MailAddress("bob")).Take();
+            var result = randomGenerator.Select(generator => generator.MailAddress("bob")).Generate();
             Assert.AreEqual(expected, result);
         }
 
@@ -246,14 +246,14 @@ namespace Tests.Sharpy.Integration {
             };
             var randomGenerator = Generator.Factory.Provider(new Provider(configurement));
             Assert.IsFalse(randomGenerator.Select(generator => generator.MailAddress("bob"))
-                .Take()
+                .Generate()
                 .Any(char.IsDigit));
             Assert.IsFalse(randomGenerator.Select(generator => generator.MailAddress("bob"))
-                .Take()
+                .Generate()
                 .Any(char.IsDigit));
             // All possible combinations have been used now needs a number
             Assert.IsTrue(
-                randomGenerator.Select(generator => generator.MailAddress("bob")).Take().Any(char.IsDigit));
+                randomGenerator.Select(generator => generator.MailAddress("bob")).Generate().Any(char.IsDigit));
         }
 
         [Test]
@@ -292,20 +292,20 @@ namespace Tests.Sharpy.Integration {
 
             Assert.IsFalse(
                 randomGenerator.Select(generator => generator.MailAddress("bob", "cool"))
-                    .Take()
+                    .Generate()
                     .Any(char.IsDigit));
             Assert.IsFalse(
                 randomGenerator.Select(generator => generator.MailAddress("bob", "cool"))
-                    .Take()
+                    .Generate()
                     .Any(char.IsDigit));
             Assert.IsFalse(
                 randomGenerator.Select(generator => generator.MailAddress("bob", "cool"))
-                    .Take()
+                    .Generate()
                     .Any(char.IsDigit));
             // All combinations have been reached now needs a number
             Assert.IsTrue(
                 randomGenerator.Select(generator => generator.MailAddress("bob", "cool"))
-                    .Take()
+                    .Generate()
                     .Any(char.IsDigit));
         }
     }
