@@ -13,9 +13,6 @@ namespace GeneratorAPI {
         /// <summary>
         ///     Creates a Generator&lt;T&gt; by using the same reference of &lt;T&gt;
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="t"></param>
-        /// <returns></returns>
         public static IGenerator<T> CreateWithProvider<T>(T t) {
             return new Generator<T>(() => t);
         }
@@ -23,8 +20,6 @@ namespace GeneratorAPI {
         /// <summary>
         ///     Creates a lazy Generator&lt;T&gt; by using the same reference of &lt;T&gt;
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
         public static IGenerator<T> CreateLazy<T>(Lazy<T> lazy) {
             return new Generator<T>(() => lazy.Value);
         }
@@ -32,8 +27,6 @@ namespace GeneratorAPI {
         /// <summary>
         ///     Creates a lazy Generator&lt;T&gt; by using the same reference of &lt;T&gt;
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
         public static IGenerator<T> CreateLazy<T>(Func<T> fn) {
             var lazy = new Lazy<T>(fn);
             return CreateLazy(lazy);
@@ -48,7 +41,6 @@ namespace GeneratorAPI {
         ///         If you want to instantiate types use static method Generator.<see cref="CreateWithProvider{T}" />
         ///     </remarks>
         /// </summary>
-        /// <param name="fn"></param>
         public static IGenerator<T> Create<T>(Func<T> fn) {
             return new Generator<T>(fn);
         }
@@ -56,8 +48,6 @@ namespace GeneratorAPI {
         /// <summary>
         ///     Creates a Generator based on a Enumerable which resets if the end is reached.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
         public static IGenerator<T> CreateCircularSequence<T>(IEnumerable<T> enumerable) {
             if (enumerable == null) throw new ArgumentNullException(nameof(enumerable));
             return new CircularEnumerable<T>(enumerable);
@@ -71,10 +61,6 @@ namespace GeneratorAPI {
         ///         Use with Caution: Bad predicates will make this method run forever.
         ///     </remarks>
         /// </summary>
-        /// <param name="generator"></param>
-        /// <param name="predicate"></param>
-        /// <param name="threshold"></param>
-        /// <returns></returns>
         public static IGenerator<TSource> Where<TSource>(this IGenerator<TSource> generator,
             Func<TSource, bool> predicate,
             int threshold = 100000) {
@@ -93,9 +79,6 @@ namespace GeneratorAPI {
         /// <summary>
         ///     Exposes &lt;T&gt;.
         /// </summary>
-        /// <param name="generator"></param>
-        /// <param name="fn"></param>
-        /// <returns></returns>
         public static IGenerator<TSource> Do<TSource>(this IGenerator<TSource> generator, Action<TSource> fn) {
             if (fn == null) throw new ArgumentNullException(nameof(fn));
             if (generator == null) throw new ArgumentNullException(nameof(generator));
@@ -111,11 +94,6 @@ namespace GeneratorAPI {
         ///         Maps Generation&lt;T&gt; into Generation&lt;TResult&gt;
         ///     </para>
         /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <typeparam name="TSource"></typeparam>
-        /// <param name="generator"></param>
-        /// <param name="fn"></param>
-        /// <returns></returns>
         public static IGenerator<TResult> Select<TSource, TResult>(this IGenerator<TSource> generator,
             Func<TSource, TResult> fn) {
             if (fn == null) throw new ArgumentNullException(nameof(fn));
@@ -128,9 +106,6 @@ namespace GeneratorAPI {
         ///         Yields count ammount of items into an IEnumerable&lt;T&gt;.
         ///     </para>
         /// </summary>
-        /// <param name="generator"></param>
-        /// <param name="count"></param>
-        /// <returns></returns>
         public static IEnumerable<TSource> Take<TSource>(this IGenerator<TSource> generator, int count) {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (count <= 0) throw new ArgumentException($"{nameof(count)} Must be more than zero");
@@ -147,10 +122,6 @@ namespace GeneratorAPI {
         ///         Flattens Generation&lt;T&gt;
         ///     </para>
         /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <typeparam name="TSource"></typeparam>
-        /// <param name="fn"></param>
-        /// <returns></returns>
         public static IGenerator<TResult> SelectMany<TSource, TResult>(this IGenerator<TSource> generator,
             Func<TSource, IGenerator<TResult>> fn) {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
@@ -164,13 +135,6 @@ namespace GeneratorAPI {
         ///         With a compose function using &lt;T&gt; and &lt;TResult&gt;
         ///     </para>
         /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <typeparam name="TCompose"></typeparam>
-        /// <typeparam name="TSource"></typeparam>
-        /// <param name="generator"></param>
-        /// <param name="fn"></param>
-        /// <param name="composer"></param>
-        /// <returns></returns>
         public static IGenerator<TCompose> SelectMany<TSource, TResult, TCompose>(this IGenerator<TSource> generator,
             Func<TSource, IGenerator<TResult>> fn,
             Func<TSource, TResult, TCompose> composer) {
@@ -185,13 +149,6 @@ namespace GeneratorAPI {
         ///         Combine generation and compose the generation.
         ///     </para>
         /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <typeparam name="TSecond"></typeparam>
-        /// <typeparam name="TSource"></typeparam>
-        /// <param name="firstGenerator"></param>
-        /// <param name="secondGenerator"></param>
-        /// <param name="fn"></param>
-        /// <returns></returns>
         public static IGenerator<TResult> Zip<TResult, TSecond, TSource>(this IGenerator<TSource> firstGenerator,
             IGenerator<TSecond> secondGenerator,
             Func<TSource, TSecond, TResult> fn) {
@@ -213,7 +170,6 @@ namespace GeneratorAPI {
         ///         If you want to instantiate types use  static method Generator.<see cref="Generator.CreateWithProvider{T}" />
         ///     </remarks>
         /// </summary>
-        /// <param name="fn"></param>
         public Generator(Func<T> fn) {
             if (fn != null) _fn = fn;
             else throw new ArgumentNullException(nameof(fn));
@@ -225,7 +181,6 @@ namespace GeneratorAPI {
         ///         Gives &lt;T&gt;
         ///     </para>
         /// </summary>
-        /// <returns></returns>
         public T Generate() {
             return _fn();
         }
@@ -245,8 +200,6 @@ namespace GeneratorAPI {
         ///         A Generator using System.Random as provider.
         ///     </para>
         /// </summary>
-        /// <param name="random"></param>
-        /// <returns></returns>
         public IGenerator<Random> Random(Random random) {
             return Generator.CreateWithProvider(random);
         }
@@ -256,7 +209,6 @@ namespace GeneratorAPI {
         ///         A Guid Generator
         ///     </para>
         /// </summary>
-        /// <returns></returns>
         public IGenerator<Guid> Guid() {
             return new Generator<Guid>(System.Guid.NewGuid);
         }
