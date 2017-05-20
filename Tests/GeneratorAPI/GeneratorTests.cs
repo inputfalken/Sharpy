@@ -417,6 +417,103 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
+            Description = "Verify that ToArray with negative value throws ArgumentException"
+        )]
+        public void ToArray_Negative_Length_Throws() {
+            Assert.Throws<ArgumentException>(() => _generator.ToArray(-1));
+        }
+
+        [Test(
+            Description = "Verify that ToArray returns the expected elements"
+        )]
+        public void ToArray_Returns_Expected_Elements() {
+            var result = _generator.ToArray(20);
+            var randomizer = new Randomizer(Seed);
+            var expected = Enumerable.Range(0, 20).Select(i => randomizer.GetString()).ToArray();
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test(
+            Description = "Verify that ToArray with zero value throws ArgumentException"
+        )]
+        public void ToArray_Zero_Length_Throws() {
+            Assert.Throws<ArgumentException>(() => _generator.ToArray(0));
+        }
+
+        [Test(
+            Description = "Verify that Null KeySelector throws ArgumetNullException"
+        )]
+        public void ToDictionary_KeySelector_Null_Throws() {
+            Assert.Throws<ArgumentNullException>(
+                () => _generator.ToDictionary<string, string, int>(1, null, s => s.Length));
+        }
+
+        [Test(
+            Description = "Verify that ToDictionary with negative value throws ArgumentException"
+        )]
+        public void ToDictionary_Negative_Length_Throws() {
+            Assert.Throws<ArgumentException>(() => _generator.ToDictionary(-1, s => s, s => s.Length));
+        }
+
+        [Test(
+            Description = "Verify that ToDictionary returns the expected elements"
+        )]
+        public void ToDictionary_Returns_Expected_Elements() {
+            var result = _generator.ToDictionary(20, s => s, s => s.Length);
+            var randomizer = new Randomizer(Seed);
+            var expected = Enumerable.Range(0, 20)
+                .Select(i => randomizer.GetString())
+                .ToDictionary(s => s, s => s.Length);
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test(
+            Description = "Verify that ValueSelector and KeySelector as null  throws ArgumetNullException"
+        )]
+        public void ToDictionary_ValueSelector_And_KeySelector_Null_Throws() {
+            Assert.Throws<ArgumentNullException>(() => _generator.ToDictionary<string, string, int>(1, null, null));
+        }
+
+        [Test(
+            Description = "Verify that Null ValueSelector throws ArgumetNullException"
+        )]
+        public void ToDictionary_ValueSelector_Null_Throws() {
+            Assert.Throws<ArgumentNullException>(
+                () => _generator.ToDictionary<string, string, int>(1, s => s, null));
+        }
+
+        [Test(
+            Description = "Verify that ToDictionary with zero value throws ArgumentException"
+        )]
+        public void ToDictionary_Zero_Length_Throws() {
+            Assert.Throws<ArgumentException>(() => _generator.ToDictionary(0, s => s, s => s.Length));
+        }
+
+        [Test(
+            Description = "Verify that ToList with negative value throws ArgumentException"
+        )]
+        public void ToList_Negative_Length_Throws() {
+            Assert.Throws<ArgumentException>(() => _generator.ToList(-1));
+        }
+
+        [Test(
+            Description = "Verify that ToList returns the expected elements"
+        )]
+        public void ToList_Returns_Expected_Elements() {
+            var result = _generator.ToList(20);
+            var randomizer = new Randomizer(Seed);
+            var expected = Enumerable.Range(0, 20).Select(i => randomizer.GetString()).ToList();
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test(
+            Description = "Verify that ToList with zero value throws ArgumentException"
+        )]
+        public void ToList_Zero_Length_Throws() {
+            Assert.Throws<ArgumentException>(() => _generator.ToList(0));
+        }
+
+        [Test(
             Description = "Verify that where does not return null"
         )]
         public void Where_Does_Not_Return_Null() {
