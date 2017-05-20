@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 
 namespace GeneratorAPI {
-    public interface IGenerator<out T> {
-        T Generate();
-    }
-
     public static class Generator {
         /// <summary>
         ///     <para>
