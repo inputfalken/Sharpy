@@ -17,21 +17,21 @@ namespace GeneratorAPI {
         public static GeneratorFactory Factory { get; } = new GeneratorFactory();
 
         /// <summary>
-        ///     Creates a Generator&lt;T&gt; by using the same reference of &lt;T&gt;
+        ///     Creates a Generator&lt;T&gt; with the type provided.
         /// </summary>
         public static IGenerator<T> Create<T>(T t) {
             return new Generator<T>(() => t);
         }
 
         /// <summary>
-        ///     Creates a lazy Generator&lt;T&gt; by using the same reference of &lt;T&gt;
+        ///     Creates a lazy Generator&lt;T&gt; with the type provided.
         /// </summary>
         public static IGenerator<T> Lazy<T>(Lazy<T> lazy) {
             return new Generator<T>(() => lazy.Value);
         }
 
         /// <summary>
-        ///     Creates a lazy Generator&lt;T&gt; by using the same reference of &lt;T&gt;
+        ///     Creates a lazy Generator&lt;T&gt; with the type provided.
         /// </summary>
         public static IGenerator<T> Lazy<T>(Func<T> fn) {
             var lazy = new Lazy<T>(fn);
@@ -44,7 +44,7 @@ namespace GeneratorAPI {
         ///     <remarks>
         ///         Do not instantiate types here.
         ///         <para />
-        ///         If you want to instantiate types use static method Generator.<see cref="Create{T}" />
+        ///         If you want to use a type with methods to get data use Generator.<see cref="Create{T}" />
         ///     </remarks>
         /// </summary>
         public static IGenerator<T> Function<T>(Func<T> fn) {
