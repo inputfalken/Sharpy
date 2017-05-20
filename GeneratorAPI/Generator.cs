@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GeneratorAPI {
     /// <summary>
@@ -162,6 +163,14 @@ namespace GeneratorAPI {
             if (secondGenerator == null) throw new ArgumentNullException(nameof(secondGenerator));
             if (fn == null) throw new ArgumentNullException(nameof(fn));
             return new Generator<TResult>(() => fn(firstGenerator.Generate(), secondGenerator.Generate()));
+        }
+
+        /// <summary>
+        ///     Creates a Dictionary with it's count equal to count argument. Key and Value will be defined in the following functions.
+        /// </summary>
+        public static Dictionary<TKey, TValue> ToDictionary<TSource, TKey, TValue>(this IGenerator<TSource> generator,
+            int count, Func<TSource, TKey> keySelector, Func<TSource, TValue> valueSelector) {
+            return generator.Take(count).ToDictionary(keySelector, valueSelector);
         }
     }
 
