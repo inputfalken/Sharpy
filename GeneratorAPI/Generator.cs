@@ -61,7 +61,7 @@ namespace GeneratorAPI {
         ///         Filters the generation to fit the predicate.
         ///     </para>
         ///     <remarks>
-        ///         Use with Caution: Bad predicates will make this method run forever.
+        ///         Use with Caution: Bad predicates cause the method to throw exception if threshold is reached.
         ///     </remarks>
         /// </summary>
         public static IGenerator<TSource> Where<TSource>(this IGenerator<TSource> generator,
