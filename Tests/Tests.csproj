@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GeneratorAPI\CircularSequenceTests.cs" />
     <Compile Include="GeneratorAPI\GeneratorTests.cs" />
     <Compile Include="Sharpy\FileTests.cs" />
     <Compile Include="Sharpy\Integration\Bool.cs" />
