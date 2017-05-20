@@ -21,7 +21,7 @@ namespace Tests.GeneratorAPI {
                 "test9",
                 "test10"
             };
-            _generator = Generator.CreateCircularSequence(_list);
+            _generator = Generator.CircularSequence(_list);
         }
 
         [TearDown]
@@ -43,7 +43,7 @@ namespace Tests.GeneratorAPI {
             Description = "Verify that passing null to creating of circular sequcene throws"
         )]
         public void Null_Enumerable() {
-            Assert.Throws<ArgumentNullException>(() => Generator.CreateCircularSequence<string>(null));
+            Assert.Throws<ArgumentNullException>(() => Generator.CircularSequence<string>(null));
         }
 
         [Test(

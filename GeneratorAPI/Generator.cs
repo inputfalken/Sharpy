@@ -16,42 +16,42 @@ namespace GeneratorAPI {
         /// <summary>
         ///     Creates a Generator&lt;T&gt; by using the same reference of &lt;T&gt;
         /// </summary>
-        public static IGenerator<T> CreateWithProvider<T>(T t) {
+        public static IGenerator<T> Create<T>(T t) {
             return new Generator<T>(() => t);
         }
 
         /// <summary>
         ///     Creates a lazy Generator&lt;T&gt; by using the same reference of &lt;T&gt;
         /// </summary>
-        public static IGenerator<T> CreateLazy<T>(Lazy<T> lazy) {
+        public static IGenerator<T> Lazy<T>(Lazy<T> lazy) {
             return new Generator<T>(() => lazy.Value);
         }
 
         /// <summary>
         ///     Creates a lazy Generator&lt;T&gt; by using the same reference of &lt;T&gt;
         /// </summary>
-        public static IGenerator<T> CreateLazy<T>(Func<T> fn) {
+        public static IGenerator<T> Lazy<T>(Func<T> fn) {
             var lazy = new Lazy<T>(fn);
-            return CreateLazy(lazy);
+            return Lazy(lazy);
         }
 
 
         /// <summary>
-        ///     Creates a Generator&lt;T&gt; where each generation will invoke the argument
+        ///     Creates a Generator&lt;T&gt; where each generation will invoke and use the function supplied.
         ///     <remarks>
         ///         Do not instantiate types here.
         ///         <para />
-        ///         If you want to instantiate types use static method Generator.<see cref="CreateWithProvider{T}" />
+        ///         If you want to instantiate types use static method Generator.<see cref="Create{T}" />
         ///     </remarks>
         /// </summary>
-        public static IGenerator<T> Create<T>(Func<T> fn) {
+        public static IGenerator<T> Function<T>(Func<T> fn) {
             return new Generator<T>(fn);
         }
 
         /// <summary>
         ///     Creates a Generator based on a Enumerable which resets if the end is reached.
         /// </summary>
-        public static IGenerator<T> CreateCircularSequence<T>(IEnumerable<T> enumerable) {
+        public static IGenerator<T> CircularSequence<T>(IEnumerable<T> enumerable) {
             if (enumerable == null) throw new ArgumentNullException(nameof(enumerable));
             return new CircularEnumerable<T>(enumerable);
         }
@@ -170,7 +170,7 @@ namespace GeneratorAPI {
         ///     <remarks>
         ///         Do not instantiate types here.
         ///         <para />
-        ///         If you want to instantiate types use  static method Generator.<see cref="Generator.CreateWithProvider{T}" />
+        ///         If you want to instantiate types use  static method Generator.<see cref="Generator.Create{T}" />
         ///     </remarks>
         /// </summary>
         public Generator(Func<T> fn) {
@@ -204,7 +204,7 @@ namespace GeneratorAPI {
         ///     </para>
         /// </summary>
         public IGenerator<Random> Random(Random random) {
-            return Generator.CreateWithProvider(random);
+            return Generator.Create(random);
         }
 
         /// <summary>

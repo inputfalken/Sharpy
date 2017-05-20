@@ -11,7 +11,7 @@ namespace Tests.GeneratorAPI {
         [SetUp]
         public void Initiate() {
             var randomizer = new Randomizer(Seed);
-            _generator = Generator.Create(randomizer.GetString);
+            _generator = Generator.Function(randomizer.GetString);
         }
 
         [TearDown]
@@ -26,7 +26,7 @@ namespace Tests.GeneratorAPI {
             Description = "Verifies that Generator.Create uses same instance"
         )]
         public void Constructor_Not_Same_Instance() {
-            var generator = Generator.Create(() => new Random());
+            var generator = Generator.Function(() => new Random());
             Assert.AreNotSame(generator.Generate(), generator.Generate());
         }
 
@@ -34,7 +34,7 @@ namespace Tests.GeneratorAPI {
             Description = "Verify to see that constructor throw exception when null is used"
         )]
         public void Constructor_Throw_Exception_When_Null() {
-            Assert.Throws<ArgumentNullException>(() => Generator.Create<string>(null), "Argument cannot be null");
+            Assert.Throws<ArgumentNullException>(() => Generator.Function<string>(null), "Argument cannot be null");
         }
 
         [Test(
@@ -42,7 +42,7 @@ namespace Tests.GeneratorAPI {
         )]
         public void Create_Lazy_Is_Invoked_After_Take_Is_Invoked() {
             var invoked = false;
-            Generator.Create(() => {
+            Generator.Function(() => {
                 invoked = true;
                 return new Randomizer();
             }).Generate();
@@ -54,7 +54,7 @@ namespace Tests.GeneratorAPI {
         )]
         public void Create_Lazy_Is_Not_Invoked_Before_Take_Is_Invoked() {
             var invoked = false;
-            Generator.Create(() => {
+            Generator.Function(() => {
                 invoked = true;
                 return new Randomizer();
             });
@@ -65,7 +65,7 @@ namespace Tests.GeneratorAPI {
             Description = "Verifies that Generator.Create uses same instance"
         )]
         public void Create_Lazy_Use_Same_Instance() {
-            var generator = Generator.CreateLazy(() => new Randomizer());
+            var generator = Generator.Lazy(() => new Randomizer());
             Assert.AreSame(generator.Generate(), generator.Generate());
         }
 
@@ -73,7 +73,7 @@ namespace Tests.GeneratorAPI {
             Description = "Verifies that Generator.Create uses same instance"
         )]
         public void Create_Use_Same_Instance() {
-            var generator = Generator.CreateWithProvider(new Randomizer());
+            var generator = Generator.Create(new Randomizer());
             Assert.AreSame(generator.Generate(), generator.Generate());
         }
 
@@ -86,7 +86,7 @@ namespace Tests.GeneratorAPI {
                 .Do(container.Add)
                 .Take(10);
             var randomizer = new Randomizer(Seed);
-            var expected = Generator.Create(() => randomizer.GetString())
+            var expected = Generator.Function(() => randomizer.GetString())
                 .Take(10);
 
             Assert.AreEqual(expected, result);
@@ -228,7 +228,7 @@ namespace Tests.GeneratorAPI {
         public void SelectMany_Double_Arg_Null_Generator_Throws() {
             IGenerator<string> generator = null;
             Assert.Throws<ArgumentNullException>(
-                () => generator.SelectMany(s => Generator.CreateWithProvider(s.Length), (s, i) => s + i));
+                () => generator.SelectMany(s => Generator.Create(s.Length), (s, i) => s + i));
         }
 
         [Test(
@@ -237,7 +237,7 @@ namespace Tests.GeneratorAPI {
         public void SelectMany_Double_Arg_Using_Arg_Flatten_Nested_Generation() {
             var number = 0;
             var result = _generator
-                .SelectMany(s => Generator.Create(() => s + number++), (s, s1) => s + s1)
+                .SelectMany(s => Generator.Function(() => s + number++), (s, s1) => s + s1)
                 .Take(10);
             var randomizer = new Randomizer(Seed);
 
@@ -272,7 +272,7 @@ namespace Tests.GeneratorAPI {
         public void SelectMany_Double_Arg_Using_Arg_Null_Second_Arg() {
             var number = 0;
             Assert.Throws<ArgumentNullException>(
-                () => _generator.SelectMany<string, string, string>(s => Generator.Create(() => s + number++),
+                () => _generator.SelectMany<string, string, string>(s => Generator.Function(() => s + number++),
                     null)
             );
         }
@@ -283,7 +283,7 @@ namespace Tests.GeneratorAPI {
         public void SelectMany_Is_Invoked_After_Take_Is_Invoked() {
             var invoked = false;
             _generator
-                .SelectMany(s => Generator.Create(() => invoked = true), (s, s1) => s + s1)
+                .SelectMany(s => Generator.Function(() => invoked = true), (s, s1) => s + s1)
                 .Generate();
             Assert.IsTrue(invoked);
         }
@@ -294,7 +294,7 @@ namespace Tests.GeneratorAPI {
         public void SelectMany_Is_Not_Invoked_Before_Take_Is_Invoked() {
             var invoked = false;
             _generator
-                .SelectMany(s => Generator.Create(() => invoked = true), (s, s1) => s + s1);
+                .SelectMany(s => Generator.Function(() => invoked = true), (s, s1) => s + s1);
             Assert.IsFalse(invoked);
         }
 
@@ -312,7 +312,7 @@ namespace Tests.GeneratorAPI {
         public void SelectMany_Null_Generator_Throws() {
             IGenerator<string> generator = null;
             Assert.Throws<ArgumentNullException>(
-                () => generator.SelectMany(s => Generator.CreateWithProvider(s.Length)));
+                () => generator.SelectMany(s => Generator.Create(s.Length)));
         }
 
         [Test(
@@ -328,8 +328,8 @@ namespace Tests.GeneratorAPI {
         public void SelectMany_Single_Arg_Flatten_Nested_Generation() {
             var randomizer = new Randomizer(Seed);
             //Nested Generation
-            var generation = Generator.Create(
-                () => Generator.Create(
+            var generation = Generator.Function(
+                () => Generator.Function(
                     () => randomizer.GetString()
                 )
             );
@@ -346,7 +346,7 @@ namespace Tests.GeneratorAPI {
         public void SelectMany_Single_Arg_Using_Arg_Flatten_Nested_Generation() {
             var number = 0;
             var result = _generator
-                .SelectMany(s => Generator.Create(() => s + number++))
+                .SelectMany(s => Generator.Function(() => s + number++))
                 .Take(10);
             var randomizer = new Randomizer(Seed);
 
@@ -499,7 +499,7 @@ namespace Tests.GeneratorAPI {
         )]
         public void Zip_Does_Not_Return_Null() {
             var resultRandomizer = new Randomizer(Seed);
-            var resultGeneration = Generator.Create(() => resultRandomizer.Next());
+            var resultGeneration = Generator.Function(() => resultRandomizer.Next());
             var result = _generator
                 .Zip(resultGeneration, (s, i) => s + i)
                 .Take(100);
@@ -511,14 +511,14 @@ namespace Tests.GeneratorAPI {
         )]
         public void Zip_Int_String() {
             var resultRandomizer = new Randomizer(Seed);
-            var resultGeneration = Generator.Create(() => resultRandomizer.Next());
+            var resultGeneration = Generator.Function(() => resultRandomizer.Next());
             var result = _generator
                 .Zip(resultGeneration, (s, i) => s + i)
                 .Take(100);
 
             var expectedRandomizerOne = new Randomizer(Seed);
             var expectedRandomizerTwo = new Randomizer(Seed);
-            var expected = Generator.Create(
+            var expected = Generator.Function(
                 () => expectedRandomizerOne.GetString() + expectedRandomizerTwo.Next()
             ).Take(100);
 
@@ -531,7 +531,7 @@ namespace Tests.GeneratorAPI {
         public void Zip_Is_Invoked_After_Take_Is_Invoked() {
             var invoked = false;
             var randomizer = new Randomizer(Seed);
-            var generation = Generator.Create(() => randomizer.Next());
+            var generation = Generator.Function(() => randomizer.Next());
             _generator.Zip(generation, (s, i) => invoked = true).Generate();
             Assert.IsTrue(invoked);
         }
@@ -542,7 +542,7 @@ namespace Tests.GeneratorAPI {
         public void Zip_Is_Not_Invoked_Before_Take_Is_Invoked() {
             var invoked = false;
             var randomizer = new Randomizer(Seed);
-            var generation = Generator.Create(() => randomizer.Next());
+            var generation = Generator.Function(() => randomizer.Next());
             _generator.Zip(generation, (s, i) => invoked = true);
             Assert.IsFalse(invoked);
         }
@@ -561,7 +561,7 @@ namespace Tests.GeneratorAPI {
         public void Zip_Null__Generator_Null_Second_Arg() {
             IGenerator<string> generator = null;
             Assert.Throws<ArgumentNullException>(
-                () => generator.Zip<string, string, string>(Generator.Create(() => ""), null));
+                () => generator.Zip<string, string, string>(Generator.Function(() => ""), null));
         }
 
         [Test(
@@ -569,7 +569,7 @@ namespace Tests.GeneratorAPI {
         )]
         public void Zip_Null__Generator_Throws() {
             IGenerator<string> generator = null;
-            Assert.Throws<ArgumentNullException>(() => generator.Zip(Generator.Create(() => ""), (s, s1) => s + s1));
+            Assert.Throws<ArgumentNullException>(() => generator.Zip(Generator.Function(() => ""), (s, s1) => s + s1));
         }
 
         [Test(
@@ -599,7 +599,7 @@ namespace Tests.GeneratorAPI {
         )]
         public void Zip_Null_Second_Param_Throws() {
             Assert.Throws<ArgumentNullException>(
-                () => _generator.Zip<string, int, string>(Generator.Create(() => 1), null));
+                () => _generator.Zip<string, int, string>(Generator.Function(() => 1), null));
         }
     }
 }
