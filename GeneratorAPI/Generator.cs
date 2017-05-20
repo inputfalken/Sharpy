@@ -179,6 +179,13 @@ namespace GeneratorAPI {
         public static List<TSource> ToList<TSource>(this IGenerator<TSource> generator, int count) {
             return generator.Take(count).ToList();
         }
+
+        /// <summary>
+        ///     Creates an array with it's length equal to the lenght supplied.
+        /// </summary>
+        public static TSource[] ToArray<TSource>(this IGenerator<TSource> generator, int length) {
+            return generator.Take(length).ToArray();
+        }
     }
 
 
