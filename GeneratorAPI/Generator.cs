@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GeneratorAPI {
     /// <summary>
@@ -162,6 +163,13 @@ namespace GeneratorAPI {
             if (secondGenerator == null) throw new ArgumentNullException(nameof(secondGenerator));
             if (fn == null) throw new ArgumentNullException(nameof(fn));
             return new Generator<TResult>(() => fn(firstGenerator.Generate(), secondGenerator.Generate()));
+        }
+
+        /// <summary>
+        ///     Creates a list with it's length equal to the count supplied.
+        /// </summary>
+        public static List<TSource> ToList<TSource>(this IGenerator<TSource> generator, int count) {
+            return generator.Take(count).ToList();
         }
     }
 
