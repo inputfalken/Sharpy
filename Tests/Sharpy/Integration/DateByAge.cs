@@ -13,14 +13,14 @@ namespace Tests.Sharpy.Integration {
             Assert.Throws<ArgumentException>(
                 () => Generator.Factory.Provider(new Provider())
                     .Select(generator => generator.DateByAge(-1))
-                    .Take());
+                    .Generate());
         }
 
         [Test]
         public void Arg_Twenty() {
             var result = Generator.Factory.Provider(new Provider())
                 .Select(generator => generator.DateByAge(20))
-                .Take();
+                .Generate();
 
             Assert.AreEqual(result.Year, DateGenerator.CurrentLocalDate.Year - 20);
         }
@@ -30,7 +30,7 @@ namespace Tests.Sharpy.Integration {
         public void Arg_Zero() {
             var result = Generator.Factory.Provider(new Provider())
                 .Select(generator => generator.DateByAge(0))
-                .Take();
+                .Generate();
 
             //will make sure that the date created is earlier than today this year
             Assert.IsTrue(DateGenerator.CurrentLocalDate > result);

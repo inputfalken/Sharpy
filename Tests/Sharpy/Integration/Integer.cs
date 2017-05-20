@@ -19,7 +19,7 @@ namespace Tests.Sharpy.Integration {
 
             var intInstance = Generator.Factory.Provider(new Provider())
                 .Select(generator => generator.Integer())
-                .Take();
+                .Generate();
             Assert.IsTrue(intInstance > int.MinValue && intInstance < int.MaxValue);
         }
 
@@ -31,7 +31,7 @@ namespace Tests.Sharpy.Integration {
                 generator.Select(generatorr => generatorr.Integer(1, 100)).Take(100).All(i => i == 0)
             );
             //Single
-            Assert.IsFalse(generator.Select(generatorr => generatorr.Integer(1, 100)).Take() == 0);
+            Assert.IsFalse(generator.Select(generatorr => generatorr.Integer(1, 100)).Generate() == 0);
         }
 
         [Test]
@@ -44,7 +44,7 @@ namespace Tests.Sharpy.Integration {
             var intInstance =
                 Generator.Factory.Provider(new Provider())
                     .Select(generator => generator.Integer(int.MaxValue))
-                    .Take();
+                    .Generate();
             Assert.IsTrue(intInstance >= 0);
         }
 
@@ -59,7 +59,7 @@ namespace Tests.Sharpy.Integration {
             Assert.Throws<ArgumentOutOfRangeException>(
                 () => Generator.Factory.Provider(new Provider())
                     .Select(generator => generator.Integer(-1))
-                    .Take());
+                    .Generate());
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace Tests.Sharpy.Integration {
 
             var intInstance = Generator.Factory.Provider(new Provider())
                 .Select(generator => generator.Integer(max))
-                .Take();
+                .Generate();
             Assert.IsTrue(intInstance >= 0 && intInstance < max);
         }
 
@@ -92,7 +92,7 @@ namespace Tests.Sharpy.Integration {
                 () =>
                     Generator.Factory.Provider(new Provider())
                         .Select(generator => generator.Integer(min, max))
-                        .Take());
+                        .Generate());
         }
 
         [Test]
@@ -108,7 +108,7 @@ namespace Tests.Sharpy.Integration {
             var intInstance =
                 Generator.Factory.Provider(new Provider())
                     .Select(generator => generator.Integer(min, max))
-                    .Take();
+                    .Generate();
             Assert.IsTrue(intInstance >= min && intInstance < max);
         }
 
@@ -125,7 +125,7 @@ namespace Tests.Sharpy.Integration {
             var intInstance =
                 Generator.Factory.Provider(new Provider())
                     .Select(generator => generator.Integer(min, max))
-                    .Take();
+                    .Generate();
             Assert.IsTrue(intInstance >= min && intInstance < max);
         }
 
@@ -139,7 +139,7 @@ namespace Tests.Sharpy.Integration {
             var intInstance =
                 Generator.Factory.Provider(new Provider())
                     .Select(generator => generator.Integer(int.MinValue, 0))
-                    .Take();
+                    .Generate();
 
             Assert.IsTrue(intInstance < 0);
         }
@@ -158,7 +158,7 @@ namespace Tests.Sharpy.Integration {
             var intInstance =
                 Generator.Factory.Provider(new Provider())
                     .Select(generator => generator.Integer(min, max))
-                    .Take();
+                    .Generate();
             Assert.IsTrue(intInstance >= min && intInstance < max);
         }
 
@@ -173,7 +173,7 @@ namespace Tests.Sharpy.Integration {
             var intInstance =
                 Generator.Factory.Provider(new Provider())
                     .Select(generator => generator.Integer(0, int.MaxValue))
-                    .Take();
+                    .Generate();
             Assert.IsTrue(intInstance > 0);
         }
     }
