@@ -57,6 +57,15 @@ namespace GeneratorAPI {
             return new Generator<T>(fn);
         }
 
+        /// <summary>
+        ///     Creates a Generator based on a Enumerable which resets if the end is reached.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static IGenerator<T> CreateCircularSequence<T>(IEnumerable<T> enumerable) {
+            if (enumerable == null) throw new ArgumentNullException(nameof(enumerable));
+            return new CircularEnumerable<T>(enumerable);
+        }
 
         /// <summary>
         ///     <para>
