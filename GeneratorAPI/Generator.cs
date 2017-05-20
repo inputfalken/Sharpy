@@ -172,7 +172,15 @@ namespace GeneratorAPI {
             int count, Func<TSource, TKey> keySelector, Func<TSource, TValue> valueSelector) {
             return generator.Take(count).ToDictionary(keySelector, valueSelector);
         }
+
+        /// <summary>
+        ///     Creates a list with it's length equal to the count supplied.
+        /// </summary>
+        public static List<TSource> ToList<TSource>(this IGenerator<TSource> generator, int count) {
+            return generator.Take(count).ToList();
+        }
     }
+
 
     internal class Generator<T> : IGenerator<T> {
         private readonly Func<T> _fn;
