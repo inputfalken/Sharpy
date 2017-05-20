@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 
 namespace GeneratorAPI {
+    /// <summary>
+    ///     Contains various methods for creating IGenerator&lt;T&gt;
+    /// </summary>
     public static class Generator {
         /// <summary>
         ///     <para>
@@ -34,7 +37,7 @@ namespace GeneratorAPI {
 
 
         /// <summary>
-        ///     Creates a Generator&lt;T&gt; where each generation will invoke <see cref="fn" />
+        ///     Creates a Generator&lt;T&gt; where each generation will invoke the argument
         ///     <remarks>
         ///         Do not instantiate types here.
         ///         <para />
@@ -163,7 +166,7 @@ namespace GeneratorAPI {
         private readonly Func<T> _fn;
 
         /// <summary>
-        ///     Creates a Generator&lt;T&gt; where each generation will invoke <see cref="fn" />
+        ///     Creates a Generator&lt;T&gt; where each generation will invoke the argument.
         ///     <remarks>
         ///         Do not instantiate types here.
         ///         <para />
