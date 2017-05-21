@@ -23,26 +23,11 @@ namespace Tests.GeneratorAPI {
         private const int Seed = 100;
 
         [Test(
-            Description = "Verifies that Generator.Create uses same instance"
-        )]
-        public void Constructor_Not_Same_Instance() {
-            var generator = Generator.Function(() => new Random());
-            Assert.AreNotSame(generator.Generate(), generator.Generate());
-        }
-
-        [Test(
-            Description = "Verify to see that constructor throw exception when null is used"
-        )]
-        public void Constructor_Throw_Exception_When_Null() {
-            Assert.Throws<ArgumentNullException>(() => Generator.Function<string>(null), "Argument cannot be null");
-        }
-
-        [Test(
-            Description = "Verify that Create is lazy"
+            Description = "Verify that lazy is not used before generate is invoked"
         )]
         public void Create_Lazy_Is_Invoked_After_Take_Is_Invoked() {
             var invoked = false;
-            Generator.Function(() => {
+            Generator.Lazy(() => {
                 invoked = true;
                 return new Randomizer();
             }).Generate();
@@ -50,11 +35,11 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that Create is lazy"
+            Description = "Verify that lazy is not used before generate is invoked"
         )]
         public void Create_Lazy_Is_Not_Invoked_Before_Take_Is_Invoked() {
             var invoked = false;
-            Generator.Function(() => {
+            Generator.Lazy(() => {
                 invoked = true;
                 return new Randomizer();
             });
@@ -62,7 +47,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verifies that Generator.Create uses same instance"
+            Description = "Verify that Generator.Lazy uses same instance"
         )]
         public void Create_Lazy_Use_Same_Instance() {
             var generator = Generator.Lazy(() => new Randomizer());
@@ -93,7 +78,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verifys that the Action is only invoked if take is called"
+            Description = "Verify that the Action is only invoked if Generate is called"
         )]
         public void Do_Is_Invoked_After_Take_Is_invoked() {
             var invoked = false;
@@ -105,7 +90,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verifys that the Action is only invoked if take is called"
+            Description = "Verify that the Action is only invoked if Generate is called"
         )]
         public void Do_Is_Not_Invoked_Before_Take_Is_Invoked() {
             var invoked = false;
@@ -137,6 +122,21 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
+            Description = "Verify that Generator.Function does not use the same instance"
+        )]
+        public void Function_Not_Same_Instance() {
+            var generator = Generator.Function(() => new Random());
+            Assert.AreNotSame(generator.Generate(), generator.Generate());
+        }
+
+        [Test(
+            Description = "Verify that passing null to Function throws exception"
+        )]
+        public void Function_Throw_Exception_When_Null() {
+            Assert.Throws<ArgumentNullException>(() => Generator.Function<string>(null), "Argument cannot be null");
+        }
+
+        [Test(
             Description = "Verify that Select does not return null"
         )]
         public void Select_Does_Not_Return_Null() {
@@ -145,7 +145,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verifys that the Func is only invoked if take is called"
+            Description = "Verifys that the Func is only invoked if Generate is invoked"
         )]
         public void Select_Is_Invoked_After_Take_Is_Invoked() {
             var invoked = false;
@@ -156,7 +156,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verifys that the Func is only invoked if take is called"
+            Description = "Verifys that the Func is only invoked if Generate is invoked"
         )]
         public void Select_Is_Not_Invoked_Before_Take_Is_Invoked() {
             var invoked = false;
@@ -166,7 +166,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that Select with null Generator and Argument"
+            Description = "Verify that Select with null Generator and Argument throws exception"
         )]
         public void Select_Null_Generator_And_Arg_Throws() {
             IGenerator<string> generator = null;
@@ -182,7 +182,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that passing null does not work"
+            Description = "Verify that null Func throws exception"
         )]
         public void Select_Null_Param_Throws() {
             Assert.Throws<ArgumentNullException>(() => _generator.Select<string, string>(null));
@@ -278,7 +278,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verifys that the Func is only invoked if take is called"
+            Description = "Verifys that the Func is only invoked if Generate is invoked"
         )]
         public void SelectMany_Is_Invoked_After_Take_Is_Invoked() {
             var invoked = false;
@@ -289,7 +289,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verifys that the Func is only invoked if take is called"
+            Description = "Verifys that the Func is only invoked if Generate is invoked"
         )]
         public void SelectMany_Is_Not_Invoked_Before_Take_Is_Invoked() {
             var invoked = false;
@@ -299,7 +299,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that SelectMany with null Generator and Argument"
+            Description = "Verify that SelectMany with null Generator and Argument throws exception"
         )]
         public void SelectMany_Null_Generator_And_Arg_Throws() {
             IGenerator<string> generator = null;
@@ -307,7 +307,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that SelectMany with null Generator throws"
+            Description = "Verify that SelectMany with null Generator throws exception"
         )]
         public void SelectMany_Null_Generator_Throws() {
             IGenerator<string> generator = null;
@@ -316,7 +316,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that passing null does not work"
+            Description = "Verify that passing null does not work and throws exception"
         )]
         public void SelectMany_Null_Param_Throws() {
             Assert.Throws<ArgumentNullException>(() => _generator.SelectMany<string, string>(null));
@@ -381,7 +381,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that Take without parameter gives expected result"
+            Description = "Verify that Take gives expected result"
         )]
         public void Take_Gives_Expected_Elements() {
             const int count = 10;
@@ -392,7 +392,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that take with a parameter does not return null"
+            Description = "Verify that take with  does not return null"
         )]
         public void Take_Is_Not_Null() {
             var result = _generator.Take(10);
@@ -400,7 +400,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that Take without parameter gives expected result"
+            Description = "Verify that Take gives expected result"
         )]
         public void Take_No_Param_Gives_Expected_Element() {
             var result = _generator.Generate();
@@ -409,7 +409,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that take without a parameter does not return null"
+            Description = "Verify that take does not return null"
         )]
         public void Take_No_Param_Is_Not_Null() {
             var result = _generator.Generate();
@@ -522,7 +522,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verifys that the Func is only invoked if take is called"
+            Description = "Verifys that the Func is only invoked if Generate is invoked"
         )]
         public void Where_Is_Invoked_After_Take_Is_Invoked() {
             var invoked = false;
@@ -534,7 +534,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verifys that the Func is only invoked if take is called"
+            Description = "Verifys that the Func is only invoked if Generate is invoked"
         )]
         public void Where_Is_Not_Invoked_Before_Take_Is_Invoked() {
             var invoked = false;
@@ -557,7 +557,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that Where with null Generator and Argument"
+            Description = "Verify that Where with null Generator and Argument throws exception"
         )]
         public void Where_Null_Generator_And_Arg_Throws() {
             IGenerator<string> generator = null;
@@ -565,7 +565,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that Where with null Generator throws"
+            Description = "Verify that Where with null Generator throws exception"
         )]
         public void Where_Null_Generator_Throws() {
             IGenerator<string> generator = null;
@@ -573,7 +573,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that passing null does not work"
+            Description = "Verify that passing null does not work and throws exception"
         )]
         public void Where_Null_Param_Throws() {
             Assert.Throws<ArgumentNullException>(() => _generator.Where(null));
@@ -623,7 +623,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verifys that the Func is only invoked if take is called"
+            Description = "Verifys that the Func is only invoked if Generate is invoked"
         )]
         public void Zip_Is_Invoked_After_Take_Is_Invoked() {
             var invoked = false;
@@ -634,7 +634,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verifys that the Func is only invoked if take is called"
+            Description = "Verifys that the Func is only invoked if Generate is invoked"
         )]
         public void Zip_Is_Not_Invoked_Before_Take_Is_Invoked() {
             var invoked = false;
@@ -645,7 +645,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that Zip with null Generator and null first arg"
+            Description = "Verify that Zip with null Generator and null first arg throws exception"
         )]
         public void Zip_Null__Generator_Null_First_Arg() {
             IGenerator<string> generator = null;
@@ -653,7 +653,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that Zip with null Generator and null second arg"
+            Description = "Verify that Zip with null Generator and null second arg throws excpetion"
         )]
         public void Zip_Null__Generator_Null_Second_Arg() {
             IGenerator<string> generator = null;
@@ -662,7 +662,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that Zip with null Generator throws"
+            Description = "Verify that Zip with null Generator throws exception"
         )]
         public void Zip_Null__Generator_Throws() {
             IGenerator<string> generator = null;
@@ -670,21 +670,21 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that passing null for both argument does not work"
+            Description = "Verify that passing null for both argument does not work and throws exception"
         )]
         public void Zip_Null_Both_Param_Throws() {
             Assert.Throws<ArgumentNullException>(() => _generator.Zip<string, int, string>(null, null));
         }
 
         [Test(
-            Description = "Verify that passing null for first argument does not work"
+            Description = "Verify that passing null for first argument does not work and throws exception"
         )]
         public void Zip_Null_First_Param_Throws() {
             Assert.Throws<ArgumentNullException>(() => _generator.Zip<string, int, string>(null, (s, i) => s + i));
         }
 
         [Test(
-            Description = "Verify that Zip with null Generator and Arguments"
+            Description = "Verify that Zip with null Generator and Arguments throws excpetion"
         )]
         public void Zip_Null_Generator_And_Args_Throws() {
             IGenerator<string> generator = null;
@@ -692,7 +692,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that passing null for second does not work"
+            Description = "Verify that passing null for second does not work and throws exception"
         )]
         public void Zip_Null_Second_Param_Throws() {
             Assert.Throws<ArgumentNullException>(
