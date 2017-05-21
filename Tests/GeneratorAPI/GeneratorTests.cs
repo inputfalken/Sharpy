@@ -303,7 +303,7 @@ namespace Tests.GeneratorAPI {
         )]
         public void SelectMany_Null_Generator_And_Arg_Throws() {
             IGenerator<string> generator = null;
-            Assert.Throws<ArgumentNullException>(() => generator.SelectMany<string, int>(null));
+            Assert.Throws<ArgumentNullException>(() => generator.SelectMany<string, int>(generatorSelector: null));
         }
 
         [Test(
@@ -319,7 +319,7 @@ namespace Tests.GeneratorAPI {
             Description = "Verify that passing null does not work"
         )]
         public void SelectMany_Null_Param_Throws() {
-            Assert.Throws<ArgumentNullException>(() => _generator.SelectMany<string, string>(null));
+            Assert.Throws<ArgumentNullException>(() => _generator.SelectMany<string, string>(generatorSelector: null));
         }
 
         [Test(
