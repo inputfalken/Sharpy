@@ -240,7 +240,7 @@ namespace GeneratorAPI {
         ///     </para>
         /// </summary>
         public IGenerator<Guid> Guid() {
-            return new Generator<Guid>(System.Guid.NewGuid);
+            return Generator.Function(System.Guid.NewGuid);
         }
     }
 }
