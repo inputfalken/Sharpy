@@ -128,11 +128,12 @@ namespace GeneratorAPI {
         ///         Flattens Generation&lt;T&gt;
         ///     </para>
         /// </summary>
-        public static IGenerator<TResult> SelectMany<TSource, TResult>(this IGenerator<TSource> generator,
-            Func<TSource, IGenerator<TResult>> fn) {
+        public static IGenerator<TResult> SelectMany<TSource, TResult>(
+            this IGenerator<TSource> generator,
+            Func<TSource, IGenerator<TResult>> generatorSelector) {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
-            if (fn == null) throw new ArgumentNullException(nameof(fn));
-            return new Generator<TResult>(() => fn(generator.Generate()).Generate());
+            if (generatorSelector == null) throw new ArgumentNullException(nameof(generatorSelector));
+            return new Generator<TResult>(() => generatorSelector(generator.Generate()).Generate());
         }
 
         /// <summary>
@@ -142,12 +143,25 @@ namespace GeneratorAPI {
         ///     </para>
         /// </summary>
         public static IGenerator<TCompose> SelectMany<TSource, TResult, TCompose>(this IGenerator<TSource> generator,
-            Func<TSource, IGenerator<TResult>> fn,
+            Func<TSource, IGenerator<TResult>> generatorSelector,
             Func<TSource, TResult, TCompose> composer) {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
-            if (fn == null) throw new ArgumentNullException(nameof(fn));
+            if (generatorSelector == null) throw new ArgumentNullException(nameof(generatorSelector));
             if (composer == null) throw new ArgumentNullException(nameof(composer));
-            return generator.SelectMany(a => fn(a).SelectMany(r => new Generator<TCompose>(() => composer(a, r))));
+            return generator.SelectMany(a => generatorSelector(a).SelectMany(r => new Generator<TCompose>(() => composer(a, r))));
+        }
+
+        /// <summary>
+        ///     <para>
+        ///         Flattens a IGenerator with a IEnumerable
+        ///     </para>
+        /// </summary>
+        public static IGenerator<TResult> SelectMany<TSource, TResult>(this IGenerator<TSource> generator,
+            Func<TSource, IEnumerable<TResult>> enumerableSelector) {
+            if (generator == null) throw new ArgumentNullException(nameof(generator));
+            if (enumerableSelector == null) throw new ArgumentNullException(nameof(enumerableSelector));
+            var cirnumerable = new CircularEnumerable<TResult>(() => enumerableSelector(generator.Generate()));
+            return new Generator<TResult>(() => cirnumerable.Generate());
         }
 
         /// <summary>
