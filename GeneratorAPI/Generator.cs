@@ -214,6 +214,10 @@ namespace GeneratorAPI {
             return generator.Take(length).ToArray();
         }
 
+        /// <summary>
+        /// A Generator using Func&lt;T&gt;
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
         private class Fun<T> : IGenerator<T> {
             private readonly Func<T> _fn;
 
@@ -241,6 +245,10 @@ namespace GeneratorAPI {
             }
         }
 
+        /// <summary>
+        /// A Generator using IEnumerable&lt;T&gt;
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
         private class Seq<T> : IGenerator<T> {
             private readonly Lazy<IEnumerator<T>> _lazyEnumerator;
 
