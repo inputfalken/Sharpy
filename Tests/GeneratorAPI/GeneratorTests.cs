@@ -278,6 +278,60 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
+            Description = "Verify that the randomized number changes when enumerable restarts"
+        )]
+        public void SelectMany_IEnumerable_Argument_Changes() {
+            var result = Generator
+                .Create(new Randomizer(Seed))
+                .Select(rnd => rnd.Next(1, 100))
+                //randomized number changes Enumerable repeats
+                .SelectMany(randomizedNumer => Enumerable.Range(1, 5).Select(i => i + randomizedNumer))
+                .Take(10);
+            var randomizer = new Randomizer(Seed);
+            var rndRes1 = randomizer.Next(1, 100);
+            var rndRes2 = randomizer.Next(1, 100);
+            var enumerable = Enumerable.Range(1, 5).Select(i => i + rndRes1)
+                .Concat(Enumerable.Range(1, 5).Select(i => i + rndRes2));
+
+            Assert.AreEqual(enumerable, result);
+        }
+
+        [Test(
+            Description = "Verify that Enumerable turns into CircularEnumerable"
+        )]
+        public void SelectMany_IEnumerable_Is_Circular() {
+            var result = _generator.SelectMany(s => Enumerable.Range(1, 5)).Take(15);
+            var expected = Enumerable.Range(1, 5)
+                .Concat(Enumerable.Range(1, 5))
+                .Concat(Enumerable.Range(1, 5));
+
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test(
+            Description = "Verify that null Func throws exception"
+        )]
+        public void SelectMany_IEnumerable_Null() {
+            Assert.Throws<ArgumentNullException>(
+                () => _generator.SelectMany<string, int>(enumerableSelector: null));
+        }
+
+        [Test(
+            Description = "Verify that SelectMany works as the expected LINQ expression"
+        )]
+        public void SelectMany_IEnumerable_Using_Randomizer() {
+            var result = Generator
+                .Create(new Randomizer(Seed))
+                .SelectMany(rnd => Enumerable.Range(1, 10).Select(i => i + rnd.Next(1, 100)))
+                .Take(10);
+            var randomizer = new Randomizer(Seed);
+            var expected = Enumerable
+                .Range(1, 10)
+                .Select(i => i + randomizer.Next(1, 100));
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test(
             Description = "Verifys that the Func is only invoked if Generate is invoked"
         )]
         public void SelectMany_Is_Invoked_After_Take_Is_Invoked() {
@@ -303,7 +357,7 @@ namespace Tests.GeneratorAPI {
         )]
         public void SelectMany_Null_Generator_And_Arg_Throws() {
             IGenerator<string> generator = null;
-            Assert.Throws<ArgumentNullException>(() => generator.SelectMany<string, int>(null));
+            Assert.Throws<ArgumentNullException>(() => generator.SelectMany<string, int>(generatorSelector: null));
         }
 
         [Test(
@@ -319,7 +373,7 @@ namespace Tests.GeneratorAPI {
             Description = "Verify that passing null does not work and throws exception"
         )]
         public void SelectMany_Null_Param_Throws() {
-            Assert.Throws<ArgumentNullException>(() => _generator.SelectMany<string, string>(null));
+            Assert.Throws<ArgumentNullException>(() => _generator.SelectMany<string, string>(generatorSelector: null));
         }
 
         [Test(

@@ -11,18 +11,24 @@ namespace GeneratorAPI {
         }
 
         public CircularEnumerable(IEnumerable<T> enumerable) {
-            if (enumerable.Any())
-                _lazyEnumerator = new Lazy<IEnumerator<T>>(enumerable.CacheGeneratedResults().GetEnumerator);
-            else throw new ArgumentException($"{nameof(enumerable)} can't be empty.");
+            _lazyEnumerator = new Lazy<IEnumerator<T>>(enumerable.CacheGeneratedResults().GetEnumerator);
+        }
+
+        public CircularEnumerable(Func<IEnumerable<T>> fn) : this(Invoker(fn)) { }
+
+        private static IEnumerable<T> Invoker(Func<IEnumerable<T>> fn) {
+            while (true) {
+                foreach (var x1 in fn()) {
+                    yield return x1;
+                }
+            }
         }
 
         public T Generate() {
-            while (true) {
-                if (Enumerator.MoveNext()) {
-                    return Enumerator.Current;
-                }
-                Enumerator.Reset();
-            }
+            if (Enumerator.MoveNext()) return Enumerator.Current;
+            Enumerator.Reset();
+            Enumerator.MoveNext();
+            return Enumerator.Current;
         }
     }
 }
