@@ -35,8 +35,7 @@ namespace GeneratorAPI {
         ///     Creates a lazy Generator&lt;T&gt; with the type provided.
         /// </summary>
         public static IGenerator<T> Lazy<T>(Func<T> fn) {
-            var lazy = new Lazy<T>(fn);
-            return Lazy(lazy);
+            return Lazy(new Lazy<T>(fn));
         }
 
 
