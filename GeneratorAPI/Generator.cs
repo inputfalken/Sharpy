@@ -57,7 +57,7 @@ namespace GeneratorAPI {
         /// </summary>
         public static IGenerator<T> CircularSequence<T>(IEnumerable<T> enumerable) {
             if (enumerable == null) throw new ArgumentNullException(nameof(enumerable));
-            return new CircularEnumerable<T>(enumerable);
+            return new CircularSequence<T>(enumerable);
         }
 
         /// <summary>
@@ -161,7 +161,7 @@ namespace GeneratorAPI {
             Func<TSource, IEnumerable<TResult>> enumerableSelector) {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (enumerableSelector == null) throw new ArgumentNullException(nameof(enumerableSelector));
-            var cirnumerable = new CircularEnumerable<TResult>(() => enumerableSelector(generator.Generate()));
+            var cirnumerable = new CircularSequence<TResult>(() => enumerableSelector(generator.Generate()));
             return new Generator<TResult>(() => cirnumerable.Generate());
         }
 
