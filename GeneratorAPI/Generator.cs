@@ -56,7 +56,7 @@ namespace GeneratorAPI {
         /// </summary>
         public static IGenerator<T> CircularSequence<T>(IEnumerable<T> enumerable) {
             if (enumerable == null) throw new ArgumentNullException(nameof(enumerable));
-            return new CircularSequence<T>(enumerable);
+            return new Seq<T>(enumerable);
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace GeneratorAPI {
             Func<TSource, IEnumerable<TResult>> enumerableSelector) {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (enumerableSelector == null) throw new ArgumentNullException(nameof(enumerableSelector));
-            var sequence = new CircularSequence<TResult>(() => enumerableSelector(generator.Generate()));
+            var sequence = new Seq<TResult>(() => enumerableSelector(generator.Generate()));
             return Function(() => sequence.Generate());
         }
 
@@ -238,6 +238,40 @@ namespace GeneratorAPI {
             /// </summary>
             public T Generate() {
                 return _fn();
+            }
+        }
+
+        private class Seq<T> : IGenerator<T> {
+            private readonly Lazy<IEnumerator<T>> _lazyEnumerator;
+
+            private IEnumerator<T> Enumerator {
+                get { return _lazyEnumerator.Value; }
+            }
+
+            public Seq(IEnumerable<T> enumerable) {
+                _lazyEnumerator = new Lazy<IEnumerator<T>>(enumerable.CacheGeneratedResults().GetEnumerator);
+            }
+
+            public Seq(Func<IEnumerable<T>> fn) : this(Invoker(fn)) { }
+
+            /// <summary>
+            /// QUAS WEX EXORT
+            /// </summary>
+            /// <param name="fn"></param>
+            /// <returns></returns>
+            private static IEnumerable<T> Invoker(Func<IEnumerable<T>> fn) {
+                while (true) {
+                    foreach (var element in fn()) {
+                        yield return element;
+                    }
+                }
+            }
+
+            public T Generate() {
+                if (Enumerator.MoveNext()) return Enumerator.Current;
+                Enumerator.Reset();
+                Enumerator.MoveNext();
+                return Enumerator.Current;
             }
         }
     }
