@@ -73,7 +73,7 @@ namespace GeneratorAPI {
             int threshold = 100000) {
             if (predicate == null) throw new ArgumentNullException(nameof(predicate));
             if (generator == null) throw new ArgumentNullException(nameof(generator));
-            return new Generator<TSource>(() => {
+            return Function(() => {
                 for (var i = 0; i < threshold; i++) {
                     var generation = generator.Generate();
                     if (predicate(generation)) return generation;
@@ -89,7 +89,7 @@ namespace GeneratorAPI {
         public static IGenerator<TSource> Do<TSource>(this IGenerator<TSource> generator, Action<TSource> fn) {
             if (fn == null) throw new ArgumentNullException(nameof(fn));
             if (generator == null) throw new ArgumentNullException(nameof(generator));
-            return new Generator<TSource>(() => {
+            return Function(() => {
                 var generation = generator.Generate();
                 fn(generation);
                 return generation;
@@ -105,7 +105,7 @@ namespace GeneratorAPI {
             Func<TSource, TResult> fn) {
             if (fn == null) throw new ArgumentNullException(nameof(fn));
             if (generator == null) throw new ArgumentNullException(nameof(generator));
-            return new Generator<TResult>(() => fn(generator.Generate()));
+            return Function(() => fn(generator.Generate()));
         }
 
         /// <summary>
@@ -134,7 +134,7 @@ namespace GeneratorAPI {
             Func<TSource, IGenerator<TResult>> generatorSelector) {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (generatorSelector == null) throw new ArgumentNullException(nameof(generatorSelector));
-            return new Generator<TResult>(() => generatorSelector(generator.Generate()).Generate());
+            return Function(() => generatorSelector(generator.Generate()).Generate());
         }
 
         /// <summary>
@@ -149,8 +149,7 @@ namespace GeneratorAPI {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (generatorSelector == null) throw new ArgumentNullException(nameof(generatorSelector));
             if (composer == null) throw new ArgumentNullException(nameof(composer));
-            return generator.SelectMany(a => generatorSelector(a)
-                .SelectMany(r => new Generator<TCompose>(() => composer(a, r))));
+            return generator.SelectMany(a => generatorSelector(a).SelectMany(r => Function(() => composer(a, r))));
         }
 
         /// <summary>
@@ -162,8 +161,8 @@ namespace GeneratorAPI {
             Func<TSource, IEnumerable<TResult>> enumerableSelector) {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (enumerableSelector == null) throw new ArgumentNullException(nameof(enumerableSelector));
-            var cirnumerable = new CircularSequence<TResult>(() => enumerableSelector(generator.Generate()));
-            return new Generator<TResult>(() => cirnumerable.Generate());
+            var sequence = new CircularSequence<TResult>(() => enumerableSelector(generator.Generate()));
+            return Function(() => sequence.Generate());
         }
 
         /// <summary>
@@ -191,7 +190,7 @@ namespace GeneratorAPI {
             if (firstGenerator == null) throw new ArgumentNullException(nameof(firstGenerator));
             if (secondGenerator == null) throw new ArgumentNullException(nameof(secondGenerator));
             if (fn == null) throw new ArgumentNullException(nameof(fn));
-            return new Generator<TResult>(() => fn(firstGenerator.Generate(), secondGenerator.Generate()));
+            return Function(() => fn(firstGenerator.Generate(), secondGenerator.Generate()));
         }
 
         /// <summary>
