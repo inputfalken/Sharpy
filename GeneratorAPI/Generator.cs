@@ -97,7 +97,7 @@ namespace GeneratorAPI {
 
         /// <summary>
         ///     <para>
-        ///         Maps Generation&lt;T&gt; into Generation&lt;TResult&gt;
+        ///         Maps Generator&lt;T&gt; into Generator&lt;TResult&gt;
         ///     </para>
         /// </summary>
         public static IGenerator<TResult> Select<TSource, TResult>(this IGenerator<TSource> generator,
@@ -125,7 +125,7 @@ namespace GeneratorAPI {
 
         /// <summary>
         ///     <para>
-        ///         Flattens Generation&lt;T&gt;
+        ///         Flattens Generator&lt;T&gt;
         ///     </para>
         /// </summary>
         public static IGenerator<TResult> SelectMany<TSource, TResult>(
@@ -138,7 +138,7 @@ namespace GeneratorAPI {
 
         /// <summary>
         ///     <para>
-        ///         Flattens Generation&lt;T&gt;
+        ///         Flattens Generator&lt;T&gt;
         ///         With a compose function using &lt;T&gt; and &lt;TResult&gt;
         ///     </para>
         /// </summary>
