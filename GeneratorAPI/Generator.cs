@@ -149,7 +149,8 @@ namespace GeneratorAPI {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (generatorSelector == null) throw new ArgumentNullException(nameof(generatorSelector));
             if (composer == null) throw new ArgumentNullException(nameof(composer));
-            return generator.SelectMany(a => generatorSelector(a).SelectMany(r => new Generator<TCompose>(() => composer(a, r))));
+            return generator.SelectMany(a => generatorSelector(a)
+                .SelectMany(r => new Generator<TCompose>(() => composer(a, r))));
         }
 
         /// <summary>
@@ -163,6 +164,19 @@ namespace GeneratorAPI {
             if (enumerableSelector == null) throw new ArgumentNullException(nameof(enumerableSelector));
             var cirnumerable = new CircularSequence<TResult>(() => enumerableSelector(generator.Generate()));
             return new Generator<TResult>(() => cirnumerable.Generate());
+        }
+
+        /// <summary>
+        ///     <para>
+        ///         Flattens a IGenerator with a IEnumerable And composes the values
+        ///     </para>
+        /// </summary>
+        public static IGenerator<TCompose> SelectMany<TSource, TResult, TCompose>(this IGenerator<TSource> generator,
+            Func<TSource, IEnumerable<TResult>> enumerableSelector, Func<TSource, TResult, TCompose> composer) {
+            if (generator == null) throw new ArgumentNullException(nameof(generator));
+            if (enumerableSelector == null) throw new ArgumentNullException(nameof(enumerableSelector));
+            return generator.SelectMany(source => enumerableSelector(source)
+                .Select(result => composer(source, result)));
         }
 
         /// <summary>
