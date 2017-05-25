@@ -175,6 +175,7 @@ namespace GeneratorAPI {
             Func<TSource, IEnumerable<TResult>> enumerableSelector, Func<TSource, TResult, TCompose> composer) {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (enumerableSelector == null) throw new ArgumentNullException(nameof(enumerableSelector));
+            if (composer == null) throw new ArgumentNullException(nameof(composer));
             return generator.SelectMany(source => enumerableSelector(source)
                 .Select(result => composer(source, result)));
         }
