@@ -86,12 +86,12 @@ namespace GeneratorAPI {
         /// <summary>
         ///     Exposes &lt;T&gt;.
         /// </summary>
-        public static IGenerator<TSource> Do<TSource>(this IGenerator<TSource> generator, Action<TSource> fn) {
-            if (fn == null) throw new ArgumentNullException(nameof(fn));
+        public static IGenerator<TSource> Do<TSource>(this IGenerator<TSource> generator, Action<TSource> action) {
+            if (action == null) throw new ArgumentNullException(nameof(action));
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             return new Generator<TSource>(() => {
                 var generation = generator.Generate();
-                fn(generation);
+                action(generation);
                 return generation;
             });
         }
@@ -102,10 +102,10 @@ namespace GeneratorAPI {
         ///     </para>
         /// </summary>
         public static IGenerator<TResult> Select<TSource, TResult>(this IGenerator<TSource> generator,
-            Func<TSource, TResult> fn) {
-            if (fn == null) throw new ArgumentNullException(nameof(fn));
+            Func<TSource, TResult> generatorSelector) {
+            if (generatorSelector == null) throw new ArgumentNullException(nameof(generatorSelector));
             if (generator == null) throw new ArgumentNullException(nameof(generator));
-            return new Generator<TResult>(() => fn(generator.Generate()));
+            return new Generator<TResult>(() => generatorSelector(generator.Generate()));
         }
 
         /// <summary>
@@ -170,13 +170,13 @@ namespace GeneratorAPI {
         ///         Combine generation and compose the generation.
         ///     </para>
         /// </summary>
-        public static IGenerator<TResult> Zip<TResult, TSecond, TSource>(this IGenerator<TSource> firstGenerator,
-            IGenerator<TSecond> secondGenerator,
+        public static IGenerator<TResult> Zip<TSource, TSecond, TResult>(this IGenerator<TSource> first,
+            IGenerator<TSecond> second,
             Func<TSource, TSecond, TResult> fn) {
-            if (firstGenerator == null) throw new ArgumentNullException(nameof(firstGenerator));
-            if (secondGenerator == null) throw new ArgumentNullException(nameof(secondGenerator));
+            if (first == null) throw new ArgumentNullException(nameof(first));
+            if (second == null) throw new ArgumentNullException(nameof(second));
             if (fn == null) throw new ArgumentNullException(nameof(fn));
-            return new Generator<TResult>(() => fn(firstGenerator.Generate(), secondGenerator.Generate()));
+            return new Generator<TResult>(() => fn(first.Generate(), second.Generate()));
         }
 
         /// <summary>
