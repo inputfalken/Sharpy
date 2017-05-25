@@ -210,7 +210,7 @@ namespace Tests.GeneratorAPI {
         public void SelectMany_Double_Arg_Null_Generator_And_Arg_Throws() {
             IGenerator<string> generator = null;
             Assert.Throws<ArgumentNullException>(
-                () => generator.SelectMany<string, int, string>(null, (s, i) => s + i));
+                () => generator.SelectMany<string, int, string>(generatorSelector: null, composer: (s, i) => s + i));
         }
 
         [Test(
@@ -219,7 +219,7 @@ namespace Tests.GeneratorAPI {
         public void SelectMany_Double_Arg_Null_Generator_And_Null_Args_Throws() {
             IGenerator<string> generator = null;
             Assert.Throws<ArgumentNullException>(
-                () => generator.SelectMany<string, int, string>(null, null));
+                () => generator.SelectMany<string, int, string>(generatorSelector: null, composer: null));
         }
 
         [Test(
@@ -255,7 +255,8 @@ namespace Tests.GeneratorAPI {
             Description = "Verify that passing null to both arguments will throw exception"
         )]
         public void SelectMany_Double_Arg_Using_Arg_Null_Both_Arg() {
-            Assert.Throws<ArgumentNullException>(() => _generator.SelectMany<string, string, string>(null, null));
+            Assert.Throws<ArgumentNullException>(
+                () => _generator.SelectMany<string, string, string>(generatorSelector: null, composer: null));
         }
 
         [Test(
@@ -263,7 +264,8 @@ namespace Tests.GeneratorAPI {
         )]
         public void SelectMany_Double_Arg_Using_Arg_Null_First_Arg() {
             Assert.Throws<ArgumentNullException>(
-                () => _generator.SelectMany<string, string, string>(null, (s, s1) => s + s1));
+                () => _generator.SelectMany<string, string, string>(generatorSelector: null,
+                    composer: (s, s1) => s + s1));
         }
 
         [Test(
