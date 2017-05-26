@@ -8,9 +8,7 @@ namespace GeneratorAPI {
     /// </summary>
     public static class Generator {
         /// <summary>
-        ///     <para>
-        ///         Contains methods for creating Generators with various Providers.
-        ///     </para>
+        ///     Contains methods for creating Generators with various Providers.
         ///     <remarks>
         ///         The point of this class is to contain extension methods from other libraries.
         ///     </remarks>
@@ -43,7 +41,6 @@ namespace GeneratorAPI {
         ///     Creates a Generator&lt;T&gt; where each generation will invoke and use the function supplied.
         ///     <remarks>
         ///         Do not instantiate types here.
-        ///         <para />
         ///         If you want to use a type with methods to get data use Generator.<see cref="Create{T}" />
         ///     </remarks>
         /// </summary>
@@ -60,9 +57,7 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     <para>
-        ///         Filters the generation to fit the predicate.
-        ///     </para>
+        ///     Filters the generation to fit the predicate.
         ///     <remarks>
         ///         Use with Caution: Bad predicates cause the method to throw exception if threshold is reached.
         ///     </remarks>
@@ -96,9 +91,7 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     <para>
-        ///         Maps Generator&lt;T&gt; into Generator&lt;TResult&gt;
-        ///     </para>
+        ///     Maps Generator&lt;T&gt; into Generator&lt;TResult&gt;
         /// </summary>
         public static IGenerator<TResult> Select<TSource, TResult>(this IGenerator<TSource> generator,
             Func<TSource, TResult> generatorSelector) {
@@ -108,9 +101,7 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     <para>
-        ///         Yields count ammount of items into an IEnumerable&lt;T&gt;.
-        ///     </para>
+        ///     Yields count ammount of items into an IEnumerable&lt;T&gt;.
         /// </summary>
         public static IEnumerable<TSource> Take<TSource>(this IGenerator<TSource> generator, int count) {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
@@ -124,9 +115,7 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     <para>
-        ///         Flattens Generator&lt;T&gt;
-        ///     </para>
+        ///     Flattens Generator&lt;T&gt;
         /// </summary>
         public static IGenerator<TResult> SelectMany<TSource, TResult>(
             this IGenerator<TSource> generator,
@@ -137,10 +126,8 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     <para>
-        ///         Flattens Generator&lt;T&gt;
-        ///         With a compose function using &lt;T&gt; and &lt;TResult&gt;
-        ///     </para>
+        ///     Flattens Generator&lt;T&gt;
+        ///     With a compose function using &lt;T&gt; and &lt;TResult&gt;
         /// </summary>
         public static IGenerator<TCompose> SelectMany<TSource, TResult, TCompose>(this IGenerator<TSource> generator,
             Func<TSource, IGenerator<TResult>> generatorSelector,
@@ -152,9 +139,7 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     <para>
-        ///         Flattens a IGenerator with a IEnumerable
-        ///     </para>
+        ///     Flattens a IGenerator with a IEnumerable
         /// </summary>
         public static IGenerator<TResult> SelectMany<TSource, TResult>(this IGenerator<TSource> generator,
             Func<TSource, IEnumerable<TResult>> enumerableSelector) {
@@ -165,9 +150,7 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     <para>
-        ///         Flattens a IGenerator with a IEnumerable And composes the values
-        ///     </para>
+        ///     Flattens a IGenerator with a IEnumerable And composes the values
         /// </summary>
         public static IGenerator<TCompose> SelectMany<TSource, TResult, TCompose>(this IGenerator<TSource> generator,
             Func<TSource, IEnumerable<TResult>> enumerableSelector, Func<TSource, TResult, TCompose> composer) {
@@ -179,9 +162,7 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     <para>
-        ///         Combine generation and compose the generation.
-        ///     </para>
+        ///     Combine generation and compose the generation.
         /// </summary>
         public static IGenerator<TResult> Zip<TSource, TSecond, TResult>(this IGenerator<TSource> first,
             IGenerator<TSecond> second,
@@ -193,7 +174,8 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     Creates a Dictionary with it's count equal to count argument. Key and Value will be defined in the following functions.
+        ///     Creates a Dictionary with it's count equal to count argument. Key and Value will be defined in the following
+        ///     functions.
         /// </summary>
         public static Dictionary<TKey, TValue> ToDictionary<TSource, TKey, TValue>(this IGenerator<TSource> generator,
             int count, Func<TSource, TKey> keySelector, Func<TSource, TValue> valueSelector) {
@@ -215,9 +197,8 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        /// A Generator using Func&lt;T&gt;
+        ///     A Generator using Func&lt;T&gt;
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         private class Fun<T> : IGenerator<T> {
             private readonly Func<T> _fn;
 
@@ -225,7 +206,6 @@ namespace GeneratorAPI {
             ///     Creates a Generator&lt;T&gt; where each generation will invoke the argument.
             ///     <remarks>
             ///         Do not instantiate types here.
-            ///         <para />
             ///         If you want to instantiate types use  static method Generator.<see cref="Generator.Create{T}" />
             ///     </remarks>
             /// </summary>
@@ -236,9 +216,7 @@ namespace GeneratorAPI {
 
 
             /// <summary>
-            ///     <para>
-            ///         Gives &lt;T&gt;
-            ///     </para>
+            ///     Gives &lt;T&gt;
             /// </summary>
             public T Generate() {
                 return _fn();
@@ -246,15 +224,10 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        /// A Generator using IEnumerable&lt;T&gt;
+        ///     A Generator using IEnumerable&lt;T&gt;
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         private class Seq<T> : IGenerator<T> {
             private readonly Lazy<IEnumerator<T>> _lazyEnumerator;
-
-            private IEnumerator<T> Enumerator {
-                get { return _lazyEnumerator.Value; }
-            }
 
             public Seq(IEnumerable<T> enumerable) {
                 _lazyEnumerator = new Lazy<IEnumerator<T>>(enumerable.CacheGeneratedResults().GetEnumerator);
@@ -262,17 +235,8 @@ namespace GeneratorAPI {
 
             public Seq(Func<IEnumerable<T>> fn) : this(Invoker(fn)) { }
 
-            /// <summary>
-            /// QUAS WEX EXORT
-            /// </summary>
-            /// <param name="fn"></param>
-            /// <returns></returns>
-            private static IEnumerable<T> Invoker(Func<IEnumerable<T>> fn) {
-                while (true) {
-                    foreach (var element in fn()) {
-                        yield return element;
-                    }
-                }
+            private IEnumerator<T> Enumerator {
+                get { return _lazyEnumerator.Value; }
             }
 
             public T Generate() {
@@ -281,32 +245,33 @@ namespace GeneratorAPI {
                 Enumerator.MoveNext();
                 return Enumerator.Current;
             }
+
+            /// <summary>
+            ///     QUAS WEX EXORT
+            /// </summary>
+            private static IEnumerable<T> Invoker(Func<IEnumerable<T>> fn) {
+                while (true) foreach (var element in fn()) yield return element;
+            }
         }
     }
 
 
     /// <summary>
-    ///     <para>
-    ///         Contains methods for creating Generators.
-    ///     </para>
+    ///     Contains methods for creating Generators.
     ///     <remarks>
     ///         The point of this class is to contain extension methods from other libraries.
     ///     </remarks>
     /// </summary>
     public class GeneratorFactory {
         /// <summary>
-        ///     <para>
-        ///         A Generator using System.Random as provider.
-        ///     </para>
+        ///     A Generator using System.Random as provider.
         /// </summary>
         public IGenerator<Random> Random(Random random) {
             return Generator.Create(random);
         }
 
         /// <summary>
-        ///     <para>
-        ///         A Guid Generator
-        ///     </para>
+        ///     A Guid Generator
         /// </summary>
         public IGenerator<Guid> Guid() {
             return Generator.Function(System.Guid.NewGuid);
