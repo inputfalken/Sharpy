@@ -92,20 +92,6 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     Exposes TSource from IGenerator&lt;Task&lt;TSource&gt;&gt;.
-        /// </summary>
-        public static IGenerator<Task<TSource>> Do<TSource>(this IGenerator<Task<TSource>> taskGenerator,
-            Action<TSource> actionTask) {
-            if (actionTask == null) throw new ArgumentNullException(nameof(actionTask));
-            if (taskGenerator == null) throw new ArgumentNullException(nameof(taskGenerator));
-            return Function(async () => {
-                var generation = await taskGenerator.Generate();
-                actionTask(generation);
-                return generation;
-            });
-        }
-
-        /// <summary>
         ///     Maps Generator&lt;T&gt; into Generator&lt;TResult&gt;
         /// </summary>
         public static IGenerator<TResult> Select<TSource, TResult>(this IGenerator<TSource> generator,
