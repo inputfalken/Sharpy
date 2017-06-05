@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using GeneratorAPI;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
@@ -75,6 +76,36 @@ namespace Tests.GeneratorAPI {
                 .Take(10);
 
             Assert.AreEqual(expected, result);
+        }
+
+        [Test(
+            Description = "Verify that bool isInvoked gets assigned once the generation is awaited"
+        )]
+        public async Task Do_Task_Gets_Invoked_When_Awaited() {
+            var isInvoked = false;
+            var generator = Generator.Create(Task.Run(async () => {
+                    await Task.Delay(500);
+                    return true;
+                }))
+                .Do(b => isInvoked = b);
+            Assert.IsFalse(isInvoked);
+            await generator.Generate();
+            Assert.IsTrue(isInvoked);
+        }
+
+        [Test(
+            Description = "Verify that bool isInvoked gets assigned once the generation is awaited"
+        )]
+        public void Do_Task_Does_Not_Finish_When_Generate() {
+            var isInvoked = false;
+            var generator = Generator.Create(Task.Run(async () => {
+                    await Task.Delay(500);
+                    return true;
+                }))
+                .Do(b => isInvoked = b);
+            Assert.IsFalse(isInvoked);
+            generator.Generate();
+            Assert.IsFalse(isInvoked);
         }
 
         [Test(
