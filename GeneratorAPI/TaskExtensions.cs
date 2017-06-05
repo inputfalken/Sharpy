@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GeneratorAPI {
-    internal static class TaskExtensions {
+    public static class TaskExtensions {
         /// <summary>
         ///     Exposes TSource from IGenerator&lt;Task&lt;TSource&gt;&gt;.
         /// </summary>
