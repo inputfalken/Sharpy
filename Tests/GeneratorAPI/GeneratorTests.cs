@@ -210,7 +210,10 @@ namespace Tests.GeneratorAPI {
         )]
         public async Task Select_TSource_Task() {
             var generator = Generator
-                .Create(Task.Run(() => "hello"))
+                .Create(Task.Run(async () => {
+                    await Task.Delay(500);
+                    return "hello";
+                }))
                 .Select(s => s.Length);
             Assert.AreEqual(5, await generator.Generate());
         }
@@ -487,7 +490,10 @@ namespace Tests.GeneratorAPI {
         public async Task SelectMany_TResult_Task() {
             var generator = Generator
                 .Create("hello")
-                .SelectMany(s => Task.Run(() => s.Length));
+                .SelectMany(async s => {
+                    await Task.Delay(500);
+                    return s.Length;
+                });
             Assert.AreEqual(5, await generator.Generate());
         }
 
@@ -497,7 +503,10 @@ namespace Tests.GeneratorAPI {
         public async Task SelectMany_TSource_Task_TResult_Task() {
             var generator = Generator
                 .Create(Task.Run(() => "hello"))
-                .SelectMany(s => Task.Run(() => s.Length));
+                .SelectMany(async s => {
+                    await Task.Delay(500);
+                    return s.Length;
+                });
             Assert.AreEqual(5, await generator.Generate());
         }
 
