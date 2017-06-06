@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using GeneratorAPI;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
 
 namespace Tests.GeneratorAPI {
     internal class TaskExtensionTests {
@@ -59,6 +61,22 @@ namespace Tests.GeneratorAPI {
                     return s.Length;
                 });
             Assert.AreEqual(5, await generator.Generate());
+        }
+
+        [Test(
+            Description = "Verify that Where works with Tasks"
+        )]
+        public async Task Where_Predicate_Task_Value() {
+            var generator = Generator
+                .Create(new Randomizer())
+                .Select(async g => {
+                    await Task.Delay(50);
+                    return g.Next(20, 50);
+                })
+                .Where(i => i % 2 == 0)
+                .Take(200);
+
+            Assert.IsTrue((await Task.WhenAll(generator)).All(i => i % 2 == 0));
         }
     }
 }
