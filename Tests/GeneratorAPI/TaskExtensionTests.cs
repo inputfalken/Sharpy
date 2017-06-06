@@ -60,5 +60,45 @@ namespace Tests.GeneratorAPI {
                 });
             Assert.AreEqual(5, await generator.Generate());
         }
+
+        [Test(
+            Description = "Zip called from task generator and zipped with regular generator"
+        )]
+        public async Task Zip_First_Async_Generator() {
+            var generator = Generator
+                .Create(Task.Run(async () => {
+                    await Task.Delay(500);
+                    return "hello";
+                }))
+                .Zip(Generator.Create("world"), (string s, string s1) => s + s1);
+
+            Assert.AreEqual("helloworld", await generator.Generate());
+        }
+
+        [Test(
+            Description = "Zip called from regular generator and zipped with a task generator"
+        )]
+        public async Task Zip_Second_Async_Generator() {
+            var generator = Generator
+                .Create(Task.Run(async () => {
+                    await Task.Delay(500);
+                    return "hello";
+                }));
+            var zip = Generator.Create("world").Zip(generator, (string s, string s1) => s + s1);
+            Assert.AreEqual("worldhello", await zip.Generate());
+        }
+
+        [Test(
+            Description = "Zip called with two task generators"
+        )]
+        public async Task Zip_Both_Async_Generator() {
+            var generator = Generator
+                .Create(Task.Run(async () => {
+                    await Task.Delay(500);
+                    return "hello";
+                }));
+            var zip = Generator.Create(Task.Run(() => "world")).Zip(generator, (string s, string s1) => s + s1);
+            Assert.AreEqual("worldhello", await zip.Generate());
+        }
     }
 }
