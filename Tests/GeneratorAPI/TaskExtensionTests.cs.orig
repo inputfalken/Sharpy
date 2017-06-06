@@ -64,6 +64,7 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
+<<<<<<< .merge_file_IvfVYd
             Description = "Zip called from task generator and zipped with regular generator"
         )]
         public async Task Zip_First_Async_Generator() {
@@ -101,9 +102,7 @@ namespace Tests.GeneratorAPI {
                 }));
             var zip = Generator.Create(Task.Run(() => "world")).Zip(generator, (string s, string s1) => s + s1);
             Assert.AreEqual("worldhello", await zip.Generate());
-        }
-
-        [Test(
+=======
             Description = "Verify that Where works with Tasks"
         )]
         public async Task Where_Predicate_Task_Value() {
@@ -117,6 +116,7 @@ namespace Tests.GeneratorAPI {
                 .Take(200);
 
             Assert.IsTrue((await Task.WhenAll(generator)).All(i => i % 2 == 0));
+>>>>>>> .merge_file_RutwxS
         }
     }
 }
