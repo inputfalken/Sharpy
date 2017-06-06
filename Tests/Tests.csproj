@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="GeneratorAPI\CircularSequenceTests.cs" />
     <Compile Include="GeneratorAPI\GeneratorTests.cs" />
+    <Compile Include="GeneratorAPI\TaskExtensionTests.cs" />
     <Compile Include="Sharpy\FileTests.cs" />
     <Compile Include="Sharpy\Integration\Bool.cs" />
     <Compile Include="Sharpy\Integration\Config.cs" />
