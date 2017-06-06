@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace GeneratorAPI {
     /// <summary>
@@ -55,6 +56,7 @@ namespace GeneratorAPI {
             if (enumerable == null) throw new ArgumentNullException(nameof(enumerable));
             return new Seq<T>(enumerable);
         }
+
 
         /// <summary>
         ///     Filters the generation to fit the predicate.
