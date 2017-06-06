@@ -77,6 +77,7 @@ namespace Tests.GeneratorAPI {
             Assert.AreEqual(expected, result);
         }
 
+
         [Test(
             Description = "Verify that the Action is only invoked if Generate is called"
         )]
@@ -204,6 +205,7 @@ namespace Tests.GeneratorAPI {
             Assert.AreEqual(expected, result);
         }
 
+
         [Test(
             Description = "Verify that SelectMany double arg with null Generator and null first arg"
         )]
@@ -298,6 +300,63 @@ namespace Tests.GeneratorAPI {
             Assert.AreEqual(enumerable, result);
         }
 
+
+        [Test(
+            Description = "Verify that the randomized number changes when enumerable restarts"
+        )]
+        public void SelectMany_IEnumerable_Composer_Argument_Changes() {
+            var result = Generator
+                .Create(new Randomizer(Seed))
+                .Select(rnd => rnd.Next(1, 100))
+                //randomized number changes Enumerable repeats
+                .SelectMany(randomizedNumer => Enumerable.Range(1, 5), (i, i1) => i + i1)
+                .Take(10);
+            var randomizer = new Randomizer(Seed);
+            var rndRes1 = randomizer.Next(1, 100);
+            var rndRes2 = randomizer.Next(1, 100);
+            var enumerable = Enumerable.Range(1, 5).Select(i => i + rndRes1)
+                .Concat(Enumerable.Range(1, 5).Select(i => i + rndRes2));
+
+            Assert.AreEqual(enumerable, result);
+        }
+
+        [Test(
+            Description = "Verify that null composer throws exception"
+        )]
+        public void SelectMany_IEnumerable_Composer_Null_Composer() {
+            Assert.Throws<ArgumentNullException>(
+                () => _generator.SelectMany<string, int, string>(s => Enumerable.Range(0, 10), null));
+        }
+
+        [Test(
+            Description = "Verify that both null composer and selector throws exception"
+        )]
+        public void SelectMany_IEnumerable_Composer_Null_Composer_And_Selector() {
+            Assert.Throws<ArgumentNullException>(
+                () => _generator.SelectMany<string, int, string>(enumerableSelector: null, composer: null));
+        }
+
+        [Test(
+            Description = "Verify that null Selector throws exception"
+        )]
+        public void SelectMany_IEnumerable_Composer_Null_Selector() {
+            Assert.Throws<ArgumentNullException>(
+                () => _generator.SelectMany<string, int, string>(enumerableSelector: null, composer: (s, i) => s + i));
+        }
+
+        [Test]
+        public void SelectMany_IEnumerable_Composer_Using_Randomizer() {
+            var result = Generator
+                .Create(new Randomizer(Seed))
+                .SelectMany(rnd => Enumerable.Range(1, 10), (rnd, i) => i + rnd.Next(1, 100))
+                .Take(10);
+            var randomizer = new Randomizer(Seed);
+            var expected = Enumerable
+                .Range(1, 10)
+                .Select(i => i + randomizer.Next(1, 100));
+            Assert.AreEqual(expected, result);
+        }
+
         [Test(
             Description = "Verify that Enumerable turns into CircularEnumerable"
         )]
@@ -319,69 +378,12 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that null Selector throws exception"
-        )]
-        public void SelectMany_IEnumerable_Composer_Null_Selector() {
-            Assert.Throws<ArgumentNullException>(
-                () => _generator.SelectMany<string, int, string>(enumerableSelector: null, composer: (s, i) => s + i));
-        }
-
-        [Test(
-            Description = "Verify that null composer throws exception"
-        )]
-        public void SelectMany_IEnumerable_Composer_Null_Composer() {
-            Assert.Throws<ArgumentNullException>(
-                () => _generator.SelectMany<string, int, string>(s => Enumerable.Range(0, 10), null));
-        }
-
-        [Test(
-            Description = "Verify that both null composer and selector throws exception"
-        )]
-        public void SelectMany_IEnumerable_Composer_Null_Composer_And_Selector() {
-            Assert.Throws<ArgumentNullException>(
-                () => _generator.SelectMany<string, int, string>(enumerableSelector: null, composer: null));
-        }
-
-        [Test(
             Description = "Verify that SelectMany works as the expected LINQ expression"
         )]
         public void SelectMany_IEnumerable_Using_Randomizer() {
             var result = Generator
                 .Create(new Randomizer(Seed))
                 .SelectMany(rnd => Enumerable.Range(1, 10).Select(i => i + rnd.Next(1, 100)))
-                .Take(10);
-            var randomizer = new Randomizer(Seed);
-            var expected = Enumerable
-                .Range(1, 10)
-                .Select(i => i + randomizer.Next(1, 100));
-            Assert.AreEqual(expected, result);
-        }
-
-
-        [Test(
-            Description = "Verify that the randomized number changes when enumerable restarts"
-        )]
-        public void SelectMany_IEnumerable_Composer_Argument_Changes() {
-            var result = Generator
-                .Create(new Randomizer(Seed))
-                .Select(rnd => rnd.Next(1, 100))
-                //randomized number changes Enumerable repeats
-                .SelectMany(randomizedNumer => Enumerable.Range(1, 5), (i, i1) => i + i1)
-                .Take(10);
-            var randomizer = new Randomizer(Seed);
-            var rndRes1 = randomizer.Next(1, 100);
-            var rndRes2 = randomizer.Next(1, 100);
-            var enumerable = Enumerable.Range(1, 5).Select(i => i + rndRes1)
-                .Concat(Enumerable.Range(1, 5).Select(i => i + rndRes2));
-
-            Assert.AreEqual(enumerable, result);
-        }
-
-        [Test]
-        public void SelectMany_IEnumerable_Composer_Using_Randomizer() {
-            var result = Generator
-                .Create(new Randomizer(Seed))
-                .SelectMany(rnd => Enumerable.Range(1, 10), (rnd, i) => i + rnd.Next(1, 100))
                 .Take(10);
             var randomizer = new Randomizer(Seed);
             var expected = Enumerable
@@ -469,6 +471,7 @@ namespace Tests.GeneratorAPI {
 
             Assert.AreEqual(expected, result);
         }
+
 
         [Test(
             Description = "Verify that take with negative argument throws exception"
@@ -762,7 +765,7 @@ namespace Tests.GeneratorAPI {
         )]
         public void Zip_Null__Generator_Null_First_Arg() {
             IGenerator<string> generator = null;
-            Assert.Throws<ArgumentNullException>(() => generator.Zip<string, string, string>(null, (s, s1) => s + s1));
+            Assert.Throws<ArgumentNullException>(() => { generator.Zip(_generator, (s, s1) => s + s1); });
         }
 
         [Test(
@@ -786,14 +789,14 @@ namespace Tests.GeneratorAPI {
             Description = "Verify that passing null for both argument does not work and throws exception"
         )]
         public void Zip_Null_Both_Param_Throws() {
-            Assert.Throws<ArgumentNullException>(() => _generator.Zip<string, int, string>(null, null));
+            Assert.Throws<ArgumentNullException>(() => _generator.Zip<string, int, string>(null, fn: null));
         }
 
         [Test(
             Description = "Verify that passing null for first argument does not work and throws exception"
         )]
         public void Zip_Null_First_Param_Throws() {
-            Assert.Throws<ArgumentNullException>(() => _generator.Zip<string, int, string>(null, (s, i) => s + i));
+            Assert.Throws<ArgumentNullException>(() => _generator.Zip<string, int, string>(null, fn: (s, i) => s + i));
         }
 
         [Test(
@@ -801,7 +804,7 @@ namespace Tests.GeneratorAPI {
         )]
         public void Zip_Null_Generator_And_Args_Throws() {
             IGenerator<string> generator = null;
-            Assert.Throws<ArgumentNullException>(() => generator.Zip<string, int, string>(null, null));
+            Assert.Throws<ArgumentNullException>(() => generator.Zip<string, int, string>(null, fn: null));
         }
 
         [Test(
