@@ -58,7 +58,7 @@ namespace GeneratorAPI {
 
 
         /// <summary>
-        ///     Filters the generation to fit the predicate.
+        ///     Filters the generator by the predicate.
         ///     <remarks>
         ///         Use with Caution: Bad predicates cause the method to throw exception if threshold is reached.
         ///     </remarks>
@@ -163,7 +163,7 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     Combine generation and compose the generation.
+        ///     Combine a Generator with another generator and compose the result.
         /// </summary>
         public static IGenerator<TResult> Zip<TSource, TSecond, TResult>(this IGenerator<TSource> first,
             IGenerator<TSecond> second,

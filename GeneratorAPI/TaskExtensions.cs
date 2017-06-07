@@ -5,17 +5,26 @@ namespace GeneratorAPI {
     /// <summary>
     /// </summary>
     public static class TaskExtensions {
+        /// <summary>
+        ///   Combine a Task Generator with another regular Generator and compose the result.
+        /// </summary>
         public static IGenerator<Task<TResult>> Zip<TFirst, TSecond, TResult>(
             this IGenerator<Task<TFirst>> firstTaskGenerator,
             IGenerator<TSecond> second, Func<TFirst, TSecond, TResult> composer) {
             return firstTaskGenerator.Zip(second, async (l, r) => composer(await l, r));
         }
 
+        /// <summary>
+        ///   Combine a Generator with another a Task Generator and compose the result.
+        /// </summary>
         public static IGenerator<Task<TResult>> Zip<TFirst, TSecond, TResult>(this IGenerator<TFirst> first,
             IGenerator<Task<TSecond>> secondTaskGenerator, Func<TFirst, TSecond, TResult> composer) {
             return first.Zip(secondTaskGenerator, async (l, r) => composer(l, await r));
         }
 
+        /// <summary>
+        ///   Combine an async Generator with another a Task Generator and compose the result.
+        /// </summary>
         public static IGenerator<Task<TResult>> Zip<TFirst, TSecond, TResult>(
             this IGenerator<Task<TFirst>> firstTaskGenerator,
             IGenerator<Task<TSecond>> secondTaskGenerator, Func<TFirst, TSecond, TResult> composer) {
@@ -23,7 +32,7 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     Filters the generation to fit the predicate.
+        ///     Filter the Task generator by the predicate.
         ///     <remarks>
         ///         Use with Caution: Bad predicates cause the method to throw exception if threshold is reached.
         ///     </remarks>
