@@ -40,14 +40,14 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that passing null to creating of circular sequcene throws"
+            Description = "Verify that passing null when creating a circular sequence throws exception"
         )]
         public void Null_Enumerable() {
             Assert.Throws<ArgumentNullException>(() => Generator.CircularSequence<string>(null));
         }
 
         [Test(
-            Description = "Verify that generator resets when list ends"
+            Description = "Verify that generator restarts when all elements has been iterated"
         )]
         public void Repeats_When_List_Ends() {
             var list = _generator.Take(40).ToList();
