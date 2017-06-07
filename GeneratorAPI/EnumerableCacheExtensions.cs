@@ -14,7 +14,7 @@ namespace GeneratorAPI {
     /// <summary>
     ///     Extension methods for <see cref="IEnumerable{T}" /> types.
     /// </summary>
-    internal static class EnumerableCacheExtensions {
+    public static partial class Generator {
         /// <summary>
         ///     Caches the results of enumerating over a given object so that subsequence enumerations
         ///     don't require interacting with the object a second time.
@@ -38,7 +38,7 @@ namespace GeneratorAPI {
         ///         to avoid double-caching.
         ///     </para>
         /// </remarks>
-        internal static IEnumerable<T> CacheGeneratedResults<T>(this IEnumerable<T> sequence) {
+        private static IEnumerable<T> CacheGeneratedResults<T>(this IEnumerable<T> sequence) {
             // Don't create a cache for types that don't need it.
             if (sequence is IList<T> ||
                 sequence is ICollection<T> ||
