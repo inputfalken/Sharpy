@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 namespace GeneratorAPI {
     /// <summary>
     /// </summary>
-    public static class TaskExtensions {
+    public static partial class Generator {
         /// <summary>
         ///   Combine a Task Generator with another regular Generator and compose the result.
         /// </summary>
