@@ -244,12 +244,37 @@ namespace GeneratorAPI {
         /// <summary>
         ///     A Generator using System.Random with the arguments supplied.
         /// </summary>
-        public IGenerator<int> Randomizer(int min = 0, int max = int.MaxValue, int? seed = null) {
-            return Generator.Create(seed == null
-                    ? new Random()
-                    : new Random(seed.Value)
-                )
+        public IGenerator<int> Randomizer(int min, int max, int? seed = null) {
+            return Generator
+                .Create(CreateRandom(seed))
                 .Select(rnd => rnd.Next(min, max));
+        }
+
+        /// <summary>
+        ///     A Generator using System.Random with the arguments supplied.
+        /// </summary>
+        public IGenerator<int> Randomizer(int max, int? seed = null) {
+            return Generator
+                .Create(CreateRandom(seed))
+                .Select(rnd => rnd.Next(max));
+        }
+
+        /// <summary>
+        ///     Creates random with seed if it's not set to null.
+        /// </summary>
+        private static Random CreateRandom(int? seed) {
+            return seed == null
+                ? new Random()
+                : new Random(seed.Value);
+        }
+
+        /// <summary>
+        ///     A Generator using System.Random with the arguments supplied.
+        /// </summary>
+        public IGenerator<int> Randomizer(int? seed = null) {
+            return Generator
+                .Create(CreateRandom(seed))
+                .Select(rnd => rnd.Next());
         }
 
 
