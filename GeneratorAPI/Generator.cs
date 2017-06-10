@@ -242,11 +242,41 @@ namespace GeneratorAPI {
     /// </summary>
     public class GeneratorFactory {
         /// <summary>
-        ///     A Generator using System.Random as provider.
+        ///     A Generator using System.Random with the arguments supplied.
         /// </summary>
-        public IGenerator<Random> Random(Random random) {
-            return Generator.Create(random);
+        public IGenerator<int> Randomizer(int min, int max, int? seed = null) {
+            return Generator
+                .Create(CreateRandom(seed))
+                .Select(rnd => rnd.Next(min, max));
         }
+
+        /// <summary>
+        ///     A Generator using System.Random with the arguments supplied.
+        /// </summary>
+        public IGenerator<int> Randomizer(int max, int? seed = null) {
+            return Generator
+                .Create(CreateRandom(seed))
+                .Select(rnd => rnd.Next(max));
+        }
+
+        /// <summary>
+        ///     Creates random with seed if it's not set to null.
+        /// </summary>
+        private static Random CreateRandom(int? seed) {
+            return seed == null
+                ? new Random()
+                : new Random(seed.Value);
+        }
+
+        /// <summary>
+        ///     A Generator using System.Random with the arguments supplied.
+        /// </summary>
+        public IGenerator<int> Randomizer(int? seed = null) {
+            return Generator
+                .Create(CreateRandom(seed))
+                .Select(rnd => rnd.Next());
+        }
+
 
         /// <summary>
         ///     A Guid Generator
@@ -256,7 +286,7 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     Creates a int Generator which increments the value by <param name="incrementalValue"></param> for each generation and starts at <param name="start"></param>.
+        ///     Creates a int Generator which increments the value by one for each generation and starts at <param name="start"></param>.
         ///     <remarks>
         ///         Throws Exception if the incremental value overflows.
         ///     </remarks>
