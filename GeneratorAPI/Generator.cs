@@ -264,5 +264,15 @@ namespace GeneratorAPI {
         public IGenerator<int> Incrementer(int start = 0) {
             return Generator.Function(() => checked(start++));
         }
+
+        /// <summary>
+        ///     Creates a int Generator which decrements the value by one for each generation and starts at <param name="start"></param>.
+        ///     <remarks>
+        ///         Throws Exception if the incremental value overflows.
+        ///     </remarks>
+        /// </summary>
+        public IGenerator<int> Decrementer(int start = 0) {
+            return Generator.Function(() => checked(start--));
+        }
     }
 }
