@@ -242,11 +242,16 @@ namespace GeneratorAPI {
     /// </summary>
     public class GeneratorFactory {
         /// <summary>
-        ///     A Generator using System.Random as provider.
+        ///     A Generator using System.Random with the arguments supplied.
         /// </summary>
-        public IGenerator<Random> Random(Random random) {
-            return Generator.Create(random);
+        public IGenerator<int> Randomizer(int min = 0, int max = int.MaxValue, int? seed = null) {
+            return Generator.Create(seed == null
+                    ? new Random()
+                    : new Random(seed.Value)
+                )
+                .Select(rnd => rnd.Next(min, max));
         }
+
 
         /// <summary>
         ///     A Guid Generator
