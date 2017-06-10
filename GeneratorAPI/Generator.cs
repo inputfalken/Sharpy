@@ -254,5 +254,14 @@ namespace GeneratorAPI {
         public IGenerator<Guid> Guid() {
             return Generator.Function(System.Guid.NewGuid);
         }
+        /// <summary>
+        ///     Creates a int Generator which increments the value by <param name="incrementalValue"></param> for each generation and starts at <param name="start"></param>.
+        ///     <remarks>
+        ///         Throws Exception if the incremental value overflows.
+        ///     </remarks>
+        /// </summary>
+        public IGenerator<int> Incrementer(int start = 0, int incrementalValue = 1) {
+            return Generator.Function(() => checked (start += incrementalValue));
+        }
     }
 }
