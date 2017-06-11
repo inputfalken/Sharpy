@@ -40,14 +40,14 @@ namespace Tests.GeneratorAPI {
         [Test(
             Description = "Verify that Select can use <T> of IGenerator<Task<T>>"
         )]
-        public async Task Select() {
+        public async Task Select_From_Task() {
             var generator = Generator
-                .Create("hello")
+                .Create(Task.Run(() => "hello"))
                 .Select(async s => {
                     await Task.Delay(500);
                     return s.Length;
                 });
-            Assert.AreEqual(5, await generator.Generate());
+            Assert.AreEqual(5, await await generator.Generate());
         }
 
         [Test(
@@ -61,6 +61,45 @@ namespace Tests.GeneratorAPI {
                     return s.Length;
                 });
             Assert.AreEqual(5, await generator.Generate());
+        }
+
+        [Test(
+            Description = "Verify that Selectmany with compose can flat nested task"
+        )]
+        public async Task SelectMany_Flat_Nested_Task_Compose() {
+            var generator = Generator
+                .Create(Task.Run(() => "hello"))
+                .SelectMany(async s => {
+                    await Task.Delay(500);
+                    return s.Length;
+                }, (s, i) => s + i);
+            Assert.AreEqual("hello5", await generator.Generate());
+        }
+
+        [Test(
+            Description = "Verify that Selectmany can flat nested task"
+        )]
+        public async Task SelectMany_Flat_Task() {
+            var generator = Generator
+                .Create("Hello")
+                .SelectMany(async s => {
+                    await Task.Delay(500);
+                    return s.Length;
+                });
+            Assert.AreEqual(5, await generator.Generate());
+        }
+
+        [Test(
+            Description = "Verify that Selectmany with compose can flat nested task"
+        )]
+        public async Task SelectMany_Flat_Task_Compose() {
+            var generator = Generator
+                .Create("hello")
+                .SelectMany(async s => {
+                    await Task.Delay(500);
+                    return s.Length;
+                }, (s, i) => s + i);
+            Assert.AreEqual("hello5", await generator.Generate());
         }
 
         [Test(

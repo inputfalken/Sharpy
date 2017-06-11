@@ -59,7 +59,18 @@ namespace GeneratorAPI {
         public static IGenerator<Task<TResult>> SelectMany<TSource, TResult>(
             this IGenerator<TSource> taskGenerator,
             Func<TSource, Task<TResult>> taskSelector) {
-            return taskGenerator.Select(async source => await taskSelector(source));
+            return taskGenerator.SelectMany(source => Function(async () => await taskSelector(source)));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static IGenerator<Task<TCompose>> SelectMany<TSource, TResult, TCompose>(
+            this IGenerator<TSource> taskGenerator,
+            Func<TSource, Task<TResult>> taskSelector, Func<TSource, TResult, TCompose> composer) {
+            return taskGenerator
+                .SelectMany(s => Function(async () => await taskSelector(s))
+                    .SelectMany(r => Function(async () => composer(s, await r))));
         }
 
         /// <summary>
@@ -82,8 +93,20 @@ namespace GeneratorAPI {
         public static IGenerator<Task<TResult>> SelectMany<TSource, TResult>(
             this IGenerator<Task<TSource>> taskGenerator,
             Func<TSource, Task<TResult>> taskSelector) {
-            return taskGenerator.Select(async task => await taskSelector(await task));
+            return taskGenerator.SelectMany(async task => await taskSelector(await task));
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static IGenerator<Task<TCompose>> SelectMany<TSource, TResult, TCompose>(
+            this IGenerator<Task<TSource>> taskGenerator,
+            Func<TSource, Task<TResult>> taskSelector, Func<TSource, TResult, TCompose>composer) {
+            return taskGenerator
+                .SelectMany(s => Function(async () => await taskSelector(await s))
+                    .SelectMany(r => Function(async () => composer(await s, await r))));
+        }
+
 
         /// <summary>
         ///     Exposes TSource from IGenerator&lt;Task&lt;TSource&gt;&gt;.
