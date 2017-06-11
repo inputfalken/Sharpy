@@ -1,9 +1,9 @@
 language: csharp
 solution: Sharpy.sln
 install:
-  - sudo apt-get install nunit-console
   - nuget restore Sharpy.sln
+  - mkdir testrunner
+  - nuget install NUnit.Runners -Version 3.6.1 -OutputDirectory testrunner
 script:
   - xbuild /p:Configuration=Release Sharpy.sln
-  - nunit-console Tests/bin/Release/Tests.dll
-
+  - mono ./testrunner/NUnit.ConsoleRunner.3.6.1/tools/nunit3-console.exe ./Tests/bin/Release/Tests.dll
