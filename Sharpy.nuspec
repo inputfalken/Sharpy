@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Sharpy</id>
-    <version>3.0.4-alpha</version>
+    <version>3.0.5-alpha</version>
     <title>Sharpy</title>
     <authors>Robert Andersson</authors>
     <owners>Robert Andersson</owners>
@@ -22,7 +22,9 @@
   </metadata>
   <files>
     <file src="./Sharpy/bin/Release/Sharpy.dll" target="lib/net45/" />
+    <file src="./Sharpy/bin/Release/Sharpy.xml" target="lib/net45/" />
     <file src="./Sharpy/bin/Release/GeneratorAPI.dll" target="lib/net45/" />
+    <file src="./Sharpy/bin/Release/GeneratorAPI.xml" target="lib/net45/" />
   </files>
 </package>
 <!--
