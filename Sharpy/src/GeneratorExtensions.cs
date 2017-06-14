@@ -7,9 +7,8 @@ namespace Sharpy {
     public static class GeneratorExtensions {
         /// <summary>
         ///     <para>
-        ///         Provider Contains various methods for generating data.
+        ///         Provider Contains various methods for generating common data types.
         ///         To get the same result every time you execute the program use the seed overload constructor.
-        ///         If want you to add your own methods you can derive from this class.
         ///     </para>
         /// </summary>
         /// <param name="factory"></param>
