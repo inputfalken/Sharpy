@@ -3,11 +3,16 @@
 
 This is a hobby project of mine where the goal is to have an easy way of generating some fake data.
 
-Hope you'll find this class libary useful.
+Hope you'll find this class library useful.
 ## Install
-Use the Nuget Package Manager Console and type Install-Package Sharpy
+Use the NuGet Package Manager Console and type Install-Package Sharpy
 
-[Link](https://www.nuget.org/packages/Sharpy/) to package on Nuget.
+## Todo
+
+* Travis ignore when tests fails after update of NUnit.
+* Combine AppVeyor with Travis by using their API.
+
+[Link](https://www.nuget.org/packages/Sharpy/) to package on NuGet.
 ## Dependencies:
 
 * [NodaTime](https://github.com/nodatime/nodatime) for dates
