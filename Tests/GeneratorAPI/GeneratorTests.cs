@@ -23,43 +23,18 @@ namespace Tests.GeneratorAPI {
         private const int Seed = 100;
 
         [Test(
-            Description = "Verify that Generator.Lazy is not used before generate is invoked"
-        )]
-        public void Create_Lazy_Is_Invoked_After_Take_Is_Invoked() {
-            var invoked = false;
-            Generator.Lazy(() => {
-                invoked = true;
-                return new Randomizer();
-            }).Generate();
-            Assert.IsTrue(invoked);
-        }
-
-        [Test(
-            Description = "Verify that Generator.Lazy is not used before generate is invoked"
-        )]
-        public void Create_Lazy_Is_Not_Invoked_Before_Take_Is_Invoked() {
-            var invoked = false;
-            Generator.Lazy(() => {
-                invoked = true;
-                return new Randomizer();
-            });
-            Assert.IsFalse(invoked);
-        }
-
-        [Test(
-            Description = "Verify that Generator.Lazy uses same instance"
-        )]
-        public void Create_Lazy_Use_Same_Instance() {
-            var generator = Generator.Lazy(() => new Randomizer());
-            Assert.AreSame(generator.Generate(), generator.Generate());
-        }
-
-        [Test(
             Description = "Verifies that Generator.Create uses same instance"
         )]
         public void Create_Use_Same_Instance() {
             var generator = Generator.Create(new Randomizer());
             Assert.AreSame(generator.Generate(), generator.Generate());
+        }
+
+        [Test(
+            Description = "Verify that null argument to Create throws exception"
+        )]
+        public void Create_With_Null_Arg_Throws() {
+            Assert.Throws<ArgumentNullException>(() => Generator.Create<string>(null));
         }
 
         [Test(
@@ -136,6 +111,45 @@ namespace Tests.GeneratorAPI {
         )]
         public void Function_Throw_Exception_When_Null() {
             Assert.Throws<ArgumentNullException>(() => Generator.Function<string>(null), "Argument cannot be null");
+        }
+
+        [Test(
+            Description = "Verify that Generator.Lazy is not used before generate is invoked"
+        )]
+        public void Lazy_Is_Invoked_After_Take_Is_Invoked() {
+            var invoked = false;
+            Generator.Lazy(() => {
+                invoked = true;
+                return new Randomizer();
+            }).Generate();
+            Assert.IsTrue(invoked);
+        }
+
+        [Test(
+            Description = "Verify that Generator.Lazy is not used before generate is invoked"
+        )]
+        public void Lazy_Is_Not_Invoked_Before_Take_Is_Invoked() {
+            var invoked = false;
+            Generator.Lazy(() => {
+                invoked = true;
+                return new Randomizer();
+            });
+            Assert.IsFalse(invoked);
+        }
+
+        [Test(
+            Description = "Verify that Generator.Lazy uses same instance"
+        )]
+        public void Lazy_Use_Same_Instance() {
+            var generator = Generator.Lazy(() => new Randomizer());
+            Assert.AreSame(generator.Generate(), generator.Generate());
+        }
+
+        [Test(
+            Description = "Verify that null argument to Lazy throw exceptions"
+        )]
+        public void Lazy_With_Null_Arg_Throws() {
+            Assert.Throws<ArgumentNullException>(() => Generator.Lazy<string>(lazy: null));
         }
 
         [Test(
