@@ -31,10 +31,11 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that null argument to Create throws exception"
+            Description = "Veirfy that Create does not throw exception when the argument is null" +
+                          "Since the argument is just T you can't be sure if the consumer was using the default value of int(0) intentionally"
         )]
         public void Create_With_Null_Arg_Throws() {
-            Assert.Throws<ArgumentNullException>(() => Generator.Create<string>(null));
+            Assert.DoesNotThrow(() => Generator.Create<string>(null));
         }
 
         [Test(
@@ -111,6 +112,23 @@ namespace Tests.GeneratorAPI {
         )]
         public void Function_Throw_Exception_When_Null() {
             Assert.Throws<ArgumentNullException>(() => Generator.Function<string>(null), "Argument cannot be null");
+        }
+
+        [Test(
+            Description = "Verify that Generate gives expected result"
+        )]
+        public void Generate_Expected_Result() {
+            var result = _generator.Generate();
+            var expected = new Randomizer(Seed).GetString();
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test(
+            Description = "Verify that does not return null"
+        )]
+        public void Generate_Not_Null() {
+            var result = _generator.Generate();
+            Assert.IsNotNull(result);
         }
 
         [Test(
@@ -531,20 +549,11 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that Take gives expected result"
+            Description = "Verify that null generator throws excpetion when take is invoked"
         )]
-        public void Take_No_Param_Gives_Expected_Element() {
-            var result = _generator.Generate();
-            var expected = new Randomizer(Seed).GetString();
-            Assert.AreEqual(expected, result);
-        }
-
-        [Test(
-            Description = "Verify that take does not return null"
-        )]
-        public void Take_No_Param_Is_Not_Null() {
-            var result = _generator.Generate();
-            Assert.IsNotNull(result);
+        public void Take_Null_Generator_Throws() {
+            IGenerator<string> nullGenerator = null;
+            Assert.Throws<ArgumentNullException>(() => nullGenerator.Take(1));
         }
 
         [Test(
@@ -642,6 +651,16 @@ namespace Tests.GeneratorAPI {
         )]
         public void ToList_Zero_Length_Throws() {
             Assert.Throws<ArgumentException>(() => _generator.ToList(0));
+        }
+
+        [Test(
+            Description = "Verify that bad predicates do not run forever."
+        )]
+        public void Where_Bad_Predicate_Throws() {
+            var result = _generator
+                .Where(s => false);
+
+            Assert.Throws<ArgumentException>(() => result.Generate());
         }
 
         [Test(
