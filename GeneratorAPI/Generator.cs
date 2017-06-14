@@ -26,6 +26,9 @@ namespace GeneratorAPI {
         ///     Creates a lazy Generator&lt;T&gt; with the type provided.
         /// </summary>
         public static IGenerator<T> Lazy<T>(Lazy<T> lazy) {
+            if (lazy == null) {
+                throw new ArgumentNullException(nameof(lazy));
+            }
             return new Fun<T>(() => lazy.Value);
         }
 
