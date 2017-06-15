@@ -2,8 +2,17 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+echo 'Starting build with msbuild'
+msbuild /v:minimal /p:Configuration=Release Sharpy.sln
+
+echo 'Starting tests with NUnit'
+mono ./testrunner/NUnit.ConsoleRunner.3.6.1/tools/nunit3-console.exe ./Tests/bin/Release/Tests.dll
 Source='https://www.nuget.org/api/v2/package'
 
+
+#####################
+#       Deploy      #
+#####################
 # Change tresureGen to use my own path.
 function deploy {
   mono .nuget/nuget.exe pack ./Sharpy.nuspec -Verbosity detailed
