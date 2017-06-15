@@ -2,18 +2,26 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-echo 'Starting build with msbuild'
+yellow=$(tput setaf 3)
+green=$(tput setaf 2)
+reset=$(tput sgr0)
+underline=$(tput smul)
+exitUnderline=$(tput rmul)
+
+echo "${yellow}Starting build on solution with msbuild ${reset}"
 msbuild /v:minimal /p:Configuration=Release Sharpy.sln
+buildResult=$?
+if [ $buildResult -eq 0 ]; then
+  echo "${green}Build Succeeded"
+fi
 
-echo 'Starting tests with NUnit'
+echo "${yellow}Starting tests with NUnit${reset}"
 mono ./testrunner/NUnit.ConsoleRunner.3.6.1/tools/nunit3-console.exe ./Tests/bin/Release/Tests.dll
-Source='https://www.nuget.org/api/v2/package'
-
 
 #####################
 #       Deploy      #
 #####################
-# Change tresureGen to use my own path.
+Source='https://www.nuget.org/api/v2/package'
 function deploy {
   mono .nuget/nuget.exe pack ./Sharpy.nuspec -Verbosity detailed
 
@@ -24,7 +32,7 @@ BRANCH="$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo "$TRAVIS_BRANCH"; 
 
 case "$BRANCH" in
   master)
-    echo "Deploying production from branch $BRANCH"
+    echo "${underline}Deploying production from branch $BRANCH${exitUnderline}"
 
     set +e
     grep -vE '<version>.+-alpha' ./Sharpy.nuspec
@@ -36,7 +44,7 @@ case "$BRANCH" in
     fi
   ;;
   development)
-    echo "Deploying alpha build from branch $BRANCH"
+    echo "${underline}Deploying alpha build from branch $BRANCH${exitUnderline}"
 
     set +e
     grep -E '<version>.+-alpha' ./Sharpy.nuspec
