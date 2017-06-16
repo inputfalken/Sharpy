@@ -38,14 +38,15 @@ namespace GeneratorAPI {
         ///     </remarks>
         /// </summary>
         public static IGenerator<Task<TSource>> Where<TSource>(this IGenerator<Task<TSource>> taskGenerator,
-            Func<TSource, bool> predicate, int threshold = 100000) {
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            Func<TSource, bool> asyncPredicate, int threshold = 100000) {
+            // predicate can't be named predicate because ambiguous usage of overloads....
+            if (asyncPredicate == null) throw new ArgumentNullException(nameof(asyncPredicate));
             if (taskGenerator == null) throw new ArgumentNullException(nameof(taskGenerator));
             // Duplicated from Generator.Where but with async.
-            return Generator.Function(async () => {
+            return Function(async () => {
                 for (var i = 0; i < threshold; i++) {
                     var generation = await taskGenerator.Generate();
-                    if (predicate(generation)) return generation;
+                    if (asyncPredicate(generation)) return generation;
                 }
                 throw new ArgumentException($"Could not match the predicate with {threshold} attempts. ");
             });
