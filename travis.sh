@@ -50,6 +50,9 @@ mono ./testrunner/NUnit.ConsoleRunner.3.6.1/tools/nunit3-console.exe ./Tests/bin
 ####################################################################################################
 #                                            Deployment
 ####################################################################################################
+BRANCH="$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo "$TRAVIS_BRANCH"; else echo "$TRAVIS_PULL_REQUEST_BRANCH"; fi)"
+
+curl -d "{accountName: 'inputfalken', projectSlug: 'Sharpy', branch: '$BRANCH'}" -H "Authorization: Bearer $APPVEYOR_API_TOKEN" -H 'Content-Type: application/json' -X POST https://ci.appveyor.com/api/builds
 Source='https://www.nuget.org/api/v2/package'
 function deploy {
   mono .nuget/nuget.exe pack ./Sharpy.nuspec -Verbosity detailed
@@ -57,7 +60,6 @@ function deploy {
   mono .nuget/nuget.exe push ./Sharpy.*.*.*.nupkg -Verbosity detailed -ApiKey "$NUGET_API_KEY" -Source "$Source"
 }
 
-BRANCH="$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo "$TRAVIS_BRANCH"; else echo "$TRAVIS_PULL_REQUEST_BRANCH"; fi)"
 
 case "$BRANCH" in
   master)
