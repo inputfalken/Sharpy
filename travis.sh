@@ -48,45 +48,8 @@ fi
 echo "${yellow}Starting NUnit tests${reset}"
 mono ./testrunner/NUnit.ConsoleRunner.3.6.1/tools/nunit3-console.exe ./Tests/bin/Release/Tests.dll
 ####################################################################################################
-#                                            Deployment
+#                                             AppVeyor
 ####################################################################################################
 BRANCH="$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo "$TRAVIS_BRANCH"; else echo "$TRAVIS_PULL_REQUEST_BRANCH"; fi)"
-
+# Tell AppVeyor to start a build
 curl -d "{accountName: 'inputfalken', projectSlug: 'Sharpy', branch: '$BRANCH'}" -H "Authorization: Bearer $APPVEYOR_API_TOKEN" -H 'Content-Type: application/json' -X POST https://ci.appveyor.com/api/builds
-Source='https://www.nuget.org/api/v2/package'
-function deploy {
-  mono .nuget/nuget.exe pack ./Sharpy.nuspec -Verbosity detailed
-
-  mono .nuget/nuget.exe push ./Sharpy.*.*.*.nupkg -Verbosity detailed -ApiKey "$NUGET_API_KEY" -Source "$Source"
-}
-
-
-case "$BRANCH" in
-  master)
-    echo "Deploying production from branch${bold} $BRANCH${reset}"
-
-    set +e
-    grep -vE '<version>.+-alpha' ./Sharpy.nuspec
-    isStableVersion=$?
-    set -e
-
-    if [ $isStableVersion -eq 0 ]; then
-      deploy
-    fi
-  ;;
-  development)
-    echo "Deploying alpha build from branch${bold} $BRANCH${reset}"
-
-    set +e
-    grep -E '<version>.+-alpha' ./Sharpy.nuspec
-    isAlphaVersion=$?
-    set -e
-
-    if [ $isAlphaVersion -eq 0 ]; then
-      deploy
-    fi
-  ;;
-  *)
-    echo 'Not in a valid branch, skipping deployment.'
-  ;;
-esac

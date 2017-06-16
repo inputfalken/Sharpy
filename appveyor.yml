@@ -1,0 +1,25 @@
+branches:
+  only:
+    - master
+    - development
+configuration: Release
+
+before_build:
+  - nuget restore
+
+build:
+  parallel: true
+  verbosity: minimal
+
+after_test:
+  - nuget pack Sharpy\Sharpy.csproj -IncludeReferencedProjects -Prop configuration=release -OutputDirectory .\artifacts
+
+artifacts:
+    - path: '.\artifacts\**\*.nupkg'
+
+deploy:
+  provider: NuGet
+  api_key:
+      secure: UaFuQRhjf6ouyyv0B03jP1CGoNCq3yWGbopAWEUnrIf9fpNmgI1M2ip964UELH68
+  skip_symbols: false
+
