@@ -1,13 +1,8 @@
 language: csharp
 solution: Sharpy.sln
-install:
-  - mkdir .nuget
-  - wget -O .nuget/nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
-  - nuget restore Sharpy.sln
-  - mkdir testrunner
-  - mono .nuget/nuget.exe install NUnit.Runners -Version 3.6.1 -OutputDirectory testrunner
+install: true
 script:
-  - ./script.sh
+  - ./travis.sh
 env:
   global:
     secure: JchEqtVc5Jv7WYK+MZdYrh+yyjSZ8ZfG0iYJxA7iTFZlFFIv2rFzTK/TaSxTnsXHj/GeFr6nZyp8tgh5xn79JFBLmF2cEMGdIXsoUk7nWrNl4A7C3KgPuPSdb3KKmuat2F23XxrJlef2AhOvX2c3kAWHkMzwbl7US79SY0A5GEnxl/VAhvEHiLjO8W6XKie3f3vNWMtwJmNYzXW3MNQqQSXpo0+5jwk8GHFfZyBisYWaJP+mogOoO+tArcRfVn8uL9E9o/HGTPy0seBQV+3AmDyCsQ2NjB96WtpleNOQxG0GM8veDwDnT1cCza5b3J6BKk3ude/yusosgVNqPWqGzcCPfgzKDGh4cldHpEcJKF+R9bAFWVU6aQI2/n/XwGTnmatIzML5DC0YmHKTIUy5Ga9zQZ/z27WKlM7r8WUzXVr2j+50iq8hQwmzB1T4GV1wzjr0fzVFhv74Had1jgVjhq0Fs115dvrHoporKy8u5voiby1pknxHRRdpZJI+S7beCYn5ucVNvmCgEyeqQN7vXyD6P9zKS/0++n8MnJ92/sLfUpUZz2YUy6SgywArypwXyIXtEt1zT8UJFqaSSkEYzRpPtCNr0OvAaf9fTKRDr/E2jHegXyBz2Q/DIJCLB/5UOrpkNsGLBIcakJlnlZsxIpE8HmutyQxrTqbRTB7lLgY=
