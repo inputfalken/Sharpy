@@ -14,6 +14,14 @@ namespace Tests.GeneratorAPI {
                 .Reverse();
         }
 
+        [Test(
+            Description = "Verify that Guid generator does not return null"
+        )]
+        public void Guid_Generator_Is_Not_Null() {
+            var result = Generator.Factory.Guid();
+            Assert.IsNotNull(result);
+        }
+
         [Test]
         public void Decrementer_No_Arg() {
             const int count = 500;
