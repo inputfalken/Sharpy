@@ -7,28 +7,32 @@ bold=$(tput bold)
 green=$(tput setaf 2)
 reset=$(tput sgr0)
 underline=$(tput smul)
-exitUnderline=$(tput rmul)
 
 ####################################################################################################
 #                                              Setup
 ####################################################################################################
 mkdir .nuget
-echo "${yellow} Downloading NuGet ${reset}"
+echo "${yellow}Downloading NuGet ${reset}"
 wget -O .nuget/nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
 getNuget=$?
 if [ $getNuget -eq 0 ]; then
-  echo "${green}NuGet download Successfull${reset}"
+  echo "${green}Download Successfull${reset}"
 fi
 
-echo "${yellow} Restoring solution with NuGet ${reset}"
+echo "${yellow}Restoring solution with NuGet${reset}"
+nuget restore Sharpy.sln -Verbosity quiet
 restoreNuget=$?
 if [ $restoreNuget -eq 0 ]; then
-  echo "${green}Solution restoration Successfull${reset}"
+  echo "${green}Restore Successfull${reset}"
 fi
-nuget restore Sharpy.sln -Verbosity quiet
+
 mkdir testrunner
-echo "${yellow} Installing NUnit 3.6.1 with NuGet ${reset}"
+echo "${yellow}Installing NUnit 3.6.1 with NuGet${reset}"
 mono .nuget/nuget.exe install NUnit.Runners -Version 3.6.1 -OutputDirectory testrunner -Verbosity quiet
+installNUnit=$?
+if [ $installNUnit -eq 0 ]; then
+  echo "${green}Installation Successfull${reset}"
+fi
 ####################################################################################################
 #                                              Build
 ####################################################################################################
@@ -57,7 +61,7 @@ BRANCH="$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo "$TRAVIS_BRANCH"; 
 
 case "$BRANCH" in
   master)
-    echo "${underline}Deploying production from branch${bold} $BRANCH${reset}"
+    echo "Deploying production from branch${bold} $BRANCH${reset}"
 
     set +e
     grep -vE '<version>.+-alpha' ./Sharpy.nuspec
@@ -69,7 +73,7 @@ case "$BRANCH" in
     fi
   ;;
   development)
-    echo "${underline}Deploying alpha build from branch${bold} $BRANCH${reset}"
+    echo "Deploying alpha build from branch${bold} $BRANCH${reset}"
 
     set +e
     grep -E '<version>.+-alpha' ./Sharpy.nuspec
