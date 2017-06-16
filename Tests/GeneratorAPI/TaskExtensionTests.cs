@@ -36,6 +36,23 @@ namespace Tests.GeneratorAPI {
             generator.Generate();
             Assert.IsFalse(isInvoked);
         }
+        [Test(
+            Description = "Verify that async Do throws exception with null action"
+        )]
+        public void Do_Null_Action() {
+            var generator = Generator.Create(Task.Run(async () => {
+                await Task.Delay(500);
+                return true;
+            }));
+            Assert.Throws<ArgumentNullException>(() => generator.Do(actionTask: null));
+        }
+        [Test(
+            Description = "Verify that async Do throws exception with null generator"
+        )]
+        public void Do_Null_Generator() {
+            IGenerator<Task<int>> generator = null;
+            Assert.Throws<ArgumentNullException>(() => generator.Do(actionTask:i => {}));
+        }
 
 
         [Test(
