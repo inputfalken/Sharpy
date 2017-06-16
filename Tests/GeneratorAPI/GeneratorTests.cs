@@ -362,6 +362,24 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
+            Description = "Verify that SelectMany throws exception if generator is null"
+        )]
+        public void SelectMany_IEnumerable_Composer_Null_Generator() {
+            IGenerator<string> generator = null;
+            Assert.Throws<ArgumentNullException>(
+                () => generator.SelectMany<string, int>(enumerableSelector: s => Enumerable.Range(0, 10)));
+        }
+
+        [Test(
+            Description = "Verify that SelectMany throws exception if generator is null"
+        )]
+        public void SelectMany_IEnumerable_Arg_Arg_Composer_Null_Generator() {
+            IGenerator<string> generator = null;
+            Assert.Throws<ArgumentNullException>(
+                () => generator.SelectMany<string, int, string>(s => Enumerable.Range(0, 10), (s, i) => s + i));
+        }
+
+        [Test(
             Description = "Verify that both null composer and selector throws exception"
         )]
         public void SelectMany_IEnumerable_Composer_Null_Composer_And_Selector() {
