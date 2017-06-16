@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using GeneratorAPI;
 using NUnit.Framework;
@@ -145,7 +146,7 @@ namespace Tests.GeneratorAPI {
         [Test(
             Description = "Verify that Where works with Tasks"
         )]
-        public async Task Where_Predicate_Task_Value() {
+        public async Task Where() {
             var generator = Generator
                 .Create(new Randomizer())
                 .Select(async g => {
@@ -156,6 +157,37 @@ namespace Tests.GeneratorAPI {
                 .Take(200);
 
             Assert.IsTrue((await Task.WhenAll(generator)).All(i => i % 2 == 0));
+        }
+
+        [Test(
+            Description = "Verify that Where works with Tasks"
+        )]
+        public void Where_Bad_Predicate() {
+            var generator = Generator
+                .Create(Task.Run(() => 1))
+                .Where(asyncPredicate: i => false)
+                .Take(200);
+
+            var task = Task.WhenAll(generator);
+            Assert.ThrowsAsync<ArgumentException>(async () => await task);
+        }
+
+        [Test(
+            Description = "Verify that Where works with Tasks"
+        )]
+        public void Where_Null_Predicate() {
+            Assert.Throws<ArgumentNullException>(() => Generator
+                .Create(Task.Run(() => new Randomizer()))
+                .Where(asyncPredicate: null));
+        }
+
+        [Test(
+            Description = "Verify that Where works with Tasks"
+        )]
+        public void Where_Null_Generator() {
+            IGenerator<Task<Randomizer>> rndGenerator = null;
+
+            Assert.Throws<ArgumentNullException>(() => rndGenerator.Where(i => i.Next() % 2 == 0));
         }
     }
 }
