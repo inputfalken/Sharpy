@@ -42,11 +42,18 @@ namespace Tests.Sharpy {
             Assert.IsFalse(containsSymbols);
         }
 
-        [Test]
+        [Test(
+            Description = "Verify if any string got any white space."
+            )]
         public void Name_Contains_No_White_Space() {
             var deserializeObject = JsonConvert.DeserializeObject<IEnumerable<Name>>(
                 Encoding.UTF8.GetString(Resources.NamesByOrigin));
-            var containsWhiteSpace = deserializeObject.Select(name => name.Data).All(s => s.Any(char.IsWhiteSpace));
+            foreach (var name1 in deserializeObject.Where(name => name.Data.Any(char.IsWhiteSpace))) {
+                Console.WriteLine($"{name1.Data}, {name1.Country}");
+            }
+            var containsWhiteSpace = deserializeObject
+                .Select(name => name.Data)
+                .Any(s => s.Any(char.IsWhiteSpace));
             Assert.IsFalse(containsWhiteSpace);
         }
 
