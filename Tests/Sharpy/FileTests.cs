@@ -10,7 +10,9 @@ using Sharpy.Properties;
 namespace Tests.Sharpy {
     [TestFixture]
     internal class FileTests {
-        [Test]
+        [Test(
+            Description = "Verify that no name contains number"
+        )]
         public void Name_Contains_No_Numbers() {
             var deserializeObject = JsonConvert.DeserializeObject<IEnumerable<Name>>(
                 Encoding.UTF8.GetString(Resources.NamesByOrigin));
@@ -18,7 +20,9 @@ namespace Tests.Sharpy {
             Assert.IsFalse(containsNumber);
         }
 
-        [Test]
+        [Test(
+            Description = "Verify that no name contains puncatuation"
+        )]
         public void Name_Contains_No_Punctuations() {
             var deserializeObject = JsonConvert.DeserializeObject<IEnumerable<Name>>(
                 Encoding.UTF8.GetString(Resources.NamesByOrigin));
@@ -26,54 +30,68 @@ namespace Tests.Sharpy {
             Assert.IsFalse(containsPuncation);
         }
 
-        [Test]
+        [Test(
+            Description = "Verify that no name contains separators"
+        )]
         public void Name_Contains_No_Separator() {
             var deserializeObject = JsonConvert.DeserializeObject<IEnumerable<Name>>(
                 Encoding.UTF8.GetString(Resources.NamesByOrigin));
-            var containsSeperator = deserializeObject.Select(name => name.Data).All(s => s.Any(char.IsSeparator));
+            var containsSeperator = deserializeObject
+                .Select(name => name.Data)
+                .All(s => s.Any(char.IsSeparator));
             Assert.IsFalse(containsSeperator);
         }
 
-        [Test]
+        [Test(
+            Description = "Verify that no name contains symbol"
+        )]
         public void Name_Contains_No_Symbols() {
             var deserializeObject = JsonConvert.DeserializeObject<IEnumerable<Name>>(
                 Encoding.UTF8.GetString(Resources.NamesByOrigin));
-            var containsSymbols = deserializeObject.Select(name => name.Data).All(s => s.Any(char.IsSymbol));
+            var containsSymbols = deserializeObject
+                .Select(name => name.Data)
+                .Any(s => s.Any(char.IsSymbol));
             Assert.IsFalse(containsSymbols);
         }
 
         [Test(
-            Description = "Verify if any string got any white space."
-            )]
+            Description = "Verify that no name contains white space."
+        )]
         public void Name_Contains_No_White_Space() {
             var deserializeObject = JsonConvert.DeserializeObject<IEnumerable<Name>>(
                 Encoding.UTF8.GetString(Resources.NamesByOrigin));
-            foreach (var name1 in deserializeObject.Where(name => name.Data.Any(char.IsWhiteSpace))) {
-                Console.WriteLine($"{name1.Data}, {name1.Country}");
-            }
             var containsWhiteSpace = deserializeObject
                 .Select(name => name.Data)
                 .Any(s => s.Any(char.IsWhiteSpace));
             Assert.IsFalse(containsWhiteSpace);
         }
 
-        [Test]
+        [Test(
+            Description = "Verify that all names starts with upper case"
+        )]
         public void Name_Starts_With_Capital_Letter() {
             var deserializeObject = JsonConvert.DeserializeObject<IEnumerable<Name>>(
                 Encoding.UTF8.GetString(Resources.NamesByOrigin));
-            var startsWithUpperCase = deserializeObject.Select(name => name.Data).All(s => char.IsUpper(s.First()));
+            var startsWithUpperCase = deserializeObject
+                .Select(name => name.Data)
+                .All(s => char.IsUpper(s.First()));
             Assert.IsTrue(startsWithUpperCase);
         }
 
-        [Test]
+        [Test(
+            Description = "Verify that no username contains number."
+        )]
         public void User_Name_Contains_No_Numbers() {
-            var containsNumber = Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None)
-                .All(s => s.Any(char.IsNumber));
+            var containsNumber = Resources.usernames
+                .Split(new[] {"\r\n", "\n"}, StringSplitOptions.None)
+                .Any(s => s.Any(char.IsNumber));
             Assert.IsFalse(containsNumber);
         }
 
 
-        [Test]
+        [Test(
+            Description = "Verify that no username contains punctuation."
+        )]
         public void User_Name_Contains_No_Punctuations() {
             var containsPunctuations =
                 Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None)
@@ -81,26 +99,32 @@ namespace Tests.Sharpy {
             Assert.IsFalse(containsPunctuations);
         }
 
-        [Test]
+        [Test(
+            Description = "Verify that no username contains separator."
+        )]
         public void User_Name_Contains_No_Separator() {
             var containsSeparator =
                 Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None)
-                    .All(s => s.Any(char.IsSeparator));
+                    .Any(s => s.Any(char.IsSeparator));
             Assert.IsFalse(containsSeparator);
         }
 
-        [Test]
+        [Test(
+            Description = "Verify that no username contains symbol."
+        )]
         public void User_Name_Contains_No_Symbols() {
             var containsSymbols = Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None)
-                .All(s => s.Any(char.IsSymbol));
+                .Any(s => s.Any(char.IsSymbol));
             Assert.IsFalse(containsSymbols);
         }
 
-        [Test]
+        [Test(
+            Description = "Verify that no username contains white space."
+        )]
         public void User_Name_Contains_No_White_Space() {
             var containsWhitespace =
                 Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None)
-                    .All(s => s.Any(char.IsWhiteSpace));
+                    .Any(s => s.Any(char.IsWhiteSpace));
             Assert.IsFalse(containsWhitespace);
         }
     }
