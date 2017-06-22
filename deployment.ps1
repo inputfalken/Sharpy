@@ -10,7 +10,8 @@ function Deploy ([bool] $alpha) {
   }
 }
 # For Appveyro
-$branch = $env:APPVEYOR_REPO_BRANCH
+#$branch = $env:APPVEYOR_REPO_BRANCH
+$branch = 'development'
 
 # Determine if it's Pre release
 switch ($branch) {
@@ -31,25 +32,19 @@ switch ($branch) {
 # Find current assembly info
 #$path = (Get-Item -Path ".\" -Verbose).FullName + "\Sharpy\Properties\Assemblyinfo.cs"
 $path = '.\Sharpy\Properties\AssemblyInfo.cs'
-function Update-Assembly ([string] $assemblyVersionName) {
+function Find-Assembly ([string] $assemblyVersionName) {
   $pattern = '\[assembly: {0}\("(.*)"\)\]' -f $assemblyVersionName
     (Get-Content $path) | ForEach-Object {
       if($_ -match $pattern) {
-        return [version]$matches[1]
+        return $matches[1]
       }
     }
 }
 
-$assemblyFileVersion = "AssemblyFileVersion"
-$assemblyInformationVersion = "AssemblyInformationalVersion"
-[version]$fileVersion = Update-Assembly($assemblyFileVersion)
-[version]$informationalVersion = Update-Assembly($assemblyInformationVersion)
+[version]$fileVersion = Find-Assembly("AssemblyFileVersion")
+[version]$localVersion = Find-Assembly("AssemblyInformationalVersion")
 
-# Checks that they both contain same semver
-# StartsWith is needed because AssemblyFileVersion uses a different format.
-  if (!$assemblyFileVersion.ToString().StartsWith($assemblyInformationVersion).ToString()) {
-    throw "Assembly attributes $assemblyFileVersion and $assemblyInformationVersion are missmatched in ./Sharpy/Properties/Assemblyinfo.cs   "
-  }
+# TODO add check that verifies that AssemblyFIleVersion and AssemblyINformationalVersion contains same version.
 
 $listSource = 'https://nuget.org/api/v2/'
 Write-Host "Fetching nuget version from $listSource"
@@ -65,43 +60,42 @@ $onlineVersion = ($nug.Split(" ") | Select-Object -Last 1)
 if ($preRelease) {
   $onlineVersion = ($onlineVersion | select -Last 1).Split("-") | select -First 1
 }
-Write-Host "Online version: $onlineVersion, local version: $fileVersion"
+Write-Host "Online version: $onlineVersion, local version: $localVersion"
 [version] $onlineVersion = $onlineVersion
-
-if ($fileVersion -gt $onlineVersion) {
+# This fails since $localVersion is 3.0.0.-1 while $fileVersion is 3.0.0.0
+if ($localVersion -gt $onlineVersion) {
   Write-Host 'Local version is higher than online version, procceeding with deployment'
-    if ($fileVersion.Major -gt $onlineVersion.Major) {
-      if ($fileVersion.Minor -eq 0) {
-        if ($fileVersion.Build -eq 0) {
+    if ($localVersion.Major -gt $onlineVersion.Major) {
+      if ($localVersion.Minor -eq 0) {
+        if ($localVersion.Build -eq 0) {
           Write-Host 'Deploying major build'
           Deploy $preRelease
           exit
         } else {
-          throw "Invalid format for Major build, Patch($($fileVersion.Build)) need to be set to 0"
+          throw "Invalid format for Major build, Patch($($localVersion.Build)) need to be set to 0"
         }
       } else {
-        throw "Invalid format for Major build, Minor($($fileVersion.Minor)) need to be set to 0"
+        throw "Invalid format for Major build, Minor($($localVersion.Minor)) need to be set to 0"
       }
     }
 
-  if ($fileVersion.Minor -gt $onlineVersion.Minor) {
+  if ($localVersion.Minor -gt $onlineVersion.Minor) {
     Write-Host 'Validating versioning format'
-      if ($fileVersion.Build -eq 0) {
+      if ($localVersion.Build -eq 0) {
         Write-Host 'Validation Successfull!, deploying minor build'
         deploy $preRelease
         exit
       } else {
-        throw "Invalid format for minor build, patch($($fileVersion.Build)) need to be set to 0"
+        throw "Invalid format for minor build, patch($($localVersion.Build)) need to be set to 0"
       }
   }
 
-  if ($fileVersion.Build -gt $onlineVersion.Build) {
+  if ($localVersion.Build -gt $onlineVersion.Build) {
     Write-Host 'Deploying patch build'
     deploy $preRelease
     exit
   }
 
 } else {
-  Write-Host 'Local version is lower than online version, no deployment needed'
+  Write-Host 'Local version is not greater than online version, no deployment needed'
 }
-
