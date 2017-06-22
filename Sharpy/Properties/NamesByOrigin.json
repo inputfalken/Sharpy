@@ -1005,7 +1005,7 @@
     "type": 1,
     "country": "Mexico",
     "region": "NorthAmerica",
-    "name": "María José"
+    "name": "María"
   },
   {
     "type": 1,
@@ -1035,7 +1035,7 @@
     "type": 1,
     "country": "Mexico",
     "region": "NorthAmerica",
-    "name": "Dulce María"
+    "name": "Dulce"
   },
   {
     "type": 2,
@@ -3153,7 +3153,7 @@
     "type": 1,
     "country": "Columbia",
     "region": "SouthAmerica",
-    "name": "María José"
+    "name": "María"
   },
   {
     "type": 1,
@@ -3189,19 +3189,31 @@
     "type": 2,
     "country": "Columbia",
     "region": "SouthAmerica",
-    "name": "Juan David"
+    "name": "Juan"
   },
   {
     "type": 2,
     "country": "Columbia",
     "region": "SouthAmerica",
-    "name": "Juan José"
+    "name": "David"
   },
   {
     "type": 2,
     "country": "Columbia",
     "region": "SouthAmerica",
-    "name": "Andrés Felipe"
+    "name": "José"
+  },
+  {
+    "type": 2,
+    "country": "Columbia",
+    "region": "SouthAmerica",
+    "name": "Andrés"
+  },
+  {
+    "type": 2,
+    "country": "Columbia",
+    "region": "SouthAmerica",
+    "name": "Felipe"
   },
   {
     "type": 2,
@@ -6753,7 +6765,7 @@
     "type": 1,
     "country": "Hungary",
     "region": "Europe",
-    "name": "Luca "
+    "name": "Luca"
   },
   {
     "type": 1,
@@ -7395,7 +7407,7 @@
     "type": 3,
     "country": "Italy",
     "region": "Europe",
-    "name": "De Luca"
+    "name": "Luca"
   },
   {
     "type": 3,
@@ -8229,7 +8241,7 @@
     "type": 3,
     "country": "Macedonia",
     "region": "Europe",
-    "name": "Popov – Priest"
+    "name": "Popov"
   },
   {
     "type": 3,
@@ -8805,7 +8817,7 @@
     "type": 3,
     "country": "Netherlands",
     "region": "Europe",
-    "name": "De Jong"
+    "name": "Jong"
   },
   {
     "type": 3,
@@ -8817,19 +8829,13 @@
     "type": 3,
     "country": "Netherlands",
     "region": "Europe",
-    "name": "De Vries"
+    "name": "Vries"
   },
   {
     "type": 3,
     "country": "Netherlands",
     "region": "Europe",
-    "name": "Van den Berg"
-  },
-  {
-    "type": 3,
-    "country": "Netherlands",
-    "region": "Europe",
-    "name": "Van dijk"
+    "name": "Dijk"
   },
   {
     "type": 3,
@@ -8859,13 +8865,13 @@
     "type": 3,
     "country": "Netherlands",
     "region": "Europe",
-    "name": "Meijer, Meyer"
+    "name": "Meijer"
   },
   {
     "type": 3,
     "country": "Netherlands",
     "region": "Europe",
-    "name": "De Boer"
+    "name": "Boer"
   },
   {
     "type": 3,
@@ -8877,7 +8883,7 @@
     "type": 3,
     "country": "Netherlands",
     "region": "Europe",
-    "name": "De Groot"
+    "name": "Groot"
   },
   {
     "type": 3,
@@ -8907,7 +8913,7 @@
     "type": 3,
     "country": "Netherlands",
     "region": "Europe",
-    "name": "Van Leeuwen"
+    "name": "Leeuwen"
   },
   {
     "type": 3,
@@ -8925,7 +8931,7 @@
     "type": 3,
     "country": "Netherlands",
     "region": "Europe",
-    "name": "De Wit"
+    "name": "Wit"
   },
   {
     "type": 3,
@@ -8943,13 +8949,13 @@
     "type": 3,
     "country": "Netherlands",
     "region": "Europe",
-    "name": "De Graaf"
+    "name": "Graaf"
   },
   {
     "type": 3,
     "country": "Netherlands",
     "region": "Europe",
-    "name": "Van der Meer"
+    "name": "Meer"
   },
   {
     "type": 1,
