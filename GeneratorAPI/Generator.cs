@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -52,11 +53,19 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     Creates a Generator based on a Enumerable which resets if the end is reached.
+        ///     Creates a Generator based on a IEnumerable&lt;T&gt; which resets if the end is reached.
         /// </summary>
         public static IGenerator<T> CircularSequence<T>(IEnumerable<T> enumerable) {
             if (enumerable == null) throw new ArgumentNullException(nameof(enumerable));
             return new Seq<T>(enumerable);
+        }
+        /// <summary>
+        ///     Creates a Generator based on a IEnumerable which resets if the end is reached.
+        /// </summary>
+        public static IGenerator<object> CircularSequence(IEnumerable enumerable) {
+            if (enumerable == null) throw new ArgumentNullException(nameof(enumerable));
+            // TODO add proper implementation so cast can be skipped.
+            return new Seq<object>(enumerable.Cast<object>());
         }
 
         /// <summary>
