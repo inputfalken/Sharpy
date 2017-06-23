@@ -7,7 +7,7 @@
         /// <summary>
         ///     Generate next element.
         /// </summary>
-        T Generate();
+        new T Generate();
     }
 
     public interface IGenerator {
