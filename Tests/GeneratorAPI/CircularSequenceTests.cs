@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using GeneratorAPI;
@@ -55,6 +56,44 @@ namespace Tests.GeneratorAPI {
             Assert.AreEqual(40, list.Count);
             // Verify that reseting list works like concat.
             Assert.IsTrue(list.SequenceEqual(_list.Concat(_list).Concat(_list).Concat(_list)));
+        }
+
+        [Test(
+            Description = "Verify that it's possible to use ArrayList"
+        )]
+        public void Support_No_Generic_Enumerable_ArrayList() {
+            var list = Generator
+                .CircularSequence(new ArrayList {1, 2, 3})
+                .Cast<int>();
+            Assert.AreEqual(new[] {1, 2, 3}, list.ToArray(3));
+        }
+
+        [Test(
+            Description = "Verify that it's possible to use Stack"
+        )]
+        public void Support_No_Generic_Enumerable_Stack() {
+            var stack = new Stack();
+            stack.Push(1);
+            stack.Push(2);
+            stack.Push(3);
+            var list = Generator
+                .CircularSequence(stack)
+                .Cast<int>();
+            Assert.AreEqual(new[] {3, 2, 1}, list.ToArray(3));
+        }
+
+        [Test(
+            Description = "Verify that it's possible to use Queue"
+        )]
+        public void Support_No_Generic_Enumerable_Queue() {
+            var stack = new Queue();
+            stack.Enqueue(1);
+            stack.Enqueue(2);
+            stack.Enqueue(3);
+            var list = Generator
+                .CircularSequence(stack)
+                .Cast<int>();
+            Assert.AreEqual(new[] {1, 2, 3}, list.ToArray(3));
         }
     }
 }
