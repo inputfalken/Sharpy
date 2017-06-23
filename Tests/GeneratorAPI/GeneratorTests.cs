@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using GeneratorAPI;
@@ -865,6 +866,54 @@ namespace Tests.GeneratorAPI {
         public void Zip_Null_Second_Param_Throws() {
             Assert.Throws<ArgumentNullException>(
                 () => _generator.Zip<string, int, string>(Generator.Function(() => 1), null));
+        }
+
+        [Test(
+            Description = ""
+        )]
+        public void Cast_Null_Generator() {
+            IGenerator<int> generator = null;
+            Assert.Throws<ArgumentNullException>(() => generator.Cast<long>());
+        }
+
+        [Test(
+            Description = "Verify that int casting works"
+        )]
+        public void Cast_Object_To_Int() {
+            var generator = Generator
+                .CircularSequence(new List<object> {1, 2, 3, 4, 5})
+                .Cast<int>();
+            Assert.IsInstanceOf<int>(generator.Generate());
+        }
+
+        [Test(
+            Description = "Verify that string casting works"
+        )]
+        public void Cast_Object_To_String() {
+            var generator = Generator
+                .CircularSequence(new List<object> {"hello", "World"})
+                .Cast<string>();
+            Assert.IsInstanceOf<string>(generator.Generate());
+        }
+
+        [Test(
+            Description = "Verify that char casting works"
+        )]
+        public void Cast_Object_To_Char() {
+            var generator = Generator
+                .CircularSequence(new List<object> {'1', '2'})
+                .Cast<char>();
+            Assert.IsInstanceOf<char>(generator.Generate());
+        }
+
+        [Test(
+            Description = "Verify that invalid cast throws exception"
+        )]
+        public void Cast_Invalid_Cast_Throws() {
+            var generator = Generator
+                .CircularSequence(new List<int> {1, 2})
+                .Cast<string>();
+            Assert.Throws<InvalidCastException>(() => generator.Generate());
         }
     }
 }

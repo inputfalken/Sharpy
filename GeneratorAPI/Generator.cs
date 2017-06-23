@@ -59,6 +59,16 @@ namespace GeneratorAPI {
             return new Seq<T>(enumerable);
         }
 
+        /// <summary>
+        /// Cast object 
+        /// </summary>
+        public static IGenerator<TResult> Cast<TResult>(this IGenerator generator) {
+            var result = generator as IGenerator<TResult>;
+            if (result != null) return result;
+            if (generator == null) throw new ArgumentNullException(nameof(generator));
+            return Function(() => (TResult) generator.Generate());
+
+        }
 
         /// <summary>
         ///     Filters the generator by the predicate.
@@ -202,6 +212,10 @@ namespace GeneratorAPI {
             public T Generate() {
                 return _fn();
             }
+
+            object IGenerator.Generate() {
+                return Generate();
+            }
         }
 
         /// <summary>
@@ -232,6 +246,10 @@ namespace GeneratorAPI {
             /// </summary>
             private static IEnumerable<T> Invoker(Func<IEnumerable<T>> fn) {
                 while (true) foreach (var element in fn()) yield return element;
+            }
+
+            object IGenerator.Generate() {
+                return Generate();
             }
         }
     }
