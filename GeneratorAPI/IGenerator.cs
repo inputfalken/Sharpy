@@ -10,7 +10,13 @@
         new T Generate();
     }
 
+    /// <summary>
+    ///     Represent a generator which can generate any ammount of elements.
+    /// </summary>
     public interface IGenerator {
+        /// <summary>
+        ///     Generate next element.
+        /// </summary>
         object Generate();
     }
 }
