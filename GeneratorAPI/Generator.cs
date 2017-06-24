@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace GeneratorAPI {
     /// <summary>
@@ -59,6 +60,31 @@ namespace GeneratorAPI {
             if (enumerable == null) throw new ArgumentNullException(nameof(enumerable));
             return new Seq<T>(enumerable);
         }
+
+        /// <summary>
+        ///     Skips count ammount of elements in the generator.
+        /// </summary>
+        public static IGenerator<T> Skip<T>(this IGenerator<T> generator, int count) {
+            if (generator == null) throw new ArgumentNullException(nameof(generator));
+            if (count < 0) throw new ArgumentException($"{nameof(count)} Cant be negative");
+            if (count == 0) return generator;
+            var skipped = SkipLazily(generator, count);
+            return Function(() => {
+                if (!skipped.IsValueCreated) {
+                    var lazyValue = skipped.Value;
+                }
+                return generator.Generate();
+            });
+        }
+
+        // Can this be done better?
+        private static Lazy<object> SkipLazily<T>(IGenerator<T> generator, int count) {
+            return new Lazy<object>(() => {
+                for (var i = 0; i < count; i++) generator.Generate();
+                return null;
+            });
+        }
+
         /// <summary>
         ///     Creates a Generator based on a IEnumerable which resets if the end is reached.
         /// </summary>
@@ -76,7 +102,6 @@ namespace GeneratorAPI {
             if (result != null) return result;
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             return Function(() => (TResult) generator.Generate());
-
         }
 
         /// <summary>
