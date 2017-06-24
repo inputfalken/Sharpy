@@ -69,6 +69,13 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
+            Description = "Verify that null enumerable throw exception"
+        )]
+        public void Support_No_Generic_Null_Enumerable() {
+            Assert.Throws<ArgumentNullException>(() => Generator.CircularSequence(null));
+        }
+
+        [Test(
             Description = "Verify that it's possible to use Stack"
         )]
         public void Support_No_Generic_Enumerable_Stack() {
