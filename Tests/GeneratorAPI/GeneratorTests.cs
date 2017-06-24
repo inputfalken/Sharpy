@@ -915,5 +915,27 @@ namespace Tests.GeneratorAPI {
                 .Cast<string>();
             Assert.Throws<InvalidCastException>(() => generator.Generate());
         }
+
+        [Test(
+            Description =
+                "Verify that if the source generator is generic, the cast method will try to cast it into the generic source"
+        )]
+        public void Cast_Source_Is_Generic_Gets_Checked() {
+            IGenerator noneGeneric = Generator
+                .Factory
+                .Incrementer();
+            IGenerator<int> genericGenerator = noneGeneric.Cast<int>();
+            Assert.IsInstanceOf<int>(genericGenerator.Generate());
+        }
+
+        [Test(
+            Description = "Verify that none generic generator generates the correct type"
+        )]
+        public void Generator_None_Generic_Generate() {
+            IGenerator noneGeneric = Generator
+                .Factory
+                .Incrementer();
+            Assert.IsInstanceOf<int>(noneGeneric.Generate());
+        }
     }
 }
