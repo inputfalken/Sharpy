@@ -180,6 +180,32 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
+            Description = "Verify that counter starts on zero"
+        )]
+        public void Select_Counter_Starts_Zero() {
+            var result = _generator
+                .Select((s, i) => i)
+                .Take(5)
+                .First();
+            Assert.AreEqual(0, result);
+        }
+
+        [Test(
+            Description = "Verify that counter increments for each element"
+        )]
+        public void Select_Counter_Starts_Increments() {
+            var result = _generator
+                .Select((s, i) => i)
+                .Take(5)
+                .ToArray();
+            Assert.AreEqual(0, result[0]);
+            Assert.AreEqual(1, result[1]);
+            Assert.AreEqual(2, result[2]);
+            Assert.AreEqual(3, result[3]);
+            Assert.AreEqual(4, result[4]);
+        }
+
+        [Test(
             Description = "Verifys that the Select is only invoked if Generate is invoked"
         )]
         public void Select_Is_Invoked_After_Take_Is_Invoked() {
@@ -205,7 +231,7 @@ namespace Tests.GeneratorAPI {
         )]
         public void Select_Null_Generator_And_Arg_Throws() {
             IGenerator<string> generator = null;
-            Assert.Throws<ArgumentNullException>(() => generator.Select<string, int>(null));
+            Assert.Throws<ArgumentNullException>(() => generator.Select<string, int>(generatorSelector: null));
         }
 
         [Test(
@@ -220,7 +246,7 @@ namespace Tests.GeneratorAPI {
             Description = "Verify that null Func given to Select throws exception"
         )]
         public void Select_Null_Param_Throws() {
-            Assert.Throws<ArgumentNullException>(() => _generator.Select<string, string>(null));
+            Assert.Throws<ArgumentNullException>(() => _generator.Select<string, string>(generatorSelector: null));
         }
 
         [Test(
