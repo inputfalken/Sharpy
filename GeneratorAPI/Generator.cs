@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -52,13 +53,31 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     Creates a Generator based on a Enumerable which resets if the end is reached.
+        ///     Creates a Generator based on a IEnumerable&lt;T&gt; which resets if the end is reached.
         /// </summary>
         public static IGenerator<T> CircularSequence<T>(IEnumerable<T> enumerable) {
             if (enumerable == null) throw new ArgumentNullException(nameof(enumerable));
             return new Seq<T>(enumerable);
         }
+        /// <summary>
+        ///     Creates a Generator based on a IEnumerable which resets if the end is reached.
+        /// </summary>
+        public static IGenerator<object> CircularSequence(IEnumerable enumerable) {
+            if (enumerable == null) throw new ArgumentNullException(nameof(enumerable));
+            // TODO add proper implementation so cast can be skipped.
+            return new Seq<object>(enumerable.Cast<object>());
+        }
 
+        /// <summary>
+        /// Cast object 
+        /// </summary>
+        public static IGenerator<TResult> Cast<TResult>(this IGenerator generator) {
+            var result = generator as IGenerator<TResult>;
+            if (result != null) return result;
+            if (generator == null) throw new ArgumentNullException(nameof(generator));
+            return Function(() => (TResult) generator.Generate());
+
+        }
 
         /// <summary>
         ///     Filters the generator by the predicate.
@@ -202,6 +221,10 @@ namespace GeneratorAPI {
             public T Generate() {
                 return _fn();
             }
+
+            object IGenerator.Generate() {
+                return Generate();
+            }
         }
 
         /// <summary>
@@ -232,6 +255,10 @@ namespace GeneratorAPI {
             /// </summary>
             private static IEnumerable<T> Invoker(Func<IEnumerable<T>> fn) {
                 while (true) foreach (var element in fn()) yield return element;
+            }
+
+            object IGenerator.Generate() {
+                return Generate();
             }
         }
     }
