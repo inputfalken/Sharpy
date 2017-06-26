@@ -6,7 +6,7 @@ This is a hobby project of mine where the goal is to have an easy way of generat
 
 Hope you'll find this class library useful.
 ## Install
-Use the NuGet Package Manager Console and type Install-Package Sharpy pre
+Use the NuGet Package Manager Console and type ```Install-Package Sharpy pre```
 
 ## Todo
 
