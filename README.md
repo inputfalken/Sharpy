@@ -9,6 +9,7 @@ Use the NuGet Package Manager Console and type Install-Package Sharpy pre
 
 ## Todo
 
+* Add more tests.
 * Auto bump package version depending on branch merge.
 * Auto hide old NuGet minor and patch versions.
 * Generate documenation from xml comments.
