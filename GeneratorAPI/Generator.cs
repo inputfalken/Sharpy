@@ -59,6 +59,7 @@ namespace GeneratorAPI {
             if (enumerable == null) throw new ArgumentNullException(nameof(enumerable));
             return new Seq<T>(enumerable);
         }
+
         /// <summary>
         ///     Creates a Generator based on a IEnumerable which resets if the end is reached.
         /// </summary>
@@ -76,7 +77,6 @@ namespace GeneratorAPI {
             if (result != null) return result;
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             return Function(() => (TResult) generator.Generate());
-
         }
 
         /// <summary>
@@ -121,6 +121,15 @@ namespace GeneratorAPI {
             if (generatorSelector == null) throw new ArgumentNullException(nameof(generatorSelector));
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             return Function(() => generatorSelector(generator.Generate()));
+        }
+
+        /// <summary>
+        ///     Maps Generator&lt;T&gt; into Generator&lt;TResult&gt;
+        /// </summary>
+        public static IGenerator<TResult> Select<TSource, TResult>(this IGenerator<TSource> generator,
+            Func<TSource, int, TResult> generatorCountSelector) {
+            var count = 0;
+            return generator.Select(source => generatorCountSelector(source, count++));
         }
 
         /// <summary>
