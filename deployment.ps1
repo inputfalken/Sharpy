@@ -1,12 +1,43 @@
 ﻿$packageSource = 'https://www.nuget.org/api/v2/package'
 
-function Deploy ([bool] $alpha) {
+function Deploy ([bool] $alpha, [string] $label) {
+  $suffix = 'alpha'
   if ($alpha) {
-    nuget pack .\Sharpy\Sharpy.csproj  -IncludeReferencedProjects -Prop configuration=release -Suffix alpha
+    nuget pack .\Sharpy\Sharpy.csproj  -IncludeReferencedProjects -Prop configuration=release -Suffix $suffix
     nuget push ".\Sharpy.$($fileVersion.Major).$($fileVersion.Minor).$($fileVersion.Build)-alpha.nupkg" -Verbosity detailed -ApiKey $env:NUGET_API_KEY -Source $packageSource
+    if ($?) {
+      switch ($label) {
+        'major' {
+          Write-Host 'Major build, ignorning package deletion'
+        }
+        'minor' {
+          Write-Host "Deleting previous $label package"
+          nuget delete Sharpy $onlineVersion-$suffix -ApiKey -ApiKey $env:NUGET_API_KEY  -Source $packageSource -NonInteractive -NoPrompt
+        }
+        'patch' {
+          Write-Host "Deleting previous $label package"
+          nuget delete Sharpy $onlineVersion-$suffix -ApiKey $env:NUGET_API_KEY -Source $packageSource -NonInteractive -NoPrompt
+        }
+      }
+    }
   } else {
     nuget pack .\Sharpy\Sharpy.csproj  -IncludeReferencedProjects -Prop configuration=release
     nuget push ".\Sharpy.$($fileVersion.Major).$($fileVersion.Minor).$($fileVersion.Build).nupkg" -Verbosity detailed -ApiKey $env:NUGET_API_KEY -Source $packageSource
+    if ($?) {
+      switch ($label) {
+        'major' {
+          Write-Host 'Major build, ignorning package deletion'
+        }
+        'minor' {
+          Write-Host "Deleting previous $label package"
+          nuget delete Sharpy $onlineVersion-$suffix -ApiKey -ApiKey $env:NUGET_API_KEY  -Source $packageSource -NonInteractive -NoPrompt
+        }
+        'patch' {
+          Write-Host "Deleting previous $label package"
+          nuget delete Sharpy $onlineVersion-$suffix -ApiKey $env:NUGET_API_KEY -Source $packageSource -NonInteractive -NoPrompt
+        }
+      }
+    }
   }
 }
 # AppVeyor Environmental varible
@@ -72,7 +103,7 @@ if ($localVersion -gt $onlineVersion) {
       if ($localVersion.Minor -eq 0) {
         if ($localVersion.Build -eq 0) {
           Write-Host 'Validation Successfull!, deploying major build'
-            Deploy $preRelease
+            Deploy $preRelease 'major'
         } else {
           throw "Invalid format for Major build, Patch($($localVersion.Build)) need to be set to 0"
         }
@@ -84,14 +115,14 @@ if ($localVersion -gt $onlineVersion) {
       Write-Host 'Validating versioning format'
       if ($localVersion.Build -eq 0) {
         Write-Host 'Validation Successfull!, deploying minor build'
-        deploy $preRelease
+        deploy $preRelease 'minor'
       } else {
           throw "Invalid format for minor build, patch($($localVersion.Build)) need to be set to 0"
       }
     }
     elseif ($localVersion.Build -gt $onlineVersion.Build) {
       Write-Host 'Deploying patch build'
-      deploy $preRelease
+      deploy $preRelease 'patch'
     }
 
 } else {
