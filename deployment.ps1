@@ -12,7 +12,7 @@ function Deploy ([bool] $alpha, [string] $label) {
         }
         'minor' {
           Write-Host "Deleting previous $label package"
-          nuget delete Sharpy $onlineVersion-$suffix -ApiKey -ApiKey $env:NUGET_API_KEY  -Source $packageSource -NonInteractive -NoPrompt
+          nuget delete Sharpy $onlineVersion-$suffix -ApiKey -ApiKey $env:NUGET_API_KEY -Source $packageSource -NonInteractive -NoPrompt
         }
         'patch' {
           Write-Host "Deleting previous $label package"
@@ -30,11 +30,11 @@ function Deploy ([bool] $alpha, [string] $label) {
         }
         'minor' {
           Write-Host "Deleting previous $label package"
-          nuget delete Sharpy $onlineVersion-$suffix -ApiKey -ApiKey $env:NUGET_API_KEY  -Source $packageSource -NonInteractive -NoPrompt
+          nuget delete Sharpy $onlineVersion -ApiKey -ApiKey $env:NUGET_API_KEY -Source $packageSource -NonInteractive -NoPrompt
         }
         'patch' {
           Write-Host "Deleting previous $label package"
-          nuget delete Sharpy $onlineVersion-$suffix -ApiKey $env:NUGET_API_KEY -Source $packageSource -NonInteractive -NoPrompt
+          nuget delete Sharpy $onlineVersion -ApiKey $env:NUGET_API_KEY -Source $packageSource -NonInteractive -NoPrompt
         }
       }
     }
