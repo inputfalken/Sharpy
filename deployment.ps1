@@ -1,12 +1,29 @@
 ﻿$packageSource = 'https://www.nuget.org/api/v2/package'
 
-function Deploy ([bool] $alpha) {
-  if ($alpha) {
-    nuget pack .\Sharpy\Sharpy.csproj  -IncludeReferencedProjects -Prop configuration=release -Suffix alpha
+function Deploy ([string] $label, [bool] $suffixBuild) {
+  $suffix = 'alpha'
+  if ($suffixBuild) {
+    nuget pack .\Sharpy\Sharpy.csproj  -IncludeReferencedProjects -Prop configuration=release -Suffix $suffix
     nuget push ".\Sharpy.$($fileVersion.Major).$($fileVersion.Minor).$($fileVersion.Build)-alpha.nupkg" -Verbosity detailed -ApiKey $env:NUGET_API_KEY -Source $packageSource
   } else {
     nuget pack .\Sharpy\Sharpy.csproj  -IncludeReferencedProjects -Prop configuration=release
     nuget push ".\Sharpy.$($fileVersion.Major).$($fileVersion.Minor).$($fileVersion.Build).nupkg" -Verbosity detailed -ApiKey $env:NUGET_API_KEY -Source $packageSource
+  }
+  if ($?) {
+    DeleteOldPackage $label $suffix $suffixBuild
+  }
+}
+
+function DeleteOldPackage ([string] $label, [string] $suffix, [bool] $suffixBuild) {
+  if ($label -eq 'major') {
+    Write-Host 'Major build, ignorning package deletion' -ForegroundColor yellow
+  } else {
+    Write-Host "Deleting previous $label package" -ForegroundColor yellow
+    if ($suffixBuild) {
+      nuget delete Sharpy $onlineVersion-$suffix -ApiKey $env:NUGET_API_KEY -Source $packageSource -NonInteractive -NoPrompt
+    } else {
+      nuget delete Sharpy $onlineVersion -ApiKey $env:NUGET_API_KEY -Source $packageSource -NonInteractive -NoPrompt
+    }
   }
 }
 # AppVeyor Environmental varible
@@ -73,7 +90,7 @@ if ($localVersion -gt $onlineVersion) {
       if ($localVersion.Minor -eq 0) {
         if ($localVersion.Build -eq 0) {
           Write-Host 'Validation Successfull!, deploying major build' -ForegroundColor green
-            Deploy $preRelease
+            Deploy 'major' $preRelease
         } else {
           throw "Invalid format for Major build, Patch($($localVersion.Build)) need to be set to 0"
         }
@@ -85,14 +102,14 @@ if ($localVersion -gt $onlineVersion) {
       Write-Host 'Validating versioning format' -ForegroundColor yellow
       if ($localVersion.Build -eq 0) {
         Write-Host 'Validation Successfull!, deploying minor build' -ForegroundColor green
-        deploy $preRelease
+        Deploy 'minor' $preRelease
       } else {
           throw "Invalid format for minor build, patch($($localVersion.Build)) need to be set to 0"
       }
     }
     elseif ($localVersion.Build -gt $onlineVersion.Build) {
       Write-Host 'Deploying patch build' -ForegroundColor yellow
-      deploy $preRelease
+      Deploy 'patch' $preRelease
     }
 
 } else {
