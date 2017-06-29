@@ -63,6 +63,7 @@
     <Compile Include="Sharpy\Integration\DateByAge.cs" />
     <Compile Include="Sharpy\Integration\DateByYear.cs" />
     <Compile Include="Sharpy\Integration\Double.cs" />
+    <Compile Include="Sharpy\Integration\GeneratorExtensionTests.cs" />
     <Compile Include="Sharpy\Integration\Integer.cs" />
     <Compile Include="Sharpy\Integration\Long.cs" />
     <Compile Include="Sharpy\Integration\MailAddress.cs" />

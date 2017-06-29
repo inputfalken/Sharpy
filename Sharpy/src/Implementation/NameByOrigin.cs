@@ -11,7 +11,7 @@ using Sharpy.Properties;
 
 namespace Sharpy.Implementation {
     /// <summary>
-    ///     <para>Randomizes Common names by Origin.</para>
+    ///     <para>Randomizes common names by origin.</para>
     /// </summary>
     public class NameByOrigin : INameProvider {
         private static readonly ISet<Origin> Regions = new HashSet<Origin> {
@@ -32,10 +32,8 @@ namespace Sharpy.Implementation {
         }
 
         /// <summary>
-        ///     <para>Randomizes names with supplied random based on Origin.</para>
+        ///     <para>Randomizes common names by origin using random/></para>
         /// </summary>
-        /// <param name="random"></param>
-        /// <param name="origins"></param>
         public NameByOrigin(Random random, params Origin[] origins) : this(random) {
             _origins = new HashSet<Origin>(origins);
             foreach (var origin in _origins)
@@ -44,7 +42,7 @@ namespace Sharpy.Implementation {
         }
 
         /// <summary>
-        ///     <para>Randomizes names based on Origin.</para>
+        ///     <para>Randomizes names based on origin.</para>
         /// </summary>
         /// <param name="origins"></param>
         public NameByOrigin(params Origin[] origins) : this(new Random(), origins) { }
