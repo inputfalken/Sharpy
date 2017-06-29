@@ -5,38 +5,24 @@ function Deploy ([bool] $alpha, [string] $label) {
   if ($alpha) {
     nuget pack .\Sharpy\Sharpy.csproj  -IncludeReferencedProjects -Prop configuration=release -Suffix $suffix
     nuget push ".\Sharpy.$($fileVersion.Major).$($fileVersion.Minor).$($fileVersion.Build)-alpha.nupkg" -Verbosity detailed -ApiKey $env:NUGET_API_KEY -Source $packageSource
-    if ($?) {
-      switch ($label) {
-        'major' {
-          Write-Host 'Major build, ignorning package deletion'
-        }
-        'minor' {
-          Write-Host "Deleting previous $label package"
-          nuget delete Sharpy $onlineVersion-$suffix -ApiKey -ApiKey $env:NUGET_API_KEY -Source $packageSource -NonInteractive -NoPrompt
-        }
-        'patch' {
-          Write-Host "Deleting previous $label package"
-          nuget delete Sharpy $onlineVersion-$suffix -ApiKey $env:NUGET_API_KEY -Source $packageSource -NonInteractive -NoPrompt
-        }
-      }
-    }
   } else {
     nuget pack .\Sharpy\Sharpy.csproj  -IncludeReferencedProjects -Prop configuration=release
     nuget push ".\Sharpy.$($fileVersion.Major).$($fileVersion.Minor).$($fileVersion.Build).nupkg" -Verbosity detailed -ApiKey $env:NUGET_API_KEY -Source $packageSource
-    if ($?) {
-      switch ($label) {
-        'major' {
-          Write-Host 'Major build, ignorning package deletion'
-        }
-        'minor' {
-          Write-Host "Deleting previous $label package"
-          nuget delete Sharpy $onlineVersion -ApiKey -ApiKey $env:NUGET_API_KEY -Source $packageSource -NonInteractive -NoPrompt
-        }
-        'patch' {
-          Write-Host "Deleting previous $label package"
-          nuget delete Sharpy $onlineVersion -ApiKey $env:NUGET_API_KEY -Source $packageSource -NonInteractive -NoPrompt
-        }
-      }
+  }
+  if ($?) {
+    DeleteOldPackage $label $alpha
+  }
+}
+
+function DeleteOldPackage ([string] $label, [bool] $suffix) {
+  if ($label -eq 'major') {
+    Write-Host 'Major build, ignorning package deletion'
+  } else {
+    Write-Host "Deleting previous $label package"
+    if ($suffix) {
+      nuget delete Sharpy $onlineVersion-$suffix -ApiKey -ApiKey $env:NUGET_API_KEY -Source $packageSource -NonInteractive -NoPrompt
+    } else {
+      nuget delete Sharpy $onlineVersion -ApiKey $env:NUGET_API_KEY -Source $packageSource -NonInteractive -NoPrompt
     }
   }
 }
