@@ -1,6 +1,6 @@
 ﻿$packageSource = 'https://www.nuget.org/api/v2/package'
 
-function Deploy ([bool] $alpha, [string] $label) {
+function Deploy ([string] $label, [bool] $alpha) {
   $suffix = 'alpha'
   if ($alpha) {
     nuget pack .\Sharpy\Sharpy.csproj  -IncludeReferencedProjects -Prop configuration=release -Suffix $suffix
@@ -89,7 +89,7 @@ if ($localVersion -gt $onlineVersion) {
       if ($localVersion.Minor -eq 0) {
         if ($localVersion.Build -eq 0) {
           Write-Host 'Validation Successfull!, deploying major build'
-            Deploy $preRelease 'major'
+            Deploy 'major' $preRelease
         } else {
           throw "Invalid format for Major build, Patch($($localVersion.Build)) need to be set to 0"
         }
@@ -101,14 +101,14 @@ if ($localVersion -gt $onlineVersion) {
       Write-Host 'Validating versioning format'
       if ($localVersion.Build -eq 0) {
         Write-Host 'Validation Successfull!, deploying minor build'
-        deploy $preRelease 'minor'
+        Deploy 'minor' $preRelease
       } else {
           throw "Invalid format for minor build, patch($($localVersion.Build)) need to be set to 0"
       }
     }
     elseif ($localVersion.Build -gt $onlineVersion.Build) {
       Write-Host 'Deploying patch build'
-      deploy $preRelease 'patch'
+      Deploy 'patch' $preRelease
     }
 
 } else {
