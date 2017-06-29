@@ -15,15 +15,15 @@ function Deploy ([string] $label, [bool] $suffixBuild) {
 }
 
 function DeleteOldPackage ([string] $label, [string] $suffix, [bool] $suffixBuild) {
-  if ($label -eq 'major') {
-    Write-Host 'Major build, ignorning package deletion' -ForegroundColor yellow
-  } else {
-    Write-Host "Deleting previous $label package" -ForegroundColor yellow
+  if ($localVersion.Major -eq $onlineVersion.Major) {
+    Write-Host "Same major build, deleting old package" -ForegroundColor yellow
     if ($suffixBuild) {
       nuget delete Sharpy $onlineVersion-$suffix -ApiKey $env:NUGET_API_KEY -Source $packageSource -NonInteractive -NoPrompt
     } else {
       nuget delete Sharpy $onlineVersion -ApiKey $env:NUGET_API_KEY -Source $packageSource -NonInteractive -NoPrompt
     }
+  } else {
+    Write-Host "New major build, ignoring package deletion" -ForegroundColor yellow
   }
 }
 # AppVeyor Environmental varible
