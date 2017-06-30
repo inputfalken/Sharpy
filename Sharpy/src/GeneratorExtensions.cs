@@ -46,5 +46,23 @@ namespace Sharpy {
             provider = provider ?? new NameByOrigin();
             return Generator.Function(() => provider.FirstName(gender));
         }
+
+        /// <summary>
+        ///     Returns a generator which randomizes usernames based on the seed provided.
+        /// </summary>
+        public static IGenerator<string> Username(this GeneratorFactory factory, int seed) {
+            return Generator
+                .Create(new Provider(seed))
+                .Select(p => p.UserName());
+        }
+
+        /// <summary>
+        ///     Returns a generator which randomizes usernames.
+        /// </summary>
+        public static IGenerator<string> Username(this GeneratorFactory factory) {
+            return Generator
+                .Create(new Provider())
+                .Select(p => p.UserName());
+        }
     }
 }
