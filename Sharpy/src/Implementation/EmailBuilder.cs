@@ -37,14 +37,14 @@ namespace Sharpy.Implementation {
 
 
         public string Mail(string name, string secondName) {
-            if (string.IsNullOrEmpty(name))
+            if (string.IsNullOrWhiteSpace(name))
                 throw new NullReferenceException($"{nameof(name)} can't be null/empty string");
             return UniqueMail(name, secondName).ToLower();
         }
 
         //todo restructure so the inner scopes don't have to do checkos for secondArgumetExists.
         private string UniqueMail(string name, string secondName) {
-            var singleArgument = string.IsNullOrEmpty(secondName);
+            var singleArgument = string.IsNullOrWhiteSpace(secondName);
             while (true) {
                 var resets = 0;
                 while (resets < Limit)
