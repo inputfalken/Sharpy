@@ -135,6 +135,8 @@ namespace GeneratorAPI {
 
         /// <summary>
         ///     <para>Exposes TSource in <see cref=" IGenerator&lt;TSource&gt;"/></para>
+        ///     <para>Using methods such as <see cref="Skip{T}"/> or <see cref="Release{TSource}"/> before this method </para>
+        ///     <para>Results in that they will be seen in the <see cref=" Action&lt;TSource&gt;"/></para>
         /// </summary>
         public static IGenerator<TSource> Do<TSource>(this IGenerator<TSource> generator, Action<TSource> action) {
             if (action == null) throw new ArgumentNullException(nameof(action));
