@@ -7,7 +7,7 @@ namespace GeneratorAPI
     public static partial class Generator
     {
         /// <summary>
-        ///     Flattens a IGenerator with a IEnumerable
+        ///     Flattens a <see cref="IGenerator{T}"/> with a <see cref="IEnumerable{T}"/>
         /// </summary>
         public static IGenerator<TResult> SelectMany<TSource, TResult>(this IGenerator<TSource> generator,
             Func<TSource, IEnumerable<TResult>> enumerableSelector) {
@@ -18,7 +18,7 @@ namespace GeneratorAPI
         }
 
         /// <summary>
-        ///     Flattens a IGenerator with a IEnumerable And composes the values
+        ///     Flattens a <see cref="IGenerator{T}"/> with a <see cref="IEnumerable{T}"/> And composes the values
         /// </summary>
         public static IGenerator<TCompose> SelectMany<TSource, TResult, TCompose>(this IGenerator<TSource> generator,
             Func<TSource, IEnumerable<TResult>> enumerableSelector, Func<TSource, TResult, TCompose> composer) {

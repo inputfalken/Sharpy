@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using GeneratorAPI;
@@ -180,6 +179,32 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
+            Description = "Verify that counter starts on zero"
+        )]
+        public void Select_Counter_Starts_Zero() {
+            var result = _generator
+                .Select((s, i) => i)
+                .Take(5)
+                .First();
+            Assert.AreEqual(0, result);
+        }
+
+        [Test(
+            Description = "Verify that counter increments for each element"
+        )]
+        public void Select_Counter_Starts_Increments() {
+            var result = _generator
+                .Select((s, i) => i)
+                .Take(5)
+                .ToArray();
+            Assert.AreEqual(0, result[0]);
+            Assert.AreEqual(1, result[1]);
+            Assert.AreEqual(2, result[2]);
+            Assert.AreEqual(3, result[3]);
+            Assert.AreEqual(4, result[4]);
+        }
+
+        [Test(
             Description = "Verifys that the Select is only invoked if Generate is invoked"
         )]
         public void Select_Is_Invoked_After_Take_Is_Invoked() {
@@ -205,7 +230,7 @@ namespace Tests.GeneratorAPI {
         )]
         public void Select_Null_Generator_And_Arg_Throws() {
             IGenerator<string> generator = null;
-            Assert.Throws<ArgumentNullException>(() => generator.Select<string, int>(null));
+            Assert.Throws<ArgumentNullException>(() => generator.Select<string, int>(generatorSelector: null));
         }
 
         [Test(
@@ -220,7 +245,7 @@ namespace Tests.GeneratorAPI {
             Description = "Verify that null Func given to Select throws exception"
         )]
         public void Select_Null_Param_Throws() {
-            Assert.Throws<ArgumentNullException>(() => _generator.Select<string, string>(null));
+            Assert.Throws<ArgumentNullException>(() => _generator.Select<string, string>(generatorSelector: null));
         }
 
         [Test(
@@ -239,6 +264,65 @@ namespace Tests.GeneratorAPI {
             Assert.AreEqual(expected, result);
         }
 
+        [Test(
+            Description = "Verify that release will Immediately release the elements"
+        )]
+        public void Release_Releases_Elements_Immediately() {
+            var expected = 0;
+            Generator
+                .Factory
+                .Incrementer(start: 0)
+                .Do(actual => {
+                    Assert.AreEqual(expected, actual);
+                    expected++;
+                })
+                .Release(5);
+        }
+
+        [Test(
+            Description = "Verify that release returns the same instance of IGenerator<T>"
+        )]
+        public void Release_Same_Generator() {
+            var expected = Generator
+                .Factory
+                .Incrementer(start: 0);
+            var actual = expected.Release(5);
+            Assert.AreSame(expected, actual);
+        }
+
+        [Test(
+            Description = "Verify that invoking release with zero does nothing"
+        )]
+        public void Release_Zero_Elements_Does_Nothing() {
+            var invoked = false;
+            Generator
+                .Factory
+                .Incrementer(start: 0)
+                .Release(0)
+                .Do(i => invoked = true);
+            Assert.IsFalse(invoked);
+        }
+
+        [Test(
+            Description = "Verify that calling release with negative number throws exception"
+        )]
+        public void Release_Negative_Number_Throws() {
+            Assert.Throws<ArgumentException>(() => {
+                Generator.Factory
+                    .Incrementer(start: 0)
+                    .Release(-5);
+            });
+        }
+
+        [Test(
+            Description = "Verify that calling release with null generator throws exception"
+        )]
+        public void Release_Null_Generator_Throws() {
+            Assert.Throws<ArgumentNullException>(() => {
+                IGenerator<int> generator = null;
+                generator.Release(1);
+            });
+        }
 
         [Test(
             Description = "Verify that SelectMany double arg with null Generator and null first arg"

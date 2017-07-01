@@ -28,7 +28,7 @@ namespace Tests.Sharpy.Integration {
             var gen = Generator.Factory.Provider(new Provider());
             //Many
             var names = gen.Select(g => g.FirstName(Gender.Female)).Take(Count).ToArray();
-            Assert.IsFalse(names.All(string.IsNullOrEmpty));
+            Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
 
             //Single
@@ -45,7 +45,7 @@ namespace Tests.Sharpy.Integration {
                 .Select(g => g.FirstName())
                 .Take(Count)
                 .ToArray();
-            Assert.IsFalse(names.All(string.IsNullOrEmpty));
+            Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
 
             //Single
@@ -62,7 +62,7 @@ namespace Tests.Sharpy.Integration {
                 .Select(g => g.LastName())
                 .Take(Count)
                 .ToArray();
-            Assert.IsFalse(names.All(string.IsNullOrEmpty));
+            Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
 
             //Single
@@ -79,7 +79,7 @@ namespace Tests.Sharpy.Integration {
                 .Select(g => g.FirstName(Gender.Male))
                 .Take(Count)
                 .ToArray();
-            Assert.IsFalse(names.All(string.IsNullOrEmpty));
+            Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
 
             //Single
@@ -159,12 +159,12 @@ namespace Tests.Sharpy.Integration {
             var gen = Generator.Factory.Provider(new Provider());
             //Many
             var userNames = gen.Select(g => g.UserName()).Take(Count).ToArray();
-            Assert.IsFalse(userNames.All(string.IsNullOrEmpty));
+            Assert.IsFalse(userNames.All(string.IsNullOrWhiteSpace));
             Assert.IsFalse(userNames.All(string.IsNullOrWhiteSpace));
 
             //Single
             var userName = gen.Select(g => g.UserName()).Generate();
-            Assert.IsFalse(string.IsNullOrEmpty(userName));
+            Assert.IsFalse(string.IsNullOrWhiteSpace(userName));
             Assert.IsFalse(string.IsNullOrWhiteSpace(userName));
         }
     }
