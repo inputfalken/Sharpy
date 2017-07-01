@@ -9,7 +9,7 @@ namespace Sharpy {
     public static class GeneratorExtensions {
         /// <summary>
         ///     <para>
-        ///         Provider Contains various methods for generating common data types.
+        ///         <see cref="Sharpy.Provider"/> contains various methods for generating common data types.
         ///         To get the same result every time you execute the program use the seed overload constructor.
         ///     </para>
         /// </summary>
@@ -22,10 +22,10 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a generator which randomizes First names.
+        ///         Returns a generator which randomizes first names.
         ///     </para>
         ///     <remarks>
-        ///         If INameProvider is not supplied the implementation will get defaulted to <see cref="NameByOrigin"/>
+        ///         If a implementation of <see cref="INameProvider"/> is not supplied the implementation will get defaulted to <see cref="NameByOrigin"/>
         ///     </remarks>
         /// </summary>
         public static IGenerator<string> FirstName(this GeneratorFactory factory, INameProvider provider = null) {
@@ -35,10 +35,10 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a generator which randomizes First names based on gender supplied.
+        ///         Returns a generator which randomizes first names based on gender supplied.
         ///     </para>
         ///     <remarks>
-        ///         If INameProvider is not supplied the implementation will get defaulted to <see cref="NameByOrigin"/>
+        ///         If a implementation of <see cref="INameProvider"/> is not supplied the implementation will get defaulted to <see cref="NameByOrigin"/>
         ///     </remarks>
         /// </summary>
         public static IGenerator<string> FirstName(this GeneratorFactory factory, Gender gender,
