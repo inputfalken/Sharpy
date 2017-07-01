@@ -62,7 +62,7 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     Skips count ammount of elements in the generator.
+        ///     <para>Skips elements from the <see cref=" IGenerator&lt;TSource&gt;"/> by lazily invoking <see cref="IGenerator{T}.Generate"/> amount times.</para>
         /// </summary>
         public static IGenerator<T> Skip<T>(this IGenerator<T> generator, int count) {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
