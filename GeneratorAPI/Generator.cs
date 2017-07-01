@@ -5,11 +5,11 @@ using System.Linq;
 
 namespace GeneratorAPI {
     /// <summary>
-    ///     Contains various methods for creating IGenerator&lt;T&gt;
+    ///     Contains various methods for creating <see cref="IGenerator{T}"/>
     /// </summary>
     public static partial class Generator {
         /// <summary>
-        ///     Contains methods for creating Generators with various Providers.
+        ///     Contains various methods for creating <see cref="IGenerator{T}"/>
         ///     <remarks>
         ///         The point of this class is to contain extension methods from other libraries.
         ///     </remarks>
@@ -17,14 +17,18 @@ namespace GeneratorAPI {
         public static GeneratorFactory Factory { get; } = new GeneratorFactory();
 
         /// <summary>
-        ///     Creates a Generator&lt;T&gt; with the type provided.
+        ///     Creates a <see cref="IGenerator{T}"/> where each invokation of <see cref="IGenerator{T}.Generate"/> will use the same &lt;T&gt;.
+        ///     <para> </para>
+        ///     This is useful if you want to instantiate a single object and call methods from it.
         /// </summary>
         public static IGenerator<T> Create<T>(T t) {
             return new Fun<T>(() => t);
         }
 
         /// <summary>
-        ///     Creates a lazy Generator&lt;T&gt; with the type provided.
+        ///     Creates a <see cref="IGenerator{T}"/> where each invokation of <see cref="IGenerator{T}.Generate"/> will use the result of argument <see cref="System.Lazy{T}"/>.
+        ///     <para> </para>
+        ///     This is useful if you want to instantiate a single object lazily and call methods from it.
         /// </summary>
         public static IGenerator<T> Lazy<T>(Lazy<T> lazy) {
             if (lazy == null) {
@@ -34,7 +38,9 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     Creates a lazy Generator&lt;T&gt; with the type provided.
+        ///     Creates a <see cref="IGenerator{T}"/> where each invokation of <see cref="IGenerator{T}.Generate"/> will use first result of argument <see cref=" Func&lt;T&gt;"/>.
+        ///     <para> </para>
+        ///     This is useful if you want to instantiate a single object lazily and call methods from it.
         /// </summary>
         public static IGenerator<T> Lazy<T>(Func<T> fn) {
             return Lazy(new Lazy<T>(fn));
@@ -42,7 +48,8 @@ namespace GeneratorAPI {
 
 
         /// <summary>
-        ///     Creates a Generator&lt;T&gt; where each generation will invoke and use the function supplied.
+        ///     Creates a <see cref="IGenerator{T}"/> where each invokation of <see cref="IGenerator{T}.Generate"/> will invoke the argument <see cref=" Func&lt;T&gt;"/>.
+        ///     <para> </para>
         ///     <remarks>
         ///         Do not instantiate types here.
         ///         If you want to use a type with methods to get data use Generator.<see cref="Create{T}" />
@@ -53,7 +60,11 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     Creates a Generator based on a IEnumerable&lt;T&gt; which resets if the end is reached.
+        ///     Creates a <see cref="IGenerator{T}"/> based on a <see cref="IEnumerable{T}"/>.
+        ///     <para> </para>
+        ///     <remarks>
+        ///         If <see cref="IEnumerable{T}"/> ends it will reset and restart.
+        ///     </remarks>
         /// </summary>
         public static IGenerator<T> CircularSequence<T>(IEnumerable<T> enumerable) {
             if (enumerable == null) throw new ArgumentNullException(nameof(enumerable));
@@ -61,7 +72,7 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     Creates a Generator based on a IEnumerable which resets if the end is reached.
+        ///     Creates a IGenerator&lt;object&gt; based on a <see cref="IEnumerable"/> which resets if the end is reached.
         /// </summary>
         public static IGenerator<object> CircularSequence(IEnumerable enumerable) {
             if (enumerable == null) throw new ArgumentNullException(nameof(enumerable));
@@ -70,7 +81,7 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        /// Cast object 
+        ///     Casts each element of <see cref=" IGenerator&lt;TSource&gt;"/> to <see cref=" IGenerator&lt;TResult&gt;"/>
         /// </summary>
         public static IGenerator<TResult> Cast<TResult>(this IGenerator generator) {
             var result = generator as IGenerator<TResult>;
@@ -80,9 +91,9 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     Filters the generator by the predicate.
+        ///     Filters the <see cref=" IGenerator&lt;TSource&gt;"/> by the predicate.
         ///     <remarks>
-        ///         Use with Caution: Bad predicates cause the method to throw exception if threshold is reached.
+        ///         Use with caution, bad <see cref=" Predicate&lt;TSource&gt;"/> usage causes the method to throw exception if threshold is reached.
         ///     </remarks>
         /// </summary>
         public static IGenerator<TSource> Where<TSource>(this IGenerator<TSource> generator,
@@ -101,7 +112,7 @@ namespace GeneratorAPI {
 
 
         /// <summary>
-        ///     Exposes &lt;T&gt;.
+        ///     Exposes TSource in <see cref=" IGenerator&lt;TSource&gt;"/>
         /// </summary>
         public static IGenerator<TSource> Do<TSource>(this IGenerator<TSource> generator, Action<TSource> action) {
             if (action == null) throw new ArgumentNullException(nameof(action));
@@ -114,7 +125,7 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     Maps Generator&lt;T&gt; into Generator&lt;TResult&gt;
+        ///     Maps <see cref=" IGenerator&lt;TSource&gt;"/> to <see cref=" IGenerator&lt;TResult&gt;"/> 
         /// </summary>
         public static IGenerator<TResult> Select<TSource, TResult>(this IGenerator<TSource> generator,
             Func<TSource, TResult> generatorSelector) {
@@ -124,7 +135,7 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     Maps Generator&lt;T&gt; into Generator&lt;TResult&gt;
+        ///     Maps <see cref=" IGenerator&lt;TSource&gt;"/> to <see cref=" IGenerator&lt;TResult&gt;"/> 
         /// </summary>
         public static IGenerator<TResult> Select<TSource, TResult>(this IGenerator<TSource> generator,
             Func<TSource, int, TResult> generatorCountSelector) {
@@ -133,7 +144,7 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     Yields count ammount of items into an IEnumerable&lt;T&gt;.
+        ///      Creates a <see cref=" IEnumerable&lt;TSource&gt;"/> by invoking <see cref="IGenerator{T}.Generate"/> with count amount of times.
         /// </summary>
         public static IEnumerable<TSource> Take<TSource>(this IGenerator<TSource> generator, int count) {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
@@ -147,7 +158,7 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     Flattens Generator&lt;T&gt;
+        ///     Flattens <see cref=" IGenerator&lt;TSource&gt;"/> with <see cref=" IGenerator&lt;TResult&gt;"/>
         /// </summary>
         public static IGenerator<TResult> SelectMany<TSource, TResult>(
             this IGenerator<TSource> generator,
@@ -158,8 +169,8 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     Flattens Generator&lt;T&gt;
-        ///     With a compose function using &lt;T&gt; and &lt;TResult&gt;
+        ///     Flattens <see cref=" IGenerator&lt;TSource&gt;"/> with <see cref=" IGenerator&lt;TResult&gt;"/>
+        ///     With a compose function using <see cref="IGenerator{T}.Generate"/> from <see cref=" IGenerator&lt;TSource&gt;"/> and <see cref=" IGenerator&lt;TResult&gt;"/>
         /// </summary>
         public static IGenerator<TCompose> SelectMany<TSource, TResult, TCompose>(this IGenerator<TSource> generator,
             Func<TSource, IGenerator<TResult>> generatorSelector,
@@ -171,7 +182,7 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     Combine a Generator with another generator and compose the result.
+        ///     Combine <see cref=" IGenerator&lt;TSource&gt;"/> with <see cref=" IGenerator&lt;TSecond&gt;"/> and composes <see cref="IGenerator{T}.Generate"/> from both to <see cref=" IGenerator&lt;TResult&gt;"/>
         /// </summary>
         public static IGenerator<TResult> Zip<TSource, TSecond, TResult>(this IGenerator<TSource> first,
             IGenerator<TSecond> second,
@@ -183,8 +194,7 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     Creates a Dictionary with it's count equal to count argument. Key and Value will be defined in the following
-        ///     functions.
+        ///     Creates a <see cref="Dictionary{TKey,TValue}"/> by invoking <see cref="IGenerator{T}.Generate"/> with count amount of times.
         /// </summary>
         public static Dictionary<TKey, TValue> ToDictionary<TSource, TKey, TValue>(this IGenerator<TSource> generator,
             int count, Func<TSource, TKey> keySelector, Func<TSource, TValue> valueSelector) {
@@ -192,14 +202,14 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     Creates a list with it's length equal to the count supplied.
+        ///     Creates a <see cref="List{T}"/> by invoking <see cref="IGenerator{T}.Generate"/> with count amount of times.
         /// </summary>
         public static List<TSource> ToList<TSource>(this IGenerator<TSource> generator, int count) {
             return generator.Take(count).ToList();
         }
 
         /// <summary>
-        ///     Creates an array with it's length equal to the lenght supplied.
+        ///     Creates an <see cref="Array"/> by invoking <see cref="IGenerator{T}.Generate"/> with length amount of times.
         /// </summary>
         public static TSource[] ToArray<TSource>(this IGenerator<TSource> generator, int length) {
             return generator.Take(length).ToArray();
@@ -237,7 +247,7 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     A Generator using IEnumerable&lt;T&gt;
+        ///     A Generator using <see cref="IEnumerable{T}"/>
         /// </summary>
         private class Seq<T> : IGenerator<T> {
             private readonly Lazy<IEnumerator<T>> _lazyEnumerator;
@@ -274,14 +284,19 @@ namespace GeneratorAPI {
 
 
     /// <summary>
-    ///     Contains methods for creating Generators.
+    ///     Contains methods for creating <see cref="IGenerator{T}"/>.
     ///     <remarks>
     ///         The point of this class is to contain extension methods from other libraries.
     ///     </remarks>
     /// </summary>
     public class GeneratorFactory {
         /// <summary>
-        ///     A Generator using System.Random with the arguments supplied.
+        ///     Creates <see cref="IGenerator{T}"/> whose generic argument is <see cref="int"/>.
+        ///     Which randomizes the value by using <see cref="Random"/> for each invokation of <see cref="IGenerator{T}.Generate"/>.
+        ///     <para>   </para>
+        ///     Argument min is the min value you want to randomize.
+        ///     Argument max is the max value you want to randomize.
+        ///     The seed argument will make <see cref="Random"/> more deterministic and always give the same results.
         /// </summary>
         public IGenerator<int> Randomizer(int min, int max, int? seed = null) {
             return Generator
@@ -290,7 +305,11 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     A Generator using System.Random with the arguments supplied.
+        ///     Creates <see cref="IGenerator{T}"/> whose generic argument is <see cref="int"/>.
+        ///     Which randomizes the value by using <see cref="Random"/> for each invokation of <see cref="IGenerator{T}.Generate"/>.
+        ///     <para>   </para>
+        ///     Argument max is the max value you want to randomize.
+        ///     The seed argument will make <see cref="Random"/> more deterministic and always give the same results.
         /// </summary>
         public IGenerator<int> Randomizer(int max, int? seed = null) {
             return Generator
@@ -299,7 +318,7 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     Creates random with seed if it's not set to null.
+        ///     Creates <see cref="Random"/> with seed if it's not set to null.
         /// </summary>
         private static Random CreateRandom(int? seed) {
             return seed == null
@@ -308,7 +327,10 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     A Generator using System.Random with the arguments supplied.
+        ///     Creates <see cref="IGenerator{T}"/> whose generic argument is <see cref="int"/>.
+        ///     Which randomizes the value by using <see cref="Random"/> for each invokation of <see cref="IGenerator{T}.Generate"/>.
+        ///     <para>   </para>
+        ///     The seed argument will make <see cref="Random"/> more deterministic and always give the same results.
         /// </summary>
         public IGenerator<int> Randomizer(int? seed = null) {
             return Generator
@@ -318,16 +340,21 @@ namespace GeneratorAPI {
 
 
         /// <summary>
-        ///     A Guid Generator
+        ///     Creates <see cref="IGenerator{T}"/> whose generic argument is <see cref="System.Guid"/>
+        ///     which generates new a <see cref="System.Guid"/> for every invokation of <see cref="IGenerator{T}.Generate"/>.
         /// </summary>
         public IGenerator<Guid> Guid() {
             return Generator.Function(System.Guid.NewGuid);
         }
 
         /// <summary>
-        ///     Creates a int Generator which increments the value by one for each generation and starts at <param name="start"></param>.
+        ///     Creates <see cref="IGenerator{T}"/> whose generic argument is <see cref="int"/>
+        ///     which increments by 1 for every invokation of <see cref="IGenerator{T}.Generate"/>.
+        ///     <para> </para>
+        ///     The start argument will change the starting point for the incrementation.
+        ///     <para> </para>
         ///     <remarks>
-        ///         Throws Exception if the incremental value overflows.
+        ///         Throws <see cref="OverflowException"/> if the value exceeds <see cref="int"/>.<see cref="int.MaxValue"/>.
         ///     </remarks>
         /// </summary>
         public IGenerator<int> Incrementer(int start = 0) {
@@ -335,9 +362,13 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
-        ///     Creates a int Generator which decrements the value by one for each generation and starts at <param name="start"></param>.
+        ///     Creates <see cref="IGenerator{T}"/> whose generic argument is <see cref="int"/>
+        ///     which decrements the value by one for each generation and starts at the argument.
+        ///     <para> </para>
+        ///     The start argument will change the starting point for the decrementation.
+        ///     <para> </para>
         ///     <remarks>
-        ///         Throws Exception if the incremental value overflows.
+        ///         Throws <see cref="OverflowException"/> if the value gets below <see cref="int"/>.<see cref="int.MinValue"/>.
         ///     </remarks>
         /// </summary>
         public IGenerator<int> Decrementer(int start = 0) {
