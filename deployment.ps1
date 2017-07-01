@@ -1,12 +1,29 @@
 ﻿$packageSource = 'https://www.nuget.org/api/v2/package'
 
-function Deploy ([bool] $alpha) {
-  if ($alpha) {
-    nuget pack .\Sharpy\Sharpy.csproj  -IncludeReferencedProjects -Prop configuration=release -Suffix alpha
+function Deploy ([string] $label, [bool] $suffixBuild) {
+  $suffix = 'alpha'
+  if ($suffixBuild) {
+    nuget pack .\Sharpy\Sharpy.csproj  -IncludeReferencedProjects -Prop configuration=release -Suffix $suffix
     nuget push ".\Sharpy.$($fileVersion.Major).$($fileVersion.Minor).$($fileVersion.Build)-alpha.nupkg" -Verbosity detailed -ApiKey $env:NUGET_API_KEY -Source $packageSource
   } else {
     nuget pack .\Sharpy\Sharpy.csproj  -IncludeReferencedProjects -Prop configuration=release
     nuget push ".\Sharpy.$($fileVersion.Major).$($fileVersion.Minor).$($fileVersion.Build).nupkg" -Verbosity detailed -ApiKey $env:NUGET_API_KEY -Source $packageSource
+  }
+  if ($?) {
+    DeleteOldPackage $label $suffix $suffixBuild
+  }
+}
+
+function DeleteOldPackage ([string] $label, [string] $suffix, [bool] $suffixBuild) {
+  if ($localVersion.Major -eq $onlineVersion.Major) {
+    Write-Host "Same major build, deleting old package" -ForegroundColor yellow
+    if ($suffixBuild) {
+      nuget delete Sharpy $onlineVersion-$suffix -ApiKey $env:NUGET_API_KEY -Source $packageSource -NonInteractive -NoPrompt
+    } else {
+      nuget delete Sharpy $onlineVersion -ApiKey $env:NUGET_API_KEY -Source $packageSource -NonInteractive -NoPrompt
+    }
+  } else {
+    Write-Host "New major build, ignoring package deletion" -ForegroundColor yellow
   }
 }
 # AppVeyor Environmental varible
@@ -15,15 +32,15 @@ $branch = $env:APPVEYOR_REPO_BRANCH
 # Determine if it's Pre release
 switch ($branch) {
   "development" {
-    Write-Host "Proceeding script with alpha version for branch: $branch."
+    Write-Host "Proceeding script with alpha version for branch: $branch." -ForegroundColor yellow
     $preRelease = 1
   }
   "master" {
-    Write-Host "Proceeding script with stable version for branch: $branch."
+    Write-Host "Proceeding script with stable version for branch: $branch." -ForegroundColor yellow
     $preRelease = 0
   }
   default {
-    Write-Host "$branch is not a deployable branch exiting..."
+    Write-Host "$branch is not a deployable branch exiting..." -ForegroundColor yellow
     exit
   }
 }
@@ -47,7 +64,7 @@ function Find-Assembly ([string] $assemblyVersionName) {
 
 # Source for NuGet to get the latest package online
 $listSource = 'https://nuget.org/api/v2/'
-Write-Host "Fetching nuget version from $listSource"
+Write-Host "Fetching nuget version from $listSource" -ForegroundColor yellow
 
 # Use alpha version if the current branch is development
 if ($preRelease) {
@@ -67,12 +84,13 @@ if ($preRelease) {
 
 # Checks if deployment is needed by comparing local and online version
 if ($localVersion -gt $onlineVersion) {
-  Write-Host "Local version($localVersion) is higher than online version($onlineVersion), proceeding with deployment"
+  Write-Host "Local version($localVersion) is higher than online version($onlineVersion), proceeding with deployment" -ForegroundColor yellow
     if ($localVersion.Major -gt $onlineVersion.Major) {
+      Write-Host 'Validating versioning format' -ForegroundColor yellow
       if ($localVersion.Minor -eq 0) {
         if ($localVersion.Build -eq 0) {
-          Write-Host 'Validation Successfull!, deploying major build'
-            Deploy $preRelease
+          Write-Host 'Validation Successfull!, deploying major build' -ForegroundColor green
+            Deploy 'major' $preRelease
         } else {
           throw "Invalid format for Major build, Patch($($localVersion.Build)) need to be set to 0"
         }
@@ -81,19 +99,19 @@ if ($localVersion -gt $onlineVersion) {
       }
     }
     elseif ($localVersion.Minor -gt $onlineVersion.Minor) {
-      Write-Host 'Validating versioning format'
+      Write-Host 'Validating versioning format' -ForegroundColor yellow
       if ($localVersion.Build -eq 0) {
-        Write-Host 'Validation Successfull!, deploying minor build'
-        deploy $preRelease
+        Write-Host 'Validation Successfull!, deploying minor build' -ForegroundColor green
+        Deploy 'minor' $preRelease
       } else {
           throw "Invalid format for minor build, patch($($localVersion.Build)) need to be set to 0"
       }
     }
     elseif ($localVersion.Build -gt $onlineVersion.Build) {
-      Write-Host 'Deploying patch build'
-      deploy $preRelease
+      Write-Host 'Deploying patch build' -ForegroundColor yellow
+      Deploy 'patch' $preRelease
     }
 
 } else {
-  Write-Host 'Local version is not greater than online version, no deployment needed'
+  Write-Host 'Local version is not greater than online version, no deployment needed' -ForegroundColor yellow
 }

@@ -49,13 +49,13 @@ namespace Tests.Sharpy.Integration {
                 .Select(g => g.MailAddress(MailUserName))
                 .Take(20)
                 .ToArray();
-            Assert.IsFalse(mails.All(string.IsNullOrEmpty));
+            Assert.IsFalse(mails.All(string.IsNullOrWhiteSpace));
             Assert.IsFalse(mails.All(string.IsNullOrWhiteSpace));
 
             //Single
             var mail = generator.Select(g => g.MailAddress(MailUserName)).Generate();
             Assert.IsFalse(string.IsNullOrWhiteSpace(mail));
-            Assert.IsFalse(string.IsNullOrEmpty(mail));
+            Assert.IsFalse(string.IsNullOrWhiteSpace(mail));
         }
 
         [Test]
