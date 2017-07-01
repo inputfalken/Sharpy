@@ -125,6 +125,19 @@ namespace GeneratorAPI {
         }
 
         /// <summary>
+        ///     <para>Releases elements from the <see cref=" IGenerator&lt;TSource&gt;"/> by immediately invoking <see cref="IGenerator{T}.Generate"/> amount times.</para>
+        /// </summary>
+        /// <param name="generator"></param>
+        /// <param name="amount">The amount which will get released</param>
+        public static IGenerator<TSource> Release<TSource>(this IGenerator<TSource> generator, int amount) {
+            if (generator == null) throw new ArgumentNullException(nameof(generator));
+            if (amount == 0) return generator;
+            if (amount < 0) throw new ArgumentException($"{nameof(amount)} can't be below ${amount}");
+            for (var i = 0; i < amount; i++) generator.Generate();
+            return generator;
+        }
+
+        /// <summary>
         ///     <para>Creates a <see cref=" IGenerator&lt;Tresult&gt;"/> by mapping <see cref=" IGenerator&lt;TSource&gt;"/> to <see cref=" IGenerator&lt;TResult&gt;"/> </para>
         /// </summary>
         public static IGenerator<TResult> Select<TSource, TResult>(this IGenerator<TSource> generator,
