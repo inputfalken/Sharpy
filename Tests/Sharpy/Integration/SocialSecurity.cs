@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using GeneratorAPI;
+using GeneratorAPI.Extensions;
 using NodaTime;
 using NUnit.Framework;
 using Sharpy;

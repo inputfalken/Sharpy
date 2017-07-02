@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using GeneratorAPI;
+using GeneratorAPI.Extensions;
 using NUnit.Framework;
 using Sharpy;
 
@@ -78,7 +79,8 @@ namespace Tests.Sharpy.Integration {
             var randomGenerator = Generator.Factory.Provider(new Provider(configurement));
             //Should not contain any numbers
             Assert.IsTrue(
-                randomGenerator.Select(generator => generator.MailAddress("bob")).Generate().Any(c => !char.IsDigit(c)));
+                randomGenerator.Select(generator => generator.MailAddress("bob")).Generate()
+                    .Any(c => !char.IsDigit(c)));
             //Should contain a number since all possible combinations have been used
             Assert.IsTrue(
                 randomGenerator.Select(generator => generator.MailAddress("bob")).Generate().Any(char.IsDigit));
