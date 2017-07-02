@@ -23,6 +23,67 @@ namespace Tests.GeneratorAPI {
         private const int Seed = 100;
 
         [Test(
+            Description = "Verify that invalid cast throws exception"
+        )]
+        public void Cast_Invalid_Cast_Throws() {
+            var generator = Generator
+                .CircularSequence(new List<int> {1, 2})
+                .Cast<string>();
+            Assert.Throws<InvalidCastException>(() => generator.Generate());
+        }
+
+        [Test(
+            Description = ""
+        )]
+        public void Cast_Null_Generator() {
+            IGenerator<int> generator = null;
+            Assert.Throws<ArgumentNullException>(() => generator.Cast<long>());
+        }
+
+        [Test(
+            Description = "Verify that char casting works"
+        )]
+        public void Cast_Object_To_Char() {
+            Enumerable.Range(0, 1).Skip(Seed);
+            var generator = Generator
+                .CircularSequence(new List<object> {'1', '2'})
+                .Cast<char>();
+            Assert.IsInstanceOf<char>(generator.Generate());
+        }
+
+        [Test(
+            Description = "Verify that int casting works"
+        )]
+        public void Cast_Object_To_Int() {
+            var generator = Generator
+                .CircularSequence(new List<object> {1, 2, 3, 4, 5})
+                .Cast<int>();
+            Assert.IsInstanceOf<int>(generator.Generate());
+        }
+
+        [Test(
+            Description = "Verify that string casting works"
+        )]
+        public void Cast_Object_To_String() {
+            var generator = Generator
+                .CircularSequence(new List<object> {"hello", "World"})
+                .Cast<string>();
+            Assert.IsInstanceOf<string>(generator.Generate());
+        }
+
+        [Test(
+            Description =
+                "Verify that if the source generator is generic, the cast method will try to cast it into the generic source"
+        )]
+        public void Cast_Source_Is_Generic_Gets_Checked() {
+            IGenerator noneGeneric = Generator
+                .Factory
+                .Incrementer();
+            var genericGenerator = noneGeneric.Cast<int>();
+            Assert.IsInstanceOf<int>(genericGenerator.Generate());
+        }
+
+        [Test(
             Description = "Verifies that Generator.Create uses same instance"
         )]
         public void Create_Use_Same_Instance() {
@@ -132,6 +193,16 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
+            Description = "Verify that none generic generator generates the correct type"
+        )]
+        public void Generator_None_Generic_Generate() {
+            IGenerator noneGeneric = Generator
+                .Factory
+                .Incrementer();
+            Assert.IsInstanceOf<int>(noneGeneric.Generate());
+        }
+
+        [Test(
             Description = "Verify that Generator.Lazy is not used before generate is invoked"
         )]
         public void Lazy_Is_Invoked_After_Take_Is_Invoked() {
@@ -171,22 +242,76 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that Select does not return null"
+            Description = "Verify that release will Immediately release the elements"
         )]
-        public void Select_Does_Not_Return_Null() {
-            var result = _generator.Select(s => s.Length);
-            Assert.IsNotNull(result);
+        public void Release_Is_Not_Lazy_Evaluated() {
+            var invoked = false;
+            Generator
+                .Factory
+                .Incrementer(0)
+                .Do(actual => { invoked = true; })
+                .Release(1);
+            Assert.AreEqual(true, invoked);
         }
 
         [Test(
-            Description = "Verify that counter starts on zero"
+            Description = "Verify that calling release with negative number throws exception"
         )]
-        public void Select_Counter_Starts_Zero() {
-            var result = _generator
-                .Select((s, i) => i)
-                .Take(5)
-                .First();
-            Assert.AreEqual(0, result);
+        public void Release_Negative_Number_Throws() {
+            Assert.Throws<ArgumentException>(() => {
+                Generator.Factory
+                    .Incrementer(0)
+                    .Release(-5);
+            });
+        }
+
+        [Test(
+            Description = "Verify that calling release with null generator throws exception"
+        )]
+        public void Release_Null_Generator_Throws() {
+            Assert.Throws<ArgumentNullException>(() => {
+                IGenerator<int> generator = null;
+                generator.Release(1);
+            });
+        }
+
+        [Test(
+            Description = "Verify that release will Immediately release the elements"
+        )]
+        public void Release_Releases_Elements_Immediately() {
+            var expected = 0;
+            Generator
+                .Factory
+                .Incrementer(0)
+                .Do(actual => {
+                    Assert.AreEqual(expected, actual);
+                    expected++;
+                })
+                .Release(5);
+        }
+
+        [Test(
+            Description = "Verify that release returns the same instance of IGenerator<T>"
+        )]
+        public void Release_Same_Generator() {
+            var expected = Generator
+                .Factory
+                .Incrementer(0);
+            var actual = expected.Release(5);
+            Assert.AreSame(expected, actual);
+        }
+
+        [Test(
+            Description = "Verify that invoking release with zero does nothing"
+        )]
+        public void Release_Zero_Elements_Does_Nothing() {
+            var invoked = false;
+            Generator
+                .Factory
+                .Incrementer(0)
+                .Release(0)
+                .Do(i => invoked = true);
+            Assert.IsFalse(invoked);
         }
 
         [Test(
@@ -202,6 +327,25 @@ namespace Tests.GeneratorAPI {
             Assert.AreEqual(2, result[2]);
             Assert.AreEqual(3, result[3]);
             Assert.AreEqual(4, result[4]);
+        }
+
+        [Test(
+            Description = "Verify that counter starts on zero"
+        )]
+        public void Select_Counter_Starts_Zero() {
+            var result = _generator
+                .Select((s, i) => i)
+                .Take(5)
+                .First();
+            Assert.AreEqual(0, result);
+        }
+
+        [Test(
+            Description = "Verify that Select does not return null"
+        )]
+        public void Select_Does_Not_Return_Null() {
+            var result = _generator.Select(s => s.Length);
+            Assert.IsNotNull(result);
         }
 
         [Test(
@@ -262,66 +406,6 @@ namespace Tests.GeneratorAPI {
                 .Select(i => randomizer.GetString())
                 .Select(s => s.Length);
             Assert.AreEqual(expected, result);
-        }
-
-        [Test(
-            Description = "Verify that release will Immediately release the elements"
-        )]
-        public void Release_Releases_Elements_Immediately() {
-            var expected = 0;
-            Generator
-                .Factory
-                .Incrementer(start: 0)
-                .Do(actual => {
-                    Assert.AreEqual(expected, actual);
-                    expected++;
-                })
-                .Release(5);
-        }
-
-        [Test(
-            Description = "Verify that release returns the same instance of IGenerator<T>"
-        )]
-        public void Release_Same_Generator() {
-            var expected = Generator
-                .Factory
-                .Incrementer(start: 0);
-            var actual = expected.Release(5);
-            Assert.AreSame(expected, actual);
-        }
-
-        [Test(
-            Description = "Verify that invoking release with zero does nothing"
-        )]
-        public void Release_Zero_Elements_Does_Nothing() {
-            var invoked = false;
-            Generator
-                .Factory
-                .Incrementer(start: 0)
-                .Release(0)
-                .Do(i => invoked = true);
-            Assert.IsFalse(invoked);
-        }
-
-        [Test(
-            Description = "Verify that calling release with negative number throws exception"
-        )]
-        public void Release_Negative_Number_Throws() {
-            Assert.Throws<ArgumentException>(() => {
-                Generator.Factory
-                    .Incrementer(start: 0)
-                    .Release(-5);
-            });
-        }
-
-        [Test(
-            Description = "Verify that calling release with null generator throws exception"
-        )]
-        public void Release_Null_Generator_Throws() {
-            Assert.Throws<ArgumentNullException>(() => {
-                IGenerator<int> generator = null;
-                generator.Release(1);
-            });
         }
 
         [Test(
@@ -400,6 +484,15 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
+            Description = "Verify that SelectMany throws exception if generator is null"
+        )]
+        public void SelectMany_IEnumerable_Arg_Arg_Composer_Null_Generator() {
+            IGenerator<string> generator = null;
+            Assert.Throws<ArgumentNullException>(
+                () => generator.SelectMany(s => Enumerable.Range(0, 10), (s, i) => s + i));
+        }
+
+        [Test(
             Description = "Verify that the randomized number changes when enumerable restarts"
         )]
         public void SelectMany_IEnumerable_Argument_Changes() {
@@ -447,29 +540,20 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that SelectMany throws exception if generator is null"
-        )]
-        public void SelectMany_IEnumerable_Composer_Null_Generator() {
-            IGenerator<string> generator = null;
-            Assert.Throws<ArgumentNullException>(
-                () => generator.SelectMany<string, int>(enumerableSelector: s => Enumerable.Range(0, 10)));
-        }
-
-        [Test(
-            Description = "Verify that SelectMany throws exception if generator is null"
-        )]
-        public void SelectMany_IEnumerable_Arg_Arg_Composer_Null_Generator() {
-            IGenerator<string> generator = null;
-            Assert.Throws<ArgumentNullException>(
-                () => generator.SelectMany<string, int, string>(s => Enumerable.Range(0, 10), (s, i) => s + i));
-        }
-
-        [Test(
             Description = "Verify that both null composer and selector throws exception"
         )]
         public void SelectMany_IEnumerable_Composer_Null_Composer_And_Selector() {
             Assert.Throws<ArgumentNullException>(
                 () => _generator.SelectMany<string, int, string>(enumerableSelector: null, composer: null));
+        }
+
+        [Test(
+            Description = "Verify that SelectMany throws exception if generator is null"
+        )]
+        public void SelectMany_IEnumerable_Composer_Null_Generator() {
+            IGenerator<string> generator = null;
+            Assert.Throws<ArgumentNullException>(
+                () => generator.SelectMany(s => Enumerable.Range(0, 10)));
         }
 
         [Test(
@@ -606,6 +690,87 @@ namespace Tests.GeneratorAPI {
                 .Select(i => randomizer.GetString() + i);
 
             Assert.AreEqual(expected, result);
+        }
+
+        [Test(
+            Description = "Verify that you can skip fifty elements"
+        )]
+        public void Skip_Fifty() {
+            var generator = Generator
+                .Factory
+                .Incrementer(1)
+                .Skip(50);
+            Assert.AreEqual(51, generator.Generate());
+        }
+
+        [Test(
+            Description = "Verify that skip is lazy Evaluated"
+        )]
+        public void Skip_Is_Lazy_Evaluated() {
+            var invoked = false;
+            Generator
+                .Function<string>(() => {
+                    invoked = true;
+                    return null;
+                })
+                .Skip(50);
+            Assert.AreEqual(false, invoked);
+        }
+
+        [Test(
+            Description = "Verify that you can't skip negative numbers"
+        )]
+        public void Skip_Negative_Number_Throws() {
+            var generator = Generator
+                .Factory
+                .Incrementer(1);
+            Assert.Throws<ArgumentException>(() => generator.Skip(-1));
+        }
+
+        [Test(
+            Description = "Verify that using skip with null generator throws"
+        )]
+        public void Skip_Null_Generator_Throws() {
+            IGenerator<int> generator = null;
+            Assert.Throws<ArgumentNullException>(() => generator.Skip(1));
+        }
+
+        [Test(
+            Description = "Verify that you can skip zero elements"
+        )]
+        public void Skip_Zero() {
+            var generator = Generator
+                .Factory
+                .Incrementer(1)
+                .Skip(0);
+            Assert.AreEqual(1, generator.Generate());
+        }
+
+        [Test(
+            Description = "Verify that you can skip zero elements and it does nothing"
+        )]
+        public void Skip_Zero_Does_Nothing() {
+            var result = Generator
+                .Factory
+                .Incrementer(1)
+                .Skip(0);
+
+            var expected = Generator
+                .Factory
+                .Incrementer(1);
+            Assert.AreEqual(expected.Generate(), result.Generate());
+        }
+
+        [Test(
+            Description = "Verify that skipping 0 elements returns same instance"
+        )]
+        public void Skip_Zero_Returns_Same_instance() {
+            var generator = Generator
+                .Factory
+                .Incrementer(1);
+
+            Assert.AreSame(generator, generator.Skip(0));
+            Assert.AreNotSame(generator, generator.Skip(1));
         }
 
 
@@ -950,157 +1115,6 @@ namespace Tests.GeneratorAPI {
         public void Zip_Null_Second_Param_Throws() {
             Assert.Throws<ArgumentNullException>(
                 () => _generator.Zip<string, int, string>(Generator.Function(() => 1), null));
-        }
-
-        [Test(
-            Description = ""
-        )]
-        public void Cast_Null_Generator() {
-            IGenerator<int> generator = null;
-            Assert.Throws<ArgumentNullException>(() => generator.Cast<long>());
-        }
-
-        [Test(
-            Description = "Verify that int casting works"
-        )]
-        public void Cast_Object_To_Int() {
-            var generator = Generator
-                .CircularSequence(new List<object> {1, 2, 3, 4, 5})
-                .Cast<int>();
-            Assert.IsInstanceOf<int>(generator.Generate());
-        }
-
-        [Test(
-            Description = "Verify that string casting works"
-        )]
-        public void Cast_Object_To_String() {
-            var generator = Generator
-                .CircularSequence(new List<object> {"hello", "World"})
-                .Cast<string>();
-            Assert.IsInstanceOf<string>(generator.Generate());
-        }
-
-        [Test(
-            Description = "Verify that char casting works"
-        )]
-        public void Cast_Object_To_Char() {
-            Enumerable.Range(0, 1).Skip(Seed);
-            var generator = Generator
-                .CircularSequence(new List<object> {'1', '2'})
-                .Cast<char>();
-            Assert.IsInstanceOf<char>(generator.Generate());
-        }
-
-        [Test(
-            Description = "Verify that invalid cast throws exception"
-        )]
-        public void Cast_Invalid_Cast_Throws() {
-            var generator = Generator
-                .CircularSequence(new List<int> {1, 2})
-                .Cast<string>();
-            Assert.Throws<InvalidCastException>(() => generator.Generate());
-        }
-
-        [Test(
-            Description =
-                "Verify that if the source generator is generic, the cast method will try to cast it into the generic source"
-        )]
-        public void Cast_Source_Is_Generic_Gets_Checked() {
-            IGenerator noneGeneric = Generator
-                .Factory
-                .Incrementer();
-            IGenerator<int> genericGenerator = noneGeneric.Cast<int>();
-            Assert.IsInstanceOf<int>(genericGenerator.Generate());
-        }
-
-        [Test(
-            Description = "Verify that none generic generator generates the correct type"
-        )]
-        public void Generator_None_Generic_Generate() {
-            IGenerator noneGeneric = Generator
-                .Factory
-                .Incrementer();
-            Assert.IsInstanceOf<int>(noneGeneric.Generate());
-        }
-
-        [Test(
-            Description = "Verify that you can skip fifty elements"
-        )]
-        public void Skip_Fifty() {
-            var generator = Generator
-                .Factory
-                .Incrementer(1)
-                .Skip(50);
-            Assert.AreEqual(51, generator.Generate());
-        }
-
-        [Test(
-            Description = "Verify that you can skip zero elements"
-        )]
-        public void Skip_Zero() {
-            var generator = Generator
-                .Factory
-                .Incrementer(1)
-                .Skip(0);
-            Assert.AreEqual(1, generator.Generate());
-        }
-
-        [Test(
-            Description = "Verify that you can skip zero elements and it does nothing"
-        )]
-        public void Skip_Zero_Does_Nothing() {
-            var result = Generator
-                .Factory
-                .Incrementer(1)
-                .Skip(0);
-
-            var expected = Generator
-                .Factory
-                .Incrementer(1);
-            Assert.AreEqual(expected.Generate(), result.Generate());
-        }
-        [Test(
-            Description = "Verify that skipping 0 elements returns same instance"
-        )]
-        public void Skip_Zero_Returns_Same_instance() {
-            var generator = Generator
-                .Factory
-                .Incrementer(1);
-
-            Assert.AreSame(generator, generator.Skip(0));
-            Assert.AreNotSame(generator, generator.Skip(1));
-        }
-
-        [Test(
-            Description = "Verify that you can't skip negative numbers"
-        )]
-        public void Skip_Negative_Number_Throws() {
-            var generator = Generator
-                .Factory
-                .Incrementer(1);
-            Assert.Throws<ArgumentException>(() => generator.Skip(-1));
-        }
-
-        [Test(
-            Description = "Verify that using skip with null generator throws"
-        )]
-        public void Skip_Null_Generator_Throws() {
-            IGenerator<int> generator = null;
-            Assert.Throws<ArgumentNullException>(() => generator.Skip(1));
-        }
-
-        [Test(
-            Description = "Verify that skip is lazy Evaluated"
-        )]
-        public void Skip_Is_Lazy_Evaluated() {
-            var invoked = false;
-             Generator
-                .Function<string>(() => {
-                    invoked = true;
-                    return null;
-                })
-                .Skip(50);
-            Assert.AreEqual(false, invoked);
         }
     }
 }
