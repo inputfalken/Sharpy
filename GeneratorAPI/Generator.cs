@@ -218,7 +218,7 @@ namespace GeneratorAPI {
         /// <summary>
         ///     <para>A Generator using Func&lt;T&gt;</para>
         /// </summary>
-        private class Fun<T> : IGenerator<T> {
+        private sealed class Fun<T> : IGenerator<T> {
             private readonly Func<T> _fn;
 
             /// <summary>
@@ -251,7 +251,7 @@ namespace GeneratorAPI {
         /// <summary>
         ///     <para>A Generator using <see cref="IEnumerable{T}"/></para>
         /// </summary>
-        private class Seq<T> : IGenerator<T> {
+        private sealed class Seq<T> : IGenerator<T> {
             private readonly Lazy<IEnumerator<T>> _lazyEnumerator;
 
             public Seq(IEnumerable<T> enumerable) {
