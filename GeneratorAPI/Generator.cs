@@ -79,18 +79,13 @@ namespace GeneratorAPI {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (count < 0) throw new ArgumentException($"{nameof(count)} Cant be negative");
             if (count == 0) return generator;
-            var skipped = SkipLazily(generator, count);
+            var skipped = new Lazy<IGenerator<T>>(() => ReleaseIterator(generator, count));
             return Function(() => skipped.Value.Generate());
         }
 
         private static IGenerator<T> ReleaseIterator<T>(IGenerator<T> generator, int count) {
-                for (var i = 0; i < count; i++) generator.Generate();
+            for (var i = 0; i < count; i++) generator.Generate();
             return generator;
-        }
-
-        // Can this be done better?
-        private static Lazy<IGenerator<T>> SkipLazily<T>(IGenerator<T> generator, int count) {
-            return new Lazy<IGenerator<T>>(() => ReleaseIterator(generator, count));
         }
 
         /// <summary>
