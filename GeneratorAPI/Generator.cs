@@ -291,7 +291,7 @@ namespace GeneratorAPI {
     ///         <para>The point of this class is to contain extension methods from other libraries.</para>
     ///     </remarks>
     /// </summary>
-    public class GeneratorFactory {
+    public sealed class GeneratorFactory {
         /// <summary>
         ///    <para>Creates <see cref="IGenerator{T}"/> whose generic argument is <see cref="int"/>.</para>
         ///    <para>Each invokation of <see cref="IGenerator{T}.Generate"/> will return a randomized <see cref="int"/>that is greater than or equal to argument min and less than argument max.</para>
