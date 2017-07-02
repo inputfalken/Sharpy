@@ -62,15 +62,15 @@ namespace Tests.Sharpy.Integration {
         }
 
         [Test]
-        public void LastName_No_INameProvider_Arg_Generation_Is_Not_Null_Or_Whitespace() {
-            var generator = Generator.Factory.LastName();
-            Assert.IsFalse(string.IsNullOrWhiteSpace(generator.Generate()));
-        }
-
-        [Test]
         public void LastName_No_Arg_Is_Not_Null() {
             var generator = Generator.Factory.LastName();
             Assert.IsNotNull(generator);
+        }
+
+        [Test]
+        public void LastName_No_INameProvider_Arg_Generation_Is_Not_Null_Or_Whitespace() {
+            var generator = Generator.Factory.LastName();
+            Assert.IsFalse(string.IsNullOrWhiteSpace(generator.Generate()));
         }
 
         [Test]

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using GeneratorAPI;
+using GeneratorAPI.Extensions;
 using NUnit.Framework;
 
 namespace Tests.GeneratorAPI {
@@ -14,12 +15,13 @@ namespace Tests.GeneratorAPI {
                 .Reverse();
         }
 
-        [Test(
-            Description = "Verify that Guid generator does not return null"
-        )]
-        public void Guid_Generator_Is_Not_Null() {
-            var result = Generator.Factory.Guid();
-            Assert.IsNotNull(result);
+        [Test]
+        public void Decrementer_Int_MinValue_Throws() {
+            var result = Generator
+                .Factory
+                .Decrementer(int.MinValue)
+                .Take(500);
+            Assert.Throws<OverflowException>(() => result.ToArray());
         }
 
         [Test]
@@ -34,15 +36,11 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test]
-        public void Decrementer_Start_Twenty() {
-            const int start = 20;
-            const int count = 500;
+        public void Decrementer_Start_Int_MaxValue_Does_Not_Throw() {
             var result = Generator
-                .Factory
-                .Decrementer(start)
-                .Take(count);
-            var expected = GetExpectedDecrementationEnumerable(start, count);
-            Assert.AreEqual(expected, result);
+                .Factory.Decrementer(int.MaxValue)
+                .Take(500);
+            Assert.DoesNotThrow(() => result.ToArray());
         }
 
         [Test]
@@ -60,27 +58,22 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test]
-        public void Decrementer_Start_Int_MaxValue_Does_Not_Throw() {
-            var result = Generator
-                .Factory.Decrementer(int.MaxValue)
-                .Take(500);
-            Assert.DoesNotThrow(() => result.ToArray());
-        }
-
-        [Test]
-        public void Decrementer_Int_MinValue_Throws() {
+        public void Decrementer_Start_Twenty() {
+            const int start = 20;
+            const int count = 500;
             var result = Generator
                 .Factory
-                .Decrementer(int.MinValue)
-                .Take(500);
-            Assert.Throws<OverflowException>(() => result.ToArray());
+                .Decrementer(start)
+                .Take(count);
+            var expected = GetExpectedDecrementationEnumerable(start, count);
+            Assert.AreEqual(expected, result);
         }
 
 
         [Test]
         public void Decrementer_To_Int_Min_Value() {
-            int count = 500;
-            int start = int.MinValue + count;
+            var count = 500;
+            var start = int.MinValue + count;
             var result = Generator
                 .Factory
                 .Decrementer(start)
@@ -100,6 +93,23 @@ namespace Tests.GeneratorAPI {
             Assert.Throws<OverflowException>(() => result.ToArray());
         }
 
+        [Test(
+            Description = "Verify that Guid generator does not return null"
+        )]
+        public void Guid_Generator_Is_Not_Null() {
+            var result = Generator.Factory.Guid();
+            Assert.IsNotNull(result);
+        }
+
+        [Test]
+        public void Incrementer_Int_MinValue_Does_Not_Throw() {
+            var result = Generator
+                .Factory
+                .Incrementer(int.MinValue)
+                .Take(500);
+            Assert.DoesNotThrow(() => result.ToArray());
+        }
+
         [Test]
         public void Incrementer_No_Arg() {
             var result = Generator
@@ -111,13 +121,22 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test]
-        public void Incrementer_Start_Twenty() {
+        public void Incrementer_Start_Below_Int_MinValue_Throws() {
+            var start = int.MinValue;
             var result = Generator
                 .Factory
-                .Incrementer(20)
+                .Incrementer(start - 1)
+                .Take(1);
+            Assert.Throws<OverflowException>(() => result.ToArray());
+        }
+
+        [Test]
+        public void Incrementer_Start_Int_MaxValue_Throws() {
+            var result = Generator
+                .Factory
+                .Incrementer(int.MaxValue)
                 .Take(500);
-            var expected = Enumerable.Range(20, 500);
-            Assert.AreEqual(expected, result);
+            Assert.Throws<OverflowException>(() => result.ToArray());
         }
 
         [Test]
@@ -131,31 +150,13 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test]
-        public void Incrementer_Start_Int_MaxValue_Throws() {
+        public void Incrementer_Start_Twenty() {
             var result = Generator
                 .Factory
-                .Incrementer(int.MaxValue)
+                .Incrementer(20)
                 .Take(500);
-            Assert.Throws<OverflowException>(() => result.ToArray());
-        }
-
-        [Test]
-        public void Incrementer_Int_MinValue_Does_Not_Throw() {
-            var result = Generator
-                .Factory
-                .Incrementer(int.MinValue)
-                .Take(500);
-            Assert.DoesNotThrow(() => result.ToArray());
-        }
-
-        [Test]
-        public void Incrementer_Start_Below_Int_MinValue_Throws() {
-            int start = int.MinValue;
-            var result = Generator
-                .Factory
-                .Incrementer(start - 1)
-                .Take(1);
-            Assert.Throws<OverflowException>(() => result.ToArray());
+            var expected = Enumerable.Range(20, 500);
+            Assert.AreEqual(expected, result);
         }
 
         [Test]

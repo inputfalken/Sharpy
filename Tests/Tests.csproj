@@ -52,10 +52,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GeneratorAPI\CircularSequenceTests.cs" />
+    <Compile Include="GeneratorAPI\Extensions\SelectManyEnumerableTests.cs" />
+    <Compile Include="GeneratorAPI\Implementations\CircularSequenceTests.cs" />
     <Compile Include="GeneratorAPI\GeneratorFactoryTests.cs" />
     <Compile Include="GeneratorAPI\GeneratorTests.cs" />
-    <Compile Include="GeneratorAPI\TaskExtensionTests.cs" />
+    <Compile Include="GeneratorAPI\Extensions\CastTests.cs" />
+    <Compile Include="GeneratorAPI\Extensions\DoTests.cs" />
+    <Compile Include="GeneratorAPI\Extensions\WhereTests.cs" />
+    <Compile Include="GeneratorAPI\Extensions\SelectManyGeneratorTests.cs" />
+    <Compile Include="GeneratorAPI\Extensions\SelectTests.cs" />
+    <Compile Include="GeneratorAPI\Extensions\TakeTests.cs" />
+    <Compile Include="GeneratorAPI\Extensions\ToArrayTests.cs" />
+    <Compile Include="GeneratorAPI\Extensions\ToDictionaryTests.cs" />
+    <Compile Include="GeneratorAPI\Extensions\ToListTests.cs" />
+    <Compile Include="GeneratorAPI\Extensions\ZipTests.cs" />
+    <Compile Include="GeneratorAPI\Implementations\CreateTests.cs" />
+    <Compile Include="GeneratorAPI\Implementations\FunctionTests.cs" />
+    <Compile Include="GeneratorAPI\Implementations\LazyTests.cs" />
+    <Compile Include="GeneratorAPI\TaskExtensions\TaskExtensionTests.cs" />
     <Compile Include="Sharpy\FileTests.cs" />
     <Compile Include="Sharpy\Integration\Bool.cs" />
     <Compile Include="Sharpy\Integration\Config.cs" />

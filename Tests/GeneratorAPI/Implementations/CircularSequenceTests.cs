@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using GeneratorAPI;
+using GeneratorAPI.Extensions;
 using NUnit.Framework;
 
-namespace Tests.GeneratorAPI {
+namespace Tests.GeneratorAPI.Implementations {
     [TestFixture]
     public class CircularSequenceTests {
         [SetUp]
@@ -69,10 +70,17 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that null enumerable throw exception"
+            Description = "Verify that it's possible to use Queue"
         )]
-        public void Support_No_Generic_Null_Enumerable() {
-            Assert.Throws<ArgumentNullException>(() => Generator.CircularSequence(null));
+        public void Support_No_Generic_Enumerable_Queue() {
+            var stack = new Queue();
+            stack.Enqueue(1);
+            stack.Enqueue(2);
+            stack.Enqueue(3);
+            var list = Generator
+                .CircularSequence(stack)
+                .Cast<int>();
+            Assert.AreEqual(new[] {1, 2, 3}, list.ToArray(3));
         }
 
         [Test(
@@ -90,17 +98,10 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that it's possible to use Queue"
+            Description = "Verify that null enumerable throw exception"
         )]
-        public void Support_No_Generic_Enumerable_Queue() {
-            var stack = new Queue();
-            stack.Enqueue(1);
-            stack.Enqueue(2);
-            stack.Enqueue(3);
-            var list = Generator
-                .CircularSequence(stack)
-                .Cast<int>();
-            Assert.AreEqual(new[] {1, 2, 3}, list.ToArray(3));
+        public void Support_No_Generic_Null_Enumerable() {
+            Assert.Throws<ArgumentNullException>(() => Generator.CircularSequence(null));
         }
     }
 }
