@@ -325,7 +325,7 @@ namespace GeneratorAPI.Extensions {
         ///     An array that contains elements generated from the input <paramref name="generator" />.
         /// </returns>
         /// <example>
-        ///     <code language="C#" region="Generator.ToArray" source="..\Examples\Generator.cs" />
+        ///     <code language="C#" region="Generator.ToArray" source="Examples\Generator.cs" />
         /// </example>
         public static TSource[] ToArray<TSource>(this IGenerator<TSource> generator, int length) {
             return generator.Take(length).ToArray();
