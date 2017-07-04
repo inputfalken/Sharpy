@@ -31,7 +31,7 @@ namespace GeneratorAPI {
         ///     <see cref="IGenerator{T}.Generate" />.
         /// </returns>
         /// <example>
-        ///     <code language="C#" region="RandomizerThreeArg" source="..\Examples\GeneratorFactory.cs" />
+        ///     <code language="C#" region="RandomizerThreeArg" source="Examples\GeneratorFactory.cs" />
         /// </example>
         public IGenerator<int> Randomizer(int min, int max, int? seed = null) {
             return Generator
@@ -60,7 +60,7 @@ namespace GeneratorAPI {
         ///     <see cref="IGenerator{T}.Generate" />.
         /// </returns>
         /// <example>
-        ///     <code language="C#" region="RandomizerTwoArg" source="..\Examples\GeneratorFactory.cs" />
+        ///     <code language="C#" region="RandomizerTwoArg" source="Examples\GeneratorFactory.cs" />
         /// </example>
         public IGenerator<int> Randomizer(int max, int? seed = null) {
             return Generator
@@ -94,7 +94,7 @@ namespace GeneratorAPI {
         ///     <see cref="IGenerator{T}.Generate" />.
         /// </returns>
         /// <example>
-        ///     <code language="C#" region="RandomizerOneArg" source="..\Examples\GeneratorFactory.cs" />
+        ///     <code language="C#" region="RandomizerOneArg" source="Examples\GeneratorFactory.cs" />
         /// </example>
         public IGenerator<int> Randomizer(int? seed = null) {
             return Generator
@@ -114,7 +114,7 @@ namespace GeneratorAPI {
         ///     return a new <see cref="System.Guid" />.
         /// </returns>
         /// <example>
-        ///     <code language="C#" region="Guid" source="..\Examples\GeneratorFactory.cs" />
+        ///     <code language="C#" region="Guid" source="Examples\GeneratorFactory.cs" />
         /// </example>
         public IGenerator<Guid> Guid() {
             return Generator.Function(System.Guid.NewGuid);
@@ -134,7 +134,7 @@ namespace GeneratorAPI {
         ///     <see cref="int" /> which is incremented by 1 for each invokation of <see cref="IGenerator{T}.Generate" />.
         /// </returns>
         /// <example>
-        ///     <code language="C#" region="Incrementer" source="..\Examples\GeneratorFactory.cs" />
+        ///     <code language="C#" region="Incrementer" source="Examples\GeneratorFactory.cs" />
         /// </example>
         public IGenerator<int> Incrementer(int start = 0) {
             return Generator.Function(() => checked(start++));
@@ -154,7 +154,7 @@ namespace GeneratorAPI {
         ///     <see cref="int" /> which is decremented by 1 for each invokation of <see cref="IGenerator{T}.Generate" />.
         /// </returns>
         /// <example>
-        ///     <code language="C#" region="Decrementer" source="..\Examples\GeneratorFactory.cs" />
+        ///     <code language="C#" region="Decrementer" source="Examples\GeneratorFactory.cs" />
         /// </example>
         public IGenerator<int> Decrementer(int start = 0) {
             return Generator.Function(() => checked(start--));
