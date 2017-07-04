@@ -20,6 +20,9 @@ namespace GeneratorAPI.Extensions {
         ///     An element in the sequence cannot be cast to type
         ///     <typeparamref name="TResult" />.
         /// </exception>
+        /// <example>
+        ///     <code language="C#" region="Generator.Cast" source="Examples\Generator.cs" />
+        /// </example>
         public static IGenerator<TResult> Cast<TResult>(this IGenerator generator) {
             var result = generator as IGenerator<TResult>;
             if (result != null) return result;
@@ -49,6 +52,9 @@ namespace GeneratorAPI.Extensions {
         /// <returns>
         ///     A <see cref="IGenerator{T}" /> whose elements has satisfied the condition.
         /// </returns>
+        /// <example>
+        ///     <code language="C#" region="Generator.Where" source="Examples\Generator.cs" />
+        /// </example>
         public static IGenerator<TSource> Where<TSource>(this IGenerator<TSource> generator,
             Func<TSource, bool> predicate,
             int threshold = 100000) {
@@ -79,6 +85,9 @@ namespace GeneratorAPI.Extensions {
         /// <returns>
         ///     A <see cref="IGenerator{T}" /> whose elements has been exposed to <see cref="Action{T}" />.
         /// </returns>
+        /// <example>
+        ///     <code language="C#" region="Generator.Do" source="Examples\Generator.cs" />
+        /// </example>
         public static IGenerator<TSource> Do<TSource>(this IGenerator<TSource> generator, Action<TSource> action) {
             if (action == null) throw new ArgumentNullException(nameof(action));
             if (generator == null) throw new ArgumentNullException(nameof(generator));
@@ -110,6 +119,9 @@ namespace GeneratorAPI.Extensions {
         ///     A <see cref="IGenerator{T}" /> whose elements are the result of invoking the transform function on each element genrated by
         ///     <paramref name="generator" />.
         /// </returns>
+        /// <example>
+        ///     <code language="C#" region="Generator.Select" source="Examples\Generator.cs" />
+        /// </example>
         public static IGenerator<TResult> Select<TSource, TResult>(this IGenerator<TSource> generator,
             Func<TSource, TResult> selector) {
             if (selector == null) throw new ArgumentNullException(nameof(selector));
@@ -162,6 +174,9 @@ namespace GeneratorAPI.Extensions {
         /// <returns>
         ///     An <see cref="IEnumerable{T}"/> that contains the specified number of elements generated from the argument <paramref name="generator"/>.
         /// </returns>
+        /// <example>
+        ///     <code language="C#" region="Generator.Take" source="Examples\Generator.cs" />
+        /// </example>
         public static IEnumerable<TSource> Take<TSource>(this IGenerator<TSource> generator, int count) {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (count <= 0) throw new ArgumentException($"{nameof(count)} Must be more than zero");
@@ -267,6 +282,9 @@ namespace GeneratorAPI.Extensions {
         /// <returns>
         ///     A <see cref="IGenerator{T}" /> that contains merged elements of two input generators.
         /// </returns>
+        /// <example>
+        ///     <code language="C#" region="Generator.Zip" source="Examples\Generator.cs" />
+        /// </example>
         public static IGenerator<TResult> Zip<TSource, TSecond, TResult>(this IGenerator<TSource> first,
             IGenerator<TSecond> second,
             Func<TSource, TSecond, TResult> resultSelector) {
@@ -293,6 +311,9 @@ namespace GeneratorAPI.Extensions {
         ///     A <see cref="Dictionary{TKey,TValue}" /> that contains values of type TElement selected from the input
         ///     <paramref name="generator" />.
         /// </returns>
+        /// <example>
+        ///     <code language="C#" region="Generator.ToDictionary" source="Examples\Generator.cs" />
+        /// </example>
         public static Dictionary<TKey, TValue> ToDictionary<TSource, TKey, TValue>(this IGenerator<TSource> generator,
             int count, Func<TSource, TKey> keySelector, Func<TSource, TValue> elementSelector) {
             return generator.Take(count).ToDictionary(keySelector, elementSelector);
@@ -309,6 +330,9 @@ namespace GeneratorAPI.Extensions {
         /// <returns>
         ///     A <see cref="List{T}" /> that contains elements generated from the input <paramref name="generator" />.
         /// </returns>
+        /// <example>
+        ///     <code language="C#" region="Generator.ToList" source="Examples\Generator.cs" />
+        /// </example>
         public static List<TSource> ToList<TSource>(this IGenerator<TSource> generator, int count) {
             return generator.Take(count).ToList();
         }
