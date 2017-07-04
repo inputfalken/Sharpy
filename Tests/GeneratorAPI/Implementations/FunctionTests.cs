@@ -8,7 +8,7 @@ namespace Tests.GeneratorAPI.Implementations {
         [Test(
             Description = "Verify that Generator.Function does not use the same instance"
         )]
-        public void Function_Not_Same_Instance() {
+        public void Not_Same_Instance() {
             var generator = Generator.Function(() => new Random());
             Assert.AreNotSame(generator.Generate(), generator.Generate());
         }
@@ -16,7 +16,7 @@ namespace Tests.GeneratorAPI.Implementations {
         [Test(
             Description = "Verify that passing null to Generator.Function throws exception"
         )]
-        public void Function_Throw_Exception_When_Null() {
+        public void Throw_Exception_When_Null() {
             Assert.Throws<ArgumentNullException>(() => Generator.Function<string>(null), "Argument cannot be null");
         }
     }

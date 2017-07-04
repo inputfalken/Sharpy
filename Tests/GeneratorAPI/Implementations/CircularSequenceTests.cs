@@ -35,23 +35,27 @@ namespace Tests.GeneratorAPI.Implementations {
         private List<string> _list;
 
         [Test(
-            Description = "Verify that generator iterates through the list supplied"
+            Description = "Verify that it's possible to use ArrayList"
         )]
-        public void Iterates_Through_List() {
-            Assert.IsTrue(_generator.Take(10).SequenceEqual(_list));
+        public void Generic_List() {
+            var list = new List<int> {1, 2, 3};
+            var generator = Generator
+                .CircularSequence(list);
+
+            Assert.AreEqual(new[] {1, 2, 3}, generator.ToArray(3));
         }
 
         [Test(
-            Description = "Verify that passing null when creating a circular sequence throws exception"
+            Description = "Verify that generator iterates through the list supplied"
         )]
-        public void Null_Enumerable() {
-            Assert.Throws<ArgumentNullException>(() => Generator.CircularSequence<string>(null));
+        public void Generic_List_Iterates_All_Elements() {
+            Assert.IsTrue(_generator.Take(10).SequenceEqual(_list));
         }
 
         [Test(
             Description = "Verify that generator restarts when all elements has been iterated"
         )]
-        public void Repeats_When_List_Ends() {
+        public void Generic_List_Repeats() {
             var list = _generator.Take(40).ToList();
             //Verify that you get the correct ammount from take
             Assert.AreEqual(40, list.Count);
@@ -60,48 +64,84 @@ namespace Tests.GeneratorAPI.Implementations {
         }
 
         [Test(
-            Description = "Verify that it's possible to use ArrayList"
-        )]
-        public void Support_No_Generic_Enumerable_ArrayList() {
-            var list = Generator
-                .CircularSequence(new ArrayList {1, 2, 3})
-                .Cast<int>();
-            Assert.AreEqual(new[] {1, 2, 3}, list.ToArray(3));
-        }
-
-        [Test(
             Description = "Verify that it's possible to use Queue"
         )]
-        public void Support_No_Generic_Enumerable_Queue() {
-            var stack = new Queue();
+        public void Generic_Queue() {
+            var stack = new Queue<int>();
             stack.Enqueue(1);
             stack.Enqueue(2);
             stack.Enqueue(3);
-            var list = Generator
-                .CircularSequence(stack)
-                .Cast<int>();
-            Assert.AreEqual(new[] {1, 2, 3}, list.ToArray(3));
+            var generator = Generator
+                .CircularSequence(stack);
+
+            Assert.AreEqual(new[] {1, 2, 3}, generator.ToArray(3));
         }
 
         [Test(
             Description = "Verify that it's possible to use Stack"
         )]
-        public void Support_No_Generic_Enumerable_Stack() {
-            var stack = new Stack();
+        public void Generic_Stack() {
+            var stack = new Stack<int>();
             stack.Push(1);
             stack.Push(2);
             stack.Push(3);
-            var list = Generator
-                .CircularSequence(stack)
-                .Cast<int>();
-            Assert.AreEqual(new[] {3, 2, 1}, list.ToArray(3));
+            var generator = Generator
+                .CircularSequence(stack);
+
+            Assert.AreEqual(new[] {3, 2, 1}, generator.ToArray(3));
+        }
+
+        [Test(
+            Description = "Verify that it's possible to use ArrayList"
+        )]
+        public void None_Generic_List() {
+            var list = new ArrayList {1, 2, 3};
+            var geneartor = Generator
+                .CircularSequence(list);
+
+            Assert.AreEqual(new[] {1, 2, 3}, geneartor.ToArray(3));
         }
 
         [Test(
             Description = "Verify that null enumerable throw exception"
         )]
-        public void Support_No_Generic_Null_Enumerable() {
+        public void None_Generic_Null() {
             Assert.Throws<ArgumentNullException>(() => Generator.CircularSequence(null));
+        }
+
+        [Test(
+            Description = "Verify that it's possible to use Queue"
+        )]
+        public void None_Generic_Queue() {
+            var stack = new Queue();
+            stack.Enqueue(1);
+            stack.Enqueue(2);
+            stack.Enqueue(3);
+            var generator = Generator
+                .CircularSequence(stack);
+
+            Assert.AreEqual(new[] {1, 2, 3}, generator.ToArray(3));
+        }
+
+        [Test(
+            Description = "Verify that it's possible to use Stack"
+        )]
+        public void None_Generic_Stack() {
+            var stack = new Stack();
+            stack.Push(1);
+            stack.Push(2);
+            stack.Push(3);
+            var list = Generator
+                .CircularSequence(stack);
+
+            Assert.AreEqual(new[] {3, 2, 1}, list.ToArray(3));
+        }
+
+        [Test(
+            Description = "Verify that passing null when creating a circular sequence throws exception"
+        )]
+        public void Null_Enumerable() {
+            Assert.Throws<ArgumentNullException>(() => Generator.CircularSequence<string>(null));
         }
     }
 }
