@@ -56,9 +56,11 @@
     <ProjectSummary>
     </ProjectSummary>
     <NamespaceSummaries>
-      <NamespaceSummaryItem name="GeneratorAPI" isDocumented="True" xmlns="">An generation library inspired by LINQ.</NamespaceSummaryItem>
-    </NamespaceSummaries>
+      <NamespaceSummaryItem name="GeneratorAPI" isDocumented="True" />
+<NamespaceSummaryItem name="(global)" isDocumented="True" />
+<NamespaceSummaryItem name="GeneratorAPI.Linq" isDocumented="True" /></NamespaceSummaries>
     <FeedbackEMailLinkText>Inputfalken</FeedbackEMailLinkText>
+    <MissingTags>Summary, Parameter, Returns, AutoDocumentCtors, TypeParameter, AutoDocumentDispose</MissingTags>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->

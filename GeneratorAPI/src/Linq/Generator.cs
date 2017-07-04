@@ -1,18 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using static GeneratorAPI.Generator;
 
-namespace GeneratorAPI.Extensions {
-    public static class GeneratorExtensions {
+namespace GeneratorAPI.Linq {
+    /// <summary>
+    ///     Provides a set of static methods for changing the behaviour of <see cref="IGenerator{T}"/>.
+    /// </summary>
+    public static partial class Extensions {
         /// <summary>
         ///     <para>
-        ///         Creates a <see cref="IGenerator{T}"/> by casting each element to <typeparamref name="TResult"/> when invoking <see cref="IGenerator.Generate"/>.
+        ///         Creates a <see cref="IGenerator{T}" /> by casting each element to <typeparamref name="TResult" /> when invoking
+        ///         <see cref="IGenerator.Generate" />.
         ///     </para>
         /// </summary>
-        /// <param name="generator">The <see cref="IGenerator" /> that contains the elements to be cast to type <typeparamref name="TResult"/>.</param>
+        /// <param name="generator">
+        ///     The <see cref="IGenerator" /> that contains the elements to be cast to type
+        ///     <typeparamref name="TResult" />.
+        /// </param>
         /// <returns>
-        ///     A <see cref="IGenerator{T}" /> whose generations have been casted to type <typeparamref name="TResult"/>.
+        ///     A <see cref="IGenerator{T}" /> whose generations have been casted to type <typeparamref name="TResult" />.
         /// </returns>
         /// <typeparam name="TResult">The type to be used when casting.</typeparam>
         /// <exception cref="ArgumentNullException">Argument <paramref name="generator" /> is null.</exception>
@@ -27,7 +33,7 @@ namespace GeneratorAPI.Extensions {
             var result = generator as IGenerator<TResult>;
             if (result != null) return result;
             if (generator == null) throw new ArgumentNullException(nameof(generator));
-            return Function(() => (TResult) generator.Generate());
+            return Generator.Function(() => (TResult) generator.Generate());
         }
 
         /// <summary>
@@ -74,7 +80,7 @@ namespace GeneratorAPI.Extensions {
             if (count < 0) throw new ArgumentException($"{nameof(count)} Cant be negative");
             if (count == 0) return generator;
             var skipped = new Lazy<IGenerator<TSource>>(() => ReleaseIterator(generator, count));
-            return Function(() => skipped.Value.Generate());
+            return Generator.Function(() => skipped.Value.Generate());
         }
 
         private static IGenerator<T> ReleaseIterator<T>(IGenerator<T> generator, int count) {
@@ -90,11 +96,11 @@ namespace GeneratorAPI.Extensions {
         /// </summary>
         /// <remarks>
         ///     <para>
-        ///         If the <paramref name="predicate"/> is not satisfied, a new generation will occur.
+        ///         If the <paramref name="predicate" /> is not satisfied, a new generation will occur.
         ///     </para>
         /// </remarks>
         /// <typeparam name="TSource">
-        ///     The type to be used as input in the <paramref name="predicate"/>.
+        ///     The type to be used as input in the <paramref name="predicate" />.
         /// </typeparam>
         /// <param name="generator">The <see cref="IGenerator{T}" /> to filter.</param>
         /// <param name="predicate">A function to test each generated element for a condition.</param>
@@ -113,7 +119,7 @@ namespace GeneratorAPI.Extensions {
             int threshold = 100000) {
             if (predicate == null) throw new ArgumentNullException(nameof(predicate));
             if (generator == null) throw new ArgumentNullException(nameof(generator));
-            return Function(() => {
+            return Generator.Function(() => {
                 for (var i = 0; i < threshold; i++) {
                     var generation = generator.Generate();
                     if (predicate(generation)) return generation;
@@ -144,7 +150,7 @@ namespace GeneratorAPI.Extensions {
         public static IGenerator<TSource> Do<TSource>(this IGenerator<TSource> generator, Action<TSource> action) {
             if (action == null) throw new ArgumentNullException(nameof(action));
             if (generator == null) throw new ArgumentNullException(nameof(generator));
-            return Function(() => {
+            return Generator.Function(() => {
                 var generation = generator.Generate();
                 action(generation);
                 return generation;
@@ -169,7 +175,8 @@ namespace GeneratorAPI.Extensions {
         /// <exception cref="ArgumentNullException">Argument <paramref name="generator" /> is null.</exception>
         /// <exception cref="ArgumentNullException">Argument <paramref name="generator" /> is null.</exception>
         /// <returns>
-        ///     A <see cref="IGenerator{T}" /> whose elements are the result of invoking the transform function on each element genrated by
+        ///     A <see cref="IGenerator{T}" /> whose elements are the result of invoking the transform function on each element
+        ///     genrated by
         ///     <paramref name="generator" />.
         /// </returns>
         /// <example>
@@ -179,7 +186,7 @@ namespace GeneratorAPI.Extensions {
             Func<TSource, TResult> selector) {
             if (selector == null) throw new ArgumentNullException(nameof(selector));
             if (generator == null) throw new ArgumentNullException(nameof(generator));
-            return Function(() => selector(generator.Generate()));
+            return Generator.Function(() => selector(generator.Generate()));
         }
 
         /// <summary>
@@ -214,18 +221,19 @@ namespace GeneratorAPI.Extensions {
 
         /// <summary>
         ///     <para>
-        ///         Creates an <see cref="IEnumerable{T}"/> from <see cref="IGenerator{T}"/>.
+        ///         Creates an <see cref="IEnumerable{T}" /> from <see cref="IGenerator{T}" />.
         ///     </para>
         /// </summary>
         /// <typeparam name="TSource">
-        ///     The type of <paramref name="generator"/>.
+        ///     The type of <paramref name="generator" />.
         /// </typeparam>
         /// <param name="generator">The <paramref name="generator" /> to generate from.</param>
         /// <param name="count">The number of elements to return.</param>
         /// <exception cref="ArgumentNullException">When <paramref name="generator" /> is null.</exception>
         /// <exception cref="ArgumentException">When argument <paramref name="count"></paramref> is less or equal to zero.</exception>
         /// <returns>
-        ///     An <see cref="IEnumerable{T}"/> that contains the specified number of elements generated from the argument <paramref name="generator"/>.
+        ///     An <see cref="IEnumerable{T}" /> that contains the specified number of elements generated from the argument
+        ///     <paramref name="generator" />.
         /// </returns>
         /// <example>
         ///     <code language="C#" region="Generator.Take" source="Examples\Generator.cs" />
@@ -243,14 +251,15 @@ namespace GeneratorAPI.Extensions {
 
         /// <summary>
         ///     <para>
-        ///         Creates a <see cref="IGenerator{T}"/> by flattening a <see cref="IGenerator{T}"/> with another <see cref="IGenerator{T}"/> for each invokation of <see cref="IGenerator{T}.Generate"/>.
+        ///         Creates a <see cref="IGenerator{T}" /> by flattening a <see cref="IGenerator{T}" /> with another
+        ///         <see cref="IGenerator{T}" /> for each invokation of <see cref="IGenerator{T}.Generate" />.
         ///     </para>
         /// </summary>
         /// <typeparam name="TSource">
-        ///     The type of the elements from <paramref name="generator"/>.
+        ///     The type of the elements from <paramref name="generator" />.
         /// </typeparam>
         /// <typeparam name="TResult">
-        ///     The return type of function <paramref name="selector"/>.
+        ///     The return type of function <paramref name="selector" />.
         /// </typeparam>
         /// <param name="generator">
         ///     The generator to be flattened.
@@ -261,29 +270,30 @@ namespace GeneratorAPI.Extensions {
         /// <exception cref="ArgumentNullException">When argument <paramref name="generator" /> is null.</exception>
         /// <exception cref="ArgumentNullException">When argument <paramref name="selector" /> is null.</exception>
         /// <returns>
-        ///     An <see cref="IGenerator{T}" /> whose elements have been flattened by an <see cref="IGenerator{T}"/>.
+        ///     An <see cref="IGenerator{T}" /> whose elements have been flattened by an <see cref="IGenerator{T}" />.
         /// </returns>
         public static IGenerator<TResult> SelectMany<TSource, TResult>(
             this IGenerator<TSource> generator,
             Func<TSource, IGenerator<TResult>> selector) {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (selector == null) throw new ArgumentNullException(nameof(selector));
-            return Function(() => selector(generator.Generate()).Generate());
+            return Generator.Function(() => selector(generator.Generate()).Generate());
         }
 
         /// <summary>
         ///     <para>
-        ///         Creates a <see cref="IGenerator{T}"/> by flattening a <see cref="IGenerator{T}"/> with another <see cref="IGenerator{T}"/> for each invokation of <see cref="IGenerator{T}.Generate"/>.
+        ///         Creates a <see cref="IGenerator{T}" /> by flattening a <see cref="IGenerator{T}" /> with another
+        ///         <see cref="IGenerator{T}" /> for each invokation of <see cref="IGenerator{T}.Generate" />.
         ///     </para>
         /// </summary>
         /// <typeparam name="TSource">
-        ///     The type of the elements from <paramref name="generator"/>.
+        ///     The type of the elements from <paramref name="generator" />.
         /// </typeparam>
         /// <typeparam name="TGenerator">
-        ///     The return type of function <paramref name="selector"/>.
+        ///     The return type of function <paramref name="selector" />.
         /// </typeparam>
         /// <typeparam name="TResult">
-        ///     The return type from function <paramref name="resultSelector"/>.
+        ///     The return type from function <paramref name="resultSelector" />.
         /// </typeparam>
         /// <param name="generator">
         ///     The generator to be flattened.
@@ -292,13 +302,14 @@ namespace GeneratorAPI.Extensions {
         ///     A transform function to apply to each element.
         /// </param>
         /// <param name="resultSelector">
-        ///     A transform function with the result from argument <paramref name="selector"/> and the element from <paramref name="generator"/>.
+        ///     A transform function with the result from argument <paramref name="selector" /> and the element from
+        ///     <paramref name="generator" />.
         /// </param>
         /// <exception cref="ArgumentNullException">When argument <paramref name="generator" /> is null.</exception>
         /// <exception cref="ArgumentNullException">When argument <paramref name="selector" /> is null.</exception>
         /// <exception cref="ArgumentNullException">When argument <paramref name="resultSelector" /> is null.</exception>
         /// <returns>
-        ///     An <see cref="IGenerator{T}" /> whose elements have been flattened by an <see cref="IGenerator{T}"/>.
+        ///     An <see cref="IGenerator{T}" /> whose elements have been flattened by an <see cref="IGenerator{T}" />.
         /// </returns>
         public static IGenerator<TResult> SelectMany<TSource, TGenerator, TResult>(
             this IGenerator<TSource> generator,
@@ -308,7 +319,7 @@ namespace GeneratorAPI.Extensions {
             if (selector == null) throw new ArgumentNullException(nameof(selector));
             if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
             return generator.SelectMany(a => selector(a)
-                .SelectMany(r => Function(() => resultSelector(a, r))));
+                .SelectMany(r => Generator.Function(() => resultSelector(a, r))));
         }
 
         /// <summary>
@@ -344,7 +355,7 @@ namespace GeneratorAPI.Extensions {
             if (first == null) throw new ArgumentNullException(nameof(first));
             if (second == null) throw new ArgumentNullException(nameof(second));
             if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
-            return Function(() => resultSelector(first.Generate(), second.Generate()));
+            return Generator.Function(() => resultSelector(first.Generate(), second.Generate()));
         }
 
         /// <summary>

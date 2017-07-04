@@ -1,6 +1,6 @@
 ﻿using System;
 using GeneratorAPI;
-using GeneratorAPI.Extensions;
+using GeneratorAPI.Linq;
 using NUnit.Framework;
 using Sharpy;
 using Sharpy.Enums;

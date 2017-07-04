@@ -43,15 +43,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\Utils\EnumerableCacheExtensions.cs" />
-    <Compile Include="src\Extensions\EnumerableExtensions.cs" />
-    <Compile Include="src\Extensions\GeneratorExtensions.cs" />
+    <Compile Include="src\Linq\Enumerable.cs" />
+    <Compile Include="src\Linq\Generator.cs" />
     <Compile Include="src\Generator.cs" />
     <Compile Include="src\GeneratorFactory.cs" />
     <Compile Include="src\IGenerator.cs" />
     <Compile Include="src\Implementations\Fun.cs" />
     <Compile Include="src\Implementations\Seq.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\Extensions\TaskExtensions.cs" />
+    <Compile Include="src\Linq\TaskExtensions\Task.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
