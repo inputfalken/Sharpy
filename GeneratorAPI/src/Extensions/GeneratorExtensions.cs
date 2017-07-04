@@ -211,11 +211,11 @@ namespace GeneratorAPI.Extensions {
         ///     The result from invoking <see cref="IGenerator{T}.Generate" /> on
         ///     <see cref=" IGenerator&lt;TSource&gt;" />.
         /// </typeparam>
-        /// <typeparam name="TResult">
+        /// <typeparam name="TGenerator">
         ///     The type of the elements of the <paramref name="generator" /> returned by selector.
         /// </typeparam>
-        /// <typeparam name="TCompose">
-        ///     The result from composing <typeparamref name="TSource"></typeparamref> with <typeparamref name="TResult" />.
+        /// <typeparam name="TResult">
+        ///     The result from composing <typeparamref name="TSource"></typeparamref> with <typeparamref name="TGenerator" />.
         /// </typeparam>
         /// <param name="generator">
         ///     The <paramref name="generator" /> to flatmap the result from
@@ -224,7 +224,7 @@ namespace GeneratorAPI.Extensions {
         /// <param name="selector">A transform function to apply to each element..</param>
         /// <param name="resultSelector">
         ///     The result from composing <typeparamref name="TSource"></typeparamref> with
-        ///     <typeparamref name="TResult" />.
+        ///     <typeparamref name="TGenerator" />.
         /// </param>
         /// <exception cref="ArgumentNullException">When argument <paramref name="generator" /> is null.</exception>
         /// <exception cref="ArgumentNullException">When argument <paramref name="selector" /> is null.</exception>
@@ -232,10 +232,10 @@ namespace GeneratorAPI.Extensions {
         /// <returns>
         ///     TODO
         /// </returns>
-        public static IGenerator<TCompose> SelectMany<TSource, TResult, TCompose>(
+        public static IGenerator<TResult> SelectMany<TSource, TGenerator, TResult>(
             this IGenerator<TSource> generator,
-            Func<TSource, IGenerator<TResult>> selector,
-            Func<TSource, TResult, TCompose> resultSelector) {
+            Func<TSource, IGenerator<TGenerator>> selector,
+            Func<TSource, TGenerator, TResult> resultSelector) {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (selector == null) throw new ArgumentNullException(nameof(selector));
             if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));

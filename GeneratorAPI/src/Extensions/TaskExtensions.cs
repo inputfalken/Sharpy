@@ -127,10 +127,10 @@ namespace GeneratorAPI.Extensions {
         /// <typeparam name="TSource">
         ///     TODO
         /// </typeparam>
-        /// <typeparam name="TResult">
+        /// <typeparam name="TTask">
         ///     TODO
         /// </typeparam>
-        /// <typeparam name="TCompose">
+        /// <typeparam name="TResult">
         ///     TODO
         /// </typeparam>
         /// <param name="generator">
@@ -147,9 +147,9 @@ namespace GeneratorAPI.Extensions {
         /// <returns>
         ///     TODO
         /// </returns>
-        public static IGenerator<Task<TCompose>> FlatMapTask<TSource, TResult, TCompose>(
+        public static IGenerator<Task<TResult>> FlatMapTask<TSource, TTask, TResult>(
             this IGenerator<TSource> generator,
-            Func<TSource, Task<TResult>> selector, Func<TSource, TResult, TCompose> composer) {
+            Func<TSource, Task<TTask>> selector, Func<TSource, TTask, TResult> composer) {
             return generator
                 .SelectMany(s => Generator.Function(async () => await selector(s))
                     .SelectMany(r => Generator.Function(async () => composer(s, await r))));
@@ -221,10 +221,10 @@ namespace GeneratorAPI.Extensions {
         /// <typeparam name="TSource">
         ///     TODO
         /// </typeparam>
-        /// <typeparam name="TResult">
+        /// <typeparam name="TTask">
         ///     TODO
         /// </typeparam>
-        /// <typeparam name="TCompose">
+        /// <typeparam name="TResult">
         ///     TODO
         /// </typeparam>
         /// <param name="generator">
@@ -241,9 +241,9 @@ namespace GeneratorAPI.Extensions {
         /// <returns>
         ///     TODO
         /// </returns>
-        public static IGenerator<Task<TCompose>> FlatMapTask<TSource, TResult, TCompose>(
+        public static IGenerator<Task<TResult>> FlatMapTask<TSource, TTask, TResult>(
             this IGenerator<Task<TSource>> generator,
-            Func<TSource, Task<TResult>> selector, Func<TSource, TResult, TCompose> composer) {
+            Func<TSource, Task<TTask>> selector, Func<TSource, TTask, TResult> composer) {
             return generator
                 .SelectMany(s => Generator.Function(async () => await selector(await s))
                     .SelectMany(r => Generator.Function(async () => composer(await s, await r))));
