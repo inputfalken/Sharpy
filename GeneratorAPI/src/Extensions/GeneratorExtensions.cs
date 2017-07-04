@@ -7,16 +7,15 @@ namespace GeneratorAPI.Extensions {
     public static class GeneratorExtensions {
         /// <summary>
         ///     <para>
-        ///         Casts each element from <see cref="IGenerator.Generate" /> to <see cref=" IGenerator&lt;TResult&gt;" />.
+        ///         Creates a <see cref="IGenerator{T}"/> by casting each element to <typeparamref name="TResult"/> when invoking <see cref="IGenerator.Generate"/>.
         ///     </para>
         /// </summary>
-        /// <param name="generator">The <see cref="IGenerator" /> that contains the elements to be cast to type TResult.</param>
+        /// <param name="generator">The <see cref="IGenerator" /> that contains the elements to be cast to type <typeparamref name="TResult"/>.</param>
         /// <returns>
-        ///     A <see cref="IGenerator{T}" /> that contains each element of the source <see cref="IGenerator" /> cast to the
-        ///     specified type.
+        ///     A <see cref="IGenerator{T}" /> whose generations have been casted to type <typeparamref name="TResult"/>.
         /// </returns>
-        /// <typeparam name="TResult">The type to cast the elements of <paramref name="generator" /> to.</typeparam>
-        /// <exception cref="ArgumentNullException"><paramref name="generator" /> is null.</exception>
+        /// <typeparam name="TResult">The type to be used when casting.</typeparam>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="generator" /> is null.</exception>
         /// <exception cref="InvalidCastException">
         ///     An element in the sequence cannot be cast to type
         ///     <typeparamref name="TResult" />.
@@ -33,15 +32,20 @@ namespace GeneratorAPI.Extensions {
         ///         Filters a <see cref="IGenerator{T}" /> based on a predicate.
         ///     </para>
         /// </summary>
+        /// <remarks>
+        ///     <para>
+        ///         If the <paramref name="predicate"/> is not satisfied, a new generation will occur.
+        ///     </para>
+        /// </remarks>
         /// <typeparam name="TSource">
-        ///     The type of the elements of <paramref name="generator" />.
+        ///     The type to be used as input in the <paramref name="predicate"/>.
         /// </typeparam>
         /// <param name="generator">The <see cref="IGenerator{T}" /> to filter.</param>
         /// <param name="predicate">A function to test each generated element for a condition.</param>
         /// <param name="threshold">The number of attempts before throwing an exception.</param>
-        /// <exception cref="ArgumentNullException">If <paramref name="generator" /> is null.</exception>
-        /// <exception cref="ArgumentNullException">If <paramref name="predicate" /> is null.</exception>
-        /// <exception cref="ArgumentException">If the condition can't be matched within the <paramref name="threshold" />.</exception>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="generator" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="predicate" /> is null.</exception>
+        /// <exception cref="ArgumentException">The condition can't be matched within the <paramref name="threshold" />.</exception>
         /// <returns>
         ///     A <see cref="IGenerator{T}" /> whose elements has satisfied the condition.
         /// </returns>
@@ -62,18 +66,18 @@ namespace GeneratorAPI.Extensions {
 
         /// <summary>
         ///     <para>
-        ///         Exposes the type from <see cref="IGenerator{T}" />.
+        ///         Exposes the element from <see cref="IGenerator{T}" />.
         ///     </para>
         /// </summary>
         /// <typeparam name="TSource">
         ///     The type of the elements of <paramref name="generator" />.
         /// </typeparam>
-        /// <param name="generator">Then <paramref name="generator" /> whose elements is passed to <see cref="Action{T}" />.</param>
-        /// <param name="action">The <see cref="Delegate" /> which all generations will be passed to.</param>
-        /// <exception cref="ArgumentNullException">If <paramref name="generator" /> is null.</exception>
-        /// <exception cref="ArgumentNullException">If <paramref name="action" /> is null.</exception>
+        /// <param name="generator">The <paramref name="generator" /> whose elements is passed to <see cref="Action{T}" />.</param>
+        /// <param name="action">The <see cref="Action{T}" /> which all generations will be passed to.</param>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="generator" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="action" /> is null.</exception>
         /// <returns>
-        ///     A <see cref="IGenerator{T}" /> whose elements has been exposed by <see cref="Action{T}" />.
+        ///     A <see cref="IGenerator{T}" /> whose elements has been exposed to <see cref="Action{T}" />.
         /// </returns>
         public static IGenerator<TSource> Do<TSource>(this IGenerator<TSource> generator, Action<TSource> action) {
             if (action == null) throw new ArgumentNullException(nameof(action));
@@ -94,16 +98,16 @@ namespace GeneratorAPI.Extensions {
         ///     The type of the elements of <paramref name="generator" />.
         /// </typeparam>
         /// <typeparam name="TResult">
-        ///     The type of the value returned by selector.
+        ///     The type returned by selector.
         /// </typeparam>
         /// <param name="generator">
         ///     The <paramref name="generator" /> whose generations will invoke the transform function.
         /// </param>
         /// <param name="selector">A transform function to apply to each element.</param>
-        /// <exception cref="ArgumentNullException">If <paramref name="generator" /> is null.</exception>
-        /// <exception cref="ArgumentNullException">If <paramref name="generator" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="generator" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="generator" /> is null.</exception>
         /// <returns>
-        ///     A <see cref="IGenerator{T}" /> whose elements are the result of invoking the transform function on each element of
+        ///     A <see cref="IGenerator{T}" /> whose elements are the result of invoking the transform function on each element genrated by
         ///     <paramref name="generator" />.
         /// </returns>
         public static IGenerator<TResult> Select<TSource, TResult>(this IGenerator<TSource> generator,
@@ -122,7 +126,7 @@ namespace GeneratorAPI.Extensions {
         ///     The type of the elements of <paramref name="generator" />.
         /// </typeparam>
         /// <typeparam name="TResult">
-        ///     The type of the value returned by selector.
+        ///     The type returned by selector.
         /// </typeparam>
         /// <param name="generator">
         ///     The <paramref name="generator" /> whose generations will invoke the transform function.
@@ -145,19 +149,18 @@ namespace GeneratorAPI.Extensions {
 
         /// <summary>
         ///     <para>
-        ///         Creates a <see cref=" IEnumerable&lt;TSource&gt;" /> by invoking <see cref="IGenerator{T}.Generate" /> with
-        ///         argument <paramref name="count" /> amount of times.
+        ///         Creates an <see cref="IEnumerable{T}"/> from <see cref="IGenerator{T}"/>.
         ///     </para>
         /// </summary>
         /// <typeparam name="TSource">
-        ///     The type of the elements of source.
+        ///     The type of <paramref name="generator"/>.
         /// </typeparam>
         /// <param name="generator">The <paramref name="generator" /> to generate from.</param>
         /// <param name="count">The number of elements to return.</param>
         /// <exception cref="ArgumentNullException">When <paramref name="generator" /> is null.</exception>
         /// <exception cref="ArgumentException">When argument <paramref name="count"></paramref> is less or equal to zero.</exception>
         /// <returns>
-        ///     An <see cref=" IEnumerable&lt;TSource&gt;" /> with its count equal to argument <paramref name="count" />.
+        ///     An <see cref="IEnumerable{T}"/> that contains the specified number of elements generated from the argument <paramref name="generator"/>.
         /// </returns>
         public static IEnumerable<TSource> Take<TSource>(this IGenerator<TSource> generator, int count) {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
@@ -172,26 +175,25 @@ namespace GeneratorAPI.Extensions {
 
         /// <summary>
         ///     <para>
-        ///         Projects each element of a generator to an <see cref="IGenerator{T}" /> and flattens the resulting generators
-        ///         into one generator.
+        ///         Creates a <see cref="IGenerator{T}"/> by flattening a <see cref="IGenerator{T}"/> with another <see cref="IGenerator{T}"/> for each invokation of <see cref="IGenerator{T}.Generate"/>.
         ///     </para>
         /// </summary>
         /// <typeparam name="TSource">
-        ///     The result from invoking <see cref="IGenerator{T}.Generate" /> on
-        ///     <see cref=" IGenerator&lt;TSource&gt;" />.
+        ///     The type of the elements from <paramref name="generator"/>.
         /// </typeparam>
         /// <typeparam name="TResult">
-        ///     The type of the elements of the <paramref name="generator" /> returned by selector.
+        ///     The return type of function <paramref name="selector"/>.
         /// </typeparam>
         /// <param name="generator">
-        ///     The <paramref name="generator" /> to flatmap the result from
-        ///     <paramref name="selector" />.
+        ///     The generator to be flattened.
         /// </param>
-        /// <param name="selector">A transform function to apply to each element..</param>
+        /// <param name="selector">
+        ///     A transform function to apply to each element.
+        /// </param>
         /// <exception cref="ArgumentNullException">When argument <paramref name="generator" /> is null.</exception>
         /// <exception cref="ArgumentNullException">When argument <paramref name="selector" /> is null.</exception>
         /// <returns>
-        ///     An <see cref="IGenerator{T}" /> whose elements are the result of flattening a nested <see cref="IGenerator{T}" />.
+        ///     An <see cref="IGenerator{T}" /> whose elements have been flattened by an <see cref="IGenerator{T}"/>.
         /// </returns>
         public static IGenerator<TResult> SelectMany<TSource, TResult>(
             this IGenerator<TSource> generator,
@@ -203,34 +205,32 @@ namespace GeneratorAPI.Extensions {
 
         /// <summary>
         ///     <para>
-        ///         Projects each element of a generator to an <see cref="IGenerator{T}" /> and flattens the resulting generators
-        ///         into one generator.
+        ///         Creates a <see cref="IGenerator{T}"/> by flattening a <see cref="IGenerator{T}"/> with another <see cref="IGenerator{T}"/> for each invokation of <see cref="IGenerator{T}.Generate"/>.
         ///     </para>
         /// </summary>
         /// <typeparam name="TSource">
-        ///     The result from invoking <see cref="IGenerator{T}.Generate" /> on
-        ///     <see cref=" IGenerator&lt;TSource&gt;" />.
+        ///     The type of the elements from <paramref name="generator"/>.
         /// </typeparam>
         /// <typeparam name="TGenerator">
-        ///     The type of the elements of the <paramref name="generator" /> returned by selector.
+        ///     The return type of function <paramref name="selector"/>.
         /// </typeparam>
         /// <typeparam name="TResult">
-        ///     The result from composing <typeparamref name="TSource"></typeparamref> with <typeparamref name="TGenerator" />.
+        ///     The return type from function <paramref name="resultSelector"/>.
         /// </typeparam>
         /// <param name="generator">
-        ///     The <paramref name="generator" /> to flatmap the result from
-        ///     <paramref name="selector" />.
+        ///     The generator to be flattened.
         /// </param>
-        /// <param name="selector">A transform function to apply to each element..</param>
+        /// <param name="selector">
+        ///     A transform function to apply to each element.
+        /// </param>
         /// <param name="resultSelector">
-        ///     The result from composing <typeparamref name="TSource"></typeparamref> with
-        ///     <typeparamref name="TGenerator" />.
+        ///     A transform function with the result from argument <paramref name="selector"/> and the element from <paramref name="generator"/>.
         /// </param>
         /// <exception cref="ArgumentNullException">When argument <paramref name="generator" /> is null.</exception>
         /// <exception cref="ArgumentNullException">When argument <paramref name="selector" /> is null.</exception>
         /// <exception cref="ArgumentNullException">When argument <paramref name="resultSelector" /> is null.</exception>
         /// <returns>
-        ///     TODO
+        ///     An <see cref="IGenerator{T}" /> whose elements have been flattened by an <see cref="IGenerator{T}"/>.
         /// </returns>
         public static IGenerator<TResult> SelectMany<TSource, TGenerator, TResult>(
             this IGenerator<TSource> generator,
