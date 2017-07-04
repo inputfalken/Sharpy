@@ -32,6 +32,59 @@ namespace GeneratorAPI.Extensions {
 
         /// <summary>
         ///     <para>
+        ///         Releases the number given to <paramref name="amount" /> immediately from <see cref="IGenerator{T}" />.
+        ///     </para>
+        /// </summary>
+        /// <typeparam name="TSource">
+        ///     The type of the elements of <paramref name="generator" />.
+        /// </typeparam>
+        /// <param name="generator">The <paramref name="generator" /> whose generations will be released.</param>
+        /// <param name="amount">The number of generations to be released.</param>
+        /// <exception cref="ArgumentNullException">If <paramref name="generator" /> is null.</exception>
+        /// <exception cref="ArgumentException">If argument <paramref name="amount" /> is less than 0.</exception>
+        /// <returns>
+        ///     A <see cref="IGenerator{T}" /> whose elements has been released by the number equal to argument
+        ///     <paramref name="amount" />.
+        /// </returns>
+        public static IGenerator<TSource> Release<TSource>(this IGenerator<TSource> generator, int amount) {
+            if (generator == null) throw new ArgumentNullException(nameof(generator));
+            if (amount == 0) return generator;
+            if (amount < 0) throw new ArgumentException($"{nameof(amount)} can't be below ${amount}");
+            return ReleaseIterator(generator, amount);
+        }
+
+        /// <summary>
+        ///     <para>
+        ///         Releases the number given to <paramref name="count" /> from <see cref="IGenerator{T}" />.
+        ///     </para>
+        /// </summary>
+        /// <typeparam name="TSource">
+        ///     The type of the elements of <paramref name="generator" />.
+        /// </typeparam>
+        /// <param name="generator">The <paramref name="generator" /> whose generations will be released.</param>
+        /// <param name="count">The number of generations to be released.</param>
+        /// <exception cref="ArgumentNullException">If <paramref name="generator" /> is null.</exception>
+        /// <exception cref="ArgumentException">If argument <paramref name="count" /> is less than 0.</exception>
+        /// <returns>
+        ///     A <see cref="IGenerator{T}" /> whose elements has been released by the number equal to argument
+        ///     <paramref name="count" />.
+        /// </returns>
+        public static IGenerator<TSource> Skip<TSource>(this IGenerator<TSource> generator, int count) {
+            if (generator == null) throw new ArgumentNullException(nameof(generator));
+            if (count < 0) throw new ArgumentException($"{nameof(count)} Cant be negative");
+            if (count == 0) return generator;
+            var skipped = new Lazy<IGenerator<TSource>>(() => ReleaseIterator(generator, count));
+            return Function(() => skipped.Value.Generate());
+        }
+
+        private static IGenerator<T> ReleaseIterator<T>(IGenerator<T> generator, int count) {
+            for (var i = 0; i < count; i++) generator.Generate();
+            return generator;
+        }
+
+
+        /// <summary>
+        ///     <para>
         ///         Filters a <see cref="IGenerator{T}" /> based on a predicate.
         ///     </para>
         /// </summary>
