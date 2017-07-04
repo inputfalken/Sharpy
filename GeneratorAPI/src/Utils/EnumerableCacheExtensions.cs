@@ -10,11 +10,11 @@ using System.Collections.Generic;
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace GeneratorAPI {
+namespace GeneratorAPI.Utils {
     /// <summary>
     ///     Extension methods for <see cref="IEnumerable{T}" /> types.
     /// </summary>
-    public static class CachedEnumerable {
+    internal static class CachedEnumerable {
         /// <summary>
         ///     Caches the results of enumerating over a given object so that subsequence enumerations
         ///     don't require interacting with the object a second time.

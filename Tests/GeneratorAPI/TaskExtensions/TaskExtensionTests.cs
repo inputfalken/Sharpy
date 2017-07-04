@@ -2,10 +2,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 using GeneratorAPI;
+using GeneratorAPI.Extensions;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 
-namespace Tests.GeneratorAPI {
+namespace Tests.GeneratorAPI.TaskExtensions {
     internal class TaskExtensionTests {
         [Test(
             Description = "Verify that bool isInvoked gets assigned once the generation is awaited"
@@ -36,6 +37,7 @@ namespace Tests.GeneratorAPI {
             generator.Generate();
             Assert.IsFalse(isInvoked);
         }
+
         [Test(
             Description = "Verify that async Do throws exception with null action"
         )]
@@ -44,24 +46,25 @@ namespace Tests.GeneratorAPI {
                 await Task.Delay(500);
                 return true;
             }));
-            Assert.Throws<ArgumentNullException>(() => generator.Do(actionTask: null));
+            Assert.Throws<ArgumentNullException>(() => generator.Do(task: null));
         }
+
         [Test(
             Description = "Verify that async Do throws exception with null generator"
         )]
         public void Do_Null_Generator() {
             IGenerator<Task<int>> generator = null;
-            Assert.Throws<ArgumentNullException>(() => generator.Do(actionTask:i => {}));
+            Assert.Throws<ArgumentNullException>(() => generator.Do(task: i => { }));
         }
 
 
         [Test(
             Description = "Verify that Select can use <T> of IGenerator<Task<T>>"
         )]
-        public async Task Select_From_Task() {
+        public async Task Map_From_Task() {
             var generator = Generator
                 .Create(Task.Run(() => "hello"))
-                .Select(async s => {
+                .Map(async s => {
                     await Task.Delay(500);
                     return s.Length;
                 });
@@ -69,12 +72,12 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that Selectmany can flat nested task"
+            Description = "Verify that FlatMapTask can flat nested task"
         )]
-        public async Task SelectMany_Flat_Nested_Task() {
+        public async Task FlatMapTask_Flat_Nested_Task() {
             var generator = Generator
                 .Create(Task.Run(() => "hello"))
-                .SelectMany(async s => {
+                .FlatMapTask(async s => {
                     await Task.Delay(500);
                     return s.Length;
                 });
@@ -82,12 +85,12 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that Selectmany with compose can flat nested task"
+            Description = "Verify that FlatMapTask with compose can flat nested task"
         )]
-        public async Task SelectMany_Flat_Nested_Task_Compose() {
+        public async Task FlatMapTask_Flat_Nested_Task_Compose() {
             var generator = Generator
                 .Create(Task.Run(() => "hello"))
-                .SelectMany(async s => {
+                .FlatMapTask(async s => {
                     await Task.Delay(500);
                     return s.Length;
                 }, (s, i) => s + i);
@@ -95,12 +98,12 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that Selectmany can flat nested task"
+            Description = "Verify that FlatMapTask can flat nested task"
         )]
-        public async Task SelectMany_Flat_Task() {
+        public async Task FlatMapTask_Flat_Task() {
             var generator = Generator
                 .Create("Hello")
-                .SelectMany(async s => {
+                .FlatMapTask(async s => {
                     await Task.Delay(500);
                     return s.Length;
                 });
@@ -108,12 +111,12 @@ namespace Tests.GeneratorAPI {
         }
 
         [Test(
-            Description = "Verify that Selectmany with compose can flat nested task"
+            Description = "Verify that FlatMapTask with compose can flat nested task"
         )]
-        public async Task SelectMany_Flat_Task_Compose() {
+        public async Task FlatMapTask_Flat_Task_Compose() {
             var generator = Generator
                 .Create("hello")
-                .SelectMany(async s => {
+                .FlatMapTask(async s => {
                     await Task.Delay(500);
                     return s.Length;
                 }, (s, i) => s + i);
@@ -163,14 +166,14 @@ namespace Tests.GeneratorAPI {
         [Test(
             Description = "Verify that Where works with Tasks"
         )]
-        public async Task Where() {
+        public async Task Filter() {
             var generator = Generator
                 .Create(new Randomizer())
                 .Select(async g => {
                     await Task.Delay(50);
                     return g.Next(20, 50);
                 })
-                .Where(i => i % 2 == 0)
+                .Filter(i => i % 2 == 0)
                 .Take(200);
 
             Assert.IsTrue((await Task.WhenAll(generator)).All(i => i % 2 == 0));
@@ -179,10 +182,11 @@ namespace Tests.GeneratorAPI {
         [Test(
             Description = "Verify that Where works with Tasks"
         )]
-        public void Where_Bad_Predicate() {
+        public void Filter_Bad_Predicate() {
+            Func<int, bool> predicate = i => false;
             var generator = Generator
                 .Create(Task.Run(() => 1))
-                .Where(asyncPredicate: i => false)
+                .Filter(predicate)
                 .Take(200);
 
             var task = Task.WhenAll(generator);
@@ -192,19 +196,21 @@ namespace Tests.GeneratorAPI {
         [Test(
             Description = "Verify that Where works with Tasks"
         )]
-        public void Where_Null_Predicate() {
+        public void Filter_Null_Predicate() {
+            Func<Randomizer, bool> predicate = null;
+
             Assert.Throws<ArgumentNullException>(() => Generator
                 .Create(Task.Run(() => new Randomizer()))
-                .Where(asyncPredicate: null));
+                .Filter(predicate));
         }
 
         [Test(
             Description = "Verify that Where works with Tasks"
         )]
-        public void Where_Null_Generator() {
+        public void Filter_Null_Generator() {
             IGenerator<Task<Randomizer>> rndGenerator = null;
 
-            Assert.Throws<ArgumentNullException>(() => rndGenerator.Where(i => i.Next() % 2 == 0));
+            Assert.Throws<ArgumentNullException>(() => rndGenerator.Filter(i => i.Next() % 2 == 0));
         }
     }
 }

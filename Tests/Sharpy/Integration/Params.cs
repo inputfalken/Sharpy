@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using GeneratorAPI;
+using GeneratorAPI.Extensions;
 using NUnit.Framework;
 using Sharpy;
 
