@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace GeneratorAPI.Extensions {
+namespace GeneratorAPI.Linq.TaskExtensions {
     /// <summary>
+    ///     Provides a set of static methods targeting <see cref="IGenerator{T}"/> with tasks.
     /// </summary>
-    public static class TaskExtensions {
+    public static class TaskGenerator {
         /// <summary>
         ///     <para>TODO</para>
         /// </summary>
@@ -24,23 +25,6 @@ namespace GeneratorAPI.Extensions {
             return first.Zip(second, async (l, r) => resultSelector(await l, r));
         }
 
-        /// <summary>
-        ///     <para>TODO</para>
-        /// </summary>
-        /// <typeparam name="TFirst">TODO</typeparam>
-        /// <typeparam name="TSecond">TODO</typeparam>
-        /// <typeparam name="TResult">TODO</typeparam>
-        /// <param name="first">TODO</param>
-        /// <param name="second">TODO</param>
-        /// <param name="resultSelector">TODO</param>
-        /// <exception cref="ArgumentNullException">When argument <paramref name="first" /> is null.</exception>
-        /// <exception cref="ArgumentNullException">When argument <paramref name="second" /> is null.</exception>
-        /// <exception cref="ArgumentNullException">When argument <paramref name="resultSelector" /> is null.</exception>
-        /// <returns>TODO</returns>
-        public static IGenerator<Task<TResult>> Zip<TFirst, TSecond, TResult>(this IGenerator<TFirst> first,
-            IGenerator<Task<TSecond>> second, Func<TFirst, TSecond, TResult> resultSelector) {
-            return first.Zip(second, async (l, r) => resultSelector(l, await r));
-        }
 
         /// <summary>
         ///     <para>TODO</para>
@@ -78,7 +62,7 @@ namespace GeneratorAPI.Extensions {
         /// <returns>
         ///     TODO
         /// </returns>
-        public static IGenerator<Task<TSource>> Filter<TSource>(this IGenerator<Task<TSource>> generator,
+        public static IGenerator<Task<TSource>> Where<TSource>(this IGenerator<Task<TSource>> generator,
             Func<TSource, bool> predicate, int threshold = 100000) {
             // predicate can't be named predicate because ambiguous usage of overloads....
             if (predicate == null) throw new ArgumentNullException(nameof(predicate));
@@ -93,67 +77,6 @@ namespace GeneratorAPI.Extensions {
             });
         }
 
-        /// <summary>
-        ///     <para>
-        ///         TODO
-        ///     </para>
-        /// </summary>
-        /// <typeparam name="TSource">
-        ///     TODO
-        /// </typeparam>
-        /// <typeparam name="TResult">
-        ///     TODO
-        /// </typeparam>
-        /// <param name="generator">
-        ///     TODO
-        /// </param>
-        /// <param name="selector">TODO</param>
-        /// <exception cref="ArgumentNullException">When argument <paramref name="generator" /> is null.</exception>
-        /// <exception cref="ArgumentNullException">When argument <paramref name="selector" /> is null.</exception>
-        /// <returns>
-        ///     TODO
-        /// </returns>
-        public static IGenerator<Task<TResult>> FlatMapTask<TSource, TResult>(
-            this IGenerator<TSource> generator,
-            Func<TSource, Task<TResult>> selector) {
-            return generator.SelectMany(source => Generator.Function(async () => await selector(source)));
-        }
-
-        /// <summary>
-        ///     <para>
-        ///         TODO
-        ///     </para>
-        /// </summary>
-        /// <typeparam name="TSource">
-        ///     TODO
-        /// </typeparam>
-        /// <typeparam name="TTask">
-        ///     TODO
-        /// </typeparam>
-        /// <typeparam name="TResult">
-        ///     TODO
-        /// </typeparam>
-        /// <param name="generator">
-        ///     TODO
-        /// </param>
-        /// <param name="selector">
-        ///     TODO
-        /// </param>
-        /// <param name="composer">
-        ///     TODO
-        /// </param>
-        /// <exception cref="ArgumentNullException">When argument <paramref name="generator" /> is null.</exception>
-        /// <exception cref="ArgumentNullException">When argument <paramref name="selector" /> is null.</exception>
-        /// <returns>
-        ///     TODO
-        /// </returns>
-        public static IGenerator<Task<TResult>> FlatMapTask<TSource, TTask, TResult>(
-            this IGenerator<TSource> generator,
-            Func<TSource, Task<TTask>> selector, Func<TSource, TTask, TResult> composer) {
-            return generator
-                .SelectMany(s => Generator.Function(async () => await selector(s))
-                    .SelectMany(r => Generator.Function(async () => composer(s, await r))));
-        }
 
         /// <summary>
         ///     <para>
@@ -177,7 +100,7 @@ namespace GeneratorAPI.Extensions {
         /// <returns>
         ///     TODO
         /// </returns>
-        public static IGenerator<Task<TResult>> Map<TSource, TResult>(
+        public static IGenerator<Task<TResult>> Select<TSource, TResult>(
             this IGenerator<Task<TSource>> generator,
             Func<TSource, TResult> selector) {
             return generator.Select(async s => selector(await s));
@@ -207,46 +130,10 @@ namespace GeneratorAPI.Extensions {
         /// <returns>
         ///     TODO
         /// </returns>
-        public static IGenerator<Task<TResult>> FlatMapTask<TSource, TResult>(
+        public static IGenerator<Task<TResult>> SelectMany<TSource, TResult>(
             this IGenerator<Task<TSource>> generator,
             Func<TSource, Task<TResult>> selector) {
-            return generator.FlatMapTask(async task => await selector(await task));
-        }
-
-        /// <summary>
-        ///     <para>
-        ///         TODO
-        ///     </para>
-        /// </summary>
-        /// <typeparam name="TSource">
-        ///     TODO
-        /// </typeparam>
-        /// <typeparam name="TTask">
-        ///     TODO
-        /// </typeparam>
-        /// <typeparam name="TResult">
-        ///     TODO
-        /// </typeparam>
-        /// <param name="generator">
-        ///     TODO
-        /// </param>
-        /// <param name="selector">
-        ///     TODO
-        /// </param>
-        /// <param name="composer">
-        ///     TODO
-        /// </param>
-        /// <exception cref="ArgumentNullException">When argument <paramref name="generator" /> is null.</exception>
-        /// <exception cref="ArgumentNullException">When argument <paramref name="selector" /> is null.</exception>
-        /// <returns>
-        ///     TODO
-        /// </returns>
-        public static IGenerator<Task<TResult>> FlatMapTask<TSource, TTask, TResult>(
-            this IGenerator<Task<TSource>> generator,
-            Func<TSource, Task<TTask>> selector, Func<TSource, TTask, TResult> composer) {
-            return generator
-                .SelectMany(s => Generator.Function(async () => await selector(await s))
-                    .SelectMany(r => Generator.Function(async () => composer(await s, await r))));
+            return generator.Select(async task => await selector(await task));
         }
 
 

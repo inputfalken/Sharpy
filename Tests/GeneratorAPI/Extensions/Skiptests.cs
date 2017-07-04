@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GeneratorAPI;
-using GeneratorAPI.Extensions;
-using NUnit.Framework.Internal;
+using GeneratorAPI.Linq;
 using NUnit.Framework;
 
 namespace Tests.GeneratorAPI.Extensions {
     [TestFixture]
-    class Skiptests {
+    internal class Skiptests {
         [Test(
             Description = "Verify that you can skip fifty elements"
         )]

@@ -1,5 +1,5 @@
 using GeneratorAPI;
-using GeneratorAPI.Extensions;
+using GeneratorAPI.Linq;
 using Sharpy.Enums;
 using Sharpy.Implementation;
 using Sharpy.IProviders;
@@ -11,7 +11,7 @@ namespace Sharpy {
         /// <summary>
         ///     <para>Creates <see cref="IGenerator{T}" /> whose generic argument is <see cref="Sharpy.Provider" />.</para>
         ///     <para>
-        ///         Invoking <see cref="Generator.Select{TSource,TResult}(IGenerator{TSource},System.Func{TSource,TResult})" />
+        ///         Invoking <see cref="Extensions.Select{TSource,TResult}(IGenerator{TSource},System.Func{TSource,TResult})" />
         ///     </para>
         ///     <para>Gives you various options on what to <see cref="IGenerator{T}.Generate" />.</para>
         /// </summary>

@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using GeneratorAPI.Implementations;
-using static GeneratorAPI.Generator;
 
-namespace GeneratorAPI.Extensions {
-    /// <summary>
-    /// </summary>
-    public static class EnumerableExtensions {
+namespace GeneratorAPI.Linq {
+    public static partial class Extensions {
         /// <summary>
         ///     <para>
         ///         Invokes <see cref="IGenerator{T}.Generate" /> for each full iteration of <see cref="IEnumerable{T}" />.
@@ -27,7 +24,7 @@ namespace GeneratorAPI.Extensions {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (enumerableSelector == null) throw new ArgumentNullException(nameof(enumerableSelector));
             var sequence = new Seq<TResult>(() => enumerableSelector(generator.Generate()));
-            return Function(() => sequence.Generate());
+            return Generator.Function(() => sequence.Generate());
         }
 
         /// <summary>
@@ -40,7 +37,7 @@ namespace GeneratorAPI.Extensions {
         /// <param name="resultSelector">The function to compose .</param>
         /// <typeparam name="TSource">The type of <paramref name="generator" />.</typeparam>
         /// <typeparam name="TCollection">The type of the <see cref="IEnumerable{T}" />.</typeparam>
-        /// <typeparam name="TResult">The type of the returning <see cref="IGenerator{T}"/>.</typeparam>
+        /// <typeparam name="TResult">The type of the returning <see cref="IGenerator{T}" />.</typeparam>
         /// <returns>
         ///     TODO
         /// </returns>
@@ -49,7 +46,8 @@ namespace GeneratorAPI.Extensions {
         /// <exception cref="ArgumentNullException">Argument <paramref name="resultSelector" /> is null</exception>
         public static IGenerator<TResult> SelectMany<TSource, TCollection, TResult>(
             this IGenerator<TSource> generator,
-            Func<TSource, IEnumerable<TCollection>> enumerableSelector, Func<TSource, TCollection, TResult> resultSelector) {
+            Func<TSource, IEnumerable<TCollection>> enumerableSelector,
+            Func<TSource, TCollection, TResult> resultSelector) {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (enumerableSelector == null) throw new ArgumentNullException(nameof(enumerableSelector));
             if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));

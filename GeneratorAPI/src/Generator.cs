@@ -6,7 +6,7 @@ using GeneratorAPI.Implementations;
 
 namespace GeneratorAPI {
     /// <summary>
-    ///     <para>Contains various methods for creating <see cref="IGenerator{T}" /></para>
+    ///     Provides a set of static members for creating <see cref="IGenerator{T}"/>.
     /// </summary>
     public static class Generator {
         /// <summary>

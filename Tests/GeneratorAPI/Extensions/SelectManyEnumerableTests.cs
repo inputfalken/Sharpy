@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using GeneratorAPI;
-using GeneratorAPI.Extensions;
+using GeneratorAPI.Linq;
 using NUnit.Framework;
 
 namespace Tests.GeneratorAPI.Extensions {

@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GeneratorAPI;
-using GeneratorAPI.Extensions;
+using GeneratorAPI.Linq;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 
 namespace Tests.GeneratorAPI.Extensions {
     [TestFixture]
-    class ReleaseTests {
+    internal class ReleaseTests {
         [Test(
             Description = "Verify that release will Immediately release the elements"
         )]

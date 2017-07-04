@@ -1,5 +1,5 @@
 using System;
-using GeneratorAPI.Extensions;
+using GeneratorAPI.Linq;
 
 namespace GeneratorAPI {
     /// <summary>
