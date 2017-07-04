@@ -18,9 +18,9 @@ function DeleteOldPackage ([string] $label, [string] $suffix, [bool] $suffixBuil
   if ($localVersion.Major -eq $onlineVersion.Major) {
     Write-Host "Same major build, deleting old package" -ForegroundColor yellow
     if ($suffixBuild) {
-      nuget delete Sharpy $onlineVersion-$suffix -ApiKey $env:NUGET_API_KEY -Source $packageSource -NonInteractive -NoPrompt
+      nuget delete Sharpy $onlineVersion-$suffix -ApiKey $env:NUGET_API_KEY -Source $packageSource -NonInteractive
     } else {
-      nuget delete Sharpy $onlineVersion -ApiKey $env:NUGET_API_KEY -Source $packageSource -NonInteractive -NoPrompt
+      nuget delete Sharpy $onlineVersion -ApiKey $env:NUGET_API_KEY -Source $packageSource -NonInteractive
     }
   } else {
     Write-Host "New major build, ignoring package deletion" -ForegroundColor yellow
