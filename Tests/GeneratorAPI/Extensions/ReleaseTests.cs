@@ -9,7 +9,7 @@ namespace Tests.GeneratorAPI.Extensions {
         [Test(
             Description = "Verify that release will Immediately release the elements"
         )]
-        public void Release_Is_Not_Lazy_Evaluated() {
+        public void Is_Not_Lazy_Evaluated() {
             var invoked = false;
             Generator
                 .Factory
@@ -22,7 +22,7 @@ namespace Tests.GeneratorAPI.Extensions {
         [Test(
             Description = "Verify that calling release with negative number throws exception"
         )]
-        public void Release_Negative_Number_Throws() {
+        public void Negative_Number_Throws() {
             Assert.Throws<ArgumentException>(() => {
                 Generator.Factory
                     .Incrementer(0)
@@ -33,7 +33,7 @@ namespace Tests.GeneratorAPI.Extensions {
         [Test(
             Description = "Verify that calling release with null generator throws exception"
         )]
-        public void Release_Null_Generator_Throws() {
+        public void Null_Generator_Throws() {
             Assert.Throws<ArgumentNullException>(() => {
                 IGenerator<int> generator = null;
                 generator.Release(1);
@@ -43,7 +43,7 @@ namespace Tests.GeneratorAPI.Extensions {
         [Test(
             Description = "Verify that release will Immediately release the elements"
         )]
-        public void Release_Releases_Elements_Immediately() {
+        public void Release_Elements_Immediately() {
             var expected = 0;
             Generator
                 .Factory
@@ -58,7 +58,7 @@ namespace Tests.GeneratorAPI.Extensions {
         [Test(
             Description = "Verify that release returns the same instance of IGenerator<T>"
         )]
-        public void Release_Same_Generator() {
+        public void Same_Generator() {
             var expected = Generator
                 .Factory
                 .Incrementer(0);
@@ -69,7 +69,7 @@ namespace Tests.GeneratorAPI.Extensions {
         [Test(
             Description = "Verify that invoking release with zero does nothing"
         )]
-        public void Release_Zero_Elements_Does_Nothing() {
+        public void Zero_Elements_Does_Nothing() {
             var invoked = false;
             Generator
                 .Factory

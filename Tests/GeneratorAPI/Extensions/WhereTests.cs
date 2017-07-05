@@ -102,22 +102,14 @@ namespace Tests.GeneratorAPI.Extensions {
         )]
         public void Is_Evaluated_After_Take_Is_Invoked() {
             var invoked = false;
-            _generator.Where(s => {
+            var generator = _generator.Where(s => {
                 invoked = true;
                 return true;
             });
+            // Not evaluated
             Assert.IsFalse(invoked);
-        }
-
-        [Test(
-            Description = "Verifys that the Func is only invoked if Generate is invoked"
-        )]
-        public void Is_Not_Evaluated_Before_Take_Is_Invoked() {
-            var invoked = false;
-            _generator.Where(s => {
-                invoked = true;
-                return true;
-            }).Generate();
+            // Evaluated
+            generator.Generate();
             Assert.IsTrue(invoked);
         }
     }
