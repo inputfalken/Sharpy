@@ -55,6 +55,7 @@
     <Compile Include="GeneratorAPI\Extensions\ReleaseTests.cs" />
     <Compile Include="GeneratorAPI\Extensions\SelectManyEnumerableTests.cs" />
     <Compile Include="GeneratorAPI\Extensions\Skiptests.cs" />
+    <Compile Include="GeneratorAPI\Extensions\SkipWhileTests.cs" />
     <Compile Include="GeneratorAPI\Implementations\CircularSequenceTests.cs" />
     <Compile Include="GeneratorAPI\GeneratorFactoryTests.cs" />
     <Compile Include="GeneratorAPI\GeneratorTests.cs" />
