@@ -20,15 +20,19 @@ namespace Tests.GeneratorAPI.Extensions {
         [Test(
             Description = "Verify that skip is lazy Evaluated"
         )]
-        public void Skip_Is_Lazy_Evaluated() {
+        public void Is_Evaluated_After_Generate_Is_Invoked() {
             var invoked = false;
-            Generator
+            var generator = Generator
                 .Function<string>(() => {
                     invoked = true;
                     return null;
                 })
                 .Skip(50);
-            Assert.AreEqual(false, invoked);
+            // Not evaluated
+            Assert.IsFalse(invoked);
+            // Evaluated
+            generator.Generate();
+            Assert.IsTrue(invoked);
         }
 
         [Test(

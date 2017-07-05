@@ -53,19 +53,14 @@ namespace Tests.GeneratorAPI.Extensions {
         public void Is_Evaluated_After_Take_Is_Invoked() {
             var invoked = false;
             var second = Generator.Factory.Incrementer(0);
-            _generator.Zip(second, (i, i1) => invoked = true).Generate();
+            var generator = _generator.Zip(second, (i, i1) => invoked = true);
+            // Not evaluated
+            Assert.IsFalse(invoked);
+            // Evaluated
+            generator.Generate();
             Assert.IsTrue(invoked);
         }
 
-        [Test(
-            Description = "Verifys that the Func is only invoked if Generate is invoked"
-        )]
-        public void Is_Not_Evaluated_Before_Take_Is_Invoked() {
-            var invoked = false;
-            var second = Generator.Factory.Incrementer(0);
-            _generator.Zip(second, (s, i) => invoked = true);
-            Assert.IsFalse(invoked);
-        }
 
         [Test(
             Description = "Verify that Zip with null Generator and null first arg throws exception"

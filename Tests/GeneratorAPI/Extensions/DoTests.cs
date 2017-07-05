@@ -25,21 +25,15 @@ namespace Tests.GeneratorAPI.Extensions {
         )]
         public void Is_Evaluated_After_Take_Is_invoked() {
             var invoked = false;
-            _generator
-                .Do(s => invoked = true)
-                .Generate();
-
+            var generator = _generator
+                .Do(s => invoked = true);
+            // Not evaluated
+            Assert.IsFalse(invoked);
+            // Evaluated
+            generator.Generate();
             Assert.IsTrue(invoked);
         }
 
-        [Test(
-            Description = "Verify that Do is only invoked if Generate is Invoked"
-        )]
-        public void Is_Not_Evaluated_Before_Take_Is_Invoked() {
-            var invoked = false;
-            _generator.Do(s => invoked = true);
-            Assert.IsFalse(invoked);
-        }
 
         [Test(
             Description = "Verify that Do throws exception if the Action<T> is null"
