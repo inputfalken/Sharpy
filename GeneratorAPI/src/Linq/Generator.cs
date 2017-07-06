@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 namespace GeneratorAPI.Linq {
     /// <summary>
-    ///     Provides a set of static methods for changing the behaviour of <see cref="IGenerator{T}"/>.
+    ///     Provides a set of static methods for changing the behaviour of <see cref="IGenerator{T}" />.
     /// </summary>
     public static partial class Extensions {
         /// <summary>
@@ -60,6 +59,11 @@ namespace GeneratorAPI.Linq {
             return ReleaseIterator(generator, amount);
         }
 
+        private static IGenerator<T> ReleaseIterator<T>(IGenerator<T> generator, int count) {
+            for (var i = 0; i < count; i++) generator.Generate();
+            return generator;
+        }
+
         /// <summary>
         ///     <para>
         ///         Releases the number given to <paramref name="count" /> from <see cref="IGenerator{T}" />.
@@ -84,9 +88,39 @@ namespace GeneratorAPI.Linq {
             return Generator.Function(() => skipped.Value.Generate());
         }
 
-        private static IGenerator<T> ReleaseIterator<T>(IGenerator<T> generator, int count) {
-            for (var i = 0; i < count; i++) generator.Generate();
-            return generator;
+        /// <summary>
+        ///     <para>
+        ///         Denies generated elements until the specified condition in the predicate is matched.
+        ///     </para>
+        /// </summary>
+        /// <typeparam name="TSource">The type of elements from argument <paramref name="generator" />.</typeparam>
+        /// <param name="generator">A <see cref="IGenerator{T}" /> to generate elements from.</param>
+        /// <param name="predicate">A function to test each element for a condition.</param>
+        /// <param name="threshold">The amount of attempts before an exception is thrown.</param>
+        /// <returns>
+        ///     A <see cref="IGenerator{T}" /> that whos generations will continue from from the matched predicate.
+        /// </returns>
+        public static IGenerator<TSource> SkipWhile<TSource>(this IGenerator<TSource> generator,
+            Func<TSource, bool> predicate, int threshold = 10000) {
+            if (generator == null) throw new ArgumentNullException(nameof(generator));
+            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+
+            var skip = new Lazy<TSource>(() => {
+                for (var i = 0; i < threshold; i++) {
+                    var generate = generator.Generate();
+                    if (predicate(generate)) continue;
+                    return generate;
+                }
+                throw new ArgumentException($"Could not match the predicate with {threshold} attempts.");
+            });
+
+            // This function is needed to avoid implicitly captured predicate.
+            return SkipWhileGenerator(skip, generator);
+        }
+
+        private static IGenerator<TSource> SkipWhileGenerator<TSource>(Lazy<TSource> lazy,
+            IGenerator<TSource> generator) {
+            return Generator.Function(() => lazy.IsValueCreated ? generator.Generate() : lazy.Value);
         }
 
 
@@ -243,7 +277,11 @@ namespace GeneratorAPI.Linq {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (count <= 0) throw new ArgumentException($"{nameof(count)} Must be more than zero");
             //Is needed so the above if statement is checked.
-            return Iterator(count, generator);
+            return TakeIterator(count, generator);
+        }
+
+        private static IEnumerable<TSource> TakeIterator<TSource>(int count, IGenerator<TSource> generator) {
+            for (var i = 0; i < count; i++) yield return generator.Generate();
         }
 
         /// <summary>
@@ -256,7 +294,7 @@ namespace GeneratorAPI.Linq {
         /// <param name="predicate">A function to test each generated element for a condition.</param>
         /// <returns>An <see cref="IEnumerable{T}" /> whose generated elements passed the <paramref name="predicate" />.</returns>
         /// <remarks>
-        ///     This method will run forever if the <paramref name="predicate"/> always returns true.
+        ///     This method will run forever if the <paramref name="predicate" /> always returns true.
         /// </remarks>
         public static IEnumerable<TSource> TakeWhile<TSource>(this IGenerator<TSource> generator,
             Func<TSource, bool> predicate) {
@@ -275,9 +313,6 @@ namespace GeneratorAPI.Linq {
             }
         }
 
-        private static IEnumerable<TSource> Iterator<TSource>(int count, IGenerator<TSource> generator) {
-            for (var i = 0; i < count; i++) yield return generator.Generate();
-        }
 
         /// <summary>
         ///     <para>
