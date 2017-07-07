@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace GeneratorAPI.Linq.TaskExtensions {
     /// <summary>
-    ///     Provides a set of static methods targeting <see cref="IGenerator{T}"/> with tasks.
+    ///     Provides a set of static methods targeting <see cref="IGenerator{T}" /> with tasks.
     /// </summary>
     public static class TaskGenerator {
         /// <summary>
@@ -136,6 +136,44 @@ namespace GeneratorAPI.Linq.TaskExtensions {
             return generator.Select(async task => await selector(await task));
         }
 
+        /// <summary>
+        ///     <para>
+        ///         TODO
+        ///     </para>
+        /// </summary>
+        /// <typeparam name="TSource">
+        ///     TODO
+        /// </typeparam>
+        /// <typeparam name="TResult">
+        ///     TODO
+        /// </typeparam>
+        /// <typeparam name="TTask">
+        ///     TODO
+        /// </typeparam>
+        /// <param name="generator">
+        ///     TODO
+        /// </param>
+        /// <param name="selector">
+        ///     TODO
+        ///     TODO
+        /// </param>
+        /// <param name="resultSelector">
+        ///     TODO
+        /// </param>
+        /// <exception cref="ArgumentNullException">When argument <paramref name="generator" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">When argument <paramref name="selector" /> is null.</exception>
+        /// <returns>
+        ///     TODO
+        /// </returns>
+        public static IGenerator<Task<TResult>> SelectMany<TSource, TTask, TResult>(
+            this IGenerator<Task<TSource>> generator,
+            Func<TSource, Task<TTask>> selector, Func<TSource, TTask, TResult> resultSelector) {
+            return generator.SelectMany(async source => {
+                var res = await selector(source);
+                return resultSelector(source, res);
+            });
+        }
+
 
         /// <summary>
         ///     <para>
@@ -154,8 +192,6 @@ namespace GeneratorAPI.Linq.TaskExtensions {
         /// </returns>
         public static IGenerator<Task<TSource>> Do<TSource>(this IGenerator<Task<TSource>> generator,
             Action<TSource> task) {
-            if (task == null) throw new ArgumentNullException(nameof(task));
-            if (generator == null) throw new ArgumentNullException(nameof(generator));
             return generator.Do(async element => task(await element));
         }
     }
