@@ -4,17 +4,17 @@
 
 This is a hobby project of mine where the goal is to have an easy way of generating some fake data.
 
+The new generator API documentation can be found [here](https://inputfalken.github.io/Sharpy/html/N_GeneratorAPI.htm).
+
 Hope you'll find this class library useful.
 ## Install
 Use the NuGet Package Manager Console and type ```Install-Package Sharpy pre```
 
 ## Todo
 
-* Add more tests.
+* Add more tests(WIP).
 * Auto bump package version depending on branch merge.
-* Auto hide old NuGet minor and patch versions.
-* Generate documenation from xml comments.
-* Refactor old tests.
+* Generate documenation from xml comments(WIP).
 * Turn GeneratorAPI to it's own NuGet package.
 
 [Link](https://www.nuget.org/packages/Sharpy/) to package on NuGet.
