@@ -8,10 +8,8 @@ namespace Tests.GeneratorAPI.Extensions {
     internal class SelectManyGeneratorTests {
         [SetUp]
         public void Initiate() {
-            _generator = Generator.Factory
-                .Incrementer(0);
-            _selectorGenerator = Generator.Factory
-                .Incrementer(0)
+            _generator = Generator.Factory.Incrementer(0);
+            _selectorGenerator = Generator.Factory.Incrementer(0)
                 .Select(i => i * 2);
         }
 

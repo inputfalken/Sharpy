@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using GeneratorAPI;
+using GeneratorAPI.Linq;
 using NodaTime;
 using Sharpy.Enums;
 using Sharpy.Implementation;
@@ -10,7 +12,7 @@ using Sharpy.Properties;
 namespace Sharpy {
     /// <summary>
     ///     <para>
-    ///         Contains various methods for providing data by using System.Random.
+    ///         Contains various methods for providing data by using <see cref="Random"/>.
     ///         To get the same result every time you execute the program use the seed overload constructor.
     ///         If want you to add your own methods you can derive from this class.
     ///     </para>
@@ -59,7 +61,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a provider which will Randomize the same result by the seed.
+        ///         Returns a <see cref="Provider"/> which will Randomize the same result by the seed.
         ///     </para>
         /// </summary>
         /// <param name="seed"></param>
@@ -67,7 +69,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a provider which will randomize with the random supplied.
+        ///         Returns a <see cref="Provider"/> which will randomize with the random supplied.
         ///     </para>
         /// </summary>
         /// <param name="random"></param>
@@ -75,14 +77,14 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a provider which will randomize new results every time program is executed.
+        ///         Returns a <see cref="Provider"/> which will randomize new results every time program is executed.
         ///     </para>
         /// </summary>
         public Provider() : this(new Configurement()) { }
 
         /// <summary>
         ///     <para>
-        ///         Generates a double.
+        ///         Generates a <see cref="double"/>.
         ///     </para>
         /// </summary>
         public double Double() {
@@ -91,7 +93,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Generates a double within max value.
+        ///         Generates a <see cref="double"/> within argument <paramref name="max"/>.
         ///     </para>
         /// </summary>
         /// <param name="max"></param>
@@ -101,7 +103,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Generates a within min and max.
+        ///         Generates a <see cref="double"/> within argument <paramref name="min"/> and argument <paramref name="max"/>.
         ///     </para>
         /// </summary>
         /// <param name="min"></param>
@@ -112,7 +114,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Generates a integer.
+        ///         Generates a <see cref="int"/>.
         ///     </para>
         /// </summary>
         /// <param name="max"></param>
@@ -122,7 +124,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Generates a integer within min and max.
+        ///         Generates a <see cref="int"/> within argument <paramref name="min"/> and argument <paramref name="max"/>.
         ///     </para>
         /// </summary>
         /// <param name="min"></param>
@@ -133,7 +135,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Generates a integer.
+        ///         Generates a <see cref="int"/>.
         ///     </para>
         /// </summary>
         public int Integer() {
@@ -142,7 +144,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Generates a long within min and max.
+        ///         Generates a <see cref="long"/> within argument <paramref name="min"/> and <paramref name="max"/>.
         ///     </para>
         /// </summary>
         /// <param name="min"></param>
@@ -153,7 +155,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Generates a long within max.
+        ///         Generates a <see cref="long"/> within argument <paramref name="max"/>.
         ///     </para>
         /// </summary>
         /// <param name="max"></param>
@@ -163,7 +165,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Generates a long.
+        ///         Generates a <see cref="long"/>.
         ///     </para>
         /// </summary>
         public long Long() {
@@ -173,7 +175,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a string representing a first name.
+        ///         Returns a <see cref="string"/> representing a first name.
         ///     </para>
         /// </summary>
         public string FirstName() {
@@ -182,7 +184,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a string representing a first name based on Gender.
+        ///         Returns a <see cref="string"/> representing a first name based on <see cref="Gender"/>.
         ///     </para>
         /// </summary>
         /// <param name="gender"></param>
@@ -192,7 +194,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a string representing a last name.
+        ///         Returns a <see cref="string"/> representing a last name.
         ///     </para>
         /// </summary>
         public string LastName() {
@@ -212,7 +214,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Randomizes one of the elements in the IReadOnlyList.
+        ///         Randomizes one of the elements.
         ///     </para>
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -223,7 +225,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Randomizes a bool.
+        ///         Randomizes a <see cref="bool"/>.
         ///     </para>
         /// </summary>
         public bool Bool() {
@@ -232,7 +234,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Randomizes a date based on age.
+        ///         Randomizes a <see cref="LocalDate"/> based on argument <paramref name="age"/>.
         ///     </para>
         /// </summary>
         /// <param name="age"></param>
@@ -242,7 +244,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Randomizes a date based on year.
+        ///         Randomizes a <see cref="LocalDate"/> based on argument <paramref name="year"/>.
         ///     </para>
         /// </summary>
         /// <param name="year"></param>
@@ -252,7 +254,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Randomizes a unique SocialSecurity Number.
+        ///         Randomizes a <see cref="string"/> representing a unique social-security number.
         ///     </para>
         /// </summary>
         /// <param name="date"></param>
@@ -270,7 +272,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a string representing a mailaddress.
+        ///         Returns a <see cref="string"/> representing a mailaddress.
         ///     </para>
         /// </summary>
         /// <param name="name"></param>
@@ -281,7 +283,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a number with the length of the argument.
+        ///         Returns a <see cref="int"/> with the length of the number given to argument <paramref name="length"/>.
         ///     </para>
         /// </summary>
         /// <param name="length"></param>
@@ -290,7 +292,7 @@ namespace Sharpy {
             if (_numberByLengthState.Item1 != length)
                 _numberByLengthState = new Tuple<int, int>(length, (int) Math.Pow(10, length) - 1);
             var res = _numberGenerator.RandomNumber(0, _numberByLengthState.Item2, _uniqueNumbers);
-            if (res == -1) throw new Exception("You reached maxium Ammount of combinations for the Length used");
+            if (res == -1) throw new Exception($"You reached maxium amount of combinations for the {nameof(length)} used");
 
             var number = res.ToString();
             return number.Length != length
@@ -300,7 +302,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a random username from a huge collection.
+        ///         Returns a random <see cref="string"/> representing a username.
         ///     </para>
         /// </summary>
         public string UserName() {
@@ -313,6 +315,21 @@ namespace Sharpy {
 
         private static string FormatDigit(int i) {
             return i < 10 ? Prefix(i, 1) : i.ToString();
+        }
+
+        /// <summary>
+        ///     <para>
+        ///         Creates a <see cref="IGenerator{T}"/> with <see cref="Provider"/> as its generic type.
+        ///     </para>
+        /// </summary>
+        /// <param name="provider"></param>
+        /// <returns>
+        ///     <para>
+        ///         A <see cref="IGenerator{T}"/>.
+        ///     </para>
+        /// </returns>
+        public static IGenerator<TProvider> AsGenerator<TProvider>(TProvider provider) where TProvider : Provider {
+            return Generator.Create(provider);
         }
     }
 }

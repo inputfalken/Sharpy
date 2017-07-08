@@ -1,3 +1,4 @@
+using System;
 using GeneratorAPI;
 using GeneratorAPI.Linq;
 using Sharpy.Enums;
@@ -6,17 +7,22 @@ using Sharpy.IProviders;
 
 namespace Sharpy {
     /// <summary>
+    ///     Provides a set of static methods for creating <see cref="IGenerator{T}"/>.
     /// </summary>
-    public static class GeneratorExtensions {
+    public static class GeneratorFactory {
         /// <summary>
-        ///     <para>Creates <see cref="IGenerator{T}" /> whose generic argument is <see cref="Sharpy.Provider" />.</para>
         ///     <para>
-        ///         Invoking <see cref="Extensions.Select{TSource,TResult}(IGenerator{TSource},System.Func{TSource,TResult})" />
+        ///         TODO
         ///     </para>
-        ///     <para>Gives you various options on what to <see cref="IGenerator{T}.Generate" />.</para>
         /// </summary>
-        public static IGenerator<Provider> Provider(this GeneratorFactory factory, Provider provider) {
-            return Generator.Create(provider);
+        /// <typeparam name="TProvider"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="provider"></param>
+        /// <param name="selector"></param>
+        /// <returns></returns>
+        public static IGenerator<TResult> ToGenerator<TProvider, TResult>(this TProvider provider,
+            Func<TProvider, TResult> selector) where TProvider : Provider {
+            return Generator.Create(provider).Select(selector);
         }
 
         /// <summary>
@@ -32,7 +38,7 @@ namespace Sharpy {
         ///         </para>
         ///     </remarks>
         /// </summary>
-        public static IGenerator<string> FirstName(this GeneratorFactory factory, INameProvider provider = null) {
+        public static IGenerator<string> FirstName(INameProvider provider = null) {
             provider = provider ?? new NameByOrigin();
             return Generator.Function(provider.FirstName);
         }
@@ -50,7 +56,7 @@ namespace Sharpy {
         ///         </para>
         ///     </remarks>
         /// </summary>
-        public static IGenerator<string> FirstName(this GeneratorFactory factory, Gender gender,
+        public static IGenerator<string> FirstName(Gender gender,
             INameProvider provider = null) {
             provider = provider ?? new NameByOrigin();
             return Generator.Function(() => provider.FirstName(gender));
@@ -66,7 +72,7 @@ namespace Sharpy {
         ///         <see cref="NameByOrigin" />
         ///     </remarks>
         /// </summary>
-        public static IGenerator<string> LastName(this GeneratorFactory factory,
+        public static IGenerator<string> LastName(
             INameProvider lastNameProvider = null) {
             lastNameProvider = lastNameProvider ?? new NameByOrigin();
             return Generator.Function(lastNameProvider.LastName);
@@ -78,13 +84,12 @@ namespace Sharpy {
         ///         Each invokation of <see cref="IGenerator{T}.Generate" /> will return a <see cref="string" /> representing a
         ///         user name.
         ///     </para>
-        ///     <param name="factory"></param>
         ///     <param name="seed">
         ///         A number used to calculate a starting value for the pseudo-random number sequence. If a negative
         ///         number is specified, the absolute value of the number is used
         ///     </param>
         /// </summary>
-        public static IGenerator<string> Username(this GeneratorFactory factory, int seed) {
+        public static IGenerator<string> Username(int seed) {
             return Generator
                 .Create(new Provider(seed))
                 .Select(p => p.UserName());
@@ -97,7 +102,7 @@ namespace Sharpy {
         ///         user name.
         ///     </para>
         /// </summary>
-        public static IGenerator<string> Username(this GeneratorFactory factory) {
+        public static IGenerator<string> Username() {
             return Generator
                 .Create(new Provider())
                 .Select(p => p.UserName());

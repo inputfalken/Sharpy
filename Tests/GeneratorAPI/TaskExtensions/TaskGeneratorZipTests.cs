@@ -9,8 +9,7 @@ namespace Tests.GeneratorAPI.TaskExtensions {
     internal class TaskGeneratorZipTests {
         [SetUp]
         public void Initiate() {
-            _generator = Generator.Factory
-                .Incrementer(0)
+            _generator = Generator.Factory.Incrementer(0)
                 .Select(async i => {
                     await Task.Delay(100);
                     return i;
@@ -27,8 +26,7 @@ namespace Tests.GeneratorAPI.TaskExtensions {
         [Test]
         public async Task Double_Task_Generator_Is_Evaluated_When_Awaited() {
             var invoked = false;
-            var second = Generator.Factory
-                .Incrementer(0)
+            var second = Generator.Factory.Incrementer(0)
                 .Select(async i => {
                     await Task.Delay(100);
                     return i;
@@ -47,8 +45,7 @@ namespace Tests.GeneratorAPI.TaskExtensions {
 
         [Test]
         public async Task Double_Task_Generator_Multiply() {
-            var second = Generator.Factory
-                .Incrementer(0)
+            var second = Generator.Factory.Incrementer(0)
                 .Select(async i => {
                     await Task.Delay(100);
                     return i;
@@ -65,8 +62,7 @@ namespace Tests.GeneratorAPI.TaskExtensions {
 
         [Test]
         public async Task Single_Task_Generator_Is_Evaluated_When_Awaited() {
-            var second = Generator.Factory
-                .Incrementer(0);
+            var second = Generator.Factory.Incrementer(0);
             var invoked = false;
             var generator = _generator
                 .Zip(second, (int i, int i1) => {
@@ -82,8 +78,7 @@ namespace Tests.GeneratorAPI.TaskExtensions {
 
         [Test]
         public async Task Single_Task_Generator_Multiply() {
-            var second = Generator.Factory
-                .Incrementer(0);
+            var second = Generator.Factory.Incrementer(0);
             var generator = _generator
                 .Zip(second, (i, i1) => i * i1);
 
