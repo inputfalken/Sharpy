@@ -18,8 +18,8 @@ namespace GeneratorAPI {
         /// </summary>
         /// <param name="min">The inclusive lower bound of the random number returned.</param>
         /// <param name="max">
-        ///     The exclusive upper bound of the random number returned. maxValue must be greater than or equal to
-        ///     minValue.
+        ///     The exclusive upper bound of the random number returned. Argument <paramref name="max"/> must be greater than or equal to
+        ///     argument <paramref name="min"/>.
         /// </param>
         /// <param name="seed">
         ///     A number used to calculate a starting value for the pseudo-random number sequence. If a negative
@@ -47,8 +47,7 @@ namespace GeneratorAPI {
         ///     </para>
         /// </summary>
         /// <param name="max">
-        ///     The exclusive upper bound of the random number returned. maxValue must be greater than or equal to
-        ///     minValue.
+        ///    The exclusive upper bound of the random number to be generated. Argument <paramref name="max"/> must be greater than or equal to 0.
         /// </param>
         /// <param name="seed">
         ///     A number used to calculate a starting value for the pseudo-random number sequence. If a negative

@@ -19,11 +19,11 @@ namespace GeneratorAPI {
 
         /// <summary>
         ///     <para>
-        ///         Creates a <see cref="IGenerator{T}" /> whose generations will use the same value
+        ///         Creates a <see cref="IGenerator{T}" /> whose generations will use the same 
         ///         <typeparamref name="TSource" />.
         ///     </para>
         /// </summary>
-        /// <param name="source">The value to generate from.</param>
+        /// <param name="source">The type to generate from.</param>
         /// <typeparam name="TSource">The type of argument <paramref name="source" /></typeparam>
         /// <returns>
         ///     A <see cref="IGenerator{T}" /> whose generations will use argument <paramref name="source" />.
@@ -34,7 +34,7 @@ namespace GeneratorAPI {
 
         /// <summary>
         ///     <para>
-        ///         Creates a <see cref="IGenerator{T}" /> whose generations will use the same value
+        ///         Creates a <see cref="IGenerator{T}" /> whose generations will use the same 
         ///         <typeparamref name="TSource" />.
         ///     </para>
         /// </summary>
@@ -43,7 +43,7 @@ namespace GeneratorAPI {
         /// <returns>
         ///     A <see cref="IGenerator{T}" /> whose generations will use the lazy evaluated value from <paramref name="lazy" />.
         /// </returns>
-        /// <exception cref="ArgumentNullException"><paramref name="lazy" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="lazy" /> is null.</exception>
         public static IGenerator<TSource> Lazy<TSource>(Lazy<TSource> lazy) {
             if (lazy == null) throw new ArgumentNullException(nameof(lazy));
             return new Fun<TSource>(() => lazy.Value);
@@ -51,7 +51,7 @@ namespace GeneratorAPI {
 
         /// <summary>
         ///     <para>
-        ///         Creates a <see cref="IGenerator{T}" /> whose generations will use the same value
+        ///         Creates a <see cref="IGenerator{T}" /> whose generations will use the same 
         ///         <typeparamref name="TSource" />.
         ///     </para>
         /// </summary>
@@ -60,7 +60,7 @@ namespace GeneratorAPI {
         /// <returns>
         ///     A <see cref="IGenerator{T}" /> whose generations will use the lazy evaluated value from <paramref name="fn" />.
         /// </returns>
-        /// <exception cref="ArgumentNullException"><paramref name="fn" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="fn" /> is null.</exception>
         public static IGenerator<TSource> Lazy<TSource>(Func<TSource> fn) {
             return Lazy(new Lazy<TSource>(fn));
         }
@@ -72,12 +72,12 @@ namespace GeneratorAPI {
         ///         invoke the argument <paramref name="fn" />.
         ///     </para>
         /// </summary>
-        /// <param name="fn">The function to invoke to be invoked for each generation.</param>
-        /// <typeparam name="TSource">The type of the <paramref name="fn" />.</typeparam>
+        /// <param name="fn">The function to invoke for each generation.</param>
+        /// <typeparam name="TSource">The type returned from argument <paramref name="fn" />.</typeparam>
         /// <returns>
         ///     A <see cref="IGenerator{T}" /> whose generations will invoke argument <paramref name="fn" />.
         /// </returns>
-        /// <exception cref="ArgumentNullException"><paramref name="fn" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="fn" /> is null.</exception>
         public static IGenerator<TSource> Function<TSource>(Func<TSource> fn) {
             return new Fun<TSource>(fn);
         }
@@ -93,7 +93,7 @@ namespace GeneratorAPI {
         /// <returns>
         ///     A <see cref="IGenerator{T}" /> whose elements comes from argument <paramref name="enumerable" />.
         /// </returns>
-        /// <exception cref="ArgumentNullException"><paramref name="enumerable" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="enumerable" /> is null.</exception>
         public static IGenerator<TSource> CircularSequence<TSource>(IEnumerable<TSource> enumerable) {
             if (enumerable == null) throw new ArgumentNullException(nameof(enumerable));
             return new Seq<TSource>(enumerable);
@@ -105,11 +105,11 @@ namespace GeneratorAPI {
         ///         <see cref="IEnumerable" /> which resets if the end is reached.
         ///     </para>
         /// </summary>
-        /// <param name="enumerable">The <see cref="IEnumerable" /> to create a IGenerator&lt;object&gt; from.</param>
+        /// <param name="enumerable">The <see cref="IEnumerable" /> to create the <see cref="IGenerator{T}"/> with <see cref="object"/> as its type parameter.</param>
         /// <returns>
         ///     <see cref="IGenerator" /> whose elements comes from argument <paramref name="enumerable" />.
         /// </returns>
-        /// <exception cref="ArgumentNullException"><paramref name="enumerable" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="enumerable" /> is null.</exception>
         public static IGenerator<object> CircularSequence(IEnumerable enumerable) {
             if (enumerable == null) throw new ArgumentNullException(nameof(enumerable));
             // TODO add proper implementation so cast can be skipped.

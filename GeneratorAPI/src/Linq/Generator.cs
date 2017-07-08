@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace GeneratorAPI.Linq {
     /// <summary>
-    ///     Provides a set of static methods for changing the behaviour of <see cref="IGenerator{T}"/>.
+    ///     Provides a set of static methods for <see cref="IGenerator{T}"/>.
     /// </summary>
     public static partial class Extensions {
         /// <summary>
@@ -23,7 +23,7 @@ namespace GeneratorAPI.Linq {
         /// <typeparam name="TResult">The type to be used when casting.</typeparam>
         /// <exception cref="ArgumentNullException">Argument <paramref name="generator" /> is null.</exception>
         /// <exception cref="InvalidCastException">
-        ///     An element in the sequence cannot be cast to type
+        ///     A generated element cannot be cast to type
         ///     <typeparamref name="TResult" />.
         /// </exception>
         /// <example>
@@ -44,10 +44,15 @@ namespace GeneratorAPI.Linq {
         /// <typeparam name="TSource">
         ///     The type of the elements of <paramref name="generator" />.
         /// </typeparam>
+        /// <remarks>
+        ///     <para>
+        ///         This method is not lazy evaluated, for lazy evaluation see <see cref="Skip{TSource}"/>.
+        ///     </para>
+        /// </remarks>
         /// <param name="generator">The <paramref name="generator" /> whose generations will be released.</param>
         /// <param name="amount">The number of generations to be released.</param>
-        /// <exception cref="ArgumentNullException">If <paramref name="generator" /> is null.</exception>
-        /// <exception cref="ArgumentException">If argument <paramref name="amount" /> is less than 0.</exception>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="generator" /> is null.</exception>
+        /// <exception cref="ArgumentException">Argument <paramref name="amount" /> is less than 0.</exception>
         /// <returns>
         ///     A <see cref="IGenerator{T}" /> whose elements has been released by the number equal to argument
         ///     <paramref name="amount" />.
@@ -69,8 +74,8 @@ namespace GeneratorAPI.Linq {
         /// </typeparam>
         /// <param name="generator">The <paramref name="generator" /> whose generations will be released.</param>
         /// <param name="count">The number of generations to be released.</param>
-        /// <exception cref="ArgumentNullException">If <paramref name="generator" /> is null.</exception>
-        /// <exception cref="ArgumentException">If argument <paramref name="count" /> is less than 0.</exception>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="generator" /> is null.</exception>
+        /// <exception cref="ArgumentException">Argument <paramref name="count" /> is less than 0.</exception>
         /// <returns>
         ///     A <see cref="IGenerator{T}" /> whose elements has been released by the number equal to argument
         ///     <paramref name="count" />.
@@ -191,7 +196,7 @@ namespace GeneratorAPI.Linq {
 
         /// <summary>
         ///     <para>
-        ///         Projects each element of a sequence into a new form by incorporating a counter for the current generation.
+        ///         Projects each generation into a new form by incorporating a counter for the current generation.
         ///     </para>
         /// </summary>
         /// <typeparam name="TSource">
@@ -229,8 +234,8 @@ namespace GeneratorAPI.Linq {
         /// </typeparam>
         /// <param name="generator">The <paramref name="generator" /> to generate from.</param>
         /// <param name="count">The number of elements to return.</param>
-        /// <exception cref="ArgumentNullException">When <paramref name="generator" /> is null.</exception>
-        /// <exception cref="ArgumentException">When argument <paramref name="count"></paramref> is less or equal to zero.</exception>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="generator" /> is null.</exception>
+        /// <exception cref="ArgumentException">Argument <paramref name="count"></paramref> is less or equal to zero.</exception>
         /// <returns>
         ///     An <see cref="IEnumerable{T}" /> that contains the specified number of elements generated from the argument
         ///     <paramref name="generator" />.
@@ -267,8 +272,8 @@ namespace GeneratorAPI.Linq {
         /// <param name="selector">
         ///     A transform function to apply to each element.
         /// </param>
-        /// <exception cref="ArgumentNullException">When argument <paramref name="generator" /> is null.</exception>
-        /// <exception cref="ArgumentNullException">When argument <paramref name="selector" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="generator" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="selector" /> is null.</exception>
         /// <returns>
         ///     An <see cref="IGenerator{T}" /> whose elements have been flattened by an <see cref="IGenerator{T}" />.
         /// </returns>
@@ -305,9 +310,9 @@ namespace GeneratorAPI.Linq {
         ///     A transform function with the result from argument <paramref name="selector" /> and the element from
         ///     <paramref name="generator" />.
         /// </param>
-        /// <exception cref="ArgumentNullException">When argument <paramref name="generator" /> is null.</exception>
-        /// <exception cref="ArgumentNullException">When argument <paramref name="selector" /> is null.</exception>
-        /// <exception cref="ArgumentNullException">When argument <paramref name="resultSelector" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="generator" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="selector" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="resultSelector" /> is null.</exception>
         /// <returns>
         ///     An <see cref="IGenerator{T}" /> whose elements have been flattened by an <see cref="IGenerator{T}" />.
         /// </returns>
@@ -339,10 +344,10 @@ namespace GeneratorAPI.Linq {
         /// </typeparam>
         /// <param name="first">The first generator to merge.</param>
         /// <param name="second">The second generator to merge.</param>
-        /// <param name="resultSelector">A function that specifies how to merge the elements from the two sequences.</param>
-        /// <exception cref="ArgumentNullException">When argument <paramref name="first" /> is null.</exception>
-        /// <exception cref="ArgumentNullException">When argument <paramref name="second" /> is null.</exception>
-        /// <exception cref="ArgumentNullException">When argument <paramref name="resultSelector" /> is null.</exception>
+        /// <param name="resultSelector">A function that specifies how to merge the elements from the two generators.</param>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="first" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="second" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="resultSelector" /> is null.</exception>
         /// <returns>
         ///     A <see cref="IGenerator{T}" /> that contains merged elements of two input generators.
         /// </returns>
