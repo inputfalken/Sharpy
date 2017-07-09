@@ -2,9 +2,7 @@
 using Sharpy.IProviders;
 
 namespace Sharpy.Implementation {
-    /// <summary>
-    ///     <para>Randomizes longs.</para>
-    /// </summary>
+    /// <inheritdoc cref="ILongProvider"/>
     public class LongRandomizer : ILongProvider {
         private readonly Random _random;
 
@@ -42,18 +40,12 @@ namespace Sharpy.Implementation {
             return (long) (ulongRand % uRange) + min;
         }
 
-        /// <summary>
-        ///     Returns a random long from 0 (inclusive) to max (exclusive)
-        /// </summary>
-        /// <param name="max">The exclusive maximum bound.  Must be greater than 0</param>
+        /// <inheritdoc cref="ILongProvider.Long(long)"/>
         public long Long(long max) {
             return Long(0, max);
         }
 
-        /// <summary>
-        ///     Returns a random long over all possible values of long (except long.MaxValue, similar to
-        ///     random.Next())
-        /// </summary>
+        /// <inheritdoc cref="ILongProvider.Long()"/>
         public long Long() {
             return Long(long.MinValue, long.MaxValue);
         }

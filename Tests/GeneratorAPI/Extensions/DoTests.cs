@@ -65,8 +65,7 @@ namespace Tests.GeneratorAPI.Extensions {
             var container = new List<int>();
             var result = _generator
                 .Do(container.Add);
-            var expected = Generator
-                .Factory.Incrementer(0);
+            var expected = Generator.Factory.Incrementer(0);
 
             Assert.AreEqual(expected.Generate(), result.Generate());
             Assert.AreEqual(expected.Generate(), result.Generate());

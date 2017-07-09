@@ -58,7 +58,6 @@
     </Compile>
     <Compile Include="src\Configurement.cs" />
     <Compile Include="src\Enums\Gender.cs" />
-    <Compile Include="src\GeneratorExtensions.cs" />
     <Compile Include="src\Implementation\DataObjects\NameType.cs" />
     <Compile Include="src\Implementation\DoubleRandomizer.cs" />
     <Compile Include="src\Implementation\ExtensionMethods\ReadOnlyListExtensions.cs" />
@@ -79,6 +78,7 @@
     <Compile Include="src\IProviders\ILongProvider.cs" />
     <Compile Include="src\IProviders\INameProvider.cs" />
     <Compile Include="src\Provider.cs" />
+    <Compile Include="src\GeneratorFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
