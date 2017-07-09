@@ -11,7 +11,9 @@ using Sharpy.Properties;
 
 namespace Sharpy.Implementation {
     /// <summary>
-    ///     <para>Randomizes common names by origin.</para>
+    ///     <para>
+    ///         Randomizes common names by origin.
+    ///     </para>
     /// </summary>
     public class NameByOrigin : INameProvider {
         private static readonly ISet<Origin> Regions = new HashSet<Origin> {
@@ -32,7 +34,9 @@ namespace Sharpy.Implementation {
         }
 
         /// <summary>
-        ///     <para>Randomizes common names by origin using random/></para>
+        ///     <para>
+        ///         Randomizes common names by <see cref="Enums.Origin"/> using argument <paramref name="random"/>.
+        ///     </para>
         /// </summary>
         public NameByOrigin(Random random, params Origin[] origins) : this(random) {
             _origins = new HashSet<Origin>(origins);
@@ -42,7 +46,9 @@ namespace Sharpy.Implementation {
         }
 
         /// <summary>
-        ///     <para>Randomizes names based on origin.</para>
+        ///     <para>
+        ///         Randomizes common names by <see cref="Enums.Origin"/> using <see cref="Random"/>.
+        ///     </para>
         /// </summary>
         /// <param name="origins"></param>
         public NameByOrigin(params Origin[] origins) : this(new Random(), origins) { }
@@ -61,28 +67,18 @@ namespace Sharpy.Implementation {
         private Dictionary<NameType, IReadOnlyList<string>> Dictionary { get; } =
             new Dictionary<NameType, IReadOnlyList<string>>();
 
-        /// <summary>
-        ///     <para>Returns a randomized first name based on gender.</para>
-        /// </summary>
-        /// <param name="gender"></param>
-        /// <returns></returns>
+        /// <inheritdoc cref="INameProvider.FirstName(Gender)"/>
         public string FirstName(Gender gender) {
             return Name(
                 gender == Gender.Male ? NameType.MaleFirst : NameType.FemaleFirst);
         }
 
-        /// <summary>
-        ///     <para>Returns a randomized First name</para>
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc cref="INameProvider.FirstName()"/>
         public string FirstName() {
             return Name(_random.Next(2) == 0 ? NameType.FemaleFirst : NameType.MaleFirst);
         }
 
-        /// <summary>
-        ///     <para>Returns a randomized last name.</para>
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc cref="INameProvider.LastName()"/>
         public string LastName() {
             return Name(NameType.Last);
         }

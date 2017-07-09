@@ -8,15 +8,7 @@ namespace GeneratorAPI {
     /// <summary>
     ///     Provides a set of static members for creating <see cref="IGenerator{T}"/>.
     /// </summary>
-    public static class Generator {
-        /// <summary>
-        ///     <para>Contains various methods for creating <see cref="IGenerator{T}" /></para>
-        ///     <remarks>
-        ///         <para>The point of this class is to contain extension methods from other libraries.</para>
-        ///     </remarks>
-        /// </summary>
-        public static GeneratorFactory Factory { get; } = new GeneratorFactory();
-
+    public static partial class Generator {
         /// <summary>
         ///     <para>
         ///         Creates a <see cref="IGenerator{T}" /> whose generations will use the same 
