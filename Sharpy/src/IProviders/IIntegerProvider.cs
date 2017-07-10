@@ -5,25 +5,38 @@ namespace Sharpy.IProviders {
     public interface IIntegerProvider {
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="int"/> from 0 to argument <paramref name="max"/>.
+        ///         Returns a <see cref="int" /> that is greater than or equal to 0 and less
+        ///         than argument <paramref name="max" />.
         ///     </para>
-        ///     <param name="max">The maximum <see cref="int"/> value.</param>
         /// </summary>
+        /// <param name="max">
+        ///     The exclusive maximum bound.
+        /// </param>
         int Integer(int max);
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="int"/> within argument <paramref name="min"/> to argument <paramref name="max"/>.
+        ///         Returns a <see cref="int" /> that is greater than or equal to argument <paramref name="min" /> and less
+        ///         than argument <paramref name="max" />.
         ///     </para>
         /// </summary>
+        /// <param name="min">
+        ///     The inclusive minimum bound
+        /// </param>
+        /// <param name="max">
+        ///     The exclusive maximum bound.
+        /// </param>
         int Integer(int min, int max);
+
 
         /// <summary>
         ///     <para>
-        ///         Returns and <see cref="int"/> within 0 and <see cref="int.MaxValue"/>.
+        ///         <para>
+        ///             Returns a <see cref="int" /> that is greater than or equal to 0 and less
+        ///             than <see cref="int.MaxValue" />.
+        ///         </para>
         ///     </para>
         /// </summary>
-        /// <returns></returns>
         int Integer();
     }
 }
