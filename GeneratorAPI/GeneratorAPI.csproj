@@ -42,7 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\Factory.cs" />
     <Compile Include="src\Utils\EnumerableCacheExtensions.cs" />
     <Compile Include="src\Linq\Enumerable.cs" />
     <Compile Include="src\Linq\Generator.cs" />
