@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using GeneratorAPI;
-using GeneratorAPI.Linq;
 using NodaTime;
 using Sharpy.Enums;
 using Sharpy.Implementation;
@@ -61,7 +60,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="Provider"/> which will Randomize the same result by the seed.
+        ///         Returns a <see cref="Provider"/> which will randomize the results depending on the <paramref name="seed"/>.
         ///     </para>
         /// </summary>
         /// <param name="seed"></param>

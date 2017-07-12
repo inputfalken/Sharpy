@@ -2,6 +2,7 @@
 using GeneratorAPI;
 using GeneratorAPI.Linq;
 using NUnit.Framework;
+using Sharpy;
 
 namespace Tests.GeneratorAPI.Extensions {
     [TestFixture]
@@ -11,7 +12,7 @@ namespace Tests.GeneratorAPI.Extensions {
         )]
         public void Is_Not_Lazy_Evaluated() {
             var invoked = false;
-            Generator.Factory.Incrementer(0)
+            Factory.Incrementer(0)
                 .Do(actual => { invoked = true; })
                 .Release(1);
             Assert.AreEqual(true, invoked);
@@ -22,7 +23,7 @@ namespace Tests.GeneratorAPI.Extensions {
         )]
         public void Negative_Number_Throws() {
             Assert.Throws<ArgumentException>(() => {
-                Generator.Factory.Incrementer(0)
+                Factory.Incrementer(0)
                     .Release(-5);
             });
         }
@@ -42,7 +43,7 @@ namespace Tests.GeneratorAPI.Extensions {
         )]
         public void Release_Elements_Immediately() {
             var expected = 0;
-            Generator.Factory.Incrementer(0)
+            Factory.Incrementer(0)
                 .Do(actual => {
                     Assert.AreEqual(expected, actual);
                     expected++;
@@ -54,7 +55,7 @@ namespace Tests.GeneratorAPI.Extensions {
             Description = "Verify that release returns the same instance of IGenerator<T>"
         )]
         public void Same_Generator() {
-            var expected = Generator.Factory.Incrementer(0);
+            var expected = Factory.Incrementer(0);
             var actual = expected.Release(5);
             Assert.AreSame(expected, actual);
         }
@@ -64,7 +65,7 @@ namespace Tests.GeneratorAPI.Extensions {
         )]
         public void Zero_Elements_Does_Nothing() {
             var invoked = false;
-            Generator.Factory.Incrementer(0)
+            Factory.Incrementer(0)
                 .Release(0)
                 .Do(i => invoked = true);
             Assert.IsFalse(invoked);

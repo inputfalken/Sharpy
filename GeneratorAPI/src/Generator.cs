@@ -8,7 +8,7 @@ namespace GeneratorAPI {
     /// <summary>
     ///     Provides a set of static members for creating <see cref="IGenerator{T}"/>.
     /// </summary>
-    public static partial class Generator {
+    public static class Generator {
         /// <summary>
         ///     <para>
         ///         Creates a <see cref="IGenerator{T}" /> whose generations will use the same 
