@@ -6,12 +6,12 @@ using GeneratorAPI.Implementations;
 
 namespace GeneratorAPI {
     /// <summary>
-    ///     Provides a set of static members for creating <see cref="IGenerator{T}"/>.
+    ///     Provides a set of static members for creating <see cref="IGenerator{T}" />.
     /// </summary>
     public static class Generator {
         /// <summary>
         ///     <para>
-        ///         Creates a <see cref="IGenerator{T}" /> whose generations will use the same 
+        ///         Creates a <see cref="IGenerator{T}" /> whose generations will use the same
         ///         <typeparamref name="TSource" />.
         ///     </para>
         /// </summary>
@@ -26,7 +26,7 @@ namespace GeneratorAPI {
 
         /// <summary>
         ///     <para>
-        ///         Creates a <see cref="IGenerator{T}" /> whose generations will use the same 
+        ///         Creates a <see cref="IGenerator{T}" /> whose generations will use the same
         ///         <typeparamref name="TSource" />.
         ///     </para>
         /// </summary>
@@ -43,7 +43,7 @@ namespace GeneratorAPI {
 
         /// <summary>
         ///     <para>
-        ///         Creates a <see cref="IGenerator{T}" /> whose generations will use the same 
+        ///         Creates a <see cref="IGenerator{T}" /> whose generations will use the same
         ///         <typeparamref name="TSource" />.
         ///     </para>
         /// </summary>
@@ -97,7 +97,10 @@ namespace GeneratorAPI {
         ///         <see cref="IEnumerable" /> which resets if the end is reached.
         ///     </para>
         /// </summary>
-        /// <param name="enumerable">The <see cref="IEnumerable" /> to create the <see cref="IGenerator{T}"/> with <see cref="object"/> as its type parameter.</param>
+        /// <param name="enumerable">
+        ///     The <see cref="IEnumerable" /> to create the <see cref="IGenerator{T}" /> with
+        ///     <see cref="object" /> as its type parameter.
+        /// </param>
         /// <returns>
         ///     <see cref="IGenerator" /> whose elements comes from argument <paramref name="enumerable" />.
         /// </returns>
