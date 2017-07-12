@@ -56,7 +56,6 @@
     <Compile Include="GeneratorAPI\Extensions\SelectManyEnumerableTests.cs" />
     <Compile Include="GeneratorAPI\Extensions\Skiptests.cs" />
     <Compile Include="GeneratorAPI\Implementations\CircularSequenceTests.cs" />
-    <Compile Include="GeneratorAPI\GeneratorFactoryTests.cs" />
     <Compile Include="GeneratorAPI\GeneratorTests.cs" />
     <Compile Include="GeneratorAPI\Extensions\CastTests.cs" />
     <Compile Include="GeneratorAPI\Extensions\DoTests.cs" />
@@ -76,6 +75,10 @@
     <Compile Include="GeneratorAPI\TaskExtensions\TaskGeneratorSelectTests.cs" />
     <Compile Include="GeneratorAPI\TaskExtensions\TaskGeneratorWhereTests.cs" />
     <Compile Include="GeneratorAPI\TaskExtensions\TaskGeneratorZipTests.cs" />
+    <Compile Include="Sharpy\FactoryTests\DecrementerTests.cs" />
+    <Compile Include="Sharpy\FactoryTests\GuidTests.cs" />
+    <Compile Include="Sharpy\FactoryTests\IncrementerTests.cs" />
+    <Compile Include="Sharpy\FactoryTests\RandomizerTests.cs" />
     <Compile Include="Sharpy\FileTests.cs" />
     <Compile Include="Sharpy\Integration\Bool.cs" />
     <Compile Include="Sharpy\Integration\Config.cs" />

@@ -78,7 +78,7 @@
     <Compile Include="src\IProviders\ILongProvider.cs" />
     <Compile Include="src\IProviders\INameProvider.cs" />
     <Compile Include="src\Provider.cs" />
-    <Compile Include="src\GeneratorFactory.cs" />
+    <Compile Include="src\Factory.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
