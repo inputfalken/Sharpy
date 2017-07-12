@@ -4,13 +4,14 @@ using GeneratorAPI;
 using GeneratorAPI.Linq;
 using GeneratorAPI.Linq.TaskExtensions;
 using NUnit.Framework;
+using Sharpy;
 
 namespace Tests.GeneratorAPI.TaskExtensions {
     [TestFixture]
     internal class TaskGeneratorWhereTests {
         [SetUp]
         public void Initiate() {
-            _generator = Generator.Factory.Incrementer(0)
+            _generator = Factory.Incrementer(0)
                 .Select(async i => {
                     await Task.Delay(100);
                     return i;
@@ -26,7 +27,7 @@ namespace Tests.GeneratorAPI.TaskExtensions {
 
         [Test]
         public void Bad_Predicate_Throws() {
-            _generator = Generator.Factory.Incrementer(0)
+            _generator = Factory.Incrementer(0)
                 .Select(i => Task.Run(() => i));
             Func<int, bool> predicate = i => false;
             Assert.ThrowsAsync<ArgumentException>(() => _generator.Where(predicate).Generate());
