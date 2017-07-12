@@ -1,6 +1,8 @@
 namespace Sharpy.IProviders {
     /// <summary>
-    ///     <para>Methods providing <see cref="long" />.</para>
+    ///     <para>
+    ///         Methods providing <see cref="long" />.
+    ///     </para>
     /// </summary>
     public interface ILongProvider {
         /// <summary>
