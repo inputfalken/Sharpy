@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using GeneratorAPI;
 using GeneratorAPI.Linq;
 using NUnit.Framework;
+using Sharpy;
 
 namespace Tests.GeneratorAPI.Extensions {
     [TestFixture]
     public class DoTests {
         [SetUp]
         public void Initiate() {
-            _generator = Generator.Factory.Incrementer(0);
+            _generator = Factory.Incrementer(0);
         }
 
         [TearDown]
@@ -65,7 +66,7 @@ namespace Tests.GeneratorAPI.Extensions {
             var container = new List<int>();
             var result = _generator
                 .Do(container.Add);
-            var expected = Generator.Factory.Incrementer(0);
+            var expected = Factory.Incrementer(0);
 
             Assert.AreEqual(expected.Generate(), result.Generate());
             Assert.AreEqual(expected.Generate(), result.Generate());

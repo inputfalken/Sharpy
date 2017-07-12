@@ -3,13 +3,14 @@ using GeneratorAPI;
 using GeneratorAPI.Linq;
 using GeneratorAPI.Linq.TaskExtensions;
 using NUnit.Framework;
+using Sharpy;
 
 namespace Tests.GeneratorAPI.TaskExtensions {
     [TestFixture]
     internal class TaskGeneratorDoTests {
         [SetUp]
         public void Initiate() {
-            _generator = Generator.Factory.Incrementer(0)
+            _generator = Factory.Incrementer(0)
                 .Select(async i => {
                     await Task.Delay(100);
                     return i;
