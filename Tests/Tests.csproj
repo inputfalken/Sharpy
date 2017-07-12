@@ -52,21 +52,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GeneratorAPI\Extensions\ReleaseTests.cs" />
-    <Compile Include="GeneratorAPI\Extensions\SelectManyEnumerableTests.cs" />
-    <Compile Include="GeneratorAPI\Extensions\Skiptests.cs" />
+    <Compile Include="GeneratorAPI\LinqTests\ReleaseTests.cs" />
+    <Compile Include="GeneratorAPI\LinqTests\SelectManyEnumerableTests.cs" />
+    <Compile Include="GeneratorAPI\LinqTests\Skiptests.cs" />
     <Compile Include="GeneratorAPI\Implementations\CircularSequenceTests.cs" />
     <Compile Include="GeneratorAPI\GeneratorTests.cs" />
-    <Compile Include="GeneratorAPI\Extensions\CastTests.cs" />
-    <Compile Include="GeneratorAPI\Extensions\DoTests.cs" />
-    <Compile Include="GeneratorAPI\Extensions\WhereTests.cs" />
-    <Compile Include="GeneratorAPI\Extensions\SelectManyGeneratorTests.cs" />
-    <Compile Include="GeneratorAPI\Extensions\SelectTests.cs" />
-    <Compile Include="GeneratorAPI\Extensions\TakeTests.cs" />
-    <Compile Include="GeneratorAPI\Extensions\ToArrayTests.cs" />
-    <Compile Include="GeneratorAPI\Extensions\ToDictionaryTests.cs" />
-    <Compile Include="GeneratorAPI\Extensions\ToListTests.cs" />
-    <Compile Include="GeneratorAPI\Extensions\ZipTests.cs" />
+    <Compile Include="GeneratorAPI\LinqTests\CastTests.cs" />
+    <Compile Include="GeneratorAPI\LinqTests\DoTests.cs" />
+    <Compile Include="GeneratorAPI\LinqTests\WhereTests.cs" />
+    <Compile Include="GeneratorAPI\LinqTests\SelectManyGeneratorTests.cs" />
+    <Compile Include="GeneratorAPI\LinqTests\SelectTests.cs" />
+    <Compile Include="GeneratorAPI\LinqTests\TakeTests.cs" />
+    <Compile Include="GeneratorAPI\LinqTests\ToArrayTests.cs" />
+    <Compile Include="GeneratorAPI\LinqTests\ToDictionaryTests.cs" />
+    <Compile Include="GeneratorAPI\LinqTests\ToListTests.cs" />
+    <Compile Include="GeneratorAPI\LinqTests\ZipTests.cs" />
     <Compile Include="GeneratorAPI\Implementations\CreateTests.cs" />
     <Compile Include="GeneratorAPI\Implementations\FunctionTests.cs" />
     <Compile Include="GeneratorAPI\Implementations\LazyTests.cs" />

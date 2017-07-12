@@ -42,9 +42,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\Linq\Cast.cs" />
+    <Compile Include="src\Linq\Do.cs" />
+    <Compile Include="src\Linq\Release.cs" />
+    <Compile Include="src\Linq\Select.cs" />
+    <Compile Include="src\Linq\SelectMany.cs" />
+    <Compile Include="src\Linq\Skip.cs" />
+    <Compile Include="src\Linq\Take.cs" />
+    <Compile Include="src\Linq\ToArray.cs" />
+    <Compile Include="src\Linq\ToDictionary.cs" />
+    <Compile Include="src\Linq\ToList.cs" />
+    <Compile Include="src\Linq\Where.cs" />
+    <Compile Include="src\Linq\Zip.cs" />
     <Compile Include="src\Utils\EnumerableCacheExtensions.cs" />
     <Compile Include="src\Linq\Enumerable.cs" />
-    <Compile Include="src\Linq\Generator.cs" />
     <Compile Include="src\Generator.cs" />
     <Compile Include="src\IGenerator.cs" />
     <Compile Include="src\Implementations\Fun.cs" />

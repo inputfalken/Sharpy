@@ -12,7 +12,7 @@ using Sharpy.Properties;
 namespace Sharpy.Implementation {
     /// <summary>
     ///     <para>
-    ///         Randomizes common names by origin.
+    ///         Randomizes common names by <see cref="Enums.Origin"/>.
     ///     </para>
     /// </summary>
     public class NameByOrigin : INameProvider {
@@ -87,7 +87,7 @@ namespace Sharpy.Implementation {
         ///     <para>
         ///         Returns the collection used for randomizing names.
         ///         No argument will get every name.
-        ///         With argument/arguments filters will be used for the origin.
+        ///         With argument/arguments filters will be used for the <see cref="Enums.Origin"/>.
         ///     </para>
         /// </summary>
         /// <param name="origins"></param>
@@ -101,7 +101,7 @@ namespace Sharpy.Implementation {
         }
 
         /// <summary>
-        ///     <para>Returns a name based on nametype.</para>
+        ///     <para>Returns a name based on <see cref="NameType"/>.</para>
         /// </summary>
         /// <param name="arg"></param>
         /// <returns></returns>

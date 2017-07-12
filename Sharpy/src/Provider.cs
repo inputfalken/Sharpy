@@ -69,7 +69,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="Provider"/> which will randomize with the random supplied.
+        ///         Returns a <see cref="Provider"/> which will randomize with the <see cref="Random"/> supplied.
         ///     </para>
         /// </summary>
         /// <param name="random"></param>
@@ -203,7 +203,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Randomizes one of the arguments.
+        ///         Randomizes one of the elements from argument <paramref name="items"/>.
         ///     </para>
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -214,7 +214,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Randomizes one of the elements.
+        ///         Randomizes one of the elements from argument <paramref name="items"/>.
         ///     </para>
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -254,7 +254,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Randomizes a <see cref="string"/> representing a unique social-security number.
+        ///         Returns a <see cref="string"/> representing a unique social-security number.
         ///     </para>
         /// </summary>
         /// <param name="date"></param>
@@ -263,7 +263,7 @@ namespace Sharpy {
             var result = _securityNumberGen.SecurityNumber(_random.Next(10000),
                 FormatDigit(date.YearOfCentury).Append(FormatDigit(date.Month), FormatDigit(date.Day)));
             if (result == -1)
-                throw new Exception("You have reached the maxium possible combinations for a controlnumber");
+                throw new Exception("You have reached the maximum possible combinations for a control number");
             var securityNumber = result.ToString();
             if (securityNumber.Length != 10)
                 securityNumber = Prefix(result, 10 - securityNumber.Length);
@@ -272,7 +272,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="string"/> representing a mailaddress.
+        ///         Returns a <see cref="string"/> representing a mail address.
         ///     </para>
         /// </summary>
         /// <param name="name"></param>
@@ -283,16 +283,17 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="int"/> with the length of the number given to argument <paramref name="length"/>.
+        ///         Returns a <see cref="int"/> with its length equal to the number given to argument <paramref name="length"/>.
         ///     </para>
         /// </summary>
         /// <param name="length"></param>
         public string NumberByLength(int length) {
-            //If phonestate has changed
+            //If _numberByLenghtState has changed
             if (_numberByLengthState.Item1 != length)
                 _numberByLengthState = new Tuple<int, int>(length, (int) Math.Pow(10, length) - 1);
             var res = _numberGenerator.RandomNumber(0, _numberByLengthState.Item2, _uniqueNumbers);
-            if (res == -1) throw new Exception($"You reached maxium amount of combinations for the {nameof(length)} used");
+            if (res == -1)
+                throw new Exception($"You reached maximum amount of combinations for the {nameof(length)} used");
 
             var number = res.ToString();
             return number.Length != length
@@ -302,7 +303,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a random <see cref="string"/> representing a username.
+        ///         Returns a random <see cref="string"/> representing a user name.
         ///     </para>
         /// </summary>
         public string UserName() {
