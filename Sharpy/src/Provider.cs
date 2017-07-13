@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using GeneratorAPI;
+using GeneratorAPI.Linq;
 using NodaTime;
 using Sharpy.Enums;
 using Sharpy.Implementation;
@@ -68,7 +69,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="Provider"/> which will randomize with the random supplied.
+        ///         Returns a <see cref="Provider"/> which will randomize with the <see cref="Random"/> supplied.
         ///     </para>
         /// </summary>
         /// <param name="random"></param>
@@ -202,7 +203,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Randomizes one of the arguments.
+        ///         Randomizes one of the elements from argument <paramref name="items"/>.
         ///     </para>
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -213,7 +214,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Randomizes one of the elements.
+        ///         Randomizes one of the elements from argument <paramref name="items"/>.
         ///     </para>
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -253,7 +254,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Randomizes a <see cref="string"/> representing a unique social-security number.
+        ///         Returns a <see cref="string"/> representing a unique social-security number.
         ///     </para>
         /// </summary>
         /// <param name="date"></param>
@@ -282,7 +283,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="int"/> with the length of the number given to argument <paramref name="length"/>.
+        ///         Returns a <see cref="int"/> with its length equal to the number given to argument <paramref name="length"/>.
         ///     </para>
         /// </summary>
         /// <param name="length"></param>
