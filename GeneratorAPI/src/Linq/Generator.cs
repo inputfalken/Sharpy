@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using static GeneratorAPI.Generator;
 
 namespace GeneratorAPI.Linq {
     /// <summary>
-    ///     Provides a set of static methods for <see cref="IGenerator{T}"/>.
+    ///     Provides a set of static methods for <see cref="IGenerator{T}" />.
     /// </summary>
     public static partial class Extensions {
         /// <summary>
@@ -33,7 +34,7 @@ namespace GeneratorAPI.Linq {
             var result = generator as IGenerator<TResult>;
             if (result != null) return result;
             if (generator == null) throw new ArgumentNullException(nameof(generator));
-            return Generator.Function(() => (TResult) generator.Generate());
+            return Function(() => (TResult) generator.Generate());
         }
 
         /// <summary>
@@ -46,7 +47,7 @@ namespace GeneratorAPI.Linq {
         /// </typeparam>
         /// <remarks>
         ///     <para>
-        ///         This method is not lazy evaluated, for lazy evaluation see <see cref="Skip{TSource}"/>.
+        ///         This method is not lazy evaluated, for lazy evaluation see <see cref="Skip{TSource}" />.
         ///     </para>
         /// </remarks>
         /// <param name="generator">The <paramref name="generator" /> whose generations will be released.</param>
@@ -66,26 +67,31 @@ namespace GeneratorAPI.Linq {
 
         /// <summary>
         ///     <para>
-        ///         Releases the number given to <paramref name="count" /> from <see cref="IGenerator{T}" />.
+        ///         Skips the number given to <paramref name="count" /> from <see cref="IGenerator{T}" />.
         ///     </para>
         /// </summary>
         /// <typeparam name="TSource">
         ///     The type of the elements of <paramref name="generator" />.
         /// </typeparam>
-        /// <param name="generator">The <paramref name="generator" /> whose generations will be released.</param>
+        /// <param name="generator">The <paramref name="generator" /> whose generations will be skipped.</param>
         /// <param name="count">The number of generations to be released.</param>
         /// <exception cref="ArgumentNullException">Argument <paramref name="generator" /> is null.</exception>
         /// <exception cref="ArgumentException">Argument <paramref name="count" /> is less than 0.</exception>
         /// <returns>
-        ///     A <see cref="IGenerator{T}" /> whose elements has been released by the number equal to argument
+        ///     A <see cref="IGenerator{T}" /> whose elements has been skipped by the number equal to argument
         ///     <paramref name="count" />.
         /// </returns>
+        /// <remarks>
+        ///     <para>
+        ///         This works the same way as <see cref="Release{TSource}"/> except that it's lazy evaluated.
+        ///     </para>
+        /// </remarks>
         public static IGenerator<TSource> Skip<TSource>(this IGenerator<TSource> generator, int count) {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (count < 0) throw new ArgumentException($"{nameof(count)} Cant be negative");
             if (count == 0) return generator;
             var skipped = new Lazy<IGenerator<TSource>>(() => ReleaseIterator(generator, count));
-            return Generator.Function(() => skipped.Value.Generate());
+            return Function(() => skipped.Value.Generate());
         }
 
         private static IGenerator<T> ReleaseIterator<T>(IGenerator<T> generator, int count) {
@@ -124,7 +130,7 @@ namespace GeneratorAPI.Linq {
             int threshold = 100000) {
             if (predicate == null) throw new ArgumentNullException(nameof(predicate));
             if (generator == null) throw new ArgumentNullException(nameof(generator));
-            return Generator.Function(() => {
+            return Function(() => {
                 for (var i = 0; i < threshold; i++) {
                     var generation = generator.Generate();
                     if (predicate(generation)) return generation;
@@ -155,7 +161,7 @@ namespace GeneratorAPI.Linq {
         public static IGenerator<TSource> Do<TSource>(this IGenerator<TSource> generator, Action<TSource> action) {
             if (action == null) throw new ArgumentNullException(nameof(action));
             if (generator == null) throw new ArgumentNullException(nameof(generator));
-            return Generator.Function(() => {
+            return Function(() => {
                 var generation = generator.Generate();
                 action(generation);
                 return generation;
@@ -181,7 +187,7 @@ namespace GeneratorAPI.Linq {
         /// <exception cref="ArgumentNullException">Argument <paramref name="generator" /> is null.</exception>
         /// <returns>
         ///     A <see cref="IGenerator{T}" /> whose elements are the result of invoking the transform function on each element
-        ///     genrated by
+        ///     generated by
         ///     <paramref name="generator" />.
         /// </returns>
         /// <example>
@@ -191,12 +197,12 @@ namespace GeneratorAPI.Linq {
             Func<TSource, TResult> selector) {
             if (selector == null) throw new ArgumentNullException(nameof(selector));
             if (generator == null) throw new ArgumentNullException(nameof(generator));
-            return Generator.Function(() => selector(generator.Generate()));
+            return Function(() => selector(generator.Generate()));
         }
 
         /// <summary>
         ///     <para>
-        ///         Projects each generation into a new form by incorporating a counter for the current generation.
+        ///         Projects each generation into a new form and includes a counter for the current generation.
         ///     </para>
         /// </summary>
         /// <typeparam name="TSource">
@@ -233,7 +239,7 @@ namespace GeneratorAPI.Linq {
         ///     The type of <paramref name="generator" />.
         /// </typeparam>
         /// <param name="generator">The <paramref name="generator" /> to generate from.</param>
-        /// <param name="count">The number of elements to return.</param>
+        /// <param name="count">The number of elements to be returned in the <see cref="IEnumerable{T}"/>.</param>
         /// <exception cref="ArgumentNullException">Argument <paramref name="generator" /> is null.</exception>
         /// <exception cref="ArgumentException">Argument <paramref name="count"></paramref> is less or equal to zero.</exception>
         /// <returns>
@@ -257,7 +263,7 @@ namespace GeneratorAPI.Linq {
         /// <summary>
         ///     <para>
         ///         Creates a <see cref="IGenerator{T}" /> by flattening a <see cref="IGenerator{T}" /> with another
-        ///         <see cref="IGenerator{T}" /> for each invokation of <see cref="IGenerator{T}.Generate" />.
+        ///         <see cref="IGenerator{T}" /> for each invocation of <see cref="IGenerator{T}.Generate" />.
         ///     </para>
         /// </summary>
         /// <typeparam name="TSource">
@@ -275,20 +281,20 @@ namespace GeneratorAPI.Linq {
         /// <exception cref="ArgumentNullException">Argument <paramref name="generator" /> is null.</exception>
         /// <exception cref="ArgumentNullException">Argument <paramref name="selector" /> is null.</exception>
         /// <returns>
-        ///     An <see cref="IGenerator{T}" /> whose elements have been flattened by an <see cref="IGenerator{T}" />.
+        ///     A <see cref="IGenerator{T}" /> whose elements have been flattened by another <see cref="IGenerator{T}" />.
         /// </returns>
         public static IGenerator<TResult> SelectMany<TSource, TResult>(
             this IGenerator<TSource> generator,
             Func<TSource, IGenerator<TResult>> selector) {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (selector == null) throw new ArgumentNullException(nameof(selector));
-            return Generator.Function(() => selector(generator.Generate()).Generate());
+            return Function(() => selector(generator.Generate()).Generate());
         }
 
         /// <summary>
         ///     <para>
         ///         Creates a <see cref="IGenerator{T}" /> by flattening a <see cref="IGenerator{T}" /> with another
-        ///         <see cref="IGenerator{T}" /> for each invokation of <see cref="IGenerator{T}.Generate" />.
+        ///         <see cref="IGenerator{T}" /> for each invocation of <see cref="IGenerator{T}.Generate" />.
         ///     </para>
         /// </summary>
         /// <typeparam name="TSource">
@@ -314,7 +320,7 @@ namespace GeneratorAPI.Linq {
         /// <exception cref="ArgumentNullException">Argument <paramref name="selector" /> is null.</exception>
         /// <exception cref="ArgumentNullException">Argument <paramref name="resultSelector" /> is null.</exception>
         /// <returns>
-        ///     An <see cref="IGenerator{T}" /> whose elements have been flattened by an <see cref="IGenerator{T}" />.
+        ///     A <see cref="IGenerator{T}" /> whose elements have been flattened by an <see cref="IGenerator{T}" />.
         /// </returns>
         public static IGenerator<TResult> SelectMany<TSource, TGenerator, TResult>(
             this IGenerator<TSource> generator,
@@ -323,8 +329,7 @@ namespace GeneratorAPI.Linq {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (selector == null) throw new ArgumentNullException(nameof(selector));
             if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
-            return generator.SelectMany(a => selector(a)
-                .SelectMany(r => Generator.Function(() => resultSelector(a, r))));
+            return generator.SelectMany(a => selector(a).SelectMany(r => Function(() => resultSelector(a, r))));
         }
 
         /// <summary>
@@ -360,7 +365,7 @@ namespace GeneratorAPI.Linq {
             if (first == null) throw new ArgumentNullException(nameof(first));
             if (second == null) throw new ArgumentNullException(nameof(second));
             if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
-            return Generator.Function(() => resultSelector(first.Generate(), second.Generate()));
+            return Function(() => resultSelector(first.Generate(), second.Generate()));
         }
 
         /// <summary>
@@ -370,7 +375,7 @@ namespace GeneratorAPI.Linq {
         ///     </para>
         /// </summary>
         /// <param name="generator">A <paramref name="generator" /> to create a <see cref="Dictionary{TKey,TValue}" /> from.</param>
-        /// <param name="count">The number of elements to generate.</param>
+        /// <param name="count">The number of elements to be returned in the <see cref="Dictionary{TKey,TValue}"/>.</param>
         /// <param name="keySelector">A function to extract a key from each element.</param>
         /// <param name="elementSelector">A transform function to produce a result element value from each element.</param>
         /// <typeparam name="TSource">The type of the elements of <paramref name="generator" />.</typeparam>
@@ -394,7 +399,7 @@ namespace GeneratorAPI.Linq {
         ///     </para>
         /// </summary>
         /// <param name="generator">The <see cref="IGenerator{T}" /> to create a <see cref="List{T}" /> from.</param>
-        /// <param name="count">The number of elements to generate.</param>
+        /// <param name="count">The number of elements to be returned in the <see cref="List{T}"/>.</param>
         /// <typeparam name="TSource">The type of the elements of source..</typeparam>
         /// <returns>
         ///     A <see cref="List{T}" /> that contains elements generated from the input <paramref name="generator" />.
@@ -412,7 +417,7 @@ namespace GeneratorAPI.Linq {
         ///     </para>
         /// </summary>
         /// <param name="generator">A <see cref="IGenerator{T}" /> to create an <see cref="Array" /> from.</param>
-        /// <param name="length">The number of elements to generate.</param>
+        /// <param name="length">The number of elements to be returned in the <see cref="Array"/>.</param>
         /// <typeparam name="TSource">The type of the elements of source.</typeparam>
         /// <returns>
         ///     An array that contains elements generated from the input <paramref name="generator" />.
