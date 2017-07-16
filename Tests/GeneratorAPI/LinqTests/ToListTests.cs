@@ -5,7 +5,7 @@ using GeneratorAPI.Linq;
 using NUnit.Framework;
 using Sharpy;
 
-namespace Tests.GeneratorAPI.Extensions {
+namespace Tests.GeneratorAPI.LinqTests {
     internal class ToListTests {
         private IGenerator<int> _generator;
 
