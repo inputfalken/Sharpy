@@ -6,8 +6,9 @@ using Sharpy.IProviders;
 namespace Sharpy {
     /// <summary>
     ///     <para>
-    ///         Pass an instance of this class to a generator constructor if you want to change the default behaviour of the
-    ///         generator.
+    ///         Pass an instance of this class to a <see cref="Provider" /> constructor if you want to change the default
+    ///         behavior of the
+    ///         <see cref="Provider" />.
     ///     </para>
     /// </summary>
     public class Configurement {
@@ -15,7 +16,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         The random will be used for the Provider.
+        ///         The argument <paramref name="random" /> will be used for the <see cref="Provider" />.
         ///     </para>
         /// </summary>
         /// <param name="random"></param>
@@ -33,7 +34,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         The seed supplied will be used to instantiate System.Random, for the Provider.
+        ///         The seed supplied will be used to instantiate a <see cref="Random" />, for the <see cref="Provider" />.
         ///     </para>
         /// </summary>
         /// <param name="seed"></param>
@@ -56,64 +57,75 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Gets and Sets the implementation which Provider's FirstName, LastName methods use.
+        ///         Gets and sets the implementation for <see cref="INameProvider" />.
         ///     </para>
-        ///     <para>
-        ///         By default the names loaded from an internal file supplied by this library.
-        ///     </para>
+        ///     <remarks>
+        ///         <para>
+        ///             The default implementation is <see cref="NameByOrigin" />.
+        ///         </para>
+        ///     </remarks>
         /// </summary>
         public INameProvider NameProvider { get; set; }
 
         /// <summary>
         ///     <para>
-        ///         Gets and Sets the implementation which Provider's Double methods use.
+        ///         Gets and sets the implementation for <see cref="IDoubleProvider" />
         ///     </para>
-        ///     <para>
-        ///         By Default the doubles are randomized.
-        ///     </para>
+        ///     <remarks>
+        ///         <para>
+        ///             The default implementation is <see cref="DoubleRandomizer" />.
+        ///         </para>
+        ///     </remarks>
         /// </summary>
         public IDoubleProvider DoubleProvider { get; set; }
 
         /// <summary>
         ///     <para>
-        ///         Gets and Sets the implementation which Provider's Integer methods use.
-        ///     </para>
-        ///     <para>
-        ///         By Default the ints are randomized.
+        ///         Gets and sets the implementation for <see cref="IIntegerProvider" />.
         ///     </para>
         /// </summary>
+        /// <remarks>
+        ///     <para>
+        ///         The default implementation is <see cref="IntRandomizer" />.
+        ///     </para>
+        /// </remarks>
         public IIntegerProvider IntegerProvider { get; set; }
 
         /// <summary>
         ///     <para>
-        ///         Gets and Sets the implementation which Provider's Long methods use.
+        ///         Gets and sets the implementation for <see cref="ILongProvider" />.
         ///     </para>
         ///     <para>
-        ///         By Default the longs are randomized.
         ///     </para>
+        ///     <remarks>
+        ///         <para>
+        ///             The default implementation is <see cref="LongRandomizer" />.
+        ///         </para>
+        ///     </remarks>
         /// </summary>
         public ILongProvider LongProvider { get; set; }
 
         /// <summary>
         ///     <para>
-        ///         Gets the Random which the Provider will use.
+        ///         Gets the Random which the <see cref="Provider" /> will use.
         ///     </para>
         /// </summary>
         public Random Random { get; }
 
         /// <summary>
         ///     <para>
-        ///         Gets and Sets the maildomains which will be used for generating MailAddresses.
+        ///         Gets and sets the mail domains which will be used when invoking <see cref="Provider.MailAddress" />.
         ///     </para>
         ///     <para>
-        ///         This affects Provider's MailAddress method.
-        ///     </para>
-        ///     <para>
-        ///         Set to gmail.com, hotmail.com and yahoo.com by default.
         ///     </para>
         /// </summary>
+        /// <remarks>
+        ///     <para>
+        ///         The default values is gmail.com, hotmail.com and yahoo.com.
+        ///     </para>
+        /// </remarks>
         public IReadOnlyList<string> MailDomains {
-            get { return _mailDomains; }
+            get => _mailDomains;
             set {
                 EmailBuilder = new EmailBuilder(value, Random);
                 _mailDomains = value;
@@ -122,16 +134,19 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Gets and Sets if Provider's NumberByLength returns unique numbers.
+        ///         Gets and sets if <see cref="Provider.NumberByLength" /> returns unique numbers.
         ///     </para>
         ///     <para>
         ///         Set to false by Default
         ///     </para>
         ///     <para>
-        ///         NOTE:
-        ///         If this is set to true the following will happen.
-        ///         Provider's NumberByLength method will throw an exception if called more than Length^10
         ///     </para>
+        ///     <remarks>
+        ///         <para>
+        ///             If this is set to true the following will happen.
+        ///             Provider's NumberByLength method will throw an exception if called more than Length^10
+        ///         </para>
+        ///     </remarks>
         /// </summary>
         public bool UniqueNumbers { get; set; }
     }
