@@ -6,7 +6,7 @@ using GeneratorAPI.Linq;
 using NUnit.Framework;
 using Sharpy;
 
-namespace Tests.GeneratorAPI.Extensions {
+namespace Tests.GeneratorAPI.LinqTests {
     [TestFixture]
     public class SelectManyEnumerableTests {
         [SetUp]
