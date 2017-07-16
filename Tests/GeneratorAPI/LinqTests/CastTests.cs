@@ -4,7 +4,7 @@ using GeneratorAPI;
 using GeneratorAPI.Linq;
 using NUnit.Framework;
 
-namespace Tests.GeneratorAPI.Extensions {
+namespace Tests.GeneratorAPI.LinqTests {
     [TestFixture]
     public class CastTests {
         [Test(
