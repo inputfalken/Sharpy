@@ -15,9 +15,7 @@ namespace GeneratorAPI.Implementations {
 
         public Seq(Func<IEnumerable<T>> fn) : this(Invoker(fn)) { }
 
-        private IEnumerator<T> Enumerator {
-            get { return _lazyEnumerator.Value; }
-        }
+        private IEnumerator<T> Enumerator => _lazyEnumerator.Value;
 
         public T Generate() {
             if (Enumerator.MoveNext()) return Enumerator.Current;
