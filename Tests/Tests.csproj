@@ -70,11 +70,6 @@
     <Compile Include="GeneratorAPI\Implementations\CreateTests.cs" />
     <Compile Include="GeneratorAPI\Implementations\FunctionTests.cs" />
     <Compile Include="GeneratorAPI\Implementations\LazyTests.cs" />
-    <Compile Include="GeneratorAPI\TaskExtensions\TaskGeneratorDoTests.cs" />
-    <Compile Include="GeneratorAPI\TaskExtensions\TaskGeneratorSelectManyTests.cs" />
-    <Compile Include="GeneratorAPI\TaskExtensions\TaskGeneratorSelectTests.cs" />
-    <Compile Include="GeneratorAPI\TaskExtensions\TaskGeneratorWhereTests.cs" />
-    <Compile Include="GeneratorAPI\TaskExtensions\TaskGeneratorZipTests.cs" />
     <Compile Include="Sharpy\FactoryTests\DecrementerTests.cs" />
     <Compile Include="Sharpy\FactoryTests\GuidTests.cs" />
     <Compile Include="Sharpy\FactoryTests\IncrementerTests.cs" />
