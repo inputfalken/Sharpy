@@ -118,9 +118,8 @@ namespace Sharpy {
         ///     <code language="C#" region="RandomizerThreeArg" source="Examples\GeneratorFactory.cs" />
         /// </example>
         public static IGenerator<int> Randomizer(int min, int max, int? seed = null) {
-            return max > min
-                ? Create(CreateRandom(seed)).Select(rnd => rnd.Next(min, max))
-                : throw new ArgumentOutOfRangeException(nameof(max), @"max must be > min!");
+            if (max > min) return Create(CreateRandom(seed)).Select(rnd => rnd.Next(min, max));
+            throw new ArgumentOutOfRangeException(nameof(max), @"max must be > min!");
         }
 
         /// <summary>
