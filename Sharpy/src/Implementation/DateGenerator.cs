@@ -21,7 +21,7 @@ namespace Sharpy.Implementation {
 
         /// <summary>
         ///     Will give and random date minus the argument in years
-        ///     <param name="age">ammount of years</param>
+        ///     <param name="age">amount of years</param>
         /// </summary>
         internal LocalDate RandomDateByAge(int age) {
             if (age < 0)
@@ -35,7 +35,7 @@ namespace Sharpy.Implementation {
         }
 
         /// <summary>
-        ///     Will give a random month and date on specifik year
+        ///     Will give a random month and date on specific year
         ///     <param name="year">which year to use</param>
         /// </summary>
         internal LocalDate RandomDateByYear(int year) {
