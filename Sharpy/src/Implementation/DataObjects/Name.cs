@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using Sharpy.Enums;
 
 namespace Sharpy.Implementation.DataObjects {
-    // Is generated from json
+    // Is generated from JSON
     // ReSharper disable once ClassNeverInstantiated.Global
     /// <summary>
     /// </summary>

@@ -42,7 +42,7 @@ namespace Sharpy.Implementation {
             return UniqueMail(name, secondName).ToLower();
         }
 
-        //todo restructure so the inner scopes don't have to do checkos for secondArgumetExists.
+        //TODO restructure so the inner scopes don't have to do check if secondArgumetExists.
         private string UniqueMail(string name, string secondName) {
             var singleArgument = string.IsNullOrWhiteSpace(secondName);
             while (true) {
