@@ -12,7 +12,7 @@ using Sharpy.Properties;
 namespace Sharpy.Implementation {
     /// <summary>
     ///     <para>
-    ///         Randomizes common names by <see cref="Enums.Origin"/>.
+    ///         Randomizes common names by <see cref="Enums.Origin" />.
     ///     </para>
     /// </summary>
     public class NameByOrigin : INameProvider {
@@ -35,7 +35,7 @@ namespace Sharpy.Implementation {
 
         /// <summary>
         ///     <para>
-        ///         Randomizes common names by <see cref="Enums.Origin"/> using argument <paramref name="random"/>.
+        ///         Randomizes common names by <see cref="Enums.Origin" /> using argument <paramref name="random" />.
         ///     </para>
         /// </summary>
         public NameByOrigin(Random random, params Origin[] origins) : this(random) {
@@ -47,7 +47,7 @@ namespace Sharpy.Implementation {
 
         /// <summary>
         ///     <para>
-        ///         Randomizes common names by <see cref="Enums.Origin"/> using <see cref="Random"/>.
+        ///         Randomizes common names by <see cref="Enums.Origin" /> using <see cref="Random" />.
         ///     </para>
         /// </summary>
         /// <param name="origins"></param>
@@ -67,18 +67,18 @@ namespace Sharpy.Implementation {
         private Dictionary<NameType, IReadOnlyList<string>> Dictionary { get; } =
             new Dictionary<NameType, IReadOnlyList<string>>();
 
-        /// <inheritdoc cref="INameProvider.FirstName(Gender)"/>
+        /// <inheritdoc cref="INameProvider.FirstName(Gender)" />
         public string FirstName(Gender gender) {
             return Name(
                 gender == Gender.Male ? NameType.MaleFirst : NameType.FemaleFirst);
         }
 
-        /// <inheritdoc cref="INameProvider.FirstName()"/>
+        /// <inheritdoc cref="INameProvider.FirstName()" />
         public string FirstName() {
             return Name(_random.Next(2) == 0 ? NameType.FemaleFirst : NameType.MaleFirst);
         }
 
-        /// <inheritdoc cref="INameProvider.LastName()"/>
+        /// <inheritdoc cref="INameProvider.LastName()" />
         public string LastName() {
             return Name(NameType.Last);
         }
@@ -87,7 +87,7 @@ namespace Sharpy.Implementation {
         ///     <para>
         ///         Returns the collection used for randomizing names.
         ///         No argument will get every name.
-        ///         With argument/arguments filters will be used for the <see cref="Enums.Origin"/>.
+        ///         With argument/arguments filters will be used for the <see cref="Enums.Origin" />.
         ///     </para>
         /// </summary>
         /// <param name="origins"></param>
@@ -101,7 +101,7 @@ namespace Sharpy.Implementation {
         }
 
         /// <summary>
-        ///     <para>Returns a name based on <see cref="NameType"/>.</para>
+        ///     <para>Returns a name based on <see cref="NameType" />.</para>
         /// </summary>
         /// <param name="arg"></param>
         /// <returns></returns>

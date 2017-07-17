@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using GeneratorAPI;
-using GeneratorAPI.Linq;
 using NodaTime;
 using Sharpy.Enums;
 using Sharpy.Implementation;
@@ -12,7 +11,7 @@ using Sharpy.Properties;
 namespace Sharpy {
     /// <summary>
     ///     <para>
-    ///         Contains various methods for providing data by using <see cref="Random"/>.
+    ///         Contains various methods for providing data by using <see cref="Random" />.
     ///         To get the same result every time you execute the program use the seed overload constructor.
     ///         If want you to add your own methods you can derive from this class.
     ///     </para>
@@ -61,7 +60,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="Provider"/> which will randomize the results depending on the <paramref name="seed"/>.
+        ///         Returns a <see cref="Provider" /> which will randomize the results depending on the <paramref name="seed" />.
         ///     </para>
         /// </summary>
         /// <param name="seed"></param>
@@ -69,7 +68,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="Provider"/> which will randomize with the <see cref="Random"/> supplied.
+        ///         Returns a <see cref="Provider" /> which will randomize with the <see cref="Random" /> supplied.
         ///     </para>
         /// </summary>
         /// <param name="random"></param>
@@ -77,14 +76,14 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="Provider"/> which will randomize new results every time program is executed.
+        ///         Returns a <see cref="Provider" /> which will randomize new results every time program is executed.
         ///     </para>
         /// </summary>
         public Provider() : this(new Configurement()) { }
 
         /// <summary>
         ///     <para>
-        ///         Generates a <see cref="double"/>.
+        ///         Generates a <see cref="double" />.
         ///     </para>
         /// </summary>
         public double Double() {
@@ -93,7 +92,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Generates a <see cref="double"/> within argument <paramref name="max"/>.
+        ///         Generates a <see cref="double" /> within argument <paramref name="max" />.
         ///     </para>
         /// </summary>
         /// <param name="max"></param>
@@ -103,7 +102,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Generates a <see cref="double"/> within argument <paramref name="min"/> and argument <paramref name="max"/>.
+        ///         Generates a <see cref="double" /> within argument <paramref name="min" /> and argument <paramref name="max" />.
         ///     </para>
         /// </summary>
         /// <param name="min"></param>
@@ -114,7 +113,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Generates a <see cref="int"/>.
+        ///         Generates a <see cref="int" />.
         ///     </para>
         /// </summary>
         /// <param name="max"></param>
@@ -124,7 +123,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Generates a <see cref="int"/> within argument <paramref name="min"/> and argument <paramref name="max"/>.
+        ///         Generates a <see cref="int" /> within argument <paramref name="min" /> and argument <paramref name="max" />.
         ///     </para>
         /// </summary>
         /// <param name="min"></param>
@@ -135,7 +134,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Generates a <see cref="int"/>.
+        ///         Generates a <see cref="int" />.
         ///     </para>
         /// </summary>
         public int Integer() {
@@ -144,7 +143,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Generates a <see cref="long"/> within argument <paramref name="min"/> and <paramref name="max"/>.
+        ///         Generates a <see cref="long" /> within argument <paramref name="min" /> and <paramref name="max" />.
         ///     </para>
         /// </summary>
         /// <param name="min"></param>
@@ -155,7 +154,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Generates a <see cref="long"/> within argument <paramref name="max"/>.
+        ///         Generates a <see cref="long" /> within argument <paramref name="max" />.
         ///     </para>
         /// </summary>
         /// <param name="max"></param>
@@ -165,7 +164,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Generates a <see cref="long"/>.
+        ///         Generates a <see cref="long" />.
         ///     </para>
         /// </summary>
         public long Long() {
@@ -175,7 +174,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="string"/> representing a first name.
+        ///         Returns a <see cref="string" /> representing a first name.
         ///     </para>
         /// </summary>
         public string FirstName() {
@@ -184,7 +183,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="string"/> representing a first name based on <see cref="Gender"/>.
+        ///         Returns a <see cref="string" /> representing a first name based on <see cref="Gender" />.
         ///     </para>
         /// </summary>
         /// <param name="gender"></param>
@@ -194,7 +193,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="string"/> representing a last name.
+        ///         Returns a <see cref="string" /> representing a last name.
         ///     </para>
         /// </summary>
         public string LastName() {
@@ -203,7 +202,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Randomizes one of the elements from argument <paramref name="items"/>.
+        ///         Randomizes one of the elements from argument <paramref name="items" />.
         ///     </para>
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -214,7 +213,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Randomizes one of the elements from argument <paramref name="items"/>.
+        ///         Randomizes one of the elements from argument <paramref name="items" />.
         ///     </para>
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -225,7 +224,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Randomizes a <see cref="bool"/>.
+        ///         Randomizes a <see cref="bool" />.
         ///     </para>
         /// </summary>
         public bool Bool() {
@@ -234,7 +233,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Randomizes a <see cref="LocalDate"/> based on argument <paramref name="age"/>.
+        ///         Randomizes a <see cref="LocalDate" /> based on argument <paramref name="age" />.
         ///     </para>
         /// </summary>
         /// <param name="age"></param>
@@ -244,7 +243,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Randomizes a <see cref="LocalDate"/> based on argument <paramref name="year"/>.
+        ///         Randomizes a <see cref="LocalDate" /> based on argument <paramref name="year" />.
         ///     </para>
         /// </summary>
         /// <param name="year"></param>
@@ -254,7 +253,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="string"/> representing a unique social-security number.
+        ///         Returns a <see cref="string" /> representing a unique social-security number.
         ///     </para>
         /// </summary>
         /// <param name="date"></param>
@@ -272,7 +271,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="string"/> representing a mail address.
+        ///         Returns a <see cref="string" /> representing a mail address.
         ///     </para>
         /// </summary>
         /// <param name="name"></param>
@@ -283,7 +282,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="int"/> with its length equal to the number given to argument <paramref name="length"/>.
+        ///         Returns a <see cref="int" /> with its length equal to the number given to argument <paramref name="length" />.
         ///     </para>
         /// </summary>
         /// <param name="length"></param>
@@ -303,7 +302,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a random <see cref="string"/> representing a user name.
+        ///         Returns a random <see cref="string" /> representing a user name.
         ///     </para>
         /// </summary>
         public string UserName() {
@@ -320,13 +319,13 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Creates a <see cref="IGenerator{T}"/> with <see cref="Provider"/> as its generic type.
+        ///         Creates a <see cref="IGenerator{T}" /> with <see cref="Provider" /> as its generic type.
         ///     </para>
         /// </summary>
         /// <param name="provider"></param>
         /// <returns>
         ///     <para>
-        ///         A <see cref="IGenerator{T}"/>.
+        ///         A <see cref="IGenerator{T}" />.
         ///     </para>
         /// </returns>
         public static IGenerator<TProvider> AsGenerator<TProvider>(TProvider provider) where TProvider : Provider {

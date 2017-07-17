@@ -11,7 +11,7 @@ namespace Sharpy.Implementation {
         protected Random Random { get; }
 
         /// <summary>
-        ///     This <see cref="ISet{T}"/> will be the history of all the created elements in derived classes
+        ///     This <see cref="ISet{T}" /> will be the history of all the created elements in derived classes
         /// </summary>
         protected ISet<T> HashSet { get; }
     }
