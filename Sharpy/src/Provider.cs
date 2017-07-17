@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using GeneratorAPI;
 using GeneratorAPI.Linq;
 using NodaTime;
@@ -261,7 +262,7 @@ namespace Sharpy {
         /// <param name="formated"></param>
         public string SocialSecurityNumber(LocalDate date, bool formated = true) {
             var result = _securityNumberGen.SecurityNumber(_random.Next(10000),
-                FormatDigit(date.YearOfCentury).Append(FormatDigit(date.Month), FormatDigit(date.Day)));
+                FormatDigit(date.Year % 100).Append(FormatDigit(date.Month), FormatDigit(date.Day)));
             if (result == -1)
                 throw new Exception("You have reached the maxium possible combinations for a controlnumber");
             var securityNumber = result.ToString();
@@ -269,6 +270,7 @@ namespace Sharpy {
                 securityNumber = Prefix(result, 10 - securityNumber.Length);
             return formated ? securityNumber.Insert(6, "-") : securityNumber;
         }
+
 
         /// <summary>
         ///     <para>
