@@ -3,14 +3,15 @@ using System.Linq;
 using GeneratorAPI;
 using GeneratorAPI.Linq;
 using NUnit.Framework;
+using Sharpy;
 
-namespace Tests.GeneratorAPI.Extensions {
+namespace Tests.GeneratorAPI.LinqTests {
     internal class ToListTests {
         private IGenerator<int> _generator;
 
         [SetUp]
         public void Initiate() {
-            _generator = Generator.Factory.Incrementer(0);
+            _generator = Factory.Incrementer(0);
         }
 
         [TearDown]

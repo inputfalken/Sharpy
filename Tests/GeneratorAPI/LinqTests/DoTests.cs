@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using GeneratorAPI;
 using GeneratorAPI.Linq;
 using NUnit.Framework;
+using Sharpy;
 
-namespace Tests.GeneratorAPI.Extensions {
+namespace Tests.GeneratorAPI.LinqTests {
     [TestFixture]
     public class DoTests {
         [SetUp]
         public void Initiate() {
-            _generator = Generator.Factory.Incrementer(0);
+            _generator = Factory.Incrementer(0);
         }
 
         [TearDown]
@@ -25,21 +26,15 @@ namespace Tests.GeneratorAPI.Extensions {
         )]
         public void Is_Evaluated_After_Generate_Is_invoked() {
             var invoked = false;
-            _generator
-                .Do(s => invoked = true)
-                .Generate();
-
+            var generator = _generator
+                .Do(s => invoked = true);
+            // Not evaluated
+            Assert.IsFalse(invoked);
+            // Evaluated
+            generator.Generate();
             Assert.IsTrue(invoked);
         }
 
-        [Test(
-            Description = "Verify that Do is only invoked if Generate is Invoked"
-        )]
-        public void Is_Not_Evaluated_Before_Take_Is_Invoked() {
-            var invoked = false;
-            _generator.Do(s => invoked = true);
-            Assert.IsFalse(invoked);
-        }
 
         [Test(
             Description = "Verify that Do throws exception if the Action<T> is null"
@@ -71,8 +66,7 @@ namespace Tests.GeneratorAPI.Extensions {
             var container = new List<int>();
             var result = _generator
                 .Do(container.Add);
-            var expected = Generator
-                .Factory.Incrementer(0);
+            var expected = Factory.Incrementer(0);
 
             Assert.AreEqual(expected.Generate(), result.Generate());
             Assert.AreEqual(expected.Generate(), result.Generate());

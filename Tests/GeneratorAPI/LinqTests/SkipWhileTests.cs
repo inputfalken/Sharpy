@@ -2,13 +2,14 @@
 using GeneratorAPI;
 using GeneratorAPI.Linq;
 using NUnit.Framework;
+using Sharpy;
 
-namespace Tests.GeneratorAPI.Extensions {
+namespace Tests.GeneratorAPI.LinqTests {
     [TestFixture]
     public class SkipWhileTests {
         [SetUp]
         public void Initiate() {
-            _generator = Generator.Factory.Incrementer(0);
+            _generator = Factory.Incrementer(0);
         }
 
         [TearDown]

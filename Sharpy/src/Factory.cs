@@ -1,14 +1,98 @@
 using System;
+using GeneratorAPI;
 using GeneratorAPI.Linq;
+using Sharpy.Enums;
+using Sharpy.Implementation;
+using Sharpy.IProviders;
 
-namespace GeneratorAPI {
+namespace Sharpy {
     /// <summary>
-    ///     <para>Contains methods for creating <see cref="IGenerator{T}" />.</para>
-    ///     <remarks>
-    ///         <para>The point of this class is to contain extension methods from other libraries.</para>
-    ///     </remarks>
+    ///     Provides a set of static methods for creating <see cref="IGenerator{T}" />.
     /// </summary>
-    public sealed class GeneratorFactory {
+    public static class Factory {
+        /// <summary>
+        ///     <para>Creates <see cref="IGenerator{T}" /> whose generic argument is <see cref="string" />.</para>
+        ///     <para>
+        ///         Each invokation of <see cref="IGenerator{T}.Generate" /> will return a <see cref="string" /> representing a
+        ///         first name.
+        ///     </para>
+        ///     <remarks>
+        ///         <para>
+        ///             If an implementation of <see cref="INameProvider" /> is not supplied the implementation will get
+        ///             defaulted to <see cref="NameByOrigin" />
+        ///         </para>
+        ///     </remarks>
+        /// </summary>
+        public static IGenerator<string> FirstName(INameProvider provider = null) {
+            provider = provider ?? new NameByOrigin();
+            return Generator.Function(provider.FirstName);
+        }
+
+        /// <summary>
+        ///     <para>Creates <see cref="IGenerator{T}" /> whose generic argument is <see cref="string" />.</para>
+        ///     <para>
+        ///         Each invokation of <see cref="IGenerator{T}.Generate" /> will return a <see cref="string" /> representing a
+        ///         first name based on argument <see cref="Gender" />.
+        ///     </para>
+        ///     <remarks>
+        ///         <para>
+        ///             If an implementation of <see cref="INameProvider" /> is not supplied the implementation will get
+        ///             defaulted to <see cref="NameByOrigin" />
+        ///         </para>
+        ///     </remarks>
+        /// </summary>
+        public static IGenerator<string> FirstName(Gender gender,
+            INameProvider provider = null) {
+            provider = provider ?? new NameByOrigin();
+            return Generator.Function(() => provider.FirstName(gender));
+        }
+
+        /// <summary>
+        ///     Creates <see cref="IGenerator{T}" /> whose generic argument is <see cref="string" />.
+        ///     Each invokation of <see cref="IGenerator{T}.Generate" /> will return a <see cref="string" /> representing a last
+        ///     name.
+        ///     <para> </para>
+        ///     <remarks>
+        ///         If an implementation of <see cref="INameProvider" /> is not supplied the implementation will get defaulted to
+        ///         <see cref="NameByOrigin" />
+        ///     </remarks>
+        /// </summary>
+        public static IGenerator<string> LastName(
+            INameProvider lastNameProvider = null) {
+            lastNameProvider = lastNameProvider ?? new NameByOrigin();
+            return Generator.Function(lastNameProvider.LastName);
+        }
+
+        /// <summary>
+        ///     <para>Creates <see cref="IGenerator{T}" /> whose generic argument is <see cref="string" />.</para>
+        ///     <para>
+        ///         Each invokation of <see cref="IGenerator{T}.Generate" /> will return a <see cref="string" /> representing a
+        ///         user name.
+        ///     </para>
+        ///     <param name="seed">
+        ///         A number used to calculate a starting value for the pseudo-random number sequence. If a negative
+        ///         number is specified, the absolute value of the number is used
+        ///     </param>
+        /// </summary>
+        public static IGenerator<string> Username(int seed) {
+            return Generator
+                .Create(new Provider(seed))
+                .Select(p => p.UserName());
+        }
+
+        /// <summary>
+        ///     <para>Creates <see cref="IGenerator{T}" /> whose generic argument is <see cref="string" />.</para>
+        ///     <para>
+        ///         Each invokation of <see cref="IGenerator{T}.Generate" /> will return a <see cref="string" /> representing a
+        ///         user name.
+        ///     </para>
+        /// </summary>
+        public static IGenerator<string> Username() {
+            return Generator
+                .Create(new Provider())
+                .Select(p => p.UserName());
+        }
+
         /// <summary>
         ///     <para>
         ///         Returns a <see cref="IGenerator{T}" /> where each invokation of <see cref="IGenerator{T}.Generate" /> will
@@ -18,8 +102,9 @@ namespace GeneratorAPI {
         /// </summary>
         /// <param name="min">The inclusive lower bound of the random number returned.</param>
         /// <param name="max">
-        ///     The exclusive upper bound of the random number returned. maxValue must be greater than or equal to
-        ///     minValue.
+        ///     The exclusive upper bound of the random number returned. Argument <paramref name="max" /> must be greater than or
+        ///     equal to
+        ///     argument <paramref name="min" />.
         /// </param>
         /// <param name="seed">
         ///     A number used to calculate a starting value for the pseudo-random number sequence. If a negative
@@ -33,10 +118,8 @@ namespace GeneratorAPI {
         /// <example>
         ///     <code language="C#" region="RandomizerThreeArg" source="Examples\GeneratorFactory.cs" />
         /// </example>
-        public IGenerator<int> Randomizer(int min, int max, int? seed = null) {
-            return Generator
-                .Create(CreateRandom(seed))
-                .Select(rnd => rnd.Next(min, max));
+        public static IGenerator<int> Randomizer(int min, int max, int? seed = null) {
+            return Generator.Create(CreateRandom(seed)).Select(rnd => rnd.Next(min, max));
         }
 
         /// <summary>
@@ -47,8 +130,8 @@ namespace GeneratorAPI {
         ///     </para>
         /// </summary>
         /// <param name="max">
-        ///     The exclusive upper bound of the random number returned. maxValue must be greater than or equal to
-        ///     minValue.
+        ///     The exclusive upper bound of the random number to be generated. Argument <paramref name="max" /> must be greater
+        ///     than or equal to 0.
         /// </param>
         /// <param name="seed">
         ///     A number used to calculate a starting value for the pseudo-random number sequence. If a negative
@@ -62,9 +145,8 @@ namespace GeneratorAPI {
         /// <example>
         ///     <code language="C#" region="RandomizerTwoArg" source="Examples\GeneratorFactory.cs" />
         /// </example>
-        public IGenerator<int> Randomizer(int max, int? seed = null) {
-            return Generator
-                .Create(CreateRandom(seed))
+        public static IGenerator<int> Randomizer(int max, int? seed = null) {
+            return Generator.Create(CreateRandom(seed))
                 .Select(rnd => rnd.Next(max));
         }
 
@@ -96,12 +178,10 @@ namespace GeneratorAPI {
         /// <example>
         ///     <code language="C#" region="RandomizerOneArg" source="Examples\GeneratorFactory.cs" />
         /// </example>
-        public IGenerator<int> Randomizer(int? seed = null) {
-            return Generator
-                .Create(CreateRandom(seed))
+        public static IGenerator<int> Randomizer(int? seed = null) {
+            return Generator.Create(CreateRandom(seed))
                 .Select(rnd => rnd.Next());
         }
-
 
         /// <summary>
         ///     <para>
@@ -116,7 +196,7 @@ namespace GeneratorAPI {
         /// <example>
         ///     <code language="C#" region="Guid" source="Examples\GeneratorFactory.cs" />
         /// </example>
-        public IGenerator<Guid> Guid() {
+        public static IGenerator<Guid> Guid() {
             return Generator.Function(System.Guid.NewGuid);
         }
 
@@ -136,7 +216,7 @@ namespace GeneratorAPI {
         /// <example>
         ///     <code language="C#" region="Incrementer" source="Examples\GeneratorFactory.cs" />
         /// </example>
-        public IGenerator<int> Incrementer(int start = 0) {
+        public static IGenerator<int> Incrementer(int start = 0) {
             return Generator.Function(() => checked(start++));
         }
 
@@ -156,7 +236,7 @@ namespace GeneratorAPI {
         /// <example>
         ///     <code language="C#" region="Decrementer" source="Examples\GeneratorFactory.cs" />
         /// </example>
-        public IGenerator<int> Decrementer(int start = 0) {
+        public static IGenerator<int> Decrementer(int start = 0) {
             return Generator.Function(() => checked(start--));
         }
     }

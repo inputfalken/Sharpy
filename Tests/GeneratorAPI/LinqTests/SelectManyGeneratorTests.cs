@@ -2,16 +2,15 @@
 using GeneratorAPI;
 using GeneratorAPI.Linq;
 using NUnit.Framework;
+using Sharpy;
 
-namespace Tests.GeneratorAPI.Extensions {
+namespace Tests.GeneratorAPI.LinqTests {
     [TestFixture]
     internal class SelectManyGeneratorTests {
         [SetUp]
         public void Initiate() {
-            _generator = Generator.Factory
-                .Incrementer(0);
-            _selectorGenerator = Generator.Factory
-                .Incrementer(0)
+            _generator = Factory.Incrementer(0);
+            _selectorGenerator = Factory.Incrementer(0)
                 .Select(i => i * 2);
         }
 
