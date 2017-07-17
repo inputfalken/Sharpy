@@ -2,14 +2,15 @@
 using GeneratorAPI;
 using GeneratorAPI.Linq;
 using NUnit.Framework;
+using Sharpy;
 
-namespace Tests.GeneratorAPI.Extensions {
+namespace Tests.GeneratorAPI.LinqTests {
     public class ZipTests {
         private IGenerator<int> _generator;
 
         [SetUp]
         public void Initiate() {
-            _generator = Generator.Factory.Incrementer(0);
+            _generator = Factory.Incrementer(0);
         }
 
         [TearDown]
@@ -21,7 +22,7 @@ namespace Tests.GeneratorAPI.Extensions {
             Description = "Verify that Zip does not return null"
         )]
         public void Does_Not_Return_Null() {
-            var second = Generator.Factory.Incrementer(0);
+            var second = Factory.Incrementer(0);
             var result = _generator
                 .Zip(second, (s, i) => s + i);
 
@@ -32,7 +33,7 @@ namespace Tests.GeneratorAPI.Extensions {
             Description = "Verify if Generations of string and number can be ziped together"
         )]
         public void Int_Int() {
-            var second = Generator.Factory.Incrementer(0);
+            var second = Factory.Incrementer(0);
             var result = _generator.Zip(second, (s, i) => s + i);
 
             Assert.AreEqual(0, result.Generate());
@@ -52,20 +53,15 @@ namespace Tests.GeneratorAPI.Extensions {
         )]
         public void Is_Evaluated_After_Take_Is_Invoked() {
             var invoked = false;
-            var second = Generator.Factory.Incrementer(0);
-            _generator.Zip(second, (i, i1) => invoked = true).Generate();
+            var second = Factory.Incrementer(0);
+            var generator = _generator.Zip(second, (i, i1) => invoked = true);
+            // Not evaluated
+            Assert.IsFalse(invoked);
+            // Evaluated
+            generator.Generate();
             Assert.IsTrue(invoked);
         }
 
-        [Test(
-            Description = "Verifys that the Func is only invoked if Generate is invoked"
-        )]
-        public void Is_Not_Evaluated_Before_Take_Is_Invoked() {
-            var invoked = false;
-            var second = Generator.Factory.Incrementer(0);
-            _generator.Zip(second, (s, i) => invoked = true);
-            Assert.IsFalse(invoked);
-        }
 
         [Test(
             Description = "Verify that Zip with null Generator and null first arg throws exception"
@@ -127,7 +123,7 @@ namespace Tests.GeneratorAPI.Extensions {
         public void Null_Second_Param_Throws() {
             Func<int, int, int> resultSelector = null;
             Assert.Throws<ArgumentNullException>(
-                () => _generator.Zip(Generator.Factory.Incrementer(0), resultSelector));
+                () => _generator.Zip(Factory.Incrementer(0), resultSelector));
         }
     }
 }

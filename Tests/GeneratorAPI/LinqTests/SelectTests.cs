@@ -2,13 +2,14 @@
 using GeneratorAPI;
 using GeneratorAPI.Linq;
 using NUnit.Framework;
+using Sharpy;
 
-namespace Tests.GeneratorAPI.Extensions {
+namespace Tests.GeneratorAPI.LinqTests {
     [TestFixture]
     public class SelectTests {
         [SetUp]
         public void Initiate() {
-            _generator = Generator.Factory.Incrementer(0);
+            _generator = Factory.Incrementer(0);
         }
 
         [TearDown]
@@ -53,21 +54,15 @@ namespace Tests.GeneratorAPI.Extensions {
         )]
         public void Is_Evaluated_After_Take_Is_Invoked() {
             var invoked = false;
-            _generator
-                .Select(s => invoked = true)
-                .Generate();
+            var generator = _generator
+                .Select(s => invoked = true);
+            // Not evaluated
+            Assert.IsFalse(invoked);
+            // Evaluated
+            generator.Generate();
             Assert.IsTrue(invoked);
         }
 
-        [Test(
-            Description = "Verifys that the Select is only invoked if Generate is invoked"
-        )]
-        public void Is_Not_Evaluated_Before_Take_Is_Invoked() {
-            var invoked = false;
-            _generator
-                .Select(s => invoked = true);
-            Assert.IsFalse(invoked);
-        }
 
         [Test(
             Description = "Verify that Select with null Generator and Argument throws exception"
