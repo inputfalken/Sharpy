@@ -20,7 +20,7 @@ if [ $getNuget -eq 0 ]; then
 fi
 
 echo "${yellow}Restoring solution with NuGet${reset}"
-nuget restore Sharpy.sln -Verbosity quiet
+mono .nuget/nuget.exe restore Sharpy.sln -Verbosity quiet
 restoreNuget=$?
 if [ $restoreNuget -eq 0 ]; then
   echo "${green}Restore Successfull${reset}"
