@@ -22,14 +22,6 @@ namespace Tests.Sharpy.FactoryTests {
             Assert.Throws<OverflowException>(() => result.ToArray());
         }
 
-        [Test]
-        public void No_Arg() {
-            const int count = 500;
-            var result = Factory.Decrementer()
-                .Take(count);
-            var expected = GetExpectedDecrementationEnumerable(0, count);
-            Assert.AreEqual(expected, result);
-        }
 
         [Test]
         public void Start_Int_MaxValue_Does_Not_Throw() {
