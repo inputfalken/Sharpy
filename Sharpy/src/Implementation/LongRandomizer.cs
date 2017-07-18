@@ -2,7 +2,7 @@
 using Sharpy.IProviders;
 
 namespace Sharpy.Implementation {
-    /// <inheritdoc cref="ILongProvider"/>
+    /// <inheritdoc cref="ILongProvider" />
     public class LongRandomizer : ILongProvider {
         private readonly Random _random;
 
@@ -40,12 +40,12 @@ namespace Sharpy.Implementation {
             return (long) (ulongRand % uRange) + min;
         }
 
-        /// <inheritdoc cref="ILongProvider.Long(long)"/>
+        /// <inheritdoc cref="ILongProvider.Long(long)" />
         public long Long(long max) {
             return Long(0, max);
         }
 
-        /// <inheritdoc cref="ILongProvider.Long()"/>
+        /// <inheritdoc cref="ILongProvider.Long()" />
         public long Long() {
             return Long(long.MinValue, long.MaxValue);
         }

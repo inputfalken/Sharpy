@@ -11,7 +11,8 @@ namespace Sharpy.Implementation {
         /// <summary>
         ///     <para>
         ///         Randomizes doubles with the random supplied
-        ///     .</para>
+        ///         .
+        ///     </para>
         /// </summary>
         /// <param name="random"></param>
         public DoubleRandomizer(Random random) {
