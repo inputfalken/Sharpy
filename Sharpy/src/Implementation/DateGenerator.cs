@@ -16,7 +16,12 @@ namespace Sharpy.Implementation {
         ///     Is used for getting the current time.
         /// </summary>
         internal static LocalDate CurrentLocalDate {
-            get { return SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date; }
+            get {
+                return SystemClock
+                    .Instance
+                    .GetCurrentInstant()
+                    .InZone(DateTimeZoneProviders.Bcl.GetSystemDefault()).Date;
+            }
         }
 
         /// <summary>
