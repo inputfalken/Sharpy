@@ -14,13 +14,6 @@ namespace Tests.Sharpy.FactoryTests {
             Assert.DoesNotThrow(() => result.ToArray());
         }
 
-        [Test]
-        public void No_Arg() {
-            var result = Factory.Incrementer()
-                .Take(500);
-            var expected = Enumerable.Range(0, 500);
-            Assert.AreEqual(expected, result);
-        }
 
         [Test]
         public void Start_Below_Int_MinValue_Throws() {

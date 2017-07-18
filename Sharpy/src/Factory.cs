@@ -216,7 +216,7 @@ namespace Sharpy {
         /// <example>
         ///     <code language="C#" region="Incrementer" source="Examples\GeneratorFactory.cs" />
         /// </example>
-        public static IGenerator<int> Incrementer(int start = 0) {
+        public static IGenerator<int> Incrementer(int start) {
             return Generator.Function(() => checked(start++));
         }
 
@@ -236,7 +236,7 @@ namespace Sharpy {
         /// <example>
         ///     <code language="C#" region="Decrementer" source="Examples\GeneratorFactory.cs" />
         /// </example>
-        public static IGenerator<int> Decrementer(int start = 0) {
+        public static IGenerator<int> Decrementer(int start) {
             return Generator.Function(() => checked(start--));
         }
     }
