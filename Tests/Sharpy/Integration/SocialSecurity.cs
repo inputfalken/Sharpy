@@ -10,7 +10,7 @@ namespace Tests.Sharpy.Integration {
     [TestFixture]
     public class SocialSecurity {
         /// <summary>
-        ///     This number is maxium ammount of possible number per date.
+        ///     This number is maximum amount of possible number per date.
         /// </summary>
         private const int Limit = 10000;
 

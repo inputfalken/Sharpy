@@ -125,8 +125,8 @@ namespace Sharpy {
         /// <summary>
         ///     <para>
         ///         Returns a <see cref="IGenerator{T}" /> where each invocation of <see cref="IGenerator{T}.Generate" /> will
-        ///         return a randomized <see cref="long" /> that is
-        ///         greater than or equal to argument <paramref name="min" /> and less than argument <paramref name="max" />.
+        ///         return a randomized <see cref="int" /> that is
+        ///         greater than or equal to 0 and less than argument <paramref name="max" />.
         ///     </para>
         /// </summary>
         /// <param name="min">The inclusive lower bound of the random number returned.</param>
