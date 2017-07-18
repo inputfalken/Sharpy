@@ -10,31 +10,29 @@ reset=$(tput sgr0)
 #                                              Setup
 ####################################################################################################
 mkdir .nuget
-echo "${yellow}Downloading NuGet ${reset}"
-wget -O .nuget/nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
 
-if [ $? -eq 0 ]; then
+echo "${yellow}Downloading NuGet ${reset}"
+if wget -O .nuget/nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe ; then
   echo "${green}Download Successfull${reset}"
 fi
 
 echo "${yellow}Restoring solution with NuGet${reset}"
-mono .nuget/nuget.exe restore Sharpy.sln -Verbosity quiet
-if [ $? -eq 0 ]; then
+if mono .nuget/nuget.exe restore Sharpy.sln -Verbosity quiet ; then
   echo "${green}Restore Successfull${reset}"
 fi
 
 mkdir testrunner
+
 echo "${yellow}Installing NUnit 3.6.1 with NuGet${reset}"
-mono .nuget/nuget.exe install NUnit.Runners -Version 3.6.1 -OutputDirectory testrunner -Verbosity quiet
-if [ $? -eq 0 ]; then
+if mono .nuget/nuget.exe install NUnit.Runners -Version 3.6.1 -OutputDirectory testrunner -Verbosity quiet ; then
   echo "${green}Installation Successfull${reset}"
 fi
+
 ####################################################################################################
 #                                              Build
 ####################################################################################################
 echo "${yellow}Starting build on solution with msbuild ${reset}"
-msbuild /v:minimal /p:Configuration=Release Sharpy.sln
-if [ $? -eq 0 ]; then
+if msbuild /v:minimal /p:Configuration=Release Sharpy.sln ; then
   echo "${green}Build Succeeded"
 fi
 ####################################################################################################

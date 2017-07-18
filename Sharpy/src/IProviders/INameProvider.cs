@@ -2,7 +2,7 @@ using Sharpy.Enums;
 
 namespace Sharpy.IProviders {
     /// <summary>
-    ///     <para>Methods providing <see cref="string"/> representing names.</para>
+    ///     <para>Methods providing <see cref="string" /> representing names.</para>
     /// </summary>
     public interface INameProvider {
         /// <summary>
