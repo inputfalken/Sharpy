@@ -1,6 +1,8 @@
 namespace Sharpy.IProviders {
     /// <summary>
-    ///     <para>Methods providing <see cref="long" />.</para>
+    ///     <para>
+    ///         Methods providing <see cref="long" />.
+    ///     </para>
     /// </summary>
     public interface ILongProvider {
         /// <summary>
@@ -31,7 +33,7 @@ namespace Sharpy.IProviders {
         /// <summary>
         ///     <para>
         ///         <para>
-        ///             Returns a <see cref="long" /> that is greater than or equal to <see cref="long.MinValue"/> and less
+        ///             Returns a <see cref="long" /> that is greater than or equal to <see cref="long.MinValue" /> and less
         ///             than <see cref="long.MaxValue" />.
         ///         </para>
         ///     </para>
