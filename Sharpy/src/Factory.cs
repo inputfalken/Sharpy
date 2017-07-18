@@ -13,7 +13,7 @@ namespace Sharpy {
         /// <summary>
         ///     <para>Creates <see cref="IGenerator{T}" /> whose generic argument is <see cref="string" />.</para>
         ///     <para>
-        ///         Each invokation of <see cref="IGenerator{T}.Generate" /> will return a <see cref="string" /> representing a
+        ///         Each invocation of <see cref="IGenerator{T}.Generate" /> will return a <see cref="string" /> representing a
         ///         first name.
         ///     </para>
         ///     <remarks>
@@ -31,7 +31,7 @@ namespace Sharpy {
         /// <summary>
         ///     <para>Creates <see cref="IGenerator{T}" /> whose generic argument is <see cref="string" />.</para>
         ///     <para>
-        ///         Each invokation of <see cref="IGenerator{T}.Generate" /> will return a <see cref="string" /> representing a
+        ///         Each invocation of <see cref="IGenerator{T}.Generate" /> will return a <see cref="string" /> representing a
         ///         first name based on argument <see cref="Gender" />.
         ///     </para>
         ///     <remarks>
@@ -49,7 +49,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     Creates <see cref="IGenerator{T}" /> whose generic argument is <see cref="string" />.
-        ///     Each invokation of <see cref="IGenerator{T}.Generate" /> will return a <see cref="string" /> representing a last
+        ///     Each invocation of <see cref="IGenerator{T}.Generate" /> will return a <see cref="string" /> representing a last
         ///     name.
         ///     <para> </para>
         ///     <remarks>
@@ -66,7 +66,7 @@ namespace Sharpy {
         /// <summary>
         ///     <para>Creates <see cref="IGenerator{T}" /> whose generic argument is <see cref="string" />.</para>
         ///     <para>
-        ///         Each invokation of <see cref="IGenerator{T}.Generate" /> will return a <see cref="string" /> representing a
+        ///         Each invocation of <see cref="IGenerator{T}.Generate" /> will return a <see cref="string" /> representing a
         ///         user name.
         ///     </para>
         ///     <param name="seed">
@@ -83,7 +83,7 @@ namespace Sharpy {
         /// <summary>
         ///     <para>Creates <see cref="IGenerator{T}" /> whose generic argument is <see cref="string" />.</para>
         ///     <para>
-        ///         Each invokation of <see cref="IGenerator{T}.Generate" /> will return a <see cref="string" /> representing a
+        ///         Each invocation of <see cref="IGenerator{T}.Generate" /> will return a <see cref="string" /> representing a
         ///         user name.
         ///     </para>
         /// </summary>
@@ -95,7 +95,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="IGenerator{T}" /> where each invokation of <see cref="IGenerator{T}.Generate" /> will
+        ///         Returns a <see cref="IGenerator{T}" /> where each invocation of <see cref="IGenerator{T}.Generate" /> will
         ///         return a randomized <see cref="int" /> that is
         ///         greater than or equal to argument <paramref name="min" /> and less than argument <paramref name="max" />.
         ///     </para>
@@ -124,7 +124,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="IGenerator{T}" /> where each invokation of <see cref="IGenerator{T}.Generate" /> will
+        ///         Returns a <see cref="IGenerator{T}" /> where each invocation of <see cref="IGenerator{T}.Generate" /> will
         ///         return a randomized <see cref="int" /> that is
         ///         greater than or equal to 0 and less than argument <paramref name="max" />.
         ///     </para>
@@ -161,7 +161,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="IGenerator{T}" /> where each invokation of <see cref="IGenerator{T}.Generate" /> will
+        ///         Returns a <see cref="IGenerator{T}" /> where each invocation of <see cref="IGenerator{T}.Generate" /> will
         ///         return a randomized <see cref="int" /> that is
         ///         greater than or equal to 0 and less than <see cref="int" />.<see cref="int.MaxValue" />.
         ///     </para>
@@ -185,12 +185,12 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="IGenerator{T}" /> where each invokation of <see cref="IGenerator{T}.Generate" /> will
+        ///         Returns a <see cref="IGenerator{T}" /> where each invocation of <see cref="IGenerator{T}.Generate" /> will
         ///         return a new <see cref="System.Guid" />.
         ///     </para>
         /// </summary>
         /// <returns>
-        ///     A <see cref="IGenerator{T}" /> where each invokation of <see cref="IGenerator{T}.Generate" /> will
+        ///     A <see cref="IGenerator{T}" /> where each invocation of <see cref="IGenerator{T}.Generate" /> will
         ///     return a new <see cref="System.Guid" />.
         /// </returns>
         /// <example>
@@ -202,8 +202,8 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a incrementation <see cref="IGenerator{T}" /> who starts on argument <paramref name="start" /> and
-        ///         returns a new <see cref="int" /> which is incremented by 1 for each invokation of
+        ///         Returns a <see cref="IGenerator{T}" /> who starts on argument <paramref name="start" /> and
+        ///         returns a new <see cref="int" /> which is incremented by 1 for each invocation of
         ///         <see cref="IGenerator{T}.Generate" />.
         ///     </para>
         /// </summary>
@@ -211,7 +211,7 @@ namespace Sharpy {
         /// <param name="start">The inclusive number to start at.</param>
         /// <returns>
         ///     A incrementation <see cref="IGenerator{T}" /> who starts on argument <paramref name="start" /> and returns a new
-        ///     <see cref="int" /> which is incremented by 1 for each invokation of <see cref="IGenerator{T}.Generate" />.
+        ///     <see cref="int" /> which is incremented by 1 for each invocation of <see cref="IGenerator{T}.Generate" />.
         /// </returns>
         /// <example>
         ///     <code language="C#" region="Incrementer" source="Examples\GeneratorFactory.cs" />
@@ -222,16 +222,16 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a decrementation <see cref="IGenerator{T}" /> who starts on argument <paramref name="start" /> and
-        ///         returns a new <see cref="int" /> which is decremented by 1 for each invokation of
+        ///         Returns a <see cref="IGenerator{T}" /> who starts on argument <paramref name="start" /> and
+        ///         returns a new <see cref="int" /> which is decremented by 1 for each invocation of
         ///         <see cref="IGenerator{T}.Generate" />.
         ///     </para>
         /// </summary>
         /// <exception cref="OverflowException">If the value gets below <see cref="int" />.<see cref="int.MinValue" />.</exception>
         /// <param name="start">The inclusive number to start at.</param>
         /// <returns>
-        ///     A decrementation <see cref="IGenerator{T}" /> who starts on argument <paramref name="start" /> and returns a new
-        ///     <see cref="int" /> which is decremented by 1 for each invokation of <see cref="IGenerator{T}.Generate" />.
+        ///     A <see cref="IGenerator{T}" /> who starts on argument <paramref name="start" /> and returns a new
+        ///     <see cref="int" /> which is decremented by 1 for each invocation of <see cref="IGenerator{T}.Generate" />.
         /// </returns>
         /// <example>
         ///     <code language="C#" region="Decrementer" source="Examples\GeneratorFactory.cs" />

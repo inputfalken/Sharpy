@@ -19,7 +19,7 @@ namespace Tests.Sharpy.Integration {
         private const int TestSeed = 100;
 
         /// <summary>
-        ///     <para>The ammount generated from GenrateMany Tests.</para>
+        ///     <para>The amount generated from GenrateMany Tests.</para>
         /// </summary>
         private const int Count = 100;
 

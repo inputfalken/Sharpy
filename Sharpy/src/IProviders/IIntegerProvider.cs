@@ -1,6 +1,6 @@
 namespace Sharpy.IProviders {
     /// <summary>
-    ///     <para>Methods providing <see cref="int"/>.</para>
+    ///     <para>Methods providing <see cref="int" />.</para>
     /// </summary>
     public interface IIntegerProvider {
         /// <summary>
