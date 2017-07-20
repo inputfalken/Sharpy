@@ -14,11 +14,7 @@ namespace Sharpy.Implementation {
             _random = random;
         }
 
-        /// <summary>
-        ///     Returns a random long from min (inclusive) to max (exclusive)
-        /// </summary>
-        /// <param name="min">The inclusive minimum bound</param>
-        /// <param name="max">The exclusive maximum bound.  Must be greater than min</param>
+        /// <inheritdoc cref="ILongProvider.Long(long,long)" />
         public long Long(long min, long max) {
             if (max <= min)
                 throw new ArgumentOutOfRangeException(nameof(max), "max must be > min!");
@@ -47,7 +43,7 @@ namespace Sharpy.Implementation {
 
         /// <inheritdoc cref="ILongProvider.Long()" />
         public long Long() {
-            return Long(long.MinValue, long.MaxValue);
+            return Long(0, long.MaxValue);
         }
     }
 }

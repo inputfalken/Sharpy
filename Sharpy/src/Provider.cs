@@ -16,7 +16,7 @@ namespace Sharpy {
     ///         If want you to add your own methods you can derive from this class.
     ///     </para>
     ///     <para>
-    ///         For examples please visit https://inputfalken.github.io/sharpy-API/
+    ///         For examples please visit ''.
     ///     </para>
     /// </summary>
     public class Provider : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider {
@@ -41,10 +41,12 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a provider with your configurement
+        ///         Creates a <see cref="Provider" /> with <paramref name="configurement" />.
         ///     </para>
         /// </summary>
-        /// <param name="configurement"></param>
+        /// <param name="configurement">
+        ///     The configuration for the <see cref="Provider" />.
+        /// </param>
         public Provider(Configurement configurement) {
             _random = configurement.Random;
             _doubleProvider = configurement.DoubleProvider;
@@ -63,7 +65,9 @@ namespace Sharpy {
         ///         Returns a <see cref="Provider" /> which will randomize the results depending on the <paramref name="seed" />.
         ///     </para>
         /// </summary>
-        /// <param name="seed"></param>
+        /// <param name="seed">
+        ///     The <paramref name="seed" /> to be used when creating <see cref="Random" /> for randomizing data.
+        /// </param>
         public Provider(int seed) : this(new Configurement(seed)) { }
 
         /// <summary>
@@ -71,7 +75,9 @@ namespace Sharpy {
         ///         Returns a <see cref="Provider" /> which will randomize with the <see cref="Random" /> supplied.
         ///     </para>
         /// </summary>
-        /// <param name="random"></param>
+        /// <param name="random">
+        ///     The <see cref="Random" /> to be used when randomizing data.
+        /// </param>
         public Provider(Random random) : this(new Configurement(random)) { }
 
         /// <summary>
@@ -81,121 +87,63 @@ namespace Sharpy {
         /// </summary>
         public Provider() : this(new Configurement()) { }
 
-        /// <summary>
-        ///     <para>
-        ///         Generates a <see cref="double" />.
-        ///     </para>
-        /// </summary>
+        /// <inheritdoc cref="IDoubleProvider.Double()" />
         public double Double() {
             return _doubleProvider.Double();
         }
 
-        /// <summary>
-        ///     <para>
-        ///         Generates a <see cref="double" /> within argument <paramref name="max" />.
-        ///     </para>
-        /// </summary>
-        /// <param name="max"></param>
+        /// <inheritdoc cref="IDoubleProvider.Double(double)" />
         public double Double(double max) {
             return _doubleProvider.Double(max);
         }
 
-        /// <summary>
-        ///     <para>
-        ///         Generates a <see cref="double" /> within argument <paramref name="min" /> and argument <paramref name="max" />.
-        ///     </para>
-        /// </summary>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
+        /// <inheritdoc cref="IDoubleProvider.Double(double, double)" />
         public double Double(double min, double max) {
             return _doubleProvider.Double(min, max);
         }
 
-        /// <summary>
-        ///     <para>
-        ///         Generates a <see cref="int" />.
-        ///     </para>
-        /// </summary>
-        /// <param name="max"></param>
+        /// <inheritdoc cref="IIntegerProvider.Integer(int)" />
         public int Integer(int max) {
             return _integerProvider.Integer(max);
         }
 
-        /// <summary>
-        ///     <para>
-        ///         Generates a <see cref="int" /> within argument <paramref name="min" /> and argument <paramref name="max" />.
-        ///     </para>
-        /// </summary>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
+        /// <inheritdoc cref="IIntegerProvider.Integer(int, int)" />
         public int Integer(int min, int max) {
             return _integerProvider.Integer(min, max);
         }
 
-        /// <summary>
-        ///     <para>
-        ///         Generates a <see cref="int" />.
-        ///     </para>
-        /// </summary>
+        /// <inheritdoc cref="IIntegerProvider.Integer()" />
         public int Integer() {
             return _integerProvider.Integer();
         }
 
-        /// <summary>
-        ///     <para>
-        ///         Generates a <see cref="long" /> within argument <paramref name="min" /> and <paramref name="max" />.
-        ///     </para>
-        /// </summary>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
+        /// <inheritdoc cref="ILongProvider.Long(long,long)" />
         public long Long(long min, long max) {
             return _longProvider.Long(min, max);
         }
 
-        /// <summary>
-        ///     <para>
-        ///         Generates a <see cref="long" /> within argument <paramref name="max" />.
-        ///     </para>
-        /// </summary>
-        /// <param name="max"></param>
+        /// <inheritdoc cref="ILongProvider.Long(long)" />
         public long Long(long max) {
             return _longProvider.Long(max);
         }
 
-        /// <summary>
-        ///     <para>
-        ///         Generates a <see cref="long" />.
-        ///     </para>
-        /// </summary>
+        /// <inheritdoc cref="ILongProvider.Long()" />
         public long Long() {
             return _longProvider.Long();
         }
 
 
-        /// <summary>
-        ///     <para>
-        ///         Returns a <see cref="string" /> representing a first name.
-        ///     </para>
-        /// </summary>
+        /// <inheritdoc cref="INameProvider.FirstName()" />
         public string FirstName() {
             return _nameProvider.FirstName();
         }
 
-        /// <summary>
-        ///     <para>
-        ///         Returns a <see cref="string" /> representing a first name based on <see cref="Gender" />.
-        ///     </para>
-        /// </summary>
-        /// <param name="gender"></param>
+        /// <inheritdoc cref="INameProvider.FirstName(Gender)" />
         public string FirstName(Gender gender) {
             return _nameProvider.FirstName(gender);
         }
 
-        /// <summary>
-        ///     <para>
-        ///         Returns a <see cref="string" /> representing a last name.
-        ///     </para>
-        /// </summary>
+        /// <inheritdoc cref="INameProvider.LastName()" />
         public string LastName() {
             return _nameProvider.LastName();
         }
@@ -205,8 +153,8 @@ namespace Sharpy {
         ///         Randomizes one of the elements from argument <paramref name="items" />.
         ///     </para>
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="items"></param>
+        /// <typeparam name="T">The type to randomized from.</typeparam>
+        /// <param name="items">The <paramref name="items" /> to randomize from.</param>
         public T Params<T>(params T[] items) {
             return items.RandomItem(_random);
         }
@@ -216,8 +164,8 @@ namespace Sharpy {
         ///         Randomizes one of the elements from argument <paramref name="items" />.
         ///     </para>
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="items"></param>
+        /// <typeparam name="T">The type to randomized from.</typeparam>
+        /// <param name="items">The <paramref name="items" /> to randomize from.</param>
         public T CustomCollection<T>(IReadOnlyList<T> items) {
             return items.RandomItem(_random);
         }
@@ -227,6 +175,9 @@ namespace Sharpy {
         ///         Randomizes a <see cref="bool" />.
         ///     </para>
         /// </summary>
+        /// <returns>
+        ///     A bool whose value is randomized.
+        /// </returns>
         public bool Bool() {
             return _random.Next(2) != 0;
         }
@@ -236,7 +187,13 @@ namespace Sharpy {
         ///         Randomizes a <see cref="LocalDate" /> based on argument <paramref name="age" />.
         ///     </para>
         /// </summary>
-        /// <param name="age"></param>
+        /// <param name="age">
+        ///     The age of the date.
+        /// </param>
+        /// <returns>
+        ///     A <see cref="LocalDate" /> with todays year minus the argument <paramref name="age" />.
+        ///     The month and date has been randomized.
+        /// </returns>
         public LocalDate DateByAge(int age) {
             return _dateGenerator.RandomDateByAge(age);
         }
@@ -246,18 +203,32 @@ namespace Sharpy {
         ///         Randomizes a <see cref="LocalDate" /> based on argument <paramref name="year" />.
         ///     </para>
         /// </summary>
-        /// <param name="year"></param>
+        /// <param name="year">
+        ///     The year of the date.
+        /// </param>
+        /// <returns>
+        ///     A <see cref="LocalDate" /> with the argument <paramref name="year" /> as the year.
+        ///     The month and date has been randomized.
+        /// </returns>
         public LocalDate DateByYear(int year) {
             return _dateGenerator.RandomDateByYear(year);
         }
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="string" /> representing a unique social-security number.
+        ///         Randomizes a <see cref="string" /> representing a unique social-security number.
         ///     </para>
         /// </summary>
-        /// <param name="date"></param>
-        /// <param name="formated"></param>
+        /// <param name="date">
+        ///     The date for the security number
+        ///     e.g. new LocalDate(1990, 01, 02) would be converted to 90(year)01(month)02(date)-XXXX(control number)
+        /// </param>
+        /// <param name="formated">
+        ///     If the security number should contain a dash to separate the date number with control number.
+        /// </param>
+        /// <returns>
+        ///     A <see cref="string" /> representing a unique social security number.
+        /// </returns>
         public string SocialSecurityNumber(LocalDate date, bool formated = true) {
             var result = _securityNumberGen.SecurityNumber(_random.Next(10000),
                 FormatDigit(date.Year % 100).Append(FormatDigit(date.Month), FormatDigit(date.Day)));
@@ -272,28 +243,39 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="string" /> representing a mail address.
+        ///         Returns a <see cref="string" /> representing a unique mail address.
         ///     </para>
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="secondName"></param>
+        /// <param name="name">The mail name of the mail address</param>
+        /// <param name="secondName">A second name using a random separator</param>
+        /// <remarks>
+        ///     If a mail address would be duplicated ; a random number would be appended to the address.
+        /// </remarks>
+        /// <returns>
+        ///     A string representing a email address.
+        /// </returns>
         public string MailAddress(string name, string secondName = null) {
             return _mailbuilder.Mail(name, secondName);
         }
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="int" /> with its length equal to the number given to argument <paramref name="length" />.
+        ///         Returns a <see cref="string" /> with its length equal to the number given to argument
+        ///         <paramref name="length" />.
         ///     </para>
         /// </summary>
-        /// <param name="length"></param>
+        /// <param name="length">The length of the <see cref="string" /> returned.</param>
+        /// <returns>
+        ///     A <see cref="string" /> with numbers with its length equal to the argument <paramref name="length" />.
+        /// </returns>
+        /// <exception cref="Exception">Reached maximum amount of combinations for the argument <paramref name="length" />.</exception>
         public string NumberByLength(int length) {
             //If _numberByLenghtState has changed
             if (_numberByLengthState.Item1 != length)
                 _numberByLengthState = new Tuple<int, int>(length, (int) Math.Pow(10, length) - 1);
             var res = _numberGenerator.RandomNumber(0, _numberByLengthState.Item2, _uniqueNumbers);
             if (res == -1)
-                throw new Exception($"You reached maximum amount of combinations for the {nameof(length)} used");
+                throw new Exception($"Reached maximum amount of combinations for the argument '{nameof(length)}'.");
 
             var number = res.ToString();
             return number.Length != length
@@ -306,6 +288,9 @@ namespace Sharpy {
         ///         Returns a random <see cref="string" /> representing a user name.
         ///     </para>
         /// </summary>
+        /// <returns>
+        ///     A string representing a user name.
+        /// </returns>
         public string UserName() {
             return _lazyUsernames.Value.RandomItem(_random);
         }
@@ -323,7 +308,12 @@ namespace Sharpy {
         ///         Creates a <see cref="IGenerator{T}" /> with <see cref="Provider" /> as its generic type.
         ///     </para>
         /// </summary>
-        /// <param name="provider"></param>
+        /// <param name="provider">
+        ///     The instance of <see cref="Provider" /> you want to be used as a generator.
+        /// </param>
+        /// <typeparam name="TProvider">
+        ///     The <see cref="Provider" /> you want to have. This could be a descendant of <see cref="Provider" />.
+        /// </typeparam>
         /// <returns>
         ///     <para>
         ///         A <see cref="IGenerator{T}" />.

@@ -10,44 +10,27 @@ namespace Sharpy.Implementation {
 
         /// <summary>
         ///     <para>
-        ///         Randomizes doubles with the random supplied
-        ///         .
+        ///         Randomizes doubles with the <see cref="Random" /> supplied.
         ///     </para>
         /// </summary>
-        /// <param name="random"></param>
+        /// <param name="random">
+        ///     The randomizer.
+        /// </param>
         public DoubleRandomizer(Random random) {
             _random = random;
         }
 
-        /// <summary>
-        ///     <para>
-        ///         Returns a randomized double within 0 and 1.
-        ///     </para>
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc cref="IDoubleProvider.Double()" />
         public double Double() {
             return _random.NextDouble();
         }
 
-        /// <summary>
-        ///     <para>
-        ///         Returns a randomized double within 0 and max.
-        ///     </para>
-        /// </summary>
-        /// <param name="max"></param>
-        /// <returns></returns>
+        /// <inheritdoc cref="IDoubleProvider.Double(double)" />
         public double Double(double max) {
             return Double(0, max);
         }
 
-        /// <summary>
-        ///     <para>
-        ///         Returns a randomized double within min and max.
-        ///     </para>
-        /// </summary>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
-        /// <returns></returns>
+        /// <inheritdoc cref="IDoubleProvider.Double(double, double)" />
         public double Double(double min, double max) {
             if (max <= min) throw new ArgumentOutOfRangeException($"{nameof(max)} must be > {nameof(min)}");
             return _random.NextDouble() * (max - min) + min;

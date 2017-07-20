@@ -36,7 +36,7 @@ namespace Sharpy.Implementation {
         private IEnumerator<string> EmailDomainsEnumerator { get; set; }
 
 
-        public string Mail(string name, string secondName) {
+        internal string Mail(string name, string secondName) {
             if (string.IsNullOrWhiteSpace(name))
                 throw new NullReferenceException($"{nameof(name)} can't be null/empty string");
             return UniqueMail(name, secondName).ToLower();

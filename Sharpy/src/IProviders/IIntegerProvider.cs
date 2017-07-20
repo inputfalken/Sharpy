@@ -5,18 +5,21 @@ namespace Sharpy.IProviders {
     public interface IIntegerProvider {
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="int" /> that is greater than or equal to 0 and less
+        ///         Creates a <see cref="int" /> that is greater than or equal to 0 and less
         ///         than argument <paramref name="max" />.
         ///     </para>
         /// </summary>
         /// <param name="max">
         ///     The exclusive maximum bound.
         /// </param>
+        /// <returns>
+        ///     A <see cref="int" /> greater than or equal to 0 and less than argument <paramref name="max" />.
+        /// </returns>
         int Integer(int max);
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="int" /> that is greater than or equal to argument <paramref name="min" /> and less
+        ///         Creates a <see cref="int" /> that is greater than or equal to argument <paramref name="min" /> and less
         ///         than argument <paramref name="max" />.
         ///     </para>
         /// </summary>
@@ -26,17 +29,24 @@ namespace Sharpy.IProviders {
         /// <param name="max">
         ///     The exclusive maximum bound.
         /// </param>
+        /// <returns>
+        ///     A <see cref="int" /> greater than or equal to argument <paramref name="min" /> and less than argument
+        ///     <paramref name="max" />.
+        /// </returns>
         int Integer(int min, int max);
 
 
         /// <summary>
         ///     <para>
         ///         <para>
-        ///             Returns a <see cref="int" /> that is greater than or equal to 0 and less
+        ///             Creates a <see cref="int" /> that is greater than or equal to 0 and less
         ///             than <see cref="int.MaxValue" />.
         ///         </para>
         ///     </para>
         /// </summary>
+        /// <returns>
+        ///     A <see cref="int" /> greater than or equal to 0 and less than <see cref="int.MaxValue" />.
+        /// </returns>
         int Integer();
     }
 }
