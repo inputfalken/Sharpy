@@ -18,8 +18,10 @@
     <HtmlHelpName>Documentation</HtmlHelpName>
     <Language>en-US</Language>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\GeneratorAPI\bin\Release\GeneratorAPI.dll" />
-      <DocumentationSource sourceFile="..\GeneratorAPI\bin\Release\GeneratorAPI.xml" />
+      <DocumentationSource sourceFile="..\Sharpy\bin\Release\Sharpy.dll" />
+      <DocumentationSource sourceFile="..\Sharpy\bin\Release\Sharpy.xml" />
+      <DocumentationSource sourceFile="..\Sharpy\bin\Release\GeneratorAPI.xml" />
+      <DocumentationSource sourceFile="..\Sharpy\bin\Release\GeneratorAPI.dll" />
     </DocumentationSources>
     <SaveComponentCacheCapacity>100</SaveComponentCacheCapacity>
     <BuildAssemblerVerbosity>AllMessages</BuildAssemblerVerbosity>
@@ -33,14 +35,14 @@
     <NamespaceGrouping>False</NamespaceGrouping>
     <SyntaxFilters>C#</SyntaxFilters>
     <SdkLinkTarget>Blank</SdkLinkTarget>
-    <RootNamespaceContainer>False</RootNamespaceContainer>
+    <RootNamespaceContainer>True</RootNamespaceContainer>
     <PresentationStyle>VS2013</PresentationStyle>
     <Preliminary>False</Preliminary>
     <NamingMethod>MemberName</NamingMethod>
     <HelpTitle>A Sandcastle Documented Class Library</HelpTitle>
     <ContentPlacement>AboveNamespaces</ContentPlacement>
     <FeedbackEMailAddress>inputfalken%40gmail.com</FeedbackEMailAddress>
-    <VisibleItems>ExplicitInterfaceImplementations, InheritedMembers, InheritedFrameworkMembers, Protected, ProtectedInternalAsProtected</VisibleItems>
+    <VisibleItems>ExplicitInterfaceImplementations</VisibleItems>
     <ComponentConfigurations>
       <ComponentConfig id="Code Block Component" enabled="True" xmlns="">
         <component id="Code Block Component">
@@ -57,8 +59,13 @@
     </ProjectSummary>
     <NamespaceSummaries>
       <NamespaceSummaryItem name="GeneratorAPI" isDocumented="True" />
-<NamespaceSummaryItem name="(global)" isDocumented="True" />
-<NamespaceSummaryItem name="GeneratorAPI.Linq" isDocumented="True" /></NamespaceSummaries>
+      <NamespaceSummaryItem name="(global)" isDocumented="False" />
+      <NamespaceSummaryItem name="GeneratorAPI.Linq" isDocumented="True" />
+      <NamespaceSummaryItem name="Sharpy" isDocumented="True" />
+      <NamespaceSummaryItem name="Sharpy.Enums" isDocumented="True" />
+      <NamespaceSummaryItem name="Sharpy.Implementation" isDocumented="True" />
+      <NamespaceSummaryItem name="Sharpy.IProviders" isDocumented="True" />
+    </NamespaceSummaries>
     <FeedbackEMailLinkText>Inputfalken</FeedbackEMailLinkText>
     <MissingTags>Summary, Parameter, Returns, AutoDocumentCtors, TypeParameter, AutoDocumentDispose</MissingTags>
   </PropertyGroup>
@@ -91,4 +98,9 @@
     </PostBuildEvent>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GeneratorAPI">
+      <HintPath>..\Sharpy\bin\Release\GeneratorAPI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>
