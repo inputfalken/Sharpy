@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GeneratorAPI\LinqTests\TakeWhileTests.cs" />
+    <Compile Include="GeneratorAPI\LinqTests\SkipWhileTests.cs" />
     <Compile Include="GeneratorAPI\LinqTests\ReleaseTests.cs" />
     <Compile Include="GeneratorAPI\LinqTests\SelectManyEnumerableTests.cs" />
     <Compile Include="GeneratorAPI\LinqTests\Skiptests.cs" />

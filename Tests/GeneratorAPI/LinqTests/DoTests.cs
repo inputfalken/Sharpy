@@ -24,7 +24,7 @@ namespace Tests.GeneratorAPI.LinqTests {
         [Test(
             Description = "Verify that Do is invoked if Generate is invoked"
         )]
-        public void Is_Evaluated_After_Take_Is_invoked() {
+        public void Is_Evaluated_After_Generate_Is_invoked() {
             var invoked = false;
             var generator = _generator
                 .Do(s => invoked = true);
