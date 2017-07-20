@@ -6,22 +6,36 @@ namespace Sharpy.IProviders {
     /// </summary>
     public interface INameProvider {
         /// <summary>
-        ///     <para>Provides a first name based on gender.</para>
+        ///     <para>
+        ///         Creates a <see cref="string" /> representing a first name.
+        ///     </para>
         /// </summary>
-        /// <param name="gender"></param>
-        /// <returns></returns>
+        /// <param name="gender">
+        ///     The gender of the first name.
+        /// </param>
+        /// <returns>
+        ///     A string representing a first name and taking the argument <see cref="Gender" /> to account.
+        /// </returns>
         string FirstName(Gender gender);
 
         /// <summary>
-        ///     <para>Provides a first name.</para>
+        ///     <para>
+        ///         Creates a <see cref="string" /> representing a first name.
+        ///     </para>
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        ///     A string representing a first name.
+        /// </returns>
         string FirstName();
 
         /// <summary>
-        ///     <para>Provides a last name.</para>
+        ///     <para>
+        ///         Creates a <see cref="string" /> representing a last name.
+        ///     </para>
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        ///     A string representing a last name.
+        /// </returns>
         string LastName();
     }
 }

@@ -50,7 +50,9 @@ namespace Sharpy.Implementation {
         ///         Randomizes common names by <see cref="Enums.Origin" /> using <see cref="Random" />.
         ///     </para>
         /// </summary>
-        /// <param name="origins"></param>
+        /// <param name="origins">
+        /// The name origins.
+        /// </param>
         public NameByOrigin(params Origin[] origins) : this(new Random(), origins) { }
 
 
@@ -90,8 +92,12 @@ namespace Sharpy.Implementation {
         ///         With argument/arguments filters will be used for the <see cref="Enums.Origin" />.
         ///     </para>
         /// </summary>
-        /// <param name="origins"></param>
-        /// <returns></returns>
+        /// <param name="origins">
+        ///     The name origins.
+        /// </param>
+        /// <returns>
+        ///  A <see cref="IEnumerable{T}"/> with names from the <paramref name="origins"/> used.
+        /// </returns>
         public static IEnumerable<string> GetCollection(params Origin[] origins) {
             return origins.Any()
                 ? Names
@@ -104,7 +110,6 @@ namespace Sharpy.Implementation {
         ///     <para>Returns a name based on <see cref="NameType" />.</para>
         /// </summary>
         /// <param name="arg"></param>
-        /// <returns></returns>
         private string Name(NameType arg) {
             if (Dictionary.ContainsKey(arg)) return Dictionary[arg].RandomItem(_random);
             var strings = Origin(Names.Where(n => n.Type == arg)).Select(n => n.Data).ToArray();
