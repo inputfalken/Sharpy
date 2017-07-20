@@ -48,7 +48,9 @@
     <Compile Include="src\Linq\Select.cs" />
     <Compile Include="src\Linq\SelectMany.cs" />
     <Compile Include="src\Linq\Skip.cs" />
+    <Compile Include="src\Linq\SkipWhile.cs" />
     <Compile Include="src\Linq\Take.cs" />
+    <Compile Include="src\Linq\TakeWhile.cs" />
     <Compile Include="src\Linq\ToArray.cs" />
     <Compile Include="src\Linq\ToDictionary.cs" />
     <Compile Include="src\Linq\ToList.cs" />
