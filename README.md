@@ -5,6 +5,8 @@ This is a hobby project of mine where the goal is to have an easy way of generat
 
 For information on how to use this library [click here](https://inputfalken.github.io/sharpy-API/)
 
+For information on how to use the alpha version of this library [click here](https://inputfalken.github.io/Sharpy/html/R_Project_Documentation.htm)
+
 Hope you'll find this class libary useful.
 ## Install
 Use the Nuget Package Manager Console and type Install-Package Sharpy
