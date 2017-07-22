@@ -1,13 +1,32 @@
-﻿$packageSource = 'https://www.nuget.org/api/v2/package'
+﻿# NuGet package source.
+$packageSource = 'https://www.nuget.org/api/v2/package'
+# AppVeyor Environmental varible.
+$nugetApiKey = $env:NUGET_API_KEY
+# AppVeyor Environmental varible.
+$branch = $env:APPVEYOR_REPO_BRANCH
+# Find assembly version info.
+function Find-Assembly ([string] $assemblyVersionName) {
+  $pattern = '\[assembly: {0}\("(.*)"\)\]' -f $assemblyVersionName
+    (Get-Content '.\Sharpy\Properties\AssemblyInfo.cs') | ForEach-Object {
+      if($_ -match $pattern) {
+        return $matches[1]
+      }
+    }
+}
+# Local Nuget semver.
+[version]$localVersion = Find-Assembly("AssemblyInformationalVersion")
 
 function Deploy ([string] $label, [bool] $suffixBuild) {
+  $fileName = ".\Sharpy.$($localVersion.Major).$($localVersion.Minor).$($localVersion.Build)"
   $suffix = 'alpha'
+  $project = '.\Sharpy\Sharpy.csproj'
+
   if ($suffixBuild) {
-    nuget pack .\Sharpy\Sharpy.csproj  -IncludeReferencedProjects -Prop configuration=release -Suffix $suffix
-    nuget push ".\Sharpy.$($fileVersion.Major).$($fileVersion.Minor).$($fileVersion.Build)-alpha.nupkg" -Verbosity detailed -ApiKey $env:NUGET_API_KEY -Source $packageSource
+    nuget pack $project -IncludeReferencedProjects -Prop configuration=release -Suffix $suffix
+    nuget push "$($fileName)-$($suffix).nupkg" -Verbosity detailed -ApiKey $nugetApiKey -Source $packageSource
   } else {
-    nuget pack .\Sharpy\Sharpy.csproj  -IncludeReferencedProjects -Prop configuration=release
-    nuget push ".\Sharpy.$($fileVersion.Major).$($fileVersion.Minor).$($fileVersion.Build).nupkg" -Verbosity detailed -ApiKey $env:NUGET_API_KEY -Source $packageSource
+    nuget pack $project -IncludeReferencedProjects -Prop configuration=release
+    nuget push "$($fileName).nupkg" -Verbosity detailed -ApiKey $nugetApiKey -Source $packageSource
   }
   if ($?) {
     DeleteOldPackage $label $suffix $suffixBuild
@@ -18,16 +37,14 @@ function DeleteOldPackage ([string] $label, [string] $suffix, [bool] $suffixBuil
   if ($localVersion.Major -eq $onlineVersion.Major) {
     Write-Host "Same major build, deleting old package" -ForegroundColor yellow
     if ($suffixBuild) {
-      nuget delete Sharpy $onlineVersion-$suffix -ApiKey $env:NUGET_API_KEY -Source $packageSource -NonInteractive
+      nuget delete Sharpy $onlineVersion-$suffix -ApiKey $nugetApiKey -Source $packageSource -NonInteractive
     } else {
-      nuget delete Sharpy $onlineVersion -ApiKey $env:NUGET_API_KEY -Source $packageSource -NonInteractive
+      nuget delete Sharpy $onlineVersion -ApiKey $nugetApiKey -Source $packageSource -NonInteractive
     }
   } else {
     Write-Host "New major build, ignoring package deletion" -ForegroundColor yellow
   }
 }
-# AppVeyor Environmental varible
-$branch = $env:APPVEYOR_REPO_BRANCH
 
 # Determine if it's Pre release
 switch ($branch) {
@@ -45,22 +62,7 @@ switch ($branch) {
   }
 }
 
-# Find current assembly info
-$path = '.\Sharpy\Properties\AssemblyInfo.cs'
-function Find-Assembly ([string] $assemblyVersionName) {
-  $pattern = '\[assembly: {0}\("(.*)"\)\]' -f $assemblyVersionName
-    (Get-Content $path) | ForEach-Object {
-      if($_ -match $pattern) {
-        return $matches[1]
-      }
-    }
-}
 
-# TODO add check that verifies that AssemblyFIleVersion and AssemblyINformationalVersion contains same version.
-# The version inside [assembly: AssemblyFileVersion(*.*.*.*)],
-[version]$fileVersion = Find-Assembly("AssemblyFileVersion")
-# Local Nuget semver
-[version]$localVersion = Find-Assembly("AssemblyInformationalVersion")
 
 # Source for NuGet to get the latest package online
 $listSource = 'https://nuget.org/api/v2/'
