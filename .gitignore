@@ -1,3 +1,13 @@
+###############
+#    folder   #
+###############
+/**/DROP/
+/**/TEMP/
+/**/packages/
+/**/bin/
+/**/obj/
+_site
+
 # Documentation website
 Documentation/Website/
 ## Ignore Visual Studio temporary files, build results, and
