@@ -90,9 +90,9 @@ $branch = $env:APPVEYOR_REPO_BRANCH
 
 
 # Online NuGet semver
-[version] $onlineVersion = fetchNugetVersion('https://nuget.org/api/v2/', 'Sharpy', $(isPreRelease $branch))
+[version] $onlineVersion = fetchNugetVersion 'https://nuget.org/api/v2/' 'Sharpy' $(isPreRelease $branch)
 # Local Nuget semver.
-[version]$localVersion = Find-Assembly("AssemblyInformationalVersion")
+[version]$localVersion = Find-Assembly 'AssemblyInformationalVersion'
 
 # Checks if deployment is needed by comparing local and online version
 if ($localVersion -gt $onlineVersion) {
