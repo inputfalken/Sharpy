@@ -63,11 +63,11 @@ function isPreRelease([string] $branch) {
   switch ($branch) {
     "development" {
       Write-Host "Proceeding script with alpha version for branch: $branch." -ForegroundColor yellow
-      $preRelease = 1
+      return 1
     }
     "master" {
       Write-Host "Proceeding script with stable version for branch: $branch." -ForegroundColor yellow
-      $preRelease = 0
+      return 0
     }
     default {
       Write-Host "$branch is not a deployable branch exiting..." -ForegroundColor yellow
