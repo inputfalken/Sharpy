@@ -95,11 +95,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GeneratorAPI\GeneratorAPI.csproj">
+    <ProjectReference Include="..\src\GeneratorAPI\GeneratorAPI.csproj">
       <Project>{4763d497-df9e-487c-b210-9de72f5ecace}</Project>
       <Name>GeneratorAPI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Sharpy\Sharpy.csproj">
+    <ProjectReference Include="..\src\Sharpy\Sharpy.csproj">
       <Project>{e4c60589-e7ce-471c-82e3-28c356cd1191}</Project>
       <Name>Sharpy</Name>
     </ProjectReference>
