@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharpy", "src\Sharpy\Sharpy.csproj", "{E4C60589-E7CE-471C-82E3-28C356CD1191}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "src\Tests\Tests.csproj", "{0C814542-DA6C-479D-A26A-9DB15D9E19C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{0C814542-DA6C-479D-A26A-9DB15D9E19C2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneratorAPI", "src\GeneratorAPI\GeneratorAPI.csproj", "{4763D497-DF9E-487C-B210-9DE72F5ECACE}"
 EndProject
