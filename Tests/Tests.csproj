@@ -92,9 +92,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\src\GeneratorAPI\GeneratorAPI.csproj">
       <Project>{4763d497-df9e-487c-b210-9de72f5ecace}</Project>
       <Name>GeneratorAPI</Name>
@@ -106,6 +103,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Sharpy\Unit\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
