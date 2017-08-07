@@ -1,7 +1,7 @@
 ﻿# Find assembly version info.
 function findAssemblyVersion ([string] $assemblyVersionName) {
   $pattern = '\[assembly: {0}\("(.*)"\)\]' -f $assemblyVersionName
-    (Get-Content '.\Sharpy\Properties\AssemblyInfo.cs') | ForEach-Object {
+    (Get-Content '.\src\Sharpy\Properties\AssemblyInfo.cs') | ForEach-Object {
       if($_ -match $pattern) {
         return $matches[1]
       }
