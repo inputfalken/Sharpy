@@ -1,5 +1,8 @@
 configuration: Release
 
+init:
+    - ps: modelinex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
 before_build:
   - nuget restore
 
@@ -9,3 +12,6 @@ build:
 
 on_success:
 - ps: '& ".\deployment.ps1"'
+
+on_finish:
+  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
