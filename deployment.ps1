@@ -22,6 +22,25 @@ function deleteNugetPackage ([string] $label, [string] $suffix, [bool] $suffixBu
   }
 }
 
+function updateDocumentation {
+  & nuget install docfx.console -Version 2.18.4 -Source https://www.myget.org/F/docfx/api/v3/index.json
+  & docfx.console.2.18.4\tools\docfx docfx.json
+  if ($lastexitcode -ne 0) {
+    throw [System.Exception] "docfx build failed with exit code $lastexitcode."
+  }
+  git config --global credential.helper store
+  Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:GITHUB_ACCESS_TOKEN):x-oauth-basic@github.com`n"
+  git config --global user.email "test@gmail.com"
+  git config --global user.name "test"
+
+  git clone https://github.com/inputfalken/Sharpy -b gh-pages origin_site -q
+  Copy-Item origin_site/.git _site -recurse
+  CD _site
+  git add -A 2>&1
+  git commit -m "CI Updates" -q
+  git push origin gh-pages -q
+}
+
 # NuGet Deployment
 function deployToNuget ([string] $label, [bool] $suffixBuild) {
   $fileName = ".\Sharpy.$($localVersion.Major).$($localVersion.Minor).$($localVersion.Build)"
@@ -36,6 +55,7 @@ function deployToNuget ([string] $label, [bool] $suffixBuild) {
     nuget push "$($fileName).nupkg" -Verbosity detailed -ApiKey $nugetApiKey -Source $packageSource
   }
   if ($?) {
+    updateDocumentation
     deleteNugetPackage $label $suffix $suffixBuild
   }
 }
