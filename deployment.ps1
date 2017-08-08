@@ -43,9 +43,9 @@ function updateDocumentation {
 
 # NuGet Deployment
 function deployToNuget ([string] $label, [bool] $suffixBuild) {
-  $fileName = ".\Sharpy.$($localVersion.Major).$($localVersion.Minor).$($localVersion.Build)"
+  $fileName = ".\src\Sharpy.$($localVersion.Major).$($localVersion.Minor).$($localVersion.Build)"
   $suffix = 'alpha'
-  $project = '.\Sharpy\Sharpy.csproj'
+  $project = '.\src\Sharpy\Sharpy.csproj'
 
   if ($suffixBuild) {
     nuget pack $project -IncludeReferencedProjects -Prop configuration=release -Suffix $suffix
