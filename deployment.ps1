@@ -79,7 +79,7 @@ function fetchNugetVersion ([string] $listSource, [string] $project, [bool] $pre
 }
 
 # Determine if it's Pre release
-function isPreRelease([string] $branch) {
+function isAlphaBranch([string] $branch) {
   switch ($branch) {
     "development" {
       Write-Host "Proceeding script with alpha version for branch: $branch." -ForegroundColor yellow
@@ -108,11 +108,12 @@ $nugetApiKey = $env:NUGET_API_KEY
 # AppVeyor Environmental varible.
 $branch = $env:APPVEYOR_REPO_BRANCH
 
-
+[bool] $isAlpha = isAlphaBranch $branch
 # Online NuGet semver
-[version] $onlineVersion = fetchNugetVersion 'https://nuget.org/api/v2/' 'Sharpy' $(isPreRelease $branch)
+[version] $onlineVersion = fetchNugetVersion 'https://nuget.org/api/v2/' 'Sharpy' $isAlpha
 # Local Nuget semver.
 [version]$localVersion = findAssemblyVersion 'AssemblyInformationalVersion'
+
 
 # Checks if deployment is needed by comparing local and online version
 if ($localVersion -gt $onlineVersion) {
@@ -122,7 +123,7 @@ if ($localVersion -gt $onlineVersion) {
       if ($localVersion.Minor -eq 0) {
         if ($localVersion.Build -eq 0) {
           Write-Host 'Validation Successfull!, deploying major build' -ForegroundColor green
-            deployToNuget 'major' $preRelease
+            deployToNuget 'major' $isAlpha
         } else {
           throw "Invalid format for Major build, Patch($($localVersion.Build)) need to be set to 0"
         }
@@ -134,14 +135,14 @@ if ($localVersion -gt $onlineVersion) {
       Write-Host 'Validating versioning format' -ForegroundColor yellow
       if ($localVersion.Build -eq 0) {
         Write-Host 'Validation Successfull!, deploying minor build' -ForegroundColor green
-        deployToNuget 'minor' $preRelease
+        deployToNuget 'minor' $isAlpha
       } else {
           throw "Invalid format for minor build, patch($($localVersion.Build)) need to be set to 0"
       }
     }
     elseif ($localVersion.Build -gt $onlineVersion.Build) {
       Write-Host 'Deploying patch build' -ForegroundColor yellow
-      deployToNuget 'patch' $preRelease
+      deployToNuget 'patch' $isAlpha
     }
 
 } else {
