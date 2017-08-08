@@ -23,8 +23,8 @@ function deleteNugetPackage ([string] $label, [string] $suffix, [bool] $suffixBu
 }
 
 function updateDocumentation {
-  & nuget install docfx.console -Version 2.18.4 -Source https://www.myget.org/F/docfx/api/v3/index.json
-  & docfx.console.2.18.4\tools\docfx docfx.json
+  & nuget install docfx.console -Version 2.22.1 -Source https://www.myget.org/F/docfx/api/v3/index.json
+  & docfx.console.2.22.1\tools\docfx docfx.json
   if ($lastexitcode -ne 0) {
     throw [System.Exception] "docfx build failed with exit code $lastexitcode."
   }
