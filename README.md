@@ -4,7 +4,7 @@
 
 This is a hobby project of mine where the goal is to have an easy way of generating some fake data.
 
-The new generator API documentation can be found [here](https://inputfalken.github.io/Sharpy/html/N_GeneratorAPI.htm).
+The new generator API documentation can be found [here](https://inputfalken.github.io/Sharpy).
 
 Hope you'll find this class library useful.
 ## Install
