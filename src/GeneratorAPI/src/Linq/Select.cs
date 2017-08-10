@@ -27,7 +27,8 @@ namespace GeneratorAPI.Linq {
         /// </returns>
         /// <example>
         ///     <para>
-        ///         Here's an example of changing a string to int.
+        ///         Here's an example of transforming a string to int.
+        ///         The result will be a generator which creates integers equal to the length of each first name generated.
         ///     </para>
         ///     <code language="c#">
         ///         IGenerator&lt;int&gt; = Factory.FirstName().Select((string x) => x.Length);
@@ -64,6 +65,15 @@ namespace GeneratorAPI.Linq {
         ///     A <see cref="IGenerator{T}" /> whose elements are the result of invoking the transform function on each element of
         ///     <paramref name="generator" />.
         /// </returns>
+        /// <example>
+        ///     <para>
+        ///         Here's an example of transforming a string to int with a counter included.
+        ///         The result will be a generator which creates integers equal to the length of each first name generated plus the current generation index.
+        ///     </para>
+        ///     <code language="c#">
+        ///         IGenerator&lt;int&gt; = Factory.FirstName().Select((string x, int y) => x.Length + y);
+        ///     </code>
+        /// </example>
         public static IGenerator<TResult> Select<TSource, TResult>(this IGenerator<TSource> generator,
             Func<TSource, int, TResult> selector) {
             var count = 0;
