@@ -18,7 +18,12 @@ namespace GeneratorAPI.Linq {
         ///     A <see cref="List{T}" /> that contains elements generated from the input <paramref name="generator" />.
         /// </returns>
         /// <example>
-        ///     <code language="C#" region="Generator.ToList" source="Examples\Generator.cs" />
+        ///     <para>
+        ///         Here's an example of how you can create a <see cref="List{T}"/> from a generator.
+        ///     </para>
+        ///     <code language='c#'>
+        ///          list&lt;int&gt; list = Factory.Incrementer(0).ToList(100);
+        ///     </code>
         /// </example>
         public static List<TSource> ToList<TSource>(this IGenerator<TSource> generator, int count) {
             return generator.Take(count).ToList();

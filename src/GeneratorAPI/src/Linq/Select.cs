@@ -71,7 +71,7 @@ namespace GeneratorAPI.Linq {
         ///         The result will be a generator which creates integers equal to the length of each first name generated plus the current generation index.
         ///     </para>
         ///     <code language="c#">
-        ///         IGenerator&lt;int&gt; = Factory.FirstName().Select((string x, int y) => x.Length + y);
+        ///         IGenerator&lt;int&gt; transformedGenerator = Factory.FirstName().Select((string x, int y) => x.Length + y);
         ///     </code>
         /// </example>
         public static IGenerator<TResult> Select<TSource, TResult>(this IGenerator<TSource> generator,
