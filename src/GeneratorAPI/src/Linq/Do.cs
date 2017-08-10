@@ -19,7 +19,13 @@ namespace GeneratorAPI.Linq {
         ///     A <see cref="IGenerator{T}" /> whose elements has been exposed to <see cref="Action{T}" />.
         /// </returns>
         /// <example>
-        ///     <code language="C#" region="Generator.Do" source="Examples\Generator.cs" />
+        ///     <para>
+        ///         Here's an example of how you can expose each generated element.
+        ///         The result is a generator which will call method <see cref="Console.WriteLine(int)"/> every time you generate.
+        ///     </para>
+        ///     <code language='c#'>
+        ///          IGenerator&lt;int&gt; = Factory.Incrementer(0).Do((int x) => Console.WriteLine(x));
+        ///     </code>
         /// </example>
         public static IGenerator<TSource> Do<TSource>(this IGenerator<TSource> generator, Action<TSource> action) {
             if (action == null) throw new ArgumentNullException(nameof(action));
