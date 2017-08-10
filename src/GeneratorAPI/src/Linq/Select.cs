@@ -30,7 +30,7 @@ namespace GeneratorAPI.Linq {
         ///         Here's an example of changing a string to int.
         ///     </para>
         ///     <code language="c#">
-        ///         IGenerator%&lt;int%&gt; = Factory.FirstName().Select((string x) => x.Length);
+        ///         IGenerator&lt;int&gt; = Factory.FirstName().Select((string x) => x.Length);
         ///     </code>
         /// </example>
         public static IGenerator<TResult> Select<TSource, TResult>(this IGenerator<TSource> generator,
