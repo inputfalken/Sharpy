@@ -1,10 +1,8 @@
 ﻿using System;
 using static GeneratorAPI.Generator;
 
-namespace GeneratorAPI.Linq
-{
-    public static partial class Extensions
-    {
+namespace GeneratorAPI.Linq {
+    public static partial class Extensions {
         /// <summary>
         ///     <para>
         ///         Projects each generation into a new form.
@@ -36,8 +34,7 @@ namespace GeneratorAPI.Linq
         ///     </code>
         /// </example>
         public static IGenerator<TResult> Select<TSource, TResult>(this IGenerator<TSource> generator,
-            Func<TSource, TResult> selector)
-        {
+            Func<TSource, TResult> selector) {
             if (selector == null) throw new ArgumentNullException(nameof(selector));
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             return Function(() => selector(generator.Generate()));
@@ -68,8 +65,7 @@ namespace GeneratorAPI.Linq
         ///     <paramref name="generator" />.
         /// </returns>
         public static IGenerator<TResult> Select<TSource, TResult>(this IGenerator<TSource> generator,
-            Func<TSource, int, TResult> selector)
-        {
+            Func<TSource, int, TResult> selector) {
             var count = 0;
             return generator.Select(source => selector(source, count++));
         }
