@@ -7,7 +7,9 @@ green=$(tput setaf 2)
 reset=$(tput sgr0)
 
 ####################################################################################################
-#                                              Setup
+#                                                                                                  #
+#                                              Setup                                               #
+#                                                                                                  #
 ####################################################################################################
 mkdir .nuget
 
@@ -18,7 +20,7 @@ fi
 
 echo "${yellow}Restoring solution with NuGet${reset}"
 if mono .nuget/nuget.exe restore Sharpy.sln -Verbosity quiet ; then
-  echo "${green}Restore Successfull${reset}"
+  echo "${green}Restoration Successfull${reset}"
 fi
 
 mkdir testrunner
@@ -29,19 +31,25 @@ if mono .nuget/nuget.exe install NUnit.Runners -Version 3.6.1 -OutputDirectory t
 fi
 
 ####################################################################################################
-#                                              Build
+#                                                                                                  #
+#                                              Build                                               #
+#                                                                                                  #
 ####################################################################################################
 echo "${yellow}Starting build on solution with msbuild ${reset}"
 if msbuild /v:minimal /p:Configuration=Release Sharpy.sln ; then
   echo "${green}Build Succeeded"
 fi
 ####################################################################################################
-#                                              Tests
+#                                                                                                  #
+#                                              Tests                                               #
+#                                                                                                  #
 ####################################################################################################
 echo "${yellow}Starting NUnit tests${reset}"
 mono ./testrunner/NUnit.ConsoleRunner.3.6.1/tools/nunit3-console.exe ./Tests/bin/Release/Tests.dll
 ####################################################################################################
-#                                             AppVeyor
+#                                                                                                  #
+#                                             AppVeyor                                             #
+#                                                                                                  #
 ####################################################################################################
 BRANCH="$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo "$TRAVIS_BRANCH"; else echo "$TRAVIS_PULL_REQUEST_BRANCH"; fi)"
 ACCOUNT_NAME=$(echo $TRAVIS_REPO_SLUG | cut -d '/' -f 1)
