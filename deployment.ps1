@@ -30,8 +30,8 @@ function updateDocumentation {
   }
   git config --global credential.helper store
   Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:GITHUB_ACCESS_TOKEN):x-oauth-basic@github.com`n"
-  git config --global user.email "inputfalken@gmail.com"
-  git config --global user.name "inputfalken"
+  git config --global user.email 'sharpy.continuous.integration@gmail.com'
+  git config --global user.name 'SharpyCI'
 
   git clone https://github.com/inputfalken/Sharpy -b gh-pages origin_site -q
   Copy-Item origin_site/.git _site -recurse

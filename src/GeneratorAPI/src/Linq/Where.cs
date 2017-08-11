@@ -26,7 +26,13 @@ namespace GeneratorAPI.Linq {
         ///     A <see cref="IGenerator{T}" /> whose elements has satisfied the condition.
         /// </returns>
         /// <example>
-        ///     <code language="C#" region="Generator.Where" source="Examples\Generator.cs" />
+        ///     <para>
+        ///         Here's an example of how you can set a condition for the <see cref="IGenerator{T}" />.
+        ///         The result is a generator whose generations will match the condition given.
+        ///     </para>
+        ///     <code language='c#'>
+        ///          IGenerator&lt;int&gt; conditionedGenerator = Factory.Generator.Incrementer(0).Where((int x) => x % 2 == 0);
+        ///      </code>
         /// </example>
         public static IGenerator<TSource> Where<TSource>(this IGenerator<TSource> generator,
             Func<TSource, bool> predicate,
