@@ -45,4 +45,4 @@ mono ./testrunner/NUnit.ConsoleRunner.3.6.1/tools/nunit3-console.exe ./Tests/bin
 ####################################################################################################
 BRANCH="$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo "$TRAVIS_BRANCH"; else echo "$TRAVIS_PULL_REQUEST_BRANCH"; fi)"
 # Tell AppVeyor to start a build
-curl -d "{accountName: 'inputfalken', projectSlug: 'Sharpy', branch: '$BRANCH'}" -H "Authorization: Bearer $APPVEYOR_API_TOKEN" -H 'Content-Type: application/json' -X POST https://ci.appveyor.com/api/builds
+curl -d "{accountName: "$(TRAVIS_REPO_SLUG | cut -d '/' -f 1)", projectSlug: 'Sharpy', branch: '$BRANCH'}" -H "Authorization: Bearer $APPVEYOR_API_TOKEN" -H 'Content-Type: application/json' -X POST https://ci.appveyor.com/api/builds
