@@ -39,7 +39,7 @@ namespace Sharpy.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    var temp = new global::System.Resources.ResourceManager("Sharpy.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Sharpy.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -65,7 +65,7 @@ namespace Sharpy.Properties {
         /// </summary>
         internal static byte[] CountryCodes {
             get {
-                var obj = ResourceManager.GetObject("CountryCodes", resourceCulture);
+                object obj = ResourceManager.GetObject("CountryCodes", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -75,15 +75,13 @@ namespace Sharpy.Properties {
         /// </summary>
         internal static byte[] NamesByOrigin {
             get {
-                var obj = ResourceManager.GetObject("NamesByOrigin", resourceCulture);
+                object obj = ResourceManager.GetObject("NamesByOrigin", resourceCulture);
                 return ((byte[])(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 3d
-        ///a
-        ///a1
+        ///   Looks up a localized string similar to a
         ///aa
         ///aaberg
         ///aachen
@@ -102,7 +100,6 @@ namespace Sharpy.Properties {
         ///aarhus
         ///aarika
         ///aaron
-        ///aaron
         ///aaronaaronic
         ///aaronson
         ///ab
@@ -111,7 +108,6 @@ namespace Sharpy.Properties {
         ///abacist
         ///aback
         ///abacus
-        ///abad
         ///abad
         ///abadan
         ///abaddon
@@ -137,16 +133,18 @@ namespace Sharpy.Properties {
         ///abbacy
         ///abbasid
         ///abbate
-        ///abbate
         ///abbatial
         ///abbe
         ///abbess
         ///abbevillian
         ///abbey
-        ///abbey
         ///abbeyabbi
         ///abbie
-        ///abbieab [rest of string was truncated]&quot;;.
+        ///abbieabbot
+        ///abbotsen
+        ///abbotson
+        ///abbotsun
+        ///a [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string usernames {
             get {
