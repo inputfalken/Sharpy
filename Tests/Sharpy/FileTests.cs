@@ -10,12 +10,14 @@ using Sharpy.Properties;
 namespace Tests.Sharpy {
     [TestFixture]
     internal class FileTests {
+        private static readonly IEnumerable<Name> GetNames =
+            JsonConvert.DeserializeObject<IEnumerable<Name>>(Resources.NamesByOrigin);
+
         [Test(
             Description = "Verify that no name contains number"
         )]
         public void Name_Contains_No_Numbers() {
-            var deserializeObject = JsonConvert.DeserializeObject<IEnumerable<Name>>(
-                Encoding.UTF8.GetString(Resources.NamesByOrigin));
+            var deserializeObject = GetNames;
             var containsNumber = deserializeObject.Select(name => name.Data).All(s => s.Any(char.IsNumber));
             Assert.IsFalse(containsNumber);
         }
@@ -24,8 +26,7 @@ namespace Tests.Sharpy {
             Description = "Verify that no name contains puncatuation"
         )]
         public void Name_Contains_No_Punctuations() {
-            var deserializeObject = JsonConvert.DeserializeObject<IEnumerable<Name>>(
-                Encoding.UTF8.GetString(Resources.NamesByOrigin));
+            var deserializeObject = GetNames;
             var containsPuncation = deserializeObject.Select(name => name.Data).All(s => s.Any(char.IsPunctuation));
             Assert.IsFalse(containsPuncation);
         }
@@ -34,8 +35,7 @@ namespace Tests.Sharpy {
             Description = "Verify that no name contains separators"
         )]
         public void Name_Contains_No_Separator() {
-            var deserializeObject = JsonConvert.DeserializeObject<IEnumerable<Name>>(
-                Encoding.UTF8.GetString(Resources.NamesByOrigin));
+            var deserializeObject = GetNames;
             var containsSeperator = deserializeObject
                 .Select(name => name.Data)
                 .All(s => s.Any(char.IsSeparator));
@@ -46,8 +46,7 @@ namespace Tests.Sharpy {
             Description = "Verify that no name contains symbol"
         )]
         public void Name_Contains_No_Symbols() {
-            var deserializeObject = JsonConvert.DeserializeObject<IEnumerable<Name>>(
-                Encoding.UTF8.GetString(Resources.NamesByOrigin));
+            var deserializeObject = GetNames;
             var containsSymbols = deserializeObject
                 .Select(name => name.Data)
                 .Any(s => s.Any(char.IsSymbol));
@@ -58,8 +57,7 @@ namespace Tests.Sharpy {
             Description = "Verify that no name contains white space."
         )]
         public void Name_Contains_No_White_Space() {
-            var deserializeObject = JsonConvert.DeserializeObject<IEnumerable<Name>>(
-                Encoding.UTF8.GetString(Resources.NamesByOrigin));
+            var deserializeObject = GetNames;
             var containsWhiteSpace = deserializeObject
                 .Select(name => name.Data)
                 .Any(s => s.Any(char.IsWhiteSpace));
@@ -70,8 +68,7 @@ namespace Tests.Sharpy {
             Description = "Verify that all names starts with upper case"
         )]
         public void Name_Starts_With_Capital_Letter() {
-            var deserializeObject = JsonConvert.DeserializeObject<IEnumerable<Name>>(
-                Encoding.UTF8.GetString(Resources.NamesByOrigin));
+            var deserializeObject = GetNames;
             var startsWithUpperCase = deserializeObject
                 .Select(name => name.Data)
                 .All(s => char.IsUpper(s.First()));
@@ -87,7 +84,6 @@ namespace Tests.Sharpy {
                 .Any(s => s.Any(char.IsNumber));
             Assert.IsFalse(containsNumber);
         }
-
 
         [Test(
             Description = "Verify that no username contains punctuation."

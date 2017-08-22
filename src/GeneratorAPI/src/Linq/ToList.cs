@@ -19,7 +19,7 @@ namespace GeneratorAPI.Linq {
         /// </returns>
         /// <example>
         ///     <para>
-        ///         Here's an example of how you can create a <see cref="List{T}"/> from a generator.
+        ///         Here's an example of how you can create a <see cref="List{T}" /> from a generator.
         ///     </para>
         ///     <code language='c#'>
         ///          list&lt;int&gt; list = Factory.Incrementer(0).ToList(100);

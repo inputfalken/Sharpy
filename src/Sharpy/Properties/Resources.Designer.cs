@@ -19,7 +19,7 @@ namespace Sharpy.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -61,22 +61,40 @@ namespace Sharpy.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized string similar to [
+        ///  {
+        ///    &quot;type&quot;: 1,
+        ///    &quot;country&quot;: &quot;CostaRica&quot;,
+        ///    &quot;region&quot;: &quot;CentralAmerica&quot;,
+        ///    &quot;name&quot;: &quot;Karla&quot;
+        ///  },
+        ///  {
+        ///    &quot;type&quot;: 1,
+        ///    &quot;country&quot;: &quot;CostaRica&quot;,
+        ///    &quot;region&quot;: &quot;CentralAmerica&quot;,
+        ///    &quot;name&quot;: &quot;Natalia&quot;
+        ///  },
+        ///  {
+        ///    &quot;type&quot;: 1,
+        ///    &quot;country&quot;: &quot;CostaRica&quot;,
+        ///    &quot;region&quot;: &quot;CentralAmerica&quot;,
+        ///    &quot;name&quot;: &quot;Vanessa&quot;
+        ///  },
+        ///  {
+        ///    &quot;type&quot;: 1,
+        ///    &quot;country&quot;: &quot;CostaRica&quot;,
+        ///    &quot;region&quot;: &quot;CentralAmerica&quot;,
+        ///    &quot;name&quot;: &quot;Jc&quot;
+        ///  },
+        ///  {
+        ///    &quot;type&quot;: 1,
+        ///    &quot;country&quot;: &quot;CostaRica&quot;,
+        ///    &quot;region&quot;: &quot;CentralAmerica&quot;,
+        ///    &quot;name&quot;: &quot;N [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static byte[] CountryCodes {
+        internal static string NamesByOrigin {
             get {
-                object obj = ResourceManager.GetObject("CountryCodes", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] NamesByOrigin {
-            get {
-                object obj = ResourceManager.GetObject("NamesByOrigin", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("NamesByOrigin", resourceCulture);
             }
         }
         
@@ -144,7 +162,13 @@ namespace Sharpy.Properties {
         ///abbotsen
         ///abbotson
         ///abbotsun
-        ///a [rest of string was truncated]&quot;;.
+        ///abbott
+        ///abbottson
+        ///abbreviate
+        ///abbreviated
+        ///abbreviation
+        ///abby
+        ///abbyab [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string usernames {
             get {

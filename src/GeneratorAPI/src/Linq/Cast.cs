@@ -1,5 +1,4 @@
 ﻿using System;
-using static GeneratorAPI.Generator;
 
 namespace GeneratorAPI.Linq {
     public static partial class Extensions {
@@ -29,7 +28,7 @@ namespace GeneratorAPI.Linq {
             var result = generator as IGenerator<TResult>;
             if (result != null) return result;
             if (generator == null) throw new ArgumentNullException(nameof(generator));
-            return Function(() => (TResult) generator.Generate());
+            return Generator.Function(() => (TResult) generator.Generate());
         }
     }
 }

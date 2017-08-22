@@ -23,7 +23,7 @@ namespace GeneratorAPI.Linq {
         /// </returns>
         /// <example>
         ///     <para>
-        ///         Here's an example of how you can create a <see cref="Dictionary{TKey,TValue}"/> from a generator.
+        ///         Here's an example of how you can create a <see cref="Dictionary{TKey,TValue}" /> from a generator.
         ///     </para>
         ///     <code language='c#'>
         ///         Dictionary&lt;int,int&gt; dict = Factory.Incrementer(0).ToDictionary(100, (int ks) => ks, (int es) => es);

@@ -1,5 +1,4 @@
 ﻿using System;
-using static GeneratorAPI.Generator;
 
 namespace GeneratorAPI.Linq {
     public static partial class Extensions {
@@ -38,7 +37,7 @@ namespace GeneratorAPI.Linq {
             Func<TSource, TResult> selector) {
             if (selector == null) throw new ArgumentNullException(nameof(selector));
             if (generator == null) throw new ArgumentNullException(nameof(generator));
-            return Function(() => selector(generator.Generate()));
+            return Generator.Function(() => selector(generator.Generate()));
         }
 
         /// <summary>
@@ -68,7 +67,8 @@ namespace GeneratorAPI.Linq {
         /// <example>
         ///     <para>
         ///         Here's an example of transforming a string to int with a counter included.
-        ///         The result will be a generator which creates integers equal to the length of each first name generated plus the current generation index.
+        ///         The result will be a generator which creates integers equal to the length of each first name generated plus the
+        ///         current generation index.
         ///     </para>
         ///     <code language="c#">
         ///         IGenerator&lt;int&gt; transformedGenerator = Factory.FirstName().Select((string x, int y) => x.Length + y);

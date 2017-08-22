@@ -8,15 +8,6 @@ namespace Tests.GeneratorAPI.LinqTests {
     [TestFixture]
     internal class Skiptests {
         [Test(
-            Description = "Verify that you can skip fifty elements"
-        )]
-        public void Skip_Fifty() {
-            var generator = Factory.Incrementer(1)
-                .Skip(50);
-            Assert.AreEqual(51, generator.Generate());
-        }
-
-        [Test(
             Description = "Verify that skip is lazy Evaluated"
         )]
         public void Is_Evaluated_After_Generate_Is_Invoked() {
@@ -32,6 +23,15 @@ namespace Tests.GeneratorAPI.LinqTests {
             // Evaluated
             generator.Generate();
             Assert.IsTrue(invoked);
+        }
+
+        [Test(
+            Description = "Verify that you can skip fifty elements"
+        )]
+        public void Skip_Fifty() {
+            var generator = Factory.Incrementer(1)
+                .Skip(50);
+            Assert.AreEqual(51, generator.Generate());
         }
 
         [Test(
