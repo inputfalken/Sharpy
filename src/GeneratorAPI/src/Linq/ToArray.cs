@@ -15,7 +15,7 @@ namespace GeneratorAPI.Linq {
         /// </returns>
         /// <example>
         ///     <para>
-        ///         Here's an example of how you can create an <see cref="System.Array"/> from a generator.
+        ///         Here's an example of how you can create an <see cref="System.Array" /> from a generator.
         ///     </para>
         ///     <code language='c#'>
         ///         int[] arr = Factory.Incrementer(0).ToArray(100);

@@ -1,9 +1,7 @@
-﻿using GeneratorAPI;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Sharpy;
 using Sharpy.Enums;
 using Sharpy.Implementation;
-using Sharpy.IProviders;
 
 namespace Tests.Sharpy.Integration {
     [TestFixture]

@@ -1,5 +1,4 @@
 ﻿using System;
-using static GeneratorAPI.Generator;
 
 namespace GeneratorAPI.Linq {
     public static partial class Extensions {
@@ -29,8 +28,8 @@ namespace GeneratorAPI.Linq {
         /// </returns>
         /// <example>
         ///     <para>
-        ///         Here's an example of how you can merge two <see cref="IGenerator{T}"/>.
-        ///         The result is a <see cref="IGenerator{T}"/> whose generations will invoke the second lambda argument.
+        ///         Here's an example of how you can merge two <see cref="IGenerator{T}" />.
+        ///         The result is a <see cref="IGenerator{T}" /> whose generations will invoke the second lambda argument.
         ///     </para>
         ///     <code language='c#'>
         ///          IGenerator&lt;int&gt; randomizer = Factory.Randomizer(10, 100);
@@ -43,7 +42,7 @@ namespace GeneratorAPI.Linq {
             if (first == null) throw new ArgumentNullException(nameof(first));
             if (second == null) throw new ArgumentNullException(nameof(second));
             if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
-            return Function(() => resultSelector(first.Generate(), second.Generate()));
+            return Generator.Function(() => resultSelector(first.Generate(), second.Generate()));
         }
     }
 }

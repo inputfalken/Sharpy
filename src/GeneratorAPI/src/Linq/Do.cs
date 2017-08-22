@@ -1,5 +1,4 @@
 ﻿using System;
-using static GeneratorAPI.Generator;
 
 namespace GeneratorAPI.Linq {
     public static partial class Extensions {
@@ -21,7 +20,7 @@ namespace GeneratorAPI.Linq {
         /// <example>
         ///     <para>
         ///         Here's an example of how you can expose each generated element.
-        ///         The result is a generator which will call method <see cref="Console.WriteLine(int)"/> every time you generate.
+        ///         The result is a generator which will call method <see cref="Console.WriteLine(int)" /> every time you generate.
         ///     </para>
         ///     <code language='c#'>
         ///          IGenerator&lt;int&gt; = Factory.Incrementer(0).Do((int x) => Console.WriteLine(x));
@@ -30,7 +29,7 @@ namespace GeneratorAPI.Linq {
         public static IGenerator<TSource> Do<TSource>(this IGenerator<TSource> generator, Action<TSource> action) {
             if (action == null) throw new ArgumentNullException(nameof(action));
             if (generator == null) throw new ArgumentNullException(nameof(generator));
-            return Function(() => {
+            return Generator.Function(() => {
                 var generation = generator.Generate();
                 action(generation);
                 return generation;

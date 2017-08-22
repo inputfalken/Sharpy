@@ -21,7 +21,7 @@ namespace GeneratorAPI.Linq {
         /// </returns>
         /// <example>
         ///     <para>
-        ///         Here's an example of how you can create an <see cref="IEnumerable{T}"/> from a generator.
+        ///         Here's an example of how you can create an <see cref="IEnumerable{T}" /> from a generator.
         ///     </para>
         ///     <code language='c#'>
         ///          IEenumerable&lt;int&gt; = Factory.Incrementer(0).Take(100);

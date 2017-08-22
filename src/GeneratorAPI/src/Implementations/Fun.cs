@@ -2,7 +2,7 @@
 
 namespace GeneratorAPI.Implementations {
     /// <summary>
-    ///     <para>A Generator using <see cref="Func{TResult}"/></para>
+    ///     <para>A Generator using <see cref="Func{TResult}" /></para>
     /// </summary>
     internal sealed class Fun<T> : IGenerator<T> {
         private readonly Func<T> _fn;

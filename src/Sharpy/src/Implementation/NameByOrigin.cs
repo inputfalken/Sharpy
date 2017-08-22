@@ -28,7 +28,6 @@ namespace Sharpy.Implementation {
         private readonly ISet<Origin> _selectedCountries = new HashSet<Origin>();
         private readonly ISet<Origin> _selectedRegions = new HashSet<Origin>();
 
-
         private NameByOrigin(Random random) {
             _random = random;
         }
@@ -45,26 +44,22 @@ namespace Sharpy.Implementation {
                 else _selectedCountries.Add(origin);
         }
 
+        /// <inheritdoc />
         /// <summary>
         ///     <para>
-        ///         Randomizes common names by <see cref="Enums.Origin" /> using <see cref="Random" />.
+        ///         Randomizes common names by <see cref="T:Sharpy.Enums.Origin" /> using <see cref="T:System.Random" />.
         ///     </para>
         /// </summary>
         /// <param name="origins">
-        /// The name origins.
+        ///     The name origins.
         /// </param>
         public NameByOrigin(params Origin[] origins) : this(new Random(), origins) { }
 
-
-        private static IEnumerable<Name> Names {
-            get { return LazyNames.Value; }
-        }
-
+        private static IEnumerable<Name> Names => LazyNames.Value;
 
         private static Lazy<IEnumerable<Name>> LazyNames { get; } =
-            new Lazy<IEnumerable<Name>>(() => JsonConvert.DeserializeObject<IEnumerable<Name>>(
-                Encoding.UTF8.GetString(Resources.NamesByOrigin)));
-
+            new Lazy<IEnumerable<Name>>(() => JsonConvert.DeserializeObject<IEnumerable<Name>>(Resources.NamesByOrigin
+                ));
 
         private Dictionary<NameType, IReadOnlyList<string>> Dictionary { get; } =
             new Dictionary<NameType, IReadOnlyList<string>>();
@@ -96,7 +91,7 @@ namespace Sharpy.Implementation {
         ///     The name origins.
         /// </param>
         /// <returns>
-        ///  A <see cref="IEnumerable{T}"/> with names from the <paramref name="origins"/> used.
+        ///     A <see cref="IEnumerable{T}" /> with names from the <paramref name="origins" /> used.
         /// </returns>
         public static IEnumerable<string> GetCollection(params Origin[] origins) {
             return origins.Any()
@@ -117,7 +112,6 @@ namespace Sharpy.Implementation {
             else throw new Exception("Can't obtain strings with this configuration");
             return Dictionary[arg].RandomItem(_random);
         }
-
 
         private IEnumerable<Name> Origin(IEnumerable<Name> names) {
             return _origins != null && _origins.Any()

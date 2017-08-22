@@ -25,7 +25,8 @@ namespace Sharpy {
         private readonly IIntegerProvider _integerProvider;
 
         private readonly Lazy<string[]> _lazyUsernames =
-            new Lazy<string[]>(() => Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None));
+            new Lazy<string[]>(() => Resources.usernames.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None));
+
 
         private readonly ILongProvider _longProvider;
         private readonly EmailBuilder _mailbuilder;

@@ -1,5 +1,4 @@
 ﻿using System;
-using static GeneratorAPI.Generator;
 
 namespace GeneratorAPI.Linq {
     public static partial class Extensions {
@@ -31,7 +30,7 @@ namespace GeneratorAPI.Linq {
             Func<TSource, IGenerator<TResult>> selector) {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (selector == null) throw new ArgumentNullException(nameof(selector));
-            return Function(() => selector(generator.Generate()).Generate());
+            return Generator.Function(() => selector(generator.Generate()).Generate());
         }
 
         /// <summary>
@@ -72,7 +71,8 @@ namespace GeneratorAPI.Linq {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (selector == null) throw new ArgumentNullException(nameof(selector));
             if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
-            return generator.SelectMany(a => selector(a).SelectMany(r => Function(() => resultSelector(a, r))));
+            return generator.SelectMany(
+                a => selector(a).SelectMany(r => Generator.Function(() => resultSelector(a, r))));
         }
     }
 }

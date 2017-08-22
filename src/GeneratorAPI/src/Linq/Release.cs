@@ -26,7 +26,8 @@ namespace GeneratorAPI.Linq {
         /// <example>
         ///     <para>
         ///         Here's an example of releasing 20 elements.
-        ///         The result will be a <see cref="IGenerator{T}"/> who has invoked <see cref="IGenerator{T}.Generate"/> 20 times.
+        ///         The result will be a <see cref="IGenerator{T}" /> who has invoked <see cref="IGenerator{T}.Generate" /> 20
+        ///         times.
         ///     </para>
         ///     <code language="c#">
         ///         IGenerator&lt;int&gt; releasedGenerator = Factory.FirstName().Release(20);

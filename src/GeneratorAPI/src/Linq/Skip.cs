@@ -1,5 +1,4 @@
 using System;
-using static GeneratorAPI.Generator;
 
 namespace GeneratorAPI.Linq {
     public static partial class Extensions {
@@ -29,7 +28,7 @@ namespace GeneratorAPI.Linq {
             if (count < 0) throw new ArgumentException($"{nameof(count)} Cant be negative");
             if (count == 0) return generator;
             var skipped = new Lazy<IGenerator<TSource>>(() => ReleaseIterator(generator, count));
-            return Function(() => skipped.Value.Generate());
+            return Generator.Function(() => skipped.Value.Generate());
         }
     }
 }
