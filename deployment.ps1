@@ -50,10 +50,10 @@ function deployToNuget ([string] $label, [bool] $suffixBuild) {
 
   if ($suffixBuild) {
     nuget pack $project -IncludeReferencedProjects -Prop configuration=release -Suffix $suffix
-    nuget push "$($fileName)-$($suffix).nupkg" -Verbosity detailed -ApiKey $nugetApiKey -Source $packageSource
+    dotnet nuget push "$($fileName)-$($suffix).nupkg" -k $nugetApiKey -s $packageSource
   } else {
     nuget pack $project -IncludeReferencedProjects -Prop configuration=release
-    nuget push "$($fileName).nupkg" -Verbosity detailed -ApiKey $nugetApiKey -Source $packageSource
+    dotnet nuget push "$($fileName).nupkg" -k $nugetApiKey -s $packageSource
   }
   if ($?) {
     updateDocumentation
