@@ -20,7 +20,7 @@ after_build:
 clone_depth: 1
 test_script:
   # run the unit tests (requires changing into the test directory)
-  - cmd: dotnet test ./Tests/Tests.csproj
+  - cmd: dotnet test ./Tests/Tests.csproj -c Release
 on_finish :
   # any cleaup in here
 deploy_script:
