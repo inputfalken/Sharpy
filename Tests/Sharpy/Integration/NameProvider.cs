@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using GeneratorAPI;
-using GeneratorAPI.Linq;
 using NUnit.Framework;
 using Sharpy;
 using Sharpy.Enums;
+using Sharpy.Generator;
+using Sharpy.Generator.Linq;
 using Sharpy.Implementation;
 
 namespace Tests.Sharpy.Integration {

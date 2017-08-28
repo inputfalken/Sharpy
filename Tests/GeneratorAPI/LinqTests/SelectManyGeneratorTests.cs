@@ -1,8 +1,8 @@
 ﻿using System;
-using GeneratorAPI;
-using GeneratorAPI.Linq;
 using NUnit.Framework;
 using Sharpy;
+using Sharpy.Generator;
+using Sharpy.Generator.Linq;
 
 namespace Tests.GeneratorAPI.LinqTests {
     [TestFixture]
@@ -10,8 +10,7 @@ namespace Tests.GeneratorAPI.LinqTests {
         [SetUp]
         public void Initiate() {
             _generator = Factory.Incrementer(0);
-            _selectorGenerator = Factory.Incrementer(0)
-                .Select(i => i * 2);
+            _selectorGenerator = Factory.Incrementer(0).Select(i => i * 2);
         }
 
         [TearDown]
@@ -86,7 +85,6 @@ namespace Tests.GeneratorAPI.LinqTests {
             Assert.Throws<ArgumentNullException>(
                 () => _generator.SelectMany(i => _selectorGenerator, (i, i1) => i + i1));
         }
-
 
         [Test]
         public void Null_ResultSelector_Throws() {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using GeneratorAPI;
-using GeneratorAPI.Linq;
 using NUnit.Framework;
 using Sharpy;
+using Sharpy.Generator;
+using Sharpy.Generator.Linq;
 
 namespace Tests.Sharpy.Integration {
     [TestFixture]
@@ -75,7 +75,6 @@ namespace Tests.Sharpy.Integration {
                     .Take(Length);
             Assert.Throws<ArgumentOutOfRangeException>(() => longs.ToArray());
 
-
             Assert.Throws<ArgumentOutOfRangeException>(
                 () => Generator.Create(new Provider())
                     .Select(generator => generator.Long(0))
@@ -146,7 +145,6 @@ namespace Tests.Sharpy.Integration {
 
             Assert.IsTrue(longInstance < 0);
         }
-
 
         [Test]
         public void Two_Args_Thousand_And_TwoThousand() {

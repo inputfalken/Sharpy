@@ -1,8 +1,8 @@
 # Pack package to root directory of project and returns the file.
-function Pack ([string] $project, [bool] $isBeta) {
+function Pack ([string] $project, [bool] $isAlpha) {
   $currentDirectory = (Resolve-Path .\).Path
-  if ($isBeta) {
-    dotnet pack $project --version-suffix beta -c Release -o $currentDirectory
+  if ($isAlpha) {
+    dotnet pack $project --version-suffix alpha -c Release -o $currentDirectory
   } else {
     dotnet pack $project -c Release -o $currentDirectory
   }
@@ -19,10 +19,10 @@ function Deploy ([string] $package) {
   }
 }
 # If returns true if the branch is development and false if it's master.
-function Is-beta([string] $branch) {
+function Is-Alpha([string] $branch) {
   switch ($branch) {
     "development" {
-      Write-Host "Proceeding script with beta version for branch: $branch." -ForegroundColor yellow
+      Write-Host "Proceeding script with alpha version for branch: $branch." -ForegroundColor yellow
       return 1
     }
     "master" {
@@ -36,32 +36,29 @@ function Is-beta([string] $branch) {
   }
 }
 # Fetch the online version
-function Fetch-OnlineVersion ([string] $listSource, [string] $projectName, [bool] $isBeta) {
+function Fetch-OnlineVersion ([string] $listSource, [string] $projectName, [bool] $isAlpha) {
   Write-Host "Fetching NuGet version from $listSource" -ForegroundColor yellow
-  # Use beta version if the current branch is development.
-  if ($isBeta) {
+  # Use alpha version if the current branch is development.
+  if ($isAlpha) {
     $packageName = NuGet list $projectName -PreRelease -Source $listSource
   } else {
     $packageName = NuGet list $projectName -Source $listSource
   }
   # $packageName comes in format: "packageName 1.0.0".
   $version = ($packageName.Split(" ") | Select-Object -Last 1)
-  # In beta version the version also includes the string "version-beta" where version is the semver.
-  if ($isBeta) {
+  # In alpha version the version also includes the string "version-alpha" where version is the semver.
+  if ($isAlpha) {
     $version = ($version | select -Last 1).Split("-") | select -First 1
   }
   # A hack to get set the revision property to zero.
   $version = "$version.0"
   return [version] $version
 }
-# Find assembly version info.
-function findAssemblyVersion ([string] $assemblyVersionName) {
-  $pattern = '\[assembly: {0}\("(.*)"\)\]' -f $assemblyVersionName
-    (Get-Content '.\src\Sharpy\Properties\AssemblyInfo.cs') | ForEach-Object {
-      if($_ -match $pattern) {
-        return $matches[1]
-      }
-    }
+# Gets the local csproj version from the tag 'VersionPrefix'
+function Get-LocalVersion ([string] $project) {
+  [string] $versionNodeValue = ((Select-Xml -Path $project -XPath '//VersionPrefix') | select -ExpandProperty node).InnerText
+  $version = "$versionNodeValue.0"
+  return [version] $version
 }
 # Updates DocFx documentation.
 function Update-GHPages {
@@ -85,20 +82,20 @@ function Update-GHPages {
 
 $project = '.\src\Sharpy\Sharpy.csproj'
 $branch = $env:APPVEYOR_REPO_BRANCH
-$isBeta = Is-beta $branch
+$isAlpha = Is-Alpha $branch
 
-[version] $onlineVersion = Fetch-OnlineVersion 'https://nuget.org/api/v2/' 'Sharpy' $isBeta
-[version]$localVersion = findAssemblyVersion 'AssemblyInformationalVersion'
+[version] $onlineVersion = Fetch-OnlineVersion 'https://nuget.org/api/v2/' 'Sharpy' $isAlpha
+[version] $localVersion = Get-LocalVersion $project
 
 Write-Host "Comparing Local version($localVersion) with online version($onlineVersion)"
 if ($localVersion -gt $onlineVersion) {
   Write-Host "Local version($localVersion) is greater than the online version($onlineVersion), performing deployment" -ForegroundColor Yellow
-  Deploy (Pack $project $isBeta).Name
+  Deploy (Pack $project $isAlpha).Name
   # If it's the master branch
-  if(!$isBeta) {
+  if(!$isAlpha) {
     Update-GHPages
   } else {
-    Write-Host "Beta version, skipping documentation update." -ForegroundColor Yellow
+    Write-Host "Alpha version, skipping documentation update." -ForegroundColor Yellow
   }
 } else {
   Write-Host "Local version($localVersion) is not greater than online version($onlineVersion), skipping deployment" -ForegroundColor Yellow

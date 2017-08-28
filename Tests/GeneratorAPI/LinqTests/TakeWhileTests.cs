@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using GeneratorAPI;
-using GeneratorAPI.Linq;
 using NUnit.Framework;
 using Sharpy;
+using Sharpy.Generator;
+using Sharpy.Generator.Linq;
 
 namespace Tests.GeneratorAPI.LinqTests {
     [TestFixture]
@@ -19,14 +19,6 @@ namespace Tests.GeneratorAPI.LinqTests {
         }
 
         private IGenerator<int> _generator;
-
-        [Test]
-        public void Predicate_Gives_Expected_Elements() {
-            var result = _generator.TakeWhile(i => i < 20);
-            var expected = Enumerable.Range(0, 20);
-
-            Assert.AreEqual(expected, result);
-        }
 
         [Test]
         public void False_Predicate_Returns_Empty_Enumerable() {
@@ -45,6 +37,14 @@ namespace Tests.GeneratorAPI.LinqTests {
         public void Null_Predicate_Throws() {
             Func<int, bool> predicate = null;
             Assert.Throws<ArgumentNullException>(() => _generator.TakeWhile(predicate));
+        }
+
+        [Test]
+        public void Predicate_Gives_Expected_Elements() {
+            var result = _generator.TakeWhile(i => i < 20);
+            var expected = Enumerable.Range(0, 20);
+
+            Assert.AreEqual(expected, result);
         }
     }
 }

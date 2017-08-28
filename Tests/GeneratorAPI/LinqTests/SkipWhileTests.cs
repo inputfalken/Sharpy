@@ -1,8 +1,8 @@
 ﻿using System;
-using GeneratorAPI;
-using GeneratorAPI.Linq;
 using NUnit.Framework;
 using Sharpy;
+using Sharpy.Generator;
+using Sharpy.Generator.Linq;
 
 namespace Tests.GeneratorAPI.LinqTests {
     [TestFixture]
@@ -20,23 +20,9 @@ namespace Tests.GeneratorAPI.LinqTests {
         private IGenerator<int> _generator;
 
         [Test]
-        public void Is_Evaluated_After_Generate_Is_Invoked() {
-            var invoked = false;
-            var skipWhile = _generator.SkipWhile(i => {
-                invoked = true;
-                return false;
-            });
-            // Not evaluated
-            Assert.IsFalse(invoked);
-            // Evaluated
-            skipWhile.Generate();
-            Assert.IsTrue(invoked);
-        }
-
-        [Test]
-        public void Includes_First_False_Case() {
-            var skipWhile = _generator.SkipWhile(i => i < 20);
-            Assert.AreEqual(20, skipWhile.Generate());
+        public void Bad_Predicate_Throws() {
+            var skipWhile = _generator.SkipWhile(i => true);
+            Assert.Throws<ArgumentException>(() => skipWhile.Generate());
         }
 
         [Test]
@@ -53,21 +39,35 @@ namespace Tests.GeneratorAPI.LinqTests {
         }
 
         [Test]
-        public void Bad_Predicate_Throws() {
-            var skipWhile = _generator.SkipWhile(i => true);
-            Assert.Throws<ArgumentException>(() => skipWhile.Generate());
+        public void Includes_First_False_Case() {
+            var skipWhile = _generator.SkipWhile(i => i < 20);
+            Assert.AreEqual(20, skipWhile.Generate());
         }
 
         [Test]
-        public void Null_Predicate_Throws() {
-            Func<int, bool> predicate = null;
-            Assert.Throws<ArgumentNullException>(() => _generator.SkipWhile(predicate));
+        public void Is_Evaluated_After_Generate_Is_Invoked() {
+            var invoked = false;
+            var skipWhile = _generator.SkipWhile(i => {
+                invoked = true;
+                return false;
+            });
+            // Not evaluated
+            Assert.IsFalse(invoked);
+            // Evaluated
+            skipWhile.Generate();
+            Assert.IsTrue(invoked);
         }
 
         [Test]
         public void Null_Generator_Throws() {
             _generator = null;
             Assert.Throws<ArgumentNullException>(() => _generator.SkipWhile(i => false));
+        }
+
+        [Test]
+        public void Null_Predicate_Throws() {
+            Func<int, bool> predicate = null;
+            Assert.Throws<ArgumentNullException>(() => _generator.SkipWhile(predicate));
         }
     }
 }

@@ -1,21 +1,12 @@
 ﻿using System;
-using GeneratorAPI;
-using GeneratorAPI.Linq;
 using NUnit.Framework;
 using Sharpy;
+using Sharpy.Generator;
+using Sharpy.Generator.Linq;
 
 namespace Tests.GeneratorAPI.LinqTests {
     [TestFixture]
     internal class Skiptests {
-        [Test(
-            Description = "Verify that you can skip fifty elements"
-        )]
-        public void Skip_Fifty() {
-            var generator = Factory.Incrementer(1)
-                .Skip(50);
-            Assert.AreEqual(51, generator.Generate());
-        }
-
         [Test(
             Description = "Verify that skip is lazy Evaluated"
         )]
@@ -32,6 +23,14 @@ namespace Tests.GeneratorAPI.LinqTests {
             // Evaluated
             generator.Generate();
             Assert.IsTrue(invoked);
+        }
+
+        [Test(
+            Description = "Verify that you can skip fifty elements"
+        )]
+        public void Skip_Fifty() {
+            var generator = Factory.Incrementer(1).Skip(50);
+            Assert.AreEqual(51, generator.Generate());
         }
 
         [Test(
@@ -54,8 +53,7 @@ namespace Tests.GeneratorAPI.LinqTests {
             Description = "Verify that you can skip zero elements"
         )]
         public void Skip_Zero() {
-            var generator = Factory.Incrementer(1)
-                .Skip(0);
+            var generator = Factory.Incrementer(1).Skip(0);
             Assert.AreEqual(1, generator.Generate());
         }
 
@@ -63,8 +61,7 @@ namespace Tests.GeneratorAPI.LinqTests {
             Description = "Verify that you can skip zero elements and it does nothing"
         )]
         public void Skip_Zero_Does_Nothing() {
-            var result = Factory.Incrementer(1)
-                .Skip(0);
+            var result = Factory.Incrementer(1).Skip(0);
 
             var expected = Factory.Incrementer(1);
             Assert.AreEqual(expected.Generate(), result.Generate());

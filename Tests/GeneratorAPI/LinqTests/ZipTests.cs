@@ -1,8 +1,8 @@
 ﻿using System;
-using GeneratorAPI;
-using GeneratorAPI.Linq;
 using NUnit.Framework;
 using Sharpy;
+using Sharpy.Generator;
+using Sharpy.Generator.Linq;
 
 namespace Tests.GeneratorAPI.LinqTests {
     public class ZipTests {
@@ -61,7 +61,6 @@ namespace Tests.GeneratorAPI.LinqTests {
             generator.Generate();
             Assert.IsTrue(invoked);
         }
-
 
         [Test(
             Description = "Verify that Zip with null Generator and null first arg throws exception"

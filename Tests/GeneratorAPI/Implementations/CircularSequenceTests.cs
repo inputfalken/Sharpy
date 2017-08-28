@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using GeneratorAPI;
-using GeneratorAPI.Linq;
 using NUnit.Framework;
+using Sharpy.Generator;
+using Sharpy.Generator.Linq;
 
 namespace Tests.GeneratorAPI.Implementations {
     [TestFixture]

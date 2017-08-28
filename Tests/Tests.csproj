@@ -1,119 +1,21 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0C814542-DA6C-479D-A26A-9DB15D9E19C2}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tests</RootNamespace>
-    <AssemblyName>Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="NodaTime, Version=2.2.0.0, Culture=neutral, PublicKeyToken=4226afe0d9b296d1, processorArchitecture=MSIL">
-      <HintPath>..\packages\NodaTime.2.2.0\lib\net45\NodaTime.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework, Version=3.7.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.3.7.1\lib\net45\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="GeneratorAPI\LinqTests\TakeWhileTests.cs" />
-    <Compile Include="GeneratorAPI\LinqTests\SkipWhileTests.cs" />
-    <Compile Include="GeneratorAPI\LinqTests\ReleaseTests.cs" />
-    <Compile Include="GeneratorAPI\LinqTests\SelectManyEnumerableTests.cs" />
-    <Compile Include="GeneratorAPI\LinqTests\Skiptests.cs" />
-    <Compile Include="GeneratorAPI\Implementations\CircularSequenceTests.cs" />
-    <Compile Include="GeneratorAPI\GeneratorTests.cs" />
-    <Compile Include="GeneratorAPI\LinqTests\CastTests.cs" />
-    <Compile Include="GeneratorAPI\LinqTests\DoTests.cs" />
-    <Compile Include="GeneratorAPI\LinqTests\WhereTests.cs" />
-    <Compile Include="GeneratorAPI\LinqTests\SelectManyGeneratorTests.cs" />
-    <Compile Include="GeneratorAPI\LinqTests\SelectTests.cs" />
-    <Compile Include="GeneratorAPI\LinqTests\TakeTests.cs" />
-    <Compile Include="GeneratorAPI\LinqTests\ToArrayTests.cs" />
-    <Compile Include="GeneratorAPI\LinqTests\ToDictionaryTests.cs" />
-    <Compile Include="GeneratorAPI\LinqTests\ToListTests.cs" />
-    <Compile Include="GeneratorAPI\LinqTests\ZipTests.cs" />
-    <Compile Include="GeneratorAPI\Implementations\CreateTests.cs" />
-    <Compile Include="GeneratorAPI\Implementations\FunctionTests.cs" />
-    <Compile Include="GeneratorAPI\Implementations\LazyTests.cs" />
-    <Compile Include="Sharpy\FactoryTests\DecrementerTests.cs" />
-    <Compile Include="Sharpy\FactoryTests\GuidTests.cs" />
-    <Compile Include="Sharpy\FactoryTests\IncrementerTests.cs" />
-    <Compile Include="Sharpy\FactoryTests\RandomizerTests.cs" />
-    <Compile Include="Sharpy\FileTests.cs" />
-    <Compile Include="Sharpy\Integration\Bool.cs" />
-    <Compile Include="Sharpy\Integration\Config.cs" />
-    <Compile Include="Sharpy\Integration\CustomCollection.cs" />
-    <Compile Include="Sharpy\Integration\DateByAge.cs" />
-    <Compile Include="Sharpy\Integration\DateByYear.cs" />
-    <Compile Include="Sharpy\Integration\Double.cs" />
-    <Compile Include="Sharpy\Integration\GeneratorExtensionTests.cs" />
-    <Compile Include="Sharpy\Integration\Integer.cs" />
-    <Compile Include="Sharpy\Integration\Long.cs" />
-    <Compile Include="Sharpy\Integration\MailAddress.cs" />
-    <Compile Include="Sharpy\Integration\Params.cs" />
-    <Compile Include="Sharpy\Integration\NumberByLength.cs" />
-    <Compile Include="Sharpy\Integration\Seed.cs" />
-    <Compile Include="Sharpy\Integration\SocialSecurity.cs" />
-    <Compile Include="Sharpy\Integration\NameProvider.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\src\GeneratorAPI\GeneratorAPI.csproj">
-      <Project>{4763d497-df9e-487c-b210-9de72f5ecace}</Project>
-      <Name>GeneratorAPI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\src\Sharpy\Sharpy.csproj">
-      <Project>{e4c60589-e7ce-471c-82e3-28c356cd1191}</Project>
-      <Name>Sharpy</Name>
-    </ProjectReference>
-  </ItemGroup>
+
   <ItemGroup>
     <Folder Include="Sharpy\Unit\" />
   </ItemGroup>
+
   <ItemGroup>
-    <None Include="packages.config" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
+    <PackageReference Include="NUnit" Version="3.7.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.8.0" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
+  <ItemGroup>
+    <ProjectReference Include="..\src\Sharpy\Sharpy.csproj" />
+  </ItemGroup>
+
 </Project>

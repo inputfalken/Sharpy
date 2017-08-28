@@ -9,7 +9,9 @@ namespace Sharpy.Implementation {
             var number = long.Parse(dateNumber + controlNumber);
             var resets = 0;
             while (HashSet.Contains(number)) {
-                if (controlNumber < 9999) controlNumber++;
+                if (controlNumber < 9999) {
+                    controlNumber++;
+                }
                 else {
                     controlNumber = 0;
                     if (resets++ == 2) return -1;

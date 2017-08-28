@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Linq;
-using GeneratorAPI;
-using GeneratorAPI.Linq;
 using NUnit.Framework;
 using Sharpy;
+using Sharpy.Generator;
+using Sharpy.Generator.Linq;
 
 namespace Tests.Sharpy.Integration {
     [TestFixture]
     public class Integer {
         private const int Length = 1000000;
-
 
         [Test]
         public void NoArgument() {
@@ -78,7 +77,6 @@ namespace Tests.Sharpy.Integration {
             Assert.IsTrue(intInstance >= 0 && intInstance < max);
         }
 
-
         [Test]
         public void Two_Args_MinusThousand_And_MinusTwoThousand() {
             const int min = -1000;
@@ -144,7 +142,6 @@ namespace Tests.Sharpy.Integration {
 
             Assert.IsTrue(intInstance < 0);
         }
-
 
         [Test]
         public void Two_Args_Thousand_And_TwoThousand() {
