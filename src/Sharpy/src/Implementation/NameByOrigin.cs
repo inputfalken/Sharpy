@@ -24,10 +24,22 @@ namespace Sharpy.Implementation {
             Enums.Origin.SouthAmerica
         };
 
+        private static readonly Lazy<IEnumerable<Name>> LazyNames;
+
         private readonly ISet<Origin> _origins;
         private readonly Random _random;
         private readonly ISet<Origin> _selectedCountries = new HashSet<Origin>();
         private readonly ISet<Origin> _selectedRegions = new HashSet<Origin>();
+
+        static NameByOrigin() {
+            LazyNames = new Lazy<IEnumerable<Name>>(() => {
+                var assembly = Assembly.Load("Sharpy");
+                var resourceStream = assembly.GetManifestResourceStream("Sharpy.Data.NamesByOrigin.json");
+                using (var reader = new StreamReader(resourceStream, Encoding.UTF8)) {
+                    return JsonConvert.DeserializeObject<IEnumerable<Name>>(reader.ReadToEnd());
+                }
+            });
+        }
 
         private NameByOrigin(Random random) => _random = random;
 
@@ -55,19 +67,6 @@ namespace Sharpy.Implementation {
         public NameByOrigin(params Origin[] origins) : this(new Random(), origins) { }
 
         internal static IEnumerable<Name> Names => LazyNames.Value;
-
-        // This code block is probably ran everytime Names is requested!
-        private static Lazy<IEnumerable<Name>> LazyNames {
-            get {
-                return new Lazy<IEnumerable<Name>>(() => {
-                    var assembly = Assembly.Load("Sharpy");
-                    var resourceStream = assembly.GetManifestResourceStream("Sharpy.Data.NamesByOrigin.json");
-                    using (var reader = new StreamReader(resourceStream, Encoding.UTF8)) {
-                        return JsonConvert.DeserializeObject<IEnumerable<Name>>(reader.ReadToEnd());
-                    }
-                });
-            }
-        }
 
         private Dictionary<NameType, IReadOnlyList<string>> Dictionary { get; } =
             new Dictionary<NameType, IReadOnlyList<string>>();
