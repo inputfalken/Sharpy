@@ -5,7 +5,6 @@ namespace Sharpy.Implementation {
         internal NumberGenerator(Random random)
             : base(random) { }
 
-
         internal int RandomNumber(int min, int max, bool unique = false) {
             var next = Random.Next(min, max);
             return unique ? CreateUniqueNumber(next, min, max) : next;

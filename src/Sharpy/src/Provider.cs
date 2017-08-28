@@ -23,13 +23,10 @@ namespace Sharpy {
     ///     </para>
     /// </summary>
     public class Provider : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider {
+        private static readonly Lazy<string[]> LazyUsernames;
         private readonly DateGenerator _dateGenerator;
         private readonly IDoubleProvider _doubleProvider;
         private readonly IIntegerProvider _integerProvider;
-
-        private static readonly Lazy<string[]> LazyUsernames;
-        internal static IEnumerable<string> UserNames => LazyUsernames.Value;
-
 
         private readonly ILongProvider _longProvider;
         private readonly EmailBuilder _mailbuilder;
@@ -38,10 +35,18 @@ namespace Sharpy {
         private readonly Random _random;
         private readonly SecurityNumberGen _securityNumberGen;
 
-
         private readonly bool _uniqueNumbers;
         private Tuple<int, int> _numberByLengthState = new Tuple<int, int>(0, 0);
 
+        static Provider() {
+            LazyUsernames = new Lazy<string[]>(() => {
+                var assembly = Assembly.Load("Sharpy");
+                var resourceStream = assembly.GetManifestResourceStream("Sharpy.Data.usernames.txt");
+                using (var reader = new StreamReader(resourceStream, Encoding.UTF8)) {
+                    return reader.ReadToEnd().Split(new[] {"\r\n", "\n"}, StringSplitOptions.None);
+                }
+            });
+        }
 
         /// <summary>
         ///     <para>
@@ -91,75 +96,43 @@ namespace Sharpy {
         /// </summary>
         public Provider() : this(new Configurement()) { }
 
-        static Provider() {
-            LazyUsernames = new Lazy<string[]>(() => {
-                var assembly = Assembly.Load("Sharpy");
-                var resourceStream = assembly.GetManifestResourceStream("Sharpy.Data.usernames.txt");
-                using (var reader = new StreamReader(resourceStream, Encoding.UTF8))
-                    return reader.ReadToEnd().Split(new[] {"\r\n", "\n"}, StringSplitOptions.None);
-            });
-        }
+        internal static IEnumerable<string> UserNames => LazyUsernames.Value;
 
         /// <inheritdoc cref="IDoubleProvider.Double()" />
-        public double Double() {
-            return _doubleProvider.Double();
-        }
+        public double Double() => _doubleProvider.Double();
 
         /// <inheritdoc cref="IDoubleProvider.Double(double)" />
-        public double Double(double max) {
-            return _doubleProvider.Double(max);
-        }
+        public double Double(double max) => _doubleProvider.Double(max);
 
         /// <inheritdoc cref="IDoubleProvider.Double(double, double)" />
-        public double Double(double min, double max) {
-            return _doubleProvider.Double(min, max);
-        }
+        public double Double(double min, double max) => _doubleProvider.Double(min, max);
 
         /// <inheritdoc cref="IIntegerProvider.Integer(int)" />
-        public int Integer(int max) {
-            return _integerProvider.Integer(max);
-        }
+        public int Integer(int max) => _integerProvider.Integer(max);
 
         /// <inheritdoc cref="IIntegerProvider.Integer(int, int)" />
-        public int Integer(int min, int max) {
-            return _integerProvider.Integer(min, max);
-        }
+        public int Integer(int min, int max) => _integerProvider.Integer(min, max);
 
         /// <inheritdoc cref="IIntegerProvider.Integer()" />
-        public int Integer() {
-            return _integerProvider.Integer();
-        }
+        public int Integer() => _integerProvider.Integer();
 
         /// <inheritdoc cref="ILongProvider.Long(long,long)" />
-        public long Long(long min, long max) {
-            return _longProvider.Long(min, max);
-        }
+        public long Long(long min, long max) => _longProvider.Long(min, max);
 
         /// <inheritdoc cref="ILongProvider.Long(long)" />
-        public long Long(long max) {
-            return _longProvider.Long(max);
-        }
+        public long Long(long max) => _longProvider.Long(max);
 
         /// <inheritdoc cref="ILongProvider.Long()" />
-        public long Long() {
-            return _longProvider.Long();
-        }
-
+        public long Long() => _longProvider.Long();
 
         /// <inheritdoc cref="INameProvider.FirstName()" />
-        public string FirstName() {
-            return _nameProvider.FirstName();
-        }
+        public string FirstName() => _nameProvider.FirstName();
 
         /// <inheritdoc cref="INameProvider.FirstName(Gender)" />
-        public string FirstName(Gender gender) {
-            return _nameProvider.FirstName(gender);
-        }
+        public string FirstName(Gender gender) => _nameProvider.FirstName(gender);
 
         /// <inheritdoc cref="INameProvider.LastName()" />
-        public string LastName() {
-            return _nameProvider.LastName();
-        }
+        public string LastName() => _nameProvider.LastName();
 
         /// <summary>
         ///     <para>
@@ -168,9 +141,7 @@ namespace Sharpy {
         /// </summary>
         /// <typeparam name="T">The type to randomized from.</typeparam>
         /// <param name="items">The <paramref name="items" /> to randomize from.</param>
-        public T Params<T>(params T[] items) {
-            return items.RandomItem(_random);
-        }
+        public T Params<T>(params T[] items) => items.RandomItem(_random);
 
         /// <summary>
         ///     <para>
@@ -179,9 +150,7 @@ namespace Sharpy {
         /// </summary>
         /// <typeparam name="T">The type to randomized from.</typeparam>
         /// <param name="items">The <paramref name="items" /> to randomize from.</param>
-        public T CustomCollection<T>(IReadOnlyList<T> items) {
-            return items.RandomItem(_random);
-        }
+        public T CustomCollection<T>(IReadOnlyList<T> items) => items.RandomItem(_random);
 
         /// <summary>
         ///     <para>
@@ -191,9 +160,7 @@ namespace Sharpy {
         /// <returns>
         ///     A bool whose value is randomized.
         /// </returns>
-        public bool Bool() {
-            return _random.Next(2) != 0;
-        }
+        public bool Bool() => _random.Next(2) != 0;
 
         /// <summary>
         ///     <para>
@@ -207,9 +174,7 @@ namespace Sharpy {
         ///     A <see cref="LocalDate" /> with todays year minus the argument <paramref name="age" />.
         ///     The month and date has been randomized.
         /// </returns>
-        public LocalDate DateByAge(int age) {
-            return _dateGenerator.RandomDateByAge(age);
-        }
+        public LocalDate DateByAge(int age) => _dateGenerator.RandomDateByAge(age);
 
         /// <summary>
         ///     <para>
@@ -223,9 +188,7 @@ namespace Sharpy {
         ///     A <see cref="LocalDate" /> with the argument <paramref name="year" /> as the year.
         ///     The month and date has been randomized.
         /// </returns>
-        public LocalDate DateByYear(int year) {
-            return _dateGenerator.RandomDateByYear(year);
-        }
+        public LocalDate DateByYear(int year) => _dateGenerator.RandomDateByYear(year);
 
         /// <summary>
         ///     <para>
@@ -253,7 +216,6 @@ namespace Sharpy {
             return formated ? securityNumber.Insert(6, "-") : securityNumber;
         }
 
-
         /// <summary>
         ///     <para>
         ///         Returns a <see cref="string" /> representing a unique mail address.
@@ -267,9 +229,7 @@ namespace Sharpy {
         /// <returns>
         ///     A string representing a email address.
         /// </returns>
-        public string MailAddress(string name, string secondName = null) {
-            return _mailbuilder.Mail(name, secondName);
-        }
+        public string MailAddress(string name, string secondName = null) => _mailbuilder.Mail(name, secondName);
 
         /// <summary>
         ///     <para>
@@ -304,17 +264,11 @@ namespace Sharpy {
         /// <returns>
         ///     A string representing a user name.
         /// </returns>
-        public string UserName() {
-            return LazyUsernames.Value.RandomItem(_random);
-        }
+        public string UserName() => LazyUsernames.Value.RandomItem(_random);
 
-        private static string Prefix<T>(T item, int ammount) {
-            return new string('0', ammount).Append(item);
-        }
+        private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
 
-        private static string FormatDigit(int i) {
-            return i < 10 ? Prefix(i, 1) : i.ToString();
-        }
+        private static string FormatDigit(int i) => i < 10 ? Prefix(i, 1) : i.ToString();
 
         /// <summary>
         ///     <para>
@@ -332,8 +286,7 @@ namespace Sharpy {
         ///         A <see cref="IGenerator{T}" />.
         ///     </para>
         /// </returns>
-        public static IGenerator<TProvider> AsGenerator<TProvider>(TProvider provider) where TProvider : Provider {
-            return Create(provider);
-        }
+        public static IGenerator<TProvider> AsGenerator<TProvider>(TProvider provider) where TProvider : Provider =>
+            Create(provider);
     }
 }

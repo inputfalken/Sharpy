@@ -25,8 +25,7 @@ namespace Sharpy.Generator.Linq {
         ///          list&lt;int&gt; list = Factory.Incrementer(0).ToList(100);
         ///     </code>
         /// </example>
-        public static List<TSource> ToList<TSource>(this IGenerator<TSource> generator, int count) {
-            return generator.Take(count).ToList();
-        }
+        public static List<TSource> ToList<TSource>(this IGenerator<TSource> generator, int count) =>
+            generator.Take(count).ToList();
     }
 }

@@ -21,16 +21,11 @@ namespace Sharpy.Generator.Implementations {
             else throw new ArgumentNullException(nameof(fn));
         }
 
-
         /// <summary>
         ///     <para>Gives &lt;T&gt;</para>
         /// </summary>
-        public T Generate() {
-            return _fn();
-        }
+        public T Generate() => _fn();
 
-        object IGenerator.Generate() {
-            return Generate();
-        }
+        object IGenerator.Generate() => Generate();
     }
 }

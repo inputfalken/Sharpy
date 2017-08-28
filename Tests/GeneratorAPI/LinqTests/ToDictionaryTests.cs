@@ -63,7 +63,6 @@ namespace Tests.GeneratorAPI.LinqTests {
             Assert.AreEqual(count, result.Count);
         }
 
-
         [Test(
             Description = "Verify that ToDictionary returns the expected elements"
         )]

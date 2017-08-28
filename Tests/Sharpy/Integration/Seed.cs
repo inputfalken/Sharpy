@@ -28,7 +28,6 @@ namespace Tests.Sharpy.Integration {
         /// </summary>
         private const int SleepDuration = 20;
 
-
         [Test]
         public void Select_Seed_Bool() {
             var g1 = Generator.Create(new Provider(TestSeed));
@@ -38,7 +37,6 @@ namespace Tests.Sharpy.Integration {
             var result = g2.Select(g => g.Bool()).Generate();
             Assert.AreEqual(expected, result);
         }
-
 
         [Test]
         public void Select_Seed_CustomCollection() {
@@ -180,7 +178,6 @@ namespace Tests.Sharpy.Integration {
             var result = g2.Select(generator => generator.MailAddress(name)).Generate();
             Assert.AreEqual(expected, result);
         }
-
 
         [Test]
         public void Select_Seed_Name_FemaleFirstName() {
@@ -432,7 +429,6 @@ namespace Tests.Sharpy.Integration {
             Assert.AreNotEqual(expected, result);
         }
 
-
         [Test]
         public void SelectMany_No_Seed_Name_FemaleFirstName() {
             var g1 = Generator.Create(new Provider());
@@ -682,7 +678,6 @@ namespace Tests.Sharpy.Integration {
             var result = g2.Select(generator => generator.MailAddress(name)).Take(Count);
             Assert.AreEqual(expected, result);
         }
-
 
         [Test]
         public void SelectMany_Seed_Name_FemaleFirstName() {

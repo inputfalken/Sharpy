@@ -49,7 +49,6 @@ namespace Tests.Sharpy.Integration {
             Assert.DoesNotThrow(() => result.ToArray());
         }
 
-
         [Test]
         public void No_Dash_With_False_Formating() {
             var gen = Generator.Create(new Provider());

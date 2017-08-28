@@ -16,19 +16,13 @@ namespace Sharpy.Implementation {
         /// <param name="random">
         ///     The randomizer.
         /// </param>
-        public DoubleRandomizer(Random random) {
-            _random = random;
-        }
+        public DoubleRandomizer(Random random) => _random = random;
 
         /// <inheritdoc cref="IDoubleProvider.Double()" />
-        public double Double() {
-            return _random.NextDouble();
-        }
+        public double Double() => _random.NextDouble();
 
         /// <inheritdoc cref="IDoubleProvider.Double(double)" />
-        public double Double(double max) {
-            return Double(0, max);
-        }
+        public double Double(double max) => Double(0, max);
 
         /// <inheritdoc cref="IDoubleProvider.Double(double, double)" />
         public double Double(double min, double max) {

@@ -30,8 +30,7 @@ namespace Sharpy.Generator.Linq {
         ///     </code>
         /// </example>
         public static Dictionary<TKey, TValue> ToDictionary<TSource, TKey, TValue>(this IGenerator<TSource> generator,
-            int count, Func<TSource, TKey> keySelector, Func<TSource, TValue> elementSelector) {
-            return generator.Take(count).ToDictionary(keySelector, elementSelector);
-        }
+            int count, Func<TSource, TKey> keySelector, Func<TSource, TValue> elementSelector) =>
+            generator.Take(count).ToDictionary(keySelector, elementSelector);
     }
 }

@@ -35,7 +35,6 @@ namespace Sharpy.IProviders {
         /// </returns>
         int Integer(int min, int max);
 
-
         /// <summary>
         ///     <para>
         ///         <para>

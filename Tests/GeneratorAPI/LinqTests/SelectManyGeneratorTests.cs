@@ -10,7 +10,7 @@ namespace Tests.GeneratorAPI.LinqTests {
         [SetUp]
         public void Initiate() {
             _generator = Factory.Incrementer(0);
-            _selectorGenerator = Extensions.Select<int, int>(Factory.Incrementer(0), i => i * 2);
+            _selectorGenerator = Factory.Incrementer(0).Select(i => i * 2);
         }
 
         [TearDown]
@@ -85,7 +85,6 @@ namespace Tests.GeneratorAPI.LinqTests {
             Assert.Throws<ArgumentNullException>(
                 () => _generator.SelectMany(i => _selectorGenerator, (i, i1) => i + i1));
         }
-
 
         [Test]
         public void Null_ResultSelector_Throws() {

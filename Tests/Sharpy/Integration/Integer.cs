@@ -10,7 +10,6 @@ namespace Tests.Sharpy.Integration {
     public class Integer {
         private const int Length = 1000000;
 
-
         [Test]
         public void NoArgument() {
             var ints = Generator.Create(new Provider())
@@ -78,7 +77,6 @@ namespace Tests.Sharpy.Integration {
             Assert.IsTrue(intInstance >= 0 && intInstance < max);
         }
 
-
         [Test]
         public void Two_Args_MinusThousand_And_MinusTwoThousand() {
             const int min = -1000;
@@ -144,7 +142,6 @@ namespace Tests.Sharpy.Integration {
 
             Assert.IsTrue(intInstance < 0);
         }
-
 
         [Test]
         public void Two_Args_Thousand_And_TwoThousand() {

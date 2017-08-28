@@ -63,7 +63,6 @@ namespace Tests.GeneratorAPI.LinqTests {
             Assert.IsTrue(invoked);
         }
 
-
         [Test(
             Description = "Verify that Select with null Generator and Argument throws exception"
         )]
