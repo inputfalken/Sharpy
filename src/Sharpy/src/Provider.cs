@@ -95,7 +95,7 @@ namespace Sharpy {
         static Provider() {
             LazyUsernames = new Lazy<string[]>(() => {
                 var assembly = Assembly.Load("Sharpy");
-                var resourceStream = assembly.GetManifestResourceStream("Sharpy.Data.NamesByOrigin.json");
+                var resourceStream = assembly.GetManifestResourceStream("Sharpy.Data.usernames.txt");
                 using (var reader = new StreamReader(resourceStream, Encoding.UTF8))
                     return reader.ReadToEnd().Split(new[] {"\r\n", "\n"}, StringSplitOptions.None);
             });
