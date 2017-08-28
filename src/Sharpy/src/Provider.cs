@@ -1,12 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using System.Text;
 using GeneratorAPI;
+using Newtonsoft.Json;
 using NodaTime;
 using Sharpy.Enums;
 using Sharpy.Implementation;
+using Sharpy.Implementation.DataObjects;
 using Sharpy.Implementation.ExtensionMethods;
 using Sharpy.IProviders;
-using Sharpy.Properties;
 
 namespace Sharpy {
     /// <summary>
@@ -24,8 +28,8 @@ namespace Sharpy {
         private readonly IDoubleProvider _doubleProvider;
         private readonly IIntegerProvider _integerProvider;
 
-        private readonly Lazy<string[]> _lazyUsernames =
-            new Lazy<string[]>(() => Resources.usernames.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None));
+        private static readonly Lazy<string[]> LazyUsernames;
+        internal static IEnumerable<string> UserNames => LazyUsernames.Value;
 
 
         private readonly ILongProvider _longProvider;
@@ -87,6 +91,15 @@ namespace Sharpy {
         ///     </para>
         /// </summary>
         public Provider() : this(new Configurement()) { }
+
+        static Provider() {
+            LazyUsernames = new Lazy<string[]>(() => {
+                var assembly = Assembly.Load("Sharpy");
+                var resourceStream = assembly.GetManifestResourceStream("Sharpy.Data.NamesByOrigin.json");
+                using (var reader = new StreamReader(resourceStream, Encoding.UTF8))
+                    return reader.ReadToEnd().Split(new[] {"\r\n", "\n"}, StringSplitOptions.None);
+            });
+        }
 
         /// <inheritdoc cref="IDoubleProvider.Double()" />
         public double Double() {
@@ -293,7 +306,7 @@ namespace Sharpy {
         ///     A string representing a user name.
         /// </returns>
         public string UserName() {
-            return _lazyUsernames.Value.RandomItem(_random);
+            return LazyUsernames.Value.RandomItem(_random);
         }
 
         private static string Prefix<T>(T item, int ammount) {
