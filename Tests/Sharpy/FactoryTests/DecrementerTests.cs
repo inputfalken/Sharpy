@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using GeneratorAPI.Linq;
 using NUnit.Framework;
 using Sharpy;
+using Sharpy.Generator.Linq;
 
 namespace Tests.Sharpy.FactoryTests {
     [TestFixture]
@@ -17,16 +17,14 @@ namespace Tests.Sharpy.FactoryTests {
 
         [Test]
         public void Int_MinValue_Throws() {
-            var result = Factory.Decrementer(int.MinValue)
-                .Take(500);
+            var result = Extensions.Take<int>(Factory.Decrementer(int.MinValue), (int) 500);
             Assert.Throws<OverflowException>(() => result.ToArray());
         }
 
 
         [Test]
         public void Start_Int_MaxValue_Does_Not_Throw() {
-            var result = Factory.Decrementer(int.MaxValue)
-                .Take(500);
+            var result = Extensions.Take<int>(Factory.Decrementer(int.MaxValue), (int) 500);
             Assert.DoesNotThrow(() => result.ToArray());
         }
 
@@ -34,8 +32,7 @@ namespace Tests.Sharpy.FactoryTests {
         public void Start_Minus_Twenty() {
             const int start = -20;
             const int count = 500;
-            var result = Factory.Decrementer(start)
-                .Take(count);
+            var result = Extensions.Take<int>(Factory.Decrementer(start), (int) count);
 
             var expected = GetExpectedDecrementationEnumerable(start, count);
 
@@ -46,8 +43,7 @@ namespace Tests.Sharpy.FactoryTests {
         public void Start_Twenty() {
             const int start = 20;
             const int count = 500;
-            var result = Factory.Decrementer(start)
-                .Take(count);
+            var result = Extensions.Take<int>(Factory.Decrementer(start), (int) count);
             var expected = GetExpectedDecrementationEnumerable(start, count);
             Assert.AreEqual(expected, result);
         }
@@ -57,8 +53,7 @@ namespace Tests.Sharpy.FactoryTests {
         public void To_Int_Min_Value() {
             var count = 500;
             var start = int.MinValue + count;
-            var result = Factory.Decrementer(start)
-                .Take(count)
+            var result = Extensions.Take<int>(Factory.Decrementer(start), (int) count)
                 .ToArray();
             var expected = GetExpectedDecrementationEnumerable(start, count);
             Assert.AreEqual(expected, result);
@@ -67,8 +62,7 @@ namespace Tests.Sharpy.FactoryTests {
         [Test]
         public void To_Less_Than_Int_Min_Value() {
             const int start = int.MinValue + 500;
-            var result = Factory.Decrementer(start)
-                .Take(501);
+            var result = Extensions.Take<int>(Factory.Decrementer(start), (int) 501);
             Assert.Throws<OverflowException>(() => result.ToArray());
         }
     }

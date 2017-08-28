@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using GeneratorAPI.Implementations;
+using Sharpy.Generator.Implementations;
 
-namespace GeneratorAPI {
+namespace Sharpy.Generator {
     /// <summary>
     ///     Provides a set of static members for creating <see cref="IGenerator{T}" />.
     /// </summary>

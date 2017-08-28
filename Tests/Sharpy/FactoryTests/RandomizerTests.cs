@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading;
-using GeneratorAPI.Linq;
 using NUnit.Framework;
 using Sharpy;
+using Sharpy.Generator.Linq;
 
 namespace Tests.Sharpy.FactoryTests {
     [TestFixture]
@@ -34,12 +34,10 @@ namespace Tests.Sharpy.FactoryTests {
             const int length = 1000000;
             const int maxValue = 100000;
             const int minValue = 1000;
-            var result = Factory.Randomizer(minValue, maxValue, seed)
-                .ToArray(length);
+            var result = Extensions.ToArray<int>(Factory.Randomizer(minValue, maxValue, seed), (int) length);
             // So the seed can change
             Thread.Sleep(200);
-            var expected = Factory.Randomizer(minValue, maxValue, seed)
-                .ToArray(length);
+            var expected = Extensions.ToArray<int>(Factory.Randomizer(minValue, maxValue, seed), (int) length);
 
             Assert.AreEqual(expected, result);
         }
@@ -49,10 +47,8 @@ namespace Tests.Sharpy.FactoryTests {
             const int length = 1000000;
             const int maxValue = 100000;
             const int minValue = 1000;
-            var result = Factory.Randomizer(minValue, maxValue, 100)
-                .ToArray(length);
-            var expected = Factory.Randomizer(minValue, maxValue, 200)
-                .ToArray(length);
+            var result = Extensions.ToArray<int>(Factory.Randomizer(minValue, maxValue, 100), (int) length);
+            var expected = Extensions.ToArray<int>(Factory.Randomizer(minValue, maxValue, 200), (int) length);
 
             Assert.AreNotEqual(expected, result);
         }
@@ -62,12 +58,10 @@ namespace Tests.Sharpy.FactoryTests {
             const int length = 1000000;
             const int maxValue = 100000;
             const int minValue = 1000;
-            var result = Factory.Randomizer(minValue, maxValue)
-                .ToArray(length);
+            var result = Extensions.ToArray<int>(Factory.Randomizer(minValue, maxValue), (int) length);
             // So the seed can change
             Thread.Sleep(200);
-            var expected = Factory.Randomizer(minValue, maxValue)
-                .ToArray(length);
+            var expected = Extensions.ToArray<int>(Factory.Randomizer(minValue, maxValue), (int) length);
 
             Assert.AreNotEqual(expected, result);
         }
@@ -99,12 +93,10 @@ namespace Tests.Sharpy.FactoryTests {
             const int length = 1000000;
             const long maxValue = long.MaxValue - 20000000;
             const long minValue = 0 + long.MaxValue - 30000000;
-            var result = Factory.Randomizer(minValue, maxValue, seed)
-                .ToArray(length);
+            var result = Extensions.ToArray<long>(Factory.Randomizer(minValue, maxValue, seed), (int) length);
             // So the seed can change
             Thread.Sleep(200);
-            var expected = Factory.Randomizer(minValue, maxValue, seed)
-                .ToArray(length);
+            var expected = Extensions.ToArray<long>(Factory.Randomizer(minValue, maxValue, seed), (int) length);
 
             Assert.AreEqual(expected, result);
         }
@@ -114,10 +106,8 @@ namespace Tests.Sharpy.FactoryTests {
             const int length = 1000000;
             const long maxValue = long.MaxValue - 20000000;
             const long minValue = 0 + long.MaxValue - 30000000;
-            var result = Factory.Randomizer(minValue, maxValue, 100)
-                .ToArray(length);
-            var expected = Factory.Randomizer(minValue, maxValue, 200)
-                .ToArray(length);
+            var result = Extensions.ToArray<long>(Factory.Randomizer(minValue, maxValue, 100), (int) length);
+            var expected = Extensions.ToArray<long>(Factory.Randomizer(minValue, maxValue, 200), (int) length);
 
             Assert.AreNotEqual(expected, result);
         }
@@ -127,12 +117,10 @@ namespace Tests.Sharpy.FactoryTests {
             const int length = 1000000;
             const long maxValue = long.MaxValue - 20000000;
             const long minValue = 0 + long.MaxValue - 30000000;
-            var result = Factory.Randomizer(minValue, maxValue)
-                .ToArray(length);
+            var result = Extensions.ToArray<long>(Factory.Randomizer(minValue, maxValue), (int) length);
             // So the seed can change
             Thread.Sleep(200);
-            var expected = Factory.Randomizer(minValue, maxValue)
-                .ToArray(length);
+            var expected = Extensions.ToArray<long>(Factory.Randomizer(minValue, maxValue), (int) length);
 
             Assert.AreNotEqual(expected, result);
         }

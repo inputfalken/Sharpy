@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using GeneratorAPI.Implementations;
+using Sharpy.Generator.Implementations;
 
-namespace GeneratorAPI.Linq {
+namespace Sharpy.Generator.Linq {
     public static partial class Extensions {
         /// <summary>
         ///     <para>
