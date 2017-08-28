@@ -14,7 +14,6 @@ Use the NuGet Package Manager Console and type ```Install-Package Sharpy pre```
 * Add more tests(WIP).
 * Auto bump package version depending on branch merge.
 * Generate documenation from xml comments(WIP).
-* Turn GeneratorAPI to it's own NuGet package.
 
 [Link](https://www.nuget.org/packages/Sharpy/) to package on NuGet.
 ## Dependencies:
