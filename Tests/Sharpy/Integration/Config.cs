@@ -1,9 +1,9 @@
 ﻿using System;
-using GeneratorAPI;
-using GeneratorAPI.Linq;
 using NUnit.Framework;
 using Sharpy;
 using Sharpy.Enums;
+using Sharpy.Generator;
+using Sharpy.Generator.Linq;
 
 namespace Tests.Sharpy.Integration {
     [TestFixture]
@@ -29,7 +29,6 @@ namespace Tests.Sharpy.Integration {
             Assert.DoesNotThrow(() => generator.Select(x => x.Integer()).Generate());
             Assert.DoesNotThrow(() => generator.Select(x => x.Integer(10)).Generate());
             Assert.DoesNotThrow(() => generator.Select(x => x.Integer(1, 10)).Generate());
-
 
             //Name
             Assert.DoesNotThrow(() => generator.Select(x => x.FirstName()).Generate());
@@ -59,7 +58,6 @@ namespace Tests.Sharpy.Integration {
             Assert.DoesNotThrow(() => generator.Select(x => x.Double(10)).Generate());
             Assert.DoesNotThrow(() => generator.Select(x => x.Double(1, 10)).Generate());
 
-
             //Name
             Assert.DoesNotThrow(() => generator.Select(x => x.FirstName()).Generate());
             Assert.DoesNotThrow(() => generator.Select(x => x.FirstName(Gender.Female)).Generate());
@@ -87,7 +85,6 @@ namespace Tests.Sharpy.Integration {
             Assert.DoesNotThrow(() => generator.Select(x => x.Integer()).Generate());
             Assert.DoesNotThrow(() => generator.Select(x => x.Integer(10)).Generate());
             Assert.DoesNotThrow(() => generator.Select(x => x.Integer(1, 10)).Generate());
-
 
             //Name
             Assert.DoesNotThrow(() => generator.Select(x => x.FirstName()).Generate());

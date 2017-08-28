@@ -1,8 +1,8 @@
 ﻿using System;
-using GeneratorAPI;
-using GeneratorAPI.Linq;
 using NUnit.Framework;
 using Sharpy;
+using Sharpy.Generator;
+using Sharpy.Generator.Linq;
 
 namespace Tests.GeneratorAPI.LinqTests {
     [TestFixture]
@@ -62,7 +62,6 @@ namespace Tests.GeneratorAPI.LinqTests {
             generator.Generate();
             Assert.IsTrue(invoked);
         }
-
 
         [Test(
             Description = "Verify that Select with null Generator and Argument throws exception"

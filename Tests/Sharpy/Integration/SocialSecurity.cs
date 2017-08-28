@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using GeneratorAPI;
-using GeneratorAPI.Linq;
 using NodaTime;
 using NUnit.Framework;
 using Sharpy;
+using Sharpy.Generator;
+using Sharpy.Generator.Linq;
 
 namespace Tests.Sharpy.Integration {
     [TestFixture]
@@ -48,7 +48,6 @@ namespace Tests.Sharpy.Integration {
             var result = gen.Select(g => g.SocialSecurityNumber(new LocalDate(2000, 10, 10))).Take(Limit);
             Assert.DoesNotThrow(() => result.ToArray());
         }
-
 
         [Test]
         public void No_Dash_With_False_Formating() {

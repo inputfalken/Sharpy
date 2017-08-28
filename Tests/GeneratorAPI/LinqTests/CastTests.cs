@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using GeneratorAPI;
-using GeneratorAPI.Linq;
 using NUnit.Framework;
+using Sharpy.Generator;
+using Sharpy.Generator.Linq;
 
 namespace Tests.GeneratorAPI.LinqTests {
     [TestFixture]

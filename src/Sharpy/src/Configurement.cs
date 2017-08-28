@@ -125,7 +125,7 @@ namespace Sharpy {
         ///     </para>
         /// </remarks>
         public IReadOnlyList<string> MailDomains {
-            get { return _mailDomains; }
+            get => _mailDomains;
             set {
                 EmailBuilder = new EmailBuilder(value, Random);
                 _mailDomains = value;

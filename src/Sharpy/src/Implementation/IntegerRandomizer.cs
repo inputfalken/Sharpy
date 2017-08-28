@@ -16,14 +16,10 @@ namespace Sharpy.Implementation {
         ///     </para>
         /// </summary>
         /// <param name="random"></param>
-        public IntRandomizer(Random random) {
-            _random = random;
-        }
+        public IntRandomizer(Random random) => _random = random;
 
         /// <inheritdoc cref="IIntegerProvider.Integer(int)" />
-        public int Integer(int max) {
-            return _random.Next(max);
-        }
+        public int Integer(int max) => _random.Next(max);
 
         /// <inheritdoc cref="IIntegerProvider.Integer(int,int)" />
         public int Integer(int min, int max) {
@@ -33,8 +29,6 @@ namespace Sharpy.Implementation {
         }
 
         /// <inheritdoc cref="IIntegerProvider.Integer()" />
-        public int Integer() {
-            return _random.Next();
-        }
+        public int Integer() => _random.Next();
     }
 }

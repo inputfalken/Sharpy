@@ -1,10 +1,10 @@
 using System;
-using GeneratorAPI;
-using GeneratorAPI.Linq;
 using Sharpy.Enums;
+using Sharpy.Generator;
+using Sharpy.Generator.Linq;
 using Sharpy.Implementation;
 using Sharpy.IProviders;
-using static GeneratorAPI.Generator;
+using static Sharpy.Generator.Generator;
 
 namespace Sharpy {
     /// <summary>
@@ -166,16 +166,12 @@ namespace Sharpy {
             });
         }
 
-
         /// <summary>
         ///     <para>Creates <see cref="Random" /> with seed if it's not set to null.</para>
         /// </summary>
-        private static Random CreateRandom(int? seed) {
-            return seed == null
-                ? new Random()
-                : new Random(seed.Value);
-        }
-
+        private static Random CreateRandom(int? seed) => seed == null
+            ? new Random()
+            : new Random(seed.Value);
 
         /// <summary>
         ///     <para>
@@ -190,9 +186,7 @@ namespace Sharpy {
         /// <example>
         ///     <code language="C#" region="Guid" source="Examples\GeneratorFactory.cs" />
         /// </example>
-        public static IGenerator<Guid> Guid() {
-            return Function(System.Guid.NewGuid);
-        }
+        public static IGenerator<Guid> Guid() => Function(System.Guid.NewGuid);
 
         /// <summary>
         ///     <para>

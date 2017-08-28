@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using GeneratorAPI;
-using GeneratorAPI.Linq;
 using NUnit.Framework;
 using Sharpy;
+using Sharpy.Generator;
+using Sharpy.Generator.Linq;
 
 namespace Tests.GeneratorAPI.LinqTests {
     [TestFixture]
@@ -62,7 +62,6 @@ namespace Tests.GeneratorAPI.LinqTests {
                 .ToDictionary(20, i => i, i => i);
             Assert.AreEqual(count, result.Count);
         }
-
 
         [Test(
             Description = "Verify that ToDictionary returns the expected elements"

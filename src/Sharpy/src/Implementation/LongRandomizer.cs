@@ -10,9 +10,7 @@ namespace Sharpy.Implementation {
         ///     <para>Randomizes longs with the random supplied.</para>
         /// </summary>
         /// <param name="random"></param>
-        public LongRandomizer(Random random) {
-            _random = random;
-        }
+        public LongRandomizer(Random random) => _random = random;
 
         /// <inheritdoc cref="ILongProvider.Long(long,long)" />
         public long Long(long min, long max) {
@@ -37,13 +35,9 @@ namespace Sharpy.Implementation {
         }
 
         /// <inheritdoc cref="ILongProvider.Long(long)" />
-        public long Long(long max) {
-            return Long(0, max);
-        }
+        public long Long(long max) => Long(0, max);
 
         /// <inheritdoc cref="ILongProvider.Long()" />
-        public long Long() {
-            return Long(0, long.MaxValue);
-        }
+        public long Long() => Long(0, long.MaxValue);
     }
 }

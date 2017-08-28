@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using GeneratorAPI;
-using GeneratorAPI.Linq;
 using NUnit.Framework;
 using Sharpy;
+using Sharpy.Generator;
+using Sharpy.Generator.Linq;
 
 namespace Tests.Sharpy.Integration {
     [TestFixture]
@@ -14,7 +14,6 @@ namespace Tests.Sharpy.Integration {
             var generateMany = generator.Select(generator1 => generator1.Double()).Take(20);
             Assert.IsTrue(generateMany.All(d => d < 1 && d > 0));
         }
-
 
         [Test]
         public void One_Arg_Eleven_Point_Two() {
