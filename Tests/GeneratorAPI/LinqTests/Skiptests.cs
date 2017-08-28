@@ -1,8 +1,8 @@
 ﻿using System;
-using GeneratorAPI;
-using GeneratorAPI.Linq;
 using NUnit.Framework;
 using Sharpy;
+using Sharpy.Generator;
+using Sharpy.Generator.Linq;
 
 namespace Tests.GeneratorAPI.LinqTests {
     [TestFixture]
@@ -29,8 +29,7 @@ namespace Tests.GeneratorAPI.LinqTests {
             Description = "Verify that you can skip fifty elements"
         )]
         public void Skip_Fifty() {
-            var generator = Factory.Incrementer(1)
-                .Skip(50);
+            var generator = Extensions.Skip<int>(Factory.Incrementer(1), (int) 50);
             Assert.AreEqual(51, generator.Generate());
         }
 
@@ -39,7 +38,7 @@ namespace Tests.GeneratorAPI.LinqTests {
         )]
         public void Skip_Negative_Number_Throws() {
             var generator = Factory.Incrementer(1);
-            Assert.Throws<ArgumentException>(() => generator.Skip(-1));
+            Assert.Throws<ArgumentException>(() => Extensions.Skip<int>(generator, (int) -1));
         }
 
         [Test(
@@ -54,8 +53,7 @@ namespace Tests.GeneratorAPI.LinqTests {
             Description = "Verify that you can skip zero elements"
         )]
         public void Skip_Zero() {
-            var generator = Factory.Incrementer(1)
-                .Skip(0);
+            var generator = Extensions.Skip<int>(Factory.Incrementer(1), (int) 0);
             Assert.AreEqual(1, generator.Generate());
         }
 
@@ -63,8 +61,7 @@ namespace Tests.GeneratorAPI.LinqTests {
             Description = "Verify that you can skip zero elements and it does nothing"
         )]
         public void Skip_Zero_Does_Nothing() {
-            var result = Factory.Incrementer(1)
-                .Skip(0);
+            var result = Extensions.Skip<int>(Factory.Incrementer(1), (int) 0);
 
             var expected = Factory.Incrementer(1);
             Assert.AreEqual(expected.Generate(), result.Generate());
@@ -76,8 +73,8 @@ namespace Tests.GeneratorAPI.LinqTests {
         public void Skip_Zero_Returns_Same_instance() {
             var generator = Factory.Incrementer(1);
 
-            Assert.AreSame(generator, generator.Skip(0));
-            Assert.AreNotSame(generator, generator.Skip(1));
+            Assert.AreSame(generator, Extensions.Skip<int>(generator, (int) 0));
+            Assert.AreNotSame(generator, Extensions.Skip<int>(generator, (int) 1));
         }
     }
 }

@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using GeneratorAPI;
-using Newtonsoft.Json;
 using NodaTime;
 using Sharpy.Enums;
+using Sharpy.Generator;
 using Sharpy.Implementation;
-using Sharpy.Implementation.DataObjects;
 using Sharpy.Implementation.ExtensionMethods;
 using Sharpy.IProviders;
+using static Sharpy.Generator.Generator;
 
 namespace Sharpy {
     /// <summary>
@@ -334,7 +333,7 @@ namespace Sharpy {
         ///     </para>
         /// </returns>
         public static IGenerator<TProvider> AsGenerator<TProvider>(TProvider provider) where TProvider : Provider {
-            return Generator.Create(provider);
+            return Create(provider);
         }
     }
 }

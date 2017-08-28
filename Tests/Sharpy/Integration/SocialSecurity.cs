@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using GeneratorAPI;
-using GeneratorAPI.Linq;
 using NodaTime;
 using NUnit.Framework;
 using Sharpy;
+using Sharpy.Generator;
+using Sharpy.Generator.Linq;
 
 namespace Tests.Sharpy.Integration {
     [TestFixture]

@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 
-
 //-----------------------------------------------------------------------
 // <copyright file="EnumerableCache.cs" company="Andrew Arnott">
 //     Copyright (c) Andrew Arnott. All rights reserved.
@@ -10,7 +9,7 @@ using System.Collections.Generic;
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace GeneratorAPI.Utils {
+namespace Sharpy.Generator.Utils {
     /// <summary>
     ///     Extension methods for <see cref="IEnumerable{T}" /> types.
     /// </summary>

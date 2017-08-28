@@ -1,10 +1,10 @@
 using System;
-using GeneratorAPI;
-using GeneratorAPI.Linq;
 using Sharpy.Enums;
+using Sharpy.Generator;
+using Sharpy.Generator.Linq;
 using Sharpy.Implementation;
 using Sharpy.IProviders;
-using static GeneratorAPI.Generator;
+using static Sharpy.Generator.Generator;
 
 namespace Sharpy {
     /// <summary>

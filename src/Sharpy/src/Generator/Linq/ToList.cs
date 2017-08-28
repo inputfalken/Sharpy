@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GeneratorAPI.Linq {
+namespace Sharpy.Generator.Linq {
     /// <summary>
     ///     Provides a set of static methods for <see cref="IGenerator{T}" />.
     /// </summary>

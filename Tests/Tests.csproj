@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\GeneratorAPI\GeneratorAPI.csproj" />
     <ProjectReference Include="..\src\Sharpy\Sharpy.csproj" />
   </ItemGroup>
 
