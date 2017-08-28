@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Newtonsoft.Json;
 using NUnit.Framework;
+using Sharpy;
+using Sharpy.Implementation;
 using Sharpy.Implementation.DataObjects;
-using Sharpy.Properties;
 
 namespace Tests.Sharpy {
     [TestFixture]
     internal class FileTests {
-        private static readonly IEnumerable<Name> GetNames =
-            JsonConvert.DeserializeObject<IEnumerable<Name>>(Resources.NamesByOrigin);
+        private static readonly IEnumerable<Name> GetNames = NameByOrigin.Names;
 
         [Test(
             Description = "Verify that no name contains number"
@@ -79,9 +76,9 @@ namespace Tests.Sharpy {
             Description = "Verify that no username contains number."
         )]
         public void User_Name_Contains_No_Numbers() {
-            var containsNumber = Resources.usernames
-                .Split(new[] {"\r\n", "\n"}, StringSplitOptions.None)
-                .Any(s => s.Any(char.IsNumber));
+            var containsNumber =
+                Provider.UserNames
+                    .Any(s => s.Any(char.IsNumber));
             Assert.IsFalse(containsNumber);
         }
 
@@ -90,8 +87,7 @@ namespace Tests.Sharpy {
         )]
         public void User_Name_Contains_No_Punctuations() {
             var containsPunctuations =
-                Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None)
-                    .All(s => s.Any(char.IsPunctuation));
+                Provider.UserNames.All(s => s.Any(char.IsPunctuation));
             Assert.IsFalse(containsPunctuations);
         }
 
@@ -100,7 +96,7 @@ namespace Tests.Sharpy {
         )]
         public void User_Name_Contains_No_Separator() {
             var containsSeparator =
-                Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None)
+                Provider.UserNames
                     .Any(s => s.Any(char.IsSeparator));
             Assert.IsFalse(containsSeparator);
         }
@@ -109,7 +105,7 @@ namespace Tests.Sharpy {
             Description = "Verify that no username contains symbol."
         )]
         public void User_Name_Contains_No_Symbols() {
-            var containsSymbols = Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None)
+            var containsSymbols = Provider.UserNames
                 .Any(s => s.Any(char.IsSymbol));
             Assert.IsFalse(containsSymbols);
         }
@@ -119,7 +115,7 @@ namespace Tests.Sharpy {
         )]
         public void User_Name_Contains_No_White_Space() {
             var containsWhitespace =
-                Resources.usernames.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None)
+                Provider.UserNames
                     .Any(s => s.Any(char.IsWhiteSpace));
             Assert.IsFalse(containsWhitespace);
         }
