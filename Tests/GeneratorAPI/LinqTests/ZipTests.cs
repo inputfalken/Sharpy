@@ -24,7 +24,7 @@ namespace Tests.GeneratorAPI.LinqTests {
         public void Does_Not_Return_Null() {
             var second = Factory.Incrementer(0);
             var result = _generator
-                .Zip<int, int, int>(second, (s, i) => s + i);
+                .Zip(second, (s, i) => s + i);
 
             Assert.IsNotNull(result);
         }
@@ -34,7 +34,7 @@ namespace Tests.GeneratorAPI.LinqTests {
         )]
         public void Int_Int() {
             var second = Factory.Incrementer(0);
-            var result = _generator.Zip<int, int, int>(second, (s, i) => s + i);
+            var result = _generator.Zip(second, (s, i) => s + i);
 
             Assert.AreEqual(0, result.Generate());
             Assert.AreEqual(2, result.Generate());
@@ -54,14 +54,13 @@ namespace Tests.GeneratorAPI.LinqTests {
         public void Is_Evaluated_After_Take_Is_Invoked() {
             var invoked = false;
             var second = Factory.Incrementer(0);
-            var generator = _generator.Zip<int, int, bool>(second, (i, i1) => invoked = true);
+            var generator = _generator.Zip(second, (i, i1) => invoked = true);
             // Not evaluated
             Assert.IsFalse(invoked);
             // Evaluated
             generator.Generate();
             Assert.IsTrue(invoked);
         }
-
 
         [Test(
             Description = "Verify that Zip with null Generator and null first arg throws exception"
@@ -123,7 +122,7 @@ namespace Tests.GeneratorAPI.LinqTests {
         public void Null_Second_Param_Throws() {
             Func<int, int, int> resultSelector = null;
             Assert.Throws<ArgumentNullException>(
-                () => _generator.Zip<int, int, int>(Factory.Incrementer(0), resultSelector));
+                () => _generator.Zip(Factory.Incrementer(0), resultSelector));
         }
     }
 }

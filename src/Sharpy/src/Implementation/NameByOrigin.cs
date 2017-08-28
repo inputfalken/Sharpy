@@ -29,9 +29,7 @@ namespace Sharpy.Implementation {
         private readonly ISet<Origin> _selectedCountries = new HashSet<Origin>();
         private readonly ISet<Origin> _selectedRegions = new HashSet<Origin>();
 
-        private NameByOrigin(Random random) {
-            _random = random;
-        }
+        private NameByOrigin(Random random) => _random = random;
 
         /// <summary>
         ///     <para>
@@ -75,20 +73,14 @@ namespace Sharpy.Implementation {
             new Dictionary<NameType, IReadOnlyList<string>>();
 
         /// <inheritdoc cref="INameProvider.FirstName(Gender)" />
-        public string FirstName(Gender gender) {
-            return Name(
-                gender == Gender.Male ? NameType.MaleFirst : NameType.FemaleFirst);
-        }
+        public string FirstName(Gender gender) => Name(
+            gender == Gender.Male ? NameType.MaleFirst : NameType.FemaleFirst);
 
         /// <inheritdoc cref="INameProvider.FirstName()" />
-        public string FirstName() {
-            return Name(_random.Next(2) == 0 ? NameType.FemaleFirst : NameType.MaleFirst);
-        }
+        public string FirstName() => Name(_random.Next(2) == 0 ? NameType.FemaleFirst : NameType.MaleFirst);
 
         /// <inheritdoc cref="INameProvider.LastName()" />
-        public string LastName() {
-            return Name(NameType.Last);
-        }
+        public string LastName() => Name(NameType.Last);
 
         /// <summary>
         ///     <para>

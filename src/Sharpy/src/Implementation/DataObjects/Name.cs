@@ -24,8 +24,6 @@ namespace Sharpy.Implementation.DataObjects {
         /// <summary>
         /// </summary>
         /// <returns></returns>
-        public override string ToString() {
-            return Data;
-        }
+        public override string ToString() => Data;
     }
 }

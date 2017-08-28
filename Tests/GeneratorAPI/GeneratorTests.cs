@@ -19,7 +19,6 @@ namespace Tests.GeneratorAPI {
         private IGenerator<string> _generator;
         private const int Seed = 100;
 
-
         [Test(
             Description = "Verify that Generate gives expected result"
         )]

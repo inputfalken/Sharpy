@@ -9,9 +9,8 @@ namespace Sharpy.Generator.Implementations {
     internal sealed class Seq<T> : IGenerator<T> {
         private readonly Lazy<IEnumerator<T>> _lazyEnumerator;
 
-        public Seq(IEnumerable<T> enumerable) {
+        public Seq(IEnumerable<T> enumerable) =>
             _lazyEnumerator = new Lazy<IEnumerator<T>>(enumerable.CacheGeneratedResults().GetEnumerator);
-        }
 
         public Seq(Func<IEnumerable<T>> fn) : this(Invoker(fn)) { }
 
@@ -24,9 +23,7 @@ namespace Sharpy.Generator.Implementations {
             return Enumerator.Current;
         }
 
-        object IGenerator.Generate() {
-            return Generate();
-        }
+        object IGenerator.Generate() => Generate();
 
         /// <summary>
         ///     <para>QUAS WEX EXORT</para>

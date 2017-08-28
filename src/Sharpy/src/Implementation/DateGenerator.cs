@@ -8,9 +8,7 @@ namespace Sharpy.Implementation {
     internal sealed class DateGenerator {
         private readonly Random _random;
 
-        internal DateGenerator(Random random) {
-            _random = random;
-        }
+        internal DateGenerator(Random random) => _random = random;
 
         /// <summary>
         ///     Is used for getting the current time.

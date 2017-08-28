@@ -17,11 +17,8 @@ namespace Sharpy.Implementation {
             '-'
         };
 
-
-        internal EmailBuilder(IReadOnlyList<string> providers, Random random) : base(random) {
-            EmailDomains =
-                providers;
-        }
+        internal EmailBuilder(IReadOnlyList<string> providers, Random random) : base(random) => EmailDomains =
+            providers;
 
         /// <summary>
         ///     Contains the email providers
@@ -34,7 +31,6 @@ namespace Sharpy.Implementation {
         ///     Contains the email providers but with saved state
         /// </summary>
         private IEnumerator<string> EmailDomainsEnumerator { get; set; }
-
 
         internal string Mail(string name, string secondName) {
             if (string.IsNullOrWhiteSpace(name))
@@ -72,9 +68,6 @@ namespace Sharpy.Implementation {
             }
         }
 
-
-        private string ResolveDuplicate(string item) {
-            return item.Append(Random.Next(10));
-        }
+        private string ResolveDuplicate(string item) => item.Append(Random.Next(10));
     }
 }

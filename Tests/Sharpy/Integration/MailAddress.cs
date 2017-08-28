@@ -18,7 +18,6 @@ namespace Tests.Sharpy.Integration {
                 .ToList();
         }
 
-
         [Test]
         public void Check_Mail_Count_Unique_True() {
             var configurement = new Configurement {
@@ -28,7 +27,6 @@ namespace Tests.Sharpy.Integration {
             var generate = randomGenerator.Select(generator => generator.MailAddress("hello")).Generate();
             Assert.AreEqual(14, generate.Length);
         }
-
 
         [Test]
         public void Four__Domain_Two_Args_Unique_True() {
@@ -40,7 +38,6 @@ namespace Tests.Sharpy.Integration {
                 .Take(12);
             Assert.IsTrue(FindDuplicates(mails).Count == 0);
         }
-
 
         [Test]
         public void MailsAreNotnull() {
@@ -97,7 +94,6 @@ namespace Tests.Sharpy.Integration {
             Assert.AreEqual(expected, result);
         }
 
-
         [Test]
         public void One__Domain_Unique_True_Check_All_Is_LowerCase() {
             var configurement = new Configurement {
@@ -107,7 +103,6 @@ namespace Tests.Sharpy.Integration {
             var mail = randomGenerator.Select(generator => generator.MailAddress("Bob")).Generate();
             Assert.IsFalse(mail.Any(char.IsUpper));
         }
-
 
         [Test]
         public void One_Domain_First_Arg_Null_Second_String_UniqueMails_True_Called_One_Time() {
@@ -119,7 +114,6 @@ namespace Tests.Sharpy.Integration {
                 () => randomGenerator.Select(generator => generator.MailAddress(null, "hello")).Generate());
         }
 
-
         [Test]
         public void One_Domain_First_Arg_Null_UniqueMails_True_Called_One_Time() {
             var configurement = new Configurement {
@@ -129,7 +123,6 @@ namespace Tests.Sharpy.Integration {
             Assert.Throws<NullReferenceException>(
                 () => randomGenerator.Select(generator => generator.MailAddress(null)).Generate());
         }
-
 
         [Test]
         public void One_Domain_One_Arg_UniqueMails_True_Called_One_Time() {
@@ -141,7 +134,6 @@ namespace Tests.Sharpy.Integration {
             var result = randomGenerator.Select(generator => generator.MailAddress("bob")).Generate();
             Assert.AreEqual(expected, result);
         }
-
 
         [Test]
         public void One_Domain_Two_Args_UniqueMails_True() {
@@ -188,7 +180,6 @@ namespace Tests.Sharpy.Integration {
                 () => randomGenerator.Select(generator => generator.MailAddress(null, "bob")).Generate());
         }
 
-
         [Test]
         public void One_Domain_Two_UniqueMails_True_Args_Called_Three_Times() {
             var configurement = new Configurement {
@@ -202,7 +193,6 @@ namespace Tests.Sharpy.Integration {
             const string expected = "bob-cool@test.com";
             Assert.AreEqual(expected, result);
         }
-
 
         [Test]
         public void Single_Argurment_Does_Not_Contain_Seperator() {

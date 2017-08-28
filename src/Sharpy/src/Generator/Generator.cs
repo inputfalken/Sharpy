@@ -53,10 +53,7 @@ namespace Sharpy.Generator {
         ///     A <see cref="IGenerator{T}" /> whose generations will use the lazy evaluated value from <paramref name="fn" />.
         /// </returns>
         /// <exception cref="ArgumentNullException">Argument <paramref name="fn" /> is null.</exception>
-        public static IGenerator<TSource> Lazy<TSource>(Func<TSource> fn) {
-            return Lazy(new Lazy<TSource>(fn));
-        }
-
+        public static IGenerator<TSource> Lazy<TSource>(Func<TSource> fn) => Lazy(new Lazy<TSource>(fn));
 
         /// <summary>
         ///     <para>
@@ -70,9 +67,7 @@ namespace Sharpy.Generator {
         ///     A <see cref="IGenerator{T}" /> whose generations will invoke argument <paramref name="fn" />.
         /// </returns>
         /// <exception cref="ArgumentNullException">Argument <paramref name="fn" /> is null.</exception>
-        public static IGenerator<TSource> Function<TSource>(Func<TSource> fn) {
-            return new Fun<TSource>(fn);
-        }
+        public static IGenerator<TSource> Function<TSource>(Func<TSource> fn) => new Fun<TSource>(fn);
 
         /// <summary>
         ///     <para>

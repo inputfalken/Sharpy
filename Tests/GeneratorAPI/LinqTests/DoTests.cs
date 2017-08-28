@@ -20,7 +20,6 @@ namespace Tests.GeneratorAPI.LinqTests {
 
         private IGenerator<int> _generator;
 
-
         [Test(
             Description = "Verify that Do is invoked if Generate is invoked"
         )]
@@ -34,7 +33,6 @@ namespace Tests.GeneratorAPI.LinqTests {
             generator.Generate();
             Assert.IsTrue(invoked);
         }
-
 
         [Test(
             Description = "Verify that Do throws exception if the Action<T> is null"

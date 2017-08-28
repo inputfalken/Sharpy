@@ -15,7 +15,6 @@ namespace Tests.Sharpy.Integration {
             Assert.IsTrue(generateMany.All(d => d < 1 && d > 0));
         }
 
-
         [Test]
         public void One_Arg_Eleven_Point_Two() {
             const double max = 11.2;

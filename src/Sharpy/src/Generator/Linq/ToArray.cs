@@ -21,8 +21,7 @@ namespace Sharpy.Generator.Linq {
         ///         int[] arr = Factory.Incrementer(0).ToArray(100);
         ///     </code>
         /// </example>
-        public static TSource[] ToArray<TSource>(this IGenerator<TSource> generator, int length) {
-            return generator.Take(length).ToArray();
-        }
+        public static TSource[] ToArray<TSource>(this IGenerator<TSource> generator, int length) =>
+            generator.Take(length).ToArray();
     }
 }
