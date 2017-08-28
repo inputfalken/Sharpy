@@ -1,86 +1,25 @@
-﻿# Find assembly version info.
-function findAssemblyVersion ([string] $assemblyVersionName) {
-  $pattern = '\[assembly: {0}\("(.*)"\)\]' -f $assemblyVersionName
-    (Get-Content '.\src\Sharpy\Properties\AssemblyInfo.cs') | ForEach-Object {
-      if($_ -match $pattern) {
-        return $matches[1]
-      }
-    }
-}
-
-# Delete old nuget package
-function deleteNugetPackage ([string] $label, [string] $suffix, [bool] $suffixBuild) {
-  if ($localVersion.Major -eq $onlineVersion.Major) {
-    Write-Host "Same major build, deleting old package" -ForegroundColor yellow
-    if ($suffixBuild) {
-      nuget delete Sharpy $onlineVersion-$suffix -ApiKey $nugetApiKey -Source $packageSource -NonInteractive
-    } else {
-      nuget delete Sharpy $onlineVersion -ApiKey $nugetApiKey -Source $packageSource -NonInteractive
-    }
+# Pack package to root directory of project and returns the file.
+function Pack ([string] $project, [bool] $isAlpha) {
+  $currentDirectory = (Resolve-Path .\).Path
+  if ($isAlpha) {
+    dotnet pack $project --version-suffix alpha -c Release -o $currentDirectory
   } else {
-    Write-Host "New major build, ignoring package deletion" -ForegroundColor yellow
+    dotnet pack $project -c Release -o $currentDirectory
+  }
+  if (!$?) {
+    throw "$project could not be packed by command 'dotnet pack'."
+  }
+  return [System.IO.FileSystemInfo] (Get-ChildItem *.nupkg | select -First 1)
+}
+# Deploy package to NuGet.
+function Deploy ([string] $package) {
+  dotnet nuget push $package -k $env:NUGET_API_KEY -s 'https://www.nuget.org/api/v2/package'
+  if (!$?) {
+    throw "$project could not be pushed by command 'dotnet nuget push'."
   }
 }
-
-function updateDocumentation {
-  & nuget install docfx.console -Version 2.22.1 -Source https://www.myget.org/F/docfx/api/v3/index.json
-  & docfx.console.2.22.1\tools\docfx docfx.json
-  if ($lastexitcode -ne 0) {
-    throw [System.Exception] "docfx build failed with exit code $lastexitcode."
-  }
-  git config --global credential.helper store
-  Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:GITHUB_ACCESS_TOKEN):x-oauth-basic@github.com`n"
-  git config --global user.email 'sharpy.continuous.integration@gmail.com'
-  git config --global user.name 'SharpyCI'
-
-  git clone https://github.com/inputfalken/Sharpy -b gh-pages origin_site -q
-  Copy-Item origin_site/.git _site -recurse
-  CD _site
-  git add -A 2>&1
-  git commit -m "CI Updates" -q
-  git push origin gh-pages -q
-}
-
-# NuGet Deployment
-function deployToNuget ([string] $label, [bool] $suffixBuild) {
-  $project = '.\src\Sharpy\Sharpy.csproj'
-  # The generated file does not share folder as project
-  $fileName = ".\Sharpy.$($localVersion.Major).$($localVersion.Minor).$($localVersion.Build)"
-  $suffix = 'alpha'
-
-  if ($suffixBuild) {
-    nuget pack $project -IncludeReferencedProjects -Prop configuration=release -Suffix $suffix
-    nuget push "$($fileName)-$($suffix).nupkg" -Verbosity detailed -ApiKey $nugetApiKey -Source $packageSource
-  } else {
-    nuget pack $project -IncludeReferencedProjects -Prop configuration=release
-    nuget push "$($fileName).nupkg" -Verbosity detailed -ApiKey $nugetApiKey -Source $packageSource
-  }
-  if ($?) {
-    updateDocumentation
-    deleteNugetPackage $label $suffix $suffixBuild
-  }
-}
-
-
-function fetchNugetVersion ([string] $listSource, [string] $project, [bool] $preRelease) {
-  Write-Host "Fetching nuget version from $listSource" -ForegroundColor yellow
-  # Use alpha version if the current branch is development
-  if ($preRelease) {
-    $nug = NuGet list $project -PreRelease -Source $listSource
-  } else {
-    $nug = NuGet list $project -Source $listSource
-  }
-  # $nug comes in format: "packageName 1.0.0".
-  $version = ($nug.Split(" ") | Select-Object -Last 1)
-  # In alpha version the version also includes the string "version-alpha" where version is the semver.
-  if ($preRelease) {
-    $version = ($version | select -Last 1).Split("-") | select -First 1
-  }
-  return $version
-}
-
-# Determine if it's Pre release
-function isAlphaBranch([string] $branch) {
+# If returns true if the branch is development and false if it's master.
+function Is-Alpha([string] $branch) {
   switch ($branch) {
     "development" {
       Write-Host "Proceeding script with alpha version for branch: $branch." -ForegroundColor yellow
@@ -96,56 +35,68 @@ function isAlphaBranch([string] $branch) {
     }
   }
 }
+# Fetch the online version
+function Fetch-OnlineVersion ([string] $listSource, [string] $projectName, [bool] $isAlpha) {
+  Write-Host "Fetching NuGet version from $listSource" -ForegroundColor yellow
+  # Use alpha version if the current branch is development.
+  if ($isAlpha) {
+    $packageName = NuGet list $projectName -PreRelease -Source $listSource
+  } else {
+    $packageName = NuGet list $projectName -Source $listSource
+  }
+  # $packageName comes in format: "packageName 1.0.0".
+  $version = ($packageName.Split(" ") | Select-Object -Last 1)
+  # In alpha version the version also includes the string "version-alpha" where version is the semver.
+  if ($isAlpha) {
+    $version = ($version | select -Last 1).Split("-") | select -First 1
+  }
+  # A hack to get set the revision property to zero.
+  $version = "$version.0"
+  return [version] $version
+}
+# Gets the local csproj version from the tag 'VersionPrefix'
+function Get-LocalVersion ([string] $project) {
+  [string] $versionNodeValue = ((Select-Xml -Path $project -XPath '//VersionPrefix') | select -ExpandProperty node).InnerText
+  $version = "$versionNodeValue.0"
+  return [version] $version
+}
+# Updates DocFx documentation.
+function Update-GHPages {
+  & nuget install docfx.console -Version 2.23.1 -Source https://www.myget.org/F/docfx/api/v3/index.json
+  & docfx.console.2.22.1\tools\docfx docfx.json
+  if ($lastexitcode -ne 0) {
+    throw [System.Exception] "docfx build failed with exit code $lastexitcode."
+  }
+  git config --global credential.helper store
+  Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:GITHUB_ACCESS_TOKEN):x-oauth-basic@github.com`n"
+  git config --global user.email \<\>
+  git config --global user.name 'CI'
 
-#####################################################################################################
-#                                                                                                   #
-#                                                 Start                                             #
-#                                                                                                   #
-#####################################################################################################
-# NuGet package source.
-$packageSource = 'https://www.nuget.org/api/v2/package'
-# AppVeyor Environmental varible.
-$nugetApiKey = $env:NUGET_API_KEY
-# AppVeyor Environmental varible.
+  git clone https://github.com/inputfalken/Sharpy -b gh-pages origin_site -q
+  Copy-Item origin_site/.git _site -recurse
+  CD _site
+  git add -A 2>&1
+  git commit -m "CI Updates" -q
+  git push origin gh-pages -q
+}
+
+$project = '.\src\Sharpy\Sharpy.csproj'
 $branch = $env:APPVEYOR_REPO_BRANCH
+$isAlpha = Is-Alpha $branch
 
-[bool] $isAlpha = isAlphaBranch $branch
-# Online NuGet semver
-[version] $onlineVersion = fetchNugetVersion 'https://nuget.org/api/v2/' 'Sharpy' $isAlpha
-# Local Nuget semver.
-[version]$localVersion = findAssemblyVersion 'AssemblyInformationalVersion'
+[version] $onlineVersion = Fetch-OnlineVersion 'https://nuget.org/api/v2/' 'Sharpy' $isAlpha
+[version] $localVersion = Get-LocalVersion $project
 
-
-# Checks if deployment is needed by comparing local and online version
+Write-Host "Comparing Local version($localVersion) with online version($onlineVersion)"
 if ($localVersion -gt $onlineVersion) {
-  Write-Host "Local version($localVersion) is higher than online version($onlineVersion), proceeding with deployment" -ForegroundColor yellow
-    if ($localVersion.Major -gt $onlineVersion.Major) {
-      Write-Host 'Validating versioning format' -ForegroundColor yellow
-      if ($localVersion.Minor -eq 0) {
-        if ($localVersion.Build -eq 0) {
-          Write-Host 'Validation Successfull!, deploying major build' -ForegroundColor green
-            deployToNuget 'major' $isAlpha
-        } else {
-          throw "Invalid format for Major build, Patch($($localVersion.Build)) need to be set to 0"
-        }
-      } else {
-        throw "Invalid format for Major build, Minor($($localVersion.Minor)) need to be set to 0"
-      }
-    }
-    elseif ($localVersion.Minor -gt $onlineVersion.Minor) {
-      Write-Host 'Validating versioning format' -ForegroundColor yellow
-      if ($localVersion.Build -eq 0) {
-        Write-Host 'Validation Successfull!, deploying minor build' -ForegroundColor green
-        deployToNuget 'minor' $isAlpha
-      } else {
-          throw "Invalid format for minor build, patch($($localVersion.Build)) need to be set to 0"
-      }
-    }
-    elseif ($localVersion.Build -gt $onlineVersion.Build) {
-      Write-Host 'Deploying patch build' -ForegroundColor yellow
-      deployToNuget 'patch' $isAlpha
-    }
-
+  Write-Host "Local version($localVersion) is greater than the online version($onlineVersion), performing deployment" -ForegroundColor Yellow
+  Deploy (Pack $project $isAlpha).Name
+  # If it's the master branch
+  if(!$isAlpha) {
+    Update-GHPages
+  } else {
+    Write-Host "Alpha version, skipping documentation update." -ForegroundColor Yellow
+  }
 } else {
-  Write-Host 'Local version is not greater than online version, no deployment needed' -ForegroundColor yellow
+  Write-Host "Local version($localVersion) is not greater than online version($onlineVersion), skipping deployment" -ForegroundColor Yellow
 }

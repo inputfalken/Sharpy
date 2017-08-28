@@ -12,22 +12,15 @@ before_build:
   # Display .NET Core version
   - cmd: dotnet --version
   # Display minimal restore text
-  #- cmd: dotnet restore --verbosity m
-  - cmd: nuget restore
+  - cmd: dotnet restore --verbosity m
 build_script:
-  - cmd: dotnet build .\src\GeneratorAPI\GeneratorAPI.csproj -c Release
-  - cmd: dotnet msbuild .\src\Sharpy\Sharpy.csproj /p:Configuration=Release
-  - cmd: dotnet msbuild .\Tests\Tests.csproj /p:Configuration=Release
+  - cmd: dotnet build
 after_build:
   # For once the build has completed
 clone_depth: 1
 test_script:
-  # restore packages for our unit tests
-  #- cmd: dotnet restore ./tests/tests.csproj --verbosity m
-  # Install the unit test runner
-  - nuget install NUnit.ConsoleRunner -Version 3.7.0  -o consolerunner
-  # Run the unit test runner
-  - cmd: .\consolerunner\NUnit.ConsoleRunner.3.7.0\tools\nunit3-console.exe .\tests\bin\Release\Tests.dll
+  # run the unit tests (requires changing into the test directory)
+  - cmd: dotnet test ./Tests/Tests.csproj
 on_finish :
   # any cleaup in here
 deploy_script:
