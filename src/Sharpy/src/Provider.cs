@@ -212,7 +212,7 @@ namespace Sharpy {
                 throw new Exception("You have reached the maximum possible combinations for a control number");
             var securityNumber = result.ToString();
             if (securityNumber.Length != 10)
-                securityNumber = Prefix(result, 10 - securityNumber.Length);
+                securityNumber = result.Prefix(10 - securityNumber.Length);
             return formated ? securityNumber.Insert(6, "-") : securityNumber;
         }
 
@@ -252,7 +252,7 @@ namespace Sharpy {
 
             var number = res.ToString();
             return number.Length != length
-                ? Prefix(number, length - number.Length)
+                ? number.Prefix(length - number.Length)
                 : number;
         }
 
@@ -285,8 +285,6 @@ namespace Sharpy {
         public static IGenerator<TProvider> AsGenerator<TProvider>(TProvider provider) where TProvider : Provider =>
             Create(provider);
 
-        private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
-
-        private static string FormatDigit(int i) => i < 10 ? Prefix(i, 1) : i.ToString();
+        private static string FormatDigit(int i) => i < 10 ? i.Prefix(1) : i.ToString();
     }
 }

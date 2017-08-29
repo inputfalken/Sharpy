@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using NodaTime;
 using Sharpy.Enums;
 using Sharpy.Generator;
 using Sharpy.Generator.Linq;
@@ -14,7 +13,6 @@ namespace Sharpy {
     ///     Provides a set of static methods for creating <see cref="IGenerator{T}" />.
     /// </summary>
     public static class Factory {
-
         /// <summary>
         ///     <para>Creates <see cref="IGenerator{T}" /> whose generic argument is <see cref="string" />.</para>
         ///     <para>
@@ -31,6 +29,33 @@ namespace Sharpy {
         public static IGenerator<string> FirstName(INameProvider provider = null) {
             provider = provider ?? new NameByOrigin();
             return Function(provider.FirstName);
+        }
+
+        /// <summary>
+        ///     <para>
+        ///         Creates a <see cref="IGenerator{T}" /> which generates strings with numbers whose length is equal to argument:
+        ///         <paramref name="length" />.
+        ///     </para>
+        /// </summary>
+        /// <param name="length">The length of the generated <see cref="string" />.</param>
+        /// <param name="random">The random to generate the numbers with.</param>
+        /// <param name="unique">If the numbers need to be unique.</param>
+        /// <returns>
+        ///     <see cref="IGenerator{T}" /> which generates strings with numbers.
+        /// </returns>
+        /// <exception cref="Exception">
+        ///     Reached maximum amount of combinations for the argument <paramref name="length" />.
+        ///     This should only occur if argument: <paramref name="unique" /> is set to true.
+        /// </exception>
+        public static IGenerator<string> NumberByLength(int length, Random random, bool unique) {
+            var exceptionMessage = $"Reached maximum amount of combinations for the argument '{nameof(length)}'.";
+            return
+                Create((NumberGenerator: new NumberGenerator(random), Pow: (int) Math.Pow(10, length) - 1))
+                    .Select(arg => arg.NumberGenerator.RandomNumber(0, arg.Pow, unique))
+                    .Select(number => number == -1
+                        ? throw new Exception(exceptionMessage)
+                        : number.ToString())
+                    .Select(number => number.Length != length ? number.Prefix(length - number.Length) : number);
         }
 
         /// <summary>
@@ -233,6 +258,5 @@ namespace Sharpy {
         public static IGenerator<T> ParameterRandomizer<T>(int? seed = null, params T[] items) => items != null
             ? ListRandomizer(items, seed)
             : throw new ArgumentNullException(nameof(items));
-
     }
 }
