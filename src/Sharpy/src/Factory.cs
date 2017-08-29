@@ -35,6 +35,8 @@ namespace Sharpy {
         ///     <para>
         ///         Creates a <see cref="IGenerator{T}" /> which generates strings with numbers whose length is equal to argument:
         ///         <paramref name="length" />.
+        /// 
+        ///         This is a static <see cref="IGenerator{T}"/> version of method: <see cref="Provider.NumberByLength"/>.
         ///     </para>
         /// </summary>
         /// <param name="length">The length of the generated <see cref="string" />.</param>
@@ -247,16 +249,16 @@ namespace Sharpy {
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="items"></param>
-        /// <param name="seed"></param>
+        /// <param name="rnd"></param>
         /// <returns></returns>
-        public static IGenerator<T> ListRandomizer<T>(IReadOnlyList<T> items, int? seed = null) => items == null
+        public static IGenerator<T> CollectionRandomizer<T>(IReadOnlyList<T> items, Random rnd = null) => items == null
             ? throw new ArgumentNullException(nameof(items))
-            : Create(CreateRandom(seed)).Select(items.RandomItem);
+            : Create(rnd ?? new Random()).Select(items.RandomItem);
 
-        public static IGenerator<T> ParameterRandomizer<T>(params T[] items) => ParameterRandomizer(null, items: items);
+        public static IGenerator<T> ParamRandomizer<T>(params T[] items) => ParamRandomizer(null, items: items);
 
-        public static IGenerator<T> ParameterRandomizer<T>(int? seed = null, params T[] items) => items != null
-            ? ListRandomizer(items, seed)
+        public static IGenerator<T> ParamRandomizer<T>(Random rnd = null, params T[] items) => items != null
+            ? CollectionRandomizer(items, rnd)
             : throw new ArgumentNullException(nameof(items));
     }
 }
