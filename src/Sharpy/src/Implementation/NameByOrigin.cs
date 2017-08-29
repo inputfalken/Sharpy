@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using Newtonsoft.Json;
 using Sharpy.Enums;
 using Sharpy.Implementation.DataObjects;
 using Sharpy.Implementation.ExtensionMethods;
@@ -28,16 +25,6 @@ namespace Sharpy.Implementation {
         private readonly ISet<Origin> _selectedCountries = new HashSet<Origin>();
         private readonly ISet<Origin> _selectedRegions = new HashSet<Origin>();
 
-        static NameByOrigin() {
-            LazyNames = new Lazy<IEnumerable<Name>>(() => {
-                var assembly = typeof(NameByOrigin).Assembly;
-
-                var resourceStream = assembly.GetManifestResourceStream("Sharpy.Data.NamesByOrigin.json");
-                using (var reader = new StreamReader(resourceStream, Encoding.UTF8)) {
-                    return JsonConvert.DeserializeObject<IEnumerable<Name>>(reader.ReadToEnd());
-                }
-            });
-        }
 
         private NameByOrigin(Random random) => _random = random;
 
@@ -64,10 +51,7 @@ namespace Sharpy.Implementation {
         /// </param>
         public NameByOrigin(params Origin[] origins) : this(new Random(), origins) { }
 
-        internal static IEnumerable<Name> Names => LazyNames.Value;
-
-        // This code block is probably ran everytime Names is requested!
-        private static Lazy<IEnumerable<Name>> LazyNames { get; }
+        private static IEnumerable<Name> Names => Assembly.GetNames;
 
         private Dictionary<NameType, IReadOnlyList<string>> Dictionary { get; } =
             new Dictionary<NameType, IReadOnlyList<string>>();

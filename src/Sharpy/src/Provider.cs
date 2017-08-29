@@ -24,7 +24,6 @@ namespace Sharpy {
     ///     </para>
     /// </summary>
     public class Provider : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider {
-        private static readonly Lazy<string[]> LazyUsernames;
         private readonly DateGenerator _dateGenerator;
         private readonly IDoubleProvider _doubleProvider;
         private readonly IIntegerProvider _integerProvider;
@@ -38,16 +37,6 @@ namespace Sharpy {
 
         private readonly bool _uniqueNumbers;
         private Tuple<int, int> _numberByLengthState = new Tuple<int, int>(0, 0);
-
-        static Provider() {
-            LazyUsernames = new Lazy<string[]>(() => {
-                var assembly = typeof(Provider).Assembly;
-                var resourceStream = assembly.GetManifestResourceStream("Sharpy.Data.usernames.txt");
-                using (var reader = new StreamReader(resourceStream, Encoding.UTF8)) {
-                    return reader.ReadToEnd().Split(new[] {"\r\n", "\n"}, StringSplitOptions.None);
-                }
-            });
-        }
 
         /// <summary>
         ///     <para>
@@ -97,7 +86,7 @@ namespace Sharpy {
         /// </summary>
         public Provider() : this(new Configurement()) { }
 
-        internal static IEnumerable<string> UserNames => LazyUsernames.Value;
+        private static string[] UserNames => Assembly.GetUserNames;
 
         /// <inheritdoc cref="IDoubleProvider.Double()" />
         public double Double() => _doubleProvider.Double();
@@ -265,7 +254,7 @@ namespace Sharpy {
         /// <returns>
         ///     A string representing a user name.
         /// </returns>
-        public string UserName() => LazyUsernames.Value.RandomItem(_random);
+        public string UserName() => UserNames.RandomItem(_random);
 
         /// <summary>
         ///     <para>
