@@ -286,8 +286,11 @@ namespace Sharpy {
         ///     </para>
         /// </returns>
         public static IGenerator<TResult> AsGenerator<TProvider, TResult>(TProvider provider,
-            Func<TProvider, TResult> selector) where TProvider : Provider =>
-            Create(provider).Select(selector);
+            Func<TProvider, TResult> selector) where TProvider : Provider => provider != null
+            ? selector != null
+                ? Create(provider).Select(selector)
+                : throw new ArgumentNullException(nameof(selector))
+            : throw new ArgumentNullException(nameof(provider));
 
         private static string FormatDigit(int i) => i < 10 ? i.Prefix(1) : i.ToString();
     }
