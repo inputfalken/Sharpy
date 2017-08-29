@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using NodaTime;
 using Sharpy.Enums;
 using Sharpy.Generator;
 using Sharpy.Generator.Linq;
@@ -217,26 +218,19 @@ namespace Sharpy {
         public static IGenerator<int> Decrementer(int start) => Function(() => checked(start--));
 
         /// <summary>
-        /// 
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="list"></param>
-        /// <param name="seed"></param>
-        /// <returns></returns>
-        public static IGenerator<T> ListRandomizer<T>(IReadOnlyList<T> list, int? seed = null) {
-            var random = CreateRandom(seed);
-            return Function(() => list.RandomItem(random));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="seed"></param>
         /// <param name="items"></param>
+        /// <param name="seed"></param>
         /// <returns></returns>
-        public static IGenerator<T> ParameterRandomizer<T>(int? seed = null, params T[] items) {
-            return ListRandomizer(items, seed);
-        }
+        public static IGenerator<T> ListRandomizer<T>(IReadOnlyList<T> items, int? seed = null) => items == null
+            ? throw new ArgumentNullException(nameof(items))
+            : Create(CreateRandom(seed)).Select(items.RandomItem);
+
+        public static IGenerator<T> ParameterRandomizer<T>(params T[] items) => ParameterRandomizer(null, items: items);
+
+        public static IGenerator<T> ParameterRandomizer<T>(int? seed = null, params T[] items) => items != null
+            ? ListRandomizer(items, seed)
+            : throw new ArgumentNullException(nameof(items));
     }
 }
