@@ -10,5 +10,7 @@ namespace Sharpy.Implementation.ExtensionMethods {
             foreach (var element in elements) Builder.Append(element);
             return Builder.ToString();
         }
+
+        internal static string Prefix<T>(this T item, int ammount) => new string('0', ammount).Append(item);
     }
 }
