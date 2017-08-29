@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using Sharpy.Enums;
 using Sharpy.Generator;
 using Sharpy.Generator.Linq;
 using Sharpy.Implementation;
+using Sharpy.Implementation.ExtensionMethods;
 using Sharpy.IProviders;
 using static Sharpy.Generator.Generator;
 
@@ -43,10 +45,7 @@ namespace Sharpy {
         ///     </remarks>
         /// </summary>
         public static IGenerator<string> FirstName(Gender gender,
-            INameProvider provider = null) {
-            provider = provider ?? new NameByOrigin();
-            return Function(() => provider.FirstName(gender));
-        }
+            INameProvider provider = null) => Create(provider ?? new NameByOrigin()).Select(p => p.FirstName(gender));
 
         /// <summary>
         ///     Creates <see cref="IGenerator{T}" /> whose generic argument is <see cref="string" />.
@@ -59,10 +58,8 @@ namespace Sharpy {
         ///     </remarks>
         /// </summary>
         public static IGenerator<string> LastName(
-            INameProvider lastNameProvider = null) {
-            lastNameProvider = lastNameProvider ?? new NameByOrigin();
-            return Function(lastNameProvider.LastName);
-        }
+            INameProvider lastNameProvider = null) =>
+            Create(lastNameProvider ?? new NameByOrigin()).Select(p => p.LastName());
 
         /// <summary>
         ///     <para>Creates <see cref="IGenerator{T}" /> whose generic argument is <see cref="string" />.</para>
@@ -75,10 +72,8 @@ namespace Sharpy {
         ///         number is specified, the absolute value of the number is used
         ///     </param>
         /// </summary>
-        public static IGenerator<string> Username(int seed) {
-            return Create(new Provider(seed))
-                .Select(p => p.UserName());
-        }
+        public static IGenerator<string> Username(int seed) => Create(new Provider(seed))
+            .Select(p => p.UserName());
 
         /// <summary>
         ///     <para>Creates <see cref="IGenerator{T}" /> whose generic argument is <see cref="string" />.</para>
@@ -87,10 +82,8 @@ namespace Sharpy {
         ///         user name.
         ///     </para>
         /// </summary>
-        public static IGenerator<string> Username() {
-            return Create(new Provider())
-                .Select(p => p.UserName());
-        }
+        public static IGenerator<string> Username() => Create(new Provider())
+            .Select(p => p.UserName());
 
         /// <summary>
         ///     <para>
@@ -117,10 +110,9 @@ namespace Sharpy {
         /// <example>
         ///     <code language="C#" region="RandomizerThreeArg" source="Examples\GeneratorFactory.cs" />
         /// </example>
-        public static IGenerator<int> Randomizer(int min, int max, int? seed = null) {
-            if (max > min) return Create(CreateRandom(seed)).Select(rnd => rnd.Next(min, max));
-            throw new ArgumentOutOfRangeException(nameof(max), @"max must be > min!");
-        }
+        public static IGenerator<int> Randomizer(int min, int max, int? seed = null) => max > min
+            ? Create(CreateRandom(seed)).Select(rnd => rnd.Next(min, max))
+            : throw new ArgumentOutOfRangeException(nameof(max), @"max must be > min!");
 
         /// <summary>
         ///     <para>
@@ -204,9 +196,7 @@ namespace Sharpy {
         /// <example>
         ///     <code language="C#" region="Incrementer" source="Examples\GeneratorFactory.cs" />
         /// </example>
-        public static IGenerator<int> Incrementer(int start) {
-            return Function(() => checked(start++));
-        }
+        public static IGenerator<int> Incrementer(int start) => Function(() => checked(start++));
 
         /// <summary>
         ///     <para>
@@ -224,8 +214,29 @@ namespace Sharpy {
         /// <example>
         ///     <code language="C#" region="Decrementer" source="Examples\GeneratorFactory.cs" />
         /// </example>
-        public static IGenerator<int> Decrementer(int start) {
-            return Function(() => checked(start--));
+        public static IGenerator<int> Decrementer(int start) => Function(() => checked(start--));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="seed"></param>
+        /// <returns></returns>
+        public static IGenerator<T> ListRandomizer<T>(IReadOnlyList<T> list, int? seed = null) {
+            var random = CreateRandom(seed);
+            return Function(() => list.RandomItem(random));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="seed"></param>
+        /// <param name="items"></param>
+        /// <returns></returns>
+        public static IGenerator<T> ParameterRandomizer<T>(int? seed = null, params T[] items) {
+            return ListRandomizer(items, seed);
         }
     }
 }
