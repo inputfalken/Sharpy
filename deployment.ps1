@@ -90,7 +90,7 @@ function Update-GHPages {
 Write-Host "Comparing Local version($localVersion) with online version($onlineVersion)"
 if ($localVersion -gt $onlineVersion) {
   Write-Host "Local version($localVersion) is greater than the online version($onlineVersion), performing deployment" -ForegroundColor Yellow
-  [System.IO.FileSystemInfo] $nupkg = Pack $project $isAlpha
+  $nupkg = Pack $project $isAlpha
   Deploy $nupkg.Name
   # If it's the master branch
   if(!$isAlpha) {
