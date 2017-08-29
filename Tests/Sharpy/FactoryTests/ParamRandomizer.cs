@@ -8,17 +8,17 @@ using Sharpy.Generator.Linq;
 
 namespace Tests.Sharpy.FactoryTests {
     [TestFixture]
-    internal class ListRandomizer {
+    internal class ParameterRandomizer {
         [Test]
-        public void Null_List_Throws() {
-            Assert.Throws<ArgumentNullException>(() => Factory.ListRandomizer<int>(null));
+        public void Params_List_Throws() {
+            Assert.Throws<ArgumentNullException>(() => Factory.ParamRandomizer<int>(items: null));
         }
 
         [Test]
         public void Randomizes_As_Expected_With_Seed() {
             var items = new List<string> {"Foo", "Bar", "Doe"};
             var result = Factory
-                .ListRandomizer(items, 20)
+                .ParamRandomizer(new Random(20), "Foo", "Bar", "Doe")
                 .ToList(100);
             var expected = Generator
                 .Create(new Random(20))
@@ -31,7 +31,7 @@ namespace Tests.Sharpy.FactoryTests {
         public void Randomizes_Different_Values_If_No_Seed_Is_Provided() {
             var items = new List<string> {"Foo", "Bar", "Doe"};
             var result = Factory
-                .ListRandomizer(items)
+                .ParamRandomizer("Foo", "Bar", "Doe")
                 .ToList(100);
             // So the seed can change
             Thread.Sleep(100);
