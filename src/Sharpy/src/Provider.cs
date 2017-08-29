@@ -266,10 +266,6 @@ namespace Sharpy {
         /// </returns>
         public string UserName() => LazyUsernames.Value.RandomItem(_random);
 
-        private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
-
-        private static string FormatDigit(int i) => i < 10 ? Prefix(i, 1) : i.ToString();
-
         /// <summary>
         ///     <para>
         ///         Creates a <see cref="IGenerator{T}" /> with <see cref="Provider" /> as its generic type.
@@ -288,5 +284,9 @@ namespace Sharpy {
         /// </returns>
         public static IGenerator<TProvider> AsGenerator<TProvider>(TProvider provider) where TProvider : Provider =>
             Create(provider);
+
+        private static string Prefix<T>(T item, int ammount) => new string('0', ammount).Append(item);
+
+        private static string FormatDigit(int i) => i < 10 ? Prefix(i, 1) : i.ToString();
     }
 }
