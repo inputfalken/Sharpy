@@ -6,6 +6,7 @@ using System.Text;
 using NodaTime;
 using Sharpy.Enums;
 using Sharpy.Generator;
+using Sharpy.Generator.Linq;
 using Sharpy.Implementation;
 using Sharpy.Implementation.ExtensionMethods;
 using Sharpy.IProviders;
@@ -274,16 +275,19 @@ namespace Sharpy {
         /// <param name="provider">
         ///     The instance of <see cref="Provider" /> you want to be used as a generator.
         /// </param>
+        /// <param name="selector">A transform function to apply to each generation.</param>
         /// <typeparam name="TProvider">
         ///     The <see cref="Provider" /> you want to have. This could be a descendant of <see cref="Provider" />.
         /// </typeparam>
+        /// <typeparam name="TResult">The type of the result from the selector function.</typeparam>
         /// <returns>
         ///     <para>
         ///         A <see cref="IGenerator{T}" />.
         ///     </para>
         /// </returns>
-        public static IGenerator<TProvider> AsGenerator<TProvider>(TProvider provider) where TProvider : Provider =>
-            Create(provider);
+        public static IGenerator<TResult> AsGenerator<TProvider, TResult>(TProvider provider,
+            Func<TProvider, TResult> selector) where TProvider : Provider =>
+            Create(provider).Select(selector);
 
         private static string FormatDigit(int i) => i < 10 ? i.Prefix(1) : i.ToString();
     }
