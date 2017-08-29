@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
+using Sharpy.Core;
+using Sharpy.Core.Linq;
 using Sharpy.Enums;
-using Sharpy.Generator;
-using Sharpy.Generator.Linq;
 using Sharpy.Implementation;
 using Sharpy.Implementation.ExtensionMethods;
 using Sharpy.IProviders;
-using static Sharpy.Generator.Generator;
+using static Sharpy.Core.Generator;
 
 namespace Sharpy {
     /// <summary>

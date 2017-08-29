@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Threading;
 using NUnit.Framework;
 using Sharpy;
-using Sharpy.Generator;
-using Sharpy.Generator.Linq;
+using Sharpy.Core;
+using Sharpy.Core.Linq;
 
 namespace Tests.Sharpy.FactoryTests {
     [TestFixture]

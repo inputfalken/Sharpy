@@ -9,7 +9,7 @@ using System.Collections.Generic;
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Sharpy.Generator.Utils {
+namespace Sharpy.Core.Utils {
     /// <summary>
     ///     Extension methods for <see cref="IEnumerable{T}" /> types.
     /// </summary>

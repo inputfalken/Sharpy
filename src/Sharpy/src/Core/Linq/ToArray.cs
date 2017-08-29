@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace Sharpy.Generator.Linq {
+namespace Sharpy.Core.Linq {
     public static partial class Extensions {
         /// <summary>
         ///     <para>

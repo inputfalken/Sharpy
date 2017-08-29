@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Sharpy.Generator.Utils;
+using Sharpy.Core.Utils;
 
-namespace Sharpy.Generator.Implementations {
+namespace Sharpy.Core.Implementations {
     /// <summary>
     ///     <para>A Generator using <see cref="IEnumerable{T}" /></para>
     /// </summary>

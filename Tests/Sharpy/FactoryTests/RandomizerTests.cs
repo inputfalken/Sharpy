@@ -2,7 +2,7 @@
 using System.Threading;
 using NUnit.Framework;
 using Sharpy;
-using Sharpy.Generator.Linq;
+using Sharpy.Core.Linq;
 
 namespace Tests.Sharpy.FactoryTests {
     [TestFixture]
