@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sharpy.Generator.Implementations {
+namespace Sharpy.Core.Implementations {
     /// <summary>
     ///     <para>A Generator using <see cref="Func{TResult}" /></para>
     /// </summary>

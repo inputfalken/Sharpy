@@ -2,9 +2,9 @@
 using System.Linq;
 using NUnit.Framework;
 using Sharpy;
+using Sharpy.Core;
+using Sharpy.Core.Linq;
 using Sharpy.Enums;
-using Sharpy.Generator;
-using Sharpy.Generator.Linq;
 using Sharpy.Implementation;
 
 namespace Tests.Sharpy.Integration {

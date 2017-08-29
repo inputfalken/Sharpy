@@ -1,8 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
 using Sharpy;
-using Sharpy.Generator;
-using Sharpy.Generator.Linq;
+using Sharpy.Core;
+using Sharpy.Core.Linq;
 using Sharpy.Implementation;
 
 namespace Tests.Sharpy.Integration {

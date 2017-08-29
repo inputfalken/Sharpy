@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using Sharpy.Generator;
+using Sharpy.Core;
 
 namespace Tests.GeneratorAPI.Implementations {
     [TestFixture]

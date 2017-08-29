@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Sharpy;
-using Sharpy.Generator;
-using Sharpy.Generator.Linq;
+using Sharpy.Core;
+using Sharpy.Core.Linq;
 
 namespace Tests.Sharpy.Integration {
     [TestFixture]
