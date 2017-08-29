@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using Newtonsoft.Json;
 using Sharpy.Enums;
@@ -24,7 +23,6 @@ namespace Sharpy.Implementation {
             Enums.Origin.SouthAmerica
         };
 
-        private static readonly Lazy<IEnumerable<Name>> LazyNames;
 
         private readonly ISet<Origin> _origins;
         private readonly Random _random;
@@ -33,7 +31,8 @@ namespace Sharpy.Implementation {
 
         static NameByOrigin() {
             LazyNames = new Lazy<IEnumerable<Name>>(() => {
-                var assembly = Assembly.Load("Sharpy");
+                var assembly = typeof(NameByOrigin).Assembly;
+
                 var resourceStream = assembly.GetManifestResourceStream("Sharpy.Data.NamesByOrigin.json");
                 using (var reader = new StreamReader(resourceStream, Encoding.UTF8)) {
                     return JsonConvert.DeserializeObject<IEnumerable<Name>>(reader.ReadToEnd());
@@ -41,7 +40,9 @@ namespace Sharpy.Implementation {
             });
         }
 
-        private NameByOrigin(Random random) => _random = random;
+        private NameByOrigin(Random random) {
+            _random = random;
+        }
 
         /// <summary>
         ///     <para>
@@ -68,18 +69,28 @@ namespace Sharpy.Implementation {
 
         internal static IEnumerable<Name> Names => LazyNames.Value;
 
+
+        // This code block is probably ran everytime Names is requested!
+        private static Lazy<IEnumerable<Name>> LazyNames { get; }
+
         private Dictionary<NameType, IReadOnlyList<string>> Dictionary { get; } =
             new Dictionary<NameType, IReadOnlyList<string>>();
 
         /// <inheritdoc cref="INameProvider.FirstName(Gender)" />
-        public string FirstName(Gender gender) => Name(
-            gender == Gender.Male ? NameType.MaleFirst : NameType.FemaleFirst);
+        public string FirstName(Gender gender) {
+            return Name(
+                gender == Gender.Male ? NameType.MaleFirst : NameType.FemaleFirst);
+        }
 
         /// <inheritdoc cref="INameProvider.FirstName()" />
-        public string FirstName() => Name(_random.Next(2) == 0 ? NameType.FemaleFirst : NameType.MaleFirst);
+        public string FirstName() {
+            return Name(_random.Next(2) == 0 ? NameType.FemaleFirst : NameType.MaleFirst);
+        }
 
         /// <inheritdoc cref="INameProvider.LastName()" />
-        public string LastName() => Name(NameType.Last);
+        public string LastName() {
+            return Name(NameType.Last);
+        }
 
         /// <summary>
         ///     <para>
