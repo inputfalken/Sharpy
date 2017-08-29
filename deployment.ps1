@@ -80,9 +80,9 @@ function Update-GHPages {
   git push origin gh-pages -q
 }
 
-$project = '.\src\Sharpy\Sharpy.csproj'
-$branch = $env:APPVEYOR_REPO_BRANCH
-$isAlpha = Is-Alpha $branch
+[string] $project = '.\src\Sharpy\Sharpy.csproj'
+[string] $branch = $env:APPVEYOR_REPO_BRANCH
+[bool] $isAlpha = Is-Alpha $branch
 
 [version] $onlineVersion = Fetch-OnlineVersion 'https://nuget.org/api/v2/' 'Sharpy' $isAlpha
 [version] $localVersion = Get-LocalVersion $project
@@ -90,13 +90,15 @@ $isAlpha = Is-Alpha $branch
 Write-Host "Comparing Local version($localVersion) with online version($onlineVersion)"
 if ($localVersion -gt $onlineVersion) {
   Write-Host "Local version($localVersion) is greater than the online version($onlineVersion), performing deployment" -ForegroundColor Yellow
-  Deploy (Pack $project $isAlpha).Name
+  [System.IO.FileSystemInfo] $nupkg = Pack $project $isAlpha
+  Deploy $nupkg.Name
   # If it's the master branch
   if(!$isAlpha) {
     Update-GHPages
   } else {
     Write-Host "Alpha version, skipping documentation update." -ForegroundColor Yellow
   }
+  Delete-OnlinePackage $nupkg
 } else {
   Write-Host "Local version($localVersion) is not greater than online version($onlineVersion), skipping deployment" -ForegroundColor Yellow
 }
