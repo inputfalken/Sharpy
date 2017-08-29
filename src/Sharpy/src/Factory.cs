@@ -14,6 +14,7 @@ namespace Sharpy {
     ///     Provides a set of static methods for creating <see cref="IGenerator{T}" />.
     /// </summary>
     public static class Factory {
+
         /// <summary>
         ///     <para>Creates <see cref="IGenerator{T}" /> whose generic argument is <see cref="string" />.</para>
         ///     <para>
@@ -232,5 +233,6 @@ namespace Sharpy {
         public static IGenerator<T> ParameterRandomizer<T>(int? seed = null, params T[] items) => items != null
             ? ListRandomizer(items, seed)
             : throw new ArgumentNullException(nameof(items));
+
     }
 }
