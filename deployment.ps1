@@ -93,11 +93,11 @@ if ($localVersion -gt $onlineVersion) {
   $nupkg = Pack $project $isAlpha
   Deploy $nupkg.Name
   # If it's the master branch
-  if(!$isAlpha) {
+  #if(!$isAlpha) {
     Update-GHPages
-  } else {
-    Write-Host "Alpha version, skipping documentation update." -ForegroundColor Yellow
-  }
+  #} else {
+  #  Write-Host "Alpha version, skipping documentation update." -ForegroundColor Yellow
+  #}
   Delete-OnlinePackage $nupkg
 } else {
   Write-Host "Local version($localVersion) is not greater than online version($onlineVersion), skipping deployment" -ForegroundColor Yellow
