@@ -64,7 +64,7 @@ function Get-LocalVersion ([string] $project) {
 # Updates DocFx documentation.
 function Update-GHPages {
   & nuget install docfx.console -Version 2.23.1 -Source https://www.myget.org/F/docfx/api/v3/index.json
-  & docfx.console.2.22.1\tools\docfx docfx.json
+  & docfx.console.2.23.1\tools\docfx docfx.json
   if ($lastexitcode -ne 0) {
     throw [System.Exception] "docfx build failed with exit code $lastexitcode."
   }
