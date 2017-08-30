@@ -280,4 +280,13 @@ namespace Sharpy {
 
         private static string FormatDigit(int i) => i < 10 ? i.Prefix(1) : i.ToString();
     }
+
+    public static class ProviderExtensions {
+        public static IGenerator<TResult> ToGenerator<TGenerator, TResult>(this TGenerator generator,
+            Func<TGenerator, TResult> fn) where TGenerator : Provider => generator != null
+            ? fn != null
+                ? Create(generator).Select(fn)
+                : throw new ArgumentNullException(nameof(generator))
+            : throw new ArgumentNullException(nameof(fn));
+    }
 }
