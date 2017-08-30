@@ -1,3 +1,4 @@
+param([string] $project, [string] $repo)
 # Pack package to root directory of project and returns the file.
 function Pack ([string] $project, [bool] $isAlpha) {
   $currentDirectory = (Resolve-Path .\).Path
@@ -72,7 +73,7 @@ function Update-GHPages {
   git config --global user.email \<\>
   git config --global user.name 'CI'
 
-  git clone https://github.com/inputfalken/Sharpy -b gh-pages origin_site -q
+  git clone $repo -b gh-pages origin_site -q
   Copy-Item origin_site/.git _site -recurse
   CD _site
   git add -A 2>&1
@@ -80,11 +81,10 @@ function Update-GHPages {
   git push origin gh-pages -q
 }
 
-[string] $project = '.\src\Sharpy\Sharpy.csproj'
 [string] $branch = $env:APPVEYOR_REPO_BRANCH
 [bool] $isAlpha = Is-Alpha $branch
-
-[version] $onlineVersion = Fetch-OnlineVersion 'https://nuget.org/api/v2/' 'Sharpy' $isAlpha
+[string] $name = ($project.Split('\\') | select -last 1).Split('.') | select -first 1
+[version] $onlineVersion = Fetch-OnlineVersion 'https://nuget.org/api/v2/' $name $isAlpha
 [version] $localVersion = Get-LocalVersion $project
 
 Write-Host "Comparing Local version($localVersion) with online version($onlineVersion)"

@@ -24,4 +24,4 @@ test_script:
 on_finish :
   # any cleaup in here
 deploy_script:
-  - cmd: powershell -File .\deployment.ps1
+  - cmd: powershell -File .\deployment.ps1 src\Sharpy\Sharpy.csproj https://github.com/inputfalken/Sharpy
