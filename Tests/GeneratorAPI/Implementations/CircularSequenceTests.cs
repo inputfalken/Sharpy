@@ -91,51 +91,8 @@ namespace Tests.GeneratorAPI.Implementations {
             Assert.AreEqual(new[] {3, 2, 1}, generator.ToArray(3));
         }
 
-        [Test(
-            Description = "Verify that it's possible to use ArrayList"
-        )]
-        public void None_Generic_List() {
-            var list = new ArrayList {1, 2, 3};
-            var geneartor = Generator
-                .CircularSequence(list);
 
-            Assert.AreEqual(new[] {1, 2, 3}, geneartor.ToArray(3));
-        }
 
-        [Test(
-            Description = "Verify that null enumerable throw exception"
-        )]
-        public void None_Generic_Null() {
-            Assert.Throws<ArgumentNullException>(() => Generator.CircularSequence(null));
-        }
-
-        [Test(
-            Description = "Verify that it's possible to use Queue"
-        )]
-        public void None_Generic_Queue() {
-            var stack = new Queue();
-            stack.Enqueue(1);
-            stack.Enqueue(2);
-            stack.Enqueue(3);
-            var generator = Generator
-                .CircularSequence(stack);
-
-            Assert.AreEqual(new[] {1, 2, 3}, generator.ToArray(3));
-        }
-
-        [Test(
-            Description = "Verify that it's possible to use Stack"
-        )]
-        public void None_Generic_Stack() {
-            var stack = new Stack();
-            stack.Push(1);
-            stack.Push(2);
-            stack.Push(3);
-            var list = Generator
-                .CircularSequence(stack);
-
-            Assert.AreEqual(new[] {3, 2, 1}, list.ToArray(3));
-        }
 
         [Test(
             Description = "Verify that passing null when creating a circular sequence throws exception"

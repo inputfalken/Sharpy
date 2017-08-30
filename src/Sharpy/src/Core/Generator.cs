@@ -86,24 +86,5 @@ namespace Sharpy.Core {
             return new Seq<TSource>(enumerable);
         }
 
-        /// <summary>
-        ///     <para>
-        ///         Creates a <see cref="IGenerator{T}" /> with object as its type parameter; based on an
-        ///         <see cref="IEnumerable" /> which resets if the end is reached.
-        ///     </para>
-        /// </summary>
-        /// <param name="enumerable">
-        ///     The <see cref="IEnumerable" /> to create the <see cref="IGenerator{T}" /> with
-        ///     <see cref="object" /> as its type parameter.
-        /// </param>
-        /// <returns>
-        ///     <see cref="IGenerator" /> whose elements comes from argument <paramref name="enumerable" />.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">Argument <paramref name="enumerable" /> is null.</exception>
-        public static IGenerator<object> CircularSequence(IEnumerable enumerable) {
-            if (enumerable == null) throw new ArgumentNullException(nameof(enumerable));
-            // TODO add proper implementation so cast can be skipped.
-            return new Seq<object>(enumerable.Cast<object>());
-        }
     }
 }
