@@ -26,6 +26,5 @@ namespace Sharpy.Core.Implementations {
         /// </summary>
         public T Generate() => _fn();
 
-        object IGenerator.Generate() => Generate();
     }
 }

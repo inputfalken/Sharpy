@@ -23,8 +23,6 @@ namespace Sharpy.Core.Implementations {
             return Enumerator.Current;
         }
 
-        object IGenerator.Generate() => Generate();
-
         /// <summary>
         ///     <para>QUAS WEX EXORT</para>
         /// </summary>
