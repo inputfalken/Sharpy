@@ -255,6 +255,16 @@ namespace Sharpy {
             ? throw new ArgumentNullException(nameof(items))
             : Create(rnd ?? new Random()).Select(items.RandomItem);
 
+        public static IGenerator<TResult> Provider<TResult>(Func<Provider, TResult> selector,
+            Configurement configurement) => configurement != null
+            ? selector != null
+                ? Create(new Provider(configurement)).Select(selector)
+                : throw new ArgumentNullException(nameof(selector))
+            : throw new ArgumentNullException(nameof(configurement));
+
+        public static IGenerator<TResult> Provider<TResult>(Func<Provider, TResult> selector) =>
+            Provider(selector, new Configurement());
+
         public static IGenerator<T> ParamRandomizer<T>(params T[] items) => ParamRandomizer(null, items: items);
 
         public static IGenerator<T> ParamRandomizer<T>(Random rnd = null, params T[] items) => items != null
