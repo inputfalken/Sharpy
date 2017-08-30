@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
-using System.Text;
 using NodaTime;
 using Sharpy.Core;
 using Sharpy.Core.Linq;
