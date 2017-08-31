@@ -6,37 +6,17 @@ yellow=$(tput setaf 3)
 green=$(tput setaf 2)
 reset=$(tput sgr0)
 
-####################################################################################################
-#                                                                                                  #
-#                                              Setup                                               #
-#                                                                                                  #
-####################################################################################################
-mkdir .nuget
-
-echo "${yellow}Downloading NuGet ${reset}"
-if wget -O .nuget/nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe ; then
-  echo "${green}Download Successfull${reset}"
+echo "${yellow}Running dotnet restore ${reset}"
+if dotnet restore ./Sharpy.sln -v m ; then
+  echo "${green}Restoration succeeded"
 fi
-
-echo "${yellow}Restoring solution with NuGet${reset}"
-if mono .nuget/nuget.exe restore Sharpy.sln -Verbosity quiet ; then
-  echo "${green}Restoration Successfull${reset}"
-fi
-
-mkdir testrunner
-
-echo "${yellow}Installing NUnit 3.6.1 with NuGet${reset}"
-if mono .nuget/nuget.exe install NUnit.Runners -Version 3.6.1 -OutputDirectory testrunner -Verbosity quiet ; then
-  echo "${green}Installation Successfull${reset}"
-fi
-
 ####################################################################################################
 #                                                                                                  #
 #                                              Build                                               #
 #                                                                                                  #
 ####################################################################################################
-echo "${yellow}Starting build on solution with msbuild ${reset}"
-if msbuild /v:minimal /p:Configuration=Release Sharpy.sln ; then
+echo "${yellow}Running dotnet build ${reset}"
+if dotnet build ./Sharpy.sln -c Release ; then
   echo "${green}Build Succeeded"
 fi
 ####################################################################################################
@@ -44,8 +24,8 @@ fi
 #                                              Tests                                               #
 #                                                                                                  #
 ####################################################################################################
-echo "${yellow}Starting NUnit tests${reset}"
-mono ./testrunner/NUnit.ConsoleRunner.3.6.1/tools/nunit3-console.exe ./Tests/bin/Release/Tests.dll
+echo "${yellow}Running dotnet test${reset}"
+dotnet test ./Tests/Tests.csproj -c Release --no-build
 ####################################################################################################
 #                                                                                                  #
 #                                             AppVeyor                                             #
@@ -55,4 +35,4 @@ BRANCH="$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo "$TRAVIS_BRANCH"; 
 ACCOUNT_NAME=$(echo $TRAVIS_REPO_SLUG | cut -d '/' -f 1)
 REPO_NAME=$(echo $TRAVIS_REPO_SLUG | cut -d '/' -f 2)
 # Tell AppVeyor to start a build
-curl -d "{accountName: '$ACCOUNT_NAME', projectSlug: '$REPO_NAME', branch: '$BRANCH'}" -H "Authorization: Bearer $APPVEYOR_API_TOKEN" -H 'Content-Type: application/json' -X POST https://ci.appveyor.com/api/builds
+#curl -d "{accountName: '$ACCOUNT_NAME', projectSlug: '$REPO_NAME', branch: '$BRANCH'}" -H "Authorization: Bearer $APPVEYOR_API_TOKEN" -H 'Content-Type: application/json' -X POST https://ci.appveyor.com/api/builds
