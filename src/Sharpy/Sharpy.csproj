@@ -39,4 +39,8 @@
       </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Sharpy.Core\Sharpy.Core.csproj" />
+  </ItemGroup>
+
 </Project>
