@@ -51,9 +51,10 @@ function Fetch-OnlineVersion ([string] $listSource, [string] $projectName, [bool
   } else {
     $packageName = NuGet list $projectName -Source $listSource
   }
+
   Write-Host "Found package '$packageName'." -ForegroundColor Green
-  # $packageName comes in format: "packageName 1.0.0".
-  $version = ($packageName.Split(" ") | Select-Object -Last 1)
+  # $packageName comes in format: "packageName 1.0.0" and can contain multiple strings!.
+  $version = (($packageName | select -First 1).Split(" ") | Select-Object -Last 1)
   # In alpha version the version also includes the string "version-alpha" where version is the semver.
   if ($isAlpha) {
     $version = ($version | select -Last 1).Split("-") | select -First 1
