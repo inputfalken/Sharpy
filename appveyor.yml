@@ -14,15 +14,15 @@ before_build:
   # Display minimal restore text
   - cmd: dotnet restore --verbosity m
 build_script:
-  - cmd: dotnet build
+  - cmd: dotnet build -c Release
 after_build:
   # For once the build has completed
 clone_depth: 1
 test_script:
   # run the unit tests (requires changing into the test directory)
-  - cmd: dotnet test ./Tests/Tests.csproj -c Release
+  - cmd: dotnet test ./Tests/Tests.csproj --no-build -c Release
 on_finish :
   # any cleaup in here
 deploy_script:
-  - cmd: powershell -File .\deployment.ps1 src\Sharpy\Sharpy.csproj https://github.com/inputfalken/Sharpy
-  - cmd: powershell -File .\deployment.ps1 src\Sharpy.Core\Sharpy.Core.csproj https://github.com/inputfalken/Sharpy
+  - ps: .\deployment.ps1 -Project src\Sharpy\Sharpy.csproj -Repo https://github.com/inputfalken/Sharpy
+  - ps: .\deployment.ps1 -Project src\Sharpy.Core\Sharpy.Core.csproj -Repo https://github.com/inputfalken/Sharpy

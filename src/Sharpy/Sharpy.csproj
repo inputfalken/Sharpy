@@ -6,10 +6,10 @@
     <Description>A library used for generating fake data.
 
       For info please visit project page.</Description>
-    <VersionPrefix>3.8.1</VersionPrefix>
+    <VersionPrefix>3.9.0</VersionPrefix>
     <PackageProjectUrl>https://github.com/inputfalken/Sharpy/tree/master</PackageProjectUrl>
     <PackageLicenseUrl>https://raw.githubusercontent.com/inputfalken/Sharpy/master/License.txt</PackageLicenseUrl>
-    <FileVersion>3.8.1.0</FileVersion>
+    <FileVersion>3.9.0.0</FileVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/inputfalken/Sharpy/tree/master</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -24,6 +24,7 @@
     <PackageReference Include="MonTask" Version="0.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="NodaTime" Version="2.2.0" />
+    <PackageReference Include="Sharpy.Core" Version="0.0.0-alpha" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,10 +38,6 @@
       <EmbeddedResource Include="Data\usernames.txt">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Sharpy.Core\Sharpy.Core.csproj" />
   </ItemGroup>
 
 </Project>
