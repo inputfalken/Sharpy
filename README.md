@@ -1,5 +1,5 @@
 # Sharpy
-[![Build status](https://ci.appveyor.com/api/projects/status/glb3ouu7afufy54s?svg=true)](https://ci.appveyor.com/project/inputfalken/sharpy)
+[![Build status](https://ci.appveyor.com/api/projects/status/7xxovtd60q5gl3ln/branch/development?svg=true)](https://ci.appveyor.com/project/inputfalken/sharpy/branch/development) [![Build Status](https://travis-ci.org/inputfalken/Sharpy.svg?branch=development)](https://travis-ci.org/inputfalken/Sharpy)
 
 This is a hobby project of mine where the goal is to have an easy way of generating some fake data.
 
