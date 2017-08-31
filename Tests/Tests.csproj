@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\src\Sharpy.Core\Sharpy.Core.csproj" />
     <ProjectReference Include="..\src\Sharpy\Sharpy.csproj" />
   </ItemGroup>
 
