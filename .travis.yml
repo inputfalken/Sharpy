@@ -1,9 +1,19 @@
 language: csharp
-solution: Sharpy.sln
-install: true
-script:
-- "./travis.sh"
+mono: none
+dotnet: 2.0.0
+dist: trusty
+
+addons:
+  apt:
+    sources:
+    - sourceline: 'deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-trusty-prod trusty main'
+      key_url: 'https://packages.microsoft.com/keys/microsoft.asc'
+    APACHEckages:
+    - dotnet-hostfxr-1.0.1
+    - dotnet-sharedframework-microsoft.netcore.app-1.0.5
 env:
   global:
   - secure: JchEqtVc5Jv7WYK+MZdYrh+yyjSZ8ZfG0iYJxA7iTFZlFFIv2rFzTK/TaSxTnsXHj/GeFr6nZyp8tgh5xn79JFBLmF2cEMGdIXsoUk7nWrNl4A7C3KgPuPSdb3KKmuat2F23XxrJlef2AhOvX2c3kAWHkMzwbl7US79SY0A5GEnxl/VAhvEHiLjO8W6XKie3f3vNWMtwJmNYzXW3MNQqQSXpo0+5jwk8GHFfZyBisYWaJP+mogOoO+tArcRfVn8uL9E9o/HGTPy0seBQV+3AmDyCsQ2NjB96WtpleNOQxG0GM8veDwDnT1cCza5b3J6BKk3ude/yusosgVNqPWqGzcCPfgzKDGh4cldHpEcJKF+R9bAFWVU6aQI2/n/XwGTnmatIzML5DC0YmHKTIUy5Ga9zQZ/z27WKlM7r8WUzXVr2j+50iq8hQwmzB1T4GV1wzjr0fzVFhv74Had1jgVjhq0Fs115dvrHoporKy8u5voiby1pknxHRRdpZJI+S7beCYn5ucVNvmCgEyeqQN7vXyD6P9zKS/0++n8MnJ92/sLfUpUZz2YUy6SgywArypwXyIXtEt1zT8UJFqaSSkEYzRpPtCNr0OvAaf9fTKRDr/E2jHegXyBz2Q/DIJCLB/5UOrpkNsGLBIcakJlnlZsxIpE8HmutyQxrTqbRTB7lLgY=
   - secure: mo/3xhwK5QZLovL4DueSOFI7jftEiiIjxEpCYEPBXijYJB4wKXhutLFctGUNWtjGU2jma0SrFtxyC9/indqYrf8JXgg+vALWTKbooePR0jBD9ZKSyOfOI0cN6knpbzBg1Ta25cioqi9qZqznW2RXvrbfqadBAiJvowRtMb7F+ymev7ZFblrQYjfeOVImGJPP8rq2903b5bi0BlXVMgxIW0JTeshArkjPazx4aWrxkx0v77WhBht0gj1dfTuK1shQE7dNOkbeMVl+iaz/kXUpJ20MM6pea0D7ltObR3pGB3tAdEyyeF6ZADj/MHDKD94ZhBjZ8cioQtN0nTG56a8CHSc/sPA1LimR5TBRsPvsgzJe3MqyzWtEwXs2qRJ1QrOHDsxLiamG0N08frQwCVyLXzCLhB4g8sReR8NjkPkInVJCQLsw6FV5Oi5R5tIOMkwHj97YTfiCy1Qp9ZjN8y4vVu1DYa/4UJzDqAZbWauuIAIPwf0roAmUE5A75ROAlZo09/QZXyW5qtQlp66Wtcus4BJsWBbjzktFVyy1jJ2GkX7MEdj3GO/E68SIu2A7mLxo/MzNeQTbth09Ty4UU2eMYKZycZlDSOpqLqgylWiUxgUcAzVJkOO/ibm2kFOcd8ZScwfMHc3ZW3xe6zV5UI2IueJ9Na8DHOJ5CDrV8REmssg=
+script:
+- "./travis.sh"
