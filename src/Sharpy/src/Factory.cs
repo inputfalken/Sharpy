@@ -251,7 +251,7 @@ namespace Sharpy {
         /// <param name="items"></param>
         /// <param name="rnd"></param>
         /// <returns></returns>
-        public static IGenerator<T> CollectionRandomizer<T>(IReadOnlyList<T> items, Random rnd = null) => items == null
+        public static IGenerator<T> ListRandomizer<T>(IReadOnlyList<T> items, Random rnd = null) => items == null
             ? throw new ArgumentNullException(nameof(items))
             : Create(rnd ?? new Random()).Select(items.RandomItem);
 
@@ -265,10 +265,10 @@ namespace Sharpy {
         public static IGenerator<TResult> Provider<TResult>(Func<Provider, TResult> selector) =>
             Provider(selector, new Configurement());
 
-        public static IGenerator<T> ParamRandomizer<T>(params T[] items) => ParamRandomizer(null, items: items);
+        public static IGenerator<T> ArgumentRandomizer<T>(params T[] items) => ArgumentRandomizer(null, items: items);
 
-        public static IGenerator<T> ParamRandomizer<T>(Random rnd = null, params T[] items) => items != null
-            ? CollectionRandomizer(items, rnd)
+        public static IGenerator<T> ArgumentRandomizer<T>(Random rnd = null, params T[] items) => items != null
+            ? ListRandomizer(items, rnd)
             : throw new ArgumentNullException(nameof(items));
     }
 }

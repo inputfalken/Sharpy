@@ -11,14 +11,14 @@ namespace Tests.Sharpy.FactoryTests {
     internal class CollectionRandomizer {
         [Test]
         public void Null_List_Throws() {
-            Assert.Throws<ArgumentNullException>(() => Factory.CollectionRandomizer<int>(null));
+            Assert.Throws<ArgumentNullException>(() => Factory.ListRandomizer<int>(null));
         }
 
         [Test]
         public void Randomizes_As_Expected_With_Seed() {
             var items = new List<string> {"Foo", "Bar", "Doe"};
             var result = Factory
-                .CollectionRandomizer(items, new Random(20))
+                .ListRandomizer(items, new Random(20))
                 .ToList(100);
             var expected = Generator
                 .Create(new Random(20))
@@ -31,7 +31,7 @@ namespace Tests.Sharpy.FactoryTests {
         public void Randomizes_Different_Values_If_No_Seed_Is_Provided() {
             var items = new List<string> {"Foo", "Bar", "Doe"};
             var result = Factory
-                .CollectionRandomizer(items)
+                .ListRandomizer(items)
                 .ToList(100);
             // So the seed can change
             Thread.Sleep(100);
