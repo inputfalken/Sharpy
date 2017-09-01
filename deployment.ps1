@@ -3,7 +3,7 @@ param(
     [Parameter(Mandatory=$true)]
     [string] $project,
     [Parameter(Mandatory=$false)]
-    [string] $repo
+    [string] $repo = $null
 )
 # Pack package to root directory of project and returns the file.
 function Pack ([string] $project, [bool] $isAlpha) {
