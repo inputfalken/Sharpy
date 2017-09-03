@@ -18,7 +18,7 @@ namespace Example {
 
             IEnumerable<int> enumerable = randomizer
                 .Take(10); // An IEnumerable containing ten randomized elements.
-            IEnumerable<int> enumerableTimesTen = doubledRandomizer
+            IEnumerable<int> doubledEnumerable = doubledRandomizer
                 .Take(10); // An IEnumerable containing ten randomized elements which has been doubled. 
 
         }
