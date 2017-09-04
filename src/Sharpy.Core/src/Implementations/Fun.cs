@@ -25,6 +25,5 @@ namespace Sharpy.Core.Implementations {
         ///     <para>Gives &lt;T&gt;</para>
         /// </summary>
         public T Generate() => _fn();
-
     }
 }

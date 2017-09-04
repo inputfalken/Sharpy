@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
@@ -90,9 +89,6 @@ namespace Tests.GeneratorAPI.Implementations {
 
             Assert.AreEqual(new[] {3, 2, 1}, generator.ToArray(3));
         }
-
-
-
 
         [Test(
             Description = "Verify that passing null when creating a circular sequence throws exception"
