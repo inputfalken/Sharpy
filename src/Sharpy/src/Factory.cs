@@ -26,10 +26,7 @@ namespace Sharpy {
         ///         </para>
         ///     </remarks>
         /// </summary>
-        public static IGenerator<string> FirstName(INameProvider provider = null) {
-            provider = provider ?? new NameByOrigin();
-            return Function(provider.FirstName);
-        }
+        public static IGenerator<string> FirstName(INameProvider provider = null) => Create(provider ?? new NameByOrigin()).Select(p => p.FirstName());
 
         /// <summary>
         ///     <para>
