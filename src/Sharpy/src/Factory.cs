@@ -26,7 +26,8 @@ namespace Sharpy {
         ///         </para>
         ///     </remarks>
         /// </summary>
-        public static IGenerator<string> FirstName(INameProvider provider = null) => Create(provider ?? new NameByOrigin()).Select(p => p.FirstName());
+        public static IGenerator<string> FirstName(INameProvider provider = null) =>
+            Create(provider ?? new NameByOrigin()).Select(p => p.FirstName());
 
         /// <summary>
         ///     <para>
@@ -97,7 +98,7 @@ namespace Sharpy {
         ///         number is specified, the absolute value of the number is used
         ///     </param>
         /// </summary>
-        public static IGenerator<string> Username(int seed) => Create(new Provider(seed))
+        public static IGenerator<string> Username(Random rnd) => Create(new Provider(rnd))
             .Select(p => p.UserName());
 
         /// <summary>
@@ -242,32 +243,35 @@ namespace Sharpy {
         public static IGenerator<int> Decrementer(int start) => Function(() => checked(start--));
 
         /// <summary>
-        ///     Creates a <see cref="IGenerator{T}"/> whose generations is a randomized element from the <paramref name="items"/>.
+        ///     Creates a <see cref="IGenerator{T}" /> whose generations is a randomized element from the <paramref name="items" />
+        ///     .
         /// </summary>
         /// <typeparam name="T">The type of the arguments.</typeparam>
         /// <param name="rnd">The randomizer.</param>
         /// <param name="items">The arguments.</param>
         /// <returns>
-        ///     A <see cref="IGenerator{T}"/> whose generations is based on the argument <paramref name="items"/>.
+        ///     A <see cref="IGenerator{T}" /> whose generations is based on the argument <paramref name="items" />.
         /// </returns>
         public static IGenerator<T> ListRandomizer<T>(IReadOnlyList<T> items, Random rnd = null) => items == null
             ? throw new ArgumentNullException(nameof(items))
             : Create(rnd ?? new Random()).Select(items.RandomItem);
 
         /// <summary>
-        ///   Creates a <see cref="IGenerator{T}"/> by using <see cref="Sharpy.Provider"/> in a <paramref name="selector"/> function.
+        ///     Creates a <see cref="IGenerator{T}" /> by using <see cref="Sharpy.Provider" /> in a <paramref name="selector" />
+        ///     function.
         /// </summary>
         /// <typeparam name="TResult">
-        /// The result type from the <paramref name="selector"/> function.
+        ///     The result type from the <paramref name="selector" /> function.
         /// </typeparam>
         /// <param name="selector">
-        /// A transform function to apply to each generated element.
+        ///     A transform function to apply to each generated element.
         /// </param>
         /// <param name="configurement">
-        ///     A configuration class used by <see cref="Sharpy.Provider"/>.
+        ///     A configuration class used by <see cref="Sharpy.Provider" />.
         /// </param>
         /// <returns>
-        ///     A <see cref="IGenerator{T}"/> whose type has is the result from using a <paramref name="selector"/> function combined with <see cref="Sharpy.Provider"/>.
+        ///     A <see cref="IGenerator{T}" /> whose type has is the result from using a <paramref name="selector" /> function
+        ///     combined with <see cref="Sharpy.Provider" />.
         /// </returns>
         public static IGenerator<TResult> Provider<TResult>(Func<Provider, TResult> selector,
             Configurement configurement) => configurement != null
@@ -277,41 +281,59 @@ namespace Sharpy {
             : throw new ArgumentNullException(nameof(configurement));
 
         /// <summary>
-        ///   Creates a <see cref="IGenerator{T}"/> by using <see cref="Sharpy.Provider"/> in a <paramref name="selector"/> function.
+        ///     Creates a <see cref="IGenerator{T}" /> by using <see cref="Sharpy.Provider" /> in a <paramref name="selector" />
+        ///     function.
         /// </summary>
         /// <typeparam name="TResult">
-        /// The result type from the <paramref name="selector"/> function.
+        ///     The result type from the <paramref name="selector" /> function.
         /// </typeparam>
         /// <param name="selector">
-        /// A transform function to apply to each generated element.
+        ///     A transform function to apply to each generated element.
         /// </param>
         /// <returns>
-        ///     A <see cref="IGenerator{T}"/> whose type has is the result from using a <paramref name="selector"/> function combined with <see cref="Sharpy.Provider"/>.
+        ///     A <see cref="IGenerator{T}" /> whose type has is the result from using a <paramref name="selector" /> function
+        ///     combined with <see cref="Sharpy.Provider" />.
         /// </returns>
         public static IGenerator<TResult> Provider<TResult>(Func<Provider, TResult> selector) =>
             Provider(selector, new Configurement());
 
         /// <summary>
-        ///     Creates a <see cref="IGenerator{T}"/> whose generations is a randomized element from the <paramref name="items"/>.
+        ///     Creates a <see cref="IGenerator{T}" /> whose generations is a randomized element from the <paramref name="items" />
+        ///     .
         /// </summary>
         /// <typeparam name="T">The type of the arguments.</typeparam>
         /// <param name="items">The arguments.</param>
         /// <returns>
-        ///     A <see cref="IGenerator{T}"/> whose generations is based on the argument <paramref name="items"/>.
+        ///     A <see cref="IGenerator{T}" /> whose generations is based on the argument <paramref name="items" />.
         /// </returns>
         public static IGenerator<T> ArgumentRandomizer<T>(params T[] items) => ArgumentRandomizer(null, items: items);
 
         /// <summary>
-        ///     Creates a <see cref="IGenerator{T}"/> whose generations is a randomized element from the <paramref name="items"/>.
+        ///     Creates a <see cref="IGenerator{T}" /> whose generations is a randomized element from the <paramref name="items" />
+        ///     .
         /// </summary>
         /// <typeparam name="T">The type of the arguments.</typeparam>
         /// <param name="rnd">The randomizer.</param>
         /// <param name="items">The arguments.</param>
         /// <returns>
-        ///     A <see cref="IGenerator{T}"/> whose generations is based on the argument <paramref name="items"/>.
+        ///     A <see cref="IGenerator{T}" /> whose generations is based on the argument <paramref name="items" />.
         /// </returns>
         public static IGenerator<T> ArgumentRandomizer<T>(Random rnd = null, params T[] items) => items != null
             ? ListRandomizer(items, rnd)
             : throw new ArgumentNullException(nameof(items));
+
+        /// <summary>
+        ///     Creates a <see cref="IGenerator{T}" /> whose generations will create strings representing email addresses.
+        /// </summary>
+        /// <param name="domains">The email domains to generate.</param>
+        /// <param name="random">The randomizer.</param>
+        /// <returns>
+        ///     A <see cref="IGenerator{T}" /> who generates strings representing email addresses.
+        /// </returns>
+        public static IGenerator<string> Email(IReadOnlyList<string> domains = null, Random random = null) {
+            var rnd = random ?? new Random();
+            return Create(new EmailBuilder(domains ?? new[] {"gmail.com", "yahoo", "hotmail.com", "outlook.com"}, rnd))
+                .Zip(Username(rnd), (builder, s) => builder.Mail(s, null));
+        }
     }
 }

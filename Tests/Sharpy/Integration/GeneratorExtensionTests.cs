@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using Sharpy;
 using Sharpy.Enums;
 using Sharpy.Implementation;
@@ -86,13 +87,13 @@ namespace Tests.Sharpy.Integration {
 
         [Test]
         public void Username_Seed_Arg_Generation_Is_Not_Null_Or_Whitespace() {
-            var username = Factory.Username(20);
+            var username = Factory.Username(new Random(20));
             Assert.IsFalse(string.IsNullOrWhiteSpace(username.Generate()));
         }
 
         [Test]
         public void Username_Seed_Arg_Not_Null() {
-            var generator = Factory.Username(20);
+            var generator = Factory.Username(new Random(20));
             Assert.IsNotNull(generator);
         }
     }
