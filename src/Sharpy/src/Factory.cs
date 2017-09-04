@@ -35,8 +35,7 @@ namespace Sharpy {
         ///     <para>
         ///         Creates a <see cref="IGenerator{T}" /> which generates strings with numbers whose length is equal to argument:
         ///         <paramref name="length" />.
-        /// 
-        ///         This is a static <see cref="IGenerator{T}"/> version of method: <see cref="Provider.NumberByLength"/>.
+        ///         This is a static <see cref="IGenerator{T}" /> version of method: <see cref="Provider.NumberByLength" />.
         ///     </para>
         /// </summary>
         /// <param name="length">The length of the generated <see cref="string" />.</param>

@@ -83,6 +83,5 @@ namespace Sharpy.Core {
             if (enumerable == null) throw new ArgumentNullException(nameof(enumerable));
             return new Seq<TSource>(enumerable);
         }
-
     }
 }

@@ -25,7 +25,6 @@ namespace Sharpy.Implementation {
         private readonly ISet<Origin> _selectedCountries = new HashSet<Origin>();
         private readonly ISet<Origin> _selectedRegions = new HashSet<Origin>();
 
-
         private NameByOrigin(Random random) => _random = random;
 
         /// <summary>
