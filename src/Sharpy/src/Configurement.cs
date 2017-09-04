@@ -95,8 +95,6 @@ namespace Sharpy {
         ///     <para>
         ///         Gets and sets the implementation for <see cref="ILongProvider" />.
         ///     </para>
-        ///     <para>
-        ///     </para>
         ///     <remarks>
         ///         <para>
         ///             The default implementation is <see cref="LongRandomizer" />.
@@ -116,8 +114,6 @@ namespace Sharpy {
         ///     <para>
         ///         Gets and sets the mail domains which will be used when invoking <see cref="Provider.MailAddress" />.
         ///     </para>
-        ///     <para>
-        ///     </para>
         /// </summary>
         /// <remarks>
         ///     <para>
@@ -135,16 +131,12 @@ namespace Sharpy {
         /// <summary>
         ///     <para>
         ///         Gets and sets if <see cref="Provider.NumberByLength" /> returns unique numbers.
-        ///     </para>
-        ///     <para>
         ///         Set to false by Default
-        ///     </para>
-        ///     <para>
         ///     </para>
         ///     <remarks>
         ///         <para>
         ///             If this is set to true the following will happen.
-        ///             Provider's NumberByLength method will throw an exception if called more than Length^10
+        ///             <see cref="Provider.NumberByLength" /> method will throw an exception if called more than Length^10
         ///         </para>
         ///     </remarks>
         /// </summary>
