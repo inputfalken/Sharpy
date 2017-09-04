@@ -47,7 +47,7 @@ namespace Sharpy {
         /// </summary>
         public Configurement() : this(new Random()) { }
 
-        internal EmailBuilder EmailBuilder { get; set; }
+        internal EmailBuilder EmailBuilder { get; private set; }
 
         internal DateGenerator DateGenerator { get; }
 
