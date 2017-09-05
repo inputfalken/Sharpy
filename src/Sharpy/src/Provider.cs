@@ -81,7 +81,7 @@ namespace Sharpy {
         /// </summary>
         public Provider() : this(new Configurement()) { }
 
-        private static string[] UserNames => Assembly.GetUserNames;
+        private static string[] UserNames => Data.GetUserNames;
 
         /// <inheritdoc cref="IDoubleProvider.Double()" />
         public double Double() => _doubleProvider.Double();

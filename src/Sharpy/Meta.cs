@@ -10,7 +10,7 @@ using Sharpy.Implementation.DataObjects;
 [assembly: InternalsVisibleTo("Tests")]
 
 namespace Sharpy {
-    public static class Assembly {
+    internal static class Data {
         private static readonly Lazy<IEnumerable<Name>> LazyNames = new Lazy<IEnumerable<Name>>(() => {
             var assembly = typeof(NameByOrigin).Assembly;
             var resourceStream = assembly.GetManifestResourceStream("Sharpy.Data.NamesByOrigin.json");
