@@ -29,7 +29,6 @@ namespace Sharpy {
         private readonly EmailBuilder _mailbuilder;
         private readonly INameProvider _nameProvider;
         private readonly NumberGenerator _numberGenerator;
-        private readonly Random _random;
         private readonly SecurityNumberGen _securityNumberGen;
 
         private readonly bool _uniqueNumbers;
@@ -44,7 +43,6 @@ namespace Sharpy {
         ///     The configuration for the <see cref="Provider" />.
         /// </param>
         public Provider(Configurement configurement) {
-            _random = configurement.Random;
             _doubleProvider = configurement.DoubleProvider;
             _integerProvider = configurement.IntegerProvider;
             _longProvider = configurement.LongProvider;
@@ -128,7 +126,7 @@ namespace Sharpy {
         /// </summary>
         /// <typeparam name="T">The type to randomized from.</typeparam>
         /// <param name="items">The <paramref name="items" /> to randomize from.</param>
-        public T Params<T>(params T[] items) => items.RandomItem(_random);
+        public T Params<T>(params T[] items) => CustomCollection(items);
 
         /// <summary>
         ///     <para>
@@ -137,7 +135,7 @@ namespace Sharpy {
         /// </summary>
         /// <typeparam name="T">The type to randomized from.</typeparam>
         /// <param name="items">The <paramref name="items" /> to randomize from.</param>
-        public T CustomCollection<T>(IReadOnlyList<T> items) => items.RandomItem(_random);
+        public T CustomCollection<T>(IReadOnlyList<T> items) => items[_integerProvider.Integer(items.Count)];
 
         /// <summary>
         ///     <para>
@@ -147,7 +145,7 @@ namespace Sharpy {
         /// <returns>
         ///     A bool whose value is randomized.
         /// </returns>
-        public bool Bool() => _random.Next(2) != 0;
+        public bool Bool() => _integerProvider.Integer(2) != 0;
 
         /// <summary>
         ///     <para>
@@ -193,7 +191,7 @@ namespace Sharpy {
         ///     A <see cref="string" /> representing a unique social security number.
         /// </returns>
         public string SocialSecurityNumber(LocalDate date, bool formated = true) {
-            var result = _securityNumberGen.SecurityNumber(_random.Next(10000),
+            var result = _securityNumberGen.SecurityNumber(_integerProvider.Integer(10000),
                 FormatDigit(date.Year % 100).Append(FormatDigit(date.Month), FormatDigit(date.Day)));
             if (result == -1)
                 throw new Exception("You have reached the maximum possible combinations for a control number");
@@ -251,7 +249,7 @@ namespace Sharpy {
         /// <returns>
         ///     A string representing a user name.
         /// </returns>
-        public string UserName() => UserNames.RandomItem(_random);
+        public string UserName() => CustomCollection(UserNames);
 
         /// <summary>
         ///     <para>
