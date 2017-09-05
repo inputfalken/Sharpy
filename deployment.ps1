@@ -4,6 +4,10 @@ param(
     [string] $project,
     [Parameter(Mandatory=$false)]
     [string] $repo = $null
+    [Parameter(Mandatory=$false)]
+    [bool] deploy = $true
+    [Parameter(Mandatory=$false)]
+    [bool] useDocfx = $false
 )
 # Pack package to root directory of project and returns the file.
 function Pack ([string] $project, [bool] $isAlpha) {
@@ -89,7 +93,7 @@ function Update-GHPages {
   git push origin gh-pages -q
 }
 
-Write-Host "Starting script with project $project$(if($repo){" and for repo $repo"} )." -ForegroundColor Magenta
+Write-Host "Starting script with project $project$(if($repo){" and for repo $repo"} )." -ForegroundColor Green
 [string] $branch = $env:APPVEYOR_REPO_BRANCH
 [bool] $isAlpha = Is-Alpha $branch
 [string] $name = $project.SubString(0, $project.Length - 7).split('\\') | select -last 1
@@ -99,18 +103,14 @@ Write-Host "Starting script with project $project$(if($repo){" and for repo $rep
 Write-Host "Comparing Local $name version($localVersion) with online $name version($onlineVersion)" -ForegroundColor Yellow
 if ($localVersion -gt $onlineVersion) {
   Write-Host "Local version($localVersion) is greater than the online version($onlineVersion), performing deployment" -ForegroundColor Yellow
-  $nupkg = Pack $project $isAlpha
-  Deploy $nupkg.Name
-  # If it's the master branch
-  #if(!$isAlpha) {
-    # If repo is null, it means that GH-Pages will not be updated.
-    if ($repo) {
-      Update-GHPages
-    }
-  #} else {
-  #  Write-Host "Alpha version, skipping documentation update." -ForegroundColor Yellow
-  #}
-  Delete-OnlinePackage $nupkg
+  if ($deploy) {
+    $nupkg = Pack $project $isAlpha
+    Deploy $nupkg.Name
+    #Delete-OnlinePackage $nupkg
+  }
+  if ($useDocfx) {
+    Update-GHPages
+  }
 } else {
   Write-Host "Local version($localVersion) is not greater than online version($onlineVersion), skipping deployment" -ForegroundColor Yellow
 }
