@@ -24,5 +24,5 @@ test_script:
 on_finish :
   # any cleaup in here
 deploy_script:
-  - ps: .\deployment.ps1 -Project src\Sharpy\Sharpy.csproj -Repo https://github.com/inputfalken/Sharpy
-  - ps: .\deployment.ps1 -Project src\Sharpy.Core\Sharpy.Core.csproj -Repo https://github.com/inputfalken/Sharpy
+  - ps: .\deployment.ps1 -Project src\Sharpy\Sharpy.csproj -Repo https://github.com/inputfalken/Sharpy -Deploy $true -useDocfx $false
+  - ps: .\deployment.ps1 -Project src\Sharpy.Core\Sharpy.Core.csproj -Repo https://github.com/inputfalken/Sharpy -Deploy $true -useDocfx $false
