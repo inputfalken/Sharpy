@@ -32,7 +32,7 @@ namespace Sharpy {
         private readonly SecurityNumberGen _securityNumberGen;
 
         private readonly bool _uniqueNumbers;
-        private Tuple<int, int> _numberByLengthState = new Tuple<int, int>(0, 0);
+        private (int, int) _numberByLengthState = (0, 0);
 
         /// <summary>
         ///     <para>
@@ -230,7 +230,7 @@ namespace Sharpy {
         public string NumberByLength(int length) {
             //If _numberByLenghtState has changed
             if (_numberByLengthState.Item1 != length)
-                _numberByLengthState = new Tuple<int, int>(length, (int) Math.Pow(10, length) - 1);
+                _numberByLengthState = (length, (int) Math.Pow(10, length) - 1);
             var res = _numberGenerator.RandomNumber(0, _numberByLengthState.Item2, _uniqueNumbers);
             if (res == -1)
                 throw new Exception($"Reached maximum amount of combinations for the argument '{nameof(length)}'.");
