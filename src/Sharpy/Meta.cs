@@ -20,7 +20,7 @@ namespace Sharpy {
         });
 
         private static readonly Lazy<string[]> LazyUsernames = new Lazy<string[]>(() => {
-            var assembly = typeof(Provider).Assembly;
+            var assembly = typeof(Builder).Assembly;
             var resourceStream = assembly.GetManifestResourceStream("Sharpy.Data.usernames.txt");
             using (var reader = new StreamReader(resourceStream, Encoding.UTF8)) {
                 return reader.ReadToEnd().Split(new[] {"\r\n", "\n"}, StringSplitOptions.None);

@@ -9,7 +9,7 @@ namespace Tests.Sharpy.Integration {
     public class Params {
         [Test]
         public void WithString() {
-            var randomGenerator = Generator.Create(new Provider());
+            var randomGenerator = Generator.Create(new Builder());
             var args = new[] {"hello", "there", "foo"};
             var generateMany =
                 randomGenerator.Select(generator => generator.Params("hello", "there", "foo")).Take(10);

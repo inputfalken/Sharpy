@@ -23,7 +23,7 @@ namespace Tests.Sharpy.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = Generator.Create(new Provider(configurement));
+            var randomGenerator = Generator.Create(new Builder(configurement));
             var generate = randomGenerator.Select(generator => generator.MailAddress("hello")).Generate();
             Assert.AreEqual(14, generate.Length);
         }
@@ -33,7 +33,7 @@ namespace Tests.Sharpy.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com", "test2.com", "test3.com", "test4.com"}
             };
-            var randomGenerator = Generator.Create(new Provider(configurement));
+            var randomGenerator = Generator.Create(new Builder(configurement));
             var mails = randomGenerator.Select(generator => generator.MailAddress("john", "doe"))
                 .Take(12);
             Assert.IsTrue(FindDuplicates(mails).Count == 0);
@@ -41,7 +41,7 @@ namespace Tests.Sharpy.Integration {
 
         [Test]
         public void MailsAreNotnull() {
-            var generator = Generator.Create(new Provider());
+            var generator = Generator.Create(new Builder());
             //Many
             var mails = generator
                 .Select(g => g.MailAddress(MailUserName))
@@ -61,7 +61,7 @@ namespace Tests.Sharpy.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = Generator.Create(new Provider(configurement));
+            var randomGenerator = Generator.Create(new Builder(configurement));
             var mails = randomGenerator
                 .Select(generator => generator.MailAddress("john"))
                 .Take(12);
@@ -73,7 +73,7 @@ namespace Tests.Sharpy.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = Generator.Create(new Provider(configurement));
+            var randomGenerator = Generator.Create(new Builder(configurement));
             //Should not contain any numbers
             Assert.IsTrue(
                 randomGenerator.Select(generator => generator.MailAddress("bob")).Generate()
@@ -88,7 +88,7 @@ namespace Tests.Sharpy.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = Generator.Create(new Provider(configurement));
+            var randomGenerator = Generator.Create(new Builder(configurement));
             var result = randomGenerator.Select(generator => generator.MailAddress("bob")).Generate();
             const string expected = "bob@test.com";
             Assert.AreEqual(expected, result);
@@ -99,7 +99,7 @@ namespace Tests.Sharpy.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = Generator.Create(new Provider(configurement));
+            var randomGenerator = Generator.Create(new Builder(configurement));
             var mail = randomGenerator.Select(generator => generator.MailAddress("Bob")).Generate();
             Assert.IsFalse(mail.Any(char.IsUpper));
         }
@@ -109,7 +109,7 @@ namespace Tests.Sharpy.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = Generator.Create(new Provider(configurement));
+            var randomGenerator = Generator.Create(new Builder(configurement));
             Assert.Throws<NullReferenceException>(
                 () => randomGenerator.Select(generator => generator.MailAddress(null, "hello")).Generate());
         }
@@ -119,7 +119,7 @@ namespace Tests.Sharpy.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = Generator.Create(new Provider(configurement));
+            var randomGenerator = Generator.Create(new Builder(configurement));
             Assert.Throws<NullReferenceException>(
                 () => randomGenerator.Select(generator => generator.MailAddress(null)).Generate());
         }
@@ -129,7 +129,7 @@ namespace Tests.Sharpy.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = Generator.Create(new Provider(configurement));
+            var randomGenerator = Generator.Create(new Builder(configurement));
             const string expected = "bob@test.com";
             var result = randomGenerator.Select(generator => generator.MailAddress("bob")).Generate();
             Assert.AreEqual(expected, result);
@@ -140,7 +140,7 @@ namespace Tests.Sharpy.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = Generator.Create(new Provider(configurement));
+            var randomGenerator = Generator.Create(new Builder(configurement));
             var generateMany =
                 randomGenerator.Select(generator => generator.MailAddress("john", "doe"))
                     .Take(30);
@@ -152,7 +152,7 @@ namespace Tests.Sharpy.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = Generator.Create(new Provider(configurement));
+            var randomGenerator = Generator.Create(new Builder(configurement));
             const string expected = "bob.cool@test.com";
             var result = randomGenerator.Select(generator => generator.MailAddress("bob", "cool")).Generate();
             Assert.AreEqual(expected, result);
@@ -163,7 +163,7 @@ namespace Tests.Sharpy.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = Generator.Create(new Provider(configurement));
+            var randomGenerator = Generator.Create(new Builder(configurement));
             var generate = randomGenerator
                 .Select(generator => generator.MailAddress("bob", "cool"))
                 .Take(2);
@@ -175,7 +175,7 @@ namespace Tests.Sharpy.Integration {
         [Test]
         public void One_Domain_Two_Args_UniqueMails_True_FirstNull() {
             var configurement = new Configurement {MailDomains = new[] {"test.com"}};
-            var randomGenerator = Generator.Create(new Provider(configurement));
+            var randomGenerator = Generator.Create(new Builder(configurement));
             Assert.Throws<NullReferenceException>(
                 () => randomGenerator.Select(generator => generator.MailAddress(null, "bob")).Generate());
         }
@@ -185,7 +185,7 @@ namespace Tests.Sharpy.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = Generator.Create(new Provider(configurement));
+            var randomGenerator = Generator.Create(new Builder(configurement));
             var generateMany = randomGenerator
                 .Select(generator => generator.MailAddress("bob", "cool"))
                 .Take(3);
@@ -197,7 +197,7 @@ namespace Tests.Sharpy.Integration {
         [Test]
         public void Single_Argurment_Does_Not_Contain_Seperator() {
             var generator =
-                Generator.Create(new Provider(new Configurement {MailDomains = new[] {"test.com"}}))
+                Generator.Create(new Builder(new Configurement {MailDomains = new[] {"test.com"}}))
                     .Select(g => g.MailAddress("Bob"))
                     .Take(2)
                     .ToArray();
@@ -213,7 +213,7 @@ namespace Tests.Sharpy.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com", "test2.com", "test3.com"}
             };
-            var randomGenerator = Generator.Create(new Provider(configurement));
+            var randomGenerator = Generator.Create(new Builder(configurement));
             var mails = randomGenerator
                 .Select(generator => generator.MailAddress("john", "doe"))
                 .Take(9);
@@ -225,7 +225,7 @@ namespace Tests.Sharpy.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com", "foo.com"}
             };
-            var randomGenerator = Generator.Create(new Provider(configurement));
+            var randomGenerator = Generator.Create(new Builder(configurement));
             const string expected = "bob@test.com";
             var result = randomGenerator.Select(generator => generator.MailAddress("bob")).Generate();
             Assert.AreEqual(expected, result);
@@ -236,7 +236,7 @@ namespace Tests.Sharpy.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com", "foo.com"}
             };
-            var randomGenerator = Generator.Create(new Provider(configurement));
+            var randomGenerator = Generator.Create(new Builder(configurement));
             Assert.IsFalse(randomGenerator.Select(generator => generator.MailAddress("bob"))
                 .Generate()
                 .Any(char.IsDigit));
@@ -253,7 +253,7 @@ namespace Tests.Sharpy.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com", "foo.com"}
             };
-            var randomGenerator = Generator.Create(new Provider(configurement));
+            var randomGenerator = Generator.Create(new Builder(configurement));
             const string expected = "bob@foo.com";
             var generateMany = randomGenerator
                 .Select(generator => generator.MailAddress("bob"))
@@ -268,7 +268,7 @@ namespace Tests.Sharpy.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com", "test2.com"}
             };
-            var randomGenerator = Generator.Create(new Provider(configurement));
+            var randomGenerator = Generator.Create(new Builder(configurement));
             var mails = randomGenerator
                 .Select(generator => generator.MailAddress("john", "doe"))
                 .Take(6);
@@ -280,7 +280,7 @@ namespace Tests.Sharpy.Integration {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
             };
-            var randomGenerator = Generator.Create(new Provider(configurement));
+            var randomGenerator = Generator.Create(new Builder(configurement));
 
             Assert.IsFalse(
                 randomGenerator.Select(generator => generator.MailAddress("bob", "cool"))
