@@ -98,7 +98,7 @@ namespace Sharpy {
         ///         number is specified, the absolute value of the number is used
         ///     </param>
         /// </summary>
-        public static IGenerator<string> Username(Random rnd) => Create(new Provider(rnd))
+        public static IGenerator<string> Username(Random rnd) => Create(new Provider(new Configurement(rnd)))
             .Select(p => p.UserName());
 
         /// <summary>

@@ -50,7 +50,7 @@ namespace Sharpy.Implementation {
         /// </param>
         public NameByOrigin(params Origin[] origins) : this(new Random(), origins) { }
 
-        private static IEnumerable<Name> Names => Assembly.GetNames;
+        private static IEnumerable<Name> Names => Data.GetNames;
 
         private Dictionary<NameType, IReadOnlyList<string>> Dictionary { get; } =
             new Dictionary<NameType, IReadOnlyList<string>>();
