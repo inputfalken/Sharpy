@@ -66,22 +66,12 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="Provider" /> which will randomize with the <see cref="Random" /> supplied.
-        ///     </para>
-        /// </summary>
-        /// <param name="random">
-        ///     The <see cref="Random" /> to be used when randomizing data.
-        /// </param>
-        public Provider(Random random) : this(new Configurement(random)) { }
-
-        /// <summary>
-        ///     <para>
         ///         Returns a <see cref="Provider" /> which will randomize new results every time program is executed.
         ///     </para>
         /// </summary>
         public Provider() : this(new Configurement()) { }
 
-        private static string[] UserNames => Assembly.GetUserNames;
+        private static string[] UserNames => Data.GetUserNames;
 
         /// <inheritdoc cref="IDoubleProvider.Double()" />
         public double Double() => _doubleProvider.Double();
