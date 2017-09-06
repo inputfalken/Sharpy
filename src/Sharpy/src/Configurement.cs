@@ -6,9 +6,9 @@ using Sharpy.IProviders;
 namespace Sharpy {
     /// <summary>
     ///     <para>
-    ///         Pass an instance of this class to a <see cref="Provider" /> constructor if you want to change the default
+    ///         Pass an instance of this class to a <see cref="Builder" /> constructor if you want to change the default
     ///         behavior of the
-    ///         <see cref="Provider" />.
+    ///         <see cref="Builder" />.
     ///     </para>
     /// </summary>
     public class Configurement {
@@ -16,7 +16,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         The argument <paramref name="random" /> will be used for the <see cref="Provider" />.
+        ///         The argument <paramref name="random" /> will be used for the <see cref="Builder" />.
         ///     </para>
         /// </summary>
         /// <param name="random"></param>
@@ -34,7 +34,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         The seed supplied will be used to instantiate a <see cref="Random" />, for the <see cref="Provider" />.
+        ///         The seed supplied will be used to instantiate a <see cref="Random" />, for the <see cref="Builder" />.
         ///     </para>
         /// </summary>
         /// <param name="seed"></param>
@@ -105,14 +105,14 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Gets the Random which the <see cref="Provider" /> will use.
+        ///         Gets the Random which the <see cref="Builder" /> will use.
         ///     </para>
         /// </summary>
         public Random Random { get; }
 
         /// <summary>
         ///     <para>
-        ///         Gets and sets the mail domains which will be used when invoking <see cref="Provider.MailAddress" />.
+        ///         Gets and sets the mail domains which will be used when invoking <see cref="Builder.MailAddress" />.
         ///     </para>
         /// </summary>
         /// <remarks>
@@ -130,13 +130,13 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Gets and sets if <see cref="Provider.NumberByLength" /> returns unique numbers.
+        ///         Gets and sets if <see cref="Builder.NumberByLength" /> returns unique numbers.
         ///         Set to false by Default
         ///     </para>
         ///     <remarks>
         ///         <para>
         ///             If this is set to true the following will happen.
-        ///             <see cref="Provider.NumberByLength" /> method will throw an exception if called more than Length^10
+        ///             <see cref="Builder.NumberByLength" /> method will throw an exception if called more than Length^10
         ///         </para>
         ///     </remarks>
         /// </summary>

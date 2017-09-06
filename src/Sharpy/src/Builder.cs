@@ -20,7 +20,7 @@ namespace Sharpy {
     ///         For examples please visit ''.
     ///     </para>
     /// </summary>
-    public class Provider : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider {
+    public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider {
         private readonly DateGenerator _dateGenerator;
         private readonly IDoubleProvider _doubleProvider;
         private readonly IIntegerProvider _integerProvider;
@@ -36,13 +36,13 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Creates a <see cref="Provider" /> with <paramref name="configurement" />.
+        ///         Creates a <see cref="Builder" /> with <paramref name="configurement" />.
         ///     </para>
         /// </summary>
         /// <param name="configurement">
-        ///     The configuration for the <see cref="Provider" />.
+        ///     The configuration for the <see cref="Builder" />.
         /// </param>
-        public Provider(Configurement configurement) {
+        public Builder(Configurement configurement) {
             _doubleProvider = configurement.DoubleProvider;
             _integerProvider = configurement.IntegerProvider;
             _longProvider = configurement.LongProvider;
@@ -56,20 +56,20 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="Provider" /> which will randomize the results depending on the <paramref name="seed" />.
+        ///         Returns a <see cref="Builder" /> which will randomize the results depending on the <paramref name="seed" />.
         ///     </para>
         /// </summary>
         /// <param name="seed">
         ///     The <paramref name="seed" /> to be used when creating <see cref="Random" /> for randomizing data.
         /// </param>
-        public Provider(int seed) : this(new Configurement(seed)) { }
+        public Builder(int seed) : this(new Configurement(seed)) { }
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="Provider" /> which will randomize new results every time program is executed.
+        ///         Returns a <see cref="Builder" /> which will randomize new results every time program is executed.
         ///     </para>
         /// </summary>
-        public Provider() : this(new Configurement()) { }
+        public Builder() : this(new Configurement()) { }
 
         private static string[] UserNames => Data.GetUserNames;
 
@@ -243,15 +243,15 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Creates a <see cref="IGenerator{T}" /> with <see cref="Provider" /> as its generic type.
+        ///         Creates a <see cref="IGenerator{T}" /> with <see cref="Builder" /> as its generic type.
         ///     </para>
         /// </summary>
         /// <param name="provider">
-        ///     The instance of <see cref="Provider" /> you want to be used as a generator.
+        ///     The instance of <see cref="Builder" /> you want to be used as a generator.
         /// </param>
         /// <param name="selector">A transform function to apply to each generation.</param>
         /// <typeparam name="TProvider">
-        ///     The <see cref="Provider" /> you want to have. This could be a descendant of <see cref="Provider" />.
+        ///     The <see cref="Builder" /> you want to have. This could be a descendant of <see cref="Builder" />.
         /// </typeparam>
         /// <typeparam name="TResult">The type of the result from the selector function.</typeparam>
         /// <returns>
@@ -260,7 +260,7 @@ namespace Sharpy {
         ///     </para>
         /// </returns>
         public static IGenerator<TResult> AsGenerator<TProvider, TResult>(TProvider provider,
-            Func<TProvider, TResult> selector) where TProvider : Provider => provider != null
+            Func<TProvider, TResult> selector) where TProvider : Builder => provider != null
             ? selector != null
                 ? Create(provider).Select(selector)
                 : throw new ArgumentNullException(nameof(selector))
@@ -271,7 +271,7 @@ namespace Sharpy {
 
     public static class ProviderExtensions {
         public static IGenerator<TResult> ToGenerator<TGenerator, TResult>(this TGenerator generator,
-            Func<TGenerator, TResult> fn) where TGenerator : Provider => generator != null
+            Func<TGenerator, TResult> fn) where TGenerator : Builder => generator != null
             ? fn != null
                 ? Create(generator).Select(fn)
                 : throw new ArgumentNullException(nameof(generator))

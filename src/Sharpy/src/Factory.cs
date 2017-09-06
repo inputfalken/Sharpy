@@ -33,7 +33,7 @@ namespace Sharpy {
         ///     <para>
         ///         Creates a <see cref="IGenerator{T}" /> which generates strings with numbers whose length is equal to argument:
         ///         <paramref name="length" />.
-        ///         This is a static <see cref="IGenerator{T}" /> version of method: <see cref="Provider.NumberByLength" />.
+        ///         This is a static <see cref="IGenerator{T}" /> version of method: <see cref="Builder.NumberByLength" />.
         ///     </para>
         /// </summary>
         /// <param name="length">The length of the generated <see cref="string" />.</param>
@@ -98,7 +98,7 @@ namespace Sharpy {
         ///         number is specified, the absolute value of the number is used
         ///     </param>
         /// </summary>
-        public static IGenerator<string> Username(Random rnd) => Create(new Provider(new Configurement(rnd)))
+        public static IGenerator<string> Username(Random rnd) => Create(new Builder(new Configurement(rnd)))
             .Select(p => p.UserName());
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace Sharpy {
         ///         user name.
         ///     </para>
         /// </summary>
-        public static IGenerator<string> Username() => Create(new Provider())
+        public static IGenerator<string> Username() => Create(new Builder())
             .Select(p => p.UserName());
 
         /// <summary>
@@ -257,7 +257,7 @@ namespace Sharpy {
             : Create(rnd ?? new Random()).Select(items.RandomItem);
 
         /// <summary>
-        ///     Creates a <see cref="IGenerator{T}" /> by using <see cref="Sharpy.Provider" /> in a <paramref name="selector" />
+        ///     Creates a <see cref="IGenerator{T}" /> by using <see cref="Sharpy.Builder" /> in a <paramref name="selector" />
         ///     function.
         /// </summary>
         /// <typeparam name="TResult">
@@ -267,21 +267,21 @@ namespace Sharpy {
         ///     A transform function to apply to each generated element.
         /// </param>
         /// <param name="configurement">
-        ///     A configuration class used by <see cref="Sharpy.Provider" />.
+        ///     A configuration class used by <see cref="Sharpy.Builder" />.
         /// </param>
         /// <returns>
         ///     A <see cref="IGenerator{T}" /> whose type has is the result from using a <paramref name="selector" /> function
-        ///     combined with <see cref="Sharpy.Provider" />.
+        ///     combined with <see cref="Sharpy.Builder" />.
         /// </returns>
-        public static IGenerator<TResult> Provider<TResult>(Func<Provider, TResult> selector,
+        public static IGenerator<TResult> Provider<TResult>(Func<Builder, TResult> selector,
             Configurement configurement) => configurement != null
             ? selector != null
-                ? Create(new Provider(configurement)).Select(selector)
+                ? Create(new Builder(configurement)).Select(selector)
                 : throw new ArgumentNullException(nameof(selector))
             : throw new ArgumentNullException(nameof(configurement));
 
         /// <summary>
-        ///     Creates a <see cref="IGenerator{T}" /> by using <see cref="Sharpy.Provider" /> in a <paramref name="selector" />
+        ///     Creates a <see cref="IGenerator{T}" /> by using <see cref="Sharpy.Builder" /> in a <paramref name="selector" />
         ///     function.
         /// </summary>
         /// <typeparam name="TResult">
@@ -292,9 +292,9 @@ namespace Sharpy {
         /// </param>
         /// <returns>
         ///     A <see cref="IGenerator{T}" /> whose type has is the result from using a <paramref name="selector" /> function
-        ///     combined with <see cref="Sharpy.Provider" />.
+        ///     combined with <see cref="Sharpy.Builder" />.
         /// </returns>
-        public static IGenerator<TResult> Provider<TResult>(Func<Provider, TResult> selector) =>
+        public static IGenerator<TResult> Provider<TResult>(Func<Builder, TResult> selector) =>
             Provider(selector, new Configurement());
 
         /// <summary>
