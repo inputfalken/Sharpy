@@ -269,12 +269,22 @@ namespace Sharpy {
         private static string FormatDigit(int i) => i < 10 ? i.Prefix(1) : i.ToString();
     }
 
-    public static class ProviderExtensions {
-        public static IGenerator<TResult> ToGenerator<TGenerator, TResult>(this TGenerator generator,
-            Func<TGenerator, TResult> fn) where TGenerator : Builder => generator != null
-            ? fn != null
-                ? Create(generator).Select(fn)
-                : throw new ArgumentNullException(nameof(generator))
-            : throw new ArgumentNullException(nameof(fn));
+    public static class BuilderExtensions {
+        /// <summary>
+        /// Turns the builder to a <see cref="IGenerator{T}"/>
+        /// </summary>
+        /// <typeparam name="TBuilder">The type of class related to <see cref="Builder"/>.</typeparam>
+        /// <typeparam name="TResult">The result from the selector <see cref="Func{TGenerator,TResult}"/></typeparam>
+        /// <param name="builder">The instance related to <see cref="Builder"/>.</param>
+        /// <param name="selector">The selector for the <see cref="Builder"/>.</param>
+        /// <returns>
+        ///    A <see cref="IGenerator{T}"/> with the result from the <paramref name="selector"/> function.
+        /// </returns>
+        public static IGenerator<TResult> ToGenerator<TBuilder, TResult>(this TBuilder builder,
+            Func<TBuilder, TResult> selector) where TBuilder : Builder => builder != null
+            ? selector != null
+                ? Create(builder).Select(selector)
+                : throw new ArgumentNullException(nameof(builder))
+            : throw new ArgumentNullException(nameof(selector));
     }
 }
