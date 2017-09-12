@@ -1,2 +1,4 @@
-# PLACEHOLDER
-TODO: Add .NET projects to the *src* folder and run `docfx` to generate **REAL** *API Documentation*!
+# API #
+Welcome to the documentation page, in this page you will find namespaces on the left bar, inside of them
+you can choose an class and view its class members.
+
