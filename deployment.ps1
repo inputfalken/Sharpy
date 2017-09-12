@@ -87,10 +87,14 @@ function Update-GHPages {
 
   git clone $repo -b gh-pages origin_site -q
   Copy-Item origin_site/.git _site -recurse
-  CD _site
+  Push-Location _site
   git add -A 2>&1
   git commit -m "CI Updates" -q
   git push origin gh-pages -q
+  Pop-Location
+
+  # clean up
+  git clean -fxd
 }
 
 Write-Host "Starting script with project $project$(if($repo){" and for repo $repo"} )." -ForegroundColor Green
