@@ -7,7 +7,9 @@ param(
     [Parameter(Mandatory=$false)]
     [bool] $deploy = $true,
     [Parameter(Mandatory=$false)]
-    [bool] $useDocfx = $false
+    [bool] $useDocfx = $false,
+    [Parameter(Mandatory=$false)]
+    [bool] $deletePackage = $false
 )
 # Pack package to root directory of project and returns the file.
 function Pack ([string] $project, [bool] $isAlpha) {
@@ -96,6 +98,17 @@ function Update-GHPages {
   # clean up
   git clean -fxd
 }
+# Deletes the last package
+function Delete-Package ([string] $package, [string] $source = 'https://www.nuget.org/api/v2/package') {
+  Write-Host "Attempting to delete package '$package' from source '$source'"
+  nuget delete $package -Source $source -ApiKey $env:NUGET_API_KEY
+  if (!$?) {
+    throw "$package Could not be deleted by command 'NuGet delete'"
+  } else {
+    Write-Host "Deletion successful!" -ForegroundColor Green
+  }
+}
+Delete-Package "sharpy-1.0.0-alpha"
 
 Write-Host "Starting script with project $project$(if($repo){" and for repo $repo"} )." -ForegroundColor Green
 [string] $branch = $env:APPVEYOR_REPO_BRANCH
@@ -110,7 +123,14 @@ if ($localVersion -gt $onlineVersion) {
   if ($deploy) {
     $nupkg = Pack $project $isAlpha
     Deploy $nupkg.Name
-    #Delete-OnlinePackage $nupkg
+    if ($deletePackage) {
+      if ($isAlpha) {
+        # find a common way to toggle the alpha
+        Delete-Package "$($name)-$($onlineVersion)-alpha"
+      } else {
+        Delete-Package "$($name)-$($onlineVersion)"
+      }
+    }
   }
   if ($useDocfx) {
     Update-GHPages
