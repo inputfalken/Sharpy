@@ -1,6 +1,6 @@
 # Examples #
 These examples require you to have Sharpy
-If you don't have it installed please visit [Getting Started](./getting.started.md)
+If you don't have Sharpy installed, please visit [Getting Started](./getting.started.md)
 
 The main object you should use is the [Builder](xref:Sharpy.Builder) object.
 This object contains various methods that is useful when you want to generate data.
