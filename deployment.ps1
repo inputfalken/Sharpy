@@ -100,12 +100,16 @@ function Update-GHPages {
 }
 # Deletes the last package
 function Delete-Package ([string] $package, [string] $source = 'https://www.nuget.org/api/v2/package') {
-  Write-Host "Attempting to delete package '$package' from source '$source'"
-  NuGet delete $package -Source $source -ApiKey $env:NUGET_API_KEY
+  # Splits the string into [name, version & suffix].
+  $sections = $package.Split('-')
+  $packageName = $sections[0]
+  $version = $sections[1..$sections.length] -join '-'
+  Write-Host "Attempting to delete package '$packageName' version '$version'."
+  NuGet delete $packageName $version -NonInteractive -Source $source -ApiKey $env:NUGET_API_KEY
   if (!$?) {
-    throw "$package Could not be deleted by command 'NuGet delete'"
+    throw "Could not delete package '$packageName' version '$version'."
   } else {
-    Write-Host "Deletion successful!" -ForegroundColor Green
+    Write-Host "Successfully deleted package '$packageName' version '$version'" -ForegroundColor Green
   }
 }
 
