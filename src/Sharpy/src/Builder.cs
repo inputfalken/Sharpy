@@ -12,7 +12,7 @@ using static Sharpy.Core.Generator;
 namespace Sharpy {
     /// <summary>
     ///     <para>
-    ///         Contains various methods for providing data by using <see cref="Random" />.
+    ///         Contains various methods for providing data by using <see cref="IIntegerProvider" />.
     ///         To get the same result every time you execute the program use the seed overload constructor.
     ///         If want you to add your own methods you can derive from this class.
     ///     </para>
@@ -129,11 +129,11 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Randomizes a <see cref="bool" />.
+        ///         Creates a <see cref="bool" />.
         ///     </para>
         /// </summary>
         /// <returns>
-        ///     A bool whose value is randomized.
+        ///     A <see cref="bool"/> based on <see cref="IIntegerProvider.Integer(int)"/>.
         /// </returns>
         public bool Bool() => _integerProvider.Integer(2) != 0;
 
