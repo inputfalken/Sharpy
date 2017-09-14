@@ -101,14 +101,13 @@ function Update-GHPages {
 # Deletes the last package
 function Delete-Package ([string] $package, [string] $source = 'https://www.nuget.org/api/v2/package') {
   Write-Host "Attempting to delete package '$package' from source '$source'"
-  nuget delete $package -Source $source -ApiKey $env:NUGET_API_KEY
+  NuGet delete $package -Source $source -ApiKey $env:NUGET_API_KEY
   if (!$?) {
     throw "$package Could not be deleted by command 'NuGet delete'"
   } else {
     Write-Host "Deletion successful!" -ForegroundColor Green
   }
 }
-Delete-Package "sharpy-1.0.0-alpha"
 
 Write-Host "Starting script with project $project$(if($repo){" and for repo $repo"} )." -ForegroundColor Green
 [string] $branch = $env:APPVEYOR_REPO_BRANCH
