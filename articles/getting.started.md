@@ -20,7 +20,7 @@ The recommended way is to use [NuGet](http://nuget.org).
 * [Newtonsoft.Json](http://www.nuget.org/packages/Newtonsoft.Json)
 * [NodaTime](http://www.nuget.org/packages/NodaTime)
 
-If your interested in which version the dependencies have,
+If want more information about the dependencies,
 visit the [NuGet page](http://www.nuget.org/packages/Sharpy).
 
 
@@ -42,7 +42,7 @@ visit the [NuGet page](http://www.nuget.org/packages/Sharpy).
 #### Dependencies ####
 * [.NET Standard 2.0](http://www.nuget.org/packages/NETStandard.Library)
 
-If your interested in which version the dependency have,
+If want more information about the dependencies,
 visit the [NuGet page](http://www.nuget.org/packages/Sharpy.Core).
 
 ## What next? ##
