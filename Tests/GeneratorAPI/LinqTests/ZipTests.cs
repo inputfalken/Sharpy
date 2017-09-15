@@ -1,6 +1,5 @@
 ﻿using System;
 using NUnit.Framework;
-using Sharpy;
 using Sharpy.Core;
 using Sharpy.Core.Linq;
 
@@ -10,7 +9,7 @@ namespace Tests.GeneratorAPI.LinqTests {
 
         [SetUp]
         public void Initiate() {
-            _generator = Factory.Incrementer(0);
+            _generator = Generator.Incrementer(0);
         }
 
         [TearDown]
@@ -22,7 +21,7 @@ namespace Tests.GeneratorAPI.LinqTests {
             Description = "Verify that Zip does not return null"
         )]
         public void Does_Not_Return_Null() {
-            var second = Factory.Incrementer(0);
+            var second = Generator.Incrementer(0);
             var result = _generator
                 .Zip(second, (s, i) => s + i);
 
@@ -33,7 +32,7 @@ namespace Tests.GeneratorAPI.LinqTests {
             Description = "Verify if Generations of string and number can be ziped together"
         )]
         public void Int_Int() {
-            var second = Factory.Incrementer(0);
+            var second = Generator.Incrementer(0);
             var result = _generator.Zip(second, (s, i) => s + i);
 
             Assert.AreEqual(0, result.Generate());
@@ -53,7 +52,7 @@ namespace Tests.GeneratorAPI.LinqTests {
         )]
         public void Is_Evaluated_After_Take_Is_Invoked() {
             var invoked = false;
-            var second = Factory.Incrementer(0);
+            var second = Generator.Incrementer(0);
             var generator = _generator.Zip(second, (i, i1) => invoked = true);
             // Not evaluated
             Assert.IsFalse(invoked);
@@ -122,7 +121,7 @@ namespace Tests.GeneratorAPI.LinqTests {
         public void Null_Second_Param_Throws() {
             Func<int, int, int> resultSelector = null;
             Assert.Throws<ArgumentNullException>(
-                () => _generator.Zip(Factory.Incrementer(0), resultSelector));
+                () => _generator.Zip(Generator.Incrementer(0), resultSelector));
         }
     }
 }

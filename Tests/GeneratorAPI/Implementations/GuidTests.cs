@@ -1,15 +1,15 @@
 ﻿using System;
 using NUnit.Framework;
-using Sharpy;
+using Sharpy.Core;
 
-namespace Tests.Sharpy.FactoryTests {
+namespace Tests.GeneratorAPI.Implementations {
     [TestFixture]
     internal class GuidTests {
         [Test(
             Description = "Verify that Guid generator does not return null"
         )]
         public void Is_Not_Empty() {
-            var result = Factory.Guid();
+            var result = Generator.Guid();
             Assert.AreNotEqual(result.Generate(), Guid.Empty);
         }
 
@@ -17,7 +17,7 @@ namespace Tests.Sharpy.FactoryTests {
             Description = "Verify that Guid generator does not return null"
         )]
         public void Is_Not_Null() {
-            var result = Factory.Guid();
+            var result = Generator.Guid();
             Assert.IsNotNull(result);
         }
     }
