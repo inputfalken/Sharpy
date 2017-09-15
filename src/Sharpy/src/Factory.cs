@@ -128,7 +128,7 @@ namespace Sharpy {
         ///     A <see cref="IGenerator{T}" /> whose type has is the result from using a <paramref name="selector" /> function
         ///     combined with <see cref="Sharpy.Builder" />.
         /// </returns>
-        public static IGenerator<TResult> Provider<TResult>(Func<Builder, TResult> selector,
+        public static IGenerator<TResult> Builder<TResult>(Func<Builder, TResult> selector,
             Configurement configurement) => configurement != null
             ? selector != null
                 ? Create(new Builder(configurement)).Select(selector)
@@ -149,8 +149,8 @@ namespace Sharpy {
         ///     A <see cref="IGenerator{T}" /> whose type has is the result from using a <paramref name="selector" /> function
         ///     combined with <see cref="Sharpy.Builder" />.
         /// </returns>
-        public static IGenerator<TResult> Provider<TResult>(Func<Builder, TResult> selector) =>
-            Provider(selector, new Configurement());
+        public static IGenerator<TResult> Builder<TResult>(Func<Builder, TResult> selector) =>
+            Builder(selector, new Configurement());
 
         /// <summary>
         ///     Creates a <see cref="IGenerator{T}" /> whose generations will create strings representing email addresses.
