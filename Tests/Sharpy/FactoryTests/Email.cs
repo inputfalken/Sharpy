@@ -32,20 +32,13 @@ namespace Tests.Sharpy.FactoryTests {
         }
 
         [Test]
-        public void Supplied_Randomizer_With_Same_Seed_Are_Equal() {
-            const int seed = 20;
-            const int count = 200;
-            var mails1 = Factory.Email(random: new Random(seed)).Take(count);
-            var mails2 = Factory.Email(random: new Random(seed)).Take(count);
-            Assert.AreEqual(mails1, mails2);
-        }
-
-        [Test]
-        public void Supplied_Randomizer_With_Different_Seed_Are_Equal() {
-            const int count = 200;
-            var mails1 = Factory.Email(random: new Random(20)).Take(count);
-            var mails2 = Factory.Email(random: new Random(30)).Take(count);
-            Assert.AreNotEqual(mails1, mails2);
+        public void No_Supplied_Domains_Use_Random_Domain() {
+            const string gmailCom = "gmail.com";
+            var res = Factory.Email()
+                .Select(s => s.Split('@')[1])
+                .Take(200)
+                .All(s => s == gmailCom);
+            Assert.IsFalse(res);
         }
 
         [Test]
@@ -57,14 +50,22 @@ namespace Tests.Sharpy.FactoryTests {
                 .All(s => s == gmailCom);
             Assert.IsTrue(res);
         }
+
         [Test]
-        public void No_Supplied_Domains_Use_Random_Domain() {
-            const string gmailCom = "gmail.com";
-            var res = Factory.Email()
-                .Select(s => s.Split('@')[1])
-                .Take(200)
-                .All(s => s == gmailCom);
-            Assert.IsFalse(res);
+        public void Supplied_Randomizer_With_Different_Seed_Are_Equal() {
+            const int count = 200;
+            var mails1 = Factory.Email(random: new Random(20)).Take(count);
+            var mails2 = Factory.Email(random: new Random(30)).Take(count);
+            Assert.AreNotEqual(mails1, mails2);
+        }
+
+        [Test]
+        public void Supplied_Randomizer_With_Same_Seed_Are_Equal() {
+            const int seed = 20;
+            const int count = 200;
+            var mails1 = Factory.Email(random: new Random(seed)).Take(count);
+            var mails2 = Factory.Email(random: new Random(seed)).Take(count);
+            Assert.AreEqual(mails1, mails2);
         }
     }
 }

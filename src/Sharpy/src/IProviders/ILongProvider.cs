@@ -12,7 +12,7 @@ namespace Sharpy.IProviders {
         ///     </para>
         /// </summary>
         /// <param name="min">
-        ///     The inclusive minimum bound
+        ///     The inclusive minimum bound.
         /// </param>
         /// <param name="max">
         ///     The exclusive maximum bound.

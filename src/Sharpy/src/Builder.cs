@@ -16,9 +16,6 @@ namespace Sharpy {
     ///         To get the same result every time you execute the program use the seed overload constructor.
     ///         If want you to add your own methods you can derive from this class.
     ///     </para>
-    ///     <para>
-    ///         For examples please visit ''.
-    ///     </para>
     /// </summary>
     public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider {
         private readonly DateGenerator _dateGenerator;
@@ -133,7 +130,7 @@ namespace Sharpy {
         ///     </para>
         /// </summary>
         /// <returns>
-        ///     A <see cref="bool"/> based on <see cref="IIntegerProvider.Integer(int)"/>.
+        ///     A <see cref="bool" /> based on <see cref="IIntegerProvider.Integer(int)" />.
         /// </returns>
         public bool Bool() => _integerProvider.Integer(2) != 0;
 
@@ -271,14 +268,14 @@ namespace Sharpy {
 
     public static class BuilderExtensions {
         /// <summary>
-        /// Turns the builder to a <see cref="IGenerator{T}"/>
+        ///     Turns the builder to a <see cref="IGenerator{T}" />
         /// </summary>
-        /// <typeparam name="TBuilder">The type of class related to <see cref="Builder"/>.</typeparam>
-        /// <typeparam name="TResult">The result from the selector <see cref="Func{TGenerator,TResult}"/></typeparam>
-        /// <param name="builder">The instance related to <see cref="Builder"/>.</param>
-        /// <param name="selector">The selector for the <see cref="Builder"/>.</param>
+        /// <typeparam name="TBuilder">The type of class related to <see cref="Builder" />.</typeparam>
+        /// <typeparam name="TResult">The result from the selector <see cref="Func{TGenerator,TResult}" /></typeparam>
+        /// <param name="builder">The instance related to <see cref="Builder" />.</param>
+        /// <param name="selector">The selector for the <see cref="Builder" />.</param>
         /// <returns>
-        ///    A <see cref="IGenerator{T}"/> with the result from the <paramref name="selector"/> function.
+        ///     A <see cref="IGenerator{T}" /> with the result from the <paramref name="selector" /> function.
         /// </returns>
         public static IGenerator<TResult> ToGenerator<TBuilder, TResult>(this TBuilder builder,
             Func<TBuilder, TResult> selector) where TBuilder : Builder => builder != null

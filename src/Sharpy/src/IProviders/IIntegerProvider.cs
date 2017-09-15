@@ -1,6 +1,8 @@
 namespace Sharpy.IProviders {
     /// <summary>
-    ///     <para>Methods providing <see cref="int" />.</para>
+    ///     <para>
+    ///         Methods providing <see cref="int" />.
+    ///     </para>
     /// </summary>
     public interface IIntegerProvider {
         /// <summary>
@@ -24,7 +26,7 @@ namespace Sharpy.IProviders {
         ///     </para>
         /// </summary>
         /// <param name="min">
-        ///     The inclusive minimum bound
+        ///     The inclusive minimum bound.
         /// </param>
         /// <param name="max">
         ///     The exclusive maximum bound.
