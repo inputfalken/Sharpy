@@ -4,7 +4,9 @@ using Sharpy.Core.Utils;
 
 namespace Sharpy.Core.Implementations {
     /// <summary>
-    ///     <para>A Generator using <see cref="IEnumerable{T}" /></para>
+    ///     <para>
+    ///         A Generator using <see cref="IEnumerable{T}" />
+    ///     </para>
     /// </summary>
     internal sealed class Seq<T> : IGenerator<T> {
         private readonly Lazy<IEnumerator<T>> _lazyEnumerator;
@@ -24,7 +26,9 @@ namespace Sharpy.Core.Implementations {
         }
 
         /// <summary>
-        ///     <para>QUAS WEX EXORT</para>
+        ///     <para>
+        ///         QUAS WEX EXORT
+        ///     </para>
         /// </summary>
         private static IEnumerable<T> Invoker(Func<IEnumerable<T>> fn) {
             while (true) foreach (var element in fn()) yield return element;

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using Sharpy.Implementation.ExtensionMethods;
 
 namespace Sharpy.Implementation {
-    /// <summary>
-    /// </summary>
     internal sealed class EmailBuilder : Unique<string> {
         private const int Limit = 2;
 

@@ -3,9 +3,8 @@ using Newtonsoft.Json;
 using Sharpy.Enums;
 
 namespace Sharpy.Implementation.DataObjects {
-    // Is generated from JSON
-    // ReSharper disable once ClassNeverInstantiated.Global
     /// <summary>
+    ///     The data structure used by <see cref="Sharpy.Implementation.NameByOrigin" />.
     /// </summary>
     internal sealed class Name {
         [JsonConstructor]
@@ -22,8 +21,8 @@ namespace Sharpy.Implementation.DataObjects {
         internal Origin Country { get; }
 
         /// <summary>
+        ///     Returns the name.
         /// </summary>
-        /// <returns></returns>
         public override string ToString() => Data;
     }
 }
