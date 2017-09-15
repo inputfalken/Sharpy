@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Sharpy;
 using Sharpy.Core;
 using Sharpy.Core.Linq;
 
@@ -11,7 +10,7 @@ namespace Tests.GeneratorAPI.LinqTests {
     public class SelectManyEnumerableTests {
         [SetUp]
         public void Initiate() {
-            _generator = Factory.Incrementer(0);
+            _generator = Generator.Incrementer(0);
             _list = new List<string> {"Foo", "Bar"};
         }
 

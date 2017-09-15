@@ -1,6 +1,5 @@
 ﻿using System;
 using NUnit.Framework;
-using Sharpy;
 using Sharpy.Core;
 using Sharpy.Core.Linq;
 
@@ -12,7 +11,7 @@ namespace Tests.GeneratorAPI.LinqTests {
         )]
         public void Is_Not_Lazy_Evaluated() {
             var invoked = false;
-            Factory.Incrementer(0).Do(actual => { invoked = true; })
+            Generator.Incrementer(0).Do(actual => { invoked = true; })
                 .Release(1);
             Assert.AreEqual(true, invoked);
         }
@@ -21,7 +20,7 @@ namespace Tests.GeneratorAPI.LinqTests {
             Description = "Verify that calling release with negative number throws exception"
         )]
         public void Negative_Number_Throws() {
-            Assert.Throws<ArgumentException>(() => { Factory.Incrementer(0).Release(-5); });
+            Assert.Throws<ArgumentException>(() => { Generator.Incrementer(0).Release(-5); });
         }
 
         [Test(
@@ -39,7 +38,7 @@ namespace Tests.GeneratorAPI.LinqTests {
         )]
         public void Release_Elements_Immediately() {
             var expected = 0;
-            Factory.Incrementer(0).Do(actual => {
+            Generator.Incrementer(0).Do(actual => {
                     Assert.AreEqual(expected, actual);
                     expected++;
                 })
@@ -50,7 +49,7 @@ namespace Tests.GeneratorAPI.LinqTests {
             Description = "Verify that release returns the same instance of IGenerator<T>"
         )]
         public void Same_Generator() {
-            var expected = Factory.Incrementer(0);
+            var expected = Generator.Incrementer(0);
             var actual = expected.Release(5);
             Assert.AreSame(expected, actual);
         }
@@ -60,7 +59,7 @@ namespace Tests.GeneratorAPI.LinqTests {
         )]
         public void Zero_Elements_Does_Nothing() {
             var invoked = false;
-            Factory.Incrementer(0).Release(0)
+            Generator.Incrementer(0).Release(0)
                 .Do(i => invoked = true);
             Assert.IsFalse(invoked);
         }

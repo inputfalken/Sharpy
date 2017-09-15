@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using Sharpy;
 using Sharpy.Core;
 using Sharpy.Core.Linq;
 
@@ -10,7 +9,7 @@ namespace Tests.GeneratorAPI.LinqTests {
     public class DoTests {
         [SetUp]
         public void Initiate() {
-            _generator = Factory.Incrementer(0);
+            _generator = Generator.Incrementer(0);
         }
 
         [TearDown]
@@ -64,7 +63,7 @@ namespace Tests.GeneratorAPI.LinqTests {
             var container = new List<int>();
             var result = _generator
                 .Do(container.Add);
-            var expected = Factory.Incrementer(0);
+            var expected = Generator.Incrementer(0);
 
             Assert.AreEqual(expected.Generate(), result.Generate());
             Assert.AreEqual(expected.Generate(), result.Generate());
