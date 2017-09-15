@@ -17,7 +17,7 @@ namespace Sharpy {
     ///         If want you to add your own methods you can derive from this class.
     ///     </para>
     /// </summary>
-    public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider {
+    public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, IBoolProvider {
         private readonly DateGenerator _dateGenerator;
         private readonly IDoubleProvider _doubleProvider;
         private readonly IIntegerProvider _integerProvider;
@@ -27,6 +27,7 @@ namespace Sharpy {
         private readonly INameProvider _nameProvider;
         private readonly NumberGenerator _numberGenerator;
         private readonly SecurityNumberGen _securityNumberGen;
+        private readonly IBoolProvider _boolProvider;
 
         private readonly bool _uniqueNumbers;
         private (int, int) _numberByLengthState = (0, 0);
@@ -49,6 +50,7 @@ namespace Sharpy {
             _securityNumberGen = configurement.SecurityNumberGen;
             _numberGenerator = configurement.NumberGenerator;
             _uniqueNumbers = configurement.UniqueNumbers;
+            _boolProvider = configurement.BoolProvider;
         }
 
         /// <summary>
@@ -124,15 +126,8 @@ namespace Sharpy {
         /// <param name="items">The <paramref name="items" /> to randomize from.</param>
         public T CustomCollection<T>(IReadOnlyList<T> items) => items[_integerProvider.Integer(items.Count)];
 
-        /// <summary>
-        ///     <para>
-        ///         Creates a <see cref="bool" />.
-        ///     </para>
-        /// </summary>
-        /// <returns>
-        ///     A <see cref="bool" /> based on <see cref="IIntegerProvider.Integer(int)" />.
-        /// </returns>
-        public bool Bool() => _integerProvider.Integer(2) != 0;
+        /// <inheritdoc />
+        public bool Bool() => _boolProvider.Bool();
 
         /// <summary>
         ///     <para>

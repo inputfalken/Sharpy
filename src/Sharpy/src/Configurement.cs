@@ -30,6 +30,7 @@ namespace Sharpy {
             SecurityNumberGen = new SecurityNumberGen(Random);
             NumberGenerator = new NumberGenerator(Random);
             MailDomains = new[] {"gmail.com", "hotmail.com", "yahoo.com"};
+            BoolProvider = new BoolRandomizer(random);
         }
 
         /// <summary>
@@ -54,6 +55,18 @@ namespace Sharpy {
         internal SecurityNumberGen SecurityNumberGen { get; }
 
         internal NumberGenerator NumberGenerator { get; }
+
+        /// <summary>
+        ///     <para>
+        ///         Gets and sets the implementation for <see cref="IBoolProvider" />.
+        ///     </para>
+        ///     <remarks>
+        ///         <para>
+        ///             The default implementation is <see cref="BoolRandomizer" />.
+        ///         </para>
+        ///     </remarks>
+        /// </summary>
+        public IBoolProvider BoolProvider { get; set; }
 
         /// <summary>
         ///     <para>
