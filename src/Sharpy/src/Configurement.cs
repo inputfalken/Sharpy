@@ -30,6 +30,7 @@ namespace Sharpy {
             SecurityNumberGen = new SecurityNumberGen(Random);
             NumberGenerator = new NumberGenerator(Random);
             MailDomains = new[] {"gmail.com", "hotmail.com", "yahoo.com"};
+            ListElementPicker = new ListRandomizer(random);
         }
 
         /// <summary>
@@ -54,6 +55,8 @@ namespace Sharpy {
         internal SecurityNumberGen SecurityNumberGen { get; }
 
         internal NumberGenerator NumberGenerator { get; }
+
+        public IListElementPicker ListElementPicker { get; set; }
 
         /// <summary>
         ///     <para>

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using NodaTime;
 using Sharpy.Core;
 using Sharpy.Core.Linq;
@@ -17,7 +18,7 @@ namespace Sharpy {
     ///         If want you to add your own methods you can derive from this class.
     ///     </para>
     /// </summary>
-    public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider {
+    public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, IListElementPicker {
         private readonly DateGenerator _dateGenerator;
         private readonly IDoubleProvider _doubleProvider;
         private readonly IIntegerProvider _integerProvider;
@@ -30,6 +31,7 @@ namespace Sharpy {
 
         private readonly bool _uniqueNumbers;
         private (int, int) _numberByLengthState = (0, 0);
+        private readonly IListElementPicker _listElementPicker;
 
         /// <summary>
         ///     <para>
@@ -49,6 +51,7 @@ namespace Sharpy {
             _securityNumberGen = configurement.SecurityNumberGen;
             _numberGenerator = configurement.NumberGenerator;
             _uniqueNumbers = configurement.UniqueNumbers;
+            _listElementPicker = configurement.ListElementPicker;
         }
 
         /// <summary>
@@ -264,5 +267,10 @@ namespace Sharpy {
             : throw new ArgumentNullException(nameof(provider));
 
         private static string FormatDigit(int i) => i < 10 ? i.Prefix(1) : i.ToString();
+
+        /// <inheritdoc />
+        public T TakeElement<T>(IReadOnlyList<T> list) => _listElementPicker.TakeElement(list);
+
+        public T TakeArgument<T>(params T[] list) => _listElementPicker.TakeArgument(list);
     }
 }
