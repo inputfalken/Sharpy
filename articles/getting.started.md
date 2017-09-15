@@ -7,11 +7,15 @@ The recommended way is to use [NuGet](http://nuget.org).
 
 ##### NuGet Package Manager: #####
 
-**```Install-Package Sharpy```**
+```powershell
+PM> Install-Package Sharpy
+```
 
 ##### .NET CLI: #####
 
-**```dotnet add package Sharpy```**
+```powershell
+> dotnet add package Sharpy
+```
 
 #### Dependencies ####
 * [.NET Standard 2.0](http://www.nuget.org/packages/NETStandard.Library)
@@ -33,11 +37,15 @@ visit the [NuGet page](http://www.nuget.org/packages/Sharpy).
 
 ##### Package Manager: #####
 
-**```Install-Package Sharpy.Core```**
+```powershell
+PM> Install-Package Sharpy.Core
+```
 
 ##### .NET CLI: #####
 
-**```dotnet add package Sharpy.Core```**
+```powershell
+> dotnet add package Sharpy.Core
+```
 
 #### Dependencies ####
 * [.NET Standard 2.0](http://www.nuget.org/packages/NETStandard.Library)

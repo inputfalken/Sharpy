@@ -57,21 +57,10 @@ namespace Sharpy {
             _boolProvider = configurement.BoolProvider;
         }
 
-        /// <summary>
-        ///     <para>
-        ///         Returns a <see cref="Builder" /> which will randomize the results depending on the <paramref name="seed" />.
-        ///     </para>
-        /// </summary>
-        /// <param name="seed">
-        ///     The <paramref name="seed" /> to be used when creating <see cref="Random" /> for randomizing data.
-        /// </param>
+        /// <inheritdoc />
         public Builder(int seed) : this(new Configurement(seed)) { }
 
-        /// <summary>
-        ///     <para>
-        ///         Returns a <see cref="Builder" /> which will randomize new results every time program is executed.
-        ///     </para>
-        /// </summary>
+        /// <inheritdoc />
         public Builder() : this(new Configurement()) { }
 
         private static string[] UserNames => Data.GetUserNames;
@@ -221,28 +210,44 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Creates a <see cref="IGenerator{T}" /> with <see cref="Builder" /> as its generic type.
+        ///         Creates a <see cref="IGenerator{T}" /> by using <see cref="Builder"/> as input argument for argument <see cref="selector"/>.
         ///     </para>
         /// </summary>
-        /// <param name="provider">
+        /// <param name="builder">
         ///     The instance of <see cref="Builder" /> you want to be used as a generator.
         /// </param>
         /// <param name="selector">A transform function to apply to each generation.</param>
-        /// <typeparam name="TProvider">
+        /// <typeparam name="TBuilder">
         ///     The <see cref="Builder" /> you want to have. This could be a descendant of <see cref="Builder" />.
         /// </typeparam>
         /// <typeparam name="TResult">The type of the result from the selector function.</typeparam>
         /// <returns>
         ///     <para>
-        ///         A <see cref="IGenerator{T}" />.
+        ///         A <see cref="IGenerator{T}" /> whose type is based on the return type of argument <see cref="selector"/>.
         ///     </para>
         /// </returns>
-        public static IGenerator<TResult> AsGenerator<TProvider, TResult>(TProvider provider,
-            Func<TProvider, TResult> selector) where TProvider : Builder => provider != null
+        public static IGenerator<TResult> AsGenerator<TBuilder, TResult>(TBuilder builder,
+            Func<TBuilder, TResult> selector) where TBuilder : Builder => builder != null
             ? selector != null
-                ? Create(provider).Select(selector)
+                ? Create(builder).Select(selector)
                 : throw new ArgumentNullException(nameof(selector))
-            : throw new ArgumentNullException(nameof(provider));
+            : throw new ArgumentNullException(nameof(builder));
+
+        /// <summary>
+        ///     <para>
+        ///         Creates a <see cref="IGenerator{T}" /> by using <see cref="Builder"/> as input argument for argument <see cref="selector"/>.
+        ///     </para>
+        /// </summary>
+        /// <param name="selector">A transform function to apply to each generation.</param>
+        /// <typeparam name="TResult">The type of the result from the selector function.</typeparam>
+        /// <returns>
+        ///     <para>
+        ///         A <see cref="IGenerator{T}" /> whose type is based on the return type of argument <see cref="selector"/>.
+        ///     </para>
+        /// </returns>
+        public static IGenerator<TResult> AsGenerator<TResult>(
+            Func<Builder, TResult> selector) => Create(new Builder())
+            .Select(selector ?? throw new ArgumentNullException(nameof(selector)));
 
         private static string FormatDigit(int i) => i < 10 ? i.Prefix(1) : i.ToString();
 

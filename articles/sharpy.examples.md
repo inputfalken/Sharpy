@@ -21,8 +21,8 @@ namespace Example
     {
         public static void Main (string[] args)
         {
-            IEnumerable<string> names = Builder.AsGenerator()
-            .Select((Builder builder) => builder.FirstName(Gender.Male))
+            IEnumerable<string> names = Builder
+            .AsGenerator((Builder builder) => builder.FirstName(Gender.Male))
             .Take(100);
         }
     }
@@ -47,8 +47,8 @@ namespace Example
     {
         public static void Main (string[] args)
         {
-            IEnumerable<string> names = Builder.AsGenerator()
-            .Select((Builder builder) => builder.Integer(10, 100))
+            IEnumerable<int> names = Builder
+            .AsGenerator((Builder builder) => builder.Integer(10, 100))
             .Take(100);
         }
     }
@@ -73,7 +73,7 @@ namespace Example
     {
         public static void Main (string[] args)
         {
-            IGenerator<Person> generator = Builder.AsGenerator((Builder: builder) =>
+            IGenerator<Person> generator = Builder.AsGenerator((Builder builder) =>
                 new Person(
                     firstname: builder.FirstName(),
                     lastname: builder.LastName(),
