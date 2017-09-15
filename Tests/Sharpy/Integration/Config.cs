@@ -15,6 +15,10 @@ namespace Tests.Sharpy.Integration {
             };
 
             var generator = Generator.Create(new Builder(configurement));
+
+            //bool
+            Assert.DoesNotThrow(() => generator.Select(x => x.Bool()).Generate());
+
             //Long
             Assert.DoesNotThrow(() => generator.Select(x => x.Long()).Generate());
             Assert.DoesNotThrow(() => generator.Select(x => x.Long(10)).Generate());
@@ -43,6 +47,10 @@ namespace Tests.Sharpy.Integration {
                 IntegerProvider = null
             };
             var generator = Generator.Create(new Builder(configurement));
+
+            //bool
+            Assert.DoesNotThrow(() => generator.Select(x => x.Bool()).Generate());
+
             //Integer
             Assert.Throws<NullReferenceException>(() => generator.Select(x => x.Integer()).Generate());
             Assert.Throws<NullReferenceException>(() => generator.Select(x => x.Integer(10)).Generate());
@@ -71,6 +79,10 @@ namespace Tests.Sharpy.Integration {
                 LongProvider = null
             };
             var generator = Generator.Create(new Builder(configurement));
+
+            //bool
+            Assert.DoesNotThrow(() => generator.Select(x => x.Bool()).Generate());
+
             //Long
             Assert.Throws<NullReferenceException>(() => generator.Select(x => x.Long()).Generate());
             Assert.Throws<NullReferenceException>(() => generator.Select(x => x.Long(10)).Generate());
@@ -99,11 +111,46 @@ namespace Tests.Sharpy.Integration {
                 NameProvider = null
             };
             var generator = Generator.Create(new Builder(configurement));
+
+            //bool
+            Assert.DoesNotThrow(() => generator.Select(x => x.Bool()).Generate());
+
             //Name
             Assert.Throws<NullReferenceException>(() => generator.Select(x => x.FirstName()).Generate());
             Assert.Throws<NullReferenceException>(() => generator.Select(x => x.FirstName(Gender.Female)).Generate());
             Assert.Throws<NullReferenceException>(() => generator.Select(x => x.FirstName(Gender.Male)).Generate());
             Assert.Throws<NullReferenceException>(() => generator.Select(x => x.LastName()).Generate());
+
+            //Integer
+            Assert.DoesNotThrow(() => generator.Select(x => x.Integer()).Generate());
+            Assert.DoesNotThrow(() => generator.Select(x => x.Integer(10)).Generate());
+            Assert.DoesNotThrow(() => generator.Select(x => x.Integer(1, 10)).Generate());
+
+            //Long
+            Assert.DoesNotThrow(() => generator.Select(x => x.Long()).Generate());
+            Assert.DoesNotThrow(() => generator.Select(x => x.Long(10)).Generate());
+            Assert.DoesNotThrow(() => generator.Select(x => x.Long(1, 10)).Generate());
+
+            //Double
+            Assert.DoesNotThrow(() => generator.Select(x => x.Double()).Generate());
+            Assert.DoesNotThrow(() => generator.Select(x => x.Double(10)).Generate());
+            Assert.DoesNotThrow(() => generator.Select(x => x.Double(1, 10)).Generate());
+        }
+        [Test]
+        public void BoolProvider_Set_To_Null() {
+            var configurement = new Configurement {
+                BoolProvider = null
+            };
+            var generator = Generator.Create(new Builder(configurement));
+
+            //bool
+            Assert.Throws<NullReferenceException>(() => generator.Select(x => x.Bool()).Generate());
+
+            //Name
+            Assert.DoesNotThrow(() => generator.Select(x => x.FirstName()).Generate());
+            Assert.DoesNotThrow(() => generator.Select(x => x.FirstName(Gender.Female)).Generate());
+            Assert.DoesNotThrow(() => generator.Select(x => x.FirstName(Gender.Male)).Generate());
+            Assert.DoesNotThrow(() => generator.Select(x => x.LastName()).Generate());
 
             //Integer
             Assert.DoesNotThrow(() => generator.Select(x => x.Integer()).Generate());
