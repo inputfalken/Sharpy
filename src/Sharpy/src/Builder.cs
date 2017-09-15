@@ -112,7 +112,6 @@ namespace Sharpy {
         /// <inheritdoc cref="INameProvider.LastName()" />
         public string LastName() => _nameProvider.LastName();
 
-
         /// <inheritdoc />
         public bool Bool() => _boolProvider.Bool();
 
@@ -160,8 +159,8 @@ namespace Sharpy {
         ///     A <see cref="string" /> representing a unique social security number.
         /// </returns>
         public string SocialSecurityNumber(LocalDate date, bool formated = true) {
-            var result = _securityNumberGen.SecurityNumber(_integerProvider.Integer(10000),
-                FormatDigit(date.Year % 100).Append(FormatDigit(date.Month), FormatDigit(date.Day)));
+            var result = _securityNumberGen.SecurityNumber(FormatDigit(date.Year % 100)
+                .Append(FormatDigit(date.Month), FormatDigit(date.Day)));
             if (result == -1)
                 throw new Exception("You have reached the maximum possible combinations for a control number");
             var securityNumber = result.ToString();
