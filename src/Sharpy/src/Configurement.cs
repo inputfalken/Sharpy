@@ -31,6 +31,7 @@ namespace Sharpy {
             NumberGenerator = new NumberGenerator(Random);
             MailDomains = new[] {"gmail.com", "hotmail.com", "yahoo.com"};
             ListElementPicker = new ListRandomizer(random);
+            BoolProvider = new BoolRandomizer(random);
         }
 
         /// <summary>
@@ -57,6 +58,18 @@ namespace Sharpy {
         internal NumberGenerator NumberGenerator { get; }
 
         public IListElementPicker ListElementPicker { get; set; }
+
+        /// <summary>
+        ///     <para>
+        ///         Gets and sets the implementation for <see cref="IBoolProvider" />.
+        ///     </para>
+        ///     <remarks>
+        ///         <para>
+        ///             The default implementation is <see cref="BoolRandomizer" />.
+        ///         </para>
+        ///     </remarks>
+        /// </summary>
+        public IBoolProvider BoolProvider { get; set; }
 
         /// <summary>
         ///     <para>

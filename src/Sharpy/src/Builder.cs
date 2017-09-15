@@ -18,7 +18,8 @@ namespace Sharpy {
     ///         If want you to add your own methods you can derive from this class.
     ///     </para>
     /// </summary>
-    public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, IListElementPicker {
+    public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, IListElementPicker,
+        IBoolProvider {
         private readonly DateGenerator _dateGenerator;
         private readonly IDoubleProvider _doubleProvider;
         private readonly IIntegerProvider _integerProvider;
@@ -28,6 +29,7 @@ namespace Sharpy {
         private readonly INameProvider _nameProvider;
         private readonly NumberGenerator _numberGenerator;
         private readonly SecurityNumberGen _securityNumberGen;
+        private readonly IBoolProvider _boolProvider;
 
         private readonly bool _uniqueNumbers;
         private (int, int) _numberByLengthState = (0, 0);
@@ -52,6 +54,7 @@ namespace Sharpy {
             _numberGenerator = configurement.NumberGenerator;
             _uniqueNumbers = configurement.UniqueNumbers;
             _listElementPicker = configurement.ListElementPicker;
+            _boolProvider = configurement.BoolProvider;
         }
 
         /// <summary>
@@ -109,33 +112,9 @@ namespace Sharpy {
         /// <inheritdoc cref="INameProvider.LastName()" />
         public string LastName() => _nameProvider.LastName();
 
-        /// <summary>
-        ///     <para>
-        ///         Randomizes one of the elements from argument <paramref name="items" />.
-        ///     </para>
-        /// </summary>
-        /// <typeparam name="T">The type to randomized from.</typeparam>
-        /// <param name="items">The <paramref name="items" /> to randomize from.</param>
-        public T Params<T>(params T[] items) => CustomCollection(items);
 
-        /// <summary>
-        ///     <para>
-        ///         Randomizes one of the elements from argument <paramref name="items" />.
-        ///     </para>
-        /// </summary>
-        /// <typeparam name="T">The type to randomized from.</typeparam>
-        /// <param name="items">The <paramref name="items" /> to randomize from.</param>
-        public T CustomCollection<T>(IReadOnlyList<T> items) => items[_integerProvider.Integer(items.Count)];
-
-        /// <summary>
-        ///     <para>
-        ///         Creates a <see cref="bool" />.
-        ///     </para>
-        /// </summary>
-        /// <returns>
-        ///     A <see cref="bool" /> based on <see cref="IIntegerProvider.Integer(int)" />.
-        /// </returns>
-        public bool Bool() => _integerProvider.Integer(2) != 0;
+        /// <inheritdoc />
+        public bool Bool() => _boolProvider.Bool();
 
         /// <summary>
         ///     <para>
@@ -239,7 +218,7 @@ namespace Sharpy {
         /// <returns>
         ///     A string representing a user name.
         /// </returns>
-        public string UserName() => CustomCollection(UserNames);
+        public string UserName() => TakeElement(UserNames);
 
         /// <summary>
         ///     <para>
