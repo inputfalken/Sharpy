@@ -57,6 +57,16 @@ namespace Sharpy {
 
         internal NumberGenerator NumberGenerator { get; }
 
+        /// <summary>
+        ///     <para>
+        ///         Gets and sets the implementation for <see cref="IListElementPicker" />.
+        ///     </para>
+        ///     <remarks>
+        ///         <para>
+        ///             The default implementation is <see cref="ListRandomizer" />.
+        ///         </para>
+        ///     </remarks>
+        /// </summary>
         public IListElementPicker ListElementPicker { get; set; }
 
         /// <summary>

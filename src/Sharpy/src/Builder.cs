@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using NodaTime;
 using Sharpy.Core;
 using Sharpy.Core.Linq;
@@ -20,20 +19,20 @@ namespace Sharpy {
     /// </summary>
     public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, IListElementPicker,
         IBoolProvider {
+        private readonly IBoolProvider _boolProvider;
         private readonly DateGenerator _dateGenerator;
         private readonly IDoubleProvider _doubleProvider;
         private readonly IIntegerProvider _integerProvider;
+        private readonly IListElementPicker _listElementPicker;
 
         private readonly ILongProvider _longProvider;
         private readonly EmailBuilder _mailbuilder;
         private readonly INameProvider _nameProvider;
         private readonly NumberGenerator _numberGenerator;
         private readonly SecurityNumberGen _securityNumberGen;
-        private readonly IBoolProvider _boolProvider;
 
         private readonly bool _uniqueNumbers;
         private (int, int) _numberByLengthState = (0, 0);
-        private readonly IListElementPicker _listElementPicker;
 
         /// <summary>
         ///     <para>
@@ -65,6 +64,9 @@ namespace Sharpy {
 
         private static string[] UserNames => Data.GetUserNames;
 
+        /// <inheritdoc />
+        public bool Bool() => _boolProvider.Bool();
+
         /// <inheritdoc cref="IDoubleProvider.Double()" />
         public double Double() => _doubleProvider.Double();
 
@@ -83,6 +85,12 @@ namespace Sharpy {
         /// <inheritdoc cref="IIntegerProvider.Integer()" />
         public int Integer() => _integerProvider.Integer();
 
+        /// <inheritdoc />
+        public T TakeElement<T>(IReadOnlyList<T> list) => _listElementPicker.TakeElement(list);
+
+        /// <inheritdoc />
+        public T TakeArgument<T>(params T[] arguments) => _listElementPicker.TakeArgument(arguments);
+
         /// <inheritdoc cref="ILongProvider.Long(long,long)" />
         public long Long(long min, long max) => _longProvider.Long(min, max);
 
@@ -100,9 +108,6 @@ namespace Sharpy {
 
         /// <inheritdoc cref="INameProvider.LastName()" />
         public string LastName() => _nameProvider.LastName();
-
-        /// <inheritdoc />
-        public bool Bool() => _boolProvider.Bool();
 
         /// <summary>
         ///     <para>
@@ -210,7 +215,8 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Creates a <see cref="IGenerator{T}" /> by using <see cref="Builder"/> as input argument for argument <see cref="selector"/>.
+        ///         Creates a <see cref="IGenerator{T}" /> by using <see cref="Builder" /> as input argument for argument
+        ///         <see cref="selector" />.
         ///     </para>
         /// </summary>
         /// <param name="builder">
@@ -223,7 +229,7 @@ namespace Sharpy {
         /// <typeparam name="TResult">The type of the result from the selector function.</typeparam>
         /// <returns>
         ///     <para>
-        ///         A <see cref="IGenerator{T}" /> whose type is based on the return type of argument <see cref="selector"/>.
+        ///         A <see cref="IGenerator{T}" /> whose type is based on the return type of argument <see cref="selector" />.
         ///     </para>
         /// </returns>
         public static IGenerator<TResult> AsGenerator<TBuilder, TResult>(TBuilder builder,
@@ -235,14 +241,15 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Creates a <see cref="IGenerator{T}" /> by using <see cref="Builder"/> as input argument for argument <see cref="selector"/>.
+        ///         Creates a <see cref="IGenerator{T}" /> by using <see cref="Builder" /> as input argument for argument
+        ///         <see cref="selector" />.
         ///     </para>
         /// </summary>
         /// <param name="selector">A transform function to apply to each generation.</param>
         /// <typeparam name="TResult">The type of the result from the selector function.</typeparam>
         /// <returns>
         ///     <para>
-        ///         A <see cref="IGenerator{T}" /> whose type is based on the return type of argument <see cref="selector"/>.
+        ///         A <see cref="IGenerator{T}" /> whose type is based on the return type of argument <see cref="selector" />.
         ///     </para>
         /// </returns>
         public static IGenerator<TResult> AsGenerator<TResult>(
@@ -250,10 +257,5 @@ namespace Sharpy {
             .Select(selector ?? throw new ArgumentNullException(nameof(selector)));
 
         private static string FormatDigit(int i) => i < 10 ? i.Prefix(1) : i.ToString();
-
-        /// <inheritdoc />
-        public T TakeElement<T>(IReadOnlyList<T> list) => _listElementPicker.TakeElement(list);
-
-        public T TakeArgument<T>(params T[] list) => _listElementPicker.TakeArgument(list);
     }
 }
