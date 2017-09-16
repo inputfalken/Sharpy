@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net.Mail;
 using Sharpy.Core;
 using Sharpy.Core.Linq;
 using Sharpy.Enums;
@@ -175,7 +176,7 @@ namespace Sharpy {
         /// <returns>
         ///     A string representing a email address.
         /// </returns>
-        public string MailAddress(string name, string secondName = null) => _mailbuilder.Mail(name, secondName);
+        public string MailAddress(params  string[] name) => _mailbuilder.Mail(name);
 
         /// <summary>
         ///     <para>

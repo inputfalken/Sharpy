@@ -5,6 +5,7 @@ using NUnit.Framework;
 using Sharpy;
 using Sharpy.Core;
 using Sharpy.Core.Linq;
+using Sharpy.Implementation;
 
 namespace Tests.Sharpy.Integration {
     [TestFixture]
@@ -16,6 +17,20 @@ namespace Tests.Sharpy.Integration {
                 .Where(group => group.Count() > 1)
                 .Select(group => group.Key)
                 .ToList();
+        }
+
+        [Test]
+        public void Test() {
+            var emailBuilder = new EmailBuilder(new List<string> { "hotmail.com"}, new Random());
+            var mail = emailBuilder.Mail("bob", "doe");
+            var mail2 = emailBuilder.Mail("bob", "doe");
+            var mail3 = emailBuilder.Mail("bob", "doe");
+            var mail4 = emailBuilder.Mail("bob", "doe");
+
+            Console.WriteLine(mail);
+            Console.WriteLine(mail2);
+            Console.WriteLine(mail3);
+            Console.WriteLine(mail4);
         }
 
         [Test]
@@ -110,7 +125,7 @@ namespace Tests.Sharpy.Integration {
                 MailDomains = new[] {"test.com"}
             };
             var randomGenerator = Generator.Create(new Builder(configurement));
-            Assert.Throws<NullReferenceException>(
+            Assert.Throws<ArgumentNullException>(
                 () => randomGenerator.Select(generator => generator.MailAddress(null, "hello")).Generate());
         }
 
@@ -120,7 +135,7 @@ namespace Tests.Sharpy.Integration {
                 MailDomains = new[] {"test.com"}
             };
             var randomGenerator = Generator.Create(new Builder(configurement));
-            Assert.Throws<NullReferenceException>(
+            Assert.Throws<ArgumentNullException>(
                 () => randomGenerator.Select(generator => generator.MailAddress(null)).Generate());
         }
 
@@ -176,7 +191,7 @@ namespace Tests.Sharpy.Integration {
         public void One_Domain_Two_Args_UniqueMails_True_FirstNull() {
             var configurement = new Configurement {MailDomains = new[] {"test.com"}};
             var randomGenerator = Generator.Create(new Builder(configurement));
-            Assert.Throws<NullReferenceException>(
+            Assert.Throws<ArgumentNullException>(
                 () => randomGenerator.Select(generator => generator.MailAddress(null, "bob")).Generate());
         }
 
