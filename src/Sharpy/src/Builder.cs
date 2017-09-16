@@ -63,7 +63,7 @@ namespace Sharpy {
 
         private static string[] UserNames => Data.GetUserNames;
 
-        /// <inheritdoc />
+        ///<inheritdoc cref="IBoolProvider.Bool"/> 
         public bool Bool() => _boolProvider.Bool();
 
         /// <inheritdoc cref="IDoubleProvider.Double()" />
@@ -84,10 +84,10 @@ namespace Sharpy {
         /// <inheritdoc cref="IIntegerProvider.Integer()" />
         public int Integer() => _integerProvider.Integer();
 
-        /// <inheritdoc />
+        /// <inheritdoc cref="IListElementPicker.TakeElement{T}"/>
         public T TakeElement<T>(IReadOnlyList<T> list) => _listElementPicker.TakeElement(list);
 
-        /// <inheritdoc />
+        /// <inheritdoc cref="IListElementPicker.TakeArgument{T}"/>
         public T TakeArgument<T>(params T[] arguments) => _listElementPicker.TakeArgument(arguments);
 
         /// <inheritdoc cref="ILongProvider.Long(long,long)" />
