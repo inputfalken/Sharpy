@@ -11,6 +11,6 @@ namespace Sharpy.Implementation {
 
         public T TakeElement<T>(IReadOnlyList<T> list) => list.RandomItem(_random);
 
-        public T TakeArgument<T>(params T[] list) => list.RandomItem(_random);
+        public T TakeArgument<T>(params T[] arguments) => arguments.RandomItem(_random);
     }
 }
