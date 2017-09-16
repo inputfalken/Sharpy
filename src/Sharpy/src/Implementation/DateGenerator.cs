@@ -1,13 +1,14 @@
 ﻿using System;
+using Sharpy.IProviders;
 
 namespace Sharpy.Implementation {
     /// <summary>
     ///     Is used for creating random dates
     /// </summary>
-    internal sealed class DateGenerator {
+    public sealed class DateRandomizer : IDateProvider {
         private readonly Random _random;
 
-        internal DateGenerator(Random random) => _random = random;
+        internal DateRandomizer(Random random) => _random = random;
 
         /// <summary>
         ///     Is used for getting the current time.
@@ -15,10 +16,18 @@ namespace Sharpy.Implementation {
         internal static DateTime CurrentLocalDate => DateTime.Now;
 
         /// <summary>
-        ///     Will give and random date minus the argument in years
-        ///     <param name="age">amount of years</param>
+        ///     <para>
+        ///         Randomizes a <see cref="DateTime" /> based on argument <paramref name="age" />.
+        ///     </para>
         /// </summary>
-        internal DateTime RandomDateByAge(int age) {
+        /// <param name="age">
+        ///     The age of the date.
+        /// </param>
+        /// <returns>
+        ///     A <see cref="DateTime" /> with todays year minus the argument <paramref name="age" />.
+        ///     The month and date has been randomized.
+        /// </returns>
+        public DateTime DateByAge(int age) {
             if (age < 0)
                 throw new ArgumentException($"{nameof(age)} cannot be negative");
             var date = CurrentLocalDate.AddYears(-age);
@@ -31,10 +40,18 @@ namespace Sharpy.Implementation {
         }
 
         /// <summary>
-        ///     Will give a random month and date on specific year
-        ///     <param name="year">which year to use</param>
+        ///     <para>
+        ///         Randomizes a <see cref="DateTime" /> based on argument <paramref name="year" />.
+        ///     </para>
         /// </summary>
-        internal DateTime RandomDateByYear(int year) {
+        /// <param name="year">
+        ///     The year of the date.
+        /// </param>
+        /// <returns>
+        ///     A <see cref="DateTime" /> with the argument <paramref name="year" /> as the year.
+        ///     The month and date has been randomized.
+        /// </returns>
+        public DateTime DateByYear(int year) {
             if (year < 0)
                 throw new ArgumentException($"{nameof(year)} cannot be negative");
             var month = _random.Next(1, CurrentLocalDate.Month);

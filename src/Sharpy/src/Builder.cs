@@ -17,9 +17,9 @@ namespace Sharpy {
     ///     </para>
     /// </summary>
     public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, IListElementPicker,
-        IBoolProvider {
+        IBoolProvider, IDateProvider {
         private readonly IBoolProvider _boolProvider;
-        private readonly DateGenerator _dateGenerator;
+        private readonly IDateProvider _dateprovider;
         private readonly IDoubleProvider _doubleProvider;
         private readonly IIntegerProvider _integerProvider;
         private readonly IListElementPicker _listElementPicker;
@@ -46,7 +46,7 @@ namespace Sharpy {
             _integerProvider = configurement.IntegerProvider;
             _longProvider = configurement.LongProvider;
             _nameProvider = configurement.NameProvider;
-            _dateGenerator = configurement.DateGenerator;
+            _dateprovider = configurement.DateProvider;
             _mailbuilder = configurement.EmailBuilder;
             _securityNumberGen = configurement.SecurityNumberGen;
             _numberGenerator = configurement.NumberGenerator;
@@ -65,6 +65,12 @@ namespace Sharpy {
 
         /// <inheritdoc />
         public bool Bool() => _boolProvider.Bool();
+
+        /// <inheritdoc />
+        public DateTime DateByAge(int age) => _dateprovider.DateByAge(age);
+
+        /// <inheritdoc />
+        public DateTime DateByYear(int year) => _dateprovider.DateByYear(year);
 
         /// <inheritdoc cref="IDoubleProvider.Double()" />
         public double Double() => _doubleProvider.Double();
@@ -107,34 +113,6 @@ namespace Sharpy {
 
         /// <inheritdoc cref="INameProvider.LastName()" />
         public string LastName() => _nameProvider.LastName();
-
-        /// <summary>
-        ///     <para>
-        ///         Randomizes a <see cref="DateTime" /> based on argument <paramref name="age" />.
-        ///     </para>
-        /// </summary>
-        /// <param name="age">
-        ///     The age of the date.
-        /// </param>
-        /// <returns>
-        ///     A <see cref="DateTime" /> with todays year minus the argument <paramref name="age" />.
-        ///     The month and date has been randomized.
-        /// </returns>
-        public DateTime DateByAge(int age) => _dateGenerator.RandomDateByAge(age);
-
-        /// <summary>
-        ///     <para>
-        ///         Randomizes a <see cref="DateTime" /> based on argument <paramref name="year" />.
-        ///     </para>
-        /// </summary>
-        /// <param name="year">
-        ///     The year of the date.
-        /// </param>
-        /// <returns>
-        ///     A <see cref="DateTime" /> with the argument <paramref name="year" /> as the year.
-        ///     The month and date has been randomized.
-        /// </returns>
-        public DateTime DateByYear(int year) => _dateGenerator.RandomDateByYear(year);
 
         /// <summary>
         ///     <para>
