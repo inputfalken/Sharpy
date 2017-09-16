@@ -26,7 +26,7 @@ namespace Sharpy {
             IntegerProvider = new IntRandomizer(Random);
             DoubleProvider = new DoubleRandomizer(Random);
             NameProvider = new NameByOrigin(Random);
-            DateGenerator = new DateGenerator(Random);
+            DateProvider = new DateRandomizer(Random);
             SecurityNumberGen = new SecurityNumberGen(Random);
             NumberGenerator = new NumberGenerator(Random);
             MailDomains = new[] {"gmail.com", "hotmail.com", "yahoo.com"};
@@ -51,11 +51,21 @@ namespace Sharpy {
 
         internal EmailBuilder EmailBuilder { get; private set; }
 
-        internal DateGenerator DateGenerator { get; }
-
         internal SecurityNumberGen SecurityNumberGen { get; }
 
         internal NumberGenerator NumberGenerator { get; }
+
+        /// <summary>
+        ///     <para>
+        ///         Gets and sets the implementation for <see cref="IDateProvider" />.
+        ///     </para>
+        ///     <remarks>
+        ///         <para>
+        ///             The default implementation is <see cref="DateRandomizer" />.
+        ///         </para>
+        ///     </remarks>
+        /// </summary>
+        public IDateProvider DateProvider { get; set;  }
 
         /// <summary>
         ///     <para>
