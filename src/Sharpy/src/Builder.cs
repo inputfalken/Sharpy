@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using NodaTime;
 using Sharpy.Core;
 using Sharpy.Core.Linq;
 using Sharpy.Enums;
@@ -111,31 +110,31 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Randomizes a <see cref="LocalDate" /> based on argument <paramref name="age" />.
+        ///         Randomizes a <see cref="DateTime" /> based on argument <paramref name="age" />.
         ///     </para>
         /// </summary>
         /// <param name="age">
         ///     The age of the date.
         /// </param>
         /// <returns>
-        ///     A <see cref="LocalDate" /> with todays year minus the argument <paramref name="age" />.
+        ///     A <see cref="DateTime" /> with todays year minus the argument <paramref name="age" />.
         ///     The month and date has been randomized.
         /// </returns>
-        public LocalDate DateByAge(int age) => _dateGenerator.RandomDateByAge(age);
+        public DateTime DateByAge(int age) => _dateGenerator.RandomDateByAge(age);
 
         /// <summary>
         ///     <para>
-        ///         Randomizes a <see cref="LocalDate" /> based on argument <paramref name="year" />.
+        ///         Randomizes a <see cref="DateTime" /> based on argument <paramref name="year" />.
         ///     </para>
         /// </summary>
         /// <param name="year">
         ///     The year of the date.
         /// </param>
         /// <returns>
-        ///     A <see cref="LocalDate" /> with the argument <paramref name="year" /> as the year.
+        ///     A <see cref="DateTime" /> with the argument <paramref name="year" /> as the year.
         ///     The month and date has been randomized.
         /// </returns>
-        public LocalDate DateByYear(int year) => _dateGenerator.RandomDateByYear(year);
+        public DateTime DateByYear(int year) => _dateGenerator.RandomDateByYear(year);
 
         /// <summary>
         ///     <para>
@@ -152,7 +151,7 @@ namespace Sharpy {
         /// <returns>
         ///     A <see cref="string" /> representing a unique social security number.
         /// </returns>
-        public string SocialSecurityNumber(LocalDate date, bool formated = true) {
+        public string SocialSecurityNumber(DateTime date, bool formated = true) {
             var result = _securityNumberGen.SecurityNumber(FormatDigit(date.Year % 100)
                 .Append(FormatDigit(date.Month), FormatDigit(date.Day)));
             if (result == -1)
