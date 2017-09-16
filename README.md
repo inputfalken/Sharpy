@@ -40,7 +40,6 @@ Use the NuGet Package Manager Console and type ```Install-Package Sharpy pre```
 [Link](https://www.nuget.org/packages/Sharpy/) to package on NuGet.
 ## Dependencies:
 
-* [NodaTime](https://github.com/nodatime/nodatime) For dates.
 * [Json.NET](https://github.com/JamesNK/Newtonsoft.Json) For deserializing JSON.
 * [MonTask](https://github.com/inputfalken/MonTask) For having a fluent API with tasks.
 * [Sharpy.Core](https://github.com/inputfalken/Sharpy.Core) A fluent generation API.

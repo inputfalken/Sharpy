@@ -22,7 +22,6 @@ PM> Install-Package Sharpy
 * [Sharpy.Core](http://www.nuget.org/packages/Sharpy.Core)
 * [MonTask](http://www.nuget.org/packages/MonTask)
 * [Newtonsoft.Json](http://www.nuget.org/packages/Newtonsoft.Json)
-* [NodaTime](http://www.nuget.org/packages/NodaTime)
 
 If want more information about the dependencies,
 visit the [NuGet page](http://www.nuget.org/packages/Sharpy).

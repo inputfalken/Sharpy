@@ -30,7 +30,6 @@
   <ItemGroup>
     <PackageReference Include="MonTask" Version="0.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-    <PackageReference Include="NodaTime" Version="2.2.0" />
     <PackageReference Include="Sharpy.Core" Version="0.0.0-alpha" />
   </ItemGroup>
 
