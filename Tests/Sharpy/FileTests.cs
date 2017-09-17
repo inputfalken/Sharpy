@@ -11,6 +11,25 @@ namespace Tests.Sharpy {
         private static readonly string[] GetUserNames = Data.GetUserNames;
 
         [Test(
+            Description = "Third index is a space."
+        )]
+        public void Postal_Codes_Use_Space_On_Third_Index() =>
+            Assert.IsTrue(Data.GetPostalcodes.All(code => code.Postalcode[3] == ' '));
+
+        [Test(
+            Description = "All postal codes contains 6 characters (space included)."
+        )]
+        public void Postal_Code_Got_Same_Length() =>
+            Assert.IsTrue(Data.GetPostalcodes.All(code => code.Postalcode.Length == 6));
+
+        [Test(
+            Description = "All characters are numeric (space excluded)."
+        )]
+        public void Postal_Code_Contains_Numbers_Only() => Assert.IsTrue(Data.GetPostalcodes
+            .Select(code => code.Postalcode.Remove(3, 1))
+            .All(s => s.All(char.IsNumber)));
+
+        [Test(
             Description = "Verify that no name contains number"
         )]
         public void Name_Contains_No_Numbers() {

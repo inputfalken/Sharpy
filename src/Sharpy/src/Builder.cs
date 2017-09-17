@@ -17,7 +17,7 @@ namespace Sharpy {
     ///     </para>
     /// </summary>
     public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, IListElementPicker,
-        IBoolProvider, IDateProvider, IEmailProvider {
+        IBoolProvider, IDateProvider, IEmailProvider, IPostalCodeProvider {
         private readonly IBoolProvider _boolProvider;
         private readonly IDateProvider _dateprovider;
         private readonly IDoubleProvider _doubleProvider;
@@ -28,6 +28,7 @@ namespace Sharpy {
         private readonly ILongProvider _longProvider;
         private readonly INameProvider _nameProvider;
         private readonly NumberGenerator _numberGenerator;
+        private readonly IPostalCodeProvider _postalCodeProvider;
         private readonly SecurityNumberGen _securityNumberGen;
 
         private readonly bool _uniqueNumbers;
@@ -53,6 +54,7 @@ namespace Sharpy {
             _uniqueNumbers = configurement.UniqueNumbers;
             _listElementPicker = configurement.ListElementPicker;
             _boolProvider = configurement.BoolProvider;
+            _postalCodeProvider = configurement.PostalCodeProvider;
         }
 
         /// <inheritdoc />
@@ -127,6 +129,12 @@ namespace Sharpy {
 
         /// <inheritdoc cref="INameProvider.LastName()" />
         public string LastName() => _nameProvider.LastName();
+
+        /// <inheritdoc />
+        public string PostalCode() => _postalCodeProvider.PostalCode();
+
+        /// <inheritdoc />
+        public string PostalCode(string county) => _postalCodeProvider.PostalCode(county);
 
         /// <summary>
         ///     <para>
