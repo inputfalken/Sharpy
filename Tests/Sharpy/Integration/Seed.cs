@@ -174,8 +174,8 @@ namespace Tests.Sharpy.Integration {
             var g1 = Generator.Create(new Builder(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Create(new Builder(TestSeed));
-            var expected = g1.Select(generator => generator.MailAddress(name)).Generate();
-            var result = g2.Select(generator => generator.MailAddress(name)).Generate();
+            var expected = g1.Select(generator => generator.Mail(name)).Generate();
+            var result = g2.Select(generator => generator.Mail(name)).Generate();
             Assert.AreEqual(expected, result);
         }
 
@@ -424,8 +424,8 @@ namespace Tests.Sharpy.Integration {
             var g1 = Generator.Create(new Builder());
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Create(new Builder());
-            var expected = g1.Select(generator => generator.MailAddress(name)).Take(Count);
-            var result = g2.Select(generator => generator.MailAddress(name)).Take(Count);
+            var expected = g1.Select(generator => generator.Mail(name)).Take(Count);
+            var result = g2.Select(generator => generator.Mail(name)).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
@@ -674,8 +674,8 @@ namespace Tests.Sharpy.Integration {
             var g1 = Generator.Create(new Builder(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Create(new Builder(TestSeed));
-            var expected = g1.Select(generator => generator.MailAddress(name)).Take(Count);
-            var result = g2.Select(generator => generator.MailAddress(name)).Take(Count);
+            var expected = g1.Select(generator => generator.Mail(name)).Take(Count);
+            var result = g2.Select(generator => generator.Mail(name)).Take(Count);
             Assert.AreEqual(expected, result);
         }
 

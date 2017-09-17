@@ -17,15 +17,15 @@ namespace Sharpy {
     ///     </para>
     /// </summary>
     public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, IListElementPicker,
-        IBoolProvider {
+        IBoolProvider, IDateProvider, IEmailProvider {
         private readonly IBoolProvider _boolProvider;
-        private readonly DateGenerator _dateGenerator;
+        private readonly IDateProvider _dateprovider;
         private readonly IDoubleProvider _doubleProvider;
+        private readonly IEmailProvider _emailProvider;
         private readonly IIntegerProvider _integerProvider;
         private readonly IListElementPicker _listElementPicker;
 
         private readonly ILongProvider _longProvider;
-        private readonly EmailBuilder _mailbuilder;
         private readonly INameProvider _nameProvider;
         private readonly NumberGenerator _numberGenerator;
         private readonly SecurityNumberGen _securityNumberGen;
@@ -46,8 +46,8 @@ namespace Sharpy {
             _integerProvider = configurement.IntegerProvider;
             _longProvider = configurement.LongProvider;
             _nameProvider = configurement.NameProvider;
-            _dateGenerator = configurement.DateGenerator;
-            _mailbuilder = configurement.EmailBuilder;
+            _dateprovider = configurement.DateProvider;
+            _emailProvider = configurement.MailProvider;
             _securityNumberGen = configurement.SecurityNumberGen;
             _numberGenerator = configurement.NumberGenerator;
             _uniqueNumbers = configurement.UniqueNumbers;
@@ -63,8 +63,14 @@ namespace Sharpy {
 
         private static string[] UserNames => Data.GetUserNames;
 
-        ///<inheritdoc cref="IBoolProvider.Bool"/> 
+        /// <inheritdoc cref="IBoolProvider.Bool" />
         public bool Bool() => _boolProvider.Bool();
+
+        /// <inheritdoc />
+        public DateTime DateByAge(int age) => _dateprovider.DateByAge(age);
+
+        /// <inheritdoc />
+        public DateTime DateByYear(int year) => _dateprovider.DateByYear(year);
 
         /// <inheritdoc cref="IDoubleProvider.Double()" />
         public double Double() => _doubleProvider.Double();
@@ -75,6 +81,20 @@ namespace Sharpy {
         /// <inheritdoc cref="IDoubleProvider.Double(double, double)" />
         public double Double(double min, double max) => _doubleProvider.Double(min, max);
 
+        /// <summary>
+        ///     <para>
+        ///         Returns a <see cref="string" /> representing a unique mail address.
+        ///     </para>
+        /// </summary>
+        /// <param name="names">The mail names of the mail address</param>
+        /// <remarks>
+        ///     If a mail address would be duplicated ; a random number would be appended to the address.
+        /// </remarks>
+        /// <returns>
+        ///     A string representing a email address.
+        /// </returns>
+        public string Mail(params string[] names) => _emailProvider.Mail(names);
+
         /// <inheritdoc cref="IIntegerProvider.Integer(int)" />
         public int Integer(int max) => _integerProvider.Integer(max);
 
@@ -84,10 +104,10 @@ namespace Sharpy {
         /// <inheritdoc cref="IIntegerProvider.Integer()" />
         public int Integer() => _integerProvider.Integer();
 
-        /// <inheritdoc cref="IListElementPicker.TakeElement{T}"/>
+        /// <inheritdoc cref="IListElementPicker.TakeElement{T}" />
         public T TakeElement<T>(IReadOnlyList<T> list) => _listElementPicker.TakeElement(list);
 
-        /// <inheritdoc cref="IListElementPicker.TakeArgument{T}"/>
+        /// <inheritdoc cref="IListElementPicker.TakeArgument{T}" />
         public T TakeArgument<T>(params T[] arguments) => _listElementPicker.TakeArgument(arguments);
 
         /// <inheritdoc cref="ILongProvider.Long(long,long)" />
@@ -107,34 +127,6 @@ namespace Sharpy {
 
         /// <inheritdoc cref="INameProvider.LastName()" />
         public string LastName() => _nameProvider.LastName();
-
-        /// <summary>
-        ///     <para>
-        ///         Randomizes a <see cref="DateTime" /> based on argument <paramref name="age" />.
-        ///     </para>
-        /// </summary>
-        /// <param name="age">
-        ///     The age of the date.
-        /// </param>
-        /// <returns>
-        ///     A <see cref="DateTime" /> with todays year minus the argument <paramref name="age" />.
-        ///     The month and date has been randomized.
-        /// </returns>
-        public DateTime DateByAge(int age) => _dateGenerator.RandomDateByAge(age);
-
-        /// <summary>
-        ///     <para>
-        ///         Randomizes a <see cref="DateTime" /> based on argument <paramref name="year" />.
-        ///     </para>
-        /// </summary>
-        /// <param name="year">
-        ///     The year of the date.
-        /// </param>
-        /// <returns>
-        ///     A <see cref="DateTime" /> with the argument <paramref name="year" /> as the year.
-        ///     The month and date has been randomized.
-        /// </returns>
-        public DateTime DateByYear(int year) => _dateGenerator.RandomDateByYear(year);
 
         /// <summary>
         ///     <para>
@@ -161,21 +153,6 @@ namespace Sharpy {
                 securityNumber = result.Prefix(10 - securityNumber.Length);
             return formated ? securityNumber.Insert(6, "-") : securityNumber;
         }
-
-        /// <summary>
-        ///     <para>
-        ///         Returns a <see cref="string" /> representing a unique mail address.
-        ///     </para>
-        /// </summary>
-        /// <param name="name">The mail name of the mail address</param>
-        /// <param name="secondName">A second name using a random separator</param>
-        /// <remarks>
-        ///     If a mail address would be duplicated ; a random number would be appended to the address.
-        /// </remarks>
-        /// <returns>
-        ///     A string representing a email address.
-        /// </returns>
-        public string MailAddress(string name, string secondName = null) => _mailbuilder.Mail(name, secondName);
 
         /// <summary>
         ///     <para>
