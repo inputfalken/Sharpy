@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Sharpy.Core;
 using Sharpy.Implementation.ExtensionMethods;
+using Sharpy.IProviders;
 
 namespace Sharpy.Implementation {
     internal sealed class EmailBuilder : Unique<string>, IEmailProvider {
@@ -65,9 +65,5 @@ namespace Sharpy.Implementation {
             names[names.Length - 1] = ResolveDuplicate(names[names.Length - 1]);
             return Mail(names);
         }
-    }
-
-    public interface IEmailProvider {
-        string Mail(params string[] name);
     }
 }

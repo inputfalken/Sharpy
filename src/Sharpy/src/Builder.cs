@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Net.Mail;
 using Sharpy.Core;
 using Sharpy.Core.Linq;
 using Sharpy.Enums;
@@ -18,7 +17,7 @@ namespace Sharpy {
     ///     </para>
     /// </summary>
     public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, IListElementPicker,
-        IBoolProvider {
+        IBoolProvider, IEmailProvider {
         private readonly IBoolProvider _boolProvider;
         private readonly DateGenerator _dateGenerator;
         private readonly IDoubleProvider _doubleProvider;
@@ -26,7 +25,7 @@ namespace Sharpy {
         private readonly IListElementPicker _listElementPicker;
 
         private readonly ILongProvider _longProvider;
-        private readonly EmailBuilder _mailbuilder;
+        private readonly IEmailProvider _emailProvider;
         private readonly INameProvider _nameProvider;
         private readonly NumberGenerator _numberGenerator;
         private readonly SecurityNumberGen _securityNumberGen;
@@ -48,7 +47,7 @@ namespace Sharpy {
             _longProvider = configurement.LongProvider;
             _nameProvider = configurement.NameProvider;
             _dateGenerator = configurement.DateGenerator;
-            _mailbuilder = configurement.EmailBuilder;
+            _emailProvider = configurement.MailProvider;
             _securityNumberGen = configurement.SecurityNumberGen;
             _numberGenerator = configurement.NumberGenerator;
             _uniqueNumbers = configurement.UniqueNumbers;
@@ -168,15 +167,14 @@ namespace Sharpy {
         ///         Returns a <see cref="string" /> representing a unique mail address.
         ///     </para>
         /// </summary>
-        /// <param name="name">The mail name of the mail address</param>
-        /// <param name="secondName">A second name using a random separator</param>
+        /// <param name="names">The mail names of the mail address</param>
         /// <remarks>
         ///     If a mail address would be duplicated ; a random number would be appended to the address.
         /// </remarks>
         /// <returns>
         ///     A string representing a email address.
         /// </returns>
-        public string MailAddress(params  string[] name) => _mailbuilder.Mail(name);
+        public string Mail(params string[] names) => _emailProvider.Mail(names);
 
         /// <summary>
         ///     <para>

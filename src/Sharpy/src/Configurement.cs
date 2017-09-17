@@ -49,13 +49,23 @@ namespace Sharpy {
         /// </summary>
         public Configurement() : this(new Random()) { }
 
-        internal EmailBuilder EmailBuilder { get; private set; }
-
         internal DateGenerator DateGenerator { get; }
 
         internal SecurityNumberGen SecurityNumberGen { get; }
 
         internal NumberGenerator NumberGenerator { get; }
+
+        /// <summary>
+        ///     <para>
+        ///         Gets and sets the implementation for <see cref="IEmailProvider" />.
+        ///     </para>
+        ///     <remarks>
+        ///         <para>
+        ///             The default implementation is <see cref="EmailBuilder" />.
+        ///         </para>
+        ///     </remarks>
+        /// </summary>
+        public IEmailProvider MailProvider { get; set; }
 
         /// <summary>
         ///     <para>
@@ -138,7 +148,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Gets and sets the mail domains which will be used when invoking <see cref="Builder.MailAddress" />.
+        ///         Gets and sets the mail domains which will be used when invoking <see cref="Builder.Mail" />.
         ///     </para>
         /// </summary>
         /// <remarks>
@@ -149,7 +159,7 @@ namespace Sharpy {
         public IReadOnlyList<string> MailDomains {
             get => _mailDomains;
             set {
-                EmailBuilder = new EmailBuilder(value, Random);
+                MailProvider = new EmailBuilder(value, Random);
                 _mailDomains = value;
             }
         }
