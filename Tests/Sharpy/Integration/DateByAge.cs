@@ -23,7 +23,7 @@ namespace Tests.Sharpy.Integration {
                 .Select(generator => generator.DateByAge(20))
                 .Generate();
 
-            Assert.AreEqual(result.Year, DateGenerator.CurrentLocalDate.Year - 20);
+            Assert.AreEqual(result.Year, DateRandomizer.CurrentLocalDate.Year - 20);
         }
 
         [Test]
@@ -34,7 +34,7 @@ namespace Tests.Sharpy.Integration {
                 .Generate();
 
             //will make sure that the date created is earlier than today this year
-            Assert.IsTrue(DateGenerator.CurrentLocalDate > result);
+            Assert.IsTrue(DateRandomizer.CurrentLocalDate > result);
         }
     }
 }
