@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Newtonsoft.Json;
@@ -19,6 +20,14 @@ namespace Sharpy {
             }
         });
 
+        private static readonly Lazy<IReadOnlyList<PostalCode>> LazyPostalCodes = new Lazy<IReadOnlyList<PostalCode>>(
+            () => {
+                var assembly = typeof(SwePostalCodeRandomizer).Assembly;
+                var resourceStream = assembly.GetManifestResourceStream("Sharpy.Data.swedishPostalCodes.json");
+                using (var reader = new StreamReader(resourceStream, Encoding.UTF8))
+                    return JsonConvert.DeserializeObject<IEnumerable<PostalCode>>(reader.ReadToEnd()).ToArray();
+            });
+
         private static readonly Lazy<string[]> LazyUsernames = new Lazy<string[]>(() => {
             var assembly = typeof(Builder).Assembly;
             var resourceStream = assembly.GetManifestResourceStream("Sharpy.Data.usernames.txt");
@@ -28,6 +37,7 @@ namespace Sharpy {
         });
 
         internal static IEnumerable<Name> GetNames => LazyNames.Value;
+        internal static IReadOnlyList<PostalCode> GetPostalcodes => LazyPostalCodes.Value;
 
         internal static string[] GetUserNames => LazyUsernames.Value;
     }
