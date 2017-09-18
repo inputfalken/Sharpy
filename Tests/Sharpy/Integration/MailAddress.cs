@@ -20,20 +20,6 @@ namespace Tests.Sharpy.Integration {
         }
 
         [Test]
-        public void Test() {
-            var emailBuilder = new UniqueEmailBuilder(new List<string> { "hotmail.com"}, new Random());
-            var mail = emailBuilder.Mail("bob", "doe");
-            var mail2 = emailBuilder.Mail("bob", "doe");
-            var mail3 = emailBuilder.Mail("bob", "doe");
-            var mail4 = emailBuilder.Mail("bob", "doe");
-
-            Console.WriteLine(mail);
-            Console.WriteLine(mail2);
-            Console.WriteLine(mail3);
-            Console.WriteLine(mail4);
-        }
-
-        [Test]
         public void Check_Mail_Count_Unique_True() {
             var configurement = new Configurement {
                 MailDomains = new[] {"test.com"}
@@ -221,6 +207,20 @@ namespace Tests.Sharpy.Integration {
 
             Assert.AreEqual("bob@test.com", first);
             Assert.IsFalse(last.Any(char.IsSeparator));
+        }
+
+        [Test]
+        public void Test() {
+            var emailBuilder = new UniqueEmailBuilder(new List<string> {"hotmail.com"}, new Random());
+            var mail = emailBuilder.Mail("bob", "doe");
+            var mail2 = emailBuilder.Mail("bob", "doe");
+            var mail3 = emailBuilder.Mail("bob", "doe");
+            var mail4 = emailBuilder.Mail("bob", "doe");
+
+            Console.WriteLine(mail);
+            Console.WriteLine(mail2);
+            Console.WriteLine(mail3);
+            Console.WriteLine(mail4);
         }
 
         [Test]
