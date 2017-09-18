@@ -2,13 +2,15 @@
 
 namespace Sharpy.Implementation.DataObjects {
     internal sealed class PostalCode {
+        [JsonProperty("postalCode")]
         internal string Postalcode { get; }
-        internal string Country { get; }
+        [JsonProperty("county")]
+        internal string County { get; }
 
         [JsonConstructor]
-        private PostalCode(string postalcode, string country) {
+        private PostalCode(string postalcode, string county) {
             Postalcode = postalcode;
-            Country = country;
+            County = county;
         }
     }
 }
