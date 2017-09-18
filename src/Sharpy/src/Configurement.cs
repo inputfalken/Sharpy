@@ -71,7 +71,7 @@ namespace Sharpy {
         ///     </para>
         ///     <remarks>
         ///         <para>
-        ///             The default implementation is <see cref="EmailBuilder" />.
+        ///             The default implementation is <see cref="UniqueEmailBuilder" />.
         ///         </para>
         ///     </remarks>
         /// </summary>
@@ -169,7 +169,7 @@ namespace Sharpy {
         public IReadOnlyList<string> MailDomains {
             get => _mailDomains;
             set {
-                MailProvider = new EmailBuilder(value, Random);
+                MailProvider = new UniqueEmailBuilder(value, Random);
                 _mailDomains = value;
             }
         }
