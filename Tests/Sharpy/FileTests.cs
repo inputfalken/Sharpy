@@ -20,7 +20,7 @@ namespace Tests.Sharpy {
         }
 
         [Test(
-            Description = "Verify that no name contains puncatuation"
+            Description = "Verify that no name contains punctuation"
         )]
         public void Name_Contains_No_Punctuations() {
             var deserializeObject = GetNames;
@@ -92,7 +92,7 @@ namespace Tests.Sharpy {
             Assert.IsTrue(Data.GetPostalcodes.All(code => code.Postalcode[3] == ' '));
 
         [Test(
-            Description = "Verify that no username contains number."
+            Description = "Verify that no user name contains number."
         )]
         public void User_Name_Contains_No_Numbers() {
             var containsNumber =
@@ -102,7 +102,7 @@ namespace Tests.Sharpy {
         }
 
         [Test(
-            Description = "Verify that no username contains punctuation."
+            Description = "Verify that no user name contains punctuation."
         )]
         public void User_Name_Contains_No_Punctuations() {
             var containsPunctuations =
@@ -111,7 +111,7 @@ namespace Tests.Sharpy {
         }
 
         [Test(
-            Description = "Verify that no username contains separator."
+            Description = "Verify that no user name contains separator."
         )]
         public void User_Name_Contains_No_Separator() {
             var containsSeparator =
@@ -121,7 +121,7 @@ namespace Tests.Sharpy {
         }
 
         [Test(
-            Description = "Verify that no username contains symbol."
+            Description = "Verify that no user name contains symbol."
         )]
         public void User_Name_Contains_No_Symbols() {
             var containsSymbols = GetUserNames
@@ -130,7 +130,7 @@ namespace Tests.Sharpy {
         }
 
         [Test(
-            Description = "Verify that no username contains white space."
+            Description = "Verify that no user name contains white space."
         )]
         public void User_Name_Contains_No_White_Space() {
             var containsWhitespace =
