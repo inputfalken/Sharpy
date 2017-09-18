@@ -21,7 +21,7 @@ namespace Tests.Sharpy.Integration {
 
         [Test]
         public void Test() {
-            var emailBuilder = new EmailBuilder(new List<string> { "hotmail.com"}, new Random());
+            var emailBuilder = new UniqueEmailBuilder(new List<string> { "hotmail.com"}, new Random());
             var mail = emailBuilder.Mail("bob", "doe");
             var mail2 = emailBuilder.Mail("bob", "doe");
             var mail3 = emailBuilder.Mail("bob", "doe");

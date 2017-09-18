@@ -6,14 +6,14 @@ using Sharpy.Implementation.ExtensionMethods;
 using Sharpy.IProviders;
 
 namespace Sharpy.Implementation {
-    internal sealed class EmailBuilder : Unique<string>, IEmailProvider {
+    internal sealed class UniqueEmailBuilder : Unique<string>, IEmailProvider {
         private const int Limit = 2;
 
-        private readonly IGenerator<char> _seperatorEnumerator;
+        private readonly IGenerator<char> _separatorGenerator;
 
-        internal EmailBuilder(IReadOnlyList<string> providers, Random random) : base(random) {
+        internal UniqueEmailBuilder(IReadOnlyList<string> providers, Random random) : base(random) {
             EmailDomains = providers;
-            _seperatorEnumerator = Generator.CircularSequence(new List<char> {
+            _separatorGenerator = Generator.CircularSequence(new List<char> {
                 '.',
                 '_',
                 '-'
@@ -21,14 +21,14 @@ namespace Sharpy.Implementation {
         }
 
         /// <summary>
-        ///     Contains the email providers
+        ///     Contains the email providers.
         /// </summary>
         private IReadOnlyList<string> EmailDomains {
             set => DomainsEnumerator = value.GetEnumerator();
         }
 
         /// <summary>
-        ///     Contains the email providers but with saved state
+        ///     Contains the email providers with saved state.
         /// </summary>
         private IEnumerator<string> DomainsEnumerator { get; set; }
 
@@ -39,16 +39,18 @@ namespace Sharpy.Implementation {
             if (names.Length < 1) throw new ArgumentException($"Argument '{nameof(names)}' can not be empty.");
             var resets = 0;
             var namesWithIndex = names
-                .Select((s, i) => (name: string.IsNullOrEmpty(s)
-                    ? throw new ArgumentNullException(
-                        $"No element in argument '{nameof(names)}' can be null or empty string.")
-                    : s, iteration: i)).ToArray();
+                .Select((s, i) => (
+                    name: string.IsNullOrEmpty(s)
+                        ? throw new ArgumentNullException(
+                            $"No element in argument '{nameof(names)}' can be null or empty string.")
+                        : s, iteration: i)
+                ).ToArray();
 
             while (resets < Limit) {
                 if (DomainsEnumerator.MoveNext()) {
                     var result = namesWithIndex.Aggregate(string.Empty,
                             (acc, curr) =>
-                                $"{acc}{(curr.iteration == names.Length - 1 ? curr.name : curr.name.Append(_seperatorEnumerator.Generate().ToString()))}"
+                                $"{acc}{(curr.iteration == names.Length - 1 ? curr.name : curr.name.Append(_separatorGenerator.Generate().ToString()))}"
                         ).Append('@', DomainsEnumerator.Current)
                         .ToLower();
 
