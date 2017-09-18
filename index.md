@@ -8,3 +8,5 @@ Currently there is two libraries which the website contains information about:
  </div>
 
 * **Sharpy.Core** Offers an interface with fluent syntax using LINQ naming convention.
+
+## [Getting Started](articles/getting.started.md) ##
