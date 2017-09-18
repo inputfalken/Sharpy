@@ -55,6 +55,18 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
+        ///         Gets and sets the implementation for <see cref="IPostalCodeProvider" />.
+        ///     </para>
+        ///     <remarks>
+        ///         <para>
+        ///             The default implementation is <see cref="SwePostalCodeRandomizer" />.
+        ///         </para>
+        ///     </remarks>
+        /// </summary>
+        public IPostalCodeProvider PostalCodeProvider { get; set; }
+
+        /// <summary>
+        ///     <para>
         ///         Gets and sets the implementation for <see cref="IDateProvider" />.
         ///     </para>
         ///     <remarks>
