@@ -4,10 +4,10 @@ using Sharpy.Implementation.ExtensionMethods;
 using Sharpy.IProviders;
 
 namespace Sharpy.Implementation {
-    public class ReadListRandomizer : IReadListElementProvider {
+    public class ListRandomizer : IReadListElementProvider {
         private readonly Random _random;
 
-        public ReadListRandomizer(Random random) => _random = random ?? throw new ArgumentNullException(nameof(random));
+        public ListRandomizer(Random random) => _random = random ?? throw new ArgumentNullException(nameof(random));
 
         public T Element<T>(IReadOnlyList<T> list) => list.RandomItem(_random);
 
