@@ -27,7 +27,7 @@ namespace Sharpy {
 
         private readonly ILongProvider _longProvider;
         private readonly INameProvider _nameProvider;
-        private readonly NumberGenerator _numberGenerator;
+        private readonly UniqueIntegerRandomizer _uniqueIntegerRandomizer;
         private readonly IPostalCodeProvider _postalCodeProvider;
         private readonly ISecurityNumberProvider _securityNumberProvider;
 
@@ -50,7 +50,7 @@ namespace Sharpy {
             _dateprovider = configurement.DateProvider;
             _emailProvider = configurement.MailProvider;
             _securityNumberProvider = configurement.SecurityNumberProvider;
-            _numberGenerator = configurement.NumberGenerator;
+            _uniqueIntegerRandomizer = configurement.UniqueIntegerRandomizer;
             _uniqueNumbers = configurement.UniqueNumbers;
             _readListElementProvider = configurement.ListElementPicker;
             _boolProvider = configurement.BoolProvider;
@@ -177,7 +177,7 @@ namespace Sharpy {
             //If _numberByLenghtState has changed
             if (_numberByLengthState.Item1 != length)
                 _numberByLengthState = (length, (int) Math.Pow(10, length) - 1);
-            var res = _numberGenerator.RandomNumber(0, _numberByLengthState.Item2);
+            var res = _uniqueIntegerRandomizer.RandomNumber(0, _numberByLengthState.Item2, _uniqueNumbers);
             if (res == -1)
                 throw new Exception($"Reached maximum amount of combinations for the argument '{nameof(length)}'.");
 
