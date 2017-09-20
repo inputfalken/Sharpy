@@ -85,7 +85,7 @@ namespace Tests.Sharpy.Integration {
         [Test]
         public void ElementPicker_Set_To_Null() {
             var configurement = new Configurement {
-                ReadListElementProvider = null
+                ListElementPicker = null
             };
             var generator = Generator.Create(new Builder(configurement));
 

@@ -1,11 +1,12 @@
 ﻿using System;
 using Sharpy.Implementation.ExtensionMethods;
+using Sharpy.IProviders;
 
 namespace Sharpy.Implementation {
-    internal class SecurityNumberGen : Unique<long> {
-        internal SecurityNumberGen(Random random) : base(random) { }
+    internal class UniqueSecurityNumberRandomizer : Unique<long>, ISecurityNumberProvider {
+        internal UniqueSecurityNumberRandomizer(Random random) : base(random) { }
 
-        internal long SecurityNumber(string dateNumber) {
+        public long SecurityNumber(string dateNumber) {
             var controlNumber = Random.Next(10000);
             var number = long.Parse(dateNumber + controlNumber);
             var resets = 0;

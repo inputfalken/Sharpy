@@ -29,7 +29,7 @@ namespace Sharpy {
         private readonly INameProvider _nameProvider;
         private readonly NumberGenerator _numberGenerator;
         private readonly IPostalCodeProvider _postalCodeProvider;
-        private readonly SecurityNumberGen _securityNumberGen;
+        private readonly ISecurityNumberProvider _securityNumberProvider;
 
         private readonly bool _uniqueNumbers;
         private (int, int) _numberByLengthState = (0, 0);
@@ -49,10 +49,10 @@ namespace Sharpy {
             _nameProvider = configurement.NameProvider;
             _dateprovider = configurement.DateProvider;
             _emailProvider = configurement.MailProvider;
-            _securityNumberGen = configurement.SecurityNumberGen;
+            _securityNumberProvider = configurement.SecurityNumberProvider;
             _numberGenerator = configurement.NumberGenerator;
             _uniqueNumbers = configurement.UniqueNumbers;
-            _readListElementProvider = configurement.ReadListElementProvider;
+            _readListElementProvider = configurement.ListElementPicker;
             _boolProvider = configurement.BoolProvider;
             _postalCodeProvider = configurement.PostalCodeProvider;
         }
@@ -152,7 +152,7 @@ namespace Sharpy {
         ///     A <see cref="string" /> representing a unique social security number.
         /// </returns>
         public string SocialSecurityNumber(DateTime date, bool formated = true) {
-            var result = _securityNumberGen.SecurityNumber(FormatDigit(date.Year % 100)
+            var result = _securityNumberProvider.SecurityNumber(FormatDigit(date.Year % 100)
                 .Append(FormatDigit(date.Month), FormatDigit(date.Day)));
             if (result == -1)
                 throw new Exception("You have reached the maximum possible combinations for a control number");
@@ -177,7 +177,7 @@ namespace Sharpy {
             //If _numberByLenghtState has changed
             if (_numberByLengthState.Item1 != length)
                 _numberByLengthState = (length, (int) Math.Pow(10, length) - 1);
-            var res = _numberGenerator.RandomNumber(0, _numberByLengthState.Item2, _uniqueNumbers);
+            var res = _numberGenerator.RandomNumber(0, _numberByLengthState.Item2);
             if (res == -1)
                 throw new Exception($"Reached maximum amount of combinations for the argument '{nameof(length)}'.");
 
