@@ -16,14 +16,14 @@ namespace Sharpy {
     ///         If want you to add your own methods you can derive from this class.
     ///     </para>
     /// </summary>
-    public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, IListElementPicker,
+    public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, IReadListElementProvider,
         IBoolProvider, IDateProvider, IEmailProvider, IPostalCodeProvider {
         private readonly IBoolProvider _boolProvider;
         private readonly IDateProvider _dateprovider;
         private readonly IDoubleProvider _doubleProvider;
         private readonly IEmailProvider _emailProvider;
         private readonly IIntegerProvider _integerProvider;
-        private readonly IListElementPicker _listElementPicker;
+        private readonly IReadListElementProvider _readListElementProvider;
 
         private readonly ILongProvider _longProvider;
         private readonly INameProvider _nameProvider;
@@ -52,7 +52,7 @@ namespace Sharpy {
             _securityNumberGen = configurement.SecurityNumberGen;
             _numberGenerator = configurement.NumberGenerator;
             _uniqueNumbers = configurement.UniqueNumbers;
-            _listElementPicker = configurement.ListElementPicker;
+            _readListElementProvider = configurement.ReadListElementProvider;
             _boolProvider = configurement.BoolProvider;
             _postalCodeProvider = configurement.PostalCodeProvider;
         }
@@ -106,11 +106,11 @@ namespace Sharpy {
         /// <inheritdoc cref="IIntegerProvider.Integer()" />
         public int Integer() => _integerProvider.Integer();
 
-        /// <inheritdoc cref="IListElementPicker.TakeElement{T}" />
-        public T TakeElement<T>(IReadOnlyList<T> list) => _listElementPicker.TakeElement(list);
+        /// <inheritdoc cref="IReadListElementProvider.Element{T}" />
+        public T Element<T>(IReadOnlyList<T> list) => _readListElementProvider.Element(list);
 
-        /// <inheritdoc cref="IListElementPicker.TakeArgument{T}" />
-        public T TakeArgument<T>(params T[] arguments) => _listElementPicker.TakeArgument(arguments);
+        /// <inheritdoc cref="IReadListElementProvider.Argument{T}" />
+        public T Argument<T>(params T[] arguments) => _readListElementProvider.Argument(arguments);
 
         /// <inheritdoc cref="ILongProvider.Long(long,long)" />
         public long Long(long min, long max) => _longProvider.Long(min, max);
@@ -195,7 +195,7 @@ namespace Sharpy {
         /// <returns>
         ///     A string representing a user name.
         /// </returns>
-        public string UserName() => TakeElement(UserNames);
+        public string UserName() => Element(UserNames);
 
         /// <summary>
         ///     <para>

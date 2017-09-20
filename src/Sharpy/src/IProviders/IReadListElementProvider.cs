@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
 namespace Sharpy.IProviders {
-    public interface IListElementPicker {
+    public interface IReadListElementProvider {
         /// <summary>
         ///     Returns an element from the argument <paramref name="list" />.
         /// </summary>
@@ -9,12 +9,12 @@ namespace Sharpy.IProviders {
         ///     The generic type of the elements in argument <paramref name="list" />.
         /// </typeparam>
         /// <param name="list">
-        ///     The <see cref="IReadOnlyList{T}" /> to choose an element from.
+        ///     The <see cref="IReadOnlyList{T}" /> where an element will be taken.
         /// </param>
         /// <returns>
         ///     An element from the provided <see cref="IReadOnlyList{T}" />.
         /// </returns>
-        T TakeElement<T>(IReadOnlyList<T> list);
+        T Element<T>(IReadOnlyList<T> list);
 
         /// <summary>
         ///     Returns one of the arguments.
@@ -23,11 +23,11 @@ namespace Sharpy.IProviders {
         ///     The generic type of the elements in argument <paramref name="arguments" />.
         /// </typeparam>
         /// <param name="arguments">
-        ///     The arguments provided.
+        ///     The arguments separated by comma.
         /// </param>
         /// <returns>
-        ///     An element from the provided <paramref name="arguments" />.
+        ///     An from the <paramref name="arguments"/>.
         /// </returns>
-        T TakeArgument<T>(params T[] arguments);
+        T Argument<T>(params T[] arguments);
     }
 }
