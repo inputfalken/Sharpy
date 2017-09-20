@@ -1,5 +1,3 @@
-# Examples #
-
 This page contains examples how you could create your own generation algorithms.
 
 ## Creating a generator based on System.Random ##
