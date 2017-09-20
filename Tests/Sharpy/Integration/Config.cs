@@ -20,8 +20,8 @@ namespace Tests.Sharpy.Integration {
             Assert.Throws<NullReferenceException>(() => generator.Select(x => x.Bool()).Generate());
 
             //ListElementPicker
-            Assert.DoesNotThrow(() => generator.Select(x => x.TakeElement(new List<string> {"h2", "h1"})));
-            Assert.DoesNotThrow(() => generator.Select(x => x.TakeArgument("hello", "hello")));
+            Assert.DoesNotThrow(() => generator.Select(x => x.Element(new List<string> {"h2", "h1"})));
+            Assert.DoesNotThrow(() => generator.Select(x => x.Argument("hello", "hello")));
 
             //Name
             Assert.DoesNotThrow(() => generator.Select(x => x.FirstName()).Generate());
@@ -57,8 +57,8 @@ namespace Tests.Sharpy.Integration {
             Assert.DoesNotThrow(() => generator.Select(x => x.Bool()).Generate());
 
             //ListElementPicker
-            Assert.DoesNotThrow(() => generator.Select(x => x.TakeElement(new List<string> {"h2", "h1"})));
-            Assert.DoesNotThrow(() => generator.Select(x => x.TakeArgument("hello", "hello")));
+            Assert.DoesNotThrow(() => generator.Select(x => x.Element(new List<string> {"h2", "h1"})));
+            Assert.DoesNotThrow(() => generator.Select(x => x.Argument("hello", "hello")));
 
             //Long
             Assert.DoesNotThrow(() => generator.Select(x => x.Long()).Generate());
@@ -85,7 +85,7 @@ namespace Tests.Sharpy.Integration {
         [Test]
         public void ElementPicker_Set_To_Null() {
             var configurement = new Configurement {
-                ListElementPicker = null
+                ReadListElementProvider = null
             };
             var generator = Generator.Create(new Builder(configurement));
 
@@ -94,9 +94,9 @@ namespace Tests.Sharpy.Integration {
 
             //ListElementPicker
             Assert.Throws<NullReferenceException>(() =>
-                generator.Select(x => x.TakeElement(new List<string> {"h2", "h1"})).Generate());
+                generator.Select(x => x.Element(new List<string> {"h2", "h1"})).Generate());
             Assert.Throws<NullReferenceException>(() =>
-                generator.Select(x => x.TakeArgument("hello", "hello")).Generate());
+                generator.Select(x => x.Argument("hello", "hello")).Generate());
 
             //Name
             Assert.DoesNotThrow(() => generator.Select(x => x.FirstName()).Generate());
@@ -131,8 +131,8 @@ namespace Tests.Sharpy.Integration {
             Assert.DoesNotThrow(() => generator.Select(x => x.Bool()).Generate());
 
             //ListElementPicker
-            Assert.DoesNotThrow(() => generator.Select(x => x.TakeElement(new List<string> {"h2", "h1"})));
-            Assert.DoesNotThrow(() => generator.Select(x => x.TakeArgument("hello", "hello")));
+            Assert.DoesNotThrow(() => generator.Select(x => x.Element(new List<string> {"h2", "h1"})));
+            Assert.DoesNotThrow(() => generator.Select(x => x.Argument("hello", "hello")));
 
             //Integer
             Assert.Throws<NullReferenceException>(() => generator.Select(x => x.Integer()).Generate());
@@ -167,8 +167,8 @@ namespace Tests.Sharpy.Integration {
             Assert.DoesNotThrow(() => generator.Select(x => x.Bool()).Generate());
 
             //ListElementPicker
-            Assert.DoesNotThrow(() => generator.Select(x => x.TakeElement(new List<string> {"h2", "h1"})));
-            Assert.DoesNotThrow(() => generator.Select(x => x.TakeArgument("hello", "hello")));
+            Assert.DoesNotThrow(() => generator.Select(x => x.Element(new List<string> {"h2", "h1"})));
+            Assert.DoesNotThrow(() => generator.Select(x => x.Argument("hello", "hello")));
 
             //Long
             Assert.Throws<NullReferenceException>(() => generator.Select(x => x.Long()).Generate());
@@ -203,8 +203,8 @@ namespace Tests.Sharpy.Integration {
             Assert.DoesNotThrow(() => generator.Select(x => x.Bool()).Generate());
 
             //ListElementPicker
-            Assert.DoesNotThrow(() => generator.Select(x => x.TakeElement(new List<string> {"h2", "h1"})));
-            Assert.DoesNotThrow(() => generator.Select(x => x.TakeArgument("hello", "hello")));
+            Assert.DoesNotThrow(() => generator.Select(x => x.Element(new List<string> {"h2", "h1"})));
+            Assert.DoesNotThrow(() => generator.Select(x => x.Argument("hello", "hello")));
 
             //Name
             Assert.Throws<NullReferenceException>(() => generator.Select(x => x.FirstName()).Generate());

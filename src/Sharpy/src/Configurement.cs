@@ -91,7 +91,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Gets and sets the implementation for <see cref="IListElementPicker" />.
+        ///         Gets and sets the implementation for <see cref="IReadListElementProvider" />.
         ///     </para>
         ///     <remarks>
         ///         <para>
@@ -99,7 +99,7 @@ namespace Sharpy {
         ///         </para>
         ///     </remarks>
         /// </summary>
-        public IListElementPicker ListElementPicker { get; set; }
+        public IReadListElementProvider ListElementPicker { get; set; }
 
         /// <summary>
         ///     <para>

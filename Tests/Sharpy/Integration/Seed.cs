@@ -44,8 +44,8 @@ namespace Tests.Sharpy.Integration {
             var g1 = Generator.Create(new Builder(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Create(new Builder(TestSeed));
-            var expected = g1.Select(g => g.TakeElement(list)).Generate();
-            var result = g2.Select(g => g.TakeElement(list)).Generate();
+            var expected = g1.Select(g => g.Element(list)).Generate();
+            var result = g2.Select(g => g.Element(list)).Generate();
             Assert.AreEqual(expected, result);
         }
 
@@ -239,8 +239,8 @@ namespace Tests.Sharpy.Integration {
             var g1 = Generator.Create(new Builder(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Create(new Builder(TestSeed));
-            var expected = g1.Select(g => g.TakeArgument("Foo", "Bar", "John", "Doe")).Generate();
-            var result = g2.Select(g => g.TakeArgument("Foo", "Bar", "John", "Doe")).Generate();
+            var expected = g1.Select(g => g.Argument("Foo", "Bar", "John", "Doe")).Generate();
+            var result = g2.Select(g => g.Argument("Foo", "Bar", "John", "Doe")).Generate();
             Assert.AreEqual(expected, result);
         }
 
@@ -294,8 +294,8 @@ namespace Tests.Sharpy.Integration {
             var g1 = Generator.Create(new Builder());
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Create(new Builder());
-            var expected = g1.Select(g => g.TakeElement(list)).Take(Count);
-            var result = g2.Select(g => g.TakeElement(list)).Take(Count);
+            var expected = g1.Select(g => g.Element(list)).Take(Count);
+            var result = g2.Select(g => g.Element(list)).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
@@ -489,8 +489,8 @@ namespace Tests.Sharpy.Integration {
             var g1 = Generator.Create(new Builder());
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Create(new Builder());
-            var expected = g1.Select(g => g.TakeElement(list)).Take(Count);
-            var result = g2.Select(g => g.TakeElement(list)).Take(Count);
+            var expected = g1.Select(g => g.Element(list)).Take(Count);
+            var result = g2.Select(g => g.Element(list)).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
@@ -544,8 +544,8 @@ namespace Tests.Sharpy.Integration {
             var g1 = Generator.Create(new Builder(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Create(new Builder(TestSeed));
-            var expected = g1.Select(g => g.TakeElement(list)).Take(Count);
-            var result = g2.Select(g => g.TakeElement(list)).Take(Count);
+            var expected = g1.Select(g => g.Element(list)).Take(Count);
+            var result = g2.Select(g => g.Element(list)).Take(Count);
             Assert.AreEqual(expected, result);
         }
 
@@ -738,8 +738,8 @@ namespace Tests.Sharpy.Integration {
             var g1 = Generator.Create(new Builder(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Create(new Builder(TestSeed));
-            var expected = g1.Select(g => g.TakeArgument("Foo", "Bar", "John", "Doe")).Take(Count);
-            var result = g2.Select(g => g.TakeArgument("Foo", "Bar", "John", "Doe")).Take(Count);
+            var expected = g1.Select(g => g.Argument("Foo", "Bar", "John", "Doe")).Take(Count);
+            var result = g2.Select(g => g.Argument("Foo", "Bar", "John", "Doe")).Take(Count);
             Assert.AreEqual(expected, result);
         }
 
