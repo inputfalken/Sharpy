@@ -28,7 +28,7 @@ namespace Sharpy {
             NameProvider = new NameByOrigin(Random);
             DateProvider = new DateRandomizer(Random);
             SecurityNumberProvider = new UniqueSecurityNumberRandomizer(Random);
-            NumberGenerator = new NumberGenerator(Random);
+            UniqueIntegerRandomizer = new UniqueIntegerRandomizer(Random);
             ListElementPicker = new ListRandomizer(Random);
             BoolProvider = new BoolRandomizer(Random);
             MailDomains = new[] {"gmail.com", "hotmail.com", "yahoo.com"};
@@ -61,7 +61,7 @@ namespace Sharpy {
         /// </summary>
         public ISecurityNumberProvider SecurityNumberProvider { get; }
 
-        internal NumberGenerator NumberGenerator { get; }
+        internal UniqueIntegerRandomizer UniqueIntegerRandomizer { get; }
 
         /// <summary>
         ///     <para>
