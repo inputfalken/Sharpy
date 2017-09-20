@@ -29,9 +29,9 @@ namespace Sharpy {
             DateProvider = new DateRandomizer(Random);
             SecurityNumberGen = new SecurityNumberGen(Random);
             NumberGenerator = new NumberGenerator(Random);
+            ListElementPicker = new ListRandomizer(Random);
+            BoolProvider = new BoolRandomizer(Random);
             MailDomains = new[] {"gmail.com", "hotmail.com", "yahoo.com"};
-            ListElementPicker = new ListRandomizer(random);
-            BoolProvider = new BoolRandomizer(random);
         }
 
         /// <summary>
