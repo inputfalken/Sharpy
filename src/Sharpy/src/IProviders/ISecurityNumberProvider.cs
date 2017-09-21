@@ -1,5 +1,7 @@
-﻿namespace Sharpy.IProviders {
+﻿using System;
+
+namespace Sharpy.IProviders {
     public interface ISecurityNumberProvider {
-        long SecurityNumber(string dateNumber);
+        string SecurityNumber(DateTime date, bool formated = true);
     }
 }
