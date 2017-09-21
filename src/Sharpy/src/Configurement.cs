@@ -27,7 +27,7 @@ namespace Sharpy {
             DoubleProvider = new DoubleRandomizer(Random);
             NameProvider = new NameByOrigin(Random);
             DateProvider = new DateRandomizer(Random);
-            SecurityNumberProvider = new UniqueSecurityNumberRandomizer(Random);
+            SecurityNumberProvider = new UniqueFormattedSecurityRandomizer(Random);
             UniqueIntegerRandomizer = new UniqueIntegerRandomizer(Random);
             ListElementPicker = new ListRandomizer(Random);
             BoolProvider = new BoolRandomizer(Random);
@@ -59,7 +59,7 @@ namespace Sharpy {
         ///         </para>
         ///     </remarks>
         /// </summary>
-        public ISecurityNumberProvider SecurityNumberProvider { get; }
+        public ISecurityNumberProvider SecurityNumberProvider { get; set; }
 
         internal UniqueIntegerRandomizer UniqueIntegerRandomizer { get; }
 

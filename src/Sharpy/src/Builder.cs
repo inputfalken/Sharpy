@@ -145,15 +145,14 @@ namespace Sharpy {
         ///     The date for the security number
         ///     e.g. new LocalDate(1990, 01, 02) would be converted to 90(year)01(month)02(date)-XXXX(control number)
         /// </param>
-        /// <param name="formated">
-        ///     If the security number should contain a dash to separate the date number with control number.
-        /// </param>
         /// ///
         /// <returns>
         ///     A <see cref="string" /> representing a unique social security number.
         /// </returns>
-        public string SecurityNumber(DateTime date, bool formated = true) =>
-            _securityNumberProvider.SecurityNumber(date, formated);
+        public string SecurityNumber(DateTime date) =>
+            _securityNumberProvider.SecurityNumber(date);
+
+        public string SecurityNumber() => _securityNumberProvider.SecurityNumber();
 
         /// <summary>
         ///     <para>
