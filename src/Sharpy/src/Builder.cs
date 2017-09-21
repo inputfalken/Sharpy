@@ -17,19 +17,19 @@ namespace Sharpy {
     ///     </para>
     /// </summary>
     public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, IReadListElementProvider,
-        IBoolProvider, IDateProvider, IEmailProvider, IPostalCodeProvider {
+        IBoolProvider, IDateProvider, IEmailProvider, IPostalCodeProvider, ISecurityNumberProvider {
         private readonly IBoolProvider _boolProvider;
         private readonly IDateProvider _dateprovider;
         private readonly IDoubleProvider _doubleProvider;
         private readonly IEmailProvider _emailProvider;
         private readonly IIntegerProvider _integerProvider;
-        private readonly IReadListElementProvider _readListElementProvider;
 
         private readonly ILongProvider _longProvider;
         private readonly INameProvider _nameProvider;
-        private readonly UniqueIntegerRandomizer _uniqueIntegerRandomizer;
         private readonly IPostalCodeProvider _postalCodeProvider;
+        private readonly IReadListElementProvider _readListElementProvider;
         private readonly ISecurityNumberProvider _securityNumberProvider;
+        private readonly UniqueIntegerRandomizer _uniqueIntegerRandomizer;
 
         private readonly bool _uniqueNumbers;
         private (int, int) _numberByLengthState = (0, 0);
@@ -106,12 +106,6 @@ namespace Sharpy {
         /// <inheritdoc cref="IIntegerProvider.Integer()" />
         public int Integer() => _integerProvider.Integer();
 
-        /// <inheritdoc cref="IReadListElementProvider.Element{T}" />
-        public T Element<T>(IReadOnlyList<T> list) => _readListElementProvider.Element(list);
-
-        /// <inheritdoc cref="IReadListElementProvider.Argument{T}" />
-        public T Argument<T>(params T[] arguments) => _readListElementProvider.Argument(arguments);
-
         /// <inheritdoc cref="ILongProvider.Long(long,long)" />
         public long Long(long min, long max) => _longProvider.Long(min, max);
 
@@ -136,6 +130,12 @@ namespace Sharpy {
         /// <inheritdoc />
         public string PostalCode(string county) => _postalCodeProvider.PostalCode(county);
 
+        /// <inheritdoc cref="IReadListElementProvider.Element{T}" />
+        public T Element<T>(IReadOnlyList<T> list) => _readListElementProvider.Element(list);
+
+        /// <inheritdoc cref="IReadListElementProvider.Argument{T}" />
+        public T Argument<T>(params T[] arguments) => _readListElementProvider.Argument(arguments);
+
         /// <summary>
         ///     <para>
         ///         Randomizes a <see cref="string" /> representing a unique social-security number.
@@ -148,19 +148,12 @@ namespace Sharpy {
         /// <param name="formated">
         ///     If the security number should contain a dash to separate the date number with control number.
         /// </param>
+        /// ///
         /// <returns>
         ///     A <see cref="string" /> representing a unique social security number.
         /// </returns>
-        public string SocialSecurityNumber(DateTime date, bool formated = true) {
-            var result = _securityNumberProvider.SecurityNumber(FormatDigit(date.Year % 100)
-                .Append(FormatDigit(date.Month), FormatDigit(date.Day)));
-            if (result == -1)
-                throw new Exception("You have reached the maximum possible combinations for a control number");
-            var securityNumber = result.ToString();
-            if (securityNumber.Length != 10)
-                securityNumber = result.Prefix(10 - securityNumber.Length);
-            return formated ? securityNumber.Insert(6, "-") : securityNumber;
-        }
+        public string SecurityNumber(DateTime date, bool formated = true) =>
+            _securityNumberProvider.SecurityNumber(date, formated);
 
         /// <summary>
         ///     <para>
@@ -239,7 +232,5 @@ namespace Sharpy {
         public static IGenerator<TResult> AsGenerator<TResult>(
             Func<Builder, TResult> selector) => Create(new Builder())
             .Select(selector ?? throw new ArgumentNullException(nameof(selector)));
-
-        private static string FormatDigit(int i) => i < 10 ? i.Prefix(1) : i.ToString();
     }
 }

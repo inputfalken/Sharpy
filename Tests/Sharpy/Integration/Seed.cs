@@ -261,8 +261,8 @@ namespace Tests.Sharpy.Integration {
             var g2 = Generator.Create(new Builder(TestSeed));
 
             const int age = 20;
-            var expected = g1.Select(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Generate();
-            var result = g2.Select(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Generate();
+            var expected = g1.Select(g => g.SecurityNumber(g.DateByAge(age), false)).Generate();
+            var result = g2.Select(g => g.SecurityNumber(g.DateByAge(age), false)).Generate();
             Assert.AreEqual(expected, result);
         }
 
@@ -273,8 +273,8 @@ namespace Tests.Sharpy.Integration {
             var g2 = Generator.Create(new Builder(TestSeed));
 
             const int age = 20;
-            var expected = g1.Select(g => g.SocialSecurityNumber(g.DateByAge(age))).Generate();
-            var result = g2.Select(g => g.SocialSecurityNumber(g.DateByAge(age))).Generate();
+            var expected = g1.Select(g => g.SecurityNumber(g.DateByAge(age))).Generate();
+            var result = g2.Select(g => g.SecurityNumber(g.DateByAge(age))).Generate();
             Assert.AreEqual(expected, result);
         }
 
@@ -511,8 +511,8 @@ namespace Tests.Sharpy.Integration {
             var g2 = Generator.Create(new Builder());
 
             const int age = 20;
-            var expected = g1.Select(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Take(Count);
-            var result = g2.Select(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Take(Count);
+            var expected = g1.Select(g => g.SecurityNumber(g.DateByAge(age), false)).Take(Count);
+            var result = g2.Select(g => g.SecurityNumber(g.DateByAge(age), false)).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
@@ -523,8 +523,8 @@ namespace Tests.Sharpy.Integration {
             var g2 = Generator.Create(new Builder());
 
             const int age = 20;
-            var expected = g1.Select(g => g.SocialSecurityNumber(g.DateByAge(age))).Take(Count);
-            var result = g2.Select(g => g.SocialSecurityNumber(g.DateByAge(age))).Take(Count);
+            var expected = g1.Select(g => g.SecurityNumber(g.DateByAge(age))).Take(Count);
+            var result = g2.Select(g => g.SecurityNumber(g.DateByAge(age))).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
@@ -760,8 +760,8 @@ namespace Tests.Sharpy.Integration {
             var g2 = Generator.Create(new Builder(TestSeed));
 
             const int age = 20;
-            var expected = g1.Select(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Take(Count);
-            var result = g2.Select(g => g.SocialSecurityNumber(g.DateByAge(age), false)).Take(Count);
+            var expected = g1.Select(g => g.SecurityNumber(g.DateByAge(age), false)).Take(Count);
+            var result = g2.Select(g => g.SecurityNumber(g.DateByAge(age), false)).Take(Count);
             Assert.AreEqual(expected, result);
         }
 
@@ -772,8 +772,8 @@ namespace Tests.Sharpy.Integration {
             var g2 = Generator.Create(new Builder(TestSeed));
 
             const int age = 20;
-            var expected = g1.Select(g => g.SocialSecurityNumber(g.DateByAge(age))).Take(Count);
-            var result = g2.Select(g => g.SocialSecurityNumber(g.DateByAge(age))).Take(Count);
+            var expected = g1.Select(g => g.SecurityNumber(g.DateByAge(age))).Take(Count);
+            var result = g2.Select(g => g.SecurityNumber(g.DateByAge(age))).Take(Count);
             Assert.AreEqual(expected, result);
         }
     }
