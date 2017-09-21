@@ -63,8 +63,6 @@ namespace Sharpy {
         /// <inheritdoc />
         public Builder() : this(new Configurement()) { }
 
-        private static string[] UserNames => Data.GetUserNames;
-
         /// <inheritdoc cref="IBoolProvider.Bool" />
         public bool Bool() => _boolProvider.Bool();
 
@@ -188,7 +186,7 @@ namespace Sharpy {
         /// <returns>
         ///     A string representing a user name.
         /// </returns>
-        public string UserName() => Element(UserNames);
+        public string UserName() => Element(Data.GetUserNames);
 
         /// <summary>
         ///     <para>
