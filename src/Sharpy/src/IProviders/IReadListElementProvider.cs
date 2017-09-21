@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 
 namespace Sharpy.IProviders {
+    /// <summary>
+    /// Returns element <see cref="IReadOnlyList{T}"/>.
+    /// </summary>
     public interface IReadListElementProvider {
         /// <summary>
         ///     Returns an element from the <paramref name="list" />.

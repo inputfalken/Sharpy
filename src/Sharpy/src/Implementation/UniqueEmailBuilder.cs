@@ -6,7 +6,10 @@ using Sharpy.Implementation.ExtensionMethods;
 using Sharpy.IProviders;
 
 namespace Sharpy.Implementation {
-    internal sealed class UniqueEmailBuilder : Unique<string>, IEmailProvider {
+    /// <summary>
+    /// Builds unique email addresses .
+    /// </summary>
+    public sealed class UniqueEmailBuilder : UniqueRandomizer<string>, IEmailProvider {
         private const int Limit = 2;
 
         private readonly IGenerator<char> _separatorGenerator;
@@ -34,6 +37,7 @@ namespace Sharpy.Implementation {
 
         private string ResolveDuplicate(string item) => item.Append(Random.Next(10));
 
+        /// <inheritdoc />
         public string Mail(params string[] names) {
             if (names == null) throw new ArgumentNullException(nameof(names));
             if (names.Length < 1) throw new ArgumentException($"Argument '{nameof(names)}' can not be empty.");

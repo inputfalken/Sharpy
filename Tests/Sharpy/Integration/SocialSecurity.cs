@@ -52,7 +52,7 @@ namespace Tests.Sharpy.Integration {
         [Test]
         public void No_Dash_With_False_Formating() {
             var gen = Generator.Create(
-                new Builder(new Configurement {SecurityNumberProvider = new UniqueSecurityRandomizer(new Random())}));
+                new Builder(new Configurement {SecurityNumberProvider = new UniqueSecurityBuilder(new Random())}));
             var result =
                 gen.Select(g => g.SecurityNumber(new DateTime(2000, 10, 10))).Take(Limit);
             Assert.IsTrue(result.All(s => s.All(char.IsNumber)));

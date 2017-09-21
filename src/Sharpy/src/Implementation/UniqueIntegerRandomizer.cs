@@ -1,8 +1,8 @@
 ﻿using System;
 
 namespace Sharpy.Implementation {
-    internal sealed class UniqueIntegerRandomizer : Unique<int> {
-        internal UniqueIntegerRandomizer(Random random)
+    internal sealed class UniqueRandomizerIntegerRandomizer : UniqueRandomizer<int> {
+        internal UniqueRandomizerIntegerRandomizer(Random random)
             : base(random) { }
 
         internal int RandomNumber(int min, int max, bool unique = false) {

@@ -4,7 +4,7 @@ using Sharpy.IProviders;
 namespace Sharpy.Implementation {
     /// <summary>
     ///     <para>
-    ///         Randomizes Doubles.
+    ///         Randomizes <see cref="double"/> by <see cref="Random"/>.
     ///     </para>
     /// </summary>
     public class DoubleRandomizer : IDoubleProvider {

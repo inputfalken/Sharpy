@@ -3,7 +3,7 @@ using Sharpy.IProviders;
 
 namespace Sharpy.Implementation {
     /// <summary>
-    ///     Is used for creating random dates
+    ///     Randomizes <see cref="DateTime"/> with <see cref="Random"/>.
     /// </summary>
     public sealed class DateRandomizer : IDateProvider {
         private readonly Random _random;
