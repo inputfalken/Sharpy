@@ -43,18 +43,29 @@ namespace Sharpy {
         ///     The configuration for the <see cref="Builder" />.
         /// </param>
         public Builder(Configurement configurement) {
-            _doubleProvider = configurement.DoubleProvider;
-            _integerProvider = configurement.IntegerProvider;
-            _longProvider = configurement.LongProvider;
-            _nameProvider = configurement.NameProvider;
-            _dateprovider = configurement.DateProvider;
-            _emailProvider = configurement.MailProvider;
-            _securityNumberProvider = configurement.SecurityNumberProvider;
-            _uniqueIntegerRandomizer = configurement.UniqueIntegerRandomizer;
+            _doubleProvider = configurement.DoubleProvider ??
+                              throw new ArgumentNullException(nameof(configurement.DoubleProvider));
+            _integerProvider = configurement.IntegerProvider ??
+                               throw new ArgumentNullException(nameof(configurement.IntegerProvider));
+            _longProvider = configurement.LongProvider ??
+                            throw new ArgumentNullException(nameof(configurement.LongProvider));
+            _nameProvider = configurement.NameProvider ??
+                            throw new ArgumentNullException(nameof(configurement.NameProvider));
+            _dateprovider = configurement.DateProvider ??
+                            throw new ArgumentNullException(nameof(configurement.DateProvider));
+            _emailProvider = configurement.MailProvider ??
+                             throw new ArgumentNullException(nameof(configurement.MailProvider));
+            _securityNumberProvider = configurement.SecurityNumberProvider ??
+                                      throw new ArgumentNullException(nameof(configurement.SecurityNumberProvider));
+            _uniqueIntegerRandomizer = configurement.UniqueIntegerRandomizer ??
+                                       throw new ArgumentNullException(nameof(configurement.UniqueIntegerRandomizer));
+            _readListElementProvider = configurement.ListElementPicker ??
+                                       throw new ArgumentNullException(nameof(configurement.ListElementPicker));
+            _boolProvider = configurement.BoolProvider ??
+                            throw new ArgumentNullException(nameof(configurement.BoolProvider));
+            _postalCodeProvider = configurement.PostalCodeProvider ??
+                                  throw new ArgumentNullException(nameof(configurement.PostalCodeProvider));
             _uniqueNumbers = configurement.UniqueNumbers;
-            _readListElementProvider = configurement.ListElementPicker;
-            _boolProvider = configurement.BoolProvider;
-            _postalCodeProvider = configurement.PostalCodeProvider;
         }
 
         /// <inheritdoc />

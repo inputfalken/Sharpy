@@ -28,6 +28,7 @@ namespace Sharpy {
             NameProvider = new NameByOrigin(Random);
             DateProvider = new DateRandomizer(Random);
             SecurityNumberProvider = new UniqueFormattedSecurityRandomizer(Random);
+            PostalCodeProvider = new SwePostalCodeRandomizer(Random);
             UniqueIntegerRandomizer = new UniqueIntegerRandomizer(Random);
             ListElementPicker = new ListRandomizer(Random);
             BoolProvider = new BoolRandomizer(Random);
