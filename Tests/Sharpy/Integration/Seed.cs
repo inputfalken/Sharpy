@@ -258,10 +258,10 @@ namespace Tests.Sharpy.Integration {
         [Test]
         public void Select_Seed_SecurityNumber_Formated_False() {
             var c1 = new Configurement(TestSeed);
-            c1.SecurityNumberProvider = new UniqueSecurityRandomizer(c1.Random);
+            c1.SecurityNumberProvider = new UniqueSecurityBuilder(c1.Random);
             Thread.Sleep(SleepDuration);
             var c2 = new Configurement(TestSeed);
-            c2.SecurityNumberProvider = new UniqueSecurityRandomizer(c2.Random);
+            c2.SecurityNumberProvider = new UniqueSecurityBuilder(c2.Random);
             var g1 = Generator.Create(new Builder(c1));
             var g2 = Generator.Create(new Builder(c2));
 
@@ -512,11 +512,11 @@ namespace Tests.Sharpy.Integration {
         [Test]
         public void SelectMany_No_Seed_SecurityNumber_Formated_False() {
             var c1 = new Configurement();
-            c1.SecurityNumberProvider = new UniqueSecurityRandomizer(c1.Random);
+            c1.SecurityNumberProvider = new UniqueSecurityBuilder(c1.Random);
             var g1 = Generator.Create(new Builder(c1));
             Thread.Sleep(SleepDuration);
             var c2 = new Configurement();
-            c2.SecurityNumberProvider = new UniqueSecurityRandomizer(c2.Random);
+            c2.SecurityNumberProvider = new UniqueSecurityBuilder(c2.Random);
             var g2 = Generator.Create(new Builder(c2));
 
             const int age = 20;
@@ -765,11 +765,11 @@ namespace Tests.Sharpy.Integration {
         [Test]
         public void SelectMany_Seed_SecurityNumber_Formated_False() {
             var c1 = new Configurement(TestSeed);
-            c1.SecurityNumberProvider = new UniqueSecurityRandomizer(c1.Random);
+            c1.SecurityNumberProvider = new UniqueSecurityBuilder(c1.Random);
             var g1 = Generator.Create(new Builder(c1));
             Thread.Sleep(SleepDuration);
             var c2 = new Configurement(TestSeed);
-            c2.SecurityNumberProvider = new UniqueSecurityRandomizer(c2.Random);
+            c2.SecurityNumberProvider = new UniqueSecurityBuilder(c2.Random);
             var g2 = Generator.Create(new Builder(c2));
 
             const int age = 20;

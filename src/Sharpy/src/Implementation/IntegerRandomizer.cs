@@ -4,7 +4,7 @@ using Sharpy.IProviders;
 namespace Sharpy.Implementation {
     /// <summary>
     ///     <para>
-    ///         Randomizes Integers.
+    ///         Randomizes <see cref="int"/> by <see cref="Random"/>.
     ///     </para>
     /// </summary>
     public class IntRandomizer : IIntegerProvider {

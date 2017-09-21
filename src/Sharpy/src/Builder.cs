@@ -29,7 +29,7 @@ namespace Sharpy {
         private readonly IPostalCodeProvider _postalCodeProvider;
         private readonly IReadListElementProvider _readListElementProvider;
         private readonly ISecurityNumberProvider _securityNumberProvider;
-        private readonly UniqueIntegerRandomizer _uniqueIntegerRandomizer;
+        private readonly UniqueRandomizerIntegerRandomizer _uniqueRandomizerIntegerRandomizer;
 
         private readonly bool _uniqueNumbers;
         private (int, int) _numberByLengthState = (0, 0);
@@ -57,8 +57,8 @@ namespace Sharpy {
                              throw new ArgumentNullException(nameof(configurement.MailProvider));
             _securityNumberProvider = configurement.SecurityNumberProvider ??
                                       throw new ArgumentNullException(nameof(configurement.SecurityNumberProvider));
-            _uniqueIntegerRandomizer = configurement.UniqueIntegerRandomizer ??
-                                       throw new ArgumentNullException(nameof(configurement.UniqueIntegerRandomizer));
+            _uniqueRandomizerIntegerRandomizer = configurement.UniqueRandomizerIntegerRandomizer ??
+                                       throw new ArgumentNullException(nameof(configurement.UniqueRandomizerIntegerRandomizer));
             _readListElementProvider = configurement.ListElementPicker ??
                                        throw new ArgumentNullException(nameof(configurement.ListElementPicker));
             _boolProvider = configurement.BoolProvider ??
@@ -92,45 +92,34 @@ namespace Sharpy {
         /// <inheritdoc cref="IDoubleProvider.Double(double, double)" />
         public double Double(double min, double max) => _doubleProvider.Double(min, max);
 
-        /// <summary>
-        ///     <para>
-        ///         Returns a <see cref="string" /> representing a unique mail address.
-        ///     </para>
-        /// </summary>
-        /// <param name="names">The mail names of the mail address</param>
-        /// <remarks>
-        ///     If a mail address would be duplicated ; a random number would be appended to the address.
-        /// </remarks>
-        /// <returns>
-        ///     A string representing a email address.
-        /// </returns>
+        /// <inheritdoc />
         public string Mail(params string[] names) => _emailProvider.Mail(names);
 
-        /// <inheritdoc cref="IIntegerProvider.Integer(int)" />
+        /// <inheritdoc />
         public int Integer(int max) => _integerProvider.Integer(max);
 
-        /// <inheritdoc cref="IIntegerProvider.Integer(int, int)" />
+        /// <inheritdoc />
         public int Integer(int min, int max) => _integerProvider.Integer(min, max);
 
-        /// <inheritdoc cref="IIntegerProvider.Integer()" />
+        /// <inheritdoc />
         public int Integer() => _integerProvider.Integer();
 
-        /// <inheritdoc cref="ILongProvider.Long(long,long)" />
+        /// <inheritdoc />
         public long Long(long min, long max) => _longProvider.Long(min, max);
 
-        /// <inheritdoc cref="ILongProvider.Long(long)" />
+        /// <inheritdoc />
         public long Long(long max) => _longProvider.Long(max);
 
-        /// <inheritdoc cref="ILongProvider.Long()" />
+        /// <inheritdoc />
         public long Long() => _longProvider.Long();
 
-        /// <inheritdoc cref="INameProvider.FirstName()" />
+        /// <inheritdoc />
         public string FirstName() => _nameProvider.FirstName();
 
-        /// <inheritdoc cref="INameProvider.FirstName(Gender)" />
+        /// <inheritdoc />
         public string FirstName(Gender gender) => _nameProvider.FirstName(gender);
 
-        /// <inheritdoc cref="INameProvider.LastName()" />
+        /// <inheritdoc />
         public string LastName() => _nameProvider.LastName();
 
         /// <inheritdoc />
@@ -146,22 +135,11 @@ namespace Sharpy {
         public T Argument<T>(T first, T second, params T[] additional) =>
             _readListElementProvider.Argument(first, second, additional);
 
-        /// <summary>
-        ///     <para>
-        ///         Randomizes a <see cref="string" /> representing a unique social-security number.
-        ///     </para>
-        /// </summary>
-        /// <param name="date">
-        ///     The date for the security number
-        ///     e.g. new LocalDate(1990, 01, 02) would be converted to 90(year)01(month)02(date)-XXXX(control number)
-        /// </param>
-        /// ///
-        /// <returns>
-        ///     A <see cref="string" /> representing a unique social security number.
-        /// </returns>
+        /// <inheritdoc />
         public string SecurityNumber(DateTime date) =>
             _securityNumberProvider.SecurityNumber(date);
 
+        /// <inheritdoc />
         public string SecurityNumber() => _securityNumberProvider.SecurityNumber();
 
         /// <summary>
@@ -179,7 +157,7 @@ namespace Sharpy {
             //If _numberByLenghtState has changed
             if (_numberByLengthState.Item1 != length)
                 _numberByLengthState = (length, (int) Math.Pow(10, length) - 1);
-            var res = _uniqueIntegerRandomizer.RandomNumber(0, _numberByLengthState.Item2, _uniqueNumbers);
+            var res = _uniqueRandomizerIntegerRandomizer.RandomNumber(0, _numberByLengthState.Item2, _uniqueNumbers);
             if (res == -1)
                 throw new Exception($"Reached maximum amount of combinations for the argument '{nameof(length)}'.");
 
@@ -202,7 +180,7 @@ namespace Sharpy {
         /// <summary>
         ///     <para>
         ///         Creates a <see cref="IGenerator{T}" /> by using <see cref="Builder" /> as input argument for argument
-        ///         <see cref="selector" />.
+        ///         <see paramref="selector" />.
         ///     </para>
         /// </summary>
         /// <param name="builder">
@@ -215,7 +193,7 @@ namespace Sharpy {
         /// <typeparam name="TResult">The type of the result from the selector function.</typeparam>
         /// <returns>
         ///     <para>
-        ///         A <see cref="IGenerator{T}" /> whose type is based on the return type of argument <see cref="selector" />.
+        ///         A <see cref="IGenerator{T}" /> whose type is based on the return type of argument <see paramref="selector" />.
         ///     </para>
         /// </returns>
         public static IGenerator<TResult> AsGenerator<TBuilder, TResult>(TBuilder builder,
@@ -228,14 +206,13 @@ namespace Sharpy {
         /// <summary>
         ///     <para>
         ///         Creates a <see cref="IGenerator{T}" /> by using <see cref="Builder" /> as input argument for argument
-        ///         <see cref="selector" />.
         ///     </para>
         /// </summary>
         /// <param name="selector">A transform function to apply to each generation.</param>
         /// <typeparam name="TResult">The type of the result from the selector function.</typeparam>
         /// <returns>
         ///     <para>
-        ///         A <see cref="IGenerator{T}" /> whose type is based on the return type of argument <see cref="selector" />.
+        ///         A <see cref="IGenerator{T}" /> whose type is based on the return type of argument <see paramref="selector" />.
         ///     </para>
         /// </returns>
         public static IGenerator<TResult> AsGenerator<TResult>(

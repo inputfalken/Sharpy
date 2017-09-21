@@ -5,13 +5,21 @@ using Sharpy.Implementation.ExtensionMethods;
 using Sharpy.IProviders;
 
 namespace Sharpy.Implementation {
+    /// <summary>
+    /// Randomizes Swedish postal codes.
+    /// </summary>
     public class SwePostalCodeRandomizer : IPostalCodeProvider {
         private readonly Random _rnd;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rnd"></param>
         public SwePostalCodeRandomizer(Random rnd) => _rnd = rnd;
 
         private readonly Dictionary<string, string[]> _dictionary = new Dictionary<string, string[]>();
 
+        /// <inheritdoc />
         public string PostalCode(string county) {
             if (string.IsNullOrEmpty(county))
                 throw new ArgumentNullException($"{nameof(county)} can not be null or empty.");
@@ -25,6 +33,7 @@ namespace Sharpy.Implementation {
             return _dictionary[county].RandomItem(_rnd);
         }
 
+        /// <inheritdoc />
         public string PostalCode() => Data.GetPostalcodes.RandomItem(_rnd).Postalcode;
     }
 }

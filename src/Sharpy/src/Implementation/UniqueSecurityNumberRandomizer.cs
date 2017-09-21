@@ -3,8 +3,15 @@ using Sharpy.Implementation.ExtensionMethods;
 using Sharpy.IProviders;
 
 namespace Sharpy.Implementation {
-    public class UniqueSecurityNumberRandomizer : Unique<long> {
-        protected UniqueSecurityNumberRandomizer(Random random) : base(random) { }
+    /// <summary>
+    /// Builds strings representing security numbers.
+    /// </summary>
+    public class UniqueSecurityNumberBuilder : UniqueRandomizer<long> {
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="random"></param>
+        protected UniqueSecurityNumberBuilder(Random random) : base(random) { }
 
         private long SecurityNumber(string dateNumber) {
             var controlNumber = Random.Next(10000);
@@ -25,6 +32,12 @@ namespace Sharpy.Implementation {
             return number;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="formated"></param>
+        /// <returns></returns>
         protected string SecurityNumber(DateTime date, bool formated) {
             var result = SecurityNumber(FormatDigit(date.Year % 100)
                     .Append(FormatDigit(date.Month), FormatDigit(date.Day)))
@@ -35,6 +48,10 @@ namespace Sharpy.Implementation {
             return formated ? securityNumber.Insert(6, "-") : securityNumber;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         protected DateTime RandomizeDate() {
             var dateTime = DateTime.Now;
             var year = Random.Next(1900, dateTime.Year);
@@ -49,17 +66,29 @@ namespace Sharpy.Implementation {
         private static string FormatDigit(int i) => i < 10 ? i.Prefix(1) : i.ToString();
     }
 
-    public sealed class UniqueFormattedSecurityRandomizer : UniqueSecurityNumberRandomizer, ISecurityNumberProvider {
-        internal UniqueFormattedSecurityRandomizer(Random random) : base(random) { }
+    /// <summary>
+    /// Creates unique formatted security numbers using a dash before the control number.
+    /// </summary>
+    public sealed class UniqueFormattedSecurityBuilder : UniqueSecurityNumberBuilder, ISecurityNumberProvider {
+        internal UniqueFormattedSecurityBuilder(Random random) : base(random) { }
+
+        /// <inheritdoc />
         public string SecurityNumber(DateTime date) => SecurityNumber(date, true);
 
+        /// <inheritdoc />
         public string SecurityNumber() => SecurityNumber(RandomizeDate());
     }
 
-    public sealed class UniqueSecurityRandomizer : UniqueSecurityNumberRandomizer, ISecurityNumberProvider {
-        internal UniqueSecurityRandomizer(Random random) : base(random) { }
+    /// <summary>
+    /// Creates unique security numbers.
+    /// </summary>
+    public sealed class UniqueSecurityBuilder : UniqueSecurityNumberBuilder, ISecurityNumberProvider {
+        internal UniqueSecurityBuilder(Random random) : base(random) { }
+
+        /// <inheritdoc />
         public string SecurityNumber(DateTime date) => SecurityNumber(date, false);
 
+        /// <inheritdoc />
         public string SecurityNumber() => SecurityNumber(RandomizeDate());
     }
 }

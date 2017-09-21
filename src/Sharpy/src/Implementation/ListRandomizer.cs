@@ -4,9 +4,16 @@ using Sharpy.Implementation.ExtensionMethods;
 using Sharpy.IProviders;
 
 namespace Sharpy.Implementation {
+    /// <summary>
+    /// Randomizes Argument and Elements by <see cref="Random"/>.
+    /// </summary>
     public class ListRandomizer : IReadListElementProvider {
         private readonly Random _random;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="random"></param>
         public ListRandomizer(Random random) => _random = random ?? throw new ArgumentNullException(nameof(random));
 
         /// <inheritdoc />

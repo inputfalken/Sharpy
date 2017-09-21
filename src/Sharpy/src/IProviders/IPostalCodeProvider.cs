@@ -1,4 +1,9 @@
 namespace Sharpy.IProviders {
+    /// <summary>
+    ///     <para>
+    ///         Methods providing <see cref="string" /> representing postal codes.
+    ///     </para>
+    /// </summary>
     public interface IPostalCodeProvider {
         /// <summary>
         ///     Creates a string representing a postal code.
