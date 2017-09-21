@@ -3,7 +3,7 @@ using System.Collections.Generic;
 namespace Sharpy.IProviders {
     public interface IReadListElementProvider {
         /// <summary>
-        ///     Returns an element from the argument <paramref name="list" />.
+        ///     Returns an element from the <paramref name="list" />.
         /// </summary>
         /// <typeparam name="T">
         ///     The generic type of the elements in argument <paramref name="list" />.
@@ -20,14 +20,20 @@ namespace Sharpy.IProviders {
         ///     Returns one of the arguments.
         /// </summary>
         /// <typeparam name="T">
-        ///     The generic type of the elements in argument <paramref name="arguments" />.
+        ///     The generic type of the arguments.
         /// </typeparam>
-        /// <param name="arguments">
-        ///     The arguments separated by comma.
+        /// <param name="first">
+        ///     The first argument.
+        /// </param>
+        /// <param name="second">
+        ///     The second argument.
+        /// </param>
+        /// <param name="additional">
+        ///     The additional arguments.
         /// </param>
         /// <returns>
-        ///     An from the <paramref name="arguments"/>.
+        ///     An from the <paramref name="additional" />.
         /// </returns>
-        T Argument<T>(params T[] arguments);
+        T Argument<T>(T first, T second, params T[] additional);
     }
 }

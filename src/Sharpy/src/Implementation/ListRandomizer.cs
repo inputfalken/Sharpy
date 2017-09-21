@@ -9,8 +9,17 @@ namespace Sharpy.Implementation {
 
         public ListRandomizer(Random random) => _random = random ?? throw new ArgumentNullException(nameof(random));
 
+        /// <inheritdoc />
         public T Element<T>(IReadOnlyList<T> list) => list.RandomItem(_random);
 
-        public T Argument<T>(params T[] arguments) => arguments.RandomItem(_random);
+        /// <inheritdoc />
+        public T Argument<T>(T first, T second, params T[] additional) {
+            var res = _random.Next(-2, additional.Length);
+            switch (res) {
+                case -2: return first;
+                case -1: return second;
+                default: return additional[res];
+            }
+        }
     }
 }

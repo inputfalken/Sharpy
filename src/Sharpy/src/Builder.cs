@@ -133,8 +133,9 @@ namespace Sharpy {
         /// <inheritdoc cref="IReadListElementProvider.Element{T}" />
         public T Element<T>(IReadOnlyList<T> list) => _readListElementProvider.Element(list);
 
-        /// <inheritdoc cref="IReadListElementProvider.Argument{T}" />
-        public T Argument<T>(params T[] arguments) => _readListElementProvider.Argument(arguments);
+        /// <inheritdoc />
+        public T Argument<T>(T first, T second, params T[] additional) =>
+            _readListElementProvider.Argument(first, second, additional);
 
         /// <summary>
         ///     <para>
