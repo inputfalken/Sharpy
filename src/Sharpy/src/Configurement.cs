@@ -12,8 +12,6 @@ namespace Sharpy {
     ///     </para>
     /// </summary>
     public class Configurement {
-        private IReadOnlyList<string> _mailDomains;
-
         /// <summary>
         ///     <para>
         ///         The argument <paramref name="random" /> will be used for the <see cref="Builder" />.
@@ -30,9 +28,12 @@ namespace Sharpy {
             SecurityNumberProvider = new UniqueFormattedSecurityRandomizer(Random);
             PostalCodeProvider = new SwePostalCodeRandomizer(Random);
             UniqueIntegerRandomizer = new UniqueIntegerRandomizer(Random);
+            MailProvider = new UniqueEmailBuilder(
+                new[] {"gmail.com", "live.com", "outlook.com", "hotmail.com", "yahoo.com"},
+                Random
+            );
             ListElementPicker = new ListRandomizer(Random);
             BoolProvider = new BoolRandomizer(Random);
-            MailDomains = new[] {"gmail.com", "hotmail.com", "yahoo.com"};
         }
 
         /// <summary>
@@ -178,24 +179,6 @@ namespace Sharpy {
         ///     </para>
         /// </summary>
         public Random Random { get; }
-
-        /// <summary>
-        ///     <para>
-        ///         Gets and sets the mail domains which will be used when invoking <see cref="Builder.Mail" />.
-        ///     </para>
-        /// </summary>
-        /// <remarks>
-        ///     <para>
-        ///         The default values is gmail.com, hotmail.com and yahoo.com.
-        ///     </para>
-        /// </remarks>
-        public IReadOnlyList<string> MailDomains {
-            get => _mailDomains;
-            set {
-                MailProvider = new UniqueEmailBuilder(value, Random);
-                _mailDomains = value;
-            }
-        }
 
         /// <summary>
         ///     <para>
