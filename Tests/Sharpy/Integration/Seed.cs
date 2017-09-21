@@ -5,6 +5,7 @@ using Sharpy;
 using Sharpy.Core;
 using Sharpy.Core.Linq;
 using Sharpy.Enums;
+using Sharpy.Implementation;
 
 namespace Tests.Sharpy.Integration {
     /// <summary>
@@ -256,13 +257,17 @@ namespace Tests.Sharpy.Integration {
 
         [Test]
         public void Select_Seed_SecurityNumber_Formated_False() {
-            var g1 = Generator.Create(new Builder(TestSeed));
+            var c1 = new Configurement(TestSeed);
+            c1.SecurityNumberProvider = new UniqueSecurityRandomizer(c1.Random);
             Thread.Sleep(SleepDuration);
-            var g2 = Generator.Create(new Builder(TestSeed));
+            var c2 = new Configurement(TestSeed);
+            c2.SecurityNumberProvider = new UniqueSecurityRandomizer(c2.Random);
+            var g1 = Generator.Create(new Builder(c1));
+            var g2 = Generator.Create(new Builder(c2));
 
             const int age = 20;
-            var expected = g1.Select(g => g.SecurityNumber(g.DateByAge(age), false)).Generate();
-            var result = g2.Select(g => g.SecurityNumber(g.DateByAge(age), false)).Generate();
+            var expected = g1.Select(g => g.SecurityNumber(g.DateByAge(age))).Generate();
+            var result = g2.Select(g => g.SecurityNumber(g.DateByAge(age))).Generate();
             Assert.AreEqual(expected, result);
         }
 
@@ -506,13 +511,17 @@ namespace Tests.Sharpy.Integration {
 
         [Test]
         public void SelectMany_No_Seed_SecurityNumber_Formated_False() {
-            var g1 = Generator.Create(new Builder());
+            var c1 = new Configurement();
+            c1.SecurityNumberProvider = new UniqueSecurityRandomizer(c1.Random);
+            var g1 = Generator.Create(new Builder(c1));
             Thread.Sleep(SleepDuration);
-            var g2 = Generator.Create(new Builder());
+            var c2 = new Configurement();
+            c2.SecurityNumberProvider = new UniqueSecurityRandomizer(c2.Random);
+            var g2 = Generator.Create(new Builder(c2));
 
             const int age = 20;
-            var expected = g1.Select(g => g.SecurityNumber(g.DateByAge(age), false)).Take(Count);
-            var result = g2.Select(g => g.SecurityNumber(g.DateByAge(age), false)).Take(Count);
+            var expected = g1.Select(g => g.SecurityNumber(g.DateByAge(age))).Take(Count);
+            var result = g2.Select(g => g.SecurityNumber(g.DateByAge(age))).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
@@ -755,13 +764,17 @@ namespace Tests.Sharpy.Integration {
 
         [Test]
         public void SelectMany_Seed_SecurityNumber_Formated_False() {
-            var g1 = Generator.Create(new Builder(TestSeed));
+            var c1 = new Configurement(TestSeed);
+            c1.SecurityNumberProvider = new UniqueSecurityRandomizer(c1.Random);
+            var g1 = Generator.Create(new Builder(c1));
             Thread.Sleep(SleepDuration);
-            var g2 = Generator.Create(new Builder(TestSeed));
+            var c2 = new Configurement(TestSeed);
+            c2.SecurityNumberProvider = new UniqueSecurityRandomizer(c2.Random);
+            var g2 = Generator.Create(new Builder(c2));
 
             const int age = 20;
-            var expected = g1.Select(g => g.SecurityNumber(g.DateByAge(age), false)).Take(Count);
-            var result = g2.Select(g => g.SecurityNumber(g.DateByAge(age), false)).Take(Count);
+            var expected = g1.Select(g => g.SecurityNumber(g.DateByAge(age))).Take(Count);
+            var result = g2.Select(g => g.SecurityNumber(g.DateByAge(age))).Take(Count);
             Assert.AreEqual(expected, result);
         }
 
