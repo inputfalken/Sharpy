@@ -63,8 +63,6 @@ namespace Sharpy {
         /// <inheritdoc />
         public Builder() : this(new Configurement()) { }
 
-        private static string[] UserNames => Data.GetUserNames;
-
         /// <inheritdoc cref="IBoolProvider.Bool" />
         public bool Bool() => _boolProvider.Bool();
 
@@ -133,8 +131,9 @@ namespace Sharpy {
         /// <inheritdoc cref="IReadListElementProvider.Element{T}" />
         public T Element<T>(IReadOnlyList<T> list) => _readListElementProvider.Element(list);
 
-        /// <inheritdoc cref="IReadListElementProvider.Argument{T}" />
-        public T Argument<T>(params T[] arguments) => _readListElementProvider.Argument(arguments);
+        /// <inheritdoc />
+        public T Argument<T>(T first, T second, params T[] additional) =>
+            _readListElementProvider.Argument(first, second, additional);
 
         /// <summary>
         ///     <para>
@@ -187,7 +186,7 @@ namespace Sharpy {
         /// <returns>
         ///     A string representing a user name.
         /// </returns>
-        public string UserName() => Element(UserNames);
+        public string UserName() => Element(Data.GetUserNames);
 
         /// <summary>
         ///     <para>
