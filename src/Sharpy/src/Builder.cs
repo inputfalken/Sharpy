@@ -16,7 +16,7 @@ namespace Sharpy {
     /// </summary>
     public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, IReadListElementProvider,
         IBoolProvider, IDateProvider, IEmailProvider, IPostalCodeProvider, ISecurityNumberProvider,
-        IPhoneNumberProvider {
+        IPhoneNumberProvider, IUserNameProvider {
         private readonly IBoolProvider _boolProvider;
         private readonly IDateProvider _dateprovider;
         private readonly IDoubleProvider _doubleProvider;
@@ -29,6 +29,10 @@ namespace Sharpy {
         private readonly IReadListElementProvider _readListElementProvider;
         private readonly ISecurityNumberProvider _securityNumberProvider;
         private readonly IPhoneNumberProvider _phoneNumberProvider;
+        private readonly IUserNameProvider _userNameProvider;
+
+        private readonly bool _uniqueNumbers;
+        private (int, int) _numberByLengthState = (0, 0);
 
         /// <summary>
         ///     <para>
@@ -61,6 +65,8 @@ namespace Sharpy {
                                   throw new ArgumentNullException(nameof(configurement.PostalCodeProvider));
             _phoneNumberProvider = configurement.PhoneNumberProvider ??
                                    throw new ArgumentNullException(nameof(configurement.PhoneNumberProvider));
+            _userNameProvider = configurement.UserNameProvider ??
+                                throw new ArgumentNullException(nameof(configurement.UserNameProvider));
         }
 
         /// <inheritdoc />
@@ -143,15 +149,8 @@ namespace Sharpy {
         ///<inheritdoc />
         public string PhoneNumber() => _phoneNumberProvider.PhoneNumber();
 
-        /// <summary>
-        ///     <para>
-        ///         Returns a random <see cref="string" /> representing a user name.
-        ///     </para>
-        /// </summary>
-        /// <returns>
-        ///     A string representing a user name.
-        /// </returns>
-        public string UserName() => Element(Data.GetUserNames);
+        /// <inheritdoc />
+        public string UserName() => _userNameProvider.UserName();
 
         /// <summary>
         ///     <para>

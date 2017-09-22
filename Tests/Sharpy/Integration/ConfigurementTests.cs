@@ -5,7 +5,7 @@ using static NUnit.Framework.Assert;
 
 namespace Tests.Sharpy.Integration {
     [TestFixture]
-    public class Config {
+    public class ConfigurementTests {
         [Test]
         public void Default_Configurement_Does_Not_Throw() => DoesNotThrow(() => new Builder(new Configurement()));
 
@@ -48,5 +48,13 @@ namespace Tests.Sharpy.Integration {
         [Test]
         public void Null_MailProvider_Throws() =>
             Throws<ArgumentNullException>(() => new Builder(new Configurement {MailProvider = null}));
+
+        [Test]
+        public void Null_UsernameProvider_Throws() =>
+            Throws<ArgumentNullException>(() => new Builder(new Configurement {UserNameProvider = null}));
+
+        [Test]
+        public void Null_PhoneNumberProvider_Throws() =>
+            Throws<ArgumentNullException>(() => new Builder(new Configurement {PhoneNumberProvider = null}));
     }
 }
