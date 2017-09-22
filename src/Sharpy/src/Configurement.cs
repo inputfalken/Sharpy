@@ -28,6 +28,7 @@ namespace Sharpy {
             SecurityNumberProvider = new UniqueFormattedSecurityBuilder(Random);
             PostalCodeProvider = new SwePostalCodeRandomizer(Random);
             UniqueRandomizerIntegerRandomizer = new UniqueRandomizerIntegerRandomizer(Random);
+            UserNameProvider = new UserNameRandomizer(Data.GetUserNames, Random);
             MailProvider = new UniqueEmailBuilder(
                 new[] {"gmail.com", "live.com", "outlook.com", "hotmail.com", "yahoo.com"},
                 Random
@@ -62,6 +63,18 @@ namespace Sharpy {
         ///     </remarks>
         /// </summary>
         public ISecurityNumberProvider SecurityNumberProvider { get; set; }
+
+        /// <summary>
+        ///     <para>
+        ///         Gets and sets the implementation for <see cref="IUserNameProvider" />.
+        ///     </para>
+        ///     <remarks>
+        ///         <para>
+        ///             The default implementation is <see cref="UserNameRandomizer" />.
+        ///         </para>
+        ///     </remarks>
+        /// </summary>
+        public IUserNameProvider UserNameProvider { get; set; }
 
         internal UniqueRandomizerIntegerRandomizer UniqueRandomizerIntegerRandomizer { get; }
 
