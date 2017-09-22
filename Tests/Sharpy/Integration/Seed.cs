@@ -250,8 +250,8 @@ namespace Tests.Sharpy.Integration {
             var g1 = Generator.Create(new Builder(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Create(new Builder(TestSeed));
-            var expected = g1.Select(g => g.NumberByLength(10)).Generate();
-            var result = g2.Select(g => g.NumberByLength(10)).Generate();
+            var expected = g1.Select(g => g.PhoneNumber(10)).Generate();
+            var result = g2.Select(g => g.PhoneNumber(10)).Generate();
             Assert.AreEqual(expected, result);
         }
 
@@ -504,8 +504,8 @@ namespace Tests.Sharpy.Integration {
             var g1 = Generator.Create(new Builder());
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Create(new Builder());
-            var expected = g1.Select(g => g.NumberByLength(10)).Take(Count);
-            var result = g2.Select(g => g.NumberByLength(10)).Take(Count);
+            var expected = g1.Select(g => g.PhoneNumber(10)).Take(Count);
+            var result = g2.Select(g => g.PhoneNumber(10)).Take(Count);
             Assert.AreNotEqual(expected, result);
         }
 
@@ -757,8 +757,8 @@ namespace Tests.Sharpy.Integration {
             var g1 = Generator.Create(new Builder(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Create(new Builder(TestSeed));
-            var expected = g1.Select(g => g.NumberByLength(10)).Take(Count);
-            var result = g2.Select(g => g.NumberByLength(10)).Take(Count);
+            var expected = g1.Select(g => g.PhoneNumber(10)).Take(Count);
+            var result = g2.Select(g => g.PhoneNumber(10)).Take(Count);
             Assert.AreEqual(expected, result);
         }
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Sharpy.Implementation;
 using Sharpy.IProviders;
 
@@ -27,7 +26,7 @@ namespace Sharpy {
             DateProvider = new DateRandomizer(Random);
             SecurityNumberProvider = new UniqueFormattedSecurityBuilder(Random);
             PostalCodeProvider = new SwePostalCodeRandomizer(Random);
-            UniqueRandomizerIntegerRandomizer = new UniqueRandomizerIntegerRandomizer(Random);
+            PhoneNumberProvider = new UniquePhoneNumberRandomizer(Random);
             MailProvider = new UniqueEmailBuilder(
                 new[] {"gmail.com", "live.com", "outlook.com", "hotmail.com", "yahoo.com"},
                 Random
@@ -63,7 +62,17 @@ namespace Sharpy {
         /// </summary>
         public ISecurityNumberProvider SecurityNumberProvider { get; set; }
 
-        internal UniqueRandomizerIntegerRandomizer UniqueRandomizerIntegerRandomizer { get; }
+        /// <summary>
+        ///     <para>
+        ///         Gets and sets the implementation for <see cref="IPhoneNumberProvider" />.
+        ///     </para>
+        ///     <remarks>
+        ///         <para>
+        ///             The default implementation is <see cref="UniquePhoneNumberRandomizer" />.
+        ///         </para>
+        ///     </remarks>
+        /// </summary>
+        public IPhoneNumberProvider PhoneNumberProvider { get; set; }
 
         /// <summary>
         ///     <para>
@@ -179,19 +188,5 @@ namespace Sharpy {
         ///     </para>
         /// </summary>
         public Random Random { get; }
-
-        /// <summary>
-        ///     <para>
-        ///         Gets and sets if <see cref="Builder.NumberByLength" /> returns unique numbers.
-        ///         Set to false by Default
-        ///     </para>
-        ///     <remarks>
-        ///         <para>
-        ///             If this is set to true the following will happen.
-        ///             <see cref="Builder.NumberByLength" /> method will throw an exception if called more than Length^10
-        ///         </para>
-        ///     </remarks>
-        /// </summary>
-        public bool UniqueNumbers { get; set; }
     }
 }
