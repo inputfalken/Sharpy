@@ -31,9 +31,6 @@ namespace Sharpy {
         private readonly IPhoneNumberProvider _phoneNumberProvider;
         private readonly IUserNameProvider _userNameProvider;
 
-        private readonly bool _uniqueNumbers;
-        private (int, int) _numberByLengthState = (0, 0);
-
         /// <summary>
         ///     <para>
         ///         Creates a <see cref="Builder" /> with <paramref name="configurement" />.
@@ -95,6 +92,9 @@ namespace Sharpy {
 
         /// <inheritdoc />
         public string Mail(params string[] names) => _emailProvider.Mail(names);
+
+        ///<inheritdoc />
+        public string Mail() => _emailProvider.Mail();
 
         /// <inheritdoc />
         public int Integer(int max) => _integerProvider.Integer(max);
