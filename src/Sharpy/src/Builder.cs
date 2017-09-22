@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using Sharpy.Core;
 using Sharpy.Core.Linq;
 using Sharpy.Enums;
-using Sharpy.Implementation;
-using Sharpy.Implementation.ExtensionMethods;
 using Sharpy.IProviders;
 using static Sharpy.Core.Generator;
 
@@ -17,7 +15,8 @@ namespace Sharpy {
     ///     </para>
     /// </summary>
     public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, IReadListElementProvider,
-        IBoolProvider, IDateProvider, IEmailProvider, IPostalCodeProvider, ISecurityNumberProvider {
+        IBoolProvider, IDateProvider, IEmailProvider, IPostalCodeProvider, ISecurityNumberProvider,
+        IPhoneNumberProvider {
         private readonly IBoolProvider _boolProvider;
         private readonly IDateProvider _dateprovider;
         private readonly IDoubleProvider _doubleProvider;
@@ -29,10 +28,7 @@ namespace Sharpy {
         private readonly IPostalCodeProvider _postalCodeProvider;
         private readonly IReadListElementProvider _readListElementProvider;
         private readonly ISecurityNumberProvider _securityNumberProvider;
-        private readonly UniqueRandomizerIntegerRandomizer _uniqueRandomizerIntegerRandomizer;
-
-        private readonly bool _uniqueNumbers;
-        private (int, int) _numberByLengthState = (0, 0);
+        private readonly IPhoneNumberProvider _phoneNumberProvider;
 
         /// <summary>
         ///     <para>
@@ -57,15 +53,14 @@ namespace Sharpy {
                              throw new ArgumentNullException(nameof(configurement.MailProvider));
             _securityNumberProvider = configurement.SecurityNumberProvider ??
                                       throw new ArgumentNullException(nameof(configurement.SecurityNumberProvider));
-            _uniqueRandomizerIntegerRandomizer = configurement.UniqueRandomizerIntegerRandomizer ??
-                                       throw new ArgumentNullException(nameof(configurement.UniqueRandomizerIntegerRandomizer));
             _readListElementProvider = configurement.ListElementPicker ??
                                        throw new ArgumentNullException(nameof(configurement.ListElementPicker));
             _boolProvider = configurement.BoolProvider ??
                             throw new ArgumentNullException(nameof(configurement.BoolProvider));
             _postalCodeProvider = configurement.PostalCodeProvider ??
                                   throw new ArgumentNullException(nameof(configurement.PostalCodeProvider));
-            _uniqueNumbers = configurement.UniqueNumbers;
+            _phoneNumberProvider = configurement.PhoneNumberProvider ??
+                                   throw new ArgumentNullException(nameof(configurement.PhoneNumberProvider));
         }
 
         /// <inheritdoc />
@@ -142,30 +137,11 @@ namespace Sharpy {
         /// <inheritdoc />
         public string SecurityNumber() => _securityNumberProvider.SecurityNumber();
 
-        /// <summary>
-        ///     <para>
-        ///         Returns a <see cref="string" /> with its length equal to the number given to argument
-        ///         <paramref name="length" />.
-        ///     </para>
-        /// </summary>
-        /// <param name="length">The length of the <see cref="string" /> returned.</param>
-        /// <returns>
-        ///     A <see cref="string" /> with numbers with its length equal to the argument <paramref name="length" />.
-        /// </returns>
-        /// <exception cref="Exception">Reached maximum amount of combinations for the argument <paramref name="length" />.</exception>
-        public string NumberByLength(int length) {
-            //If _numberByLenghtState has changed
-            if (_numberByLengthState.Item1 != length)
-                _numberByLengthState = (length, (int) Math.Pow(10, length) - 1);
-            var res = _uniqueRandomizerIntegerRandomizer.RandomNumber(0, _numberByLengthState.Item2, _uniqueNumbers);
-            if (res == -1)
-                throw new Exception($"Reached maximum amount of combinations for the argument '{nameof(length)}'.");
+        ///<inheritdoc />
+        public string PhoneNumber(int length) => _phoneNumberProvider.PhoneNumber(length);
 
-            var number = res.ToString();
-            return number.Length != length
-                ? number.Prefix(length - number.Length)
-                : number;
-        }
+        ///<inheritdoc />
+        public string PhoneNumber() => _phoneNumberProvider.PhoneNumber();
 
         /// <summary>
         ///     <para>
