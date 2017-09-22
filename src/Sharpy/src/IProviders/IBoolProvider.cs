@@ -6,7 +6,7 @@ namespace Sharpy.IProviders {
     /// </summary>
     public interface IBoolProvider {
         /// <summary>
-        ///      Creates a bool.
+        ///     Creates a bool.
         /// </summary>
         bool Bool();
     }

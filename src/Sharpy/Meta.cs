@@ -24,8 +24,9 @@ namespace Sharpy {
             () => {
                 var assembly = typeof(SwePostalCodeRandomizer).Assembly;
                 var resourceStream = assembly.GetManifestResourceStream("Sharpy.Data.swedishPostalCodes.json");
-                using (var reader = new StreamReader(resourceStream, Encoding.UTF8))
+                using (var reader = new StreamReader(resourceStream, Encoding.UTF8)) {
                     return JsonConvert.DeserializeObject<IEnumerable<PostalCode>>(reader.ReadToEnd()).ToArray();
+                }
             });
 
         private static readonly Lazy<string[]> LazyUsernames = new Lazy<string[]>(() => {

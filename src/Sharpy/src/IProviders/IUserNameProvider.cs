@@ -6,7 +6,7 @@ namespace Sharpy.IProviders {
     /// </summary>
     public interface IUserNameProvider {
         /// <summary>
-        /// Creates a string representing a user name.
+        ///     Creates a string representing a user name.
         /// </summary>
         /// <returns>
         ///     A string representing a user name.

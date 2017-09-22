@@ -3,7 +3,7 @@ using Sharpy.IProviders;
 
 namespace Sharpy.Implementation {
     /// <summary>
-    /// Randomizes <see cref="long"/> by <see cref="Random"/>.
+    ///     Randomizes <see cref="long" /> by <see cref="Random" />.
     /// </summary>
     public class LongRandomizer : ILongProvider {
         private readonly Random _random;

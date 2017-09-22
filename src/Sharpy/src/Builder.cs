@@ -25,10 +25,10 @@ namespace Sharpy {
 
         private readonly ILongProvider _longProvider;
         private readonly INameProvider _nameProvider;
+        private readonly IPhoneNumberProvider _phoneNumberProvider;
         private readonly IPostalCodeProvider _postalCodeProvider;
         private readonly IReadListElementProvider _readListElementProvider;
         private readonly ISecurityNumberProvider _securityNumberProvider;
-        private readonly IPhoneNumberProvider _phoneNumberProvider;
         private readonly IUserNameProvider _userNameProvider;
 
         /// <summary>
@@ -123,6 +123,12 @@ namespace Sharpy {
         /// <inheritdoc />
         public string LastName() => _nameProvider.LastName();
 
+        ///<inheritdoc />
+        public string PhoneNumber(int length) => _phoneNumberProvider.PhoneNumber(length);
+
+        ///<inheritdoc />
+        public string PhoneNumber() => _phoneNumberProvider.PhoneNumber();
+
         /// <inheritdoc />
         public string PostalCode() => _postalCodeProvider.PostalCode();
 
@@ -142,12 +148,6 @@ namespace Sharpy {
 
         /// <inheritdoc />
         public string SecurityNumber() => _securityNumberProvider.SecurityNumber();
-
-        ///<inheritdoc />
-        public string PhoneNumber(int length) => _phoneNumberProvider.PhoneNumber(length);
-
-        ///<inheritdoc />
-        public string PhoneNumber() => _phoneNumberProvider.PhoneNumber();
 
         /// <inheritdoc />
         public string UserName() => _userNameProvider.UserName();
