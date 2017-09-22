@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Sharpy.IProviders {
     /// <summary>
-    /// Returns element <see cref="IReadOnlyList{T}"/>.
+    ///     Returns element <see cref="IReadOnlyList{T}" />.
     /// </summary>
     public interface IReadListElementProvider {
         /// <summary>

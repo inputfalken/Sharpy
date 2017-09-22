@@ -7,7 +7,7 @@ using Sharpy.IProviders;
 
 namespace Sharpy.Implementation {
     /// <summary>
-    /// Builds unique email addresses.
+    ///     Builds unique email addresses.
     /// </summary>
     public sealed class UniqueEmailBuilder : UniqueRandomizer<string>, IEmailProvider {
         private const int Limit = 2;
@@ -35,16 +35,14 @@ namespace Sharpy.Implementation {
         /// </summary>
         private IEnumerator<string> DomainsEnumerator { get; set; }
 
-        private string ResolveDuplicate(string item) => item.Append(Random.Next(10));
-
         /// <summary>
-        ///     Creates an email by joining <paramref name="names"/> with common separator characters.
+        ///     Creates an email by joining <paramref name="names" /> with common separator characters.
         /// </summary>
         /// <param name="names">
-        /// The names to be joined.
+        ///     The names to be joined.
         /// </param>
         /// <returns>
-        /// A string representing a email address.
+        ///     A string representing a email address.
         /// </returns>
         public string Mail(params string[] names) {
             if (names == null) throw new ArgumentNullException(nameof(names));
@@ -58,7 +56,7 @@ namespace Sharpy.Implementation {
                         : s, iteration: i)
                 ).ToArray();
 
-            while (resets < Limit) {
+            while (resets < Limit)
                 if (DomainsEnumerator.MoveNext()) {
                     var result = namesWithIndex.Aggregate(string.Empty,
                             (acc, curr) =>
@@ -75,15 +73,16 @@ namespace Sharpy.Implementation {
                     DomainsEnumerator.Reset();
                     resets++;
                 }
-            }
             names[names.Length - 1] = ResolveDuplicate(names[names.Length - 1]);
             return Mail(names);
         }
 
         /// <summary>
-        /// Creates an email with a randomized user name.
+        ///     Creates an email with a randomized user name.
         /// </summary>
         /// <returns></returns>
         public string Mail() => Mail(Data.GetUserNames.RandomItem(Random));
+
+        private string ResolveDuplicate(string item) => item.Append(Random.Next(10));
     }
 }

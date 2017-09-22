@@ -1,24 +1,10 @@
 ﻿using System;
-using System.Linq;
 using NUnit.Framework;
-using Sharpy;
 using Sharpy.Implementation;
 
 namespace Tests.Sharpy.Integration {
     [TestFixture]
     public class SwedishPostalRandomizerTests {
-        [Test]
-        public void No_Argument_Does_Not_Throw() {
-            var swedishPostal = new SwePostalCodeRandomizer(new Random());
-            Assert.DoesNotThrow(() => swedishPostal.PostalCode());
-        }
-
-        [Test]
-        public void Single_Valid_Argument_Does_Not_Throw() {
-            var swedishPostal = new SwePostalCodeRandomizer(new Random());
-            Assert.DoesNotThrow(() => swedishPostal.PostalCode("Stockholm"));
-        }
-
         [Test]
         public void Ignore_Case() {
             var swedishPostal = new SwePostalCodeRandomizer(new Random());
@@ -29,6 +15,12 @@ namespace Tests.Sharpy.Integration {
         public void Invalid_Arg_Throws() {
             var swedishPostal = new SwePostalCodeRandomizer(new Random());
             Assert.Throws<ArgumentException>(() => swedishPostal.PostalCode("Foo"));
+        }
+
+        [Test]
+        public void No_Argument_Does_Not_Throw() {
+            var swedishPostal = new SwePostalCodeRandomizer(new Random());
+            Assert.DoesNotThrow(() => swedishPostal.PostalCode());
         }
 
         [Test]
@@ -55,6 +47,12 @@ namespace Tests.Sharpy.Integration {
             Assert.DoesNotThrow(() => swedishPostal.PostalCode("Gävleborg"));
             Assert.DoesNotThrow(() => swedishPostal.PostalCode("Västernorrland"));
             Assert.DoesNotThrow(() => swedishPostal.PostalCode("Jämtland"));
+        }
+
+        [Test]
+        public void Single_Valid_Argument_Does_Not_Throw() {
+            var swedishPostal = new SwePostalCodeRandomizer(new Random());
+            Assert.DoesNotThrow(() => swedishPostal.PostalCode("Stockholm"));
         }
     }
 }

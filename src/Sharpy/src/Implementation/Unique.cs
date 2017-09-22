@@ -3,12 +3,11 @@ using System.Collections.Generic;
 
 namespace Sharpy.Implementation {
     /// <summary>
-    /// Provides <see cref="ISet{T}"/> and <see cref="System.Random"/>.
+    ///     Provides <see cref="ISet{T}" /> and <see cref="System.Random" />.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract class UniqueRandomizer<T> {
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="random"></param>
         protected UniqueRandomizer(Random random) {
@@ -17,7 +16,6 @@ namespace Sharpy.Implementation {
         }
 
         /// <summary>
-        /// 
         /// </summary>
         protected Random Random { get; }
 

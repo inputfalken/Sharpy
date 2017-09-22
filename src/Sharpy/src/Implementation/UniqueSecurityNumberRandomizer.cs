@@ -4,11 +4,11 @@ using Sharpy.IProviders;
 
 namespace Sharpy.Implementation {
     /// <summary>
-    /// Builds strings representing security numbers.
+    ///     Builds strings representing security numbers.
     /// </summary>
     public class UniqueSecurityNumberBuilder : UniqueRandomizer<long> {
         /// <summary>
-        /// TODO
+        ///     TODO
         /// </summary>
         /// <param name="random"></param>
         protected UniqueSecurityNumberBuilder(Random random) : base(random) { }
@@ -33,7 +33,6 @@ namespace Sharpy.Implementation {
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="date"></param>
         /// <param name="formated"></param>
@@ -49,7 +48,6 @@ namespace Sharpy.Implementation {
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <returns></returns>
         protected DateTime RandomizeDate() {
@@ -67,7 +65,7 @@ namespace Sharpy.Implementation {
     }
 
     /// <summary>
-    /// Creates unique formatted security numbers using a dash before the control number.
+    ///     Creates unique formatted security numbers using a dash before the control number.
     /// </summary>
     public sealed class UniqueFormattedSecurityBuilder : UniqueSecurityNumberBuilder, ISecurityNumberProvider {
         internal UniqueFormattedSecurityBuilder(Random random) : base(random) { }
@@ -80,7 +78,7 @@ namespace Sharpy.Implementation {
     }
 
     /// <summary>
-    /// Creates unique security numbers.
+    ///     Creates unique security numbers.
     /// </summary>
     public sealed class UniqueSecurityBuilder : UniqueSecurityNumberBuilder, ISecurityNumberProvider {
         internal UniqueSecurityBuilder(Random random) : base(random) { }

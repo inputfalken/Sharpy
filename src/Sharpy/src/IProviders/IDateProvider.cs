@@ -8,18 +8,18 @@ namespace Sharpy.IProviders {
     /// </summary>
     public interface IDateProvider {
         /// <summary>
-        /// Creates a <see cref="DateTime"/> based on argument <paramref name="age"/>.
+        ///     Creates a <see cref="DateTime" /> based on argument <paramref name="age" />.
         /// </summary>
         /// <param name="age">
-        ///  TODO
+        ///     TODO
         /// </param>
         DateTime DateByAge(int age);
 
         /// <summary>
-        /// Creates a <see cref="DateTime"/> based on argument <paramref name="year"/>.
+        ///     Creates a <see cref="DateTime" /> based on argument <paramref name="year" />.
         /// </summary>
         /// <param name="year">
-        ///  TODO
+        ///     TODO
         /// </param>
         DateTime DateByYear(int year);
     }

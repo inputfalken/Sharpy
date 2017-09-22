@@ -6,18 +6,16 @@ using Sharpy.IProviders;
 
 namespace Sharpy.Implementation {
     /// <summary>
-    /// Randomizes Swedish postal codes.
+    ///     Randomizes Swedish postal codes.
     /// </summary>
     public class SwePostalCodeRandomizer : IPostalCodeProvider {
+        private readonly Dictionary<string, string[]> _dictionary = new Dictionary<string, string[]>();
         private readonly Random _rnd;
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="rnd"></param>
         public SwePostalCodeRandomizer(Random rnd) => _rnd = rnd;
-
-        private readonly Dictionary<string, string[]> _dictionary = new Dictionary<string, string[]>();
 
         /// <inheritdoc />
         public string PostalCode(string county) {
