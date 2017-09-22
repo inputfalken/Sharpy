@@ -17,7 +17,7 @@ namespace Sharpy {
     ///     </para>
     /// </summary>
     public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, IReadListElementProvider,
-        IBoolProvider, IDateProvider, IEmailProvider, IPostalCodeProvider, ISecurityNumberProvider {
+        IBoolProvider, IDateProvider, IEmailProvider, IPostalCodeProvider, ISecurityNumberProvider, IUserNameProvider {
         private readonly IBoolProvider _boolProvider;
         private readonly IDateProvider _dateprovider;
         private readonly IDoubleProvider _doubleProvider;
@@ -30,6 +30,7 @@ namespace Sharpy {
         private readonly IReadListElementProvider _readListElementProvider;
         private readonly ISecurityNumberProvider _securityNumberProvider;
         private readonly UniqueRandomizerIntegerRandomizer _uniqueRandomizerIntegerRandomizer;
+        private readonly IUserNameProvider _userNameProvider;
 
         private readonly bool _uniqueNumbers;
         private (int, int) _numberByLengthState = (0, 0);
@@ -58,13 +59,16 @@ namespace Sharpy {
             _securityNumberProvider = configurement.SecurityNumberProvider ??
                                       throw new ArgumentNullException(nameof(configurement.SecurityNumberProvider));
             _uniqueRandomizerIntegerRandomizer = configurement.UniqueRandomizerIntegerRandomizer ??
-                                       throw new ArgumentNullException(nameof(configurement.UniqueRandomizerIntegerRandomizer));
+                                                 throw new ArgumentNullException(
+                                                     nameof(configurement.UniqueRandomizerIntegerRandomizer));
             _readListElementProvider = configurement.ListElementPicker ??
                                        throw new ArgumentNullException(nameof(configurement.ListElementPicker));
             _boolProvider = configurement.BoolProvider ??
                             throw new ArgumentNullException(nameof(configurement.BoolProvider));
             _postalCodeProvider = configurement.PostalCodeProvider ??
                                   throw new ArgumentNullException(nameof(configurement.PostalCodeProvider));
+            _userNameProvider = configurement.UserNameProvider ??
+                                throw new ArgumentNullException(nameof(configurement.UserNameProvider));
             _uniqueNumbers = configurement.UniqueNumbers;
         }
 
@@ -167,15 +171,8 @@ namespace Sharpy {
                 : number;
         }
 
-        /// <summary>
-        ///     <para>
-        ///         Returns a random <see cref="string" /> representing a user name.
-        ///     </para>
-        /// </summary>
-        /// <returns>
-        ///     A string representing a user name.
-        /// </returns>
-        public string UserName() => Element(Data.GetUserNames);
+        /// <inheritdoc />
+        public string UserName() => _userNameProvider.UserName();
 
         /// <summary>
         ///     <para>
