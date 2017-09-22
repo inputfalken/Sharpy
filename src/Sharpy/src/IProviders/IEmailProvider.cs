@@ -15,5 +15,13 @@
         ///     A string representing an email address.
         /// </returns>
         string Mail(params string[] name);
+
+        /// <summary>
+        ///     Creates a string representing an email address.
+        /// </summary>
+        /// <returns>
+        ///     A string representing an email address.
+        /// </returns>
+        string Mail();
     }
 }

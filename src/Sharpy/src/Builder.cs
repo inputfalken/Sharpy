@@ -58,7 +58,8 @@ namespace Sharpy {
             _securityNumberProvider = configurement.SecurityNumberProvider ??
                                       throw new ArgumentNullException(nameof(configurement.SecurityNumberProvider));
             _uniqueRandomizerIntegerRandomizer = configurement.UniqueRandomizerIntegerRandomizer ??
-                                       throw new ArgumentNullException(nameof(configurement.UniqueRandomizerIntegerRandomizer));
+                                                 throw new ArgumentNullException(
+                                                     nameof(configurement.UniqueRandomizerIntegerRandomizer));
             _readListElementProvider = configurement.ListElementPicker ??
                                        throw new ArgumentNullException(nameof(configurement.ListElementPicker));
             _boolProvider = configurement.BoolProvider ??
@@ -94,6 +95,9 @@ namespace Sharpy {
 
         /// <inheritdoc />
         public string Mail(params string[] names) => _emailProvider.Mail(names);
+
+        ///<inheritdoc />
+        public string Mail() => _emailProvider.Mail();
 
         /// <inheritdoc />
         public int Integer(int max) => _integerProvider.Integer(max);
