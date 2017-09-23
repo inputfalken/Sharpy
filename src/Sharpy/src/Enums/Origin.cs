@@ -1,6 +1,6 @@
 namespace Sharpy.Enums {
     /// <summary>
-    ///     Is used as argument when Filtering by country
+    ///     Is used as argument when filtering by country and region.
     /// </summary>
     public enum Origin {
         /// <summary>
