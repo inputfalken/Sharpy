@@ -72,7 +72,7 @@ namespace Sharpy {
         /// <inheritdoc />
         public Builder() : this(new Configurement()) { }
 
-        /// <inheritdoc cref="IBoolProvider.Bool" />
+        /// <inheritdoc />
         public bool Bool() => _boolProvider.Bool();
 
         /// <inheritdoc />
@@ -81,13 +81,13 @@ namespace Sharpy {
         /// <inheritdoc />
         public DateTime DateByYear(int year) => _dateprovider.DateByYear(year);
 
-        /// <inheritdoc cref="IDoubleProvider.Double()" />
+        /// <inheritdoc />
         public double Double() => _doubleProvider.Double();
 
-        /// <inheritdoc cref="IDoubleProvider.Double(double)" />
+        /// <inheritdoc />
         public double Double(double max) => _doubleProvider.Double(max);
 
-        /// <inheritdoc cref="IDoubleProvider.Double(double, double)" />
+        /// <inheritdoc />
         public double Double(double min, double max) => _doubleProvider.Double(min, max);
 
         /// <inheritdoc />
@@ -135,7 +135,7 @@ namespace Sharpy {
         /// <inheritdoc />
         public string PostalCode(string county) => _postalCodeProvider.PostalCode(county);
 
-        /// <inheritdoc cref="IReadListElementProvider.Element{T}" />
+        /// <inheritdoc />
         public T Element<T>(IReadOnlyList<T> list) => _readListElementProvider.Element(list);
 
         /// <inheritdoc />

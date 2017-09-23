@@ -56,14 +56,14 @@ namespace Sharpy.Implementation {
         private Dictionary<NameType, IReadOnlyList<string>> Dictionary { get; } =
             new Dictionary<NameType, IReadOnlyList<string>>();
 
-        /// <inheritdoc cref="INameProvider.FirstName(Gender)" />
+        /// <inheritdoc />
         public string FirstName(Gender gender) => Name(
             gender == Gender.Male ? NameType.MaleFirst : NameType.FemaleFirst);
 
-        /// <inheritdoc cref="INameProvider.FirstName()" />
+        /// <inheritdoc />
         public string FirstName() => Name(_random.Next(2) == 0 ? NameType.FemaleFirst : NameType.MaleFirst);
 
-        /// <inheritdoc cref="INameProvider.LastName()" />
+        /// <inheritdoc />
         public string LastName() => Name(NameType.Last);
 
         /// <summary>

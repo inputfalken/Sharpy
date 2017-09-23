@@ -18,17 +18,17 @@ namespace Sharpy.Implementation {
         /// <param name="random"></param>
         public IntRandomizer(Random random) => _random = random;
 
-        /// <inheritdoc cref="IIntegerProvider.Integer(int)" />
+        /// <inheritdoc />
         public int Integer(int max) => _random.Next(max);
 
-        /// <inheritdoc cref="IIntegerProvider.Integer(int,int)" />
+        /// <inheritdoc />
         public int Integer(int min, int max) {
             if (max <= min)
                 throw new ArgumentOutOfRangeException($"{nameof(max)} must be > {nameof(min)}");
             return _random.Next(min, max);
         }
 
-        /// <inheritdoc cref="IIntegerProvider.Integer()" />
+        /// <inheritdoc />
         public int Integer() => _random.Next();
     }
 }

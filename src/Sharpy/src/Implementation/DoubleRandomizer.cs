@@ -20,13 +20,13 @@ namespace Sharpy.Implementation {
         /// </param>
         public DoubleRandomizer(Random random) => _random = random;
 
-        /// <inheritdoc cref="IDoubleProvider.Double()" />
+        /// <inheritdoc />
         public double Double() => _random.NextDouble();
 
-        /// <inheritdoc cref="IDoubleProvider.Double(double)" />
+        /// <inheritdoc />
         public double Double(double max) => Double(0, max);
 
-        /// <inheritdoc cref="IDoubleProvider.Double(double, double)" />
+        /// <inheritdoc />
         public double Double(double min, double max) {
             if (max <= min) throw new ArgumentOutOfRangeException($"{nameof(max)} must be > {nameof(min)}");
             return _random.NextDouble() * (max - min) + min;
