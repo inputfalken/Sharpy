@@ -14,7 +14,7 @@ namespace Sharpy.Implementation {
         /// <param name="random"></param>
         public LongRandomizer(Random random) => _random = random;
 
-        /// <inheritdoc cref="ILongProvider.Long(long,long)" />
+        /// <inheritdoc />
         public long Long(long min, long max) {
             if (max <= min)
                 throw new ArgumentOutOfRangeException(nameof(max), "max must be > min!");
@@ -36,10 +36,10 @@ namespace Sharpy.Implementation {
             return (long) (ulongRand % uRange) + min;
         }
 
-        /// <inheritdoc cref="ILongProvider.Long(long)" />
+        /// <inheritdoc />
         public long Long(long max) => Long(0, max);
 
-        /// <inheritdoc cref="ILongProvider.Long()" />
+        /// <inheritdoc />
         public long Long() => Long(0, long.MaxValue);
     }
 }
