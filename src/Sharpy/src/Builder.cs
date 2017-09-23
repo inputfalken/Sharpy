@@ -9,9 +9,7 @@ using static Sharpy.Core.Generator;
 namespace Sharpy {
     /// <summary>
     ///     <para>
-    ///         Contains various methods for providing data by using <see cref="IIntegerProvider" />.
-    ///         To get the same result every time you execute the program use the seed overload constructor.
-    ///         If want you to add your own methods you can derive from this class.
+    ///         Contains various methods for providing data .
     ///     </para>
     /// </summary>
     public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, IReadListElementProvider,
