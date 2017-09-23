@@ -13,7 +13,10 @@ namespace Sharpy {
     public class Configurement {
         /// <summary>
         ///     <para>
-        ///         The argument <paramref name="random" /> will be used for the <see cref="Builder" />.
+        ///         Creates a <see cref="Configurement"/> with default implementations.
+        ///     </para>
+        ///     <para>
+        ///         Argument <paramref name="random" /> is used by the default implementations.
         ///     </para>
         /// </summary>
         /// <param name="random"></param>
@@ -38,7 +41,10 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         The seed supplied will be used to instantiate a <see cref="Random" />, for the <see cref="Builder" />.
+        ///         Creates a <see cref="Configurement"/> with default implementations.
+        ///     </para>
+        ///     <para>
+        ///         The seed supplied will be used to instantiate a <see cref="Random" /> for the default implementations.
         ///     </para>
         /// </summary>
         /// <param name="seed"></param>
@@ -46,7 +52,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Creates a random by Tick.
+        ///         Creates a <see cref="Configurement"/> with default implementations.
         ///     </para>
         /// </summary>
         public Configurement() : this(new Random()) { }
@@ -57,7 +63,7 @@ namespace Sharpy {
         ///     </para>
         ///     <remarks>
         ///         <para>
-        ///             The default implementation is <see cref="UniqueSecurityNumberBuilder" />.
+        ///             By default it is <see cref="UniqueSecurityNumberBuilder" />.
         ///         </para>
         ///     </remarks>
         /// </summary>
@@ -67,11 +73,9 @@ namespace Sharpy {
         ///     <para>
         ///         Gets and sets the implementation for <see cref="IPhoneNumberProvider" />.
         ///     </para>
-        ///     <remarks>
-        ///         <para>
-        ///             The default implementation is <see cref="UniquePhoneNumberRandomizer" />.
-        ///         </para>
-        ///     </remarks>
+        ///     <para>
+        ///         By default it is <see cref="UniquePhoneNumberRandomizer" />.
+        ///     </para>
         /// </summary>
         public IPhoneNumberProvider PhoneNumberProvider { get; set; }
 
@@ -79,11 +83,9 @@ namespace Sharpy {
         ///     <para>
         ///         Gets and sets the implementation for <see cref="IUserNameProvider" />.
         ///     </para>
-        ///     <remarks>
-        ///         <para>
-        ///             The default implementation is <see cref="UserNameRandomizer" />.
-        ///         </para>
-        ///     </remarks>
+        ///     <para>
+        ///         By default it is <see cref="UserNameRandomizer" />.
+        ///     </para>
         /// </summary>
         public IUserNameProvider UserNameProvider { get; set; }
 
@@ -91,11 +93,9 @@ namespace Sharpy {
         ///     <para>
         ///         Gets and sets the implementation for <see cref="IPostalCodeProvider" />.
         ///     </para>
-        ///     <remarks>
-        ///         <para>
-        ///             The default implementation is <see cref="SwePostalCodeRandomizer" />.
-        ///         </para>
-        ///     </remarks>
+        ///     <para>
+        ///         By default it is <see cref="SwePostalCodeRandomizer" />.
+        ///     </para>
         /// </summary>
         public IPostalCodeProvider PostalCodeProvider { get; set; }
 
@@ -103,11 +103,9 @@ namespace Sharpy {
         ///     <para>
         ///         Gets and sets the implementation for <see cref="IDateProvider" />.
         ///     </para>
-        ///     <remarks>
-        ///         <para>
-        ///             The default implementation is <see cref="DateRandomizer" />.
-        ///         </para>
-        ///     </remarks>
+        ///     <para>
+        ///         By default it is <see cref="DateRandomizer" />.
+        ///     </para>
         /// </summary>
         public IDateProvider DateProvider { get; set; }
 
@@ -115,11 +113,9 @@ namespace Sharpy {
         ///     <para>
         ///         Gets and sets the implementation for <see cref="IEmailProvider" />.
         ///     </para>
-        ///     <remarks>
-        ///         <para>
-        ///             The default implementation is <see cref="UniqueEmailBuilder" />.
-        ///         </para>
-        ///     </remarks>
+        ///     <para>
+        ///         By default it is <see cref="UniqueEmailBuilder" />.
+        ///     </para>
         /// </summary>
         public IEmailProvider MailProvider { get; set; }
 
@@ -127,11 +123,9 @@ namespace Sharpy {
         ///     <para>
         ///         Gets and sets the implementation for <see cref="IReadListElementProvider" />.
         ///     </para>
-        ///     <remarks>
-        ///         <para>
-        ///             The default implementation is <see cref="ListRandomizer" />.
-        ///         </para>
-        ///     </remarks>
+        ///     <para>
+        ///         By default it is <see cref="ListRandomizer" />.
+        ///     </para>
         /// </summary>
         public IReadListElementProvider ListElementPicker { get; set; }
 
@@ -139,11 +133,9 @@ namespace Sharpy {
         ///     <para>
         ///         Gets and sets the implementation for <see cref="IBoolProvider" />.
         ///     </para>
-        ///     <remarks>
-        ///         <para>
-        ///             The default implementation is <see cref="BoolRandomizer" />.
-        ///         </para>
-        ///     </remarks>
+        ///     <para>
+        ///         By default it is <see cref="BoolRandomizer" />.
+        ///     </para>
         /// </summary>
         public IBoolProvider BoolProvider { get; set; }
 
@@ -151,11 +143,9 @@ namespace Sharpy {
         ///     <para>
         ///         Gets and sets the implementation for <see cref="INameProvider" />.
         ///     </para>
-        ///     <remarks>
-        ///         <para>
-        ///             The default implementation is <see cref="NameByOrigin" />.
-        ///         </para>
-        ///     </remarks>
+        ///     <para>
+        ///         By Default it is <see cref="NameByOrigin" />.
+        ///     </para>
         /// </summary>
         public INameProvider NameProvider { get; set; }
 
@@ -163,11 +153,9 @@ namespace Sharpy {
         ///     <para>
         ///         Gets and sets the implementation for <see cref="IDoubleProvider" />
         ///     </para>
-        ///     <remarks>
-        ///         <para>
-        ///             The default implementation is <see cref="DoubleRandomizer" />.
-        ///         </para>
-        ///     </remarks>
+        ///     <para>
+        ///         By Default it is <see cref="DoubleRandomizer" />.
+        ///     </para>
         /// </summary>
         public IDoubleProvider DoubleProvider { get; set; }
 
@@ -176,28 +164,24 @@ namespace Sharpy {
         ///         Gets and sets the implementation for <see cref="IIntegerProvider" />.
         ///     </para>
         /// </summary>
-        /// <remarks>
-        ///     <para>
-        ///         The default implementation is <see cref="IntRandomizer" />.
-        ///     </para>
-        /// </remarks>
+        /// <para>
+        ///     By Default it is <see cref="IntRandomizer" />.
+        /// </para>
         public IIntegerProvider IntegerProvider { get; set; }
 
         /// <summary>
         ///     <para>
         ///         Gets and sets the implementation for <see cref="ILongProvider" />.
         ///     </para>
-        ///     <remarks>
-        ///         <para>
-        ///             The default implementation is <see cref="LongRandomizer" />.
-        ///         </para>
-        ///     </remarks>
+        ///     <para>
+        ///         By default it is <see cref="LongRandomizer" />.
+        ///     </para>
         /// </summary>
         public ILongProvider LongProvider { get; set; }
 
         /// <summary>
         ///     <para>
-        ///         Gets the Random which the <see cref="Builder" /> will use.
+        ///         Gets the <see cref="System.Random"/> for the default implementations of <see cref="Builder" />.
         ///     </para>
         /// </summary>
         public Random Random { get; }
