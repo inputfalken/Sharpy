@@ -9,11 +9,6 @@ namespace Tests.GeneratorAPI.Implementations {
     [TestFixture]
     internal class ParameterRandomizer {
         [Test]
-        public void Params_List_Throws() {
-            Assert.Throws<ArgumentNullException>(() => Generator.ArgumentRandomizer<int>(items: null));
-        }
-
-        [Test]
         public void Randomizes_As_Expected_With_Seed() {
             var items = new List<string> {"Foo", "Bar", "Doe"};
             var result = Generator
