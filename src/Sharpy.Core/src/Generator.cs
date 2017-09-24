@@ -247,7 +247,7 @@ namespace Sharpy.Core {
         /// <param name="additional">Additional arguments.</param>
         /// <param name="random">The randomizer.</param>
         /// <returns>
-        ///     A <see cref="IGenerator{T}" /> whose generations is based on the argument <paramref name="additional" />.
+        ///     A <see cref="IGenerator{T}" /> whose generations is based on arguments supplied.
         /// </returns>
         public static IGenerator<T> ArgumentRandomizer<T>(Random random, T first, T second, params T[] additional) {
             return Function(() => {
@@ -270,7 +270,7 @@ namespace Sharpy.Core {
         /// <param name="second">The second argument</param>
         /// <param name="additional">Additional arguments.</param>
         /// <returns>
-        ///     A <see cref="IGenerator{T}" /> whose generations is based on the argument <paramref name="additional" />.
+        ///     A <see cref="IGenerator{T}" /> whose generations is based on arguments supplied.
         /// </returns>
         public static IGenerator<T> ArgumentRandomizer<T>(T first, T second, params T[] additional) =>
             ArgumentRandomizer(new Random(), first, second, additional);
