@@ -16,11 +16,12 @@ namespace Tests.GeneratorAPI.Implementations {
         [Test]
         public void Randomizes_As_Expected_With_Seed() {
             var items = new List<string> {"Foo", "Bar", "Doe"};
+            const int seed = 20;
             var result = Generator
-                .ListRandomizer(items, new Random(20))
+                .ListRandomizer(new Random(seed), items)
                 .ToList(100);
             var expected = Generator
-                .Create(new Random(20))
+                .Create(new Random(seed))
                 .Select(rnd => items[rnd.Next(items.Count)])
                 .ToList(100);
             Assert.AreEqual(expected, result);
