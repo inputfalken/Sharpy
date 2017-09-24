@@ -12,9 +12,11 @@ using Sharpy.Implementation.DataObjects;
 
 namespace Sharpy {
     internal static class Data {
+        private const string DataFolder = "Sharpy.Data";
+
         private static readonly Lazy<IEnumerable<Name>> LazyNames = new Lazy<IEnumerable<Name>>(() => {
             var assembly = typeof(NameByOrigin).Assembly;
-            var resourceStream = assembly.GetManifestResourceStream("Sharpy.Data.NamesByOrigin.json");
+            var resourceStream = assembly.GetManifestResourceStream($"{DataFolder}.NamesByOrigin.json");
             using (var reader = new StreamReader(resourceStream, Encoding.UTF8)) {
                 return JsonConvert.DeserializeObject<IEnumerable<Name>>(reader.ReadToEnd());
             }
@@ -23,7 +25,7 @@ namespace Sharpy {
         private static readonly Lazy<IReadOnlyList<PostalCode>> LazyPostalCodes = new Lazy<IReadOnlyList<PostalCode>>(
             () => {
                 var assembly = typeof(SwePostalCodeRandomizer).Assembly;
-                var resourceStream = assembly.GetManifestResourceStream("Sharpy.Data.swedishPostalCodes.json");
+                var resourceStream = assembly.GetManifestResourceStream($"{DataFolder}.swedishPostalCodes.json");
                 using (var reader = new StreamReader(resourceStream, Encoding.UTF8)) {
                     return JsonConvert.DeserializeObject<IEnumerable<PostalCode>>(reader.ReadToEnd()).ToArray();
                 }
@@ -31,7 +33,7 @@ namespace Sharpy {
 
         private static readonly Lazy<string[]> LazyUsernames = new Lazy<string[]>(() => {
             var assembly = typeof(Builder).Assembly;
-            var resourceStream = assembly.GetManifestResourceStream("Sharpy.Data.usernames.txt");
+            var resourceStream = assembly.GetManifestResourceStream($"{DataFolder}.usernames.txt");
             using (var reader = new StreamReader(resourceStream, Encoding.UTF8)) {
                 return reader.ReadToEnd().Split(new[] {"\r\n", "\n"}, StringSplitOptions.None);
             }
