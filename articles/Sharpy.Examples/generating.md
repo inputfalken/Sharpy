@@ -59,7 +59,7 @@ This example use the following methods:
 * [Take](xref:Sharpy.Core.Linq.Extensions.Take``1(Sharpy.Core.IGenerator{``0},System.Int32))
 
 
-## Generating Your Own Class ##
+## Generating Your Own Type ##
 ```csharp
 using Sharpy.Core;
 using Sharpy.Enums;
