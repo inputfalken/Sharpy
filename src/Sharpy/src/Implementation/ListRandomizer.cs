@@ -7,7 +7,7 @@ namespace Sharpy.Implementation {
     /// <summary>
     ///     Randomizes Argument and Elements by <see cref="Random" />.
     /// </summary>
-    public class ListRandomizer : IReadListElementProvider {
+    public class ListRandomizer : IElementProvider {
         private readonly Random _random;
 
         /// <summary>
