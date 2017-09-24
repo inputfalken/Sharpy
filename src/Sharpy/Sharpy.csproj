@@ -6,10 +6,10 @@
     <Description>A library used for generating fake data.
 
       For info please visit project page.</Description>
-    <VersionPrefix>3.17.1</VersionPrefix>
+    <VersionPrefix>3.17.2</VersionPrefix>
     <PackageProjectUrl>https://github.com/inputfalken/Sharpy/tree/master</PackageProjectUrl>
     <PackageLicenseUrl>https://raw.githubusercontent.com/inputfalken/Sharpy/master/License.txt</PackageLicenseUrl>
-    <FileVersion>3.17.1.0</FileVersion>
+    <FileVersion>3.17.2.0</FileVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/inputfalken/Sharpy/tree/master</RepositoryUrl>
     <RepositoryType>git</RepositoryType>

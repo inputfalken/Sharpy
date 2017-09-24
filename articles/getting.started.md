@@ -23,7 +23,7 @@ PM> Install-Package Sharpy
 * [MonTask](http://www.nuget.org/packages/MonTask)
 * [Newtonsoft.Json](http://www.nuget.org/packages/Newtonsoft.Json)
 
-If want more information about the dependencies,
+If you want more information about the dependencies,
 visit the [NuGet page](http://www.nuget.org/packages/Sharpy).
 
 
@@ -49,9 +49,9 @@ PM> Install-Package Sharpy.Core
 #### Dependencies ####
 * [.NET Standard 2.0](http://www.nuget.org/packages/NETStandard.Library)
 
-If want more information about the dependencies,
+If you want more information about the dependencies,
 visit the [NuGet page](http://www.nuget.org/packages/Sharpy.Core).
 
 ## What next? ##
-Check out examples [Here](./sharpy.examples.md).
+Check out examples [Here](./examples.md).
 
