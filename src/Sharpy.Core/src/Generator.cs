@@ -98,9 +98,8 @@ namespace Sharpy.Core {
         ///     equal to
         ///     argument <paramref name="min" />.
         /// </param>
-        /// <param name="seed">
-        ///     A number used to calculate a starting value for the pseudo-random number sequence. If a negative
-        ///     number is specified, the absolute value of the number is used.
+        /// <param name="random">
+        /// The <see cref="Random"/> used for randomizing.
         /// </param>
         /// <returns>
         ///     A <see cref="IGenerator{T}" /> who randomizes a <see cref="int" /> that is greater than or equal to argument
@@ -110,8 +109,8 @@ namespace Sharpy.Core {
         /// <example>
         ///     <code language="C#" region="RandomizerThreeArg" source="Examples\GeneratorFactory.cs" />
         /// </example>
-        public static IGenerator<int> Randomizer(int min, int max, int? seed = null) => max > min
-            ? Create(CreateRandom(seed)).Select(rnd => rnd.Next(min, max))
+        public static IGenerator<int> Randomizer(int min, int max, Random random = null) => max > min
+            ? Create(random ?? new Random()).Select(rnd => rnd.Next(min, max))
             : throw new ArgumentOutOfRangeException(nameof(max), @"max must be > min!");
 
         /// <summary>
@@ -127,21 +126,20 @@ namespace Sharpy.Core {
         ///     equal to
         ///     argument <paramref name="min" />.
         /// </param>
-        /// <param name="seed">
-        ///     A number used to calculate a starting value for the pseudo-random number sequence. If a negative
-        ///     number is specified, the absolute value of the number is used.
+        /// <param name="random">
+        /// The <see cref="Random"/> used for randomizing.
         /// </param>
         /// <returns>
         ///     A <see cref="IGenerator{T}" /> who randomizes a <see cref="long" /> that is greater than or equal to argument
         ///     <paramref name="min" /> and less than argument <paramref name="max" /> when invoking
         ///     <see cref="IGenerator{T}.Generate" />.
         /// </returns>
-        public static IGenerator<long> Randomizer(long min, long max, int? seed = null) {
+        public static IGenerator<long> Randomizer(long min, long max, Random random = null) {
             if (max <= min)
                 throw new ArgumentOutOfRangeException(nameof(max), @"max must be > min!");
             //Working with ulong so that modulo works correctly with values > long.MaxValue
             var uRange = (ulong) (max - min);
-            var random = CreateRandom(seed);
+            random = random ?? new Random();
             return Function(() => {
                 //Prevent a modulo bias; see http://stackoverflow.com/a/10984975/238419
                 //for more information.
@@ -157,13 +155,6 @@ namespace Sharpy.Core {
                 return (long) (ulongRand % uRange) + min;
             });
         }
-
-        /// <summary>
-        ///     <para>Creates <see cref="Random" /> with seed if it's not set to null.</para>
-        /// </summary>
-        private static Random CreateRandom(int? seed) => seed == null
-            ? new Random()
-            : new Random(seed.Value);
 
         /// <summary>
         ///     <para>
@@ -221,14 +212,18 @@ namespace Sharpy.Core {
         ///     .
         /// </summary>
         /// <typeparam name="T">The type of the arguments.</typeparam>
-        /// <param name="rnd">The randomizer.</param>
+        /// <param name="random">The randomizer.</param>
         /// <param name="items">The arguments.</param>
         /// <returns>
         ///     A <see cref="IGenerator{T}" /> whose generations is based on the argument <paramref name="items" />.
         /// </returns>
-        public static IGenerator<T> ListRandomizer<T>(IReadOnlyList<T> items, Random rnd = null) => items == null
-            ? throw new ArgumentNullException(nameof(items))
-            : Create(rnd ?? new Random()).Select(random => items[random.Next(items.Count)]);
+        public static IGenerator<T> ListRandomizer<T>(Random random, IReadOnlyList<T> items) {
+            return random != null
+                ? (items == null
+                    ? throw new ArgumentNullException(nameof(items))
+                    : Create(random).Select(r => items[r.Next(items.Count)]))
+                : throw new ArgumentNullException(nameof(random));
+        }
 
         /// <summary>
         ///     Creates a <see cref="IGenerator{T}" /> whose generations is a randomized element from the <paramref name="items" />
@@ -239,20 +234,45 @@ namespace Sharpy.Core {
         /// <returns>
         ///     A <see cref="IGenerator{T}" /> whose generations is based on the argument <paramref name="items" />.
         /// </returns>
-        public static IGenerator<T> ArgumentRandomizer<T>(params T[] items) => ArgumentRandomizer(null, items: items);
+        public static IGenerator<T> ListRandomizer<T>(IReadOnlyList<T> items) => ListRandomizer(new Random(), items);
 
         /// <summary>
-        ///     Creates a <see cref="IGenerator{T}" /> whose generations is a randomized element from the <paramref name="items" />
+        ///     Creates a <see cref="IGenerator{T}" /> whose generations is a randomized element from the
+        ///     <paramref name="additional" />
         ///     .
         /// </summary>
         /// <typeparam name="T">The type of the arguments.</typeparam>
-        /// <param name="rnd">The randomizer.</param>
-        /// <param name="items">The arguments.</param>
+        /// <param name="first">The first argument</param>
+        /// <param name="second">The second argument</param>
+        /// <param name="additional">Additional arguments.</param>
+        /// <param name="random">The randomizer.</param>
         /// <returns>
-        ///     A <see cref="IGenerator{T}" /> whose generations is based on the argument <paramref name="items" />.
+        ///     A <see cref="IGenerator{T}" /> whose generations is based on the argument <paramref name="additional" />.
         /// </returns>
-        public static IGenerator<T> ArgumentRandomizer<T>(Random rnd = null, params T[] items) => items != null
-            ? ListRandomizer(items, rnd)
-            : throw new ArgumentNullException(nameof(items));
+        public static IGenerator<T> ArgumentRandomizer<T>(Random random, T first, T second, params T[] additional) {
+            return Function(() => {
+                var res = random.Next(-2, additional.Length);
+                switch (res) {
+                    case -2: return first;
+                    case -1: return second;
+                    default: return additional[res];
+                }
+            });
+        }
+
+        /// <summary>
+        ///     Creates a <see cref="IGenerator{T}" /> whose generations is a randomized element from the
+        ///     <paramref name="additional" />
+        ///     .
+        /// </summary>
+        /// <typeparam name="T">The type of the arguments.</typeparam>
+        /// <param name="first">The first argument</param>
+        /// <param name="second">The second argument</param>
+        /// <param name="additional">Additional arguments.</param>
+        /// <returns>
+        ///     A <see cref="IGenerator{T}" /> whose generations is based on the argument <paramref name="additional" />.
+        /// </returns>
+        public static IGenerator<T> ArgumentRandomizer<T>(T first, T second, params T[] additional) =>
+            ArgumentRandomizer(new Random(), first, second, additional);
     }
 }
