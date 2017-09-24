@@ -7,7 +7,7 @@ namespace Sharpy.Implementation {
     /// <summary>
     ///     Randomizes Argument and Elements by <see cref="Random" />.
     /// </summary>
-    public class ListRandomizer : IReadListElementProvider {
+    public class ListRandomizer : IElementProvider {
         private readonly Random _random;
 
         /// <summary>
@@ -15,17 +15,18 @@ namespace Sharpy.Implementation {
         /// <param name="random"></param>
         public ListRandomizer(Random random) => _random = random ?? throw new ArgumentNullException(nameof(random));
 
-        /// <inheritdoc />
+        /// <summary>
+        ///     Returns a randomized element from the argument <paramref name="list" />.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     The type of the elements inside the  <paramref name="list" /> argument.
+        /// </typeparam>
+        /// <param name="list">
+        ///     The collection of elements.
+        /// </param>
+        /// <returns>
+        ///     One of the elements inside argument <paramref name="list" />.
+        /// </returns>
         public T Element<T>(IReadOnlyList<T> list) => list.RandomItem(_random);
-
-        /// <inheritdoc />
-        public T Argument<T>(T first, T second, params T[] additional) {
-            var res = _random.Next(-2, additional.Length);
-            switch (res) {
-                case -2: return first;
-                case -1: return second;
-                default: return additional[res];
-            }
-        }
     }
 }

@@ -1,24 +1,8 @@
-using System.Collections.Generic;
-
 namespace Sharpy.IProviders {
     /// <summary>
-    ///     Returns element <see cref="IReadOnlyList{T}" />.
+    ///     Returns elements from arguments.
     /// </summary>
-    public interface IReadListElementProvider {
-        /// <summary>
-        ///     Returns an element from the <paramref name="list" />.
-        /// </summary>
-        /// <typeparam name="T">
-        ///     The generic type of the elements in argument <paramref name="list" />.
-        /// </typeparam>
-        /// <param name="list">
-        ///     The <see cref="IReadOnlyList{T}" /> where an element will be taken.
-        /// </param>
-        /// <returns>
-        ///     An element from the provided <see cref="IReadOnlyList{T}" />.
-        /// </returns>
-        T Element<T>(IReadOnlyList<T> list);
-
+    public interface IArgumentProvider {
         /// <summary>
         ///     Returns one of the arguments.
         /// </summary>

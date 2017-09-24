@@ -12,12 +12,14 @@ namespace Sharpy {
     ///         Contains various methods for providing data .
     ///     </para>
     /// </summary>
-    public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, IReadListElementProvider,
+    public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, IElementProvider,
         IBoolProvider, IDateProvider, IEmailProvider, IPostalCodeProvider, ISecurityNumberProvider,
-        IPhoneNumberProvider, IUserNameProvider {
+        IPhoneNumberProvider, IUserNameProvider, IArgumentProvider {
+        private readonly IArgumentProvider _argumentProvider;
         private readonly IBoolProvider _boolProvider;
         private readonly IDateProvider _dateprovider;
         private readonly IDoubleProvider _doubleProvider;
+        private readonly IElementProvider _elementProvider;
         private readonly IEmailProvider _emailProvider;
         private readonly IIntegerProvider _integerProvider;
 
@@ -25,7 +27,6 @@ namespace Sharpy {
         private readonly INameProvider _nameProvider;
         private readonly IPhoneNumberProvider _phoneNumberProvider;
         private readonly IPostalCodeProvider _postalCodeProvider;
-        private readonly IReadListElementProvider _readListElementProvider;
         private readonly ISecurityNumberProvider _securityNumberProvider;
         private readonly IUserNameProvider _userNameProvider;
 
@@ -52,8 +53,8 @@ namespace Sharpy {
                              throw new ArgumentNullException(nameof(configurement.MailProvider));
             _securityNumberProvider = configurement.SecurityNumberProvider ??
                                       throw new ArgumentNullException(nameof(configurement.SecurityNumberProvider));
-            _readListElementProvider = configurement.ListElementPicker ??
-                                       throw new ArgumentNullException(nameof(configurement.ListElementPicker));
+            _elementProvider = configurement.ListElementPicker ??
+                               throw new ArgumentNullException(nameof(configurement.ListElementPicker));
             _boolProvider = configurement.BoolProvider ??
                             throw new ArgumentNullException(nameof(configurement.BoolProvider));
             _postalCodeProvider = configurement.PostalCodeProvider ??
@@ -62,6 +63,8 @@ namespace Sharpy {
                                    throw new ArgumentNullException(nameof(configurement.PhoneNumberProvider));
             _userNameProvider = configurement.UserNameProvider ??
                                 throw new ArgumentNullException(nameof(configurement.UserNameProvider));
+            _argumentProvider = configurement.ArgumentProvider ??
+                                throw new ArgumentNullException(nameof(configurement.ArgumentProvider));
         }
 
         /// <inheritdoc />
@@ -69,6 +72,10 @@ namespace Sharpy {
 
         /// <inheritdoc />
         public Builder() : this(new Configurement()) { }
+
+        /// <inheritdoc />
+        public T Argument<T>(T first, T second, params T[] additional) =>
+            _argumentProvider.Argument(first, second, additional);
 
         /// <inheritdoc />
         public bool Bool() => _boolProvider.Bool();
@@ -87,6 +94,9 @@ namespace Sharpy {
 
         /// <inheritdoc />
         public double Double(double min, double max) => _doubleProvider.Double(min, max);
+
+        /// <inheritdoc />
+        public T Element<T>(IReadOnlyList<T> list) => _elementProvider.Element(list);
 
         /// <inheritdoc />
         public string Mail(params string[] names) => _emailProvider.Mail(names);
@@ -132,13 +142,6 @@ namespace Sharpy {
 
         /// <inheritdoc />
         public string PostalCode(string county) => _postalCodeProvider.PostalCode(county);
-
-        /// <inheritdoc />
-        public T Element<T>(IReadOnlyList<T> list) => _readListElementProvider.Element(list);
-
-        /// <inheritdoc />
-        public T Argument<T>(T first, T second, params T[] additional) =>
-            _readListElementProvider.Argument(first, second, additional);
 
         /// <inheritdoc />
         public string SecurityNumber(DateTime date) =>
