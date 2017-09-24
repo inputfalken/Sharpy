@@ -98,7 +98,6 @@ function Delete-Package ([string] $package, [string] $source = 'https://www.nuge
 
 function Start-Deployment ([bool] $preRelease, [string] $suffix = 'alpha') {
   [string] $name = $project.SubString(0, $project.Length - 7).split('\\') | select -last 1
-  [string] $suffix = 'alpha'
   [version] $onlineVersion = Fetch-OnlineVersion 'https://nuget.org/api/v2/' $name $preRelease
   [version] $localVersion = Get-LocalVersion $project
 
