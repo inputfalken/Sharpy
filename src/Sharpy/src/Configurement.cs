@@ -13,7 +13,7 @@ namespace Sharpy {
     public class Configurement {
         /// <summary>
         ///     <para>
-        ///         Creates a <see cref="Configurement"/> with default implementations.
+        ///         Creates a <see cref="Configurement" /> with default implementations.
         ///     </para>
         ///     <para>
         ///         Argument <paramref name="random" /> is used by the default implementations.
@@ -37,11 +37,12 @@ namespace Sharpy {
             );
             ListElementPicker = new ListRandomizer(Random);
             BoolProvider = new BoolRandomizer(Random);
+            ArgumentProvider = new ArgumentRandomizer(Random);
         }
 
         /// <summary>
         ///     <para>
-        ///         Creates a <see cref="Configurement"/> with default implementations.
+        ///         Creates a <see cref="Configurement" /> with default implementations.
         ///     </para>
         ///     <para>
         ///         The seed supplied will be used to instantiate a <see cref="Random" /> for the default implementations.
@@ -52,10 +53,22 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Creates a <see cref="Configurement"/> with default implementations.
+        ///         Creates a <see cref="Configurement" /> with default implementations.
         ///     </para>
         /// </summary>
         public Configurement() : this(new Random()) { }
+
+        /// <summary>
+        ///     <para>
+        ///         Gets and sets the implementation for <see cref="IArgumentProvider" />.
+        ///     </para>
+        ///     <remarks>
+        ///         <para>
+        ///             By default it is <see cref="ArgumentRandomizer" />.
+        ///         </para>
+        ///     </remarks>
+        /// </summary>
+        public IArgumentProvider ArgumentProvider { get; set; }
 
         /// <summary>
         ///     <para>
@@ -121,13 +134,13 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Gets and sets the implementation for <see cref="IReadListElementProvider" />.
+        ///         Gets and sets the implementation for <see cref="IElementProvider" />.
         ///     </para>
         ///     <para>
         ///         By default it is <see cref="ListRandomizer" />.
         ///     </para>
         /// </summary>
-        public IReadListElementProvider ListElementPicker { get; set; }
+        public IElementProvider ListElementPicker { get; set; }
 
         /// <summary>
         ///     <para>
@@ -181,7 +194,7 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Gets the <see cref="System.Random"/> for the default implementations of <see cref="Builder" />.
+        ///         Gets the <see cref="System.Random" /> for the default implementations of <see cref="Builder" />.
         ///     </para>
         /// </summary>
         public Random Random { get; }

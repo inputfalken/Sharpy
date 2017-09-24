@@ -56,5 +56,9 @@ namespace Tests.Sharpy.Integration {
         [Test]
         public void Null_UsernameProvider_Throws() =>
             Throws<ArgumentNullException>(() => new Builder(new Configurement {UserNameProvider = null}));
+
+        [Test]
+        public void Null_ArgumentProvider_Throws() =>
+            Throws<ArgumentNullException>(() => new Builder(new Configurement {ArgumentProvider = null}));
     }
 }
