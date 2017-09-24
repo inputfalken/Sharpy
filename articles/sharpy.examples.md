@@ -3,6 +3,7 @@
 ## Sharpy ##
 
 * [Generating](./Sharpy.Examples/generating.md)
+* [Configuring](./Sharpy.Examples/configuring.md)
 
 ## Sharpy.Core ##
 
