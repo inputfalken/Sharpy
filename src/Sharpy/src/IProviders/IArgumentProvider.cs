@@ -19,7 +19,7 @@ namespace Sharpy.IProviders {
         ///     The additional arguments.
         /// </param>
         /// <returns>
-        ///     An from the <paramref name="additional" />.
+        ///     One of the elements from the arguments.
         /// </returns>
         T Argument<T>(T first, T second, params T[] additional);
     }
