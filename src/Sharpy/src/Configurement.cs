@@ -62,11 +62,9 @@ namespace Sharpy {
         ///     <para>
         ///         Gets and sets the implementation for <see cref="IArgumentProvider" />.
         ///     </para>
-        ///     <remarks>
-        ///         <para>
-        ///             By default it is <see cref="ArgumentRandomizer" />.
-        ///         </para>
-        ///     </remarks>
+        ///     <para>
+        ///         By default it is <see cref="ArgumentRandomizer" />.
+        ///     </para>
         /// </summary>
         public IArgumentProvider ArgumentProvider { get; set; }
 
@@ -74,11 +72,9 @@ namespace Sharpy {
         ///     <para>
         ///         Gets and sets the implementation for <see cref="ISecurityNumberProvider" />.
         ///     </para>
-        ///     <remarks>
-        ///         <para>
-        ///             By default it is <see cref="UniqueSecurityNumberBuilder" />.
-        ///         </para>
-        ///     </remarks>
+        ///     <para>
+        ///         By default it is <see cref="UniqueSecurityNumberBuilder" />.
+        ///     </para>
         /// </summary>
         public ISecurityNumberProvider SecurityNumberProvider { get; set; }
 
@@ -176,10 +172,10 @@ namespace Sharpy {
         ///     <para>
         ///         Gets and sets the implementation for <see cref="IIntegerProvider" />.
         ///     </para>
+        ///     <para>
+        ///         By Default it is <see cref="IntRandomizer" />.
+        ///     </para>
         /// </summary>
-        /// <para>
-        ///     By Default it is <see cref="IntRandomizer" />.
-        /// </para>
         public IIntegerProvider IntegerProvider { get; set; }
 
         /// <summary>
