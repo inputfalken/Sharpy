@@ -121,13 +121,13 @@ namespace Sharpy {
 
         /// <summary>
         ///     <para>
-        ///         Gets and sets the implementation for <see cref="IReadListElementProvider" />.
+        ///         Gets and sets the implementation for <see cref="IElementProvider" />.
         ///     </para>
         ///     <para>
         ///         By default it is <see cref="ListRandomizer" />.
         ///     </para>
         /// </summary>
-        public IReadListElementProvider ListElementPicker { get; set; }
+        public IElementProvider ListElementPicker { get; set; }
 
         /// <summary>
         ///     <para>

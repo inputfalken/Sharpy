@@ -12,7 +12,7 @@ namespace Sharpy {
     ///         Contains various methods for providing data .
     ///     </para>
     /// </summary>
-    public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, IReadListElementProvider,
+    public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, IElementProvider,
         IBoolProvider, IDateProvider, IEmailProvider, IPostalCodeProvider, ISecurityNumberProvider,
         IPhoneNumberProvider, IUserNameProvider {
         private readonly IBoolProvider _boolProvider;
@@ -25,7 +25,7 @@ namespace Sharpy {
         private readonly INameProvider _nameProvider;
         private readonly IPhoneNumberProvider _phoneNumberProvider;
         private readonly IPostalCodeProvider _postalCodeProvider;
-        private readonly IReadListElementProvider _readListElementProvider;
+        private readonly IElementProvider _elementProvider;
         private readonly ISecurityNumberProvider _securityNumberProvider;
         private readonly IUserNameProvider _userNameProvider;
 
@@ -52,7 +52,7 @@ namespace Sharpy {
                              throw new ArgumentNullException(nameof(configurement.MailProvider));
             _securityNumberProvider = configurement.SecurityNumberProvider ??
                                       throw new ArgumentNullException(nameof(configurement.SecurityNumberProvider));
-            _readListElementProvider = configurement.ListElementPicker ??
+            _elementProvider = configurement.ListElementPicker ??
                                        throw new ArgumentNullException(nameof(configurement.ListElementPicker));
             _boolProvider = configurement.BoolProvider ??
                             throw new ArgumentNullException(nameof(configurement.BoolProvider));
@@ -134,11 +134,11 @@ namespace Sharpy {
         public string PostalCode(string county) => _postalCodeProvider.PostalCode(county);
 
         /// <inheritdoc />
-        public T Element<T>(IReadOnlyList<T> list) => _readListElementProvider.Element(list);
+        public T Element<T>(IReadOnlyList<T> list) => _elementProvider.Element(list);
 
         /// <inheritdoc />
         public T Argument<T>(T first, T second, params T[] additional) =>
-            _readListElementProvider.Argument(first, second, additional);
+            _elementProvider.Argument(first, second, additional);
 
         /// <inheritdoc />
         public string SecurityNumber(DateTime date) =>
