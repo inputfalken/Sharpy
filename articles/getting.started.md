@@ -53,7 +53,5 @@ If want more information about the dependencies,
 visit the [NuGet page](http://www.nuget.org/packages/Sharpy.Core).
 
 ## What next? ##
-Check out examples using [Sharpy](./sharpy.examples.md).
-
-Or [Sharpy.Core](./sharpy.core.examples.md).
+Check out examples [Here](./sharpy.examples.md).
 
