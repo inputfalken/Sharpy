@@ -3,11 +3,18 @@ using Sharpy.Implementation.ExtensionMethods;
 using Sharpy.IProviders;
 
 namespace Sharpy.Implementation {
+    /// <summary>
+    ///     Randomizes unique <see cref="string" /> representing phone numbers by <see cref="Random" />.
+    /// </summary>
     public class UniquePhoneNumberRandomizer : UniqueRandomizer<int>, IPhoneNumberProvider {
         private (int, int) _numberByLengthState = (0, 0);
 
+        /// <summary>
+        /// Creates a <see cref="UniquePhoneNumberRandomizer"/>.
+        /// </summary>
         public UniquePhoneNumberRandomizer(Random random) : base(random) { }
 
+        /// <inheritdoc />
         public string PhoneNumber() => PhoneNumber(8);
 
         /// <summary>
