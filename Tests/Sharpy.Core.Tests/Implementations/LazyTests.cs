@@ -28,7 +28,6 @@ namespace Tests.Sharpy.Core.Tests.Implementations {
             Assert.IsTrue(invoked);
         }
 
-
         [Test(
             Description = "Verify that null argument to Lazy throw exceptions"
         )]

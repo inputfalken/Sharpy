@@ -6,7 +6,12 @@ namespace Tests.Sharpy.Tests.Integration {
     [TestFixture]
     public class ConfigurementTests {
         [Test]
-        public void Default_Configurement_Does_Not_Throw() => Assert.DoesNotThrow(() => new Builder(new Configurement()));
+        public void Default_Configurement_Does_Not_Throw() =>
+            Assert.DoesNotThrow(() => new Builder(new Configurement()));
+
+        [Test]
+        public void Null_ArgumentProvider_Throws() =>
+            Assert.Throws<ArgumentNullException>(() => new Builder(new Configurement {ArgumentProvider = null}));
 
         [Test]
         public void Null_BoolProvider_Throws() =>
@@ -55,9 +60,5 @@ namespace Tests.Sharpy.Tests.Integration {
         [Test]
         public void Null_UsernameProvider_Throws() =>
             Assert.Throws<ArgumentNullException>(() => new Builder(new Configurement {UserNameProvider = null}));
-
-        [Test]
-        public void Null_ArgumentProvider_Throws() =>
-            Assert.Throws<ArgumentNullException>(() => new Builder(new Configurement {ArgumentProvider = null}));
     }
 }
