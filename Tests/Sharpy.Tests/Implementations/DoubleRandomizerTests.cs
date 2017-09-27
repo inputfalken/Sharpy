@@ -5,14 +5,16 @@ using Sharpy.Implementation;
 namespace Tests.Sharpy.Tests.Integration {
     [TestFixture]
     public class DoubleRandomizerTests {
-        [Test, Repeat(100)]
+        [Test]
+        [Repeat(100)]
         public void No_Arguments() {
             var doubleRandomizer = new DoubleRandomizer(new Random());
             var result = doubleRandomizer.Double();
             Assert.IsTrue(result < 1 && result > 0);
         }
 
-        [Test, Repeat(100)]
+        [Test]
+        [Repeat(100)]
         public void One_Arg() {
             const double max = 11.2;
             var doubleRandomizer = new DoubleRandomizer(new Random());
@@ -35,14 +37,6 @@ namespace Tests.Sharpy.Tests.Integration {
         }
 
         [Test]
-        public void Two_Args_Same_Value_Throws() {
-            const double min = 11.2;
-            const double max = 11.2;
-            var doubleRandomizer = new DoubleRandomizer(new Random());
-            Assert.Throws<ArgumentOutOfRangeException>(() => doubleRandomizer.Double(min, max));
-        }
-
-        [Test]
         public void Two_Args_Min_More_Than_Max_Throws() {
             const double min = 11.2;
             const double max = 10.4;
@@ -50,13 +44,22 @@ namespace Tests.Sharpy.Tests.Integration {
             Assert.Throws<ArgumentOutOfRangeException>(() => doubleRandomizer.Double(min, max));
         }
 
-        [Test, Repeat(100)]
+        [Test]
+        [Repeat(100)]
         public void Two_Args_Minus_Eleven_Point_Two_And_Minus_Ten_Point_Four() {
             const double min = -11.4;
             const double max = -10.2;
             var doubleRandomizer = new DoubleRandomizer(new Random());
             var result = doubleRandomizer.Double(min, max);
             Assert.IsTrue(result > min && result < max);
+        }
+
+        [Test]
+        public void Two_Args_Same_Value_Throws() {
+            const double min = 11.2;
+            const double max = 11.2;
+            var doubleRandomizer = new DoubleRandomizer(new Random());
+            Assert.Throws<ArgumentOutOfRangeException>(() => doubleRandomizer.Double(min, max));
         }
 
         [Test]

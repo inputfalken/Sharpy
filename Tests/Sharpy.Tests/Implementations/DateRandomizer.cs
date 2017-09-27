@@ -19,7 +19,8 @@ namespace Tests.Sharpy.Tests.Integration {
             Assert.AreEqual(DateTime.Now.Year - age, dateByAge.Year);
         }
 
-        [Test, Repeat(100)]
+        [Test]
+        [Repeat(100)]
         public void Date_By_Age_Arg_Zero() {
             const int age = 0;
             var dateRandomizer = new DateRandomizer(new Random());
@@ -29,7 +30,8 @@ namespace Tests.Sharpy.Tests.Integration {
             Assert.IsTrue(DateRandomizer.CurrentLocalDate > dateByAge);
         }
 
-        [Test, Repeat(100)]
+        [Test]
+        [Repeat(100)]
         public void Date_By_Year_Arg_Current_Year() {
             var year = DateTime.Now.Year;
             var dateRandomizer = new DateRandomizer(new Random());
