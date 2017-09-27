@@ -107,7 +107,12 @@ namespace Sharpy.Core {
         ///     <see cref="IGenerator{T}.Generate" />.
         /// </returns>
         /// <example>
-        ///     <code language="C#" region="RandomizerThreeArg" source="Examples\GeneratorFactory.cs" />
+        ///     <para>
+        ///         Here's an example of creating a <see cref="IGenerator{T}"/> which randomizes between 0 and 100.
+        ///     </para>
+        ///     <code language="c#">
+        ///         IGenerator&lt;int&gt; = Generator.Randomizer(0, 100);
+        ///     </code>
         /// </example>
         public static IGenerator<int> Randomizer(int min, int max, Random random = null) => max > min
             ? Create(random ?? new Random()).Select(rnd => rnd.Next(min, max))
@@ -134,6 +139,14 @@ namespace Sharpy.Core {
         ///     <paramref name="min" /> and less than argument <paramref name="max" /> when invoking
         ///     <see cref="IGenerator{T}.Generate" />.
         /// </returns>
+        /// <example>
+        ///     <para>
+        ///         Here's an example of creating a <see cref="IGenerator{T}"/> which randomizes <see cref="long.MinValue"/> and <see cref="long.MaxValue"/>
+        ///     </para>
+        ///     <code language="c#">
+        ///         IGenerator&lt;int&gt; = Generator.Randomizer(long.MinValue, long.MaxValue);
+        ///     </code>
+        /// </example>
         public static IGenerator<long> Randomizer(long min, long max, Random random = null) {
             if (max <= min)
                 throw new ArgumentOutOfRangeException(nameof(max), @"max must be > min!");
@@ -166,9 +179,6 @@ namespace Sharpy.Core {
         ///     A <see cref="IGenerator{T}" /> where each invocation of <see cref="IGenerator{T}.Generate" /> will
         ///     return a new <see cref="System.Guid" />.
         /// </returns>
-        /// <example>
-        ///     <code language="C#" region="Guid" source="Examples\GeneratorFactory.cs" />
-        /// </example>
         public static IGenerator<Guid> Guid() => Function(System.Guid.NewGuid);
 
         /// <summary>
@@ -185,7 +195,12 @@ namespace Sharpy.Core {
         ///     <see cref="int" /> which is incremented by 1 for each invocation of <see cref="IGenerator{T}.Generate" />.
         /// </returns>
         /// <example>
-        ///     <code language="C#" region="Incrementer" source="Examples\GeneratorFactory.cs" />
+        ///     <para>
+        ///         Here's an example of creating a <see cref="IGenerator{T}"/> which inclusively increments from 20.
+        ///     </para>
+        ///     <code language="c#">
+        ///         IGenerator&lt;int&gt; = Generator.Incrementer(20);
+        ///     </code>
         /// </example>
         public static IGenerator<int> Incrementer(int start) => Function(() => checked(start++));
 
@@ -203,7 +218,12 @@ namespace Sharpy.Core {
         ///     <see cref="int" /> which is decremented by 1 for each invocation of <see cref="IGenerator{T}.Generate" />.
         /// </returns>
         /// <example>
-        ///     <code language="C#" region="Decrementer" source="Examples\GeneratorFactory.cs" />
+        ///     <para>
+        ///         Here's an example of creating a <see cref="IGenerator{T}"/> which inclusively decrements from 20.
+        ///     </para>
+        ///     <code language="c#">
+        ///         IGenerator&lt;int&gt; = Generator.Incrementer(20);
+        ///     </code>
         /// </example>
         public static IGenerator<int> Decrementer(int start) => Function(() => checked(start--));
 
