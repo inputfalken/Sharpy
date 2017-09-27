@@ -9,8 +9,7 @@ using Sharpy.IProviders;
 namespace Sharpy.Implementation {
     /// <summary>
     ///     <para>
-    ///         Randomizes common names by <see cref="Random" />.
-    ///         With the option to filter the names by <see cref="Enums.Origin" />.
+    ///         Randomizes <see cref="string" /> elements representing names by using <see cref="Random" />.
     ///     </para>
     /// </summary>
     public class NameByOrigin : INameProvider {

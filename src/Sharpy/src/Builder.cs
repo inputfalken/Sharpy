@@ -9,7 +9,7 @@ using static Sharpy.Core.Generator;
 namespace Sharpy {
     /// <summary>
     ///     <para>
-    ///         Contains various methods for providing data .
+    ///         Contains various methods for providing data.
     ///     </para>
     /// </summary>
     public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, IElementProvider,

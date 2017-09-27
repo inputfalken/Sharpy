@@ -3,12 +3,16 @@ using Sharpy.IProviders;
 
 namespace Sharpy.Implementation {
     /// <summary>
-    ///     Randomizes <see cref="DateTime" /> with <see cref="Random" />.
+    ///     Randomizes <see cref="DateTime" /> elements by using <see cref="Random" />.
     /// </summary>
     public sealed class DateRandomizer : IDateProvider {
         private readonly Random _random;
 
-        internal DateRandomizer(Random random) => _random = random;
+        /// <summary>
+        ///     Creates <see cref="DateRandomizer" />.
+        /// </summary>
+        /// <param name="random"></param>
+        public DateRandomizer(Random random) => _random = random;
 
         /// <summary>
         ///     Is used for getting the current time.

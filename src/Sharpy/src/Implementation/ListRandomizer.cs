@@ -5,14 +5,14 @@ using Sharpy.IProviders;
 
 namespace Sharpy.Implementation {
     /// <summary>
-    ///     Randomizes Argument and Elements by <see cref="Random" />.
+    ///     Randomizes <see cref="IReadOnlyList{T}" /> elements by using <see cref="Random" />.
     /// </summary>
     public class ListRandomizer : IElementProvider {
         private readonly Random _random;
 
         /// <summary>
+        ///     Creates a <see cref="ListRandomizer" />.
         /// </summary>
-        /// <param name="random"></param>
         public ListRandomizer(Random random) => _random = random ?? throw new ArgumentNullException(nameof(random));
 
         /// <summary>

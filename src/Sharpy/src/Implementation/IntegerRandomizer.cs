@@ -4,18 +4,15 @@ using Sharpy.IProviders;
 namespace Sharpy.Implementation {
     /// <summary>
     ///     <para>
-    ///         Randomizes <see cref="int" /> by <see cref="Random" />.
+    ///         Randomizes <see cref="int" /> elements by using <see cref="Random" />.
     ///     </para>
     /// </summary>
     public class IntRandomizer : IIntegerProvider {
         private readonly Random _random;
 
         /// <summary>
-        ///     <para>
-        ///         Randomizes integers using argument <paramref name="random" />.
-        ///     </para>
+        ///     Creates a <see cref="IntRandomizer" />.
         /// </summary>
-        /// <param name="random"></param>
         public IntRandomizer(Random random) => _random = random;
 
         /// <inheritdoc />

@@ -3,15 +3,14 @@ using Sharpy.IProviders;
 
 namespace Sharpy.Implementation {
     /// <summary>
-    ///     Randomizes <see cref="long" /> by <see cref="Random" />.
+    ///     Randomizes <see cref="long" /> elements by using <see cref="Random" />.
     /// </summary>
     public class LongRandomizer : ILongProvider {
         private readonly Random _random;
 
         /// <summary>
-        ///     <para>Randomizes longs with the random supplied.</para>
+        ///     Creates a <see cref="LongRandomizer" />.
         /// </summary>
-        /// <param name="random"></param>
         public LongRandomizer(Random random) => _random = random;
 
         /// <inheritdoc />

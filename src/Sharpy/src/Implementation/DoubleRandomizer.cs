@@ -3,21 +3,14 @@ using Sharpy.IProviders;
 
 namespace Sharpy.Implementation {
     /// <summary>
-    ///     <para>
-    ///         Randomizes <see cref="double" /> by <see cref="Random" />.
-    ///     </para>
+    ///     Randomizes <see cref="double" /> elements by using <see cref="Random" />.
     /// </summary>
     public class DoubleRandomizer : IDoubleProvider {
         private readonly Random _random;
 
         /// <summary>
-        ///     <para>
-        ///         Randomizes doubles with the <see cref="Random" /> supplied.
-        ///     </para>
+        ///     Creates a <see cref="DoubleRandomizer" />.
         /// </summary>
-        /// <param name="random">
-        ///     The randomizer.
-        /// </param>
         public DoubleRandomizer(Random random) => _random = random;
 
         /// <inheritdoc />
