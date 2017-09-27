@@ -8,9 +8,8 @@ namespace Sharpy.Implementation {
     /// </summary>
     public class UniqueSecurityNumberBuilder : UniqueRandomizer<long> {
         /// <summary>
-        ///     TODO
+        ///     Creates a <see cref="UniqueSecurityBuilder" />.
         /// </summary>
-        /// <param name="random"></param>
         protected UniqueSecurityNumberBuilder(Random random) : base(random) { }
 
         private long SecurityNumber(string dateNumber) {
@@ -33,9 +32,14 @@ namespace Sharpy.Implementation {
         }
 
         /// <summary>
+        ///     Randomizes a unique <see cref="string" /> representing a security number.
         /// </summary>
-        /// <param name="date"></param>
-        /// <param name="formated"></param>
+        /// <param name="date">
+        ///     The date for the security number.
+        /// </param>
+        /// <param name="formated">
+        ///     If the security number should have a dash at the sixth index.
+        /// </param>
         /// <returns></returns>
         protected string SecurityNumber(DateTime date, bool formated) {
             var result = SecurityNumber(FormatDigit(date.Year % 100)
@@ -48,8 +52,11 @@ namespace Sharpy.Implementation {
         }
 
         /// <summary>
+        /// Randomizes a <see cref="DateTime"/>.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// A randomized <see cref="DateTime"/>.
+        /// </returns>
         protected DateTime RandomizeDate() {
             var dateTime = DateTime.Now;
             var year = Random.Next(1900, dateTime.Year);
