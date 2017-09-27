@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Sharpy.Core;
 
-namespace Tests.GeneratorAPI.Implementations {
+namespace Tests.Sharpy.Core.Tests.Implementations {
     [TestFixture]
     internal class GuidTests {
         [Test(
