@@ -5,7 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Sharpy\Unit\" />
+    <Compile Remove="Sharpy.Tests\Unit\**" />
+    <EmbeddedResource Remove="Sharpy.Tests\Unit\**" />
+    <None Remove="Sharpy.Tests\Unit\**" />
   </ItemGroup>
 
   <ItemGroup>

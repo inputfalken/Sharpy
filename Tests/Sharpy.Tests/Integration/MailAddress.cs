@@ -7,7 +7,7 @@ using Sharpy.Core;
 using Sharpy.Core.Linq;
 using Sharpy.Implementation;
 
-namespace Tests.Sharpy.Integration {
+namespace Tests.Sharpy.Tests.Integration {
     [TestFixture]
     public class MailAddress {
         private const string MailUserName = "mailUserName";

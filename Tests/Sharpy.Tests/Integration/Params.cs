@@ -4,7 +4,7 @@ using Sharpy;
 using Sharpy.Core;
 using Sharpy.Core.Linq;
 
-namespace Tests.Sharpy.Integration {
+namespace Tests.Sharpy.Tests.Integration {
     [TestFixture]
     public class Params {
         [Test]
