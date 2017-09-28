@@ -3,7 +3,6 @@ The [Configurement](xref:Sharpy.Configurement) class contains interface properti
 The following example demonstrates how you could configure the [Builder](xref:Sharpy.Builder).
 
 ## Configuring NameProvider ##
-
 ```csharp
 using Sharpy.Core;
 using Sharpy.Enums;
@@ -18,7 +17,8 @@ namespace Example
         {
             Configurement config = new Configurement
             {
-                // The builder's FirstName & LastName methods will only return common names from the United States.
+                // The builder's FirstName & LastName -
+                // methods will only return common names from the United States.
                 NameProvider = new NameByOrigin(Origin.UnitedStates)
             };
 
@@ -30,6 +30,37 @@ namespace Example
 }
 
 ```
+
+## Configuring IntegerProvider ##
+```csharp
+using Sharpy.Core;
+using Sharpy.Enums;
+using Sharpy;
+using System.Generic.Collections;
+using System;
+namespace Example
+{
+    class Program
+    {
+        public static void Main (string[] args)
+        {
+            const int seed = 100;
+            Configurement config = new Configurement
+            {
+                // The builder's Integer methods will now -
+                // randomize with the seed provided.
+                IntegerProvider = new IntRandomizer(new Random(seed))
+            };
+
+            IEnumerable<string> names = Builder
+            .AsGenerator(new Builder(config), builder => builder.FirstName(Gender.Female))
+            .Take(30);
+        }
+    }
+}
+
+```
+
 This example use the following methods:
 * [AsGenerator](xref:Sharpy.Builder.AsGenerator``1(System.Func{Sharpy.Builder,``0}))
 * [FirstName](xref:Sharpy.Builder.FirstName(Gender))
