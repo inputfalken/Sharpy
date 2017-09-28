@@ -22,7 +22,7 @@ function Pack ([string] $project, [bool] $preRelease, [string] $suffix) {
   if (!$?) {
     throw "$project could not be packed by command 'dotnet pack'."
   }
-  return [System.IO.FileSystemInfo] (Get-ChildItem *.nupkg | select -First 1)
+  return [System.IO.FileSystemInfo] (Get-ChildItem *.nupkg | Select-Object -First 1)
 }
 # Deploy package to NuGet.
 function Deploy ([string] $package) {
@@ -32,7 +32,7 @@ function Deploy ([string] $package) {
   }
 }
 # Fetch the online version
-function Fetch-OnlineVersion ([string] $listSource, [string] $projectName, [bool] $preRelease) {
+function Get-OnlineVersion ([string] $listSource, [string] $projectName, [bool] $preRelease) {
   Write-Host "Fetching NuGet Package '$projectName' from $listSource" -ForegroundColor Yellow
   # Use alpha version if the current branch is development.
   if ($preRelease) {
@@ -43,10 +43,10 @@ function Fetch-OnlineVersion ([string] $listSource, [string] $projectName, [bool
 
   Write-Host "Found package '$packageName'." -ForegroundColor Green
   # $packageName comes in format: "packageName 1.0.0" and can contain multiple strings!.
-  $version = (($packageName | select -First 1).Split(" ") | Select-Object -Last 1)
+  $version = (($packageName | Select-Object -First 1).Split(" ") | Select-Object -Last 1)
   # In alpha version the version also includes the string "version-alpha" where version is the semver.
   if ($preRelease) {
-    $version = ($version | select -Last 1).Split("-") | select -First 1
+    $version = ($version | Select-Object -Last 1).Split("-") | Select-Object -First 1
   }
   # A hack to get set the revision property to zero.
   $version = "$version.0"
@@ -54,7 +54,7 @@ function Fetch-OnlineVersion ([string] $listSource, [string] $projectName, [bool
 }
 # Gets the local csproj version from the tag 'VersionPrefix'
 function Get-LocalVersion ([string] $project) {
-  [string] $versionNodeValue = ((Select-Xml -Path $project -XPath '//VersionPrefix') | select -ExpandProperty node).InnerText
+  [string] $versionNodeValue = ((Select-Xml -Path $project -XPath '//VersionPrefix') | Select-Object -ExpandProperty node).InnerText
   $version = "$versionNodeValue.0"
   return [version] $version
 }
@@ -82,7 +82,7 @@ function Update-GHPages {
   git clean -fxd
 }
 # Deletes the last package
-function Delete-Package ([string] $package, [string] $source = 'https://www.nuget.org/api/v2/package') {
+function Hide-OnlinePackage ([string] $package, [string] $source = 'https://www.nuget.org/api/v2/package') {
   # Splits the string into [name, version & suffix].
   $sections = $package.Split('-')
   $packageName = $sections[0]
@@ -97,8 +97,8 @@ function Delete-Package ([string] $package, [string] $source = 'https://www.nuge
 }
 
 function Start-Deployment ([bool] $preRelease, [string] $suffix = 'alpha') {
-  [string] $name = $project.SubString(0, $project.Length - 7).split('\\') | select -last 1
-  [version] $onlineVersion = Fetch-OnlineVersion 'https://nuget.org/api/v2/' $name $preRelease
+  [string] $name = $project.SubString(0, $project.Length - 7).split('\\') | Select-Object -last 1
+  [version] $onlineVersion = Get-OnlineVersion 'https://nuget.org/api/v2/' $name $preRelease
   [version] $localVersion = Get-LocalVersion $project
 
   Write-Host "Comparing Local $name version '$localVersion' with online $name version '$onlineVersion'" -ForegroundColor Yellow
@@ -108,10 +108,14 @@ function Start-Deployment ([bool] $preRelease, [string] $suffix = 'alpha') {
       $nupkg = Pack $project $preRelease $suffix
       Deploy $nupkg.Name
       if ($deletePackage) {
-        if ($preRelease) {
-          Delete-Package "$($name)-$($onlineVersion)-$suffix"
-        } else {
-          Delete-Package "$($name)-$($onlineVersion)"
+        if ($localVersion.Revision -gt $onlineVersion.Revision) {
+          if ($preRelease) {
+            # Hides the previous alpha package
+            Hide-OnlinePackage "$($name)-$($onlineVersion)-$suffix"
+          } else {
+            # Hides the previous package
+            Hide-OnlinePackage "$($name)-$($onlineVersion)"
+          }
         }
       }
     }
