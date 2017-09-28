@@ -4,7 +4,7 @@ using NUnit.Framework;
 using Sharpy.Core;
 using Sharpy.Core.Linq;
 
-namespace Tests.GeneratorAPI.Implementations {
+namespace Tests.Sharpy.Core.Tests.Implementations {
     [TestFixture]
     internal class RandomizerTests {
         [Test]

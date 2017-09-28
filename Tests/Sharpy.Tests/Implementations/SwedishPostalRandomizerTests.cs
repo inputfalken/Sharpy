@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Sharpy.Implementation;
 
-namespace Tests.Sharpy.Integration {
+namespace Tests.Sharpy.Tests.Integration {
     [TestFixture]
     public class SwedishPostalRandomizerTests {
         [Test]

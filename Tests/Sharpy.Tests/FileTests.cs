@@ -4,7 +4,7 @@ using NUnit.Framework;
 using Sharpy;
 using Sharpy.Implementation.DataObjects;
 
-namespace Tests.Sharpy {
+namespace Tests.Sharpy.Tests {
     [TestFixture]
     internal class FileTests {
         private static readonly IEnumerable<Name> GetNames = Data.GetNames;

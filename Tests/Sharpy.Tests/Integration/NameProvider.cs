@@ -7,7 +7,7 @@ using Sharpy.Core.Linq;
 using Sharpy.Enums;
 using Sharpy.Implementation;
 
-namespace Tests.Sharpy.Integration {
+namespace Tests.Sharpy.Tests.Integration {
     [TestFixture]
     public class NameProvider {
         private const int Count = 100;
