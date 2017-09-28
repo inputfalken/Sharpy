@@ -2,7 +2,7 @@
 using NUnit.Framework.Internal;
 using Sharpy.Core;
 
-namespace Tests.GeneratorAPI {
+namespace Tests.Sharpy.Core.Tests {
     [TestFixture]
     internal class GeneratorTests {
         [SetUp]

@@ -7,7 +7,7 @@ using Sharpy.Core.Linq;
 using Sharpy.Enums;
 using Sharpy.Implementation;
 
-namespace Tests.Sharpy.Integration {
+namespace Tests.Sharpy.Tests.Integration {
     /// <summary>
     ///     <para>These tests check that the result will be the same when setting a seed.</para>
     ///     <para>Thread.Sleep is for making sure a new seed would be given if the Seed given does not work.</para>

@@ -5,23 +5,18 @@ using NUnit.Framework;
 using Sharpy.Core;
 using Sharpy.Core.Linq;
 
-namespace Tests.GeneratorAPI.Implementations {
+namespace Tests.Sharpy.Core.Tests.Implementations {
     [TestFixture]
-    internal class CollectionRandomizer {
-        [Test]
-        public void Null_List_Throws() {
-            Assert.Throws<ArgumentNullException>(() => Generator.ListRandomizer<int>(null));
-        }
-
+    internal class ParameterRandomizer {
         [Test]
         public void Randomizes_As_Expected_With_Seed() {
             var items = new List<string> {"Foo", "Bar", "Doe"};
-            const int seed = 20;
             var result = Generator
-                .ListRandomizer(new Random(seed), items)
+                .ArgumentRandomizer(new Random(20), "Foo", "Bar", "Doe")
                 .ToList(100);
+            // So the seed can change
             var expected = Generator
-                .Create(new Random(seed))
+                .Create(new Random(20))
                 .Select(rnd => items[rnd.Next(items.Count)])
                 .ToList(100);
             Assert.AreEqual(expected, result);
@@ -31,7 +26,7 @@ namespace Tests.GeneratorAPI.Implementations {
         public void Randomizes_Different_Values_If_No_Seed_Is_Provided() {
             var items = new List<string> {"Foo", "Bar", "Doe"};
             var result = Generator
-                .ListRandomizer(items)
+                .ArgumentRandomizer("Foo", "Bar", "Doe")
                 .ToList(100);
             // So the seed can change
             Thread.Sleep(100);

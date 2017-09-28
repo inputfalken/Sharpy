@@ -3,11 +3,11 @@ using NUnit.Framework;
 using NUnit.Framework.Internal;
 using Sharpy.Core;
 
-namespace Tests.GeneratorAPI.Implementations {
+namespace Tests.Sharpy.Core.Tests.Implementations {
     [TestFixture]
     public class LazyTests {
         [Test(
-            Description = "Verify that Generator.Lazy uses same instance"
+            Description = "Verify that Generator.Lazy use the same instance"
         )]
         public void Generate_Same_Instance() {
             var generator = Generator.Lazy(() => new Randomizer());
@@ -19,23 +19,13 @@ namespace Tests.GeneratorAPI.Implementations {
         )]
         public void Is_Invoked_After_Take_Is_Invoked() {
             var invoked = false;
-            Generator.Lazy(() => {
-                invoked = true;
-                return new Randomizer();
-            }).Generate();
-            Assert.IsTrue(invoked);
-        }
-
-        [Test(
-            Description = "Verify that Generator.Lazy is not used before generate is invoked"
-        )]
-        public void Is_Not_Invoked_Before_Take_Is_Invoked() {
-            var invoked = false;
-            Generator.Lazy(() => {
+            var generator = Generator.Lazy(() => {
                 invoked = true;
                 return new Randomizer();
             });
             Assert.IsFalse(invoked);
+            generator.Generate();
+            Assert.IsTrue(invoked);
         }
 
         [Test(
