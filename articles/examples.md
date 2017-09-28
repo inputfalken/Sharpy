@@ -4,6 +4,7 @@
 
 * [Generating](./Sharpy.Examples/generating.md)
 * [Configuring](./Sharpy.Examples/configuring.md)
+* [Inherit](./Sharpy.Examples/inherit.md)
 
 ## Sharpy.Core ##
 
