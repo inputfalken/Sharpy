@@ -10,27 +10,33 @@ namespace Sharpy.Core {
     public static class Generator {
         /// <summary>
         ///     <para>
-        ///         Creates a <see cref="IGenerator{T}" /> whose generations will use the same
-        ///         <typeparamref name="TSource" />.
+        ///         Creates a <see cref="IGenerator{T}" /> which uses the same <paramref name="source" /> parameter.
         ///     </para>
         /// </summary>
-        /// <param name="source">The type to generate from.</param>
-        /// <typeparam name="TSource">The type of argument <paramref name="source" /></typeparam>
+        /// <param name="source">
+        ///     The type to generate from.
+        /// </param>
+        /// <typeparam name="TSource">
+        ///     The type of argument <paramref name="source" />
+        /// </typeparam>
         /// <returns>
-        ///     A <see cref="IGenerator{T}" /> whose generations will use argument <paramref name="source" />.
+        ///     A <typeparamref name="TSource"> </typeparamref> <see cref="IGenerator{T}" />.
         /// </returns>
         public static IGenerator<TSource> Create<TSource>(TSource source) => new Fun<TSource>(() => source);
 
         /// <summary>
         ///     <para>
-        ///         Creates a <see cref="IGenerator{T}" /> whose generations will use the same
-        ///         <typeparamref name="TSource" />.
+        ///         Creates a <see cref="IGenerator{T}" /> which uses the same value from the <paramref name="lazy" /> parameter.
         ///     </para>
         /// </summary>
-        /// <param name="lazy">The lazy evaluated value.</param>
-        /// <typeparam name="TSource">The type of <paramref name="lazy" />.</typeparam>
+        /// <param name="lazy">
+        ///     The lazy evaluated value.
+        /// </param>
+        /// <typeparam name="TSource">
+        ///     The type of <paramref name="lazy" />.
+        /// </typeparam>
         /// <returns>
-        ///     A <see cref="IGenerator{T}" /> whose generations will use the lazy evaluated value from <paramref name="lazy" />.
+        ///     A <typeparamref name="TSource"> </typeparamref> <see cref="IGenerator{T}" />.
         /// </returns>
         /// <exception cref="ArgumentNullException">Argument <paramref name="lazy" /> is null.</exception>
         public static IGenerator<TSource> Lazy<TSource>(Lazy<TSource> lazy) => lazy == null
@@ -39,14 +45,18 @@ namespace Sharpy.Core {
 
         /// <summary>
         ///     <para>
-        ///         Creates a <see cref="IGenerator{T}" /> whose generations will use the same
-        ///         <typeparamref name="TSource" />.
+        ///         Creates a <see cref="IGenerator{T}" /> which will turn the <paramref name="fn" /> parameter into a
+        ///         <see cref="System.Lazy{TSource}" /> who will then use the same value.
         ///     </para>
         /// </summary>
-        /// <param name="fn">The lazy evaluated value.</param>
-        /// <typeparam name="TSource">The type of <paramref name="fn" />.</typeparam>
+        /// <param name="fn">
+        ///     The function which will be turned into <see cref="System.Lazy{TSource}" />.
+        /// </param>
+        /// <typeparam name="TSource">
+        ///     The type of <paramref name="fn" />.
+        /// </typeparam>
         /// <returns>
-        ///     A <see cref="IGenerator{T}" /> whose generations will use the lazy evaluated value from <paramref name="fn" />.
+        ///     A <typeparamref name="TSource"> </typeparamref> <see cref="IGenerator{T}" />.
         /// </returns>
         /// <exception cref="ArgumentNullException">Argument <paramref name="fn" /> is null.</exception>
         public static IGenerator<TSource> Lazy<TSource>(Func<TSource> fn) => Lazy(new Lazy<TSource>(fn));
@@ -54,27 +64,35 @@ namespace Sharpy.Core {
         /// <summary>
         ///     <para>
         ///         Creates a <see cref="IGenerator{T}" /> whose generations will
-        ///         invoke the argument <paramref name="fn" />.
+        ///         invoke <paramref name="fn" /> parameter.
         ///     </para>
         /// </summary>
-        /// <param name="fn">The function to invoke for each generation.</param>
-        /// <typeparam name="TSource">The type returned from argument <paramref name="fn" />.</typeparam>
+        /// <param name="fn">
+        ///     The function to invoke for each generation.
+        /// </param>
+        /// <typeparam name="TSource">
+        ///     The type returned from <paramref name="fn" /> parameter.
+        /// </typeparam>
         /// <returns>
-        ///     A <see cref="IGenerator{T}" /> whose generations will invoke argument <paramref name="fn" />.
+        ///     A <typeparamref name="TSource"> </typeparamref> <see cref="IGenerator{T}" />.
         /// </returns>
         /// <exception cref="ArgumentNullException">Argument <paramref name="fn" /> is null.</exception>
         public static IGenerator<TSource> Function<TSource>(Func<TSource> fn) => new Fun<TSource>(fn);
 
         /// <summary>
         ///     <para>
-        ///         Creates a <see cref="IGenerator{T}" /> based on an <see cref="IEnumerable{T}" /> which resets if the end is
+        ///         Creates a <see cref="IGenerator{T}" /> based on an <see cref="IEnumerable{T}" /> which restarts if the end is
         ///         reached.
         ///     </para>
         /// </summary>
-        /// <param name="enumerable">The <see cref="IEnumerable{T}" /> to create a <see cref="IGenerator{T}" /> from.</param>
-        /// <typeparam name="TSource">The type of the <paramref name="enumerable" />.</typeparam>
+        /// <param name="enumerable">
+        ///     The <see cref="IEnumerable{T}" /> to create a <see cref="IGenerator{T}" /> from.
+        /// </param>
+        /// <typeparam name="TSource">
+        ///     The type of the <paramref name="enumerable" />.
+        /// </typeparam>
         /// <returns>
-        ///     A <see cref="IGenerator{T}" /> whose elements comes from argument <paramref name="enumerable" />.
+        ///     A <typeparamref name="TSource"> </typeparamref> <see cref="IGenerator{T}" />.
         /// </returns>
         /// <exception cref="ArgumentNullException">Argument <paramref name="enumerable" /> is null.</exception>
         public static IGenerator<TSource> CircularSequence<TSource>(IEnumerable<TSource> enumerable) =>
@@ -84,9 +102,7 @@ namespace Sharpy.Core {
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="IGenerator{T}" /> where each invocation of <see cref="IGenerator{T}.Generate" /> will
-        ///         return a randomized <see cref="int" /> that is
-        ///         greater than or equal to argument <paramref name="min" /> and less than argument <paramref name="max" />.
+        ///         Creates a <see cref="IGenerator{T}" /> which randomizes <see cref="int" />.
         ///     </para>
         /// </summary>
         /// <param name="min">The inclusive lower bound of the random number returned.</param>
@@ -96,16 +112,14 @@ namespace Sharpy.Core {
         ///     argument <paramref name="min" />.
         /// </param>
         /// <param name="random">
-        /// The <see cref="Random"/> used for randomizing.
+        ///     The <see cref="Random" /> used for randomizing.
         /// </param>
         /// <returns>
-        ///     A <see cref="IGenerator{T}" /> who randomizes a <see cref="int" /> that is greater than or equal to argument
-        ///     <paramref name="min" /> and less than argument <paramref name="max" /> when invoking
-        ///     <see cref="IGenerator{T}.Generate" />.
+        ///     A <see cref="int" /> <see cref="IGenerator{T}" />.
         /// </returns>
         /// <example>
         ///     <para>
-        ///         Here's an example of creating a <see cref="IGenerator{T}"/> which randomizes between 0 and 100.
+        ///         Here's an example of creating a <see cref="IGenerator{T}" /> which randomizes between 0 and 100.
         ///     </para>
         ///     <code language="c#">
         ///         IGenerator&lt;int&gt; = Generator.Randomizer(0, 100);
@@ -117,9 +131,7 @@ namespace Sharpy.Core {
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="IGenerator{T}" /> where each invocation of <see cref="IGenerator{T}.Generate" /> will
-        ///         return a randomized <see cref="int" /> that is
-        ///         greater than or equal to 0 and less than argument <paramref name="max" />.
+        ///         Creates a <see cref="IGenerator{T}" /> which randomizes <see cref="long" />.
         ///     </para>
         /// </summary>
         /// <param name="min">The inclusive lower bound of the random number returned.</param>
@@ -129,16 +141,15 @@ namespace Sharpy.Core {
         ///     argument <paramref name="min" />.
         /// </param>
         /// <param name="random">
-        /// The <see cref="Random"/> used for randomizing.
+        ///     The <see cref="Random" /> used for randomizing.
         /// </param>
         /// <returns>
-        ///     A <see cref="IGenerator{T}" /> who randomizes a <see cref="long" /> that is greater than or equal to argument
-        ///     <paramref name="min" /> and less than argument <paramref name="max" /> when invoking
-        ///     <see cref="IGenerator{T}.Generate" />.
+        ///     A <see cref="long" /> <see cref="IGenerator{T}" />.
         /// </returns>
         /// <example>
         ///     <para>
-        ///         Here's an example of creating a <see cref="IGenerator{T}"/> which randomizes <see cref="long.MinValue"/> and <see cref="long.MaxValue"/>
+        ///         Here's an example of creating a <see cref="IGenerator{T}" /> which randomizes <see cref="long.MinValue" /> and
+        ///         <see cref="long.MaxValue" />
         ///     </para>
         ///     <code language="c#">
         ///         IGenerator&lt;int&gt; = Generator.Randomizer(long.MinValue, long.MaxValue);
@@ -163,32 +174,31 @@ namespace Sharpy.Core {
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="IGenerator{T}" /> where each invocation of <see cref="IGenerator{T}.Generate" /> will
-        ///         return a new <see cref="System.Guid" />.
+        ///         Creates a <see cref="IGenerator{T}" /> who creates <see cref="System.Guid" />.
         ///     </para>
         /// </summary>
         /// <returns>
-        ///     A <see cref="IGenerator{T}" /> where each invocation of <see cref="IGenerator{T}.Generate" /> will
-        ///     return a new <see cref="System.Guid" />.
+        ///     A <see cref="System.Guid" /> <see cref="IGenerator{T}" />.
         /// </returns>
         public static IGenerator<Guid> Guid() => Function(System.Guid.NewGuid);
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="IGenerator{T}" /> who starts on argument <paramref name="start" /> and
-        ///         returns a new <see cref="int" /> which is incremented by 1 for each invocation of
-        ///         <see cref="IGenerator{T}.Generate" />.
+        ///         Creates a <see cref="IGenerator{T}" /> who increments <see cref="int" />.
         ///     </para>
         /// </summary>
-        /// <exception cref="OverflowException">If the value exceeds <see cref="int" />.<see cref="int.MaxValue" />.</exception>
-        /// <param name="start">The inclusive number to start at.</param>
+        /// <exception cref="OverflowException">
+        ///     If the incremented value exceeds <see cref="int.MaxValue" />.
+        /// </exception>
+        /// <param name="start">
+        ///     The inclusive number to start at.
+        /// </param>
         /// <returns>
-        ///     A incrementation <see cref="IGenerator{T}" /> who starts on argument <paramref name="start" /> and returns a new
-        ///     <see cref="int" /> which is incremented by 1 for each invocation of <see cref="IGenerator{T}.Generate" />.
+        ///     A <see cref="int" /> <see cref="IGenerator{T}" />.
         /// </returns>
         /// <example>
         ///     <para>
-        ///         Here's an example of creating a <see cref="IGenerator{T}"/> which inclusively increments from 20.
+        ///         Here's an example of creating a <see cref="IGenerator{T}" /> which inclusively increments from 20.
         ///     </para>
         ///     <code language="c#">
         ///         IGenerator&lt;int&gt; = Generator.Incrementer(20);
@@ -198,20 +208,21 @@ namespace Sharpy.Core {
 
         /// <summary>
         ///     <para>
-        ///         Returns a <see cref="IGenerator{T}" /> who starts on argument <paramref name="start" /> and
-        ///         returns a new <see cref="int" /> which is decremented by 1 for each invocation of
-        ///         <see cref="IGenerator{T}.Generate" />.
+        ///         Creates a <see cref="IGenerator{T}" /> who decrements <see cref="int" />.
         ///     </para>
         /// </summary>
-        /// <exception cref="OverflowException">If the value gets below <see cref="int" />.<see cref="int.MinValue" />.</exception>
-        /// <param name="start">The inclusive number to start at.</param>
+        /// <exception cref="OverflowException">
+        ///     If the value gets below <see cref="int.MinValue" />.
+        /// </exception>
+        /// <param name="start">
+        ///     The inclusive number to start at.
+        /// </param>
         /// <returns>
-        ///     A <see cref="IGenerator{T}" /> who starts on argument <paramref name="start" /> and returns a new
-        ///     <see cref="int" /> which is decremented by 1 for each invocation of <see cref="IGenerator{T}.Generate" />.
+        ///     A <see cref="int" /> <see cref="IGenerator{T}" />.
         /// </returns>
         /// <example>
         ///     <para>
-        ///         Here's an example of creating a <see cref="IGenerator{T}"/> which inclusively decrements from 20.
+        ///         Here's an example of creating a <see cref="IGenerator{T}" /> which inclusively decrements from 20.
         ///     </para>
         ///     <code language="c#">
         ///         IGenerator&lt;int&gt; = Generator.Incrementer(20);
@@ -220,14 +231,13 @@ namespace Sharpy.Core {
         public static IGenerator<int> Decrementer(int start) => Function(() => checked(start--));
 
         /// <summary>
-        ///     Creates a <see cref="IGenerator{T}" /> whose generations is a randomized element from the <paramref name="items" />
-        ///     .
+        ///     Creates a <see cref="IGenerator{T}" /> who randomizes elements from the <paramref name="items" /> parameter.
         /// </summary>
         /// <typeparam name="T">The type of the arguments.</typeparam>
         /// <param name="random">The randomizer.</param>
         /// <param name="items">The arguments.</param>
         /// <returns>
-        ///     A <see cref="IGenerator{T}" /> whose generations is based on the argument <paramref name="items" />.
+        ///     A <typeparamref name="T"> </typeparamref> <see cref="IGenerator{T}" />.
         /// </returns>
         public static IGenerator<T> ListRandomizer<T>(Random random, IReadOnlyList<T> items) => random != null
             ? (items == null
@@ -236,20 +246,17 @@ namespace Sharpy.Core {
             : throw new ArgumentNullException(nameof(random));
 
         /// <summary>
-        ///     Creates a <see cref="IGenerator{T}" /> whose generations is a randomized element from the <paramref name="items" />
-        ///     .
+        ///     Creates a <see cref="IGenerator{T}" /> who randomizes elements from the <paramref name="items" /> parameter.
         /// </summary>
         /// <typeparam name="T">The type of the arguments.</typeparam>
         /// <param name="items">The arguments.</param>
         /// <returns>
-        ///     A <see cref="IGenerator{T}" /> whose generations is based on the argument <paramref name="items" />.
+        ///     A <typeparamref name="T"> </typeparamref> <see cref="IGenerator{T}" />.
         /// </returns>
         public static IGenerator<T> ListRandomizer<T>(IReadOnlyList<T> items) => ListRandomizer(new Random(), items);
 
         /// <summary>
-        ///     Creates a <see cref="IGenerator{T}" /> whose generations is a randomized element from the
-        ///     <paramref name="additional" />
-        ///     .
+        ///     Creates a <see cref="IGenerator{T}" /> who randomizes from the parameters.
         /// </summary>
         /// <typeparam name="T">The type of the arguments.</typeparam>
         /// <param name="first">The first argument</param>
@@ -257,7 +264,7 @@ namespace Sharpy.Core {
         /// <param name="additional">Additional arguments.</param>
         /// <param name="random">The randomizer.</param>
         /// <returns>
-        ///     A <see cref="IGenerator{T}" /> whose generations is based on arguments supplied.
+        ///     A <typeparamref name="T"> </typeparamref> <see cref="IGenerator{T}" />.
         /// </returns>
         public static IGenerator<T> ArgumentRandomizer<T>(Random random, T first, T second, params T[] additional) =>
             Function(() => {
@@ -270,16 +277,14 @@ namespace Sharpy.Core {
             });
 
         /// <summary>
-        ///     Creates a <see cref="IGenerator{T}" /> whose generations is a randomized element from the
-        ///     <paramref name="additional" />
-        ///     .
+        ///     Creates a <see cref="IGenerator{T}" /> who randomizes from the parameters.
         /// </summary>
         /// <typeparam name="T">The type of the arguments.</typeparam>
         /// <param name="first">The first argument</param>
         /// <param name="second">The second argument</param>
         /// <param name="additional">Additional arguments.</param>
         /// <returns>
-        ///     A <see cref="IGenerator{T}" /> whose generations is based on arguments supplied.
+        ///     A <typeparamref name="T"> </typeparamref> <see cref="IGenerator{T}" />.
         /// </returns>
         public static IGenerator<T> ArgumentRandomizer<T>(T first, T second, params T[] additional) =>
             ArgumentRandomizer(new Random(), first, second, additional);
