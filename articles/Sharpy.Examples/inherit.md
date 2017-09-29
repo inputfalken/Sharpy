@@ -17,7 +17,7 @@ namespace Example
         {
             ExampleClass example = new ExampleClass();
             // Creates a IGenerator<string> which will invoke MyMethod.
-            IGenerator<string> gen =  example.AsGenerator((ExampleClass e) => e.MyMethod()):
+            IGenerator<string> gen = example.AsGenerator((ExampleClass e) => e.MyMethod()):
         }
     }
 
