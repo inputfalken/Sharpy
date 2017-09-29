@@ -81,7 +81,13 @@ namespace Sharpy.Implementation {
         ///     Creates an email with a randomized user name.
         /// </summary>
         /// <returns></returns>
-        public string Mail() => Mail(Data.GetUserNames.RandomItem(Random));
+        public string Mail() {
+            while (true) {
+                var randomItem = Data.GetUserNames.RandomItem(Random);
+                if (randomItem.Length < 4) continue;
+                return Mail(randomItem);
+            }
+        }
 
         private string ResolveDuplicate(string item) => item.Append(Random.Next(10));
     }
