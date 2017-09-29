@@ -8,7 +8,7 @@ namespace Tests.Sharpy.Tests.Implementations {
     [TestFixture]
     public class UniqueEmailBuilderTests {
         private const string MailUserName = "test";
-        private const int Amount = 1000;
+        private const int Amount = 100000;
 
         private static List<string> FindDuplicates(IEnumerable<string> enumerable) {
             return enumerable.GroupBy(x => x)
@@ -18,11 +18,37 @@ namespace Tests.Sharpy.Tests.Implementations {
         }
 
         [Test]
-        [Repeat(Amount)]
         public void Mail_No_Arg_Does_Not_start_With_AT_One_Domain() {
             var uniqueEmailBuilder = new UniqueEmailBuilder(new List<string> {"hotmail.com"}, new Random());
-            var mail = uniqueEmailBuilder.Mail();
-            Assert.IsTrue(mail.IndexOf('@') > 1);
+            var mails = new List<string>();
+            for (var i = 0; i < Amount; i++) mails.Add(uniqueEmailBuilder.Mail());
+            Assert.IsTrue(mails.All(s => s.IndexOf('@') > 1));
+        }
+
+        [Test]
+        public void Mail_No_Arg_Is_Unique_One_Domain() {
+            var uniqueEmailBuilder = new UniqueEmailBuilder(new List<string> {"hotmail.com"}, new Random());
+            var mails = new List<string>();
+            for (var i = 0; i < Amount; i++) mails.Add(uniqueEmailBuilder.Mail());
+            Assert.IsTrue(FindDuplicates(mails).Count == 0);
+        }
+
+        [Test]
+        public void Mail_No_Arg_Is_Unique_Three_Domain() {
+            var uniqueEmailBuilder =
+                new UniqueEmailBuilder(new List<string> {"hotmail.com", "gmail.com", "foo.com"}, new Random());
+            var mails = new List<string>();
+            for (var i = 0; i < Amount; i++) mails.Add(uniqueEmailBuilder.Mail());
+            Assert.IsTrue(FindDuplicates(mails).Count == 0);
+        }
+
+        [Test]
+        public void Mail_No_Arg_Is_Unique_Two_Domain() {
+            var uniqueEmailBuilder =
+                new UniqueEmailBuilder(new List<string> {"hotmail.com", "gmail.com"}, new Random());
+            var mails = new List<string>();
+            for (var i = 0; i < Amount; i++) mails.Add(uniqueEmailBuilder.Mail());
+            Assert.IsTrue(FindDuplicates(mails).Count == 0);
         }
 
         [Test]
@@ -52,11 +78,63 @@ namespace Tests.Sharpy.Tests.Implementations {
         }
 
         [Test]
-        [Repeat(Amount)]
         public void Mail_With_Arg_Does_Not_start_With_AT_One_Domain() {
             var uniqueEmailBuilder = new UniqueEmailBuilder(new List<string> {"hotmail.com"}, new Random());
-            var mail = uniqueEmailBuilder.Mail(MailUserName);
-            Assert.IsTrue(mail.IndexOf('@') > 1);
+            var mails = new List<string>();
+            for (var i = 0; i < Amount; i++) mails.Add(uniqueEmailBuilder.Mail(MailUserName));
+            Assert.IsTrue(mails.All(s => s.IndexOf('@') > 1));
+        }
+
+        [Test]
+        public void Mail_With_Arg_Is_Unique_One_Domain() {
+            var uniqueEmailBuilder = new UniqueEmailBuilder(new List<string> {"hotmail.com"}, new Random());
+            var mails = new List<string>();
+            for (var i = 0; i < Amount; i++) mails.Add(uniqueEmailBuilder.Mail(MailUserName));
+            Assert.IsTrue(FindDuplicates(mails).Count == 0);
+        }
+
+        [Test]
+        public void Mail_With_Arg_Is_Unique_Three_Domain() {
+            var uniqueEmailBuilder =
+                new UniqueEmailBuilder(new List<string> {"hotmail.com", "gmail.com", "foo.com"}, new Random());
+            var mails = new List<string>();
+            for (var i = 0; i < Amount; i++) mails.Add(uniqueEmailBuilder.Mail(MailUserName));
+            Assert.IsTrue(FindDuplicates(mails).Count == 0);
+        }
+
+        [Test]
+        public void Mail_With_Arg_Is_Unique_Two_Domain() {
+            var uniqueEmailBuilder =
+                new UniqueEmailBuilder(new List<string> {"hotmail.com", "gmail.com"}, new Random());
+            var mails = new List<string>();
+            for (var i = 0; i < Amount; i++) mails.Add(uniqueEmailBuilder.Mail(MailUserName));
+            Assert.IsTrue(FindDuplicates(mails).Count == 0);
+        }
+
+        [Test]
+        public void Mail_With_Arg_Use_Argument_One_Domain() {
+            var uniqueEmailBuilder = new UniqueEmailBuilder(new List<string> {"hotmail.com"}, new Random());
+            var mails = new List<string>();
+            for (var i = 0; i < Amount; i++) mails.Add(uniqueEmailBuilder.Mail(MailUserName));
+            Assert.IsTrue(mails.All(s => s.Split('@')[0].StartsWith(MailUserName)));
+        }
+
+        [Test]
+        public void Mail_With_Arg_Use_Argument_Three_Domain() {
+            var uniqueEmailBuilder =
+                new UniqueEmailBuilder(new List<string> {"hotmail.com", "gmail.com", "foo.com"}, new Random());
+            var mails = new List<string>();
+            for (var i = 0; i < Amount; i++) mails.Add(uniqueEmailBuilder.Mail(MailUserName));
+            Assert.IsTrue(mails.All(s => s.Split('@')[0].StartsWith(MailUserName)));
+        }
+
+        [Test]
+        public void Mail_With_Arg_Use_Argument_Two_Domain() {
+            var uniqueEmailBuilder =
+                new UniqueEmailBuilder(new List<string> {"hotmail.com", "gmail.com"}, new Random());
+            var mails = new List<string>();
+            for (var i = 0; i < Amount; i++) mails.Add(uniqueEmailBuilder.Mail(MailUserName));
+            Assert.IsTrue(mails.All(s => s.Split('@')[0].StartsWith(MailUserName)));
         }
     }
 }
