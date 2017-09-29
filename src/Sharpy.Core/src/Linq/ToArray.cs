@@ -1,10 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace Sharpy.Core.Linq {
     public static partial class Extensions {
         /// <summary>
         ///     <para>
-        ///         Creates an array from a <see cref="IGenerator{T}" />.
+        ///         Creates an <see cref="Array"/> from a <see cref="IGenerator{T}" />.
         ///     </para>
         /// </summary>
         /// <param name="generator">A <see cref="IGenerator{T}" /> to create an <see cref="System.Array" /> from.</param>
