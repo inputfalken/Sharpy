@@ -8,7 +8,7 @@ namespace Sharpy.Core.Linq {
     public static partial class Extensions {
         /// <summary>
         ///     <para>
-        ///         Creates a <see cref="IGenerator{T}" /> from a <see cref="IGenerator{T}" />.
+        ///         Creates a <see cref="List{T}" /> from a <see cref="IGenerator{T}" />.
         ///     </para>
         /// </summary>
         /// <param name="generator">The <see cref="List{T}" /> to create a <see cref="List{T}" /> from.</param>
