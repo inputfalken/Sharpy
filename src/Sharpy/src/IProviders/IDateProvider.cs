@@ -22,5 +22,13 @@ namespace Sharpy.IProviders {
         ///     TODO
         /// </param>
         DateTime DateByYear(int year);
+
+        /// <summary>
+        ///     Creates a <see cref="DateTime"/>.
+        /// </summary>
+        /// <returns>
+        ///     A <see cref="DateTime"/>.
+        /// </returns>
+        DateTime Date();
     }
 }
