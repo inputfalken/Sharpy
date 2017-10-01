@@ -14,10 +14,6 @@ namespace Sharpy.Implementation {
         /// <param name="random"></param>
         public DateRandomizer(Random random) => _random = random;
 
-        /// <summary>
-        ///     Is used for getting the current time.
-        /// </summary>
-        internal static DateTime CurrentLocalDate => DateTime.Now;
 
         /// <summary>
         ///     <para>
@@ -34,7 +30,7 @@ namespace Sharpy.Implementation {
         public DateTime DateByAge(int age) {
             if (age < 0)
                 throw new ArgumentException($"{nameof(age)} cannot be negative");
-            var date = CurrentLocalDate.AddYears(-age);
+            var date = DateTime.Now.AddYears(-age);
             var month = _random.Next(1, date.Month);
 
             var day = month == date.Month
@@ -58,7 +54,7 @@ namespace Sharpy.Implementation {
         public DateTime DateByYear(int year) {
             if (year < 0)
                 throw new ArgumentException($"{nameof(year)} cannot be negative");
-            var month = _random.Next(1, CurrentLocalDate.Month);
+            var month = _random.Next(1, DateTime.Now.Month);
             return new DateTime(year, month, _random.Next(1, DateTime.DaysInMonth(year, month)));
         }
     }
