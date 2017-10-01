@@ -61,5 +61,9 @@ namespace Sharpy.Implementation {
             var month = _random.Next(1, CurrentLocalDate.Month);
             return new DateTime(year, month, _random.Next(1, DateTime.DaysInMonth(year, month)));
         }
+
+        public DateTime Date() {
+            throw new NotImplementedException();
+        }
     }
 }
