@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using NUnit.Framework;
 using Sharpy;
@@ -14,6 +16,8 @@ namespace Tests.Sharpy.Tests.Integration {
     /// </summary>
     [TestFixture]
     public class Seed {
+        internal static DateTime TrimMilliseconds(DateTime dt) =>
+            new DateTime(dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second, 0);
         /// <summary>
         ///     <para>The seed given to all Provider instance created in the tests.</para>
         /// </summary>
@@ -57,7 +61,7 @@ namespace Tests.Sharpy.Tests.Integration {
             var g2 = Generator.Create(new Builder(TestSeed));
             var expected = g1.Select(g => g.DateByAge(20)).Generate();
             var result = g2.Select(g => g.DateByAge(20)).Generate();
-            Assert.AreEqual(expected, result);
+            Assert.AreEqual(TrimMilliseconds(expected), TrimMilliseconds(result));
         }
 
         [Test]
@@ -67,7 +71,7 @@ namespace Tests.Sharpy.Tests.Integration {
             var g2 = Generator.Create(new Builder(TestSeed));
             var expected = g1.Select(g => g.DateByAge(2000)).Generate();
             var result = g2.Select(g => g.DateByAge(2000)).Generate();
-            Assert.AreEqual(expected, result);
+            Assert.AreEqual(TrimMilliseconds(expected), TrimMilliseconds(result));
         }
 
         [Test]
@@ -563,8 +567,8 @@ namespace Tests.Sharpy.Tests.Integration {
             var g1 = Generator.Create(new Builder(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Create(new Builder(TestSeed));
-            var expected = g1.Select(generator => generator.DateByAge(20)).Take(Count);
-            var result = g2.Select(generator => generator.DateByAge(20)).Take(Count);
+            var expected = g1.Select(generator => generator.DateByAge(20)).Take(Count).Select(TrimMilliseconds);
+            var result = g2.Select(generator => generator.DateByAge(20)).Take(Count).Select(TrimMilliseconds);
             Assert.AreEqual(expected, result);
         }
 
@@ -573,8 +577,8 @@ namespace Tests.Sharpy.Tests.Integration {
             var g1 = Generator.Create(new Builder(TestSeed));
             Thread.Sleep(SleepDuration);
             var g2 = Generator.Create(new Builder(TestSeed));
-            var expected = g1.Select(generator => generator.DateByAge(2000)).Take(Count);
-            var result = g2.Select(generator => generator.DateByAge(2000)).Take(Count);
+            var expected = g1.Select(generator => generator.DateByAge(2000)).Take(Count).Select(TrimMilliseconds);
+            var result = g2.Select(generator => generator.DateByAge(2000)).Take(Count).Select(TrimMilliseconds);
             Assert.AreEqual(expected, result);
         }
 
