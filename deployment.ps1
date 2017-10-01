@@ -108,14 +108,12 @@ function Start-Deployment ([bool] $preRelease, [string] $suffix = 'alpha') {
       $nupkg = Pack $project $preRelease $suffix
       Deploy $nupkg.Name
       if ($deletePackage) {
-        if ($localVersion.Revision -gt $onlineVersion.Revision) {
-          if ($preRelease) {
-            # Hides the previous alpha package
-            Hide-OnlinePackage "$($name)-$($onlineVersion)-$suffix"
-          } else {
-            # Hides the previous package
-            Hide-OnlinePackage "$($name)-$($onlineVersion)"
-          }
+        if (!$preRelease -and $localVersion.Revision -gt $onlineVersion.Revision) {
+          # Hides only the previous alpha package.
+          Hide-OnlinePackage "$($name)-$($onlineVersion)"
+        } else {
+          # Hides every previous alpha package.
+          Hide-OnlinePackage "$($name)-$($onlineVersion)-$suffix"
         }
       }
     }
