@@ -27,7 +27,7 @@ namespace Tests.Sharpy.Tests.Integration {
             var dateByAge = dateRandomizer.DateByAge(age);
 
             //will make sure that the date created is earlier than today this year
-            Assert.IsTrue(DateRandomizer.CurrentLocalDate > dateByAge);
+            Assert.IsTrue(DateTime.Now > dateByAge);
         }
 
         [Test]
@@ -38,7 +38,7 @@ namespace Tests.Sharpy.Tests.Integration {
             var dateByAge = dateRandomizer.DateByYear(year);
 
             //will make sure that the date created is earlier than today this year
-            Assert.IsTrue(DateRandomizer.CurrentLocalDate > dateByAge);
+            Assert.IsTrue(DateTime.Now > dateByAge);
         }
 
         [Test]
