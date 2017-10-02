@@ -88,7 +88,7 @@ function Hide-OnlinePackage ([string] $package, [string] $source = 'https://www.
   $packageName = $sections[0]
   $version = $sections[1..$sections.length] -join '-'
   Write-Host "Attempting to hide package '$packageName', version '$version'."
-  NuGet delete $packageName $version -NonInteractive -Source $source -ApiKey $env:NUGET_API_KEY
+  NuGet delete $packageName $version -NonInteractive -Source $source -ApiKey $env:NUGET_API_KEY -Verbosity quiet
   if (!$?) {
     throw "Could not hide package '$packageName' version '$version'."
   } else {
