@@ -87,6 +87,9 @@ namespace Sharpy {
         public DateTime DateByYear(int year) => _dateprovider.DateByYear(year);
 
         /// <inheritdoc />
+        public DateTime Date() => _dateprovider.Date();
+
+        /// <inheritdoc />
         public double Double() => _doubleProvider.Double();
 
         /// <inheritdoc />
