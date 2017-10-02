@@ -1,5 +1,6 @@
 ﻿using System;
 using Sharpy.IProviders;
+using static System.DateTime;
 
 namespace Sharpy.Implementation {
     /// <summary>
@@ -15,11 +16,6 @@ namespace Sharpy.Implementation {
         public DateRandomizer(Random random) => _random = random;
 
         /// <summary>
-        ///     Is used for getting the current time.
-        /// </summary>
-        internal static DateTime CurrentLocalDate => DateTime.Now;
-
-        /// <summary>
         ///     <para>
         ///         Randomizes a <see cref="DateTime" /> based on argument <paramref name="age" />.
         ///     </para>
@@ -28,19 +24,20 @@ namespace Sharpy.Implementation {
         ///     The age of the date.
         /// </param>
         /// <returns>
-        ///     A <see cref="DateTime" /> with todays year minus the argument <paramref name="age" />.
-        ///     The month and date has been randomized.
+        ///     A randomized <see cref="DateTime" /> based on <paramref name="age" />.
         /// </returns>
         public DateTime DateByAge(int age) {
             if (age < 0)
                 throw new ArgumentException($"{nameof(age)} cannot be negative");
-            var date = CurrentLocalDate.AddYears(-age);
-            var month = _random.Next(1, date.Month);
+            var date = Now
+                .AddYears(-age)
+                .AddMonths(-_random.Next(1, 12));
 
-            var day = month == date.Month
-                ? _random.Next(1, date.Day)
-                : _random.Next(1, DateTime.DaysInMonth(date.Year, month));
-            return new DateTime(date.Year, month, day);
+            return date
+                .AddDays(-_random.Next(1, DaysInMonth(date.Year, date.Month) + 1))
+                .AddHours(-_random.Next(1, 24))
+                .AddMinutes(-_random.Next(-1, 60))
+                .AddSeconds(-_random.Next(1, 60));
         }
 
         /// <summary>
@@ -56,14 +53,26 @@ namespace Sharpy.Implementation {
         ///     The month and date has been randomized.
         /// </returns>
         public DateTime DateByYear(int year) {
-            if (year < 0)
-                throw new ArgumentException($"{nameof(year)} cannot be negative");
-            var month = _random.Next(1, CurrentLocalDate.Month);
-            return new DateTime(year, month, _random.Next(1, DateTime.DaysInMonth(year, month)));
+            if (year <= MinValue.Year) throw new ArgumentException($"{nameof(year)} cannot be negative");
+            var month = _random.Next(1, 13);
+            return new DateTime(
+                year,
+                month,
+                DaysInMonth(year, month),
+                _random.Next(1, 24),
+                _random.Next(1, 60),
+                _random.Next(1, 60)
+            );
         }
 
-        public DateTime Date() {
-            throw new NotImplementedException();
-        }
+        /// <summary>
+        ///     <para>
+        ///         Randomizes a <see cref="DateTime" /> between 20 and 61 years old.
+        ///     </para>
+        /// </summary>
+        /// <returns>
+        ///     A randomized <see cref="DateTime" />.
+        /// </returns>
+        public DateTime Date() => DateByAge(_random.Next(20, 61));
     }
 }
