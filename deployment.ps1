@@ -117,7 +117,7 @@ function Start-Deployment ([bool] $preRelease, [string] $suffix = 'alpha') {
         }
       }
     }
-    if ($useDocfx) {
+    if ($useDocfx -and !$preRelease) {
       Update-GHPages
     }
   } else {
