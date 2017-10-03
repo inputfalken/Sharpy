@@ -1,0 +1,23 @@
+﻿using System;
+using NUnit.Framework;
+using Sharpy.Core;
+
+namespace Tests.Sharpy.Core.Tests.Implementations {
+    [TestFixture]
+    internal class FunctionTests {
+        [Test(
+            Description = "Verify that Generator.Function does not use the same instance"
+        )]
+        public void Not_Same_Instance() {
+            var generator = Generator.Function(() => new Random());
+            Assert.AreNotSame(generator.Generate(), generator.Generate());
+        }
+
+        [Test(
+            Description = "Verify that passing null to Generator.Function throws exception"
+        )]
+        public void Throw_Exception_When_Null() {
+            Assert.Throws<ArgumentNullException>(() => Generator.Function<string>(null), "Argument cannot be null");
+        }
+    }
+}
