@@ -52,8 +52,9 @@ namespace Sharpy.Implementation {
                 .Select((s, i) => (
                     name: string.IsNullOrEmpty(s)
                         ? throw new ArgumentNullException(
-                            $"No element in argument '{nameof(names)}' can be null or empty string.")
-                        : s, iteration: i)
+                            $"No string in argument '{nameof(names)}' can be null or empty string.")
+                        : s,
+                    iteration: i)
                 ).ToArray();
 
             while (resets < Limit)
