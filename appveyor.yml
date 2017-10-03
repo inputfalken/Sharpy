@@ -1,0 +1,28 @@
+version: '1.0.{build}'
+image: Visual Studio 2017
+#branches:
+#  only:
+#  - master
+init:
+  # Good practise, because Windows line endings are different from Unix/Linux ones
+  - cmd: git config --global core.autocrlf true
+install:
+  # Install repo specific stuff here
+before_build:
+  # Display .NET Core version
+  - cmd: dotnet --version
+  # Display minimal restore text
+  - cmd: dotnet restore --verbosity m
+build_script:
+  - cmd: dotnet build -c Release
+after_build:
+  # For once the build has completed
+clone_depth: 1
+test_script:
+  # run the unit tests (requires changing into the test directory)
+  - cmd: dotnet test ./Tests/Tests.csproj --no-build -c Release
+on_finish :
+  # any cleaup in here
+deploy_script:
+  - ps: .\deployment.ps1 -Project src\Sharpy\Sharpy.csproj -Repo https://github.com/inputfalken/Sharpy -Deploy $true -useDocfx $true -DeletePackage $true
+  - ps: .\deployment.ps1 -Project src\Sharpy.Core\Sharpy.Core.csproj -Repo https://github.com/inputfalken/Sharpy -Deploy $true -useDocfx $false
