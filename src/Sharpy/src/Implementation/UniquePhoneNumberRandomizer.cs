@@ -10,7 +10,7 @@ namespace Sharpy.Implementation {
         private (int, int) _numberByLengthState = (0, 0);
 
         /// <summary>
-        /// Creates a <see cref="UniquePhoneNumberRandomizer"/>.
+        ///     Creates a <see cref="UniquePhoneNumberRandomizer" />.
         /// </summary>
         public UniquePhoneNumberRandomizer(Random random) : base(random) { }
 
