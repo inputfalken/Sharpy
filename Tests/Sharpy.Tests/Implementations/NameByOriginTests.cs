@@ -19,18 +19,18 @@ namespace Tests.Sharpy.Tests.Implementations {
         }
 
         [Test]
-        public void FirstName_With_Male_Argument_Is_Not_Null_Or_Empty() {
-            var nameByOrigin = new NameByOrigin(new Random());
-            var list = new List<string>();
-            for (var i = 0; i < Amount; i++) list.Add(nameByOrigin.FirstName(Gender.Male));
-            Assert.IsFalse(list.Any(string.IsNullOrEmpty));
-        }
-
-        [Test]
         public void FirstName_With_Female_Argument_Is_Not_Null_Or_Empty() {
             var nameByOrigin = new NameByOrigin(new Random());
             var list = new List<string>();
             for (var i = 0; i < Amount; i++) list.Add(nameByOrigin.FirstName(Gender.Female));
+            Assert.IsFalse(list.Any(string.IsNullOrEmpty));
+        }
+
+        [Test]
+        public void FirstName_With_Male_Argument_Is_Not_Null_Or_Empty() {
+            var nameByOrigin = new NameByOrigin(new Random());
+            var list = new List<string>();
+            for (var i = 0; i < Amount; i++) list.Add(nameByOrigin.FirstName(Gender.Male));
             Assert.IsFalse(list.Any(string.IsNullOrEmpty));
         }
 

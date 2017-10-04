@@ -7,8 +7,9 @@ namespace Sharpy.Implementation {
     /// </summary>
     public class ArgumentRandomizer : IArgumentProvider {
         private readonly Random _random;
+
         /// <summary>
-        ///     The <see cref="Random"/> for randomizing arguments.
+        ///     The <see cref="Random" /> for randomizing arguments.
         /// </summary>
         public ArgumentRandomizer(Random random) => _random = random ?? throw new ArgumentNullException(nameof(random));
 
