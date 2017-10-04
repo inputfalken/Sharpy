@@ -212,16 +212,16 @@ namespace Sharpy {
         ///     </para>
         /// </summary>
         /// <typeparam name="TBuilder">
-        ///     The type of the <see cref="Builder"/> or a descendant.
+        ///     The type of the <see cref="Builder" /> or a descendant.
         /// </typeparam>
         /// <typeparam name="TResult">
         ///     The result from the parameter <paramref name="selector" />.
         /// </typeparam>
         /// <param name="source">
-        ///     The <see cref="Builder"/> or a descendant.
+        ///     The <see cref="Builder" /> or a descendant.
         /// </param>
         /// <param name="selector">
-        ///     The function whose result will be the type of the <see cref="IGenerator{T}"/>.
+        ///     The function whose result will be the type of the <see cref="IGenerator{T}" />.
         /// </param>
         /// <returns>
         ///     A <see cref="IGenerator{T}" /> whose type is the result from the function argument <paramref name="selector" />.
@@ -242,16 +242,16 @@ namespace Sharpy {
         ///     </para>
         /// </summary>
         /// <typeparam name="TBuilder">
-        ///     The type of the <see cref="Builder"/> or a descendant.
+        ///     The type of the <see cref="Builder" /> or a descendant.
         /// </typeparam>
         /// <typeparam name="TResult">
         ///     The result from the parameter <paramref name="selector" />.
         /// </typeparam>
         /// <param name="source">
-        ///     The <see cref="Builder"/> or a descendant.
+        ///     The <see cref="Builder" /> or a descendant.
         /// </param>
         /// <param name="selector">
-        ///     The function whose result will be the type of the <see cref="IGenerator{T}"/>.
+        ///     The function whose result will be the type of the <see cref="IGenerator{T}" />.
         /// </param>
         /// <returns>
         ///     A <see cref="IGenerator{T}" /> whose type is the result from the function argument <paramref name="selector" />.
@@ -272,7 +272,7 @@ namespace Sharpy {
         ///     </para>
         /// </summary>
         /// <typeparam name="TBuilder">
-        ///     The type of the <see cref="Builder"/> or a descendant.
+        ///     The type of the <see cref="Builder" /> or a descendant.
         /// </typeparam>
         /// <typeparam name="TResult">
         ///     The result from the parameter <paramref name="selector" />.
@@ -281,7 +281,7 @@ namespace Sharpy {
         ///     The builder.
         /// </param>
         /// <param name="selector">
-        ///     The function whose result will be the type of the <see cref="IEnumerable{T}"/>.
+        ///     The function whose result will be the type of the <see cref="IEnumerable{T}" />.
         /// </param>
         /// <param name="count">
         ///     The <paramref name="count" /> of the returned <see cref="IEnumerable{T}" />.
@@ -305,7 +305,7 @@ namespace Sharpy {
         ///     </para>
         /// </summary>
         /// <typeparam name="TBuilder">
-        ///     The type of the <see cref="Builder"/> or a descendant.
+        ///     The type of the <see cref="Builder" /> or a descendant.
         /// </typeparam>
         /// <typeparam name="TResult">
         ///     The result from the parameter <paramref name="selector" />.
@@ -314,7 +314,7 @@ namespace Sharpy {
         ///     The builder.
         /// </param>
         /// <param name="selector">
-        ///     The function whose result will be the type of the <see cref="IEnumerable{T}"/>.
+        ///     The function whose result will be the type of the <see cref="IEnumerable{T}" />.
         /// </param>
         /// <param name="count">
         ///     The <paramref name="count" /> of the returned <see cref="IEnumerable{T}" />.

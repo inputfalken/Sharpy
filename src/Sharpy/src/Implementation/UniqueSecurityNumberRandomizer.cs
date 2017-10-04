@@ -52,10 +52,10 @@ namespace Sharpy.Implementation {
         }
 
         /// <summary>
-        /// Randomizes a <see cref="DateTime"/>.
+        ///     Randomizes a <see cref="DateTime" />.
         /// </summary>
         /// <returns>
-        /// A randomized <see cref="DateTime"/>.
+        ///     A randomized <see cref="DateTime" />.
         /// </returns>
         protected DateTime RandomizeDate() {
             var dateTime = DateTime.Now;
