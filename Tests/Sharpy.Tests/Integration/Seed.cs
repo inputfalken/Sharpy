@@ -18,6 +18,7 @@ namespace Tests.Sharpy.Tests.Integration {
     public class Seed {
         internal static DateTime TrimMilliseconds(DateTime dt) =>
             new DateTime(dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second, 0);
+
         /// <summary>
         ///     <para>The seed given to all Provider instance created in the tests.</para>
         /// </summary>
