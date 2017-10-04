@@ -24,10 +24,10 @@ namespace Sharpy.IProviders {
         DateTime DateByYear(int year);
 
         /// <summary>
-        ///     Creates a <see cref="DateTime"/>.
+        ///     Creates a <see cref="DateTime" />.
         /// </summary>
         /// <returns>
-        ///     A <see cref="DateTime"/>.
+        ///     A <see cref="DateTime" />.
         /// </returns>
         DateTime Date();
     }
