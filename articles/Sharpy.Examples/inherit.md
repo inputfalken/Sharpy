@@ -1,6 +1,6 @@
 You can derive from [Builder](xref:Sharpy.Builder) and extend it with your own class members.
 Methods such as [AsGenerator](xref:Sharpy.Builder.AsGenerator``1(System.Func{Sharpy.Builder,``0})), [ToEnumerable](xref: Sharpy.BuilderExtensions.ToEnumerable``2(``0,System.Func{``0,System.Int32,``1},System.Int32)) and [ToGenerator](xref:Sharpy.BuilderExtensions.ToGenerator``2(``0,System.Func{``0,``1}))
-will have access to the descended class members as you will see on the following members.
+will have access to the descended class members as you will see on the following examples.
 
 ## Calling AsGenerator ##
 ```csharp
