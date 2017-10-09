@@ -117,11 +117,12 @@ function Start-Deployment ([bool] $preRelease, [string] $suffix = 'alpha') {
         }
       }
     }
-    if ($useDocfx -and !$preRelease) {
-      Update-GHPages
-    }
   } else {
     Write-Host "Local version '$localVersion' is not greater than online version '$onlineVersion', skipping deployment" -ForegroundColor Yellow
+  }
+
+  if ($useDocfx -and !$preRelease) {
+    Update-GHPages
   }
 }
 ####################################################################################################
