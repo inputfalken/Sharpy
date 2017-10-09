@@ -3,6 +3,7 @@ Methods such as [AsGenerator](xref:Sharpy.Builder.AsGenerator``1(System.Func{Sha
 will have access to the descended class members as you will see on the following members.
 
 ## Calling AsGenerator ##
+
 ```csharp
 using Sharpy.Core;
 using Sharpy.Enums;
@@ -15,9 +16,8 @@ namespace Example
     {
         public static void Main (string[] args)
         {
-            ExampleClass example = new ExampleClass();
             // Creates a IGenerator<string> which will invoke MyMethod.
-            IGenerator<string> gen = example.AsGenerator((ExampleClass e) => e.MyMethod()):
+            IGenerator<string> gen = ExampleClass.AsGenerator(TBuilder: new ExampleClass() , selector: (ExampleClass: e) => e.MyMethod()):
         }
     }
 
@@ -33,6 +33,7 @@ namespace Example
 ```
 
 ## Calling ToGenerator ##
+
 ```csharp
 using Sharpy.Core;
 using Sharpy.Enums;
@@ -47,7 +48,7 @@ namespace Example
         {
             ExampleClass example = new ExampleClass();
             // Creates a IGenerator<string> which will invoke MyMethod.
-            IGenerator<string> gen = example.ToGenerator((ExampleClass e) => e.MyMethod());
+            IGenerator<string> gen = example.ToGenerator(selector: (ExampleClass e) => e.MyMethod());
         }
     }
 
@@ -63,6 +64,7 @@ namespace Example
 
 ```
 ## Calling ToEnumerable ##
+
 ```csharp
 using Sharpy.Core;
 using Sharpy.Enums;
@@ -77,7 +79,7 @@ namespace Example
         {
             ExampleClass example = new ExampleClass();
             // Creates an IEnumerable<string> with 20 elements.
-            IEnumerable<string> gen = example.ToEnumerable((ExampleClass e) => e.MyMethod(), 20);
+            IEnumerable<string> gen = example.ToEnumerable(selector: (ExampleClass e) => e.MyMethod(), count: 20);
 
         }
     }

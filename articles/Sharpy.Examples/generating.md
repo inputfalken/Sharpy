@@ -21,8 +21,8 @@ namespace Example
         public static void Main (string[] args)
         {
             IEnumerable<string> names = Builder
-            .AsGenerator((Builder builder) => builder.FirstName(Gender.Male))
-            .Take(100);
+            .AsGenerator(selector: (Builder builder) => builder.FirstName(gender: Gender.Male))
+            .Take(count: 100);
         }
     }
 }
@@ -47,8 +47,8 @@ namespace Example
         public static void Main (string[] args)
         {
             IEnumerable<int> names = Builder
-            .AsGenerator((Builder builder) => builder.Integer(10, 100))
-            .Take(100);
+            .AsGenerator(selector: (Builder builder) => builder.Integer(min: 10, max: 100))
+            .Take(count: 100);
         }
     }
 }
@@ -60,6 +60,7 @@ This example use the following methods:
 
 
 ## Generating Your Own Type ##
+
 ```csharp
 using Sharpy.Core;
 using Sharpy.Enums;
@@ -72,11 +73,11 @@ namespace Example
     {
         public static void Main (string[] args)
         {
-            IGenerator<Person> generator = Builder.AsGenerator((Builder builder) =>
+            IGenerator<Person> generator = Builder.AsGenerator(selector: (Builder builder) =>
                 new Person(
                     firstname: builder.FirstName(),
                     lastname: builder.LastName(),
-                    age: builder.Integer(20, 60)
+                    age: builder.Integer(min: 20, max: 60)
                 )
             );
 
