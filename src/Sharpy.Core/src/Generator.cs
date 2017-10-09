@@ -208,6 +208,54 @@ namespace Sharpy.Core {
 
         /// <summary>
         ///     <para>
+        ///         Creates a <see cref="IGenerator{T}" /> who increments <see cref="long" />.
+        ///     </para>
+        /// </summary>
+        /// <exception cref="OverflowException">
+        ///     If the incremented value exceeds <see cref="int.MaxValue" />.
+        /// </exception>
+        /// <param name="start">
+        ///     The inclusive number to start at.
+        /// </param>
+        /// <returns>
+        ///     A <see cref="long" /> <see cref="IGenerator{T}" />.
+        /// </returns>
+        /// <example>
+        ///     <para>
+        ///         Here's an example of creating a <see cref="IGenerator{T}" /> which inclusively increments from 20.
+        ///     </para>
+        ///     <code language="c#">
+        ///         IGenerator&lt;int&gt; = Generator.Incrementer(20);
+        ///     </code>
+        /// </example>
+        public static IGenerator<long> Incrementer(long start) => Function(() => checked(start++));
+
+        /// <summary>
+        ///     <para>
+        ///         Creates a <see cref="IGenerator{T}" /> who decrements <see cref="long" />.
+        ///     </para>
+        /// </summary>
+        /// <exception cref="OverflowException">
+        ///     If the value gets below <see cref="long.MinValue" />.
+        /// </exception>
+        /// <param name="start">
+        ///     The inclusive number to start at.
+        /// </param>
+        /// <returns>
+        ///     A <see cref="long" /> <see cref="IGenerator{T}" />.
+        /// </returns>
+        /// <example>
+        ///     <para>
+        ///         Here's an example of creating a <see cref="IGenerator{T}" /> which inclusively decrements from 20.
+        ///     </para>
+        ///     <code language="c#">
+        ///         IGenerator&lt;long&gt; = Generator.Incrementer(20);
+        ///     </code>
+        /// </example>
+        public static IGenerator<long> Decrementer(long start) => Function(() => checked(start--));
+
+        /// <summary>
+        ///     <para>
         ///         Creates a <see cref="IGenerator{T}" /> who decrements <see cref="int" />.
         ///     </para>
         /// </summary>
