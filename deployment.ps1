@@ -102,18 +102,22 @@ function Start-Deployment ([bool] $preRelease, [string] $suffix = 'alpha') {
   [version] $localVersion = Get-LocalVersion $project
 
   Write-Host "Comparing Local $name version '$localVersion' with online $name version '$onlineVersion'" -ForegroundColor Yellow
-  if ($localVersion -gt $onlineVersion) {
+  $newRelease = $localVersion -gt $onlineVersion
+  if ($newRelease) {
     Write-Host "Local version '$localVersion' is greater than the online version '$onlineVersion', continuing..." -ForegroundColor Yellow
     if ($deploy) {
       $nupkg = Pack $project $preRelease $suffix
       Deploy $nupkg.Name
       if ($deletePackage) {
-        if (!$preRelease -and $localVersion.Revision -gt $onlineVersion.Revision) {
+        $hidePatch = $localVersion.Revision -gt $onlineVersion.Revision
+        if (!$preRelease -and $hidePatch) {
           # Hides only the patch package for stable version.
           Hide-OnlinePackage "$($name)-$($onlineVersion)"
-        } else {
+        } elseif ($hidePatch) {
           # Hides every previous alpha package.
           Hide-OnlinePackage "$($name)-$($onlineVersion)-$suffix"
+        } else {
+          Write-Host 'Skipping patch hiding' -ForegroundColor Yellow
         }
       }
     }
@@ -129,7 +133,8 @@ function Start-Deployment ([bool] $preRelease, [string] $suffix = 'alpha') {
 #                                              Start                                               #
 ####################################################################################################
 Write-Host "Starting script for project '$project'" -ForegroundColor Green
-switch ($env:APPVEYOR_REPO_BRANCH) {
+$branch = $env:APPVEYOR_REPO_BRANCH
+switch ($branch) {
   'development' {
     Write-Host "Proceeding script with alpha version for branch: $branch." -ForegroundColor Yellow
     Start-Deployment -PreRelease $true
