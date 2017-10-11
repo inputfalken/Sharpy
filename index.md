@@ -1,5 +1,5 @@
 # Information #
-This page offers documentation and articles for [Sharpy](xref:Sharpy.Core).
+This page offers documentation and articles for [Sharpy](xref:Sharpy).
 Sharpy consists of 2 modules:
 * [Sharpy.Core](xref:Sharpy.Core)
 * [Sharpy.Builder](xref:Sharpy.Builder)
