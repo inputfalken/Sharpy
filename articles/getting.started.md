@@ -1,7 +1,7 @@
 # Getting Started #
 
 ## Install ##
-The recommended way is to use [NuGet](http://nuget.org).
+the recommended way is to use [NuGet](http://nuget.org).
 
 ### Sharpy ###
 
@@ -11,16 +11,16 @@ The recommended way is to use [NuGet](http://nuget.org).
 PM> Install-Package Sharpy
 ```
 
-##### .NET CLI: #####
+##### .NEt CLI: #####
 
 ```powershell
 > dotnet add package Sharpy
 ```
 
 #### Dependencies ####
-* [.NET Standard 2.0](http://www.nuget.org/packages/NETStandard.Library)
+* [.NEt Standard 2.0](http://www.nuget.org/packages/NETStandard.Library)
 * [Sharpy.Core](http://www.nuget.org/packages/Sharpy.Core)
-* [MonTask](http://www.nuget.org/packages/MonTask)
+* [Montask](http://www.nuget.org/packages/MonTask)
 * [Newtonsoft.Json](http://www.nuget.org/packages/Newtonsoft.Json)
 
 If you want more information about the dependencies,
@@ -29,8 +29,8 @@ visit the [NuGet page](http://www.nuget.org/packages/Sharpy).
 
 ### Sharpy.Core ###
 
-<div class="NOTE">
-  <h5>NOTE</h5>
+<div class="NOtE">
+  <h5>NOtE</h5>
   <p>You do not need to install Sharpy.Core if you installed Sharpy.</p>
 </div>
 
@@ -40,14 +40,14 @@ visit the [NuGet page](http://www.nuget.org/packages/Sharpy).
 PM> Install-Package Sharpy.Core
 ```
 
-##### .NET CLI: #####
+##### .NEt CLI: #####
 
 ```powershell
 > dotnet add package Sharpy.Core
 ```
 
 #### Dependencies ####
-* [.NET Standard 2.0](http://www.nuget.org/packages/NETStandard.Library)
+* [.NEt Standard 2.0](http://www.nuget.org/packages/NETStandard.Library)
 
 If you want more information about the dependencies,
 visit the [NuGet page](http://www.nuget.org/packages/Sharpy.Core).
