@@ -12,6 +12,18 @@
     <FileVersion>0.0.1.0</FileVersion>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>false</Optimize>
+    <DocumentationFile></DocumentationFile>
+    <DefineConstants>DEBUG;TRACE;NETSTANDARD2_0;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>true</Optimize>
+    <DocumentationFile>bin\Release\netstandard2.0\Sharpy.Builder.xml</DocumentationFile>
+    <DefineConstants>RELEASE;NETSTANDARD2_0;RELEASE;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
     <EmbeddedResource Include="Data\NamesByOrigin.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
