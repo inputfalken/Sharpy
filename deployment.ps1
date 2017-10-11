@@ -110,17 +110,20 @@ function Start-Deployment ([bool] $preRelease, [string] $suffix = 'alpha') {
       Deploy $nupkg.Name
       if ($deletePackage) {
         $hidePatch = $localVersion.Revision -gt $onlineVersion.Revision
-        if (!$preRelease -and $hidePatch) {
-          # Hides only the patch package for stable version.
-          Hide-OnlinePackage "$($name)-$($onlineVersion)"
-        } elseif ($hidePatch) {
-          # Hides every previous alpha package.
-          Hide-OnlinePackage "$($name)-$($onlineVersion)-$suffix"
-        } else {
+        Write-Host "Comparing local patch '$($localVersion.Revision)' with online patch '$($onlineVersion.Revision)'"
+        if ($hidePatch) {
+          Write-Host "Local is patch is higher than online attempting to hide earlier patch version."
+          if ($preRelease) {
+            Hide-OnlinePackage "$($name)-$($onlineVersion)-$suffix"
+          } else {
+            Hide-OnlinePackage "$($name)-$($onlineVersion)"
+          }
+        }else {
           Write-Host 'Skipping patch hiding' -ForegroundColor Yellow
         }
       }
     }
+  }
   } else {
     Write-Host "Local version '$localVersion' is not greater than online version '$onlineVersion', skipping deployment" -ForegroundColor Yellow
   }
