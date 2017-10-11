@@ -10,7 +10,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sharpy.Core", "src\Sharpy.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{EC9D098D-CDB3-448D-9E68-5FEA78AEC8E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharpy.Builder", "Sharpy.Builder\Sharpy.Builder.csproj", "{5A1B5CD5-0452-4842-8028-12DD3AFE3ED0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharpy.Builder", "src\Sharpy.Builder\Sharpy.Builder.csproj", "{5A1B5CD5-0452-4842-8028-12DD3AFE3ED0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
