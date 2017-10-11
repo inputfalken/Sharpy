@@ -27,3 +27,4 @@ on_finish :
 deploy_script:
   - ps: .\deployment.ps1 -Project src\Sharpy\Sharpy.csproj -Repo https://github.com/inputfalken/Sharpy -Deploy $true -useDocfx $true -DeletePackage $true
   - ps: .\deployment.ps1 -Project src\Sharpy.Core\Sharpy.Core.csproj -Repo https://github.com/inputfalken/Sharpy -Deploy $true -useDocfx $false
+  - ps: .\deployment.ps1 -Project src\Sharpy.Builder\Sharpy.Builder.csproj -Repo https://github.com/inputfalken/Sharpy -Deploy $true -useDocfx $false

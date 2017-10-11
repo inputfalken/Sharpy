@@ -21,4 +21,8 @@
     <ProjectReference Include="..\src\Sharpy\Sharpy.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Sharpy.Tests\" />
+  </ItemGroup>
+
 </Project>
