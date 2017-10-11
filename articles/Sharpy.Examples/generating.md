@@ -21,7 +21,7 @@ namespace Example
         {
             IEnumerable<string> names = BuilderFactory
             .Generator(selector: (BuilderFactory builder) => builder.FirstName(gender: Gender.Male))
-            .take(count: 100);
+            .Take(count: 100);
         }
     }
 }
@@ -29,7 +29,7 @@ namespace Example
 this example uses the following methods:
 * [Generator](xref:Sharpy.BuilderFactory.Generator``2(``0,System.Func{``0,``1}))
 * [FirstName](xref:Sharpy.BuilderFactory.FirstName)
-* [take](xref:Sharpy.Core.Linq.Extensions.Take``1(Sharpy.Core.IGenerator{``0},System.Int32))
+* [Take](xref:Sharpy.Core.Linq.Extensions.Take``1(Sharpy.Core.IGenerator{``0},System.Int32))
 
 ## Generating Numbers ##
 
@@ -47,7 +47,7 @@ namespace Example
         {
             IEnumerable<int> names = BuilderFactory
             .Generator(selector: (BuilderFactory builder) => builder.Integer(min: 10, max: 100))
-            .take(count: 100);
+            .Take(count: 100);
         }
     }
 }
@@ -55,7 +55,7 @@ namespace Example
 this example use the following methods:
 * [Generator](xref:Sharpy.BuilderFactory.Generator``2(``0,System.Func{``0,``1}))
 * [Integer](xref:Sharpy.BuilderFactory.Integer(System.Int32,System.Int32))
-* [take](xref:Sharpy.Core.Linq.Extensions.Take``1(Sharpy.Core.IGenerator{``0},System.Int32))
+* [Take](xref:Sharpy.Core.Linq.Extensions.Take``1(Sharpy.Core.IGenerator{``0},System.Int32))
 
 
 ## Generating Your Own Type ##
@@ -105,4 +105,4 @@ this example use the following methods:
 * [FirstName](xref:Sharpy.BuilderFactory.FirstName)
 * [Integer](xref:Sharpy.BuilderFactory.Integer(System.Int32,System.Int32))
 * [LastName](xref:Sharpy.BuilderFactory.LastName)
-* [take](xref:Sharpy.Core.Linq.Extensions.Take``1(Sharpy.Core.IGenerator{``0},System.Int32))
+* [Take](xref:Sharpy.Core.Linq.Extensions.Take``1(Sharpy.Core.IGenerator{``0},System.Int32))
