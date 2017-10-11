@@ -11,14 +11,14 @@ the recommended way is to use [NuGet](http://nuget.org).
 PM> Install-Package Sharpy
 ```
 
-##### .NEt CLI: #####
+##### .NET CLI: #####
 
 ```powershell
 > dotnet add package Sharpy
 ```
 
 #### Dependencies ####
-* [.NEt Standard 2.0](http://www.nuget.org/packages/NETStandard.Library)
+* [.NET Standard 2.0](http://www.nuget.org/packages/NETStandard.Library)
 * [Sharpy.Core](http://www.nuget.org/packages/Sharpy.Core)
 * [Sharpy.Builder](http://www.nuget.org/packages/Sharpy.Builder)
 * [Montask](http://www.nuget.org/packages/MonTask)
