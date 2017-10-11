@@ -5,9 +5,9 @@ You can derive from [Builder](xref:Sharpy.Builder) and extend it with your own c
 Methods such as [Generator](xref:Sharpy.BuilderFactory.Generator``2(``0,System.Func{``0,``1})), [Enumerable](xref:Sharpy.BuilderFactory.Enumerable``2(``0,System.Func{``0,``1},System.Int32)) and [Generator](xref:Sharpy.BuilderFactory.Generator``2(``0,System.Func{``0,``1}))
 will use descended class members and let you use the class members of both builder and the descended type, as you will see on the following members.
 
-## Calling Generator ##
+## Calling Generator
 
-### As a static method ##
+### As a static method
 
 ```csharp
 using Sharpy.Core;
@@ -40,7 +40,7 @@ namespace Example
 }
 ```
 
-### As an extension method ###
+### As an extension method
 
 ```csharp
 using Sharpy.Core;
@@ -74,7 +74,7 @@ namespace Example
 
 ```
 
-## Calling Enumerable ##
+## Calling Enumerable
 
 ## As a static method
 
@@ -111,7 +111,7 @@ namespace Example
 }
 ```
 
-### As an extension method ###
+### As an extension method
 
 ```csharp
 using Sharpy.Core;
