@@ -4,7 +4,7 @@ Sharpy consists of 2 modules:
 * [Sharpy.Core](xref:Sharpy.Core)
 * [Sharpy.Builder](xref:Sharpy.Builder)
 
-Sharpy offers a static factory class which combines these modules so you can create powerfull generation expressions.
+Sharpy offers a static factory class ([BuilderFactory](xref:Sharpy.BuilderFactory)) which combines these modules so you can create powerfull generation expressions.
 
 For more information & examples, follow the 'Getting Started' link below.
 # [Getting Started](./articles/getting.started.md) #

@@ -31,7 +31,7 @@ namespace Example
 }
 ```
 this example use the following methods:
-* [take](xref:Sharpy.Core.Linq.Extensions.Take``1(Sharpy.Core.IGenerator{``0},System.Int32))
+* [Take](xref:Sharpy.Core.Linq.Extensions.Take``1(Sharpy.Core.IGenerator{``0},System.Int32))
 * [Function](xref:Sharpy.Core.Generator.Function``1(System.Func{``0}))
 
 You can achieve the same result by implementing the IGenerator interface as well.
@@ -61,4 +61,4 @@ namespace Example
 }
 ```
 this example use the following methods:
-* [take](xref:Sharpy.Core.Linq.Extensions.Take``1(Sharpy.Core.IGenerator{``0},System.Int32))
+* [Take](xref:Sharpy.Core.Linq.Extensions.Take``1(Sharpy.Core.IGenerator{``0},System.Int32))
