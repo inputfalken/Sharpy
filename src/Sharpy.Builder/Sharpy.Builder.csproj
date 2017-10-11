@@ -8,8 +8,8 @@
     <PackageLicenseUrl>https://raw.githubusercontent.com/inputfalken/Sharpy/master/License.txt</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/inputfalken/Sharpy</RepositoryUrl>
     <PackageTags>Builder Data</PackageTags>
-    <VersionPrefix>0.0.0</VersionPrefix>
-    <FileVersion>0.0.0.0</FileVersion>
+    <VersionPrefix>0.0.1</VersionPrefix>
+    <FileVersion>0.0.1.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
