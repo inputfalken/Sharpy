@@ -2,6 +2,28 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <RepositoryType>git</RepositoryType>
+    <Description>A builder class offering various of data types representing common items such as names.</Description>
+    <PackageProjectUrl>https://github.com/inputfalken/Sharpy</PackageProjectUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/inputfalken/Sharpy/master/License.txt</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/inputfalken/Sharpy</RepositoryUrl>
+    <PackageTags>Builder Data</PackageTags>
   </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Data\NamesByOrigin.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\swedishPostalCodes.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\usernames.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="newtonsoft.json" Version="10.0.3" />
+  </ItemGroup>
 
 </Project>
