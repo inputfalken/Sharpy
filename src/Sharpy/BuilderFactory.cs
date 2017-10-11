@@ -5,6 +5,9 @@ using Sharpy.Core.Linq;
 using static Sharpy.Core.Generator;
 
 namespace Sharpy {
+    /// <summary>
+    ///     Provides a set of static members to create objects by using <see cref="Builder.Builder" />.
+    /// </summary>
     public static class BuilderFactory {
         /// <summary>
         ///     <para>
