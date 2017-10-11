@@ -5,9 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Sharpy.Tests\Unit\**" />
-    <EmbeddedResource Remove="Sharpy.Tests\Unit\**" />
-    <None Remove="Sharpy.Tests\Unit\**" />
+    <Compile Remove="Sharpy.Tests\**" />
+    <EmbeddedResource Remove="Sharpy.Tests\**" />
+    <None Remove="Sharpy.Tests\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\src\Sharpy.Builder\Sharpy.Builder.csproj" />
     <ProjectReference Include="..\src\Sharpy.Core\Sharpy.Core.csproj" />
-    <ProjectReference Include="..\src\Sharpy\Sharpy.csproj" />
   </ItemGroup>
 
 </Project>
