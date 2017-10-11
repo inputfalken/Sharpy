@@ -60,8 +60,8 @@ function Get-LocalVersion ([string] $project) {
 }
 # Updates DocFx documentation.
 function Update-GHPages {
-  & nuget install docfx.console -Version 2.24.0
-  & docfx.console.2.24.0\tools\docfx docfx.json
+  & nuget install docfx.console -Version 2.25.1
+  & docfx.console.2.25.1\tools\docfx docfx.json
   if ($lastexitcode -ne 0) {
     throw [System.Exception] "docfx build failed with exit code $lastexitcode."
   }
@@ -102,33 +102,42 @@ function Start-Deployment ([bool] $preRelease, [string] $suffix = 'alpha') {
   [version] $localVersion = Get-LocalVersion $project
 
   Write-Host "Comparing Local $name version '$localVersion' with online $name version '$onlineVersion'" -ForegroundColor Yellow
-  if ($localVersion -gt $onlineVersion) {
+  $newRelease = $localVersion -gt $onlineVersion
+  if ($newRelease) {
     Write-Host "Local version '$localVersion' is greater than the online version '$onlineVersion', continuing..." -ForegroundColor Yellow
     if ($deploy) {
       $nupkg = Pack $project $preRelease $suffix
       Deploy $nupkg.Name
       if ($deletePackage) {
-        if (!$preRelease -and $localVersion.Revision -gt $onlineVersion.Revision) {
-          # Hides only the patch package for stable version.
-          Hide-OnlinePackage "$($name)-$($onlineVersion)"
-        } else {
-          # Hides every previous alpha package.
-          Hide-OnlinePackage "$($name)-$($onlineVersion)-$suffix"
+        $hidePatch = $localVersion.Revision -gt $onlineVersion.Revision
+        Write-Host "Comparing local patch '$($localVersion.Revision)' with online patch '$($onlineVersion.Revision)'"
+        if ($hidePatch) {
+          Write-Host "Local is patch is higher than online attempting to hide earlier patch version."
+          if ($preRelease) {
+            Hide-OnlinePackage "$($name)-$($onlineVersion)-$suffix"
+          } else {
+            Hide-OnlinePackage "$($name)-$($onlineVersion)"
+          }
+        }else {
+          Write-Host 'Skipping patch hiding' -ForegroundColor Yellow
         }
       }
     }
-    if ($useDocfx -and !$preRelease) {
-      Update-GHPages
-    }
+  }
   } else {
     Write-Host "Local version '$localVersion' is not greater than online version '$onlineVersion', skipping deployment" -ForegroundColor Yellow
+  }
+
+  if ($useDocfx -and !$preRelease) {
+    Update-GHPages
   }
 }
 ####################################################################################################
 #                                              Start                                               #
 ####################################################################################################
 Write-Host "Starting script for project '$project'" -ForegroundColor Green
-switch ($env:APPVEYOR_REPO_BRANCH) {
+$branch = $env:APPVEYOR_REPO_BRANCH
+switch ($branch) {
   'development' {
     Write-Host "Proceeding script with alpha version for branch: $branch." -ForegroundColor Yellow
     Start-Deployment -PreRelease $true
