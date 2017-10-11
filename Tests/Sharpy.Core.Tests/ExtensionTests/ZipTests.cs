@@ -3,7 +3,7 @@ using NUnit.Framework;
 using Sharpy.Core;
 using Sharpy.Core.Linq;
 
-namespace Tests.GeneratorAPI.LinqTests {
+namespace Tests.Sharpy.Core.Tests.ExtensionTests {
     public class ZipTests {
         private IGenerator<int> _generator;
 
