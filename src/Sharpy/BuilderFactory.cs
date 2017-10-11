@@ -6,7 +6,7 @@ using static Sharpy.Core.Generator;
 
 namespace Sharpy {
     /// <summary>
-    ///     Provides a set of static members to create objects by using <see cref="Builder.Builder" />.
+    ///     Provides a set of static members to create objects by using <see cref="Builder" />.
     /// </summary>
     public static class BuilderFactory {
         /// <summary>
@@ -38,6 +38,14 @@ namespace Sharpy {
             if (selector == null) throw new ArgumentNullException(nameof(selector));
             return Create(source).Select(selector);
         }
+
+        /// <inheritdoc cref="Generator{TBuilder,TResult}(TBuilder,Func{TBuilder,TResult})" />
+        public static IGenerator<TResult> Generator<TResult>(Func<Builder.Builder, TResult> selector) =>
+            new Builder.Builder().Generator(selector);
+
+        /// <inheritdoc cref="Generator{TBuilder,TResult}(TBuilder,Func{TBuilder,int,TResult})" />
+        public static IGenerator<TResult> Generator<TResult>(Func<Builder.Builder, int, TResult> selector) =>
+            new Builder.Builder().Generator(selector);
 
         /// <summary>
         ///     <para>
@@ -101,6 +109,15 @@ namespace Sharpy {
             if (selector == null) throw new ArgumentNullException(nameof(selector));
             for (var i = 0; i < count; i++) yield return selector(source);
         }
+
+        /// <inheritdoc cref="Enumerable{TBuilder,TResult}(TBuilder,Func{TBuilder,TResult},int)" />
+        public static IEnumerable<TResult> Enumerable<TResult>(Func<Builder.Builder, TResult> selector, int count) =>
+            new Builder.Builder().Enumerable(selector, count);
+
+        /// <inheritdoc cref="Enumerable{TBuilder,TResult}(TBuilder,Func{TBuilder,int,TResult},int)" />
+        public static IEnumerable<TResult>
+            Enumerable<TResult>(Func<Builder.Builder, int, TResult> selector, int count) =>
+            new Builder.Builder().Enumerable(selector, count);
 
         /// <summary>
         ///     <para>
