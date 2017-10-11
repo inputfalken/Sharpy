@@ -5,7 +5,7 @@ The easiest way to get started with is to use the [BuilderFactory](xref:Sharpy.B
 This class contains methods to create objects using [Builder](xref:Sharpy.Builder.Builder)
 from the [Sharpy.Builder](xref:Sharpy.Builder) project.
 
-## Generating First Names ##
+## Generating First Names
 
 ```csharp
 using Sharpy.Core;
@@ -31,7 +31,7 @@ this example uses the following methods:
 * [FirstName](xref:Sharpy.BuilderFactory.FirstName)
 * [Take](xref:Sharpy.Core.Linq.Extensions.Take``1(Sharpy.Core.IGenerator{``0},System.Int32))
 
-## Generating Numbers ##
+## Generating Numbers
 
 ```csharp
 using Sharpy.Core;
@@ -58,7 +58,7 @@ this example use the following methods:
 * [Take](xref:Sharpy.Core.Linq.Extensions.Take``1(Sharpy.Core.IGenerator{``0},System.Int32))
 
 
-## Generating Your Own Type ##
+## Generating Your Own Type
 
 ```csharp
 using Sharpy.Core;

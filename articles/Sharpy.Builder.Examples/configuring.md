@@ -5,7 +5,7 @@ You can configure the [Builder](xref:Sharpy.Builder) by passing a [Configurement
 the [Configurement](xref:Sharpy.Configurement) class contains interface properties which you can overwrite to change the behaviour of the [Builder](xref:Sharpy.Builder).
 the following example demonstrates how you could configure the [Builder](xref:Sharpy.Builder).
 
-## Configuring NameProvider ##
+## Configuring NameProvider
 
 ```csharp
 using Sharpy.Core;
@@ -33,7 +33,7 @@ namespace Example
 
 ```
 
-## Configuring IntegerProvider ##
+## Configuring IntegerProvider
 
 ```csharp
 using Sharpy.Core;

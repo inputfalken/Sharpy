@@ -3,7 +3,7 @@ If you don't have Sharpy installed, please visit [Getting Started](./getting.sta
 
 this page contains examples how you could create your own generation algorithms.
 
-## Creating a generator based on System.Random ##
+## Creating a generator based on System.Random
 this example use a factory method which
 lets you create a IGenerator based on a function.
 the function you give will be invoked for every invocation of [Generate](xref:Sharpy.Core.IGenerator`1.Generate)
