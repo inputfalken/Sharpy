@@ -30,7 +30,7 @@ visit the [NuGet page](http://www.nuget.org/packages/Sharpy).
 ### Sharpy.Builder ###
 
 <div class="Note">
-  <h5>NOtE</h5>
+  <h5>Note</h5>
   <p>You do not need to install Sharpy.Builder if you installed Sharpy.</p>
 </div>
 
@@ -55,7 +55,7 @@ visit the [NuGet page](http://www.nuget.org/packages/Sharpy.Builder).
 ### Sharpy.Core ###
 
 <div class="Note">
-  <h5>NOtE</h5>
+  <h5>Note</h5>
   <p>You do not need to install Sharpy.Core if you installed Sharpy.</p>
 </div>
 
