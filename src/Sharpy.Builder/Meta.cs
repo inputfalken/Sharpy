@@ -12,7 +12,7 @@ using Sharpy.Builder.Implementation.DataObjects;
 
 namespace Sharpy.Builder {
     internal static class Data {
-        private const string DataFolder = "Sharpy.Data";
+        private const string DataFolder = "Sharpy.Builder.Data";
 
         private static readonly Lazy<IEnumerable<Name>> LazyNames = new Lazy<IEnumerable<Name>>(() => {
             var assembly = typeof(NameByOrigin).Assembly;
