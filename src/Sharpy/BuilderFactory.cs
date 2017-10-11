@@ -30,7 +30,7 @@ namespace Sharpy {
         ///     A <see cref="IGenerator{T}" /> whose type is the result from the function argument <paramref name="selector" />.
         /// </returns>
         public static IGenerator<TResult> Generator<TBuilder, TResult>(this TBuilder source,
-            Func<TBuilder, TResult> selector) where TBuilder : Builder {
+            Func<TBuilder, TResult> selector) where TBuilder : Builder.Builder {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (selector == null) throw new ArgumentNullException(nameof(selector));
             return Create(source).Select(selector);
@@ -60,7 +60,7 @@ namespace Sharpy {
         ///     A <see cref="IGenerator{T}" /> whose type is the result from the function argument <paramref name="selector" />.
         /// </returns>
         public static IGenerator<TResult> Generator<TBuilder, TResult>(this TBuilder source,
-            Func<TBuilder, int, TResult> selector) where TBuilder : Builder {
+            Func<TBuilder, int, TResult> selector) where TBuilder : Builder.Builder {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (selector == null) throw new ArgumentNullException(nameof(selector));
             return Create(source).Select(selector);
@@ -93,7 +93,7 @@ namespace Sharpy {
         ///     A <see cref="IEnumerable{T}" /> whose type is the result from the function argument <paramref name="selector" />.
         /// </returns>
         public static IEnumerable<TResult> Enumerable<TBuilder, TResult>(this TBuilder source,
-            Func<TBuilder, TResult> selector, int count) where TBuilder : Builder {
+            Func<TBuilder, TResult> selector, int count) where TBuilder : Builder.Builder {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (selector == null) throw new ArgumentNullException(nameof(selector));
             for (var i = 0; i < count; i++) yield return selector(source);
@@ -126,7 +126,7 @@ namespace Sharpy {
         ///     A <see cref="IEnumerable{T}" /> whose type is the result from the function argument <paramref name="selector" />.
         /// </returns>
         public static IEnumerable<TResult> Enumerable<TBuilder, TResult>(this TBuilder source,
-            Func<TBuilder, int, TResult> selector, int count) where TBuilder : Builder {
+            Func<TBuilder, int, TResult> selector, int count) where TBuilder : Builder.Builder {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (selector == null) throw new ArgumentNullException(nameof(selector));
             for (var i = 0; i < count; i++) yield return selector(source, i);
