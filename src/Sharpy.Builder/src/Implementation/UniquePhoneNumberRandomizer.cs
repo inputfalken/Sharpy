@@ -6,7 +6,7 @@ namespace Sharpy.Builder.Implementation {
     /// <summary>
     ///     Randomizes unique <see cref="string" /> representing phone numbers by <see cref="Random" />.
     /// </summary>
-    public class UniquePhoneNumberRandomizer : UniqueRandomizer<int>, IPhoneNumberProvider {
+    public sealed class UniquePhoneNumberRandomizer : UniqueRandomizer<int>, IPhoneNumberProvider {
         private (int, int) _numberByLengthState = (0, 0);
 
         /// <summary>

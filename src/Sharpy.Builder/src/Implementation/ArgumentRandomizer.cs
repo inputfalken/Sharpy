@@ -5,7 +5,7 @@ namespace Sharpy.Builder.Implementation {
     /// <summary>
     ///     Randomizes from the arguments.
     /// </summary>
-    public class ArgumentRandomizer : IArgumentProvider {
+    public sealed class ArgumentRandomizer : IArgumentProvider {
         private readonly Random _random;
 
         /// <summary>

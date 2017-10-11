@@ -12,7 +12,7 @@ namespace Sharpy.Builder.Implementation {
     ///         Randomizes <see cref="string" /> elements representing names by using <see cref="Random" />.
     ///     </para>
     /// </summary>
-    public class NameByOrigin : INameProvider {
+    public sealed class NameByOrigin : INameProvider {
         private static readonly ISet<Origin> Regions = new HashSet<Origin> {
             Enums.Origin.Europe,
             Enums.Origin.NorthAmerica,
