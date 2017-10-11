@@ -40,7 +40,7 @@ visit the [NuGet page](http://www.nuget.org/packages/Sharpy).
 PM> Install-Package Sharpy.Builder
 ```
 
-##### .NEt CLI: #####
+##### .NET CLI: #####
 
 ```powershell
 > dotnet add package Sharpy.Builder
@@ -65,7 +65,7 @@ visit the [NuGet page](http://www.nuget.org/packages/Sharpy.Builder).
 PM> Install-Package Sharpy.Core
 ```
 
-##### .NEt CLI: #####
+##### .NET CLI: #####
 
 ```powershell
 > dotnet add package Sharpy.Core
