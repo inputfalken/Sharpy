@@ -1,8 +1,8 @@
 These examples require you to have Sharpy.Builder or Sharpy
 If you don't have Sharpy installed, please visit [Getting Started](./getting.started.md)
 
-You can configure the [Builder](xref:Sharpy.Builder) by passing a [Configurement](xref:Sharpy.Configurement) instance to the constructor.
-The [Configurement](xref:Sharpy.Configurement) class contains interface properties which you can overwrite to change the behaviour of the [Builder](xref:Sharpy.Builder).
+You can configure the [Builder](xref:Sharpy.Builder) by passing a [Configurement](xref:Sharpy.Builder.Configurement) instance to the constructor.
+The [Configurement](xref:Sharpy.Builder.Configurement) class contains interface properties which you can overwrite to change the behaviour of the [Builder](xref:Sharpy.Builder).
 The following example demonstrates how you could configure the [Builder](xref:Sharpy.Builder).
 
 ## Configuring NameProvider
