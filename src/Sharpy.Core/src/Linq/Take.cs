@@ -24,7 +24,7 @@ namespace Sharpy.Core.Linq {
         ///         Here's an example of how you can create an <see cref="IEnumerable{T}" /> from a generator.
         ///     </para>
         ///     <code language='c#'>
-        ///          IEenumerable&lt;int&gt; = Factory.Incrementer(0).Take(100);
+        ///          IEenumerable&lt;int&gt; = Generator.Incrementer(0).Take(100);
         ///     </code>
         /// </example>
         public static IEnumerable<TSource> Take<TSource>(this IGenerator<TSource> generator, int count) {

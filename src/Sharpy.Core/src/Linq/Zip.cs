@@ -32,8 +32,8 @@ namespace Sharpy.Core.Linq {
         ///         The result is a <see cref="IGenerator{T}" /> whose generations will invoke the second lambda argument.
         ///     </para>
         ///     <code language='c#'>
-        ///          IGenerator&lt;int&gt; randomizer = Factory.Randomizer(10, 100);
-        ///          IGenerator&lt;int&gt; incrementer = Factory.Incrementer(0).Zip(randomizer, (int inc, int rnd) => inc + rnd)
+        ///          IGenerator&lt;int&gt; randomizer = Generator.Randomizer(10, 100);
+        ///          IGenerator&lt;int&gt; incrementer = Generator.Incrementer(0).Zip(randomizer, (int inc, int rnd) => inc + rnd)
         ///     </code>
         /// </example>
         public static IGenerator<TResult> Zip<TSource, TSecond, TResult>(this IGenerator<TSource> first,
