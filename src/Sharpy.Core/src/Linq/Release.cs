@@ -30,7 +30,7 @@ namespace Sharpy.Core.Linq {
         ///         times.
         ///     </para>
         ///     <code language="c#">
-        ///         IGenerator&lt;int&gt; releasedGenerator = Factory.FirstName().Release(20);
+        ///         IGenerator&lt;int&gt; releasedGenerator = Generator.FirstName().Release(20);
         ///     </code>
         /// </example>
         public static IGenerator<TSource> Release<TSource>(this IGenerator<TSource> generator, int amount) {
