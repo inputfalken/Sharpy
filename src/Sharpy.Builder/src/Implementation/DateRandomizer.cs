@@ -1,5 +1,6 @@
 ﻿using System;
 using Sharpy.Builder.IProviders;
+using static System.DateTime;
 
 namespace Sharpy.Builder.Implementation {
     /// <summary>
@@ -28,17 +29,16 @@ namespace Sharpy.Builder.Implementation {
         public DateTime DateByAge(int age) {
             if (age < 0)
                 throw new ArgumentException($"{nameof(age)} cannot be negative");
-            var date = DateTime.Now
+            var date = Now
                 .AddYears(-age)
-                .AddMonths(-_random.Next(1, 12));
+                .AddMonths(-_random.Next(1, 12) + 1);
 
             return date
-                .AddDays(-_random.Next(1, DateTime.DaysInMonth(date.Year, date.Month) + 1))
+                .AddDays(-_random.Next(1, DaysInMonth(date.Year, date.Month)) + 1)
                 .AddHours(-_random.Next(1, 24))
-                .AddMinutes(-_random.Next(-1, 60))
+                .AddMinutes(-_random.Next(1, 60))
                 .AddSeconds(-_random.Next(1, 60));
         }
-
         /// <summary>
         ///     <para>
         ///         Randomizes a <see cref="DateTime" /> based on argument <paramref name="year" />.
@@ -52,12 +52,12 @@ namespace Sharpy.Builder.Implementation {
         ///     The month and date has been randomized.
         /// </returns>
         public DateTime DateByYear(int year) {
-            if (year <= DateTime.MinValue.Year) throw new ArgumentException($"{nameof(year)} cannot be negative");
+            if (year <= MinValue.Year) throw new ArgumentException($"{nameof(year)} cannot be negative");
             var month = _random.Next(1, 13);
             return new DateTime(
                 year,
                 month,
-                DateTime.DaysInMonth(year, month),
+                DaysInMonth(year, month),
                 _random.Next(1, 24),
                 _random.Next(1, 60),
                 _random.Next(1, 60)
