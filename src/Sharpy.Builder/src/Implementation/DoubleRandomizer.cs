@@ -5,7 +5,7 @@ namespace Sharpy.Builder.Implementation {
     /// <summary>
     ///     Randomizes <see cref="double" /> elements by using <see cref="Random" />.
     /// </summary>
-    public class DoubleRandomizer : IDoubleProvider {
+    public sealed class DoubleRandomizer : IDoubleProvider {
         private readonly Random _random;
 
         /// <summary>

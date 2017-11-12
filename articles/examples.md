@@ -1,11 +1,11 @@
-# Examples #
+# Examples
 
-## Sharpy ##
-
+## Sharpy
 * [Generating](./Sharpy.Examples/generating.md)
-* [Configuring](./Sharpy.Examples/configuring.md)
-* [Inherit](./Sharpy.Examples/inherit.md)
+* [Inheriting](./Sharpy.Examples/inheriting.md)
 
-## Sharpy.Core ##
-
+## Sharpy.Core
 * [Creating Custom Generator](./Sharpy.Core.Examples/create.generator.md)
+
+## Sharpy.Builder
+* [Configuring](./Sharpy.Builder.Examples/configuring.md)

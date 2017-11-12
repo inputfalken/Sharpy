@@ -23,7 +23,7 @@ namespace Sharpy.Core.Linq {
         ///         The result is a generator which will call method <see cref="Console.WriteLine(int)" /> every time you generate.
         ///     </para>
         ///     <code language='c#'>
-        ///          IGenerator&lt;int&gt; = Factory.Incrementer(0).Do((int x) => Console.WriteLine(x));
+        ///          IGenerator&lt;int&gt; = Generator.Incrementer(0).Do((int x) => Console.WriteLine(x));
         ///     </code>
         /// </example>
         public static IGenerator<TSource> Do<TSource>(this IGenerator<TSource> generator, Action<TSource> action) {

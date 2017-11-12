@@ -1,7 +1,10 @@
-This page contains examples how you could create your own generation algorithms.
+These examples require you to have Sharpy.Core or Sharpy
+If you don't have Sharpy installed, please visit [Getting Started](./getting.started.md)
 
-## Creating a generator based on System.Random ##
-This example use a factory method which
+this page contains examples how you could create your own generation algorithms.
+
+## Creating a generator based on System.Random
+this example use a factory method which
 lets you create a IGenerator based on a function.
 The function you give will be invoked for every invocation of [Generate](xref:Sharpy.Core.IGenerator`1.Generate)
 ```csharp
@@ -27,7 +30,7 @@ namespace Example
     }
 }
 ```
-This example use the following methods:
+this example use the following methods:
 * [Take](xref:Sharpy.Core.Linq.Extensions.Take``1(Sharpy.Core.IGenerator{``0},System.Int32))
 * [Function](xref:Sharpy.Core.Generator.Function``1(System.Func{``0}))
 
@@ -57,5 +60,5 @@ namespace Example
     }
 }
 ```
-This example use the following methods:
+this example use the following methods:
 * [Take](xref:Sharpy.Core.Linq.Extensions.Take``1(Sharpy.Core.IGenerator{``0},System.Int32))

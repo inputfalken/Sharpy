@@ -1,12 +1,10 @@
-# Information #
+# Information
+This page offers documentation and articles for [Sharpy](xref:Sharpy).
+Sharpy consists of 2 modules:
+* [Sharpy.Core](xref:Sharpy.Core)
+* [Sharpy.Builder](xref:Sharpy.Builder)
 
-Currently there is two libraries which the website contains information about:
-* **Sharpy:** contains objects and methods for generating data such as names and numbers.
- <div class="NOTE">
-   <h5>NOTE</h5>
-   <p>You do not need to install Sharpy.Core if you installed Sharpy.</p>
- </div>
+Sharpy offers a static factory class ([BuilderFactory](xref:Sharpy.BuilderFactory)) which combines these modules so you can create powerfull generation expressions.
 
-* **Sharpy.Core** Offers an interface with fluent syntax using LINQ naming convention.
-
-## [Getting Started](./articles/getting.started.md) ##
+For more information & examples, follow the 'Getting Started' link below.
+# [Getting Started](./articles/getting.started.md)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Sharpy.Core.Implementations;
 using Sharpy.Core.Linq;
+using static System.Guid;
 
 namespace Sharpy.Core {
     /// <summary>
@@ -180,7 +181,7 @@ namespace Sharpy.Core {
         /// <returns>
         ///     A <see cref="System.Guid" /> <see cref="IGenerator{T}" />.
         /// </returns>
-        public static IGenerator<Guid> Guid() => Function(System.Guid.NewGuid);
+        public static IGenerator<Guid> Guid() => Function(NewGuid);
 
         /// <summary>
         ///     <para>

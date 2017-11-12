@@ -109,8 +109,8 @@ function Start-Deployment ([bool] $preRelease, [string] $suffix = 'alpha') {
       $nupkg = Pack $project $preRelease $suffix
       Deploy $nupkg.Name
       if ($deletePackage) {
-        $hidePatch = $localVersion.Revision -gt $onlineVersion.Revision
-        Write-Host "Comparing local patch '$($localVersion.Revision)' with online patch '$($onlineVersion.Revision)'"
+        $hidePatch = $localVersion.Build -gt $onlineVersion.Build
+        Write-Host "Comparing local patch '$($localVersion.Build)' with online patch '$($onlineVersion.Build)'"
         if ($hidePatch) {
           Write-Host "Local is patch is higher than online attempting to hide earlier patch version."
           if ($preRelease) {
@@ -118,20 +118,22 @@ function Start-Deployment ([bool] $preRelease, [string] $suffix = 'alpha') {
           } else {
             Hide-OnlinePackage "$($name)-$($onlineVersion)"
           }
-        }else {
+        } else {
           Write-Host 'Skipping patch hiding' -ForegroundColor Yellow
         }
       }
     }
   }
-  } else {
+  else {
     Write-Host "Local version '$localVersion' is not greater than online version '$onlineVersion', skipping deployment" -ForegroundColor Yellow
   }
 
   if ($useDocfx -and !$preRelease) {
     Update-GHPages
   }
-}
+} 
+
+
 ####################################################################################################
 #                                              Start                                               #
 ####################################################################################################

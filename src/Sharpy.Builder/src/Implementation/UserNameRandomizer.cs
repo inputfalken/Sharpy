@@ -7,7 +7,7 @@ namespace Sharpy.Builder.Implementation {
     /// <summary>
     ///     Randomizes strings representing user names from a <see cref="IReadOnlyList{T}" />.
     /// </summary>
-    public class UserNameRandomizer : IUserNameProvider {
+    public sealed class UserNameRandomizer : IUserNameProvider {
         private readonly Random _random;
         private readonly IReadOnlyList<string> _usernames;
 

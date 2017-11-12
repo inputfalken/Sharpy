@@ -1,12 +1,11 @@
 These examples require you to have Sharpy
 If you don't have Sharpy installed, please visit [Getting Started](./getting.started.md)
 
-The main object you should use is the [Builder](xref:Sharpy.Builder) object.
-This object contains various methods that is useful when you want to generate data.
-The following examples will demonstrate how you could use the builder object.
+The easiest way to get started with is to use the [BuilderFactory](xref:Sharpy.BuilderFactory).
+This class contains methods to create objects using [Builder](xref:Sharpy.Builder.Builder)
+from the [Sharpy.Builder](xref:Sharpy.Builder) project.
 
-
-## Generating First Names ##
+## Generating First Names
 
 ```csharp
 using Sharpy.Core;
@@ -20,19 +19,19 @@ namespace Example
     {
         public static void Main (string[] args)
         {
-            IEnumerable<string> names = Builder
-            .AsGenerator(selector: (Builder builder) => builder.FirstName(gender: Gender.Male))
+            IEnumerable<string> names = BuilderFactory
+            .Generator(selector: (BuilderFactory builder) => builder.FirstName(gender: Gender.Male))
             .Take(count: 100);
         }
     }
 }
 ```
-This example uses the following methods:
-* [AsGenerator](xref:Sharpy.Builder.AsGenerator``2(``0,System.Func{``0,``1}))
-* [FirstName](xref:Sharpy.Builder.FirstName)
+this example uses the following methods:
+* [Generator](xref:Sharpy.BuilderFactory.Generator``2(``0,System.Func{``0,``1}))
+* [FirstName](xref:Sharpy.BuilderFactory.FirstName)
 * [Take](xref:Sharpy.Core.Linq.Extensions.Take``1(Sharpy.Core.IGenerator{``0},System.Int32))
 
-## Generating Numbers ##
+## Generating Numbers
 
 ```csharp
 using Sharpy.Core;
@@ -46,20 +45,20 @@ namespace Example
     {
         public static void Main (string[] args)
         {
-            IEnumerable<int> names = Builder
-            .AsGenerator(selector: (Builder builder) => builder.Integer(min: 10, max: 100))
+            IEnumerable<int> names = BuilderFactory
+            .Generator(selector: (BuilderFactory builder) => builder.Integer(min: 10, max: 100))
             .Take(count: 100);
         }
     }
 }
 ```
-This example use the following methods:
-* [AsGenerator](xref:Sharpy.Builder.AsGenerator``2(``0,System.Func{``0,``1}))
-* [Integer](xref:Sharpy.Builder.Integer(System.Int32,System.Int32))
+this example use the following methods:
+* [Generator](xref:Sharpy.BuilderFactory.Generator``2(``0,System.Func{``0,``1}))
+* [Integer](xref:Sharpy.BuilderFactory.Integer(System.Int32,System.Int32))
 * [Take](xref:Sharpy.Core.Linq.Extensions.Take``1(Sharpy.Core.IGenerator{``0},System.Int32))
 
 
-## Generating Your Own Type ##
+## Generating Your Own Type
 
 ```csharp
 using Sharpy.Core;
@@ -73,7 +72,7 @@ namespace Example
     {
         public static void Main (string[] args)
         {
-            IGenerator<Person> generator = Builder.AsGenerator(selector: (Builder builder) =>
+            IGenerator<Person> generator = BuilderFactory.Generator(selector: (Builder builder) =>
                 new Person(
                     firstname: builder.FirstName(),
                     lastname: builder.LastName(),
@@ -101,9 +100,9 @@ namespace Example
     }
 }
 ```
-This example use the following methods:
-* [AsGenerator](xref:Sharpy.Builder.AsGenerator``2(``0,System.Func{``0,``1}))
-* [FirstName](xref:Sharpy.Builder.FirstName)
-* [Integer](xref:Sharpy.Builder.Integer(System.Int32,System.Int32))
-* [LastName](xref:Sharpy.Builder.LastName)
+this example use the following methods:
+* [Generator](xref:Sharpy.BuilderFactory.Generator``2(``0,System.Func{``0,``1}))
+* [FirstName](xref:Sharpy.BuilderFactory.FirstName)
+* [Integer](xref:Sharpy.BuilderFactory.Integer(System.Int32,System.Int32))
+* [LastName](xref:Sharpy.BuilderFactory.LastName)
 * [Take](xref:Sharpy.Core.Linq.Extensions.Take``1(Sharpy.Core.IGenerator{``0},System.Int32))

@@ -23,7 +23,7 @@ namespace Sharpy.Builder {
         public Configurement(Random random) {
             Random = random;
             LongProvider = new LongRandomizer(Random);
-            IntegerProvider = new IntRandomizer(Random);
+            IntegerProvider = new IntegerRandomizer(Random);
             DoubleProvider = new DoubleRandomizer(Random);
             NameProvider = new NameByOrigin(Random);
             DateProvider = new DateRandomizer(Random);
@@ -173,7 +173,7 @@ namespace Sharpy.Builder {
         ///         Gets and sets the implementation for <see cref="IIntegerProvider" />.
         ///     </para>
         ///     <para>
-        ///         By Default it is <see cref="IntRandomizer" />.
+        ///         By Default it is <see cref="IntegerRandomizer" />.
         ///     </para>
         /// </summary>
         public IIntegerProvider IntegerProvider { get; set; }

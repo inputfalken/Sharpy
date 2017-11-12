@@ -1,4 +1,4 @@
-# API #
+# API
 Welcome to the documentation page of the Sharpy project,
 in this page you will find namespaces on the left bar.
 These namespaces exposes their classes and their members.

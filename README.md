@@ -1,4 +1,4 @@
-# Sharpy #
+# Sharpy
 
 
 | CI       | Development                                                                                                                                                                        | Master                                                                                                                                                                        |

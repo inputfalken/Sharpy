@@ -12,7 +12,7 @@ namespace Sharpy.Builder.Implementation {
     ///         Randomizes <see cref="string" /> elements representing names by using <see cref="Random" />.
     ///     </para>
     /// </summary>
-    public class NameByOrigin : INameProvider {
+    public sealed class NameByOrigin : INameProvider {
         private static readonly ISet<Origin> Regions = new HashSet<Origin> {
             Enums.Origin.Europe,
             Enums.Origin.NorthAmerica,
@@ -29,7 +29,7 @@ namespace Sharpy.Builder.Implementation {
 
         /// <summary>
         ///     <para>
-        ///         Randomizes common names by <see cref="Sharpy.Enums.Origin" /> using argument <paramref name="random" />.
+        ///         Randomizes common names by <see cref="Enums.Origin" /> using argument <paramref name="random" />.
         ///     </para>
         /// </summary>
         public NameByOrigin(Random random, params Origin[] origins) : this(random) {
@@ -69,7 +69,7 @@ namespace Sharpy.Builder.Implementation {
         ///     <para>
         ///         Returns the collection used for randomizing names.
         ///         No argument will get every name.
-        ///         With argument/arguments filters will be used for the <see cref="Sharpy.Enums.Origin" />.
+        ///         With argument/arguments filters will be used for the <see cref="Enums.Origin" />.
         ///     </para>
         /// </summary>
         /// <param name="origins">

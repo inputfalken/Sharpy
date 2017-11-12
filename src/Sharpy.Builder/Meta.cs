@@ -5,8 +5,8 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
-using Newtonsoft.Json;
 using Sharpy.Builder.Implementation.DataObjects;
+using static Newtonsoft.Json.JsonConvert;
 
 [assembly: InternalsVisibleTo("Tests")]
 
@@ -19,7 +19,7 @@ namespace Sharpy.Builder {
         private static readonly Lazy<IEnumerable<Name>> LazyNames = new Lazy<IEnumerable<Name>>(() => {
             var resourceStream = Assembly.GetManifestResourceStream($"{DataFolder}.NamesByOrigin.json");
             using (var reader = new StreamReader(resourceStream, Encoding.UTF8)) {
-                return JsonConvert.DeserializeObject<IEnumerable<Name>>(reader.ReadToEnd());
+                return DeserializeObject<IEnumerable<Name>>(reader.ReadToEnd());
             }
         });
 
@@ -27,7 +27,7 @@ namespace Sharpy.Builder {
             () => {
                 var resourceStream = Assembly.GetManifestResourceStream($"{DataFolder}.swedishPostalCodes.json");
                 using (var reader = new StreamReader(resourceStream, Encoding.UTF8)) {
-                    return JsonConvert.DeserializeObject<IEnumerable<PostalCode>>(reader.ReadToEnd()).ToArray();
+                    return DeserializeObject<IEnumerable<PostalCode>>(reader.ReadToEnd()).ToArray();
                 }
             });
 
