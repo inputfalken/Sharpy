@@ -5,7 +5,7 @@ namespace Sharpy.Builder.Implementation {
     /// <summary>
     ///     Randomizes <see cref="long" /> elements by using <see cref="Random" />.
     /// </summary>
-    public class LongRandomizer : ILongProvider {
+    public sealed class LongRandomizer : ILongProvider {
         private readonly Random _random;
 
         /// <summary>

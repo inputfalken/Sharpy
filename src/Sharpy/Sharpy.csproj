@@ -6,27 +6,28 @@
     <Description>A library used for generating fake data.
 
       For info please visit project page.</Description>
-    <VersionPrefix>4.0.1</VersionPrefix>
+    <VersionPrefix>3.1.4</VersionPrefix>
     <PackageProjectUrl>https://github.com/inputfalken/Sharpy/tree/master</PackageProjectUrl>
     <PackageLicenseUrl>https://raw.githubusercontent.com/inputfalken/Sharpy/master/License.txt</PackageLicenseUrl>
-    <FileVersion>4.0.1.0</FileVersion>
+    <FileVersion>3.1.4.0</FileVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/inputfalken/Sharpy/tree/master</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE;NETSTANDARD2_0</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <Optimize>true</Optimize>
     <DocumentationFile>bin\Release\netstandard2.0\Sharpy.xml</DocumentationFile>
+    <DefineConstants>RELEASE;NETSTANDARD2_0</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="MonTask" Version="0.2.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="Sharpy.Core" Version="0.3.0" />
-    <PackageReference Include="Sharpy.Builder" Version="0.0.1" />
+    <PackageReference Include="Sharpy.Builder" Version="0.0.2" />
   </ItemGroup>
 
   <ItemGroup>

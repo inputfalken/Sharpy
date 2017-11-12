@@ -7,13 +7,13 @@ namespace Sharpy.Builder.Implementation {
     ///         Randomizes <see cref="int" /> elements by using <see cref="Random" />.
     ///     </para>
     /// </summary>
-    public class IntRandomizer : IIntegerProvider {
+    public sealed class IntegerRandomizer : IIntegerProvider {
         private readonly Random _random;
 
         /// <summary>
-        ///     Creates a <see cref="IntRandomizer" />.
+        ///     Creates a <see cref="IntegerRandomizer" />.
         /// </summary>
-        public IntRandomizer(Random random) => _random = random;
+        public IntegerRandomizer(Random random) => _random = random;
 
         /// <inheritdoc />
         public int Integer(int max) => _random.Next(max);

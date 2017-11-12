@@ -26,7 +26,7 @@ namespace Sharpy.Core.Linq {
         ///         Here's an example of how you can create a <see cref="Dictionary{TKey,TValue}" /> from a generator.
         ///     </para>
         ///     <code language='c#'>
-        ///         Dictionary&lt;int,int&gt; dict = Factory.Incrementer(0).ToDictionary(100, (int ks) => ks, (int es) => es);
+        ///         Dictionary&lt;int,int&gt; dict = Generator.Incrementer(0).ToDictionary(100, (int ks) => ks, (int es) => es);
         ///     </code>
         /// </example>
         public static Dictionary<TKey, TValue> ToDictionary<TSource, TKey, TValue>(this IGenerator<TSource> generator,

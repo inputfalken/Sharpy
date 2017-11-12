@@ -30,7 +30,7 @@ namespace Sharpy.Core.Linq {
         ///         The result will be a generator which creates integers equal to the length of each first name generated.
         ///     </para>
         ///     <code language="c#">
-        ///         IGenerator&lt;int&gt; = Factory.FirstName().Select((string x) => x.Length);
+        ///         IGenerator&lt;int&gt; = Generator.Incrementer(0).Select((int x) => x * 2);
         ///     </code>
         /// </example>
         public static IGenerator<TResult> Select<TSource, TResult>(this IGenerator<TSource> generator,
@@ -71,7 +71,7 @@ namespace Sharpy.Core.Linq {
         ///         current generation index.
         ///     </para>
         ///     <code language="c#">
-        ///         IGenerator&lt;int&gt; transformedGenerator = Factory.FirstName().Select((string x, int y) => x.Length + y);
+        ///         IGenerator&lt;int&gt; transformedGenerator = Generator.Randomizer().Select((int rnd, int counter) => x + y);
         ///     </code>
         /// </example>
         public static IGenerator<TResult> Select<TSource, TResult>(this IGenerator<TSource> generator,

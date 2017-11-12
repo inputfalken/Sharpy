@@ -1,57 +1,82 @@
-# Getting Started #
+# Getting Started
 
-## Install ##
-The recommended way is to use [NuGet](http://nuget.org).
+## Install
+the recommended way is to use [NuGet](http://nuget.org).
 
-### Sharpy ###
+### Sharpy
 
-##### NuGet Package Manager: #####
+##### NuGet Package Manager:
 
 ```powershell
 PM> Install-Package Sharpy
 ```
 
-##### .NET CLI: #####
+##### .NET CLI:
 
 ```powershell
 > dotnet add package Sharpy
 ```
 
-#### Dependencies ####
+#### Dependencies
 * [.NET Standard 2.0](http://www.nuget.org/packages/NETStandard.Library)
 * [Sharpy.Core](http://www.nuget.org/packages/Sharpy.Core)
-* [MonTask](http://www.nuget.org/packages/MonTask)
-* [Newtonsoft.Json](http://www.nuget.org/packages/Newtonsoft.Json)
+* [Sharpy.Builder](http://www.nuget.org/packages/Sharpy.Builder)
+* [Montask](http://www.nuget.org/packages/MonTask)
 
 If you want more information about the dependencies,
 visit the [NuGet page](http://www.nuget.org/packages/Sharpy).
 
 
-### Sharpy.Core ###
+### Sharpy.Builder
 
-<div class="NOTE">
-  <h5>NOTE</h5>
+<div class="Note">
+  <h5>Note</h5>
+  <p>You do not need to install Sharpy.Builder if you installed Sharpy.</p>
+</div>
+
+##### Package Manager:
+
+```powershell
+PM> Install-Package Sharpy.Builder
+```
+
+##### .NET CLI:
+
+```powershell
+> dotnet add package Sharpy.Builder
+```
+
+#### Dependencies
+* [.NET Standard 2.0](http://www.nuget.org/packages/NETStandard.Library)
+
+If you want more information about the dependencies,
+visit the [NuGet page](http://www.nuget.org/packages/Sharpy.Builder).
+
+### Sharpy.Core
+
+<div class="Note">
+  <h5>Note</h5>
   <p>You do not need to install Sharpy.Core if you installed Sharpy.</p>
 </div>
 
-##### Package Manager: #####
+##### Package Manager:
 
 ```powershell
 PM> Install-Package Sharpy.Core
 ```
 
-##### .NET CLI: #####
+##### .NET CLI:
 
 ```powershell
 > dotnet add package Sharpy.Core
 ```
 
-#### Dependencies ####
+#### Dependencies
 * [.NET Standard 2.0](http://www.nuget.org/packages/NETStandard.Library)
 
 If you want more information about the dependencies,
 visit the [NuGet page](http://www.nuget.org/packages/Sharpy.Core).
 
-## What next? ##
+## What next?
 Check out examples [Here](./examples.md).
 

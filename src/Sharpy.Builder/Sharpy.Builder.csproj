@@ -8,8 +8,20 @@
     <PackageLicenseUrl>https://raw.githubusercontent.com/inputfalken/Sharpy/master/License.txt</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/inputfalken/Sharpy</RepositoryUrl>
     <PackageTags>Builder Data</PackageTags>
-    <VersionPrefix>0.0.1</VersionPrefix>
-    <FileVersion>0.0.1.0</FileVersion>
+    <VersionPrefix>0.0.2</VersionPrefix>
+    <FileVersion>0.0.2.0</FileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>false</Optimize>
+    <DocumentationFile></DocumentationFile>
+    <DefineConstants>DEBUG;TRACE;NETSTANDARD2_0;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>true</Optimize>
+    <DocumentationFile>bin\Release\netstandard2.0\Sharpy.Builder.xml</DocumentationFile>
+    <DefineConstants>RELEASE;NETSTANDARD2_0;RELEASE;NETSTANDARD2_0</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

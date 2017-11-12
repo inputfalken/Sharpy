@@ -8,7 +8,7 @@ namespace Sharpy.Builder.Implementation {
     /// <summary>
     ///     Randomizes <see cref="string" /> elements as Swedish postal codes.
     /// </summary>
-    public class SwePostalCodeRandomizer : IPostalCodeProvider {
+    public sealed class SwePostalCodeRandomizer : IPostalCodeProvider {
         private readonly Dictionary<string, string[]> _dictionary = new Dictionary<string, string[]>();
         private readonly Random _rnd;
 
