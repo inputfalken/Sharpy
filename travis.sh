@@ -25,7 +25,7 @@ fi
 #                                                                                                  #
 ####################################################################################################
 echo "${yellow}Running dotnet test${reset}"
-dotnet test ./Tests/Tests.csproj -c Release --no-build
+find tests -name '*.csproj' -exec dotnet test {} -c Release --no-build \;
 ####################################################################################################
 #                                                                                                  #
 #                                             AppVeyor                                             #

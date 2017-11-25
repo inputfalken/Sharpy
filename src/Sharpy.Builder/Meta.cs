@@ -8,7 +8,7 @@ using System.Text;
 using Sharpy.Builder.Implementation.DataObjects;
 using static Newtonsoft.Json.JsonConvert;
 
-[assembly: InternalsVisibleTo("Tests")]
+[assembly: InternalsVisibleTo("Sharpy.Builder.Tests")]
 
 namespace Sharpy.Builder {
     internal static class Data {
