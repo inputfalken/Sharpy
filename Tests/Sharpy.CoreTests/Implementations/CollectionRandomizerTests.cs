@@ -7,7 +7,7 @@ using Sharpy.Core.Linq;
 
 namespace Tests.Sharpy.CoreTests.Implementations {
     [TestFixture]
-    internal class CollectionRandomizer {
+    internal class CollectionRandomizerTests {
         [Test]
         public void Null_List_Throws() {
             Assert.Throws<ArgumentNullException>(() => Generator.ListRandomizer<int>(null));
