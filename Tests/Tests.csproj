@@ -5,12 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Sharpy.Tests\**" />
-    <EmbeddedResource Remove="Sharpy.Tests\**" />
-    <None Remove="Sharpy.Tests\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
     <PackageReference Include="NUnit" Version="3.7.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.8.0" />
@@ -19,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\src\Sharpy.Builder\Sharpy.Builder.csproj" />
     <ProjectReference Include="..\src\Sharpy.Core\Sharpy.Core.csproj" />
+    <ProjectReference Include="..\src\Sharpy\Sharpy.csproj" />
   </ItemGroup>
 
 </Project>
