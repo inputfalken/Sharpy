@@ -13,7 +13,6 @@
   <ItemGroup>
     <ProjectReference Include="..\src\Sharpy.Builder\Sharpy.Builder.csproj" />
     <ProjectReference Include="..\src\Sharpy.Core\Sharpy.Core.csproj" />
-    <ProjectReference Include="..\src\Sharpy\Sharpy.csproj" />
   </ItemGroup>
 
 </Project>
