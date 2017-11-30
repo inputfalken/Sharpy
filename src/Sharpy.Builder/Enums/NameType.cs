@@ -1,4 +1,4 @@
-namespace Sharpy.Builder.Implementation.DataObjects {
+namespace Sharpy.Builder.Enums {
     /// <summary>
     ///     Is used as argument when filtering names
     /// </summary>
