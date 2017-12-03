@@ -20,12 +20,17 @@ namespace Sharpy.Builder.Implementation {
             Enums.Origin.SouthAmerica
         };
 
+        private readonly Dictionary<NameType, IReadOnlyList<string>> _dictionary;
+
         private readonly ISet<Origin> _origins;
         private readonly Random _random;
         private readonly ISet<Origin> _selectedCountries = new HashSet<Origin>();
         private readonly ISet<Origin> _selectedRegions = new HashSet<Origin>();
 
-        private NameByOrigin(Random random) => _random = random;
+        private NameByOrigin(Random random) {
+            _dictionary = new Dictionary<NameType, IReadOnlyList<string>>();
+            _random = random;
+        }
 
         /// <summary>
         ///     <para>
@@ -51,9 +56,6 @@ namespace Sharpy.Builder.Implementation {
         public NameByOrigin(params Origin[] origins) : this(new Random(), origins) { }
 
         private static IEnumerable<Name> Names => Data.GetNames;
-
-        private Dictionary<NameType, IReadOnlyList<string>> Dictionary { get; } =
-            new Dictionary<NameType, IReadOnlyList<string>>();
 
         /// <inheritdoc />
         public string FirstName(Gender gender) => Name(
@@ -91,11 +93,11 @@ namespace Sharpy.Builder.Implementation {
         /// </summary>
         /// <param name="arg"></param>
         private string Name(NameType arg) {
-            if (Dictionary.ContainsKey(arg)) return Dictionary[arg].RandomItem(_random);
+            if (_dictionary.ContainsKey(arg)) return _dictionary[arg].RandomItem(_random);
             var strings = Origin(Names.Where(n => n.Type == arg)).Select(n => n.Data).ToArray();
-            if (strings.Any()) Dictionary.Add(arg, strings);
+            if (strings.Any()) _dictionary.Add(arg, strings);
             else throw new Exception("Can't obtain strings with this configuration");
-            return Dictionary[arg].RandomItem(_random);
+            return _dictionary[arg].RandomItem(_random);
         }
 
         private IEnumerable<Name> Origin(IEnumerable<Name> names) {

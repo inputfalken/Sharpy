@@ -11,22 +11,17 @@ namespace Sharpy.Builder.Implementation {
     public sealed class UniqueEmailBuilder : UniqueRandomizer<string>, IEmailProvider {
         private const int Limit = 2;
 
-        internal UniqueEmailBuilder(IReadOnlyList<string> providers, Random random) : base(random) =>
-            EmailDomains = providers;
-
-        /// <summary>
-        ///     Contains the email providers.
-        /// </summary>
-        private IReadOnlyList<string> EmailDomains {
-            set => DomainsEnumerator = value.GetEnumerator();
-        }
-
-        private IEnumerator<char> SeparatorEnumerator { get; } = Infinite().GetEnumerator();
-
         /// <summary>
         ///     Contains the email providers with saved state.
         /// </summary>
-        private IEnumerator<string> DomainsEnumerator { get; set; }
+        private readonly IEnumerator<string> _domainsEnumerator;
+
+        private readonly IEnumerator<char> _separatorEnumerator;
+
+        internal UniqueEmailBuilder(IEnumerable<string> providers, Random random) : base(random) {
+            _domainsEnumerator = providers.GetEnumerator();
+            _separatorEnumerator = Infinite().GetEnumerator();
+        }
 
         /// <summary>
         ///     Creates an email by joining <paramref name="names" /> with common separator characters.
@@ -51,13 +46,13 @@ namespace Sharpy.Builder.Implementation {
                 ).ToArray();
 
             while (resets < Limit)
-                if (DomainsEnumerator.MoveNext()) {
+                if (_domainsEnumerator.MoveNext()) {
                     var result = namesWithIndex.Aggregate(string.Empty,
                             (acc, curr) => {
-                                SeparatorEnumerator.MoveNext();
+                                _separatorEnumerator.MoveNext();
                                 return
-                                    $"{acc}{(curr.iteration == names.Length - 1 ? curr.name : curr.name.Append(SeparatorEnumerator.Current.ToString()))}";
-                            }).Append('@', DomainsEnumerator.Current)
+                                    $"{acc}{(curr.iteration == names.Length - 1 ? curr.name : curr.name.Append(_separatorEnumerator.Current.ToString()))}";
+                            }).Append('@', _domainsEnumerator.Current)
                         .ToLower();
 
                     if (!HashSet.Contains(result)) {
@@ -66,7 +61,7 @@ namespace Sharpy.Builder.Implementation {
                     }
                 }
                 else {
-                    DomainsEnumerator.Reset();
+                    _domainsEnumerator.Reset();
                     resets++;
                 }
             names[names.Length - 1] = ResolveDuplicate(names[names.Length - 1]);
