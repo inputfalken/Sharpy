@@ -74,7 +74,7 @@ namespace Sharpy.Builder.Tests {
         [Test(
             Description = "All characters are numeric (space excluded)."
         )]
-        public void Postal_Code_Contains_Numbers_Only() => Assert.IsTrue(Data.GetPostalcodes
+        public void Postal_Code_Contains_Numbers_Only() => Assert.IsTrue(Data.GetPostalCodes
             .Select(code => code.Postalcode.Remove(3, 1))
             .All(s => s.All(char.IsNumber)));
 
@@ -82,13 +82,13 @@ namespace Sharpy.Builder.Tests {
             Description = "All postal codes contains 6 characters (space included)."
         )]
         public void Postal_Code_Got_Same_Length() =>
-            Assert.IsTrue(Data.GetPostalcodes.All(code => code.Postalcode.Length == 6));
+            Assert.IsTrue(Data.GetPostalCodes.All(code => code.Postalcode.Length == 6));
 
         [Test(
             Description = "Third index is a space."
         )]
         public void Postal_Codes_Use_Space_On_Third_Index() =>
-            Assert.IsTrue(Data.GetPostalcodes.All(code => code.Postalcode[3] == ' '));
+            Assert.IsTrue(Data.GetPostalCodes.All(code => code.Postalcode[3] == ' '));
 
         [Test(
             Description = "Verify that no user name contains number."

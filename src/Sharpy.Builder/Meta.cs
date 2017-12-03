@@ -39,7 +39,7 @@ namespace Sharpy.Builder {
         });
 
         internal static IEnumerable<Name> GetNames => LazyNames.Value;
-        internal static IReadOnlyList<PostalCode> GetPostalcodes => LazyPostalCodes.Value;
+        internal static IReadOnlyList<PostalCode> GetPostalCodes => LazyPostalCodes.Value;
 
         internal static string[] GetUserNames => LazyUsernames.Value;
     }
