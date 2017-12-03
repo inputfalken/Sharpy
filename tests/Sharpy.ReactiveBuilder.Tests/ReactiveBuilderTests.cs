@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reactive.Linq;
 using NUnit.Framework;
 
 namespace Sharpy.ReactiveBuilder.Tests {
@@ -26,6 +29,53 @@ namespace Sharpy.ReactiveBuilder.Tests {
         public void Null_Selector_With_Counter_Throws() {
             Func<Builder.Builder, int, int> selector = null;
             Assert.Throws<ArgumentNullException>(() => new Builder.Builder().Observable(selector));
+        }
+
+        [Test]
+        public void Building_Integers() {
+            const int seed = 20;
+            var builder = new Builder.Builder(seed);
+            var expected = new List<int>();
+            const int total = 2000;
+            const int max = 1000;
+            const int min = 100;
+            for (var i = 0; i < total; i++) expected.Add(builder.Integer(min, max));
+            var result = new Builder.Builder(seed)
+                .Observable(b => b.Integer(min, max))
+                .Take(total)
+                .ToListObservable();
+            Assert.IsTrue(result.SequenceEqual(expected));
+        }
+
+        [Test]
+        public void Building_Dates() {
+            DateTime TrimMilliseconds(DateTime dt) =>
+                new DateTime(dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second, 0);
+
+            const int seed = 20;
+            var builder = new Builder.Builder(seed);
+            var expected = new List<DateTime>();
+            const int total = 2000;
+            for (var i = 0; i < total; i++) expected.Add(TrimMilliseconds(builder.Date()));
+            var result = new Builder.Builder(seed)
+                .Observable(b => TrimMilliseconds(b.Date()))
+                .Take(total)
+                .ToListObservable();
+            Assert.IsTrue(result.SequenceEqual(expected));
+        }
+
+        [Test]
+        public void Building_Booleans() {
+            const int seed = 20;
+            var builder = new Builder.Builder(seed);
+            var expected = new List<bool>();
+            const int total = 2000;
+            for (var i = 0; i < total; i++) expected.Add(builder.Bool());
+            var result = new Builder.Builder(seed)
+                .Observable(b => b.Bool())
+                .Take(total)
+                .ToListObservable();
+            Assert.IsTrue(result.SequenceEqual(expected));
         }
     }
 }
