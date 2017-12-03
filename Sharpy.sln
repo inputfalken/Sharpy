@@ -18,7 +18,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sharpy.Builder.Tests", "tes
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B38DE6EA-5369-401E-8360-10C9CDE0D315}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharpy.ReactiveBuilder", "Sharpy.ReactiveBuilder\Sharpy.ReactiveBuilder.csproj", "{A1BC80CD-0F41-4772-82D9-5A08A051D130}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharpy.ReactiveBuilder", "src\Sharpy.ReactiveBuilder\Sharpy.ReactiveBuilder.csproj", "{A1BC80CD-0F41-4772-82D9-5A08A051D130}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharpy.ReactiveBuilder.Tests", "tests\Sharpy.ReactiveBuilder.Tests\Sharpy.ReactiveBuilder.Tests.csproj", "{3B9DAD6C-2D6C-4E5A-92F8-333855D6FDBA}"
 EndProject
