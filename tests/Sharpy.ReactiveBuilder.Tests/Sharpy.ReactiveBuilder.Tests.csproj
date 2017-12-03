@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Sharpy.ReactiveBuilder\Sharpy.ReactiveBuilder.csproj" />
+    <ProjectReference Include="..\..\src\Sharpy.ReactiveBuilder\Sharpy.ReactiveBuilder.csproj" />
   </ItemGroup>
 
 </Project>
