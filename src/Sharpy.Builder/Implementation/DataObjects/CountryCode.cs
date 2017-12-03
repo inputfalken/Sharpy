@@ -1,6 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 using Sharpy.Builder.Enums;
+using static System.Enum;
 
 namespace Sharpy.Builder.Implementation.DataObjects {
     /// <summary>
@@ -10,13 +11,9 @@ namespace Sharpy.Builder.Implementation.DataObjects {
         [JsonConstructor]
         internal CountryCode(string name, string code) {
             Code = code;
-            Origin origin;
-            if (!Enum.TryParse(name, out origin)) return;
+            if (TryParse(name, out Origin origin)) throw new ArgumentNullException(nameof(name));
             Name = origin;
-            IsParsed = true;
         }
-
-        internal bool IsParsed { get; }
 
         /// <summary>
         ///     Name of the Country
