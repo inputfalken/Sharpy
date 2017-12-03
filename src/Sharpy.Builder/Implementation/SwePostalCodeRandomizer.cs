@@ -24,7 +24,7 @@ namespace Sharpy.Builder.Implementation {
             if (string.IsNullOrEmpty(county))
                 throw new ArgumentNullException($"{nameof(county)} can not be null or empty.");
             if (_dictionary.ContainsKey(county)) return _dictionary[county].RandomItem(_rnd);
-            var strings = Data.GetPostalcodes
+            var strings = Data.GetPostalCodes
                 .Where(p => p.County.Equals(county, StringComparison.CurrentCultureIgnoreCase))
                 .Select(p => p.Postalcode)
                 .ToArray();
@@ -34,6 +34,6 @@ namespace Sharpy.Builder.Implementation {
         }
 
         /// <inheritdoc />
-        public string PostalCode() => Data.GetPostalcodes.RandomItem(_rnd).Postalcode;
+        public string PostalCode() => Data.GetPostalCodes.RandomItem(_rnd).Postalcode;
     }
 }
