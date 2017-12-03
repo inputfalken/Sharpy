@@ -52,17 +52,18 @@ namespace Sharpy.Builder.Implementation {
 
             while (resets < Limit)
                 if (DomainsEnumerator.MoveNext()) {
-                    var result = namesWithIndex.Aggregate(string.Empty,
-                            (acc, curr) => {
-                                SeparatorEnumerator.MoveNext();
-                                return
-                                    $"{acc}{(curr.iteration == names.Length - 1 ? curr.name : curr.name.Append(SeparatorEnumerator.Current.ToString()))}";
-                            }).Append('@', DomainsEnumerator.Current)
-                        .ToLower();
+                    var mailAddress = namesWithIndex.Aggregate(string.Empty,
+                        (acc, curr) => {
+                            SeparatorEnumerator.MoveNext();
+                            return
+                                $"{acc}{(curr.iteration == names.Length - 1 ? curr.name : curr.name.Append(SeparatorEnumerator.Current.ToString()))}";
+                        },
+                        result => result.Append('@', DomainsEnumerator.Current).ToLower()
+                    );
 
-                    if (!HashSet.Contains(result)) {
-                        HashSet.Add(result);
-                        return result;
+                    if (!HashSet.Contains(mailAddress)) {
+                        HashSet.Add(mailAddress);
+                        return mailAddress;
                     }
                 }
                 else {
