@@ -4,7 +4,7 @@
     <Authors>Robert Andersson</Authors>
     <Company />
     <Description>A generator api with fluent syntax.</Description>
-    <VersionPrefix>0.3.0</VersionPrefix>
+    <VersionPrefix>0.3.1</VersionPrefix>
     <PackageProjectUrl>https://github.com/inputfalken/Sharpy/tree/master</PackageProjectUrl>
     <PackageLicenseUrl>https://raw.githubusercontent.com/inputfalken/Sharpy/master/License.txt</PackageLicenseUrl>
     <FileVersion>0.3.0.0</FileVersion>
