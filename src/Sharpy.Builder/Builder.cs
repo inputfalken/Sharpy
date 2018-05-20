@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Sharpy.Builder.Enums;
 using Sharpy.Builder.IProviders;
 
@@ -11,7 +12,7 @@ namespace Sharpy.Builder {
     /// </summary>
     public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, IElementProvider,
         IBoolProvider, IDateProvider, IEmailProvider, IPostalCodeProvider, ISecurityNumberProvider,
-        IPhoneNumberProvider, IUserNameProvider, IArgumentProvider {
+        IPhoneNumberProvider, IUserNameProvider, IArgumentProvider, IMovieDbProvider {
         private readonly IArgumentProvider _argumentProvider;
         private readonly IBoolProvider _boolProvider;
         private readonly IDateProvider _dateprovider;
@@ -19,13 +20,13 @@ namespace Sharpy.Builder {
         private readonly IElementProvider _elementProvider;
         private readonly IEmailProvider _emailProvider;
         private readonly IIntegerProvider _integerProvider;
-
         private readonly ILongProvider _longProvider;
         private readonly INameProvider _nameProvider;
         private readonly IPhoneNumberProvider _phoneNumberProvider;
         private readonly IPostalCodeProvider _postalCodeProvider;
         private readonly ISecurityNumberProvider _securityNumberProvider;
         private readonly IUserNameProvider _userNameProvider;
+        private IMovieDbProvider _movieDbProvider;
 
         /// <summary>
         ///     <para>
@@ -62,6 +63,7 @@ namespace Sharpy.Builder {
                                 throw new ArgumentNullException(nameof(configurement.UserNameProvider));
             _argumentProvider = configurement.ArgumentProvider ??
                                 throw new ArgumentNullException(nameof(configurement.ArgumentProvider));
+            _movieDbProvider = configurement.MovieDbProvider ?? throw new ArgumentNullException(nameof(configurement.MovieDbProvider));
         }
 
         /// <inheritdoc />
@@ -152,6 +154,8 @@ namespace Sharpy.Builder {
 
         /// <inheritdoc />
         public string UserName() => _userNameProvider.UserName();
+
+        public Task<IReadOnlyList<Movie>> RandomMovies() => _movieDbProvider.RandomMovies();
     }
 
 }
