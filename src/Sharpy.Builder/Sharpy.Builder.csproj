@@ -1,5 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RepositoryType>git</RepositoryType>
@@ -11,19 +10,17 @@
     <VersionPrefix>0.0.2</VersionPrefix>
     <FileVersion>0.0.2.0</FileVersion>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <Optimize>false</Optimize>
-    <DocumentationFile></DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
     <DefineConstants>DEBUG;TRACE;NETSTANDARD2_0;NETSTANDARD2_0</DefineConstants>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <Optimize>true</Optimize>
     <DocumentationFile>bin\Release\netstandard2.0\Sharpy.Builder.xml</DocumentationFile>
     <DefineConstants>RELEASE;NETSTANDARD2_0;RELEASE;NETSTANDARD2_0</DefineConstants>
   </PropertyGroup>
-
   <ItemGroup>
     <EmbeddedResource Include="Data\NamesByOrigin.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -35,9 +32,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="newtonsoft.json" Version="10.0.3" />
   </ItemGroup>
-
 </Project>

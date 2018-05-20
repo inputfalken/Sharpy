@@ -1,5 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RepositoryType>git</RepositoryType>
@@ -12,20 +11,17 @@
     <FileVersion>0.0.0.0</FileVersion>
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <Optimize>true</Optimize>
     <DocumentationFile>bin\Release\netstandard2.0\Sharpy.ReactiveBuilder.xml</DocumentationFile>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <Optimize>false</Optimize>
-    <DocumentationFile></DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Sharpy.Builder" Version="0.0.2" />
     <PackageReference Include="system.reactive" Version="4.0.0-preview.3.build.380" />
   </ItemGroup>
-
 </Project>

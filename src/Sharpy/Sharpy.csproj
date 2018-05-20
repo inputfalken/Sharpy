@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Robert Andersson</Authors>
@@ -23,15 +23,12 @@
     <DocumentationFile>bin\Release\netstandard2.0\Sharpy.xml</DocumentationFile>
     <DefineConstants>RELEASE;NETSTANDARD2_0</DefineConstants>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="MonTask" Version="0.2.1" />
     <PackageReference Include="Sharpy.Core" Version="0.3.0" />
     <PackageReference Include="Sharpy.Builder" Version="0.0.2" />
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
-
 </Project>
