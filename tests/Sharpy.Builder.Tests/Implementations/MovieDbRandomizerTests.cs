@@ -9,7 +9,7 @@ namespace Sharpy.Builder.Tests.Implementations {
 
         static MovieDbRandomizerTests() {
             const string theMovieDbApiKey = "THE_MOVIE_DB_API_KEY";
-            var variable = Environment.GetEnvironmentVariable(theMovieDbApiKey, EnvironmentVariableTarget.Machine);
+            var variable = Environment.GetEnvironmentVariable(theMovieDbApiKey);
             ApiKey = !string.IsNullOrEmpty(variable)
                 ? variable
                 : throw new ArgumentException(
