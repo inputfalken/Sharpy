@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
+using Sharpy.Builder.Enums;
 using Sharpy.Builder.Implementation;
 using Sharpy.Builder.IProviders;
 
@@ -63,11 +64,25 @@ namespace Sharpy.Builder.Tests {
         [Test]
         public void Default_SecurityNumberProvider() =>
             VerifyDefaultServiceProvider<ISecurityNumberProvider, UniqueSecurityNumberBuilder>();
+
         [Test]
         public void Default_MovieDbProvider() =>
             VerifyDefaultServiceProvider<IMovieDbProvider, MovieDbRandomizer>();
 
         [Test]
-        public void Bulder_Using_ServiceProvider_Constructor_Does_Not_Throw() => Assert.DoesNotThrow(() => new Builder(_provider));
+        public void Bulder_Using_ServiceProvider_Constructor_Does_Not_Throw() =>
+            Assert.DoesNotThrow(() => new Builder(_provider));
+
+        [Test(Description = "Verifies that random gets overwritten when added from the outside.")]
+        public void Injecting_Random_With_Seed_Overwrites_Default_random() {
+            var b1 = new Builder(new Configurement().Providers.AddSingleton(x => new Random(20))
+                .BuildServiceProvider());
+            var b2 = new Builder(new Configurement().Providers.AddSingleton(x => new Random(20))
+                .BuildServiceProvider());
+
+            for (var i = 0; i < 1000; i++) {
+                Assert.AreEqual(b1.FirstName(), b2.FirstName());
+            }
+        }
     }
 }
