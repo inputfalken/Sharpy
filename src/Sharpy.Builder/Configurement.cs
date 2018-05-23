@@ -1,6 +1,4 @@
 ﻿using System;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Sharpy.Builder.Implementation;
 using Sharpy.Builder.IProviders;
 
@@ -13,32 +11,6 @@ namespace Sharpy.Builder {
     ///     </para>
     /// </summary>
     public class Configurement {
-        public IServiceCollection Providers { get; } = new ServiceCollection()
-            .AddSingleton(_ => new Random())
-            .AddSingleton<IDoubleProvider, DoubleRandomizer>(x => new DoubleRandomizer(x.GetService<Random>()))
-            .AddSingleton<IBoolProvider, BoolRandomizer>(x => new BoolRandomizer(x.GetService<Random>()))
-            .AddSingleton<IEmailProvider, UniqueEmailBuilder>(x => new UniqueEmailBuilder(
-                new[] {"gmail.com", "live.com", "outlook.com", "hotmail.com", "yahoo.com"},
-                x.GetService<Random>()
-            ))
-            .AddSingleton<ILongProvider, LongRandomizer>(x => new LongRandomizer(x.GetService<Random>()))
-            .AddSingleton<IIntegerProvider, IntegerRandomizer>(x => new IntegerRandomizer(x.GetService<Random>()))
-            .AddSingleton<IUserNameProvider, UserNameRandomizer>(x =>
-                new UserNameRandomizer(Data.GetUserNames, x.GetService<Random>())
-            )
-            .AddSingleton<ISecurityNumberProvider, UniqueFormattedSecurityBuilder>(x =>
-                new UniqueFormattedSecurityBuilder(x.GetService<Random>())
-            )
-            .AddSingleton<IPhoneNumberProvider, UniquePhoneNumberRandomizer>(x =>
-                new UniquePhoneNumberRandomizer(x.GetService<Random>())
-            )
-            .AddSingleton<IArgumentProvider, ArgumentRandomizer>(x => new ArgumentRandomizer(x.GetService<Random>()))
-            .AddSingleton<INameProvider, NameByOrigin>(x => new NameByOrigin(x.GetService<Random>()))
-            .AddSingleton<IPostalCodeProvider, SwePostalCodeRandomizer>(x =>
-                new SwePostalCodeRandomizer(x.GetService<Random>()))
-            .AddSingleton<IDateProvider, DateRandomizer>(x => new DateRandomizer(x.GetService<Random>()))
-            .AddSingleton<IElementProvider, ListRandomizer>(x => new ListRandomizer(x.GetService<Random>()))
-            .AddSingleton<IMovieDbProvider, MovieDbRandomizer>(x => new MovieDbRandomizer(string.Empty, x.GetService<Random>()));
 
         /// <summary>
         ///     <para>

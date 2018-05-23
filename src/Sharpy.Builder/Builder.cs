@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Sharpy.Builder.Enums;
+using Sharpy.Builder.Implementation;
 using Sharpy.Builder.IProviders;
 
 namespace Sharpy.Builder {
@@ -27,7 +28,35 @@ namespace Sharpy.Builder {
         private readonly IPostalCodeProvider _postalCodeProvider;
         private readonly ISecurityNumberProvider _securityNumberProvider;
         private readonly IUserNameProvider _userNameProvider;
-        private IMovieDbProvider _movieDbProvider;
+        private readonly IMovieDbProvider _movieDbProvider;
+
+        public static IServiceCollection Services => new ServiceCollection()
+            .AddSingleton(_ => new Random())
+            .AddSingleton<IDoubleProvider, DoubleRandomizer>(x => new DoubleRandomizer(x.GetService<Random>()))
+            .AddSingleton<IBoolProvider, BoolRandomizer>(x => new BoolRandomizer(x.GetService<Random>()))
+            .AddSingleton<IEmailProvider, UniqueEmailBuilder>(x => new UniqueEmailBuilder(
+                new[] {"gmail.com", "live.com", "outlook.com", "hotmail.com", "yahoo.com"},
+                x.GetService<Random>()
+            ))
+            .AddSingleton<ILongProvider, LongRandomizer>(x => new LongRandomizer(x.GetService<Random>()))
+            .AddSingleton<IIntegerProvider, IntegerRandomizer>(x => new IntegerRandomizer(x.GetService<Random>()))
+            .AddSingleton<IUserNameProvider, UserNameRandomizer>(x =>
+                new UserNameRandomizer(Data.GetUserNames, x.GetService<Random>())
+            )
+            .AddSingleton<ISecurityNumberProvider, UniqueFormattedSecurityBuilder>(x =>
+                new UniqueFormattedSecurityBuilder(x.GetService<Random>())
+            )
+            .AddSingleton<IPhoneNumberProvider, UniquePhoneNumberRandomizer>(x =>
+                new UniquePhoneNumberRandomizer(x.GetService<Random>())
+            )
+            .AddSingleton<IArgumentProvider, ArgumentRandomizer>(x => new ArgumentRandomizer(x.GetService<Random>()))
+            .AddSingleton<INameProvider, NameByOrigin>(x => new NameByOrigin(x.GetService<Random>()))
+            .AddSingleton<IPostalCodeProvider, SwePostalCodeRandomizer>(x =>
+                new SwePostalCodeRandomizer(x.GetService<Random>()))
+            .AddSingleton<IDateProvider, DateRandomizer>(x => new DateRandomizer(x.GetService<Random>()))
+            .AddSingleton<IElementProvider, ListRandomizer>(x => new ListRandomizer(x.GetService<Random>()))
+            .AddSingleton<IMovieDbProvider, MovieDbRandomizer>(x =>
+                new MovieDbRandomizer(string.Empty, x.GetService<Random>()));
 
         public Builder(IServiceProvider provider) {
             _argumentProvider = provider.GetService<IArgumentProvider>() ??
@@ -101,10 +130,10 @@ namespace Sharpy.Builder {
         }
 
         /// <inheritdoc />
-        public Builder(int seed) : this(new Configurement(seed)) { }
+        public Builder(int seed) : this(Services.AddSingleton(_ => new Random(seed)).BuildServiceProvider()) { }
 
         /// <inheritdoc />
-        public Builder() : this(new Configurement()) { }
+        public Builder() : this(Services.BuildServiceProvider()) { }
 
         /// <inheritdoc />
         public T Argument<T>(T first, T second, params T[] additional) =>
