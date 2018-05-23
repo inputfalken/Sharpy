@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 using Sharpy.Builder.Enums;
 using Sharpy.Builder.IProviders;
 
@@ -27,6 +28,38 @@ namespace Sharpy.Builder {
         private readonly ISecurityNumberProvider _securityNumberProvider;
         private readonly IUserNameProvider _userNameProvider;
         private IMovieDbProvider _movieDbProvider;
+
+        public Builder(IServiceProvider provider) {
+            _argumentProvider = provider.GetService<IArgumentProvider>() ??
+                                throw new ArgumentNullException(nameof(_argumentProvider));
+            _boolProvider = provider.GetService<IBoolProvider>() ??
+                            throw new ArgumentNullException(nameof(_boolProvider));
+            _dateprovider = provider.GetService<IDateProvider>() ??
+                            throw new ArgumentNullException(nameof(_dateprovider));
+            _doubleProvider = provider.GetService<IDoubleProvider>() ??
+                              throw new ArgumentNullException(nameof(_doubleProvider));
+            _elementProvider = provider.GetService<IElementProvider>() ??
+                               throw new ArgumentNullException(nameof(_elementProvider));
+            _emailProvider = provider.GetService<IEmailProvider>() ??
+                             throw new ArgumentNullException(nameof(_emailProvider));
+            _integerProvider = provider.GetService<IIntegerProvider>() ??
+                               throw new ArgumentNullException(nameof(_integerProvider));
+            _longProvider = provider.GetService<ILongProvider>() ??
+                            throw new ArgumentNullException(nameof(_longProvider));
+            _nameProvider = provider.GetService<INameProvider>() ??
+                            throw new ArgumentNullException(nameof(_nameProvider));
+            _phoneNumberProvider = provider.GetService<IPhoneNumberProvider>() ??
+                                   throw new ArgumentNullException(nameof(_phoneNumberProvider));
+            _postalCodeProvider = provider.GetService<IPostalCodeProvider>() ??
+                                  throw new ArgumentNullException(nameof(_postalCodeProvider));
+            _securityNumberProvider =
+                provider.GetService<ISecurityNumberProvider>() ??
+                throw new ArgumentNullException(nameof(_securityNumberProvider));
+            _userNameProvider = provider.GetService<IUserNameProvider>() ??
+                                throw new ArgumentNullException(nameof(_userNameProvider));
+            _movieDbProvider = provider.GetService<IMovieDbProvider>() ??
+                               throw new ArgumentNullException(nameof(_movieDbProvider));
+        }
 
         /// <summary>
         ///     <para>
@@ -63,7 +96,8 @@ namespace Sharpy.Builder {
                                 throw new ArgumentNullException(nameof(configurement.UserNameProvider));
             _argumentProvider = configurement.ArgumentProvider ??
                                 throw new ArgumentNullException(nameof(configurement.ArgumentProvider));
-            _movieDbProvider = configurement.MovieDbProvider ?? throw new ArgumentNullException(nameof(configurement.MovieDbProvider));
+            _movieDbProvider = configurement.MovieDbProvider ??
+                               throw new ArgumentNullException(nameof(configurement.MovieDbProvider));
         }
 
         /// <inheritdoc />
@@ -157,5 +191,4 @@ namespace Sharpy.Builder {
 
         public Task<IReadOnlyList<Movie>> RandomMovies() => _movieDbProvider.RandomMovies();
     }
-
 }
