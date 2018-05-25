@@ -9,8 +9,9 @@ namespace Sharpy.Builder.Tests {
             Assert.DoesNotThrow(() => new Builder(new Configurement()));
 
         [Test]
-        public void Null_ArgumentProvider_Throws() =>
+        public void Null_ArgumentProvider_Throws() {
             Assert.Throws<ArgumentNullException>(() => new Builder(new Configurement {ArgumentProvider = null}));
+        }
 
         [Test]
         public void Null_BoolProvider_Throws() =>
@@ -63,5 +64,6 @@ namespace Sharpy.Builder.Tests {
         [Test]
         public void Null_MovieDb_Throws() =>
             Assert.Throws<ArgumentNullException>(() => new Builder(new Configurement {MovieDbProvider = null}));
+        
     }
 }

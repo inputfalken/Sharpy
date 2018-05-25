@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Sharpy.Builder.Enums;
 using Sharpy.Builder.Implementation;
 using Sharpy.Builder.IProviders;
@@ -30,35 +31,8 @@ namespace Sharpy.Builder {
         private readonly IUserNameProvider _userNameProvider;
         private readonly IMovieDbProvider _movieDbProvider;
 
-        public static IServiceCollection Services => new ServiceCollection()
-            .AddSingleton(_ => new Random())
-            .AddSingleton<IDoubleProvider, DoubleRandomizer>(x => new DoubleRandomizer(x.GetService<Random>()))
-            .AddSingleton<IBoolProvider, BoolRandomizer>(x => new BoolRandomizer(x.GetService<Random>()))
-            .AddSingleton<IEmailProvider, UniqueEmailBuilder>(x => new UniqueEmailBuilder(
-                new[] {"gmail.com", "live.com", "outlook.com", "hotmail.com", "yahoo.com"},
-                x.GetService<Random>()
-            ))
-            .AddSingleton<ILongProvider, LongRandomizer>(x => new LongRandomizer(x.GetService<Random>()))
-            .AddSingleton<IIntegerProvider, IntegerRandomizer>(x => new IntegerRandomizer(x.GetService<Random>()))
-            .AddSingleton<IUserNameProvider, UserNameRandomizer>(x =>
-                new UserNameRandomizer(Data.GetUserNames, x.GetService<Random>())
-            )
-            .AddSingleton<ISecurityNumberProvider, UniqueFormattedSecurityBuilder>(x =>
-                new UniqueFormattedSecurityBuilder(x.GetService<Random>())
-            )
-            .AddSingleton<IPhoneNumberProvider, UniquePhoneNumberRandomizer>(x =>
-                new UniquePhoneNumberRandomizer(x.GetService<Random>())
-            )
-            .AddSingleton<IArgumentProvider, ArgumentRandomizer>(x => new ArgumentRandomizer(x.GetService<Random>()))
-            .AddSingleton<INameProvider, NameByOrigin>(x => new NameByOrigin(x.GetService<Random>()))
-            .AddSingleton<IPostalCodeProvider, SwePostalCodeRandomizer>(x =>
-                new SwePostalCodeRandomizer(x.GetService<Random>()))
-            .AddSingleton<IDateProvider, DateRandomizer>(x => new DateRandomizer(x.GetService<Random>()))
-            .AddSingleton<IElementProvider, ListRandomizer>(x => new ListRandomizer(x.GetService<Random>()))
-            .AddSingleton<IMovieDbProvider, MovieDbRandomizer>(x =>
-                new MovieDbRandomizer(string.Empty, x.GetService<Random>()));
-
         public Builder(IServiceProvider provider) {
+            provider = provider ?? throw new ArgumentNullException(nameof(provider));
             _argumentProvider = provider.GetService<IArgumentProvider>() ??
                                 throw new ArgumentNullException(nameof(_argumentProvider));
             _boolProvider = provider.GetService<IBoolProvider>() ??
@@ -98,42 +72,11 @@ namespace Sharpy.Builder {
         /// <param name="configurement">
         ///     The configuration for the <see cref="Builder" />.
         /// </param>
-        public Builder(Configurement configurement) {
-            _doubleProvider = configurement.DoubleProvider ??
-                              throw new ArgumentNullException(nameof(configurement.DoubleProvider));
-            _integerProvider = configurement.IntegerProvider ??
-                               throw new ArgumentNullException(nameof(configurement.IntegerProvider));
-            _longProvider = configurement.LongProvider ??
-                            throw new ArgumentNullException(nameof(configurement.LongProvider));
-            _nameProvider = configurement.NameProvider ??
-                            throw new ArgumentNullException(nameof(configurement.NameProvider));
-            _dateprovider = configurement.DateProvider ??
-                            throw new ArgumentNullException(nameof(configurement.DateProvider));
-            _emailProvider = configurement.MailProvider ??
-                             throw new ArgumentNullException(nameof(configurement.MailProvider));
-            _securityNumberProvider = configurement.SecurityNumberProvider ??
-                                      throw new ArgumentNullException(nameof(configurement.SecurityNumberProvider));
-            _elementProvider = configurement.ListElementPicker ??
-                               throw new ArgumentNullException(nameof(configurement.ListElementPicker));
-            _boolProvider = configurement.BoolProvider ??
-                            throw new ArgumentNullException(nameof(configurement.BoolProvider));
-            _postalCodeProvider = configurement.PostalCodeProvider ??
-                                  throw new ArgumentNullException(nameof(configurement.PostalCodeProvider));
-            _phoneNumberProvider = configurement.PhoneNumberProvider ??
-                                   throw new ArgumentNullException(nameof(configurement.PhoneNumberProvider));
-            _userNameProvider = configurement.UserNameProvider ??
-                                throw new ArgumentNullException(nameof(configurement.UserNameProvider));
-            _argumentProvider = configurement.ArgumentProvider ??
-                                throw new ArgumentNullException(nameof(configurement.ArgumentProvider));
-            _movieDbProvider = configurement.MovieDbProvider ??
-                               throw new ArgumentNullException(nameof(configurement.MovieDbProvider));
-        }
+        public Builder(IServiceCollection configurement) : this(configurement.BuildServiceProvider()) { }
 
-        /// <inheritdoc />
-        public Builder(int seed) : this(Services.AddSingleton(_ => new Random(seed)).BuildServiceProvider()) { }
-
-        /// <inheritdoc />
-        public Builder() : this(Services.BuildServiceProvider()) { }
+        public Builder() : this(new Configurement()) { }
+        
+        public Builder(int seed) : this(new Configurement(seed)) { }
 
         /// <inheritdoc />
         public T Argument<T>(T first, T second, params T[] additional) =>

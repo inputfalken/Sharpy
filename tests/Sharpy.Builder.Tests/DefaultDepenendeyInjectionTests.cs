@@ -8,7 +8,7 @@ using Sharpy.Builder.IProviders;
 namespace Sharpy.Builder.Tests {
     [TestFixture]
     public class DefaultDepenendeyInjectionTests {
-        private readonly IServiceProvider _provider = Builder.Services.BuildServiceProvider();
+        private readonly IServiceProvider _provider = new Configurement().BuildServiceProvider();
 
         /// <summary>
         /// Verifies that default serviceproviders works as expected.
@@ -75,9 +75,9 @@ namespace Sharpy.Builder.Tests {
 
         [Test(Description = "Verifies that random gets overwritten when added from the outside.")]
         public void Injecting_Random_With_Seed_Overwrites_Default_random() {
-            var b1 = new Builder(Builder.Services.AddSingleton(x => new Random(20))
+            var b1 = new Builder(new Configurement().AddSingleton(x => new Random(20))
                 .BuildServiceProvider());
-            var b2 = new Builder(Builder.Services.AddSingleton(x => new Random(20))
+            var b2 = new Builder(new Configurement().AddSingleton(x => new Random(20))
                 .BuildServiceProvider());
 
             for (var i = 0; i < 1000; i++) {
