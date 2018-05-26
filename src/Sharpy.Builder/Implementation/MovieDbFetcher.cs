@@ -22,7 +22,11 @@ namespace Sharpy.Builder.Implementation {
                 ? throw new ArgumentNullException(nameof(apiKey))
                 : apiKey;
 
-            Pages = Enumerable.Range(1, PagesCount).OrderBy(i => rnd.Next(i)).GetEnumerator();
+            Pages = Enumerable
+                .Range(1, PagesCount)
+                .OrderBy(i => rnd.Next(i))
+                .ToList()
+                .GetEnumerator();
         }
 
         private static bool IsBelowRequestLimit(HttpResponseHeaders headers) {
