@@ -67,7 +67,7 @@ namespace Sharpy.Builder.Tests {
 
         [Test]
         public void Default_MovieDbProvider() =>
-            VerifyDefaultServiceProvider<IMovieDbProvider, MovieDbRandomizer>();
+            VerifyDefaultServiceProvider<IMovieDbProvider, MovieDbFetcher>();
 
         [Test]
         public void Bulder_Using_ServiceProvider_Constructor_Does_Not_Throw() =>

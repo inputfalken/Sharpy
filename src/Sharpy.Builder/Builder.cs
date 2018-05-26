@@ -161,6 +161,6 @@ namespace Sharpy.Builder {
         /// <inheritdoc />
         public string UserName() => _userNameProvider.UserName();
 
-        public Task<IReadOnlyList<Movie>> RandomMovies() => _movieDbProvider.RandomMovies();
+        public Task<IReadOnlyList<Movie>> FetchMovies() => _movieDbProvider.FetchMovies();
     }
 }

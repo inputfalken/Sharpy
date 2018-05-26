@@ -56,8 +56,8 @@ namespace Sharpy.Builder {
                 new SwePostalCodeRandomizer(x.GetService<Random>()))
             .AddSingleton<IDateProvider, DateRandomizer>(x => new DateRandomizer(x.GetService<Random>()))
             .AddSingleton<IElementProvider, ListRandomizer>(x => new ListRandomizer(x.GetService<Random>()))
-            .AddSingleton<IMovieDbProvider, MovieDbRandomizer>(x =>
-                new MovieDbRandomizer(string.Empty, x.GetService<Random>()));
+            .AddSingleton<IMovieDbProvider, MovieDbFetcher>(x =>
+                new MovieDbFetcher(string.Empty, x.GetService<Random>()));
 
         public Configurement(IServiceCollection services) => _services = services ?? throw new ArgumentNullException(nameof(services));
 
@@ -79,7 +79,7 @@ namespace Sharpy.Builder {
         ///         Gets and sets the implementation for <see cref="IMovieDbProvider" />.
         ///     </para>
         ///     <para>
-        ///         By default it is <see cref="MovieDbRandomizer" />.
+        ///         By default it is <see cref="MovieDbFetcher" />.
         ///     </para>
         ///     <remarks>
         ///         You must provide a valid API key in order for the methods to work.

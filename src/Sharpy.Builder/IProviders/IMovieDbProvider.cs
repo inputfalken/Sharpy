@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Sharpy.Builder.IProviders {
     public interface IMovieDbProvider {
-        Task<IReadOnlyList<Movie>> RandomMovies();
+        Task<IReadOnlyList<Movie>> FetchMovies();
         
     }
 
