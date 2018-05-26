@@ -11,17 +11,17 @@ namespace Sharpy.Builder.Implementation {
         private readonly Random _random;
 
         public MovieDbRandomizer(string apiKey, Random random) {
-            _apiKey = apiKey;
-            _random = random;
+            _random = random ?? throw new ArgumentNullException(nameof(random));
+            _apiKey = string.IsNullOrEmpty(apiKey)
+                ? throw new ArgumentNullException(nameof(apiKey))
+                : apiKey;
         }
 
         public async Task<IReadOnlyList<Movie>> RandomMovies() {
-            if (string.IsNullOrEmpty(_apiKey))
-                throw new ArgumentException("You need to supply a valid apikey for 'www.themoviedb.org'.");
             var httpClient = new HttpClient();
             var request = await httpClient.GetStringAsync(
                 $"https://api.themoviedb.org/3/discover/movie?api_key={_apiKey}&language=en-US&sort_by=original_title.asc&include_adult=false&include_video=false&page={_random.Next(1, 1000)}");
-            var deserialize = JsonConvert.DeserializeAnonymousType(request, new { results = new List<Movie>()});
+            var deserialize = JsonConvert.DeserializeAnonymousType(request, new {results = new List<Movie>()});
             return deserialize.results;
         }
     }
