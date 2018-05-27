@@ -162,5 +162,10 @@ namespace Sharpy.Builder {
         public string UserName() => _userNameProvider.UserName();
 
         public Task<IReadOnlyList<Movie>> FetchMovies() => _movieDbProvider.FetchMovies();
+        public Task<IReadOnlyList<Movie>> FetchMovies(params Genre[] genres) => _movieDbProvider.FetchMovies(genres);
+        public Task<IReadOnlyList<Movie>> FetchMovies(MovieLanguage language) => _movieDbProvider.FetchMovies(language);
+
+        public Task<IReadOnlyList<Movie>> FetchMovies(MovieLanguage language, params Genre[] genres) =>
+            _movieDbProvider.FetchMovies(language, genres);
     }
 }

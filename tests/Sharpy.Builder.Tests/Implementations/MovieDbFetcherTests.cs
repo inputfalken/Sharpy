@@ -67,6 +67,14 @@ namespace Sharpy.Builder.Tests.Implementations {
             });
         }
 
+        [Test]
+        public async Task Make_40_Requestx() {
+            var movieDbFetcher = new MovieDbFetcher(ApiKey, new Random());
+            var movieDbRandomizer = await movieDbFetcher.FetchMovies();
+            var movieDbRandomizer2 = await movieDbFetcher.FetchMovies();
+            Console.WriteLine(movieDbRandomizer);
+        }
+
         [Test(Description =
             "Request Rate Limiting: https://developers.themoviedb.org/3/getting-started/request-rate-limiting")]
         public void Make_80_Requests() {
