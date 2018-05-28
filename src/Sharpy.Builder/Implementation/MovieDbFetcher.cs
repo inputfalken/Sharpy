@@ -16,14 +16,11 @@ namespace Sharpy.Builder.Implementation {
         private static readonly HttpClient Client = new HttpClient();
         private const string RemainingRequests = "X-RateLimit-Remaining";
 
-        private static readonly (MovieLanguage, IReadOnlyCollection<Genre>) Identity = (MovieLanguage.Any,
-            new[] {Genre.Any});
-
-        private readonly Dictionary<(MovieLanguage, IReadOnlyCollection<Genre>), IEnumerator<int>> _argumentHistory =
-            new Dictionary<(MovieLanguage, IReadOnlyCollection<Genre>), IEnumerator<int>>();
+        private readonly Dictionary<MovieDbArgument, IEnumerator<int>> _cache =
+            new Dictionary<MovieDbArgument, IEnumerator<int>>(MovieDbArgument.Comparer);
 
         private static string BuildGenreString(IReadOnlyList<Genre> genres) =>
-            genres.Any() ? $"&with_genres=[{string.Join(",", genres.Cast<int>())}]" : string.Empty;
+            genres.Any() ? $"&with_genres={string.Join(",", genres.Cast<int>())}" : string.Empty;
 
         private static string BuildPageString(int page) => $"&page={page}";
         private static string BuildApiKeyString(string key) => $"?api_key={key}";
@@ -31,8 +28,37 @@ namespace Sharpy.Builder.Implementation {
         private static string BuildLanguageString(MovieLanguage language) =>
             $"&with_original_language={MapLanguage(language)}";
 
-        private static IEnumerator<int> RandomizeList(Random rnd, int count) {
-            return Enumerable.Range(1, count).OrderBy(_ => rnd.Next()).ToList().GetEnumerator();
+        private static IEnumerator<int> CreateEnumerator(Random rnd, int count) {
+            var list = Enumerable.Range(2, count - 1).OrderBy(_ => rnd.Next()).ToList();
+            return list.GetEnumerator();
+        }
+
+        private class MovieDbArgument {
+            internal static IEqualityComparer<MovieDbArgument> Comparer { get; } = new MovieDbComparer();
+
+            public MovieDbArgument(MovieLanguage language, params Genre[] genres) {
+                _language = language;
+                _genres = genres.Distinct().ToList();
+            }
+
+            private readonly MovieLanguage _language;
+            private readonly IReadOnlyCollection<Genre> _genres;
+
+            private class MovieDbComparer : IEqualityComparer<MovieDbArgument> {
+                public bool Equals(MovieDbArgument x, MovieDbArgument y) =>
+                    y._language == x._language && x._genres.SequenceEqual(y._genres);
+
+                public int GetHashCode(MovieDbArgument obj) {
+                    unchecked {
+                        // TODO make it ignore order of elements, sorting does not solve this...
+                        return obj._genres
+                            .Aggregate(17,
+                                (x, y) => x * 31 + y.GetHashCode(),
+                                i => i * 31 + obj._language.GetHashCode()
+                            );
+                    }
+                }
+            }
         }
 
         private static string MapLanguage(MovieLanguage language) {
@@ -52,11 +78,18 @@ namespace Sharpy.Builder.Implementation {
             }
         }
 
+        private static int GetPage(IReadOnlyDictionary<MovieDbArgument, IEnumerator<int>> dictionary,
+            MovieDbArgument argument) => dictionary.TryGetValue(argument, out var pageEnumerator)
+            ? (pageEnumerator.MoveNext()
+                ? pageEnumerator.Current
+                : throw new Exception("Cannot obtain more movies."))
+            : 1;
+
         private readonly Random _random;
 
         // Docs https://developers.themoviedb.org/3/getting-started/request-rate-limiting
         private async Task<IReadOnlyList<Movie>> RequestMovies(string uri,
-            (MovieLanguage, IReadOnlyCollection<Genre>) arguments) {
+            MovieDbArgument argument) {
             bool UnhandledStatusCode(HttpStatusCode statusCode) => new[] {
                 HttpStatusCode.Unauthorized,
                 HttpStatusCode.InternalServerError,
@@ -83,7 +116,7 @@ namespace Sharpy.Builder.Implementation {
                 if (UnhandledStatusCode(response.StatusCode))
                     throw new HttpRequestException(await response.Content.ReadAsStringAsync());
                 if (IsBelowRequestLimit(response.Headers))
-                    return await DeserializeMovies(response.Content.ReadAsStringAsync(), arguments) as
+                    return await DeserializeMovies(response.Content.ReadAsStringAsync(), argument) as
                         IReadOnlyList<Movie>;
                 if (response.Headers.RetryAfter.Delta.HasValue)
                     await Task.Delay(response.Headers.RetryAfter.Delta.Value.Milliseconds);
@@ -100,90 +133,59 @@ namespace Sharpy.Builder.Implementation {
         }
 
         private async Task<IList<Movie>> DeserializeMovies(Task<string> json,
-            (MovieLanguage, IReadOnlyCollection<Genre>) arguments) {
+            MovieDbArgument arguments) {
             var deserializeAnonymousType = JsonConvert
                 .DeserializeAnonymousType(
                     await json,
                     new {results = new List<Movie>(), total_pages = 0}
                 );
-            lock (_argumentHistory)
-                _argumentHistory[arguments] =
-                    RandomizeList(
-                        _random,
-                        deserializeAnonymousType.total_pages >= MaxPage ? MaxPage : deserializeAnonymousType.total_pages
-                    );
+
+            if (deserializeAnonymousType.total_pages == 0)
+                throw new ArgumentException("No movies could be found with the arguments supplied");
+
+            lock (_cache)
+                if (!_cache.ContainsKey(arguments))
+                    _cache[arguments] =
+                        CreateEnumerator(
+                            _random,
+                            deserializeAnonymousType.total_pages >= MaxPage
+                                ? MaxPage
+                                : deserializeAnonymousType.total_pages
+                        );
 
             return deserializeAnonymousType.results;
         }
 
         public Task<IReadOnlyList<Movie>> FetchMovies() {
-            lock (_argumentHistory) {
-                // Issues with reference types, only works with Identity
-                if (_argumentHistory.TryGetValue(Identity, out var pageEnumerator)) {
-                    if (pageEnumerator.MoveNext())
-                        return RequestMovies(
-                            $"https://api.themoviedb.org/3/discover/movie{BuildApiKeyString(_apiKey)}&language=en-US&sort_by=original_title.asc&include_adult=false&include_video=false{BuildPageString(pageEnumerator.Current)}",
-                            Identity);
-
-                    throw new Exception("Cannot obtain more movies.");
-                }
-            }
-
-            return RequestMovies(
-                $"https://api.themoviedb.org/3/discover/movie{BuildApiKeyString(_apiKey)}&language=en-US&sort_by=original_title.asc&include_adult=false&include_video=false{BuildPageString(1)}",
-                Identity);
+            var argument = new MovieDbArgument(MovieLanguage.Any, Genre.Any);
+            lock (_cache)
+                return RequestMovies(
+                    $"https://api.themoviedb.org/3/discover/movie{BuildApiKeyString(_apiKey)}&language=en-US&sort_by=original_title.asc&include_adult=false&include_video=false{GetPage(_cache, argument)}",
+                    argument);
         }
 
         public Task<IReadOnlyList<Movie>> FetchMovies(params Genre[] genres) {
-            lock (_argumentHistory) {
-                if (_argumentHistory.TryGetValue(Identity, out var pageEnumerator)) {
-                    if (pageEnumerator.MoveNext())
-                        return RequestMovies(
-                            $"https://api.themoviedb.org/3/discover/movie{BuildApiKeyString(_apiKey)}&language=en-US&sort_by=original_title.asc&include_adult=false&include_video=false{BuildPageString(pageEnumerator.Current)}{BuildGenreString(genres)}",
-                            (MovieLanguage.Any, genres));
-
-                    throw new Exception("Cannot obtain more movies.");
-                }
-            }
-
-            return RequestMovies(
-                $"https://api.themoviedb.org/3/discover/movie{BuildApiKeyString(_apiKey)}&language=en-US&sort_by=original_title.asc&include_adult=false&include_video=false{BuildPageString(1)}{BuildGenreString(genres)}",
-                (MovieLanguage.Any, genres));
+            var argument = new MovieDbArgument(MovieLanguage.Any, genres);
+            lock (_cache)
+                return RequestMovies(
+                    $"https://api.themoviedb.org/3/discover/movie{BuildApiKeyString(_apiKey)}&language=en-US&sort_by=original_title.asc&include_adult=false&include_video=false{BuildPageString(GetPage(_cache, argument))}{BuildGenreString(genres)}",
+                    argument);
         }
 
         public Task<IReadOnlyList<Movie>> FetchMovies(MovieLanguage language) {
-            var argument = (language, new[] {Genre.Any});
-            lock (_argumentHistory) {
-                if (_argumentHistory.TryGetValue(argument, out var pageEnumerator)) {
-                    if (pageEnumerator.MoveNext())
-                        return RequestMovies(
-                            $"https://api.themoviedb.org/3/discover/movie{BuildApiKeyString(_apiKey)}{BuildLanguageString(language)}&sort_by=original_title.asc&include_adult=false&include_video=false{BuildPageString(pageEnumerator.Current)}",
-                            argument);
-
-                    throw new Exception("Cannot obtain more movies.");
-                }
-            }
-
-            return RequestMovies(
-                $"https://api.themoviedb.org/3/discover/movie{BuildApiKeyString(_apiKey)}{BuildLanguageString(language)}&sort_by=original_title.asc&include_adult=false&include_video=false{BuildPageString(1)}",
-                argument);
+            var argument = new MovieDbArgument(language, Genre.Any);
+            lock (_cache)
+                return RequestMovies(
+                    $"https://api.themoviedb.org/3/discover/movie{BuildApiKeyString(_apiKey)}{BuildLanguageString(language)}&sort_by=original_title.asc&include_adult=false&include_video=false{BuildPageString(GetPage(_cache, argument))}",
+                    argument);
         }
 
         public Task<IReadOnlyList<Movie>> FetchMovies(MovieLanguage language, params Genre[] genres) {
-            lock (_argumentHistory) {
-                if (_argumentHistory.TryGetValue(Identity, out var pageEnumerator)) {
-                    if (pageEnumerator.MoveNext())
-                        return RequestMovies(
-                            $"https://api.themoviedb.org/3/discover/movie{BuildApiKeyString(_apiKey)}{BuildLanguageString(language)}&sort_by=original_title.asc&include_adult=false&include_video=false{BuildPageString(pageEnumerator.Current)}{BuildGenreString(genres)}",
-                            (language, genres));
-
-                    throw new Exception("Cannot obtain more movies.");
-                }
-            }
-
-            return RequestMovies(
-                $"https://api.themoviedb.org/3/discover/movie{BuildApiKeyString(_apiKey)}{BuildLanguageString(language)}&sort_by=original_title.asc&include_adult=false&include_video=false{BuildPageString(1)}{BuildGenreString(genres)}",
-                (language, genres));
+            var argument = new MovieDbArgument(language, genres);
+            lock (_cache)
+                return RequestMovies(
+                    $"https://api.themoviedb.org/3/discover/movie{BuildApiKeyString(_apiKey)}{BuildLanguageString(language)}&sort_by=original_title.asc&include_adult=false&include_video=false{BuildPageString(GetPage(_cache, argument))}{BuildGenreString(genres)}",
+                    argument);
         }
     }
 }
