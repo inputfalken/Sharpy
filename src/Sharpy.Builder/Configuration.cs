@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Sharpy.Builder.Implementation;
 using Sharpy.Builder.IProviders;
 
@@ -31,7 +33,7 @@ namespace Sharpy.Builder {
         private ILongProvider _longProvider;
         private Random _random;
 
-        internal static IServiceCollection ServiceFactory(int? seed = null) => new ServiceCollection()
+        private static IServiceCollection ServiceFactory(int? seed = null) => new ServiceCollection()
             .AddSingleton(_ => seed != null ? new Random(seed.Value) : new Random())
             .AddSingleton<IDoubleProvider, DoubleRandomizer>(x => new DoubleRandomizer(x.GetService<Random>()))
             .AddSingleton<IBoolProvider, BoolRandomizer>(x => new BoolRandomizer(x.GetService<Random>()))
@@ -65,8 +67,12 @@ namespace Sharpy.Builder {
         /// 
         /// </summary>
         /// <param name="services"></param>
-        public Configuration(IServiceCollection services) =>
-            _services = services ?? throw new ArgumentNullException(nameof(services));
+        public Configuration(IServiceCollection services) {
+            if (services is null)
+                throw new ArgumentNullException(nameof(services));
+            if (services.Any()) ServiceFactory().Add(services);
+            _services = services;
+        }
 
         /// <summary>
         ///     <para>
@@ -98,6 +104,7 @@ namespace Sharpy.Builder {
         public IMovieDbProvider MovieDbProvider {
             get => _movieDbProvider;
             set {
+                if (value is null) throw new ArgumentNullException(nameof(MovieDbProvider));
                 _services.AddSingleton(_ => value);
                 _movieDbProvider = value;
             }
@@ -114,6 +121,7 @@ namespace Sharpy.Builder {
         public IArgumentProvider ArgumentProvider {
             get => _argumentProvider;
             set {
+                if (value is null) throw new ArgumentNullException(nameof(ArgumentProvider));
                 _services.AddSingleton(_ => value);
                 _argumentProvider = value;
             }
@@ -130,7 +138,7 @@ namespace Sharpy.Builder {
         public ISecurityNumberProvider SecurityNumberProvider {
             get => _securityNumberProvider;
             set {
-                _securityNumberProvider = value;
+                _securityNumberProvider = value ?? throw new ArgumentNullException(nameof(SecurityNumberProvider));
                 _services.AddSingleton(_ => value);
             }
         }
@@ -146,7 +154,7 @@ namespace Sharpy.Builder {
         public IPhoneNumberProvider PhoneNumberProvider {
             get => _phoneNumberProvider;
             set {
-                _phoneNumberProvider = value;
+                _phoneNumberProvider = value ?? throw new ArgumentNullException(nameof(PhoneNumberProvider));
                 _services.AddSingleton(_ => value);
             }
         }
@@ -162,7 +170,7 @@ namespace Sharpy.Builder {
         public IUserNameProvider UserNameProvider {
             get => _userNameProvider;
             set {
-                _userNameProvider = value;
+                _userNameProvider = value ?? throw new ArgumentNullException(nameof(UserNameProvider));
                 _services.AddSingleton(_ => value);
             }
         }
@@ -178,7 +186,7 @@ namespace Sharpy.Builder {
         public IPostalCodeProvider PostalCodeProvider {
             get => _postalCodeProvider;
             set {
-                _postalCodeProvider = value;
+                _postalCodeProvider = value ?? throw new ArgumentNullException(nameof(PostalCodeProvider));
                 _services.AddSingleton(_ => value);
             }
         }
@@ -194,7 +202,7 @@ namespace Sharpy.Builder {
         public IDateProvider DateProvider {
             get => _dateProvider;
             set {
-                _dateProvider = value;
+                _dateProvider = value ?? throw new ArgumentNullException(nameof(DateProvider));
                 _services.AddSingleton(_ => value);
             }
         }
@@ -210,7 +218,7 @@ namespace Sharpy.Builder {
         public IEmailProvider MailProvider {
             get => _mailProvider;
             set {
-                _mailProvider = value;
+                _mailProvider = value ?? throw new ArgumentNullException(nameof(MailProvider));
                 _services.AddSingleton(_ => value);
             }
         }
@@ -226,7 +234,7 @@ namespace Sharpy.Builder {
         public IElementProvider ListElementPicker {
             get => _listElementPicker;
             set {
-                _listElementPicker = value;
+                _listElementPicker = value ?? throw new ArgumentNullException(nameof(ListElementPicker));
                 _services.AddSingleton(_ => value);
             }
         }
@@ -242,7 +250,7 @@ namespace Sharpy.Builder {
         public IBoolProvider BoolProvider {
             get => _boolProvider;
             set {
-                _boolProvider = value;
+                _boolProvider = value ?? throw new ArgumentNullException(nameof(BoolProvider));
                 _services.AddSingleton(_ => value);
             }
         }
@@ -258,7 +266,7 @@ namespace Sharpy.Builder {
         public INameProvider NameProvider {
             get => _nameProvider;
             set {
-                _nameProvider = value;
+                _nameProvider = value ?? throw new ArgumentNullException(nameof(NameProvider));
                 _services.AddSingleton(_ => value);
             }
         }
@@ -274,7 +282,7 @@ namespace Sharpy.Builder {
         public IDoubleProvider DoubleProvider {
             get => _doubleProvider;
             set {
-                _doubleProvider = value;
+                _doubleProvider = value ?? throw new ArgumentNullException(nameof(DoubleProvider));
                 _services.AddSingleton(_ => value);
             }
         }
@@ -290,7 +298,7 @@ namespace Sharpy.Builder {
         public IIntegerProvider IntegerProvider {
             get => _integerProvider;
             set {
-                _integerProvider = value;
+                _integerProvider = value ?? throw new ArgumentNullException(nameof(IntegerProvider));
                 _services.AddSingleton(_ => value);
             }
         }
@@ -306,7 +314,7 @@ namespace Sharpy.Builder {
         public ILongProvider LongProvider {
             get => _longProvider;
             set {
-                _longProvider = value;
+                _longProvider = value ?? throw new ArgumentNullException(nameof(LongProvider));
                 _services.AddSingleton(_ => value);
             }
         }
@@ -319,7 +327,7 @@ namespace Sharpy.Builder {
         public Random Random {
             get => _random;
             set {
-                _random = value;
+                _random = value ?? throw new ArgumentNullException(nameof(Random));
                 _services.AddSingleton(_ => value);
             }
         }

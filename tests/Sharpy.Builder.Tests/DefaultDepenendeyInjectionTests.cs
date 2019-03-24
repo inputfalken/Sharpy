@@ -15,12 +15,8 @@ namespace Sharpy.Builder.Tests {
         /// </summary>
         /// <typeparam name="TExpected"></typeparam>
         /// <typeparam name="TResult"></typeparam>
-        private void VerifyDefaultServiceProvider<TExpected, TResult>() {
-            Assert.IsFalse(typeof(TExpected) == typeof(TResult),
-                $"Type '{typeof(TExpected).FullName}' cannot be equal to '{typeof(TResult).FullName}'.");
-            Assert.IsTrue(_provider.GetService<TExpected>() is TResult,
-                $"Expected type '{typeof(TExpected).FullName}' to be equal to '{typeof(TResult).FullName}'.");
-        }
+        private void VerifyDefaultServiceProvider<TExpected, TResult>() =>
+            _provider.VerifyServiceProvide<TExpected, TResult>();
 
         [Test]
         public void Default_IntegerProvider() => VerifyDefaultServiceProvider<IIntegerProvider, IntegerRandomizer>();
