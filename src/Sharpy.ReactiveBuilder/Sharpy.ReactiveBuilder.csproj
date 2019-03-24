@@ -21,7 +21,7 @@
     </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Sharpy.Builder" Version="0.0.2" />
-    <PackageReference Include="system.reactive" Version="4.0.0-preview.3.build.380" />
+    <PackageReference Include="Sharpy.Builder" Version="0.0.3" />
+    <PackageReference Include="system.reactive" Version="4.1.3" />
   </ItemGroup>
 </Project>
