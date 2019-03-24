@@ -61,7 +61,7 @@ namespace Sharpy.Builder.Tests.Implementations {
         [Test]
         public void Origin_Restricted_Constructor_With_One_Country_And_One_Region() {
             var builder = new Builder(
-                new Configurement {
+                new Configuration {
                     NameProvider = new NameByOrigin(Origin.Sweden, Origin.NorthAmerica)
                 }
             );
@@ -75,7 +75,7 @@ namespace Sharpy.Builder.Tests.Implementations {
         [Test]
         public void Origin_Restricted_Constructor_With_Two_Countries() {
             var builder = new Builder(
-                new Configurement {
+                new Configuration {
                     NameProvider = new NameByOrigin(Origin.Sweden, Origin.Denmark)
                 }
             );
@@ -89,7 +89,7 @@ namespace Sharpy.Builder.Tests.Implementations {
         [Test]
         public void Origin_Restricted_Constructor_With_Two_Regions() {
             var builder = new Builder(
-                new Configurement {
+                new Configuration {
                     NameProvider = new NameByOrigin(Origin.Europe, Origin.NorthAmerica)
                 }
             );

@@ -29,10 +29,14 @@ namespace Sharpy.Builder {
         private readonly IPostalCodeProvider _postalCodeProvider;
         private readonly ISecurityNumberProvider _securityNumberProvider;
         private readonly IUserNameProvider _userNameProvider;
-        private readonly IMovieDbProvider _movieDbProvider;
+        private readonly Lazy<IMovieDbProvider> _movieDbProvider;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="provider"></param>
         public Builder(IServiceProvider provider) {
-            provider = provider ?? throw new ArgumentNullException(nameof(provider));
+            if (provider is null) throw new ArgumentNullException(nameof(provider));
             _argumentProvider = provider.GetService<IArgumentProvider>() ??
                                 throw new ArgumentNullException(nameof(_argumentProvider));
             _boolProvider = provider.GetService<IBoolProvider>() ??
@@ -60,8 +64,11 @@ namespace Sharpy.Builder {
                 throw new ArgumentNullException(nameof(_securityNumberProvider));
             _userNameProvider = provider.GetService<IUserNameProvider>() ??
                                 throw new ArgumentNullException(nameof(_userNameProvider));
-            _movieDbProvider = provider.GetService<IMovieDbProvider>() ??
-                               throw new ArgumentNullException(nameof(_movieDbProvider));
+
+            _movieDbProvider = new Lazy<IMovieDbProvider>(() => provider.GetService<IMovieDbProvider>() ??
+                                                                throw new ArgumentNullException(nameof(_movieDbProvider)
+                                                                )
+            );
         }
 
         /// <summary>
@@ -74,9 +81,9 @@ namespace Sharpy.Builder {
         /// </param>
         public Builder(IServiceCollection configurement) : this(configurement.BuildServiceProvider()) { }
 
-        public Builder() : this(new Configurement()) { }
-        
-        public Builder(int seed) : this(new Configurement(seed)) { }
+        public Builder() : this(new Configuration()) { }
+
+        public Builder(int seed) : this(new Configuration(seed)) { }
 
         /// <inheritdoc />
         public T Argument<T>(T first, T second, params T[] additional) =>
@@ -161,11 +168,15 @@ namespace Sharpy.Builder {
         /// <inheritdoc />
         public string UserName() => _userNameProvider.UserName();
 
-        public Task<IReadOnlyList<Movie>> FetchMovies() => _movieDbProvider.FetchMovies();
-        public Task<IReadOnlyList<Movie>> FetchMovies(params Genre[] genres) => _movieDbProvider.FetchMovies(genres);
-        public Task<IReadOnlyList<Movie>> FetchMovies(MovieLanguage language) => _movieDbProvider.FetchMovies(language);
+        public Task<IReadOnlyList<Movie>> FetchMovies() => _movieDbProvider.Value.FetchMovies();
+
+        public Task<IReadOnlyList<Movie>> FetchMovies(params Genre[] genres) =>
+            _movieDbProvider.Value.FetchMovies(genres);
+
+        public Task<IReadOnlyList<Movie>> FetchMovies(MovieLanguage language) =>
+            _movieDbProvider.Value.FetchMovies(language);
 
         public Task<IReadOnlyList<Movie>> FetchMovies(MovieLanguage language, params Genre[] genres) =>
-            _movieDbProvider.FetchMovies(language, genres);
+            _movieDbProvider.Value.FetchMovies(language, genres);
     }
 }

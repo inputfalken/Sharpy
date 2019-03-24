@@ -13,7 +13,7 @@ namespace Sharpy.Builder {
     ///         <see cref="Builder" />.
     ///     </para>
     /// </summary>
-    public class Configurement : IServiceCollection {
+    public class Configuration : IServiceCollection {
         private readonly IServiceCollection _services;
         private IMovieDbProvider _movieDbProvider;
         private IArgumentProvider _argumentProvider;
@@ -53,26 +53,36 @@ namespace Sharpy.Builder {
             .AddSingleton<IArgumentProvider, ArgumentRandomizer>(x => new ArgumentRandomizer(x.GetService<Random>()))
             .AddSingleton<INameProvider, NameByOrigin>(x => new NameByOrigin(x.GetService<Random>()))
             .AddSingleton<IPostalCodeProvider, SwePostalCodeRandomizer>(x =>
-                new SwePostalCodeRandomizer(x.GetService<Random>()))
+                new SwePostalCodeRandomizer(x.GetService<Random>())
+            )
             .AddSingleton<IDateProvider, DateRandomizer>(x => new DateRandomizer(x.GetService<Random>()))
             .AddSingleton<IElementProvider, ListRandomizer>(x => new ListRandomizer(x.GetService<Random>()))
             .AddSingleton<IMovieDbProvider, MovieDbFetcher>(x =>
-                new MovieDbFetcher(string.Empty, x.GetService<Random>()));
+                new MovieDbFetcher(string.Empty, x.GetService<Random>())
+            );
 
-        public Configurement(IServiceCollection services) => _services = services ?? throw new ArgumentNullException(nameof(services));
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="services"></param>
+        public Configuration(IServiceCollection services) =>
+            _services = services ?? throw new ArgumentNullException(nameof(services));
 
         /// <summary>
         ///     <para>
-        ///         Creates a <see cref="Configurement" /> with default implementations.
+        ///         Creates a <see cref="Configuration" /> with default implementations.
         ///     </para>
         ///     <para>
         ///         The seed supplied will be used to instantiate a <see cref="Random" /> for the default implementations.
         ///     </para>
         /// </summary>
         /// <param name="seed"></param>
-        public Configurement(int seed) : this(ServiceFactory(seed)) { }
+        public Configuration(int seed) : this(ServiceFactory(seed)) { }
 
-        public Configurement() : this(ServiceFactory()) { }
+        /// <summary>
+        /// 
+        /// </summary>
+        public Configuration() : this(ServiceFactory()) { }
 
         /// <summary>
         ///     <para>

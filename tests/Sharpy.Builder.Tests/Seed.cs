@@ -259,11 +259,11 @@ namespace Sharpy.Builder.Tests {
 
         [Test]
         public void No_Seed_SecurityNumber_Formated_False() {
-            var c1 = new Configurement();
+            var c1 = new Configuration();
             c1.SecurityNumberProvider = new UniqueSecurityBuilder(c1.Random);
             var g1 = new Builder(c1);
             Thread.Sleep(SleepDuration);
-            var c2 = new Configurement();
+            var c2 = new Configuration();
             c2.SecurityNumberProvider = new UniqueSecurityBuilder(c2.Random);
             var g2 = new Builder(c2);
 
@@ -512,11 +512,11 @@ namespace Sharpy.Builder.Tests {
 
         [Test]
         public void Seed_SecurityNumber_Formated_False() {
-            var c1 = new Configurement(TestSeed);
+            var c1 = new Configuration(TestSeed);
             c1.SecurityNumberProvider = new UniqueSecurityBuilder(c1.Random);
             var g1 = new Builder(c1);
             Thread.Sleep(SleepDuration);
-            var c2 = new Configurement(TestSeed);
+            var c2 = new Configuration(TestSeed);
             c2.SecurityNumberProvider = new UniqueSecurityBuilder(c2.Random);
             var g2 = new Builder(c2);
 
