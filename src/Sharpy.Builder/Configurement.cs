@@ -39,7 +39,7 @@ namespace Sharpy.Builder {
             ListElementPicker = new ListRandomizer(Random);
             BoolProvider = new BoolRandomizer(Random);
             ArgumentProvider = new ArgumentRandomizer(Random);
-            MovieDbProvider = new MovieDbRandomizer(string.Empty, Random);
+            MovieDbProvider = new MovieDbFetcher(string.Empty, Random);
         }
 
         /// <summary>

@@ -6,8 +6,10 @@ using Newtonsoft.Json;
 
 namespace Sharpy.Builder.IProviders {
     public interface IMovieDbProvider {
-        Task<IReadOnlyList<Movie>> RandomMovies();
-        
+        Task<IReadOnlyList<Movie>> FetchMovies();
+        Task<IReadOnlyList<Movie>> FetchMovies(params Genre[] genres);
+        Task<IReadOnlyList<Movie>> FetchMovies(MovieLanguage language);
+        Task<IReadOnlyList<Movie>> FetchMovies(MovieLanguage language, params Genre[] genres);
     }
 
     public class Movie {
@@ -28,28 +30,37 @@ namespace Sharpy.Builder.IProviders {
         private IReadOnlyList<int> GenreIds { get; set; } = new List<int>();
 
         public IReadOnlyList<Genre> Genres { get; }
-        
+    }
 
-        public enum Genre {
-            Action = 28,
-            Adventure = 12,
-            Animation = 16,
-            Comedy = 35,
-            Crime = 80,
-            Documentary = 99,
-            Drama = 18,
-            Family = 10751,
-            Fantasy = 14,
-            History = 36,
-            Horror = 27,
-            Music = 10402,
-            Mystery = 9648,
-            Romance = 10749,
-            Science_Fiction = 878,
-            Thriller = 53,
-            TV_Movie = 10770,
-            War = 10752,
-            Western = 37
-        }
+    public enum Genre {
+        Action = 28,
+        Adventure = 12,
+        Animation = 16,
+        Comedy = 35,
+        Crime = 80,
+        Documentary = 99,
+        Drama = 18,
+        Family = 10751,
+        Fantasy = 14,
+        History = 36,
+        Horror = 27,
+        Music = 10402,
+        Mystery = 9648,
+        Romance = 10749,
+        Science_Fiction = 878,
+        Thriller = 53,
+        TV_Movie = 10770,
+        War = 10752,
+        Western = 37,
+        Any
+    }
+
+    public enum MovieLanguage {
+        English,
+        Spanish,
+        Swedish,
+        Italian,
+        German,
+        Any
     }
 }

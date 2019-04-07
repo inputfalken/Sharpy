@@ -26,7 +26,7 @@ namespace Sharpy.Builder {
         private readonly IPostalCodeProvider _postalCodeProvider;
         private readonly ISecurityNumberProvider _securityNumberProvider;
         private readonly IUserNameProvider _userNameProvider;
-        private IMovieDbProvider _movieDbProvider;
+        private readonly IMovieDbProvider _movieDbProvider;
 
         /// <summary>
         ///     <para>
@@ -63,7 +63,8 @@ namespace Sharpy.Builder {
                                 throw new ArgumentNullException(nameof(configurement.UserNameProvider));
             _argumentProvider = configurement.ArgumentProvider ??
                                 throw new ArgumentNullException(nameof(configurement.ArgumentProvider));
-            _movieDbProvider = configurement.MovieDbProvider ?? throw new ArgumentNullException(nameof(configurement.MovieDbProvider));
+            _movieDbProvider = configurement.MovieDbProvider ??
+                               throw new ArgumentNullException(nameof(configurement.MovieDbProvider));
         }
 
         /// <inheritdoc />
@@ -155,7 +156,19 @@ namespace Sharpy.Builder {
         /// <inheritdoc />
         public string UserName() => _userNameProvider.UserName();
 
-        public Task<IReadOnlyList<Movie>> RandomMovies() => _movieDbProvider.RandomMovies();
-    }
+        /// <inheritdoc />
+        public Task<IReadOnlyList<Movie>> FetchMovies() => _movieDbProvider.FetchMovies();
 
+        /// <inheritdoc />
+        public Task<IReadOnlyList<Movie>> FetchMovies(params Genre[] genres) =>
+            _movieDbProvider.FetchMovies(genres);
+
+        /// <inheritdoc />
+        public Task<IReadOnlyList<Movie>> FetchMovies(MovieLanguage language) =>
+            _movieDbProvider.FetchMovies(language);
+
+        /// <inheritdoc />
+        public Task<IReadOnlyList<Movie>> FetchMovies(MovieLanguage language, params Genre[] genres) =>
+            _movieDbProvider.FetchMovies(language, genres);
+    }
 }
