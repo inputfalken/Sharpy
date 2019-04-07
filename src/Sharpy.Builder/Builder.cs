@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Sharpy.Builder.Enums;
+using Sharpy.Builder.Implementation;
 using Sharpy.Builder.IProviders;
 
 namespace Sharpy.Builder {
@@ -26,7 +29,47 @@ namespace Sharpy.Builder {
         private readonly IPostalCodeProvider _postalCodeProvider;
         private readonly ISecurityNumberProvider _securityNumberProvider;
         private readonly IUserNameProvider _userNameProvider;
-        private IMovieDbProvider _movieDbProvider;
+        private readonly Lazy<IMovieDbProvider> _movieDbProvider;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="provider"></param>
+        public Builder(IServiceProvider provider) {
+            if (provider is null) throw new ArgumentNullException(nameof(provider));
+            _argumentProvider = provider.GetService<IArgumentProvider>() ??
+                                throw new ArgumentNullException(nameof(_argumentProvider));
+            _boolProvider = provider.GetService<IBoolProvider>() ??
+                            throw new ArgumentNullException(nameof(_boolProvider));
+            _dateprovider = provider.GetService<IDateProvider>() ??
+                            throw new ArgumentNullException(nameof(_dateprovider));
+            _doubleProvider = provider.GetService<IDoubleProvider>() ??
+                              throw new ArgumentNullException(nameof(_doubleProvider));
+            _elementProvider = provider.GetService<IElementProvider>() ??
+                               throw new ArgumentNullException(nameof(_elementProvider));
+            _emailProvider = provider.GetService<IEmailProvider>() ??
+                             throw new ArgumentNullException(nameof(_emailProvider));
+            _integerProvider = provider.GetService<IIntegerProvider>() ??
+                               throw new ArgumentNullException(nameof(_integerProvider));
+            _longProvider = provider.GetService<ILongProvider>() ??
+                            throw new ArgumentNullException(nameof(_longProvider));
+            _nameProvider = provider.GetService<INameProvider>() ??
+                            throw new ArgumentNullException(nameof(_nameProvider));
+            _phoneNumberProvider = provider.GetService<IPhoneNumberProvider>() ??
+                                   throw new ArgumentNullException(nameof(_phoneNumberProvider));
+            _postalCodeProvider = provider.GetService<IPostalCodeProvider>() ??
+                                  throw new ArgumentNullException(nameof(_postalCodeProvider));
+            _securityNumberProvider =
+                provider.GetService<ISecurityNumberProvider>() ??
+                throw new ArgumentNullException(nameof(_securityNumberProvider));
+            _userNameProvider = provider.GetService<IUserNameProvider>() ??
+                                throw new ArgumentNullException(nameof(_userNameProvider));
+
+            _movieDbProvider = new Lazy<IMovieDbProvider>(() => provider.GetService<IMovieDbProvider>() ??
+                                                                throw new ArgumentNullException(nameof(_movieDbProvider)
+                                                                )
+            );
+        }
 
         /// <summary>
         ///     <para>
@@ -36,41 +79,11 @@ namespace Sharpy.Builder {
         /// <param name="configurement">
         ///     The configuration for the <see cref="Builder" />.
         /// </param>
-        public Builder(Configurement configurement) {
-            _doubleProvider = configurement.DoubleProvider ??
-                              throw new ArgumentNullException(nameof(configurement.DoubleProvider));
-            _integerProvider = configurement.IntegerProvider ??
-                               throw new ArgumentNullException(nameof(configurement.IntegerProvider));
-            _longProvider = configurement.LongProvider ??
-                            throw new ArgumentNullException(nameof(configurement.LongProvider));
-            _nameProvider = configurement.NameProvider ??
-                            throw new ArgumentNullException(nameof(configurement.NameProvider));
-            _dateprovider = configurement.DateProvider ??
-                            throw new ArgumentNullException(nameof(configurement.DateProvider));
-            _emailProvider = configurement.MailProvider ??
-                             throw new ArgumentNullException(nameof(configurement.MailProvider));
-            _securityNumberProvider = configurement.SecurityNumberProvider ??
-                                      throw new ArgumentNullException(nameof(configurement.SecurityNumberProvider));
-            _elementProvider = configurement.ListElementPicker ??
-                               throw new ArgumentNullException(nameof(configurement.ListElementPicker));
-            _boolProvider = configurement.BoolProvider ??
-                            throw new ArgumentNullException(nameof(configurement.BoolProvider));
-            _postalCodeProvider = configurement.PostalCodeProvider ??
-                                  throw new ArgumentNullException(nameof(configurement.PostalCodeProvider));
-            _phoneNumberProvider = configurement.PhoneNumberProvider ??
-                                   throw new ArgumentNullException(nameof(configurement.PhoneNumberProvider));
-            _userNameProvider = configurement.UserNameProvider ??
-                                throw new ArgumentNullException(nameof(configurement.UserNameProvider));
-            _argumentProvider = configurement.ArgumentProvider ??
-                                throw new ArgumentNullException(nameof(configurement.ArgumentProvider));
-            _movieDbProvider = configurement.MovieDbProvider ?? throw new ArgumentNullException(nameof(configurement.MovieDbProvider));
-        }
+        public Builder(IServiceCollection configurement) : this(configurement.BuildServiceProvider()) { }
 
-        /// <inheritdoc />
-        public Builder(int seed) : this(new Configurement(seed)) { }
+        public Builder() : this(new Configuration()) { }
 
-        /// <inheritdoc />
-        public Builder() : this(new Configurement()) { }
+        public Builder(int seed) : this(new Configuration(seed)) { }
 
         /// <inheritdoc />
         public T Argument<T>(T first, T second, params T[] additional) =>
@@ -155,7 +168,6 @@ namespace Sharpy.Builder {
         /// <inheritdoc />
         public string UserName() => _userNameProvider.UserName();
 
-        public Task<IReadOnlyList<Movie>> RandomMovies() => _movieDbProvider.RandomMovies();
+        public Task<IReadOnlyList<Movie>> RandomMovies() => _movieDbProvider.Value.RandomMovies();
     }
-
 }
