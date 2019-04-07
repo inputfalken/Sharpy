@@ -27,8 +27,7 @@ namespace Sharpy.Core.Linq {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (count < 0) throw new ArgumentException($"{nameof(count)} Cant be negative");
             if (count == 0) return generator;
-            var skipped = new Lazy<IGenerator<TSource>>(() => ReleaseIterator(generator, count));
-            return Generator.Function(() => skipped.Value.Generate());
+            return Generator.Lazy(() => ReleaseIterator(generator, count).Generate());
         }
     }
 }
