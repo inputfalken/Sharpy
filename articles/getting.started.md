@@ -21,7 +21,6 @@ PM> Install-Package Sharpy
 * [.NET Standard 2.0](http://www.nuget.org/packages/NETStandard.Library)
 * [Sharpy.Core](http://www.nuget.org/packages/Sharpy.Core)
 * [Sharpy.Builder](http://www.nuget.org/packages/Sharpy.Builder)
-* [Montask](http://www.nuget.org/packages/MonTask)
 
 If you want more information about the dependencies,
 visit the [NuGet page](http://www.nuget.org/packages/Sharpy).
