@@ -39,7 +39,6 @@ namespace Sharpy.Builder {
             ListElementPicker = new ListRandomizer(Random);
             BoolProvider = new BoolRandomizer(Random);
             ArgumentProvider = new ArgumentRandomizer(Random);
-            MovieDbProvider = new MovieDbRandomizer(string.Empty, Random);
         }
 
         /// <summary>
@@ -60,19 +59,6 @@ namespace Sharpy.Builder {
         /// </summary>
         public Configurement() : this(new Random()) { }
 
-        /// <summary>
-        ///     <para>
-        ///         Gets and sets the implementation for <see cref="IMovieDbProvider" />.
-        ///     </para>
-        ///     <para>
-        ///         By default it is <see cref="MovieDbRandomizer" />.
-        ///     </para>
-        ///     <remarks>
-        ///         You must provide a valid API key in order for the methods to work.
-        ///     </remarks>
-        /// </summary>
-        public IMovieDbProvider MovieDbProvider { get; set; }
-        
         /// <summary>
         ///     <para>
         ///         Gets and sets the implementation for <see cref="IArgumentProvider" />.

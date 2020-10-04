@@ -59,9 +59,5 @@ namespace Sharpy.Builder.Tests {
         [Test]
         public void Null_UsernameProvider_Throws() =>
             Assert.Throws<ArgumentNullException>(() => new Builder(new Configurement {UserNameProvider = null}));
-        
-        [Test]
-        public void Null_MovieDb_Throws() =>
-            Assert.Throws<ArgumentNullException>(() => new Builder(new Configurement {MovieDbProvider = null}));
     }
 }
