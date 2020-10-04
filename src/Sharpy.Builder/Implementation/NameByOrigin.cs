@@ -55,7 +55,7 @@ namespace Sharpy.Builder.Implementation {
         /// </param>
         public NameByOrigin(params Origin[] origins) : this(new Random(), origins) { }
 
-        private static IEnumerable<Name> Names => Data.GetNames;
+        private static IEnumerable<NameModel> Names => Data.GetNames;
 
         /// <inheritdoc />
         public string FirstName(Gender gender) => Name(
@@ -84,8 +84,8 @@ namespace Sharpy.Builder.Implementation {
             return origins.Any()
                 ? Names
                     .Where(n => origins.Contains(n.Country) || origins.Contains(n.Region))
-                    .Select(n => n.Data)
-                : Names.Select(n => n.Data);
+                    .Select(n => n.Name)
+                : Names.Select(n => n.Name);
         }
 
         /// <summary>
@@ -94,13 +94,13 @@ namespace Sharpy.Builder.Implementation {
         /// <param name="arg"></param>
         private string Name(NameType arg) {
             if (_dictionary.ContainsKey(arg)) return _dictionary[arg].RandomItem(_random);
-            var strings = Origin(Names.Where(n => n.Type == arg)).Select(n => n.Data).ToArray();
+            var strings = Origin(Names.Where(n => n.Type == arg)).Select(n => n.Name).ToArray();
             if (strings.Any()) _dictionary.Add(arg, strings);
             else throw new Exception("Can't obtain strings with this configuration");
             return _dictionary[arg].RandomItem(_random);
         }
 
-        private IEnumerable<Name> Origin(IEnumerable<Name> names) {
+        private IEnumerable<NameModel> Origin(IEnumerable<NameModel> names) {
             return _origins != null && _origins.Any()
                 ? names.Where(
                     name => _selectedCountries.Contains(name.Country) | _selectedRegions.Contains(name.Region))

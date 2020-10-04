@@ -6,7 +6,7 @@ using Sharpy.Builder.Implementation.DataObjects;
 namespace Sharpy.Builder.Tests {
     [TestFixture]
     internal class FileTests {
-        private static readonly IEnumerable<Name> GetNames = Data.GetNames;
+        private static readonly IEnumerable<NameModel> GetNames = Data.GetNames;
         private static readonly string[] GetUserNames = Data.GetUserNames;
 
         [Test(
@@ -14,7 +14,7 @@ namespace Sharpy.Builder.Tests {
         )]
         public void Name_Contains_No_Numbers() {
             var deserializeObject = GetNames;
-            var containsNumber = deserializeObject.Select(name => name.Data).All(s => s.Any(char.IsNumber));
+            var containsNumber = deserializeObject.Select(name => name.Name).All(s => s.Any(char.IsNumber));
             Assert.IsFalse(containsNumber);
         }
 
@@ -23,7 +23,7 @@ namespace Sharpy.Builder.Tests {
         )]
         public void Name_Contains_No_Punctuations() {
             var deserializeObject = GetNames;
-            var containsPuncation = deserializeObject.Select(name => name.Data).All(s => s.Any(char.IsPunctuation));
+            var containsPuncation = deserializeObject.Select(name => name.Name).All(s => s.Any(char.IsPunctuation));
             Assert.IsFalse(containsPuncation);
         }
 
@@ -33,7 +33,7 @@ namespace Sharpy.Builder.Tests {
         public void Name_Contains_No_Separator() {
             var deserializeObject = GetNames;
             var containsSeperator = deserializeObject
-                .Select(name => name.Data)
+                .Select(name => name.Name)
                 .All(s => s.Any(char.IsSeparator));
             Assert.IsFalse(containsSeperator);
         }
@@ -44,7 +44,7 @@ namespace Sharpy.Builder.Tests {
         public void Name_Contains_No_Symbols() {
             var deserializeObject = GetNames;
             var containsSymbols = deserializeObject
-                .Select(name => name.Data)
+                .Select(name => name.Name)
                 .Any(s => s.Any(char.IsSymbol));
             Assert.IsFalse(containsSymbols);
         }
@@ -55,7 +55,7 @@ namespace Sharpy.Builder.Tests {
         public void Name_Contains_No_White_Space() {
             var deserializeObject = GetNames;
             var containsWhiteSpace = deserializeObject
-                .Select(name => name.Data)
+                .Select(name => name.Name)
                 .Any(s => s.Any(char.IsWhiteSpace));
             Assert.IsFalse(containsWhiteSpace);
         }
@@ -66,29 +66,10 @@ namespace Sharpy.Builder.Tests {
         public void Name_Starts_With_Capital_Letter() {
             var deserializeObject = GetNames;
             var startsWithUpperCase = deserializeObject
-                .Select(name => name.Data)
+                .Select(name => name.Name)
                 .All(s => char.IsUpper(s.First()));
             Assert.IsTrue(startsWithUpperCase);
         }
-
-        [Test(
-            Description = "All characters are numeric (space excluded)."
-        )]
-        public void Postal_Code_Contains_Numbers_Only() => Assert.IsTrue(Data.GetPostalCodes
-            .Select(code => code.Postalcode.Remove(3, 1))
-            .All(s => s.All(char.IsNumber)));
-
-        [Test(
-            Description = "All postal codes contains 6 characters (space included)."
-        )]
-        public void Postal_Code_Got_Same_Length() =>
-            Assert.IsTrue(Data.GetPostalCodes.All(code => code.Postalcode.Length == 6));
-
-        [Test(
-            Description = "Third index is a space."
-        )]
-        public void Postal_Codes_Use_Space_On_Third_Index() =>
-            Assert.IsTrue(Data.GetPostalCodes.All(code => code.Postalcode[3] == ' '));
 
         [Test(
             Description = "Verify that no user name contains number."

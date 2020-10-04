@@ -11,11 +11,11 @@ namespace Sharpy.Builder {
     ///     </para>
     /// </summary>
     public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, IElementProvider,
-        IBoolProvider, IDateProvider, IEmailProvider, IPostalCodeProvider, ISecurityNumberProvider,
+        IBoolProvider, IDateProvider, IEmailProvider, ISecurityNumberProvider,
         IPhoneNumberProvider, IUserNameProvider, IArgumentProvider {
         private readonly IArgumentProvider _argumentProvider;
         private readonly IBoolProvider _boolProvider;
-        private readonly IDateProvider _dateprovider;
+        private readonly IDateProvider _dateProvider;
         private readonly IDoubleProvider _doubleProvider;
         private readonly IElementProvider _elementProvider;
         private readonly IEmailProvider _emailProvider;
@@ -23,7 +23,6 @@ namespace Sharpy.Builder {
         private readonly ILongProvider _longProvider;
         private readonly INameProvider _nameProvider;
         private readonly IPhoneNumberProvider _phoneNumberProvider;
-        private readonly IPostalCodeProvider _postalCodeProvider;
         private readonly ISecurityNumberProvider _securityNumberProvider;
         private readonly IUserNameProvider _userNameProvider;
 
@@ -44,7 +43,7 @@ namespace Sharpy.Builder {
                             throw new ArgumentNullException(nameof(configurement.LongProvider));
             _nameProvider = configurement.NameProvider ??
                             throw new ArgumentNullException(nameof(configurement.NameProvider));
-            _dateprovider = configurement.DateProvider ??
+            _dateProvider = configurement.DateProvider ??
                             throw new ArgumentNullException(nameof(configurement.DateProvider));
             _emailProvider = configurement.MailProvider ??
                              throw new ArgumentNullException(nameof(configurement.MailProvider));
@@ -54,8 +53,6 @@ namespace Sharpy.Builder {
                                throw new ArgumentNullException(nameof(configurement.ListElementPicker));
             _boolProvider = configurement.BoolProvider ??
                             throw new ArgumentNullException(nameof(configurement.BoolProvider));
-            _postalCodeProvider = configurement.PostalCodeProvider ??
-                                  throw new ArgumentNullException(nameof(configurement.PostalCodeProvider));
             _phoneNumberProvider = configurement.PhoneNumberProvider ??
                                    throw new ArgumentNullException(nameof(configurement.PhoneNumberProvider));
             _userNameProvider = configurement.UserNameProvider ??
@@ -78,13 +75,13 @@ namespace Sharpy.Builder {
         public bool Bool() => _boolProvider.Bool();
 
         /// <inheritdoc />
-        public DateTime DateByAge(int age) => _dateprovider.DateByAge(age);
+        public DateTime DateByAge(int age) => _dateProvider.DateByAge(age);
 
         /// <inheritdoc />
-        public DateTime DateByYear(int year) => _dateprovider.DateByYear(year);
+        public DateTime DateByYear(int year) => _dateProvider.DateByYear(year);
 
         /// <inheritdoc />
-        public DateTime Date() => _dateprovider.Date();
+        public DateTime Date() => _dateProvider.Date();
 
         /// <inheritdoc />
         public double Double() => _doubleProvider.Double();
@@ -136,12 +133,6 @@ namespace Sharpy.Builder {
 
         ///<inheritdoc />
         public string PhoneNumber() => _phoneNumberProvider.PhoneNumber();
-
-        /// <inheritdoc />
-        public string PostalCode() => _postalCodeProvider.PostalCode();
-
-        /// <inheritdoc />
-        public string PostalCode(string county) => _postalCodeProvider.PostalCode(county);
 
         /// <inheritdoc />
         public string SecurityNumber(DateTime date) =>

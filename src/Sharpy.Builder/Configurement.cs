@@ -29,7 +29,6 @@ namespace Sharpy.Builder {
             NameProvider = new NameByOrigin(Random);
             DateProvider = new DateRandomizer(Random);
             SecurityNumberProvider = new UniqueFormattedSecurityBuilder(Random);
-            PostalCodeProvider = new SwePostalCodeRandomizer(Random);
             PhoneNumberProvider = new UniquePhoneNumberRandomizer(Random);
             UserNameProvider = new UserNameRandomizer(Data.GetUserNames, Random);
             MailProvider = new UniqueEmailBuilder(
@@ -98,16 +97,6 @@ namespace Sharpy.Builder {
         ///     </para>
         /// </summary>
         public IUserNameProvider UserNameProvider { get; set; }
-
-        /// <summary>
-        ///     <para>
-        ///         Gets and sets the implementation for <see cref="IPostalCodeProvider" />.
-        ///     </para>
-        ///     <para>
-        ///         By default it is <see cref="SwePostalCodeRandomizer" />.
-        ///     </para>
-        /// </summary>
-        public IPostalCodeProvider PostalCodeProvider { get; set; }
 
         /// <summary>
         ///     <para>

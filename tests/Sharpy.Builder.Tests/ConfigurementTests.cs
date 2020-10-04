@@ -49,10 +49,6 @@ namespace Sharpy.Builder.Tests {
             Assert.Throws<ArgumentNullException>(() => new Builder(new Configurement {PhoneNumberProvider = null}));
 
         [Test]
-        public void Null_PostalCodeProvider_Throws() =>
-            Assert.Throws<ArgumentNullException>(() => new Builder(new Configurement {PostalCodeProvider = null}));
-
-        [Test]
         public void Null_SecurityNumberProvider_Throws() =>
             Assert.Throws<ArgumentNullException>(() => new Builder(new Configurement {SecurityNumberProvider = null}));
 
