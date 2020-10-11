@@ -20,7 +20,7 @@ namespace Sharpy.Builder.Implementation {
             Enums.Origin.SouthAmerica
         };
 
-        private readonly Dictionary<NameType, IReadOnlyList<string>> _dictionary;
+        private readonly IDictionary<NameType, IReadOnlyList<string>> _dictionary;
 
         private readonly ISet<Origin> _origins;
         private readonly Random _random;
@@ -55,7 +55,7 @@ namespace Sharpy.Builder.Implementation {
         /// </param>
         public NameByOrigin(params Origin[] origins) : this(new Random(), origins) { }
 
-        private static IEnumerable<NameModel> Names => Data.GetNames;
+        private static IReadOnlyList<NameModel> Names => Data.GetNames;
 
         /// <inheritdoc />
         public string FirstName(Gender gender) => Name(
@@ -81,7 +81,7 @@ namespace Sharpy.Builder.Implementation {
         ///     A <see cref="IEnumerable{T}" /> with names from the <paramref name="origins" /> used.
         /// </returns>
         public static IEnumerable<string> GetCollection(params Origin[] origins) {
-            return origins.Any()
+            return origins.Length > 0
                 ? Names
                     .Where(n => origins.Contains(n.Country) || origins.Contains(n.Region))
                     .Select(n => n.Name)
@@ -92,16 +92,17 @@ namespace Sharpy.Builder.Implementation {
         ///     <para>Returns a name based on <see cref="NameType" />.</para>
         /// </summary>
         /// <param name="arg"></param>
-        private string Name(NameType arg) {
-            if (_dictionary.ContainsKey(arg)) return _dictionary[arg].RandomItem(_random);
-            var strings = Origin(Names.Where(n => n.Type == arg)).Select(n => n.Name).ToArray();
-            if (strings.Any()) _dictionary.Add(arg, strings);
+        private string Name(NameType arg)
+        {
+            if (_dictionary.TryGetValue(arg, out var names)) return names.RandomItem(_random);
+            var strings = Origin(Names.Where(n => n.Type == arg)).Select(n => n.Name).ToList();
+            if (strings.Count > 0) _dictionary.Add(arg, strings);
             else throw new Exception("Can't obtain strings with this configuration");
             return _dictionary[arg].RandomItem(_random);
         }
 
         private IEnumerable<NameModel> Origin(IEnumerable<NameModel> names) {
-            return _origins != null && _origins.Any()
+            return _origins != null && _origins.Count > 0
                 ? names.Where(
                     name => _selectedCountries.Contains(name.Country) | _selectedRegions.Contains(name.Region))
                 : names;

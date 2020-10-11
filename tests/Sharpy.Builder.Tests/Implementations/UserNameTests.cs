@@ -10,7 +10,14 @@ namespace Sharpy.Builder.Tests.Implementations {
             var builder = new Builder();
             var names = Enumerable.Range(0, Count).Select(i => builder.UserName()).ToList();
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
-            Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
         }
+        [Test]
+        public void User_Name_Contains_AtLeast_One_Char() {
+            var builder = new Builder();
+            var names = Enumerable.Range(0, Count).Select(i => builder.UserName()).ToList();
+            
+            Assert.IsTrue(names.All(x => x.Length > 0));
+        }
+        
     }
 }

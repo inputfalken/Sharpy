@@ -20,8 +20,16 @@ namespace Sharpy.Builder
 
         private static readonly Lazy<IReadOnlyList<NameModel>> LazyNames = new Lazy<IReadOnlyList<NameModel>>(() =>
         {
-            var resourceStream = Assembly.GetManifestResourceStream($"{DataFolder}.NamesByOrigin.json");
-            using (var reader = new StreamReader(resourceStream, Encoding.UTF8))
+            const string path = DataFolder + ".NamesByOrigin.json";
+            var namesByOriginStream = Assembly.GetManifestResourceStream(path);
+
+            if (namesByOriginStream is null)
+                throw new ArgumentNullException(
+                    nameof(namesByOriginStream),
+                    $"Could not obtain user names from '{path}'."
+                );
+
+            using (var reader = new StreamReader(namesByOriginStream, Encoding.UTF8))
             {
                 var jsonSerializerOptions = new JsonSerializerOptions {PropertyNameCaseInsensitive = true};
                 jsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
@@ -33,16 +41,27 @@ namespace Sharpy.Builder
             }
         });
 
-        private static readonly Lazy<string[]> LazyUsernames = new Lazy<string[]>(() =>
+        private static readonly Lazy<IReadOnlyList<string>> LazyUsernames = new Lazy<IReadOnlyList<string>>(() =>
         {
-            var resourceStream = Assembly.GetManifestResourceStream($"{DataFolder}.usernames.txt");
-            using (var reader = new StreamReader(resourceStream, Encoding.UTF8))
+            const string path = DataFolder + ".usernames.txt";
+            var userNamesStream = Assembly.GetManifestResourceStream(path);
+
+            if (userNamesStream is null)
+                throw new ArgumentNullException(
+                    nameof(userNamesStream),
+                    $"Could not obtain user names from '{path}'."
+                );
+
+            using (var reader = new StreamReader(userNamesStream, Encoding.UTF8))
             {
-                return reader.ReadToEnd().Split(new[] {"\r\n", "\n"}, StringSplitOptions.None);
+                //TODO use source code generator to determine the capacity in the future.
+                var list = new List<string>(90000);
+                while (!reader.EndOfStream) list.Add(reader.ReadLine());
+                return list;
             }
         });
 
-        internal static IEnumerable<NameModel> GetNames => LazyNames.Value;
-        internal static string[] GetUserNames => LazyUsernames.Value;
+        internal static IReadOnlyList<NameModel> GetNames => LazyNames.Value;
+        internal static IReadOnlyList<string> GetUserNames => LazyUsernames.Value;
     }
 }
