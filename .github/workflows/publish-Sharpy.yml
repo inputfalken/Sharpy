@@ -24,7 +24,7 @@ jobs:
           # Filepath of the project to be packaged, relative to root of repository
           PROJECT_FILE_PATH: ./src/Sharpy.csproj
           # NuGet package id, used for version detection & defaults to project name
-          # PACKAGE_NAME: Core
+           PACKAGE_NAME: Sharpy
           # Filepath with version info, relative to root of repository & defaults to PROJECT_FILE_PATH
           # VERSION_FILE_PATH: Directory.Build.props
           # Regex pattern to extract version info in a capturing group
