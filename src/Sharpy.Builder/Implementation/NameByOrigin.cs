@@ -55,7 +55,7 @@ namespace Sharpy.Builder.Implementation {
         /// </param>
         public NameByOrigin(params Origin[] origins) : this(new Random(), origins) { }
 
-        private static IEnumerable<NameModel> Names => Data.GetNames;
+        private static IReadOnlyList<NameModel> Names => Data.GetNames;
 
         /// <inheritdoc />
         public string FirstName(Gender gender) => Name(
@@ -81,7 +81,7 @@ namespace Sharpy.Builder.Implementation {
         ///     A <see cref="IEnumerable{T}" /> with names from the <paramref name="origins" /> used.
         /// </returns>
         public static IEnumerable<string> GetCollection(params Origin[] origins) {
-            return origins.Any()
+            return origins.Length > 0
                 ? Names
                     .Where(n => origins.Contains(n.Country) || origins.Contains(n.Region))
                     .Select(n => n.Name)
@@ -102,7 +102,7 @@ namespace Sharpy.Builder.Implementation {
         }
 
         private IEnumerable<NameModel> Origin(IEnumerable<NameModel> names) {
-            return _origins != null && _origins.Any()
+            return _origins != null && _origins.Count > 0
                 ? names.Where(
                     name => _selectedCountries.Contains(name.Country) | _selectedRegions.Contains(name.Region))
                 : names;

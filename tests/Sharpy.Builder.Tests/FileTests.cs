@@ -7,7 +7,7 @@ namespace Sharpy.Builder.Tests {
     [TestFixture]
     internal class FileTests {
         private static readonly IEnumerable<NameModel> GetNames = Data.GetNames;
-        private static readonly string[] GetUserNames = Data.GetUserNames;
+        private static readonly IReadOnlyList<string> GetUserNames = Data.GetUserNames;
 
         [Test(
             Description = "Verify that no name contains number"
