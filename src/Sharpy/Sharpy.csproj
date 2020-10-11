@@ -6,10 +6,9 @@
     <Description>A library used for generating fake data.
 
       For info please visit project page.</Description>
-    <VersionPrefix>3.1.5</VersionPrefix>
     <PackageProjectUrl>https://github.com/inputfalken/Sharpy/tree/master</PackageProjectUrl>
+    <Version>4.0.0</Version>
     <PackageLicenseUrl>https://raw.githubusercontent.com/inputfalken/Sharpy/master/License.txt</PackageLicenseUrl>
-    <FileVersion>3.1.4.0</FileVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/inputfalken/Sharpy/tree/master</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -24,10 +23,10 @@
     <DefineConstants>RELEASE;NETSTANDARD2_0</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Sharpy.Core" Version="0.3.1" />
-    <PackageReference Include="Sharpy.Builder" Version="0.0.3" />
+    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <ProjectReference Include="..\Sharpy.Builder\Sharpy.Builder.csproj" />
+    <ProjectReference Include="..\Sharpy.Core\Sharpy.Core.csproj" />
   </ItemGroup>
 </Project>
