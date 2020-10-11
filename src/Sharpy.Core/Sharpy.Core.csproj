@@ -2,12 +2,10 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Robert Andersson</Authors>
-    <Company />
     <Description>A generator api with fluent syntax.</Description>
-    <VersionPrefix>0.3.1</VersionPrefix>
+    <Version>0.4.0</Version>
     <PackageProjectUrl>https://github.com/inputfalken/Sharpy/tree/master</PackageProjectUrl>
     <PackageLicenseUrl>https://raw.githubusercontent.com/inputfalken/Sharpy/master/License.txt</PackageLicenseUrl>
-    <FileVersion>0.3.0.0</FileVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/inputfalken/Sharpy/tree/master</RepositoryUrl>
     <RepositoryType>git</RepositoryType>

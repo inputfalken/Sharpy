@@ -7,8 +7,7 @@
     <PackageLicenseUrl>https://raw.githubusercontent.com/inputfalken/Sharpy/master/License.txt</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/inputfalken/Sharpy</RepositoryUrl>
     <PackageTags>RX system.reactive Generator Builder</PackageTags>
-    <VersionPrefix>0.0.2</VersionPrefix>
-    <FileVersion>0.0.0.0</FileVersion>
+    <Version>0.1.0</Version>
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
