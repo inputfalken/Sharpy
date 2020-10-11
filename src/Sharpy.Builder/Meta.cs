@@ -29,16 +29,14 @@ namespace Sharpy.Builder
                     $"Could not obtain user names from '{path}'."
                 );
 
-            using (var reader = new StreamReader(namesByOriginStream, Encoding.UTF8))
-            {
-                var jsonSerializerOptions = new JsonSerializerOptions {PropertyNameCaseInsensitive = true};
-                jsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-                return JsonSerializer
-                    .Deserialize<IReadOnlyList<NameModel>>(
-                        reader.ReadToEnd(),
-                        jsonSerializerOptions
-                    );
-            }
+            using var reader = new StreamReader(namesByOriginStream, Encoding.UTF8);
+            var jsonSerializerOptions = new JsonSerializerOptions {PropertyNameCaseInsensitive = true};
+            jsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            return JsonSerializer
+                .Deserialize<IReadOnlyList<NameModel>>(
+                    reader.ReadToEnd(),
+                    jsonSerializerOptions
+                );
         });
 
         private static readonly Lazy<IReadOnlyList<string>> LazyUsernames = new Lazy<IReadOnlyList<string>>(() =>
@@ -52,13 +50,11 @@ namespace Sharpy.Builder
                     $"Could not obtain user names from '{path}'."
                 );
 
-            using (var reader = new StreamReader(userNamesStream, Encoding.UTF8))
-            {
-                //TODO use source code generator to determine the capacity in the future.
-                var list = new List<string>(90000);
-                while (!reader.EndOfStream) list.Add(reader.ReadLine());
-                return list;
-            }
+            using var reader = new StreamReader(userNamesStream, Encoding.UTF8);
+            //TODO use source code generator to determine the capacity in the future.
+            var list = new List<string>(90000);
+            while (!reader.EndOfStream) list.Add(reader.ReadLine());
+            return list;
         });
 
         internal static IReadOnlyList<NameModel> GetNames => LazyNames.Value;
