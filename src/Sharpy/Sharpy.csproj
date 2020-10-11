@@ -24,10 +24,10 @@
     <DefineConstants>RELEASE;NETSTANDARD2_0</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Sharpy.Core" Version="0.3.1" />
-    <PackageReference Include="Sharpy.Builder" Version="0.0.3" />
+    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <ProjectReference Include="..\Sharpy.Builder\Sharpy.Builder.csproj" />
+    <ProjectReference Include="..\Sharpy.Core\Sharpy.Core.csproj" />
   </ItemGroup>
 </Project>
