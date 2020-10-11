@@ -9,6 +9,7 @@
     <PackageTags>RX system.reactive Generator Builder</PackageTags>
     <Version>0.1.0</Version>
     <SignAssembly>false</SignAssembly>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <Optimize>true</Optimize>

@@ -9,6 +9,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/inputfalken/Sharpy/tree/master</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <Optimize>false</Optimize>

@@ -8,6 +8,7 @@
     <RepositoryUrl>https://github.com/inputfalken/Sharpy</RepositoryUrl>
     <PackageTags>Builder Data</PackageTags>
     <Version>0.1.0</Version>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <Optimize>false</Optimize>
