@@ -1,8 +1,6 @@
 name: publish to nuget
-on:
-  push:
-    branches:
-      - master # Default release branch
+on: [push]
+
 jobs:
   build:
     name: Test project
@@ -21,6 +19,8 @@ jobs:
   publish:
     name: build, pack & publish
     runs-on: ubuntu-latest
+    needs: build
+    if: success() && github.ref == 'refs/heads/master'
     steps:
       - uses: actions/checkout@v2
 
