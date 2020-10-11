@@ -20,7 +20,7 @@ namespace Sharpy.Builder.Implementation {
             Enums.Origin.SouthAmerica
         };
 
-        private readonly Dictionary<NameType, IReadOnlyList<string>> _dictionary;
+        private readonly IDictionary<NameType, IReadOnlyList<string>> _dictionary;
 
         private readonly ISet<Origin> _origins;
         private readonly Random _random;
@@ -92,10 +92,11 @@ namespace Sharpy.Builder.Implementation {
         ///     <para>Returns a name based on <see cref="NameType" />.</para>
         /// </summary>
         /// <param name="arg"></param>
-        private string Name(NameType arg) {
-            if (_dictionary.ContainsKey(arg)) return _dictionary[arg].RandomItem(_random);
-            var strings = Origin(Names.Where(n => n.Type == arg)).Select(n => n.Name).ToArray();
-            if (strings.Any()) _dictionary.Add(arg, strings);
+        private string Name(NameType arg)
+        {
+            if (_dictionary.TryGetValue(arg, out var names)) return names.RandomItem(_random);
+            var strings = Origin(Names.Where(n => n.Type == arg)).Select(n => n.Name).ToList();
+            if (strings.Count > 0) _dictionary.Add(arg, strings);
             else throw new Exception("Can't obtain strings with this configuration");
             return _dictionary[arg].RandomItem(_random);
         }
