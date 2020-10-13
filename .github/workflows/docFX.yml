@@ -1,7 +1,5 @@
-on:
-  push:
-    branches:
-      - master
+name: DocFx
+on: [push]
 
 jobs:
   DocFx:
@@ -12,11 +10,12 @@ jobs:
       - uses: nikeee/docfx-action@v1.0.0
         name: Build Documentation
         with:
-          args: ./docfx.json
+          args: ./docs/docfx.json
 
       # Publish generated site using GitHub Pages
       - uses: maxheld83/ghpages@master
         name: Publish Documentation on GitHub Pages
+        if: success() && github.ref == 'refs/heads/master'
         env:
-          BUILD_DIR: ./_site # docfx's default output directory is _site
+          BUILD_DIR: ./docs/_site # docfx's default output directory is _site
           GH_PAT: ${{ secrets.GH_PAT }} # See https://github.com/maxheld83/ghpages

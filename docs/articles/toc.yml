@@ -1,4 +1,8 @@
 - name: Getting Started
   href: getting.started.md
+- name: Installation
+  href: installation.md
+- name: Usage areas
+  href: usageAreas.md
 - name: Examples
   href: examples.md
