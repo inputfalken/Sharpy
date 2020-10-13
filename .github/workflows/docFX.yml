@@ -17,5 +17,5 @@ jobs:
         name: Publish Documentation on GitHub Pages
         if: success() && github.ref == 'refs/heads/master'
         env:
-          BUILD_DIR: ./_site # docfx's default output directory is _site
+          BUILD_DIR: ./docs/_site # docfx's default output directory is _site
           GH_PAT: ${{ secrets.GH_PAT }} # See https://github.com/maxheld83/ghpages
