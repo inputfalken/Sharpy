@@ -25,5 +25,5 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sharpy.Builder\Sharpy.Builder.csproj" />
-  </ItemGrup>
+  </ItemGroup>
 </Project>
