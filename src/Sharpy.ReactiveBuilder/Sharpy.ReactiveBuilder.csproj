@@ -7,7 +7,7 @@
     <PackageLicenseUrl>https://raw.githubusercontent.com/inputfalken/Sharpy/master/License.txt</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/inputfalken/Sharpy</RepositoryUrl>
     <PackageTags>RX system.reactive Generator Builder</PackageTags>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <SignAssembly>false</SignAssembly>
     <LangVersion>8</LangVersion>
   </PropertyGroup>
