@@ -7,7 +7,7 @@
     <PackageLicenseUrl>https://raw.githubusercontent.com/inputfalken/Sharpy/master/License.txt</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/inputfalken/Sharpy</RepositoryUrl>
     <PackageTags>RX system.reactive Generator Builder</PackageTags>
-    <Version>0.1.1</Version>
+    <Version>0.1.2</Version>
     <SignAssembly>false</SignAssembly>
     <LangVersion>8</LangVersion>
   </PropertyGroup>
@@ -21,9 +21,7 @@
     </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="system.reactive" Version="4.1.3" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Sharpy.Builder\Sharpy.Builder.csproj" />
+    <PackageReference Include="Sharpy.Builder" Version="0.1.0" />
+    <PackageReference Include="system.reactive" Version="4.4.1" />
   </ItemGroup>
 </Project>
