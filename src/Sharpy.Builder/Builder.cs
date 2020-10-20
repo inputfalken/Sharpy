@@ -83,6 +83,10 @@ namespace Sharpy.Builder {
         /// <inheritdoc />
         public DateTime Date() => _dateProvider.Date();
 
+        public DateTime Date(DateTime max) => _dateProvider.Date(max);
+
+        public DateTime Date(DateTime min, DateTime max) => _dateProvider.Date(min, max);
+
         /// <inheritdoc />
         public double Double() => _doubleProvider.Double();
 
