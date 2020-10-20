@@ -48,17 +48,16 @@ namespace Sharpy.ReactiveBuilder.Tests {
         }
 
         [Test]
-        public void Building_Dates() {
-            DateTime TrimMilliseconds(DateTime dt) =>
-                new DateTime(dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second, 0);
-
+        public void Building_Doubles() {
             const int seed = 20;
             var builder = new Builder.Builder(seed);
-            var expected = new List<DateTime>();
+            var expected = new List<double>();
             const int total = 2000;
-            for (var i = 0; i < total; i++) expected.Add(TrimMilliseconds(builder.Date()));
+            const int max = 1000;
+            const int min = 100;
+            for (var i = 0; i < total; i++) expected.Add(builder.Double(min, max));
             var result = new Builder.Builder(seed)
-                .Observable(b => TrimMilliseconds(b.Date()))
+                .Observable(b => b.Double(min, max))
                 .Take(total)
                 .ToListObservable();
             Assert.IsTrue(result.SequenceEqual(expected));
