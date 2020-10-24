@@ -30,7 +30,7 @@ namespace Sharpy.Builder {
             DateProvider = new DateRandomizer(Random);
             SecurityNumberProvider = new UniqueFormattedSecurityBuilder(Random);
             PhoneNumberProvider = new UniquePhoneNumberRandomizer(Random);
-            UserNameProvider = new UserNameRandomizer(Data.GetUserNames, Random);
+            UserNameProvider = new UserNameRandomizer(Random);
             MailProvider = new UniqueEmailBuilder(
                 new[] {"gmail.com", "live.com", "outlook.com", "hotmail.com", "yahoo.com"},
                 Random

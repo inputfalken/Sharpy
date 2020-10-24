@@ -9,13 +9,11 @@ namespace Sharpy.Builder.Implementation {
     /// </summary>
     public sealed class UserNameRandomizer : IUserNameProvider {
         private readonly Random _random;
-        private readonly IReadOnlyList<string> _usernames;
 
         /// <summary>
         ///     Creates <see cref="UserNameRandomizer" />.
         /// </summary>
-        public UserNameRandomizer(IReadOnlyList<string> usernames, Random random) {
-            _usernames = usernames;
+        public UserNameRandomizer( Random random) {
             _random = random;
         }
 
@@ -25,6 +23,6 @@ namespace Sharpy.Builder.Implementation {
         /// <returns>
         ///     A string representing a user name.
         /// </returns>
-        public string UserName() => _usernames.RandomItem(_random);
+        public string UserName() => Data.GetUserNames.RandomItem(_random);
     }
 }
