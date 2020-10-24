@@ -1,11 +1,13 @@
 ﻿using System;
 using Sharpy.Builder.IProviders;
 
-namespace Sharpy.Builder.Implementation {
+namespace Sharpy.Builder.Implementation
+{
     /// <summary>
     ///     Randomizes from the arguments.
     /// </summary>
-    public sealed class ArgumentRandomizer : IArgumentProvider {
+    public sealed class ArgumentRandomizer : IArgumentProvider
+    {
         private readonly Random _random;
 
         /// <summary>
@@ -32,13 +34,14 @@ namespace Sharpy.Builder.Implementation {
         /// <returns>
         ///     One of the arguments supplied.
         /// </returns>
-        public T Argument<T>(T first, T second, params T[] additional) {
-            var res = _random.Next(-2, additional.Length);
-            switch (res) {
-                case -2: return first;
-                case -1: return second;
-                default: return additional[res];
-            }
+        public T Argument<T>(T first, T second, params T[] additional)
+        {
+            return _random.Next(-2, additional.Length) switch
+            {
+                -2 => first,
+                -1 => second,
+                {} x => additional[x]
+            };
         }
     }
 }
