@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Sharpy.Builder.Enums;
 using Sharpy.Builder.IProviders;
 
@@ -12,7 +11,7 @@ namespace Sharpy.Builder {
     /// </summary>
     public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, IElementProvider,
         IBoolProvider, IDateProvider, IEmailProvider, ISecurityNumberProvider,
-        IPhoneNumberProvider, IUserNameProvider, IArgumentProvider {
+        IPhoneNumberProvider, IUserNameProvider, IArgumentProvider, IGuidProvider {
         private readonly IArgumentProvider _argumentProvider;
         private readonly IBoolProvider _boolProvider;
         private readonly IDateProvider _dateProvider;
@@ -25,6 +24,7 @@ namespace Sharpy.Builder {
         private readonly IPhoneNumberProvider _phoneNumberProvider;
         private readonly ISecurityNumberProvider _securityNumberProvider;
         private readonly IUserNameProvider _userNameProvider;
+        private IGuidProvider _guidProvider;
 
         /// <summary>
         ///     <para>
@@ -59,6 +59,9 @@ namespace Sharpy.Builder {
                                 throw new ArgumentNullException(nameof(configurement.UserNameProvider));
             _argumentProvider = configurement.ArgumentProvider ??
                                 throw new ArgumentNullException(nameof(configurement.ArgumentProvider));
+
+            _guidProvider = configurement.GuidProvider ??
+                                          throw new ArgumentNullException(nameof(configurement.GuidProvider));
         }
 
         /// <inheritdoc />
@@ -149,6 +152,10 @@ namespace Sharpy.Builder {
         /// <inheritdoc />
         public string UserName() => _userNameProvider.UserName();
 
+        /// <inheritdoc />
+        public Guid Guid() => _guidProvider.Guid();
+
+        public string Guid(GuidFormat format) => _guidProvider.Guid(format);
     }
 
 }

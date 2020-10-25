@@ -38,6 +38,8 @@ namespace Sharpy.Builder {
             ListElementPicker = new ListRandomizer(Random);
             BoolProvider = new BoolRandomizer(Random);
             ArgumentProvider = new ArgumentRandomizer(Random);
+            GuidProvider = new GuidProvider();
+            
         }
 
         /// <summary>
@@ -184,5 +186,15 @@ namespace Sharpy.Builder {
         ///     </para>
         /// </summary>
         public Random Random { get; }
+        
+        /// <summary>
+        ///     <para>
+        ///         Gets and sets the implementation for <see cref="IGuidProvider" />.
+        ///     </para>
+        ///     <para>
+        ///         By default it is <see cref="Sharpy.Builder.Implementation.GuidProvider" />.
+        ///     </para>
+        /// </summary>
+        public IGuidProvider GuidProvider { get; set; }
     }
 }
