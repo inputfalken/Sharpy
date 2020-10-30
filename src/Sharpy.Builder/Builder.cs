@@ -24,7 +24,7 @@ namespace Sharpy.Builder {
         private readonly IPhoneNumberProvider _phoneNumberProvider;
         private readonly ISecurityNumberProvider _securityNumberProvider;
         private readonly IUserNameProvider _userNameProvider;
-        private IGuidProvider _guidProvider;
+        private readonly IGuidProvider _guidProvider;
 
         /// <summary>
         ///     <para>
