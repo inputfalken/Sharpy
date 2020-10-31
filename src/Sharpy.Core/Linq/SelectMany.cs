@@ -24,7 +24,7 @@ namespace Sharpy.Core.Linq
         /// A Flattened <see cref="IGenerator{T}"/>
         /// </returns>
         /// <exception cref="ArgumentNullException">
-        /// When <paramref name="source"/> is null or when <see cref="selector"/> is null.
+        /// When <paramref name="source"/> is null or when <paramref name="selector"/> is null.
         /// </exception>
         public static IGenerator<TResult> SelectMany<T, TResult>(
             this IGenerator<T> source,
@@ -64,7 +64,7 @@ namespace Sharpy.Core.Linq
         /// A Flattened <see cref="IGenerator{T}"/>
         /// </returns>
         /// <exception cref="ArgumentNullException">
-        /// When <paramref name="source"/> is null or when <see cref="selector"/> is null.
+        /// When <paramref name="source"/>, <paramref name="selector"/> or <paramref name="resultSelector"/> is null.
         /// </exception>
         public static IGenerator<TResult> SelectMany<T, TSelect, TResult>(
             this IGenerator<T> source,
