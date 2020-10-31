@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Sharpy.Core.Implementations;
 
-namespace Sharpy.Core.Linq {
-    public static partial class Extensions {
+namespace Sharpy.Core.Linq
+{
+    public static partial class Extensions
+    {
         /// <summary>
         ///     <para>
         ///         Invokes <see cref="IGenerator{T}.Generate" /> for each full iteration of <see cref="IEnumerable{T}" />.
@@ -15,12 +17,13 @@ namespace Sharpy.Core.Linq {
         /// <typeparam name="TSource">The type of <paramref name="generator" />.</typeparam>
         /// <typeparam name="TResult">The type of the <see cref="IEnumerable{T}" />.</typeparam>
         /// <returns>
-        ///     A <see cref="IGenerator{T}"/> based on the paramter <paramref name="enumerableSelector"/>.
+        ///     A <see cref="IGenerator{T}"/> based on the parameter <paramref name="enumerableSelector"/>.
         /// </returns>
         /// <exception cref="ArgumentNullException">Argument <paramref name="generator" /> is null</exception>
         /// <exception cref="ArgumentNullException">Argument <paramref name="enumerableSelector" /> is null</exception>
         public static IGenerator<TResult> SelectMany<TSource, TResult>(this IGenerator<TSource> generator,
-            Func<TSource, IEnumerable<TResult>> enumerableSelector) {
+            Func<TSource, IEnumerable<TResult>> enumerableSelector)
+        {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (enumerableSelector == null) throw new ArgumentNullException(nameof(enumerableSelector));
             var sequence = new Seq<TResult>(() => enumerableSelector(generator.Generate()));
@@ -39,7 +42,7 @@ namespace Sharpy.Core.Linq {
         /// <typeparam name="TCollection">The type of the <see cref="IEnumerable{T}" />.</typeparam>
         /// <typeparam name="TResult">The type of the returning <see cref="IGenerator{T}" />.</typeparam>
         /// <returns>
-        ///     A <see cref="IGenerator{T}"/> based on the paramters <paramref name="enumerableSelector"/> and <paramref name="resultSelector"/>.
+        ///     A <see cref="IGenerator{T}"/> based on the parameters <paramref name="enumerableSelector"/> and <paramref name="resultSelector"/>.
         /// </returns>
         /// <exception cref="ArgumentNullException">Argument <paramref name="generator" /> is null</exception>
         /// <exception cref="ArgumentNullException">Argument <paramref name="enumerableSelector" /> is null</exception>
@@ -47,7 +50,8 @@ namespace Sharpy.Core.Linq {
         public static IGenerator<TResult> SelectMany<TSource, TCollection, TResult>(
             this IGenerator<TSource> generator,
             Func<TSource, IEnumerable<TCollection>> enumerableSelector,
-            Func<TSource, TCollection, TResult> resultSelector) {
+            Func<TSource, TCollection, TResult> resultSelector)
+        {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (enumerableSelector == null) throw new ArgumentNullException(nameof(enumerableSelector));
             if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
@@ -55,4 +59,5 @@ namespace Sharpy.Core.Linq {
                 .Select(result => resultSelector(source, result)));
         }
     }
+
 }

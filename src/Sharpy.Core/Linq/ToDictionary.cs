@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Sharpy.Core.Linq {
-    public static partial class Extensions {
+namespace Sharpy.Core.Linq
+{
+    public static partial class Extensions
+    {
         /// <summary>
         ///     <para>
         ///         Creates an <see cref="Dictionary{TKey,TValue}" /> from a <see cref="IGenerator{T}" /> according to specified
@@ -29,8 +31,37 @@ namespace Sharpy.Core.Linq {
         ///         Dictionary&lt;int,int&gt; dict = Generator.Incrementer(0).ToDictionary(100, (int ks) => ks, (int es) => es);
         ///     </code>
         /// </example>
-        public static Dictionary<TKey, TValue> ToDictionary<TSource, TKey, TValue>(this IGenerator<TSource> generator,
-            int count, Func<TSource, TKey> keySelector, Func<TSource, TValue> elementSelector) =>
-            generator.Take(count).ToDictionary(keySelector, elementSelector);
+        public static Dictionary<TKey, TValue> ToDictionary<TSource, TKey, TValue>(
+            this IGenerator<TSource> generator,
+            int count,
+            Func<TSource, TKey> keySelector,
+            Func<TSource, TValue> elementSelector
+        )
+        {
+            if (generator is null)
+                throw new ArgumentNullException(nameof(generator));
+            
+            if (count < 0)
+                throw new ArgumentException("Can not be negative", nameof(count));
+            
+            if (keySelector is null)
+                throw new ArgumentNullException(nameof(generator));
+            
+            if (elementSelector is null)
+                throw new ArgumentNullException(nameof(generator));
+            
+            var dictionary = new Dictionary<TKey, TValue>(count);
+            
+            if (count == 0)
+                return dictionary;
+
+            for (var i = 0; i < count; i++)
+            {
+                var generate = generator.Generate();
+                dictionary.Add(keySelector(generate), elementSelector(generate));
+            }
+
+            return dictionary;
+        }
     }
 }

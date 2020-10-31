@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
 
-namespace Sharpy.Core.Linq {
-    public static partial class Extensions {
+namespace Sharpy.Core.Linq
+{
+    public static partial class Extensions
+    {
         /// <summary>
         ///     <para>
         ///         Creates an <see cref="Array" /> from a <see cref="IGenerator{T}" />.
@@ -22,7 +24,22 @@ namespace Sharpy.Core.Linq {
         ///         int[] arr = Generator.Incrementer(0).ToArray(100);
         ///     </code>
         /// </example>
-        public static TSource[] ToArray<TSource>(this IGenerator<TSource> generator, int length) =>
-            generator.Take(length).ToArray();
+        public static TSource[] ToArray<TSource>(this IGenerator<TSource> generator, int length)
+        {
+            if (generator is null)
+                throw new ArgumentNullException(nameof(generator));
+            
+            if (length < 0)
+                throw new ArgumentException("Can not pass negative values.");
+            
+            if (length == 0)
+                return Array.Empty<TSource>();
+
+            var sources = new TSource[length];
+            for (var i = 0; i < length; i++) 
+                sources[i] = generator.Generate();
+
+            return sources;
+        }
     }
 }
