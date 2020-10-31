@@ -74,10 +74,10 @@ namespace Sharpy.Core.Tests.ExtensionTests {
         }
 
         [Test(
-            Description = "Verify that ToDictionary with zero value throws ArgumentException"
+            Description = "Verify that ToDictionary with zero value return empty dictionary"
         )]
         public void Zero_Length_Throws() {
-            Assert.Throws<ArgumentException>(() => _generator.ToDictionary(0, s => s, s => s));
+            Assert.IsEmpty(_generator.ToDictionary(0, s => s, s => s));
         }
     }
 }

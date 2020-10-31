@@ -52,10 +52,10 @@ namespace Sharpy.Core.Tests.ExtensionTests {
         }
 
         [Test(
-            Description = "Verify that when argument count is zero, an exception is thrown"
+            Description = "Verify that when argument count is zero an empty array is returned."
         )]
-        public void Zero_Length_Throws() {
-            Assert.Throws<ArgumentException>(() => _generator.ToArray(0));
+        public void Zero_Length_Returns_EmptyArray() {
+            Assert.AreEqual(Array.Empty<int>(), _generator.ToArray(0));
         }
     }
 }

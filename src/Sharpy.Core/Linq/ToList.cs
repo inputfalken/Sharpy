@@ -1,11 +1,14 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Sharpy.Core.Linq {
+namespace Sharpy.Core.Linq
+{
     /// <summary>
     ///     Provides a set of static methods for <see cref="IGenerator{T}" />.
     /// </summary>
-    public static partial class Extensions {
+    public static partial class Extensions
+    {
         /// <summary>
         ///     <para>
         ///         Creates a <see cref="List{T}" /> from a <see cref="IGenerator{T}" />.
@@ -25,7 +28,23 @@ namespace Sharpy.Core.Linq {
         ///          list&lt;int&gt; list = Generator.Incrementer(0).ToList(100);
         ///     </code>
         /// </example>
-        public static List<TSource> ToList<TSource>(this IGenerator<TSource> generator, int count) =>
-            generator.Take(count).ToList();
+        public static List<TSource> ToList<TSource>(this IGenerator<TSource> generator, int count)
+        {
+            if (generator is null)
+                throw new ArgumentNullException(nameof(generator));
+
+            if (count < 0)
+                throw new ArgumentException("Can not be negative", nameof(count));
+
+            var sources = new List<TSource>(count);
+
+            if (count == 0)
+                return sources;
+
+            for (var i = 0; i < count; i++)
+                sources.Add(generator.Generate());
+
+            return sources;
+        }
     }
 }
