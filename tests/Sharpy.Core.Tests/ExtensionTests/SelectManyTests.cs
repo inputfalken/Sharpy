@@ -27,10 +27,26 @@ namespace Sharpy.Core.Tests.ExtensionTests
         [Test(
             Description = "Verify that both generators are invoked for each generation call in the returned generator."
         )]
-        public void SelectMany_Flattening_Invokes_Both_Generators_Every_Generation_Call()
+        public void SelectMany_Flattening_With_ResultSelector_Invokes_Both_Generators_Every_Generation_Call()
         {
             var result = _generator
                 .SelectMany(i => _flattenedGenerator, (x, y) => x - y)
+                .Take(10);
+
+            Assert.AreEqual(Enumerable.Repeat(0, 10), result);
+        }
+
+        [Test(
+            Description = "Verify that both generators are invoked for each generation call in the returned generator."
+        )]
+        public void SelectMany_Flattening_With_ResultSelector_Invokes_Both_Generators_Every_Generation_Call_With_Query_Syntax()
+        {
+            var result =
+                (
+                    from number in _generator
+                    from number2 in _flattenedGenerator
+                    select number - number2
+                )
                 .Take(10);
 
             Assert.AreEqual(Enumerable.Repeat(0, 10), result);
@@ -46,6 +62,5 @@ namespace Sharpy.Core.Tests.ExtensionTests
                 }
             );
         }
-
     }
 }
