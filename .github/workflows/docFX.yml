@@ -1,4 +1,4 @@
-name: DocFx
+name: Generate DocFx
 on: [push]
 
 jobs:
