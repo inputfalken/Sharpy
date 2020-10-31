@@ -7,7 +7,7 @@
 
       For info please visit project page.</Description>
     <PackageProjectUrl>https://github.com/inputfalken/Sharpy/tree/master</PackageProjectUrl>
-    <Version>4.1.1</Version>
+    <Version>4.2.1</Version>
     <PackageLicenseUrl>https://raw.githubusercontent.com/inputfalken/Sharpy/master/License.txt</PackageLicenseUrl>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/inputfalken/Sharpy/tree/master</RepositoryUrl>
@@ -28,6 +28,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Sharpy.Builder" Version="0.2.0" />
-    <PackageReference Include="Sharpy.Core" Version="0.4.0" />
+    <PackageReference Include="Sharpy.Core" Version="0.5.0" />
   </ItemGroup>
 </Project>
