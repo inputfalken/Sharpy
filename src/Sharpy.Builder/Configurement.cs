@@ -39,7 +39,7 @@ namespace Sharpy.Builder {
             BoolProvider = new BoolRandomizer(Random);
             ArgumentProvider = new ArgumentRandomizer(Random);
             GuidProvider = new GuidProvider();
-            
+            TimeSpanProvider = new TimeSpanRandomizer(Random);
         }
 
         /// <summary>

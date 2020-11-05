@@ -14,23 +14,20 @@ namespace Sharpy.Builder.Implementation
 
         public TimeSpan TimeSpan()
         {
-            return System.TimeSpan.FromMilliseconds(
-                _random.Next(
-                    System.TimeSpan.Zero.Milliseconds,
-                    System.TimeSpan.MaxValue.Milliseconds
-                )
-            );
+            return TimeSpan(System.TimeSpan.Zero, System.TimeSpan.MaxValue);
         }
+        
 
         public TimeSpan TimeSpan(TimeSpan max)
         {
-            return System.TimeSpan.FromMilliseconds(
-                _random.Next(System.TimeSpan.Zero.Milliseconds, max.Milliseconds)
-            );
+            return TimeSpan(System.TimeSpan.Zero, max);
         }
 
         public TimeSpan TimeSpan(TimeSpan min, TimeSpan max)
         {
+            if (min > max)
+                throw new ArgumentException($"Parameter '{nameof(min)}' can not be greater than '{nameof(max)}'.");
+
             return System.TimeSpan.FromMilliseconds(
                 _random.Next(min.Milliseconds, max.Milliseconds)
             );
