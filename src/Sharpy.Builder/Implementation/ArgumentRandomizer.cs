@@ -1,4 +1,5 @@
 ﻿using System;
+using Sharpy.Builder.Implementation.ExtensionMethods;
 using Sharpy.Builder.IProviders;
 
 namespace Sharpy.Builder.Implementation
@@ -36,12 +37,8 @@ namespace Sharpy.Builder.Implementation
         /// </returns>
         public T Argument<T>(T first, T second, params T[] additional)
         {
-            return _random.Next(-2, additional.Length) switch
-            {
-                -2 => first,
-                -1 => second,
-                {} x => additional[x]
-            };
+            return _random.Argument(first, second, additional);
         }
+        
     }
 }

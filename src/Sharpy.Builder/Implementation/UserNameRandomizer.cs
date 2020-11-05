@@ -23,6 +23,6 @@ namespace Sharpy.Builder.Implementation {
         /// <returns>
         ///     A string representing a user name.
         /// </returns>
-        public string UserName() => Data.GetUserNames.RandomItem(_random);
+        public string UserName() => _random.ListElement(Data.GetUserNames);
     }
 }

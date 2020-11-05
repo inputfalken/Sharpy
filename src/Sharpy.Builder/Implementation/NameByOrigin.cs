@@ -94,11 +94,11 @@ namespace Sharpy.Builder.Implementation {
         /// <param name="arg"></param>
         private string Name(NameType arg)
         {
-            if (_dictionary.TryGetValue(arg, out var names)) return names.RandomItem(_random);
+            if (_dictionary.TryGetValue(arg, out var names)) return _random.ListElement(names);
             var strings = Origin(Names.Where(n => n.Type == arg)).Select(n => n.Name).ToList();
             if (strings.Count > 0) _dictionary.Add(arg, strings);
             else throw new Exception("Can't obtain strings with this configuration");
-            return _dictionary[arg].RandomItem(_random);
+            return _random.ListElement(_dictionary[arg]);
         }
 
         private IEnumerable<NameModel> Origin(IEnumerable<NameModel> names) {

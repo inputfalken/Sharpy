@@ -375,7 +375,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTime>();
             var baseTimeTwoDaysLater = BaseTime.AddDays(2);
             for (var i = 0; i < Amount; i++)
-                list.Add(dateRandomizer.Date(DateTime.Now, baseTimeTwoDaysLater));
+                list.Add(dateRandomizer.Date(BaseTime, baseTimeTwoDaysLater));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoDaysLater),
@@ -408,7 +408,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTime>();
             var baseTimeTwoMinutesLater = BaseTime.AddMinutes(2);
             for (var i = 0; i < Amount; i++)
-                list.Add(dateRandomizer.Date(DateTime.Now, baseTimeTwoMinutesLater));
+                list.Add(dateRandomizer.Date(BaseTime, baseTimeTwoMinutesLater));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoMinutesLater),
@@ -443,7 +443,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTime>();
             var baseTimeTwoSecondsLater = BaseTime.AddSeconds(2);
             for (var i = 0; i < Amount; i++)
-                list.Add(dateRandomizer.Date(DateTime.Now, baseTimeTwoSecondsLater));
+                list.Add(dateRandomizer.Date(BaseTime, baseTimeTwoSecondsLater));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoSecondsLater),
@@ -477,7 +477,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTime>();
             var baseTimeTwoMillisecondsLater = BaseTime.AddMilliseconds(2);
             for (var i = 0; i < Amount; i++)
-                list.Add(dateRandomizer.Date(DateTime.Now, baseTimeTwoMillisecondsLater));
+                list.Add(dateRandomizer.Date(BaseTime, baseTimeTwoMillisecondsLater));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoMillisecondsLater),

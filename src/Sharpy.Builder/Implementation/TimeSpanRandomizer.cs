@@ -1,4 +1,5 @@
 using System;
+using Sharpy.Builder.Implementation.ExtensionMethods;
 using Sharpy.Builder.IProviders;
 
 namespace Sharpy.Builder.Implementation
@@ -28,9 +29,7 @@ namespace Sharpy.Builder.Implementation
             if (min > max)
                 throw new ArgumentException($"Parameter '{nameof(min)}' can not be greater than '{nameof(max)}'.");
 
-            return System.TimeSpan.FromMilliseconds(
-                _random.Next(min.Milliseconds, max.Milliseconds)
-            );
+            return _random.TimeSpan(min, max);
         }
     }
 }
