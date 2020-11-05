@@ -25,6 +25,7 @@ namespace Sharpy.Builder {
         private readonly ISecurityNumberProvider _securityNumberProvider;
         private readonly IUserNameProvider _userNameProvider;
         private readonly IGuidProvider _guidProvider;
+        private readonly ITimeSpanProvider _timeSpanProvider;
 
         /// <summary>
         ///     <para>
@@ -62,6 +63,8 @@ namespace Sharpy.Builder {
 
             _guidProvider = configurement.GuidProvider ??
                                           throw new ArgumentNullException(nameof(configurement.GuidProvider));
+            _timeSpanProvider = configurement.TimeSpanProvider ??
+                                throw new ArgumentNullException(nameof(configurement.TimeSpanProvider));
         }
 
         /// <inheritdoc />

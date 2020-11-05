@@ -196,5 +196,15 @@ namespace Sharpy.Builder {
         ///     </para>
         /// </summary>
         public IGuidProvider GuidProvider { get; set; }
+
+        /// <summary>
+        ///     <para>
+        ///         Gets and sets the implementation for <see cref="ITimeSpanProvider" />.
+        ///     </para>
+        ///     <para>
+        ///         By default it is <see cref="Sharpy.Builder.Implementation.TimeSpanRandomizer" />.
+        ///     </para>
+        /// </summary>
+        public ITimeSpanProvider TimeSpanProvider { get; set; }
     }
 }
