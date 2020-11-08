@@ -27,7 +27,7 @@ namespace Sharpy.Builder {
             IntegerProvider = new IntegerRandomizer(Random);
             DoubleProvider = new DoubleRandomizer(Random);
             NameProvider = new NameByOrigin(Random);
-            DateProvider = new DateRandomizer(Random);
+            DateTimeProvider = new DateTimeRandomizer(Random);
             SecurityNumberProvider = new UniqueFormattedSecurityBuilder(Random);
             PhoneNumberProvider = new UniquePhoneNumberRandomizer(Random);
             UserNameProvider = new UserNameRandomizer(Random);
@@ -39,7 +39,7 @@ namespace Sharpy.Builder {
             BoolProvider = new BoolRandomizer(Random);
             ArgumentProvider = new ArgumentRandomizer(Random);
             GuidProvider = new GuidProvider();
-            
+            TimeSpanProvider = new TimeSpanRandomizer(Random);
         }
 
         /// <summary>
@@ -102,13 +102,13 @@ namespace Sharpy.Builder {
 
         /// <summary>
         ///     <para>
-        ///         Gets and sets the implementation for <see cref="IDateProvider" />.
+        ///         Gets and sets the implementation for <see cref="IDateTimeProvider" />.
         ///     </para>
         ///     <para>
-        ///         By default it is <see cref="DateRandomizer" />.
+        ///         By default it is <see cref="DateTimeRandomizer" />.
         ///     </para>
         /// </summary>
-        public IDateProvider DateProvider { get; set; }
+        public IDateTimeProvider DateTimeProvider { get; set; }
 
         /// <summary>
         ///     <para>
@@ -196,5 +196,15 @@ namespace Sharpy.Builder {
         ///     </para>
         /// </summary>
         public IGuidProvider GuidProvider { get; set; }
+
+        /// <summary>
+        ///     <para>
+        ///         Gets and sets the implementation for <see cref="ITimeSpanProvider" />.
+        ///     </para>
+        ///     <para>
+        ///         By default it is <see cref="Sharpy.Builder.Implementation.TimeSpanRandomizer" />.
+        ///     </para>
+        /// </summary>
+        public ITimeSpanProvider TimeSpanProvider { get; set; }
     }
 }

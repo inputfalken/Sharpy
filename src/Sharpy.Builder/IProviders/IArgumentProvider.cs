@@ -1,8 +1,10 @@
-namespace Sharpy.Builder.IProviders {
+namespace Sharpy.Builder.IProviders
+{
     /// <summary>
-    ///     Returns elements from arguments.
+    ///     Provides an element from the arguments.
     /// </summary>
-    public interface IArgumentProvider {
+    public interface IArgumentProvider
+    {
         /// <summary>
         ///     Returns one of the arguments.
         /// </summary>

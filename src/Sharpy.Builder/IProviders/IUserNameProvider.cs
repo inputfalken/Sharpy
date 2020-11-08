@@ -1,16 +1,13 @@
-namespace Sharpy.Builder.IProviders {
+namespace Sharpy.Builder.IProviders
+{
     /// <summary>
-    ///     <para>
-    ///         Methods providing <see cref="string" /> representing user name.
-    ///     </para>
+    ///         Methods providing System.String representing user name.
     /// </summary>
-    public interface IUserNameProvider {
+    public interface IUserNameProvider
+    {
         /// <summary>
-        ///     Creates a string representing a user name.
+        ///     Provides a System.String representing a user name.
         /// </summary>
-        /// <returns>
-        ///     A string representing a user name.
-        /// </returns>
         string UserName();
     }
 }

@@ -75,7 +75,7 @@ namespace Sharpy.Builder.Implementation {
         /// <returns></returns>
         public string Mail() {
             while (true) {
-                var randomItem = Data.GetUserNames.RandomItem(Random);
+                var randomItem = Random.ListElement(Data.GetUserNames);
                 if (randomItem.Length < 4) continue;
                 return Mail(randomItem);
             }

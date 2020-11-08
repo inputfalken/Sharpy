@@ -1,4 +1,5 @@
 ﻿using System;
+using Sharpy.Builder.Implementation.ExtensionMethods;
 using Sharpy.Builder.IProviders;
 
 namespace Sharpy.Builder.Implementation {
@@ -20,9 +21,9 @@ namespace Sharpy.Builder.Implementation {
         public double Double(double max) => Double(0, max);
 
         /// <inheritdoc />
-        public double Double(double min, double max) {
-            if (max <= min) throw new ArgumentOutOfRangeException($"{nameof(max)} must be > {nameof(min)}");
-            return _random.NextDouble() * (max - min) + min;
+        public double Double(double min, double max)
+        {
+            return _random.Double(min, max);
         }
     }
 }

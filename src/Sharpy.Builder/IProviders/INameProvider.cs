@@ -1,16 +1,14 @@
 using Sharpy.Builder.Enums;
 
-namespace Sharpy.Builder.IProviders {
+namespace Sharpy.Builder.IProviders
+{
     /// <summary>
-    ///     <para>
-    ///         Methods providing <see cref="string" /> representing names.
-    ///     </para>
+    ///  Methods providing System.String representing names.
     /// </summary>
-    public interface INameProvider {
+    public interface INameProvider
+    {
         /// <summary>
-        ///     <para>
-        ///         Creates a <see cref="string" /> representing a first name.
-        ///     </para>
+        ///      Provides a string representing a first name.
         /// </summary>
         /// <param name="gender">
         ///     The gender of the first name.
@@ -21,9 +19,7 @@ namespace Sharpy.Builder.IProviders {
         string FirstName(Gender gender);
 
         /// <summary>
-        ///     <para>
-        ///         Creates a <see cref="string" /> representing a first name.
-        ///     </para>
+        ///     Provides a string representing a first name.
         /// </summary>
         /// <returns>
         ///     A string representing a first name.
@@ -31,9 +27,7 @@ namespace Sharpy.Builder.IProviders {
         string FirstName();
 
         /// <summary>
-        ///     <para>
-        ///         Creates a <see cref="string" /> representing a last name.
-        ///     </para>
+        ///     Provides a string representing a last name.
         /// </summary>
         /// <returns>
         ///     A string representing a last name.

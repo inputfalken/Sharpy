@@ -1,4 +1,5 @@
 ﻿using System;
+using Sharpy.Builder.Implementation.ExtensionMethods;
 using Sharpy.Builder.IProviders;
 
 namespace Sharpy.Builder.Implementation {
@@ -14,6 +15,6 @@ namespace Sharpy.Builder.Implementation {
         public BoolRandomizer(Random random) => _random = random;
 
         /// <inheritdoc />
-        public bool Bool() => _random.Next(2) != 0;
+        public bool Bool() => _random.Bool();
     }
 }

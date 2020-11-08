@@ -27,6 +27,6 @@ namespace Sharpy.Builder.Implementation {
         /// <returns>
         ///     One of the elements inside argument <paramref name="list" />.
         /// </returns>
-        public T Element<T>(IReadOnlyList<T> list) => list.RandomItem(_random);
+        public T Element<T>(IReadOnlyList<T> list) => _random.ListElement(list);
     }
 }

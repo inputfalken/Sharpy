@@ -39,12 +39,6 @@ namespace Sharpy.Builder.Tests.Implementations {
         }
 
         [Test]
-        public void One_Arg_Zero_Throws() {
-            var longRandomizer = new LongRandomizer(new Random());
-            Assert.Throws<ArgumentOutOfRangeException>(() => longRandomizer.Long(0));
-        }
-
-        [Test]
         [Repeat(Amount)]
         public void Two_Args_Max_More_Than_Min() {
             const long min = long.MaxValue - 3000;

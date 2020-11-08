@@ -1,27 +1,19 @@
 ﻿namespace Sharpy.Builder.IProviders {
     /// <summary>
-    ///     <para>
-    ///         Method providing <see cref="string" /> representing an email address.
-    ///     </para>
+    ///  Method providing System.String representing an email address.
     /// </summary>
     public interface IEmailProvider {
         /// <summary>
-        ///     Creates a string representing an email address.
+        ///     Provides a System.String representing an email address.
         /// </summary>
         /// <param name="name">
         ///     The names of the email address.
         /// </param>
-        /// <returns>
-        ///     A string representing an email address.
-        /// </returns>
         string Mail(params string[] name);
 
         /// <summary>
-        ///     Creates a string representing an email address.
+        ///     Provides a System.String representing an email address.
         /// </summary>
-        /// <returns>
-        ///     A string representing an email address.
-        /// </returns>
         string Mail();
     }
 }

@@ -20,7 +20,7 @@ namespace Sharpy.Builder.Implementation {
 
         /// <inheritdoc />
         public int Integer(int min, int max) {
-            if (max <= min)
+            if (max < min)
                 throw new ArgumentOutOfRangeException($"{nameof(max)} must be > {nameof(min)}");
             return _random.Next(min, max);
         }
