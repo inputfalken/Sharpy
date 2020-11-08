@@ -3,17 +3,17 @@
 namespace Sharpy.Builder.IProviders
 {
     /// <summary>
-    ///  Methods to provide <see cref="System.DateTime" />.
+    ///  Methods to provide System.DateTime.
     /// </summary>
     public interface IDateTimeProvider
     {
         /// <summary>
-        ///     Provides a <see cref="System.DateTime" /> by <paramref name="age"/>.
+        ///     Provides a System.DateTime by <paramref name="age"/>.
         /// </summary>
         DateTime DateTimeByAge(int age);
 
         /// <summary>
-        ///     Provides a <see cref="System.DateTime" /> by <paramref name="year"/>.
+        ///     Provides a System.DateTime by <paramref name="year"/>.
         /// </summary>
         DateTime DateTimeByYear(int year);
 

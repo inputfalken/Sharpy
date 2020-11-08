@@ -1,13 +1,12 @@
-namespace Sharpy.Builder.IProviders {
+namespace Sharpy.Builder.IProviders
+{
     /// <summary>
-    ///   Methods providing <see cref="long" />.
+    ///   Methods providing System.Int64.
     /// </summary>
-    public interface ILongProvider {
+    public interface ILongProvider
+    {
         /// <summary>
-        ///     <para>
-        ///         Provides a <see cref="long" /> that is greater than or equal to argument <paramref name="min" /> and less
-        ///         than argument <paramref name="max" />.
-        ///     </para>
+        /// Provides a System.Int64 between <paramref name="min"/> and <paramref name="max"/>.
         /// </summary>
         /// <param name="min">
         ///     The inclusive minimum bound.
@@ -22,10 +21,7 @@ namespace Sharpy.Builder.IProviders {
         long Long(long min, long max);
 
         /// <summary>
-        ///     <para>
-        ///         Creates a <see cref="long" /> that is greater than or equal to 0 and less
-        ///         than argument <paramref name="max" />.
-        ///     </para>
+        /// Provides a System.Int64 between 0 and <paramref name="max"/>.
         /// </summary>
         /// <param name="max">
         ///     The exclusive maximum bound.
@@ -37,16 +33,8 @@ namespace Sharpy.Builder.IProviders {
         long Long(long max);
 
         /// <summary>
-        ///     <para>
-        ///         <para>
-        ///             Creates a <see cref="long" /> that is greater than or equal to 0 and less
-        ///             than <see cref="long.MaxValue" />.
-        ///         </para>
-        ///     </para>
+        /// Provides a System.Int64 between 0 and System.Int64.MaxValue. 
         /// </summary>
-        /// <returns>
-        ///     A <see cref="long" /> greater than or equal to 0 and less than <see cref="long.MaxValue" />.
-        /// </returns>
         long Long();
     }
 }

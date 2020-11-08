@@ -1,7 +1,7 @@
 namespace Sharpy.Builder.IProviders
 {
     /// <summary>
-    ///  Methods providing <see cref="double" />.
+    ///  Methods providing System.Double.
     /// </summary>
     public interface IDoubleProvider
     {
