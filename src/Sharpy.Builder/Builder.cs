@@ -116,6 +116,7 @@ namespace Sharpy.Builder
             return _dateProvider.Date(max);
         }
 
+        /// <inheritdoc />
         public DateTime Date(DateTime min, DateTime max)
         {
             return _dateProvider.Date(min, max);
