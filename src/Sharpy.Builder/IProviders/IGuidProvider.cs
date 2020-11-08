@@ -2,6 +2,9 @@ using System;
 
 namespace Sharpy.Builder.IProviders
 {
+    /// <summary>
+    ///  Methods providing System.Guid and formatted System.String.
+    /// </summary>
     public interface IGuidProvider
     {
         /// <summary>

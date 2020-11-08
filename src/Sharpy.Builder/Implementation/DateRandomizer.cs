@@ -36,7 +36,7 @@ namespace Sharpy.Builder.Implementation
                 .AddMilliseconds(_random.MilliSecond());
         }
 
-        /// <inheritdoc cref="IDateProvider.DateByYear(int)"/>
+        /// <inheritdoc />
         public DateTime DateByYear(int year)
         {
             if (year <= MinValue.Year) throw new ArgumentException($"{nameof(year)} cannot be negative");
@@ -53,9 +53,10 @@ namespace Sharpy.Builder.Implementation
         }
 
 
+        /// <inheritdoc />
         public DateTime Date() => Date(MinValue, MaxValue);
 
-        /// <inheritdoc cref="IDateProvider.Date(DateTime)"/>
+        /// <inheritdoc />
         public DateTime Date(DateTime max)
         {
             return Date(MinValue, max);

@@ -3,9 +3,7 @@ using Sharpy.Builder.Enums;
 namespace Sharpy.Builder.IProviders
 {
     /// <summary>
-    ///     <para>
-    ///         Methods providing <see cref="string" /> representing names.
-    ///     </para>
+    ///  Methods providing System.String representing names.
     /// </summary>
     public interface INameProvider
     {

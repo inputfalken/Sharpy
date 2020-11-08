@@ -13,17 +13,20 @@ namespace Sharpy.Builder.Implementation
             _random = random;
         }
 
+        /// <inheritdoc />
         public TimeSpan TimeSpan()
         {
             return TimeSpan(System.TimeSpan.Zero, System.TimeSpan.MaxValue);
         }
-        
 
+
+        /// <inheritdoc />
         public TimeSpan TimeSpan(TimeSpan max)
         {
             return TimeSpan(System.TimeSpan.Zero, max);
         }
 
+        /// <inheritdoc />
         public TimeSpan TimeSpan(TimeSpan min, TimeSpan max)
         {
             if (min > max)
