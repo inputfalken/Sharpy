@@ -2,9 +2,7 @@
 
 namespace Sharpy.Builder.IProviders {
     /// <summary>
-    ///     <para>
-    ///         Methods providing <see cref="string" /> representing security numbers.
-    ///     </para>
+    ///   Methods providing <see cref="string" /> representing security numbers.
     /// </summary>
     public interface ISecurityNumberProvider {
         /// <summary>
