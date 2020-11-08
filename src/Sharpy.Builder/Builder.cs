@@ -247,21 +247,25 @@ namespace Sharpy.Builder
             return _guidProvider.Guid();
         }
 
+        /// <inheritdoc />
         public string Guid(GuidFormat format)
         {
             return _guidProvider.Guid(format);
         }
 
+        /// <inheritdoc />
         public TimeSpan TimeSpan()
         {
             return _timeSpanProvider.TimeSpan();
         }
 
+        /// <inheritdoc />
         public TimeSpan TimeSpan(TimeSpan max)
         {
             return _timeSpanProvider.TimeSpan(max);
         }
 
+        /// <inheritdoc />
         public TimeSpan TimeSpan(TimeSpan min, TimeSpan max)
         {
             return _timeSpanProvider.TimeSpan(min, max);

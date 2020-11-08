@@ -1,29 +1,20 @@
-namespace Sharpy.Builder.IProviders {
+namespace Sharpy.Builder.IProviders
+{
     /// <summary>
-    ///     <para>
-    ///         Methods providing <see cref="int" />.
-    ///     </para>
+    ///  Methods providing System.Int32.
     /// </summary>
-    public interface IIntegerProvider {
+    public interface IIntegerProvider
+    {
         /// <summary>
-        ///     <para>
-        ///         Creates a <see cref="int" /> that is greater than or equal to 0 and less
-        ///         than argument <paramref name="max" />.
-        ///     </para>
+        /// Provides a System.Int32 between 0 and <paramref name="max"/>.
         /// </summary>
         /// <param name="max">
         ///     The exclusive maximum bound.
         /// </param>
-        /// <returns>
-        ///     A <see cref="int" /> greater than or equal to 0 and less than argument <paramref name="max" />.
-        /// </returns>
         int Integer(int max);
 
         /// <summary>
-        ///     <para>
-        ///         Creates a <see cref="int" /> that is greater than or equal to argument <paramref name="min" /> and less
-        ///         than argument <paramref name="max" />.
-        ///     </para>
+        /// Provides a System.Int32 between <paramref name="min"/> and <paramref name="max"/>.
         /// </summary>
         /// <param name="min">
         ///     The inclusive minimum bound.
@@ -31,23 +22,11 @@ namespace Sharpy.Builder.IProviders {
         /// <param name="max">
         ///     The exclusive maximum bound.
         /// </param>
-        /// <returns>
-        ///     A <see cref="int" /> greater than or equal to argument <paramref name="min" /> and less than argument
-        ///     <paramref name="max" />.
-        /// </returns>
         int Integer(int min, int max);
 
         /// <summary>
-        ///     <para>
-        ///         <para>
-        ///             Creates a <see cref="int" /> that is greater than or equal to 0 and less
-        ///             than <see cref="int.MaxValue" />.
-        ///         </para>
-        ///     </para>
+        /// Provides a System.Int32 between 0 and System.Int32.MaxValue. 
         /// </summary>
-        /// <returns>
-        ///     A <see cref="int" /> greater than or equal to 0 and less than <see cref="int.MaxValue" />.
-        /// </returns>
         int Integer();
     }
 }

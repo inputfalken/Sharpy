@@ -509,6 +509,43 @@ namespace Sharpy.Builder.Tests {
             var result = Enumerable.Range(0, Count).Select(i => g2.PhoneNumber(10));
             Assert.AreEqual(expected, result);
         }
+        [Test]
+        public void No_Seed_DateTime() {
+            var g1 = new Builder();
+            Thread.Sleep(SleepDuration);
+            var g2 = new Builder();
+            var expected = Enumerable.Range(0, Count).Select(i => g1.TimeSpan(TimeSpan.Zero, TimeSpan.MaxValue));
+            var result = Enumerable.Range(0, Count).Select(i => g2.TimeSpan(TimeSpan.Zero, TimeSpan.MaxValue));
+            Assert.AreNotEqual(expected, result);
+        }
+        [Test]
+        public void Seed_DateTime() {
+            var g1 = new Builder(TestSeed);
+            Thread.Sleep(SleepDuration);
+            var g2 = new Builder(TestSeed);
+            var expected = Enumerable.Range(0, Count).Select(i => g1.Date(DateTime.Now, DateTime.MaxValue));
+            var result = Enumerable.Range(0, Count).Select(i => g2.Date(DateTime.Now, DateTime.MaxValue));
+            Assert.AreEqual(expected, result);
+        }
+        
+        [Test]
+        public void No_Seed_TimeSpan() {
+            var g1 = new Builder();
+            Thread.Sleep(SleepDuration);
+            var g2 = new Builder();
+            var expected = Enumerable.Range(0, Count).Select(i => g1.TimeSpan(TimeSpan.Zero, TimeSpan.MaxValue));
+            var result = Enumerable.Range(0, Count).Select(i => g2.TimeSpan(TimeSpan.Zero, TimeSpan.MaxValue));
+            Assert.AreNotEqual(expected, result);
+        }
+        [Test]
+        public void Seed_TimeSpan() {
+            var g1 = new Builder(TestSeed);
+            Thread.Sleep(SleepDuration);
+            var g2 = new Builder(TestSeed);
+            var expected = Enumerable.Range(0, Count).Select(i => g1.TimeSpan(TimeSpan.Zero, TimeSpan.MaxValue));
+            var result = Enumerable.Range(0, Count).Select(i => g2.TimeSpan(TimeSpan.Zero, TimeSpan.MaxValue));
+            Assert.AreEqual(expected, result);
+        }
 
         [Test]
         public void Seed_SecurityNumber_Formated_False() {

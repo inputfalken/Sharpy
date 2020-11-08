@@ -8,16 +8,13 @@ namespace Sharpy.Builder.IProviders {
     /// </summary>
     public interface ISecurityNumberProvider {
         /// <summary>
-        ///     Creates a security number based on argument <paramref name="date" />.
+        ///     Provides a security number based on argument <paramref name="date" />.
         /// </summary>
-        /// <param name="date"></param>
-        /// <returns></returns>
         string SecurityNumber(DateTime date);
 
         /// <summary>
-        ///     Creates a security number
+        ///     Provides a security number
         /// </summary>
-        /// <returns></returns>
         string SecurityNumber();
     }
 }

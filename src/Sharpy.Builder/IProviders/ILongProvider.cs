@@ -7,7 +7,7 @@ namespace Sharpy.Builder.IProviders {
     public interface ILongProvider {
         /// <summary>
         ///     <para>
-        ///         Creates a <see cref="long" /> that is greater than or equal to argument <paramref name="min" /> and less
+        ///         Provides a <see cref="long" /> that is greater than or equal to argument <paramref name="min" /> and less
         ///         than argument <paramref name="max" />.
         ///     </para>
         /// </summary>

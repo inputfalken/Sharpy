@@ -5,15 +5,13 @@ namespace Sharpy.Builder.IProviders
     public interface IGuidProvider
     {
         /// <summary>
-        /// Provides a GUID.
+        /// Provides a System.Guid.
         /// </summary>
-        /// <returns>A GUID.</returns>
         Guid Guid();
 
         /// <summary>
-        /// Provides a GUID in the specified format. 
+        /// Provides a System.Guid in the in the format specified from <paramref name="format"/>. 
         /// </summary>
-        /// <returns>A GUID.</returns>
         string Guid(GuidFormat format);
     }
 

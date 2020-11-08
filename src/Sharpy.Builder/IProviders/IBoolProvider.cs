@@ -1,12 +1,12 @@
-namespace Sharpy.Builder.IProviders {
+namespace Sharpy.Builder.IProviders
+{
     /// <summary>
-    ///     <para>
     ///         Method providing <see cref="bool" />.
-    ///     </para>
     /// </summary>
-    public interface IBoolProvider {
+    public interface IBoolProvider
+    {
         /// <summary>
-        ///     Creates a bool.
+        ///     Provides a bool.
         /// </summary>
         bool Bool();
     }
