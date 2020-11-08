@@ -6,20 +6,20 @@ using static System.DateTime;
 namespace Sharpy.Builder.Implementation
 {
     /// <summary>
-    ///     Randomizes <see cref="DateTime" /> elements by using <see cref="Random" />.
+    ///     Randomizes <see cref="System.DateTime" /> elements by using <see cref="Random" />.
     /// </summary>
-    public sealed class DateRandomizer : IDateProvider
+    public sealed class DateTimeRandomizer : IDateTimeProvider
     {
         private readonly Random _random;
 
         /// <summary>
-        ///     Creates <see cref="DateRandomizer" />.
+        ///     Creates <see cref="DateTimeRandomizer" />.
         /// </summary>
         /// <param name="random"></param>
-        public DateRandomizer(Random random) => _random = random;
+        public DateTimeRandomizer(Random random) => _random = random;
 
-        /// <inheritdoc cref="IDateProvider.DateByAge(int)"/>
-        public DateTime DateByAge(int age)
+        /// <inheritdoc />
+        public DateTime DateTimeByAge(int age)
         {
             if (age < 0)
                 throw new ArgumentException($"{nameof(age)} cannot be negative");
@@ -37,7 +37,7 @@ namespace Sharpy.Builder.Implementation
         }
 
         /// <inheritdoc />
-        public DateTime DateByYear(int year)
+        public DateTime DateTimeByYear(int year)
         {
             if (year <= MinValue.Year) throw new ArgumentException($"{nameof(year)} cannot be negative");
             var month = _random.Month();
@@ -54,16 +54,16 @@ namespace Sharpy.Builder.Implementation
 
 
         /// <inheritdoc />
-        public DateTime Date() => Date(MinValue, MaxValue);
+        public DateTime DateTime() => DateTime(MinValue, MaxValue);
 
         /// <inheritdoc />
-        public DateTime Date(DateTime max)
+        public DateTime DateTime(DateTime max)
         {
-            return Date(MinValue, max);
+            return DateTime(MinValue, max);
         }
 
-        /// <inheritdoc cref="IDateProvider.Date(DateTime, DateTime)"/>
-        public DateTime Date(DateTime min, DateTime max)
+        /// <inheritdoc />
+        public DateTime DateTime(DateTime min, DateTime max)
         {
             return _random.DateTime(min, max);
         }

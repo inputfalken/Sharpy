@@ -18,7 +18,7 @@ namespace Sharpy.Builder.Tests {
 
         [Test]
         public void Null_DateProvider_Throws() =>
-            Assert.Throws<ArgumentNullException>(() => new Builder(new Configurement {DateProvider = null}));
+            Assert.Throws<ArgumentNullException>(() => new Builder(new Configurement {DateTimeProvider = null}));
 
         [Test]
         public void Null_DoubleProvider_Throws() =>

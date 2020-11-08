@@ -11,12 +11,12 @@ namespace Sharpy.Builder
     ///     </para>
     /// </summary>
     public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, IElementProvider,
-        IBoolProvider, IDateProvider, IEmailProvider, ISecurityNumberProvider,
+        IBoolProvider, IDateTimeProvider, IEmailProvider, ISecurityNumberProvider,
         IPhoneNumberProvider, IUserNameProvider, IArgumentProvider, IGuidProvider, ITimeSpanProvider
     {
         private readonly IArgumentProvider _argumentProvider;
         private readonly IBoolProvider _boolProvider;
-        private readonly IDateProvider _dateProvider;
+        private readonly IDateTimeProvider _dateTimeProvider;
         private readonly IDoubleProvider _doubleProvider;
         private readonly IElementProvider _elementProvider;
         private readonly IEmailProvider _emailProvider;
@@ -47,8 +47,8 @@ namespace Sharpy.Builder
                             throw new ArgumentNullException(nameof(configurement.LongProvider));
             _nameProvider = configurement.NameProvider ??
                             throw new ArgumentNullException(nameof(configurement.NameProvider));
-            _dateProvider = configurement.DateProvider ??
-                            throw new ArgumentNullException(nameof(configurement.DateProvider));
+            _dateTimeProvider = configurement.DateTimeProvider ??
+                            throw new ArgumentNullException(nameof(configurement.DateTimeProvider));
             _emailProvider = configurement.MailProvider ??
                              throw new ArgumentNullException(nameof(configurement.MailProvider));
             _securityNumberProvider = configurement.SecurityNumberProvider ??
@@ -93,33 +93,33 @@ namespace Sharpy.Builder
         }
 
         /// <inheritdoc />
-        public DateTime DateByAge(int age)
+        public DateTime DateTimeByAge(int age)
         {
-            return _dateProvider.DateByAge(age);
+            return _dateTimeProvider.DateTimeByAge(age);
         }
 
         /// <inheritdoc />
-        public DateTime DateByYear(int year)
+        public DateTime DateTimeByYear(int year)
         {
-            return _dateProvider.DateByYear(year);
+            return _dateTimeProvider.DateTimeByYear(year);
         }
 
         /// <inheritdoc />
-        public DateTime Date()
+        public DateTime DateTime()
         {
-            return _dateProvider.Date();
+            return _dateTimeProvider.DateTime();
         }
 
         /// <inheritdoc />
-        public DateTime Date(DateTime max)
+        public DateTime DateTime(DateTime max)
         {
-            return _dateProvider.Date(max);
+            return _dateTimeProvider.DateTime(max);
         }
 
         /// <inheritdoc />
-        public DateTime Date(DateTime min, DateTime max)
+        public DateTime DateTime(DateTime min, DateTime max)
         {
-            return _dateProvider.Date(min, max);
+            return _dateTimeProvider.DateTime(min, max);
         }
 
         /// <inheritdoc />

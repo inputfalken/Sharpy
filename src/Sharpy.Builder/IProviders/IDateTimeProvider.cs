@@ -3,33 +3,33 @@
 namespace Sharpy.Builder.IProviders
 {
     /// <summary>
-    ///  Methods to provide <see cref="DateTime" />.
+    ///  Methods to provide <see cref="System.DateTime" />.
     /// </summary>
-    public interface IDateProvider
+    public interface IDateTimeProvider
     {
         /// <summary>
-        ///     Provides a <see cref="DateTime" /> by <paramref name="age"/>.
+        ///     Provides a <see cref="System.DateTime" /> by <paramref name="age"/>.
         /// </summary>
-        DateTime DateByAge(int age);
+        DateTime DateTimeByAge(int age);
 
         /// <summary>
-        ///     Provides a <see cref="DateTime" /> by <paramref name="year"/>.
+        ///     Provides a <see cref="System.DateTime" /> by <paramref name="year"/>.
         /// </summary>
-        DateTime DateByYear(int year);
+        DateTime DateTimeByYear(int year);
 
         /// <summary>
         /// Provides a DateTime between DateTime.MinVale and DateTime.MaxValue.
         /// </summary>
-        DateTime Date();
+        DateTime DateTime();
 
         /// <summary>
         /// Provides a DateTime between System.DateTime.MinVale and <paramref name="max"/>.
         /// </summary>
-        DateTime Date(DateTime max);
+        DateTime DateTime(DateTime max);
 
         /// <summary>
         /// Provides a System.DateTime between <paramref name="min"/> and <paramref name="max"/>.
         /// </summary>
-        DateTime Date(DateTime min, DateTime max);
+        DateTime DateTime(DateTime min, DateTime max);
     }
 }

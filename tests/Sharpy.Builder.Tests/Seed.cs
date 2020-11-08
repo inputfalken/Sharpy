@@ -57,8 +57,8 @@ namespace Sharpy.Builder.Tests {
             var g1 = new Builder();
             Thread.Sleep(SleepDuration);
             var g2 = new Builder();
-            var expected = Enumerable.Range(0, Count).Select(i => g1.DateByAge(20));
-            var result = Enumerable.Range(0, Count).Select(i => g2.DateByAge(20));
+            var expected = Enumerable.Range(0, Count).Select(i => g1.DateTimeByAge(20));
+            var result = Enumerable.Range(0, Count).Select(i => g2.DateTimeByAge(20));
             Assert.AreNotEqual(expected, result);
         }
 
@@ -67,8 +67,8 @@ namespace Sharpy.Builder.Tests {
             var g1 = new Builder();
             Thread.Sleep(SleepDuration);
             var g2 = new Builder();
-            var expected = Enumerable.Range(0, Count).Select(i => g1.DateByAge(2000));
-            var result = Enumerable.Range(0, Count).Select(i => g2.DateByAge(2000));
+            var expected = Enumerable.Range(0, Count).Select(i => g1.DateTimeByAge(2000));
+            var result = Enumerable.Range(0, Count).Select(i => g2.DateTimeByAge(2000));
             Assert.AreNotEqual(expected, result);
         }
 
@@ -268,8 +268,8 @@ namespace Sharpy.Builder.Tests {
             var g2 = new Builder(c2);
 
             const int age = 20;
-            var expected = Enumerable.Range(0, Count).Select(i => g1.DateByAge(age));
-            var result = Enumerable.Range(0, Count).Select(i => g2.DateByAge(age));
+            var expected = Enumerable.Range(0, Count).Select(i => g1.DateTimeByAge(age));
+            var result = Enumerable.Range(0, Count).Select(i => g2.DateTimeByAge(age));
             Assert.AreNotEqual(expected, result);
         }
 
@@ -280,8 +280,8 @@ namespace Sharpy.Builder.Tests {
             var g2 = new Builder();
 
             const int age = 20;
-            var expected = Enumerable.Range(0, Count).Select(i => g1.DateByAge(age));
-            var result = Enumerable.Range(0, Count).Select(i => g2.DateByAge(age));
+            var expected = Enumerable.Range(0, Count).Select(i => g1.DateTimeByAge(age));
+            var result = Enumerable.Range(0, Count).Select(i => g2.DateTimeByAge(age));
             Assert.AreNotEqual(expected, result);
         }
 
@@ -311,8 +311,8 @@ namespace Sharpy.Builder.Tests {
             var g1 = new Builder(TestSeed);
             Thread.Sleep(SleepDuration);
             var g2 = new Builder(TestSeed);
-            var expected = Enumerable.Range(0, Count).Select(i => g1.DateByAge(20)).Select(TrimMilliseconds);
-            var result = Enumerable.Range(0, Count).Select(i => g2.DateByAge(20)).Select(TrimMilliseconds);
+            var expected = Enumerable.Range(0, Count).Select(i => g1.DateTimeByAge(20)).Select(TrimMilliseconds);
+            var result = Enumerable.Range(0, Count).Select(i => g2.DateTimeByAge(20)).Select(TrimMilliseconds);
             Assert.AreEqual(expected, result);
         }
 
@@ -321,8 +321,8 @@ namespace Sharpy.Builder.Tests {
             var g1 = new Builder(TestSeed);
             Thread.Sleep(SleepDuration);
             var g2 = new Builder(TestSeed);
-            var expected = Enumerable.Range(0, Count).Select(i => g1.DateByAge(2000)).Select(TrimMilliseconds);
-            var result = Enumerable.Range(0, Count).Select(i => g2.DateByAge(2000)).Select(TrimMilliseconds);
+            var expected = Enumerable.Range(0, Count).Select(i => g1.DateTimeByAge(2000)).Select(TrimMilliseconds);
+            var result = Enumerable.Range(0, Count).Select(i => g2.DateTimeByAge(2000)).Select(TrimMilliseconds);
             Assert.AreEqual(expected, result);
         }
 
@@ -523,8 +523,8 @@ namespace Sharpy.Builder.Tests {
             var g1 = new Builder(TestSeed);
             Thread.Sleep(SleepDuration);
             var g2 = new Builder(TestSeed);
-            var expected = Enumerable.Range(0, Count).Select(i => g1.Date(DateTime.Now, DateTime.MaxValue));
-            var result = Enumerable.Range(0, Count).Select(i => g2.Date(DateTime.Now, DateTime.MaxValue));
+            var expected = Enumerable.Range(0, Count).Select(i => g1.DateTime(DateTime.Now, DateTime.MaxValue));
+            var result = Enumerable.Range(0, Count).Select(i => g2.DateTime(DateTime.Now, DateTime.MaxValue));
             Assert.AreEqual(expected, result);
         }
         
@@ -558,8 +558,8 @@ namespace Sharpy.Builder.Tests {
             var g2 = new Builder(c2);
 
             const int age = 20;
-            var expected = Enumerable.Range(0, Count).Select(i => TrimMilliseconds(g1.DateByAge(age)));
-            var result = Enumerable.Range(0, Count).Select(i => TrimMilliseconds(g2.DateByAge(age)));
+            var expected = Enumerable.Range(0, Count).Select(i => TrimMilliseconds(g1.DateTimeByAge(age)));
+            var result = Enumerable.Range(0, Count).Select(i => TrimMilliseconds(g2.DateTimeByAge(age)));
             Assert.AreEqual(expected, result);
         }
 
@@ -570,8 +570,8 @@ namespace Sharpy.Builder.Tests {
             var g2 = new Builder(TestSeed);
 
             const int age = 20;
-            var expected = Enumerable.Range(0, Count).Select(i => TrimMilliseconds(g1.DateByAge(age)));
-            var result = Enumerable.Range(0, Count).Select(i => TrimMilliseconds(g2.DateByAge(age)));
+            var expected = Enumerable.Range(0, Count).Select(i => TrimMilliseconds(g1.DateTimeByAge(age)));
+            var result = Enumerable.Range(0, Count).Select(i => TrimMilliseconds(g2.DateTimeByAge(age)));
             Assert.AreEqual(expected, result);
         }
     }
