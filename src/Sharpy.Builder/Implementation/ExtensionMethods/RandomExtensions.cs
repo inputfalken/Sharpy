@@ -5,12 +5,42 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
 {
     internal static class RandomExtensions
     {
+        public static decimal Decimal(this Random random, decimal min, decimal max)
+        {
+            static decimal NextDecimal(Random random)
+            {
+                static int NextInt32(Random random)
+                {
+                    var firstBits = random.Next(0, 1 << 4) << 28;
+                    var lastBits = random.Next(0, 1 << 28);
+                    return firstBits | lastBits;
+                }
+
+                var sample = 1m;
+                //After ~200 million tries this never took more than one attempt but it is possible to generate combinations of a, b, and c with the approach below resulting in a sample >= 1.
+                while (sample >= 1)
+                {
+                    var a = NextInt32(random);
+                    var b = NextInt32(random);
+                    //The high bits of 0.9999999999999999999999999999m are 542101086.
+                    var c = random.Next(542101087);
+                    sample = new decimal(a, b, c, false, 28);
+                }
+
+                return sample;
+            }
+
+            if (min > max)
+                throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max.");
+            
+            return NextDecimal(random) * (max - min) + min;
+            //return max * nextDecimalSample + min * (1 - nextDecimalSample);
+        }
 
         public static double Double(this Random random, double min, double max)
         {
             if (min > max)
                 throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max.");
-
 
             return random.NextDouble() * (max - min) + min;
         }

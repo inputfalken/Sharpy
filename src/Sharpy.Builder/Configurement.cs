@@ -40,6 +40,7 @@ namespace Sharpy.Builder {
             ArgumentProvider = new ArgumentRandomizer(Random);
             GuidProvider = new GuidProvider();
             TimeSpanProvider = new TimeSpanRandomizer(Random);
+            DecimalProvider = new DecimalRandomizer(Random);
         }
 
         /// <summary>
@@ -206,5 +207,15 @@ namespace Sharpy.Builder {
         ///     </para>
         /// </summary>
         public ITimeSpanProvider TimeSpanProvider { get; set; }
+        
+        /// <summary>
+        ///     <para>
+        ///         Gets and sets the implementation for <see cref="IDecimalProvider" />.
+        ///     </para>
+        ///     <para>
+        ///         By default it is <see cref="Sharpy.Builder.Implementation.DecimalRandomizer" />.
+        ///     </para>
+        /// </summary>
+        public IDecimalProvider DecimalProvider { get; set; }
     }
 }
