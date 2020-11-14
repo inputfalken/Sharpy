@@ -58,11 +58,14 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
 
         public static T ListElement<T>(this Random random, IReadOnlyList<T> list)
         {
-            return list != null
-                ? random != null
-                    ? list[random.Next(list.Count)]
-                    : throw new ArgumentNullException(nameof(random))
-                : throw new ArgumentNullException(nameof(list));
+            return (random, list) switch
+            {
+                {random : null} => throw new ArgumentNullException(nameof(random)),
+                {list: null} => throw new ArgumentNullException(nameof(list)),
+                {list: {Count: 0}} => throw new ArgumentException("List can not be empty.", nameof(list)),
+                {list: {Count: 1} x} => x[0],
+                _ => list[random.Next(list.Count)]
+            };
         }
 
         public static T Argument<T>(this Random random, T first, T second, params T[] additional)
