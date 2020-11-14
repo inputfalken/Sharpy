@@ -32,7 +32,10 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
 
             if (min > max)
                 throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max.");
-            
+
+            if (min == max)
+                return min;
+
             return NextDecimal(random) * (max - min) + min;
             //return max * nextDecimalSample + min * (1 - nextDecimalSample);
         }
@@ -41,6 +44,9 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         {
             if (min > max)
                 throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max.");
+
+            if (min == max)
+                return min;
 
             return random.NextDouble() * (max - min) + min;
         }
@@ -73,6 +79,9 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         {
             if (min > max)
                 throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max.");
+
+            if (min == max)
+                return max;
 
             //Working with ulong so that modulo works correctly with values > long.MaxValue
             var uRange = (ulong) (max - min);
@@ -136,6 +145,9 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         {
             if (min > max)
                 throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max.");
+
+            if (min == max)
+                return min;
 
             var isSameYear = min.Year == max.Year;
             var year = isSameYear ? min.Year : random.Next(min.Year, max.Year);
