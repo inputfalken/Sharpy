@@ -3,8 +3,32 @@ using System.Collections.Generic;
 
 namespace Sharpy.Builder.Implementation.ExtensionMethods
 {
+    /// <summary>
+    ///   Contains a set of static extension method on System.Random.
+    /// </summary>
     internal static class RandomExtensions
     {
+        /// <summary>
+        ///   Randomizes a System.Decimal within <paramref name="min"/> and <paramref name="max"/>.
+        /// </summary>
+        /// <param name="random">
+        ///   The System.Random to randomize with.
+        /// </param>
+        /// <param name="min">
+        ///   The minimum inclusive value.
+        /// </param>
+        /// <param name="max">
+        ///   The maximum exclusive value.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///   When <paramref name="random"/> is null.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///   When <paramref name="min"/> is greater than <paramref name="max"/>.
+        /// </exception>
+        /// <returns>
+        ///   A randomized System.Decimal within <paramref name="min"/> and <paramref name="max"/>.
+        /// </returns>
         public static decimal Decimal(this Random random, decimal min, decimal max)
         {
             static decimal NextDecimal(Random random)
@@ -39,6 +63,27 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
             };
         }
 
+        /// <summary>
+        ///   Randomizes a System.Double within <paramref name="min"/> and <paramref name="max"/>.
+        /// </summary>
+        /// <param name="random">
+        ///   The System.Random to randomize with.
+        /// </param>
+        /// <param name="min">
+        ///   The minimum inclusive value.
+        /// </param>
+        /// <param name="max">
+        ///   The maximum exclusive value.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///   When <paramref name="random"/> is null.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///   When <paramref name="min"/> is greater than <paramref name="max"/>.
+        /// </exception>
+        /// <returns>
+        ///   A randomized System.Double within <paramref name="min"/> and <paramref name="max"/>.
+        /// </returns>
         public static double Double(this Random random, double min, double max)
         {
             return random switch
@@ -50,11 +95,48 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
             };
         }
 
+        /// <summary>
+        ///   Randomizes a System.Boolean.
+        /// </summary>
+        /// <param name="random">
+        ///   The System.Random to randomize with.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///   When <paramref name="random"/> is null.
+        /// </exception>
+        /// <returns>
+        ///   A randomized System.Boolean.
+        /// </returns>
         public static bool Bool(this Random random)
         {
-            return random.Next(2) != 0;
+            return random switch
+            {
+                null => throw new ArgumentNullException(nameof(random)),
+                _ => random.Next(2) != 0
+            };
         }
 
+        /// <summary>
+        ///   Returns a random element from the System.Collections.Generic.IReadonlyList&lt;out T&gt;.
+        /// </summary>
+        /// <param name="random">
+        ///   The System.Random to randomize with.
+        /// </param>
+        /// <param name="list">
+        ///   The list to randomize from.
+        /// </param>
+        /// <typeparam name="T">
+        ///   The type of the elements of <paramref name="list"/>.
+        /// </typeparam>
+        /// <exception cref="ArgumentNullException">
+        ///   When <paramref name="random"/> or <paramref name="list"/> is null.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///   When <paramref name="list"/> is empty.
+        /// </exception>
+        /// <returns>
+        ///   A randomized <typeparamref name="T"/> from the <paramref name="list"/>.
+        /// </returns>
         public static T ListElement<T>(this Random random, IReadOnlyList<T> list)
         {
             return (random, list) switch
@@ -67,6 +149,30 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
             };
         }
 
+        /// <summary>
+        ///   Returns a randomized argument.
+        /// </summary>
+        /// <param name="random">
+        ///   The System.Random to randomize with.
+        /// </param>
+        /// <param name="first">
+        ///   The first argument.
+        /// </param>
+        /// <param name="second">
+        ///   The second argument.
+        /// </param>
+        /// <param name="additional">
+        ///   The optional remaining arguments.
+        /// </param>
+        /// <typeparam name="T">
+        ///   The type provided in the arguments.
+        /// </typeparam>
+        /// <exception cref="ArgumentNullException">
+        ///   When <paramref name="random"/> is null.
+        /// </exception>
+        /// <returns>
+        ///   A randomized argument.
+        /// </returns>
         public static T Argument<T>(this Random random, T first, T second, params T[] additional)
         {
             return random switch
@@ -81,6 +187,27 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
             };
         }
 
+        /// <summary>
+        ///   Randomizes a System.Long within <paramref name="min"/> and <paramref name="max"/>.
+        /// </summary>
+        /// <param name="random">
+        ///   The System.Random to randomize with.
+        /// </param>
+        /// <param name="min">
+        ///   The minimum inclusive value.
+        /// </param>
+        /// <param name="max">
+        ///   The maximum exclusive value.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///   When <paramref name="random"/> is null.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///   When <paramref name="min"/> is greater than <paramref name="max"/>.
+        /// </exception>
+        /// <returns>
+        ///   A randomized System.Long within <paramref name="min"/> and <paramref name="max"/>.
+        /// </returns>
         public static long Long(this Random random, long min, long max)
         {
             static long NextLong(Random random, long min, long max)
@@ -112,6 +239,27 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
             };
         }
 
+        /// <summary>
+        ///   Randomizes a System.TimeSpan within <paramref name="min"/> and <paramref name="max"/>.
+        /// </summary>
+        /// <param name="random">
+        ///   The System.Random to randomize with.
+        /// </param>
+        /// <param name="min">
+        ///   The minimum inclusive value.
+        /// </param>
+        /// <param name="max">
+        ///   The maximum exclusive value.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///   When <paramref name="random"/> is null.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///   When <paramref name="min"/> is greater than <paramref name="max"/>.
+        /// </exception>
+        /// <returns>
+        ///   A randomized System.TimeSpan within <paramref name="min"/> and <paramref name="max"/>.
+        /// </returns>
         public static TimeSpan TimeSpan(this Random random, TimeSpan min, TimeSpan max)
         {
             return random switch
@@ -129,36 +277,159 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
             };
         }
 
+        /// <summary>
+        ///  Randomizes a day relative to the <paramref name="year"/> and  <paramref name="month"/>..
+        /// </summary>
+        /// <param name="random">
+        ///   The System.Random to randomize with.
+        /// </param>
+        /// <param name="year">
+        ///   The year.
+        /// </param>
+        /// <param name="month">
+        ///   The month relative to <paramref name="year"/>.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///   When <paramref name="random"/> is null.
+        /// </exception>
+        /// <returns>
+        ///   A valid day relative to the <paramref name="year"/> and  <paramref name="month"/>.
+        /// </returns>
         public static int Day(this Random random, int year, int month)
         {
-            return random.Next(1, System.DateTime.DaysInMonth(year, month) + 1);
+            return random switch
+            {
+                null => throw new ArgumentNullException(nameof(random)),
+                _ => random.Next(1, System.DateTime.DaysInMonth(year, month) + 1)
+            };
         }
 
+        /// <summary>
+        ///  Randomizes a month.
+        /// </summary>
+        /// <param name="random">
+        ///   The System.Random to randomize with.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///   When <paramref name="random"/> is null.
+        /// </exception>
+        /// <returns>
+        ///   A randomized month.
+        /// </returns>
         public static int Month(this Random random)
         {
-            return random.Next(1, 13);
+            return random switch
+            {
+                null => throw new ArgumentNullException(nameof(random)),
+                _ => random.Next(1, 13)
+            };
         }
 
+        /// <summary>
+        ///  Randomizes an hour.
+        /// </summary>
+        /// <param name="random">
+        ///   The System.Random to randomize with.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///   When <paramref name="random"/> is null.
+        /// </exception>
+        /// <returns>
+        ///   A randomized hour.
+        /// </returns>
         public static int Hour(this Random random)
         {
-            return random.Next(0, 24);
+            return random switch
+            {
+                null => throw new ArgumentNullException(nameof(random)),
+                _ => random.Next(0, 24)
+            };
         }
 
+        /// <summary>
+        ///  Randomizes a minute.
+        /// </summary>
+        /// <param name="random">
+        ///   The System.Random to randomize with.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///   When <paramref name="random"/> is null.
+        /// </exception>
+        /// <returns>
+        ///   A randomized minute.
+        /// </returns>
         public static int Minute(this Random random)
         {
-            return random.Next(0, 60);
+            return random switch
+            {
+                null => throw new ArgumentNullException(nameof(random)),
+                _ => random.Next(0, 60)
+            };
         }
 
+        /// <summary>
+        ///  Randomizes a second.
+        /// </summary>
+        /// <param name="random">
+        ///   The System.Random to randomize with.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///   When <paramref name="random"/> is null.
+        /// </exception>
+        /// <returns>
+        ///   A randomized second.
+        /// </returns>
         public static int Second(this Random random)
         {
-            return random.Next(0, 60);
+            return random switch
+            {
+                null => throw new ArgumentNullException(nameof(random)),
+                _ => random.Next(0, 60)
+            };
         }
 
+        /// <summary>
+        ///  Randomizes a millisecond.
+        /// </summary>
+        /// <param name="random">
+        ///   The System.Random to randomize with.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///   When <paramref name="random"/> is null.
+        /// </exception>
+        /// <returns>
+        ///   A randomized millisecond.
+        /// </returns>
         public static int MilliSecond(this Random random)
         {
-            return random.Next(0, 1000);
+            return random switch
+            {
+                null => throw new ArgumentNullException(nameof(random)),
+                _ => random.Next(0, 1000)
+            };
         }
 
+        /// <summary>
+        ///   Randomizes a System.DateTime within <paramref name="min"/> and <paramref name="max"/>.
+        /// </summary>
+        /// <param name="random">
+        ///   The System.Random to randomize with.
+        /// </param>
+        /// <param name="min">
+        ///   The minimum inclusive value.
+        /// </param>
+        /// <param name="max">
+        ///   The maximum exclusive value.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///   When <paramref name="random"/> is null.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///   When <paramref name="min"/> is greater than <paramref name="max"/>.
+        /// </exception>
+        /// <returns>
+        ///   A randomized System.DateTime within <paramref name="min"/> and <paramref name="max"/>.
+        /// </returns>
         public static DateTime DateTime(this Random random, DateTime min, DateTime max)
         {
             static DateTime NextDateTime(Random random, DateTime min, DateTime max)
