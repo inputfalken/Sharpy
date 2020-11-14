@@ -25,8 +25,8 @@ namespace Sharpy.Builder.Tests.Implementations
 
             doubles.AssertNotAllValuesAreTheSame();
             Assert.True(
-                doubles.All(x => x > 0 && x < double.MaxValue),
-                "doubles.All(x => x > 0 && x < double.MaxValue)"
+                doubles.All(x => x >= 0 && x < double.MaxValue),
+                "doubles.All(x => x >= 0 && x < double.MaxValue)"
             );
         }
 
@@ -41,8 +41,8 @@ namespace Sharpy.Builder.Tests.Implementations
 
             doubles.AssertNotAllValuesAreTheSame();
             Assert.True(
-                doubles.All(x => x > 0 && x < max),
-                "doubles.All(x => x > 0 && x < max)"
+                doubles.All(x => x >= 0 && x < max),
+                "doubles.All(x => x >= 0 && x < max)"
             );
         }
 
@@ -58,8 +58,8 @@ namespace Sharpy.Builder.Tests.Implementations
 
             doubles.AssertNotAllValuesAreTheSame();
             Assert.True(
-                doubles.All(x => x > min && x < max),
-                "doubles.All(x => x > min && x < max)"
+                doubles.All(x => x >= min && x < max),
+                "doubles.All(x => x >= min && x < max)"
             );
         }
 
@@ -82,16 +82,17 @@ namespace Sharpy.Builder.Tests.Implementations
         public void Exclusive_Max_Arg()
         {
             var doubles = new double[Amount];
-
-            const double arg = 100;
+            const double max = 100;
+            const double min = max - MaxSupportedPrecision;
+            
             for (var i = 0; i < Amount; i++)
-                doubles[i] = DoubleProvider.Double(arg - MaxSupportedPrecision, arg);
+                doubles[i] = DoubleProvider.Double(min, max);
 
 
             doubles.AssertNotAllValuesAreTheSame();
             Assert.True(
-                doubles.All(x => x < arg),
-                "doubles.All(x => x < arg)"
+                doubles.All(x => x < max),
+                "doubles.All(x => x < max)"
             );
         }
     }
