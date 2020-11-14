@@ -1,59 +1,97 @@
 ﻿using System;
+using System.Linq;
 using NUnit.Framework;
 using Sharpy.Builder.Implementation;
+using Sharpy.Builder.IProviders;
 
-namespace Sharpy.Builder.Tests.Implementations {
+namespace Sharpy.Builder.Tests.Implementations
+{
     [TestFixture]
-    public class DoubleRandomizerTests {
-        [Test]
-        [Repeat(100)]
-        public void No_Arguments() {
-            var doubleRandomizer = new DoubleRandomizer(new Random());
-            var result = doubleRandomizer.Double();
-            Assert.IsTrue(result < 1 && result > 0);
+    public class DoubleRandomizerTests
+    {
+        private const int Amount = 100000;
+        private const int Repeats = 100;
+
+        private static readonly IDoubleProvider DoubleProvider = new DoubleRandomizer(new Random());
+
+        [Test, Repeat(Repeats)]
+        public void No_Arg_All_Values_Are_Between_Zero_And_MaxValue()
+        {
+            var doubles = new double[Amount];
+
+            for (var i = 0; i < Amount; i++)
+                doubles[i] = DoubleProvider.Double();
+
+            doubles.AssertNotAllValuesAreTheSame();
+            Assert.True(
+                doubles.All(x => x > 0 && x < double.MaxValue),
+                "doubles.All(x => x > 0 && x < double.MaxValue)"
+            );
         }
 
-        [Test]
-        [Repeat(100)]
-        public void One_Arg() {
-            const double max = 11.2;
-            var doubleRandomizer = new DoubleRandomizer(new Random());
-            var result = doubleRandomizer.Double(max);
-            Assert.IsTrue(result < max);
+        [Test, Repeat(Repeats)]
+        public void All_Values_Are_Between_Zero_And_Max()
+        {
+            var doubles = new double[Amount];
+
+            const double max = 200;
+            for (var i = 0; i < Amount; i++)
+                doubles[i] = DoubleProvider.Double(max);
+
+            doubles.AssertNotAllValuesAreTheSame();
+            Assert.True(
+                doubles.All(x => x > 0 && x < max),
+                "doubles.All(x => x > 0 && x < max)"
+            );
         }
 
-        [Test]
-        public void One_Arg_Minus_Throws() {
-            const double max = -11.2;
-            var doubleRandomizer = new DoubleRandomizer(new Random());
-            Assert.Throws<ArgumentOutOfRangeException>(() => doubleRandomizer.Double(max));
+        [Test, Repeat(Repeats)]
+        public void All_Values_Are_Between_Min_And_Max()
+        {
+            var doubles = new double[Amount];
+
+            const double min = 100;
+            const double max = 200;
+            for (var i = 0; i < Amount; i++)
+                doubles[i] = DoubleProvider.Double(min, max);
+
+            doubles.AssertNotAllValuesAreTheSame();
+            Assert.True(
+                doubles.All(x => x > min && x < max),
+                "doubles.All(x => x > min && x < max)"
+            );
         }
 
+        [Test, Repeat(Repeats)]
+        public void Inclusive_Min_Arg()
+        {
+            var doubles = new double[Amount];
 
-        [Test]
-        public void Two_Args_Min_More_Than_Max_Throws() {
-            const double min = 11.2;
-            const double max = 10.4;
-            var doubleRandomizer = new DoubleRandomizer(new Random());
-            Assert.Throws<ArgumentOutOfRangeException>(() => doubleRandomizer.Double(min, max));
+            const double arg = 100;
+            for (var i = 0; i < Amount; i++)
+                doubles[i] = DoubleProvider.Double(arg, arg);
+
+            Assert.True(
+                doubles.All(x => x == arg),
+                "doubles.All(x => x == arg)"
+            );
         }
 
-        [Test]
-        [Repeat(100)]
-        public void Two_Args_Minus_Eleven_Point_Two_And_Minus_Ten_Point_Four() {
-            const double min = -11.4;
-            const double max = -10.2;
-            var doubleRandomizer = new DoubleRandomizer(new Random());
-            var result = doubleRandomizer.Double(min, max);
-            Assert.IsTrue(result > min && result < max);
-        }
+        [Test, Repeat(Repeats)]
+        public void Exclusive_Max_Arg()
+        {
+            var doubles = new double[Amount];
 
-        [Test]
-        public void Two_Negatve_Args_Throws() {
-            const double min = -10.2;
-            const double max = -11.4;
-            var doubleRandomizer = new DoubleRandomizer(new Random());
-            Assert.Throws<ArgumentOutOfRangeException>(() => doubleRandomizer.Double(min, max));
+            const double arg = 100;
+            for (var i = 0; i < Amount; i++)
+                doubles[i] = DoubleProvider.Double(arg - 0000000.1d, arg);
+
+
+            doubles.AssertNotAllValuesAreTheSame();
+            Assert.True(
+                doubles.All(x => x < arg),
+                "doubles.All(x => x < arg)"
+            );
         }
     }
 }
