@@ -30,9 +30,6 @@ namespace Sharpy.Builder.Implementation
         /// <inheritdoc />
         public TimeSpan TimeSpan(TimeSpan min, TimeSpan max)
         {
-            if (min > max)
-                throw new ArgumentException($"Parameter '{nameof(min)}' can not be greater than '{nameof(max)}'.");
-
             return _random.TimeSpan(min, max);
         }
     }

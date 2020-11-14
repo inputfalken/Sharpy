@@ -95,5 +95,23 @@ namespace Sharpy.Builder.Tests.Implementations
                 "decimals.All(x => x < max)"
             );
         }
+
+        [Test]
+        public void Min_Equal_To_Max_Does_Not_Throw()
+        {
+            const decimal max = 100;
+            const decimal min = max;
+
+            Assert.DoesNotThrow(() => DecimalProvider.Decimal(min, max));
+        }
+
+        [Test]
+        public void Min_Greater_Than_Max_Does_Throw()
+        {
+            const decimal max = 100;
+            const decimal min = max + 1;
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => DecimalProvider.Decimal(min, max));
+        }
     }
 }

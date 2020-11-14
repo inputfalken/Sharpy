@@ -84,7 +84,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var doubles = new double[Amount];
             const double max = 100;
             const double min = max - MaxSupportedPrecision;
-            
+
             for (var i = 0; i < Amount; i++)
                 doubles[i] = DoubleProvider.Double(min, max);
 
@@ -94,6 +94,24 @@ namespace Sharpy.Builder.Tests.Implementations
                 doubles.All(x => x < max),
                 "doubles.All(x => x < max)"
             );
+        }
+
+        [Test]
+        public void Min_Equal_To_Max_Does_Not_Throw()
+        {
+            const double max = 100;
+            const double min = max;
+
+            Assert.DoesNotThrow(() => DoubleProvider.Double(min, max));
+        }
+
+        [Test]
+        public void Min_Greater_Than_Max_Does_Throw()
+        {
+            const double max = 100;
+            const double min = max + 1;
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => DoubleProvider.Double(min, max));
         }
     }
 }

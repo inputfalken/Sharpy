@@ -91,5 +91,22 @@ namespace Sharpy.Builder.Tests.Implementations {
                 "longs.All(x => x == min)"
             );
         }
+        [Test]
+        public void Min_Equal_To_Max_Does_Not_Throw()
+        {
+            const long max = 100;
+            const long min = max;
+
+            Assert.DoesNotThrow(() => LongProvider.Long(min, max));
+        }
+
+        [Test]
+        public void Min_Greater_Than_Max_Does_Throw()
+        {
+            const long max = 100;
+            const long min = max + 1;
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => LongProvider.Long(min, max));
+        }
     }
 }

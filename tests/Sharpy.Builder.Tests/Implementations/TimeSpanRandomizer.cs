@@ -1,73 +1,114 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Sharpy.Builder.Implementation;
+using Sharpy.Builder.IProviders;
 
 namespace Sharpy.Builder.Tests.Implementations
 {
     [TestFixture]
     public class TimeSpanRandomizerTests
     {
-        private readonly IProviders.ITimeSpanProvider _timeSpanProvider = new TimeSpanRandomizer(new Random());
-        private const int Iterations = 1000;
+        private const int Amount = 100000;
+        private const int Repeats = 100;
 
-        [Test]
-        public void No_Argument_All_Timespans_Greater_Or_Equal_To_Zero()
+        private static readonly ITimeSpanProvider TimeSpanProvider = new TimeSpanRandomizer(new Random());
+
+        [Test, Repeat(Repeats)]
+        public void No_Arg_All_Values_Are_Between_Zero_And_MaxValue()
         {
-            var timeSpans = new TimeSpan[Iterations];
+            var timeSpans = new TimeSpan[Amount];
 
-            for (var i = 0; i < Iterations; i++)
-                timeSpans[i] = _timeSpanProvider.TimeSpan();
+            for (var i = 0; i < Amount; i++)
+                timeSpans[i] = TimeSpanProvider.TimeSpan();
 
-
-            Assert.True(timeSpans.All(x => x >= TimeSpan.Zero), "timeSpans.All(x => x > TimeSpan.Zero)");
             timeSpans.AssertNotAllValuesAreTheSame();
-            // Assert we just don't get zeroes
-            Assert.True(timeSpans.Any(x => x >= TimeSpan.Zero), "timeSpans.Any(x => x >= TimeSpan.Zero)");
+            Assert.True(
+                timeSpans.All(x => x > TimeSpan.Zero && x < TimeSpan.MaxValue),
+                "TimeSpans.All(x => x > 0 && x < TimeSpan.MaxValue)"
+            );
+        }
+
+        [Test, Repeat(Repeats)]
+        public void All_Values_Are_Between_Zero_And_Max()
+        {
+            var timeSpans = new TimeSpan[Amount];
+
+            var max = TimeSpan.FromDays(1);
+            
+            for (var i = 0; i < Amount; i++)
+                timeSpans[i] = TimeSpanProvider.TimeSpan(max);
+
+            timeSpans.AssertNotAllValuesAreTheSame();
+            Assert.True(
+                timeSpans.All(x => x >= TimeSpan.Zero && x < max),
+                "TimeSpans.All(x => x > 0 && x < max)"
+            );
+        }
+
+        [Test, Repeat(Repeats)]
+        public void All_Values_Are_Between_Min_And_Max()
+        {
+            var timeSpans = new TimeSpan[Amount];
+
+            var min = TimeSpan.FromDays(1);
+            var max = TimeSpan.FromDays(2);
+            for (var i = 0; i < Amount; i++)
+                timeSpans[i] = TimeSpanProvider.TimeSpan(min, max);
+
+            timeSpans.AssertNotAllValuesAreTheSame();
+            Assert.True(
+                timeSpans.All(x => x >= min && x < max),
+                "TimeSpans.All(x => x >= min && x < max)"
+            );
+        }
+
+        [Test, Repeat(Repeats)]
+        public void Inclusive_Min_Arg()
+        {
+            var timeSpans = new TimeSpan[Amount];
+
+            var arg = TimeSpan.FromDays(1);
+            for (var i = 0; i < Amount; i++)
+                timeSpans[i] = TimeSpanProvider.TimeSpan(arg, arg);
+
+            Assert.True(
+                timeSpans.All(x => x == arg),
+                "TimeSpans.All(x => x == arg)"
+            );
+        }
+
+        [Test, Repeat(Repeats)]
+        public void Exclusive_Max_Arg()
+        {
+            var timeSpans = new TimeSpan[Amount];
+
+            var max = TimeSpan.FromDays(1);
+            var min = max.Subtract(TimeSpan.FromTicks(1));
+            for (var i = 0; i < Amount; i++)
+                timeSpans[i] = TimeSpanProvider.TimeSpan(min, max);
+
+            Assert.True(
+                timeSpans.All(x => x == min),
+                "TimeSpans.All(x => x == min)"
+            );
+        }
+        [Test]
+        public void Min_Equal_To_Max_Does_Not_Throw()
+        {
+            var max = TimeSpan.FromDays(1);
+            var min = max;
+
+            Assert.DoesNotThrow(() => TimeSpanProvider.TimeSpan(min, max));
         }
 
         [Test]
-        public void Max_All_TimeSpans_Greater_Or_Equal_To_Zero()
+        public void Min_Greater_Than_Max_Does_Throw()
         {
-            var timeSpans = new TimeSpan[Iterations];
+            var max = TimeSpan.FromDays(1);
+            var min = max.Add(TimeSpan.FromTicks(1));
 
-            var max = TimeSpan.FromDays(20);
-            for (var i = 0; i < Iterations; i++)
-                timeSpans[i] = _timeSpanProvider.TimeSpan(max);
-
-
-            Assert.True(timeSpans.All(x => x <= max), "timeSpans.All(x => x <= max)");
-
-            timeSpans.AssertNotAllValuesAreTheSame();
-            // Assert we just don't get zeroes
-            Assert.True(timeSpans.Any(x => x >= TimeSpan.Zero), "timeSpans.Any(x => x >= TimeSpan.Zero)");
-        }
-
-        [Test]
-        public void Max_Greater_Than_Min_Only_Gives_Values_Within_The_Range()
-        {
-            var timeSpans = new TimeSpan[Iterations];
-            var min = TimeSpan.FromDays(10);
-            var max = TimeSpan.FromDays(20);
-
-            for (var i = 0; i < Iterations; i++)
-                timeSpans[i] = _timeSpanProvider.TimeSpan(min, max);
-
-            timeSpans.AssertNotAllValuesAreTheSame();
-            Assert.True(timeSpans.All(x => x <= max), "timeSpans.All(x => x == max)");
-        }
-
-        [Test]
-        public void Max_Equal_To_Min_Only_Gives_Same_Value()
-        {
-            var timeSpans = new TimeSpan[Iterations];
-
-            var max = TimeSpan.Zero;
-            for (var i = 0; i < Iterations; i++)
-                timeSpans[i] = _timeSpanProvider.TimeSpan(TimeSpan.Zero, max);
-
-            Assert.True(timeSpans.All(x => x == max), "timeSpans.All(x => x == max)");
+            Assert.Throws<ArgumentOutOfRangeException>(() => TimeSpanProvider.TimeSpan(min, max));
         }
     }
 }
