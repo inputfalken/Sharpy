@@ -11,6 +11,7 @@ namespace Sharpy.Builder.Tests.Implementations
     {
         private const int Amount = 100000;
         private const int Repeats = 100;
+        private const double MaxSupportedPrecision = 0.000_001_000_000_000d;
 
         private static readonly IDoubleProvider DoubleProvider = new DoubleRandomizer(new Random());
 
@@ -84,7 +85,7 @@ namespace Sharpy.Builder.Tests.Implementations
 
             const double arg = 100;
             for (var i = 0; i < Amount; i++)
-                doubles[i] = DoubleProvider.Double(arg - 0000000.1d, arg);
+                doubles[i] = DoubleProvider.Double(arg - MaxSupportedPrecision, arg);
 
 
             doubles.AssertNotAllValuesAreTheSame();

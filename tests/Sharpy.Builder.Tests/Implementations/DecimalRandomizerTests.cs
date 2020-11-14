@@ -12,6 +12,7 @@ namespace Sharpy.Builder.Tests.Implementations
     {
         private const int Amount = 100000;
         private const int Repeats = 100;
+        private const decimal MaxSupportedPrecision = 0.000_000_000_000_000_010m;
 
         private static readonly IDecimalProvider DecimalProvider = new DecimalRandomizer(new Random());
 
@@ -85,7 +86,7 @@ namespace Sharpy.Builder.Tests.Implementations
 
             const decimal arg = 100;
             for (var i = 0; i < Amount; i++)
-                decimals[i] = DecimalProvider.Decimal(arg - 0000000.1m, arg);
+                decimals[i] = DecimalProvider.Decimal(arg - MaxSupportedPrecision, arg);
             
 
             decimals.AssertNotAllValuesAreTheSame();
