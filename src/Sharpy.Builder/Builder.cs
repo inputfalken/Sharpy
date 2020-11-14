@@ -275,16 +275,19 @@ namespace Sharpy.Builder
             return _timeSpanProvider.TimeSpan(min, max);
         }
 
+        /// <inheritdoc />
         public decimal Decimal(decimal max)
         {
             return _decimalProvider.Decimal(max);
         }
 
+        /// <inheritdoc />
         public decimal Decimal(decimal min, decimal max)
         {
             return _decimalProvider.Decimal(min, max);
         }
 
+        /// <inheritdoc />
         public decimal Decimal()
         {
             return _decimalProvider.Decimal();

@@ -1,111 +1,114 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Sharpy.Builder.Implementation;
+using Sharpy.Builder.IProviders;
 
-namespace Sharpy.Builder.Tests.Implementations {
+namespace Sharpy.Builder.Tests.Implementations
+{
     [TestFixture]
-    public class IntRandomizerTests {
+    public class IntRandomizerTests
+    {
         private const int Amount = 100000;
+        private const int Repeats = 100;
 
+        private static readonly IIntegerProvider IntegerProvider = new IntegerRandomizer(new Random());
+
+        [Test, Repeat(Repeats)]
+        public void No_Arg_All_Values_Are_Between_Zero_And_MaxValue()
+        {
+            var ints = new int[Amount];
+
+            for (var i = 0; i < Amount; i++)
+                ints[i] = IntegerProvider.Integer();
+
+            ints.AssertNotAllValuesAreTheSame();
+            Assert.True(
+                ints.All(x => x > 0 && x < int.MaxValue),
+                "ints.All(x => x > 0 && x < int.MaxValue)"
+            );
+        }
+
+        [Test, Repeat(Repeats)]
+        public void All_Values_Are_Between_Zero_And_Max()
+        {
+            var ints = new int[Amount];
+
+            const int max = 200;
+            for (var i = 0; i < Amount; i++)
+                ints[i] = IntegerProvider.Integer(max);
+
+            ints.AssertNotAllValuesAreTheSame();
+            Assert.True(
+                ints.All(x => x >= 0 && x < max),
+                "ints.All(x => x > 0 && x < max)"
+            );
+        }
+
+        [Test, Repeat(Repeats)]
+        public void All_Values_Are_Between_Min_And_Max()
+        {
+            var ints = new int[Amount];
+
+            const int min = 100;
+            const int max = 200;
+            for (var i = 0; i < Amount; i++)
+                ints[i] = IntegerProvider.Integer(min, max);
+
+            ints.AssertNotAllValuesAreTheSame();
+            Assert.True(
+                ints.All(x => x >= min && x < max),
+                "ints.All(x => x >= min && x < max)"
+            );
+        }
+
+        [Test, Repeat(Repeats)]
+        public void Inclusive_Min_Arg()
+        {
+            var ints = new int[Amount];
+
+            const int arg = 100;
+            for (var i = 0; i < Amount; i++)
+                ints[i] = IntegerProvider.Integer(arg, arg);
+
+            Assert.True(
+                ints.All(x => x == arg),
+                "ints.All(x => x == arg)"
+            );
+        }
+
+        [Test, Repeat(Repeats)]
+        public void Exclusive_Max_Arg()
+        {
+            var ints = new int[Amount];
+
+            const int max = 100;
+            const int min = max -1;
+            for (var i = 0; i < Amount; i++)
+                ints[i] = IntegerProvider.Integer(min, max);
+
+
+            Assert.True(
+                ints.All(x => x == min),
+                "ints.All(x => x == min)"
+            );
+        }
         [Test]
-        public void Double_Argument_NotDefaultValue() {
-            var intRandomizer = new IntegerRandomizer(new Random());
-            var list = new List<int>(100);
-            for (var i = 0; i < 100; i++) list.Add(intRandomizer.Integer(0, 100));
-            Assert.IsFalse(list.All(i => i == 0));
+        public void Min_Equal_To_Max_Does_Not_Throw()
+        {
+            const int max = 100;
+            const int min = max;
+
+            Assert.DoesNotThrow(() => IntegerProvider.Integer(min, max));
         }
 
         [Test]
-        public void No_Argument_NotDefaultValue() {
-            var intRandomizer = new IntegerRandomizer(new Random());
-            var list = new List<int>(100);
-            for (var i = 0; i < 100; i++) list.Add(intRandomizer.Integer());
-            Assert.IsFalse(list.All(i => i == 0));
-        }
+        public void Min_Greater_Than_Max_Does_Throw()
+        {
+            const int max = 100;
+            const int min = max + 1;
 
-        [Test]
-        [Repeat(Amount)]
-        public void NoArgument() {
-            var intRandomizer = new IntegerRandomizer(new Random());
-            var result = intRandomizer.Integer();
-            Assert.IsTrue(result > int.MinValue && result < int.MaxValue);
-        }
-
-        [Test]
-        [Repeat(Amount)]
-        public void One_Arg() {
-            const int max = 1000;
-            var intRandomizer = new IntegerRandomizer(new Random());
-            var result = intRandomizer.Integer(max);
-            Assert.IsTrue(result >= 0 && result < max);
-        }
-
-        [Test]
-        [Repeat(Amount)]
-        public void One_Arg_MaxValue() {
-            var intRandomizer = new IntegerRandomizer(new Random());
-            var result = intRandomizer.Integer(int.MaxValue);
-            Assert.IsTrue(result > 0 && result < int.MaxValue);
-        }
-
-        [Test]
-        public void One_Arg_minusOne_Throws() {
-            var intRandomizer = new IntegerRandomizer(new Random());
-            Assert.Throws<ArgumentOutOfRangeException>(() => intRandomizer.Integer(-1));
-        }
-
-        [Test]
-        public void One_Argument_NotDefaultValue() {
-            var intRandomizer = new IntegerRandomizer(new Random());
-            var list = new List<int>(100);
-            for (var i = 0; i < 100; i++) list.Add(intRandomizer.Integer(100));
-            Assert.IsFalse(list.All(i => i == 0));
-        }
-
-        [Test]
-        [Repeat(Amount)]
-        public void Two_Args() {
-            const int min = -1000;
-            const int max = 2000;
-            var intRandomizer = new IntegerRandomizer(new Random());
-            var result = intRandomizer.Integer(min, max);
-            Assert.IsTrue(result >= min && result < max);
-        }
-
-        [Test]
-        public void Two_Args_Maxx_Less_Than_Min_Throws() {
-            const int min = -1000;
-            const int max = -2000;
-            var intRandomizer = new IntegerRandomizer(new Random());
-            Assert.Throws<ArgumentOutOfRangeException>(() => intRandomizer.Integer(min, max));
-        }
-
-        [Test]
-        [Repeat(Amount)]
-        public void Two_Args_MinValue_Zero() {
-            var intRandomizer = new IntegerRandomizer(new Random());
-            var result = intRandomizer.Integer(int.MinValue, 0);
-            Assert.IsTrue(result < 0);
-        }
-
-        [Test]
-        [Repeat(Amount)]
-        public void Two_Args_Thousand_And_TwoThousand() {
-            const int min = 1000;
-            const int max = 2000;
-            var intRandomizer = new IntegerRandomizer(new Random());
-            var result = intRandomizer.Integer(min, max);
-            Assert.IsTrue(result >= min && result < max);
-        }
-
-        [Test]
-        [Repeat(Amount)]
-        public void Two_Args_Zero_And_MaxValue() {
-            var intRandomizer = new IntegerRandomizer(new Random());
-            var result = intRandomizer.Integer(0, int.MaxValue);
-            Assert.IsTrue(result > 0 && result < int.MaxValue);
+            Assert.Throws<ArgumentOutOfRangeException>(() => IntegerProvider.Integer(min, max));
         }
     }
 }

@@ -1,87 +1,112 @@
 ﻿using System;
+using System.Linq;
 using NUnit.Framework;
 using Sharpy.Builder.Implementation;
+using Sharpy.Builder.IProviders;
 
 namespace Sharpy.Builder.Tests.Implementations {
     [TestFixture]
     public class LongRandomizerTests {
         private const int Amount = 100000;
+        private const int Repeats = 100;
 
+        private static readonly ILongProvider LongProvider = new LongRandomizer(new Random());
+
+        [Test, Repeat(Repeats)]
+        public void No_Arg_All_Values_Are_Between_Zero_And_MaxValue()
+        {
+            var longs = new long[Amount];
+
+            for (var i = 0; i < Amount; i++)
+                longs[i] = LongProvider.Long();
+
+            longs.AssertNotAllValuesAreTheSame();
+            Assert.True(
+                longs.All(x => x > 0 && x < long.MaxValue),
+                "longs.All(x => x > 0 && x < long.MaxValue)"
+            );
+        }
+
+        [Test, Repeat(Repeats)]
+        public void All_Values_Are_Between_Zero_And_Max()
+        {
+            var longs = new long[Amount];
+
+            const long max = 200;
+            for (var i = 0; i < Amount; i++)
+                longs[i] = LongProvider.Long(max);
+
+            longs.AssertNotAllValuesAreTheSame();
+            Assert.True(
+                longs.All(x => x >= 0 && x < max),
+                "longs.All(x => x > 0 && x < max)"
+            );
+        }
+
+        [Test, Repeat(Repeats)]
+        public void All_Values_Are_Between_Min_And_Max()
+        {
+            var longs = new long[Amount];
+
+            const long min = 100;
+            const long max = 200;
+            for (var i = 0; i < Amount; i++)
+                longs[i] = LongProvider.Long(min, max);
+
+            longs.AssertNotAllValuesAreTheSame();
+            Assert.True(
+                longs.All(x => x >= min && x < max),
+                "longs.All(x => x >= min && x < max)"
+            );
+        }
+
+        [Test, Repeat(Repeats)]
+        public void Inclusive_Min_Arg()
+        {
+            var longs = new long[Amount];
+
+            const long arg = 100;
+            for (var i = 0; i < Amount; i++)
+                longs[i] = LongProvider.Long(arg, arg);
+
+            Assert.True(
+                longs.All(x => x == arg),
+                "longs.All(x => x == arg)"
+            );
+        }
+
+        [Test, Repeat(Repeats)]
+        public void Exclusive_Max_Arg()
+        {
+            var longs = new long[Amount];
+
+            const long max = 100;
+            const long min = max -1;
+            for (var i = 0; i < Amount; i++)
+                longs[i] = LongProvider.Long(min, max);
+
+
+            Assert.True(
+                longs.All(x => x == min),
+                "longs.All(x => x == min)"
+            );
+        }
         [Test]
-        [Repeat(Amount)]
-        public void NoArgument() {
-            var longRandomizer = new LongRandomizer(new Random());
-            var result = longRandomizer.Long();
-            Assert.IsTrue(result > long.MinValue && result < long.MaxValue);
+        public void Min_Equal_To_Max_Does_Not_Throw()
+        {
+            const long max = 100;
+            const long min = max;
+
+            Assert.DoesNotThrow(() => LongProvider.Long(min, max));
         }
 
         [Test]
-        [Repeat(Amount)]
-        public void One_Arg() {
-            const long max = long.MaxValue - 1000;
-            var longRandomizer = new LongRandomizer(new Random());
-            var result = longRandomizer.Long(max);
-            Assert.IsTrue(result >= 0 && result < max);
-        }
+        public void Min_Greater_Than_Max_Does_Throw()
+        {
+            const long max = 100;
+            const long min = max + 1;
 
-        [Test]
-        [Repeat(Amount)]
-        public void One_Arg_MaxValue() {
-            var longRandomizer = new LongRandomizer(new Random());
-            var result = longRandomizer.Long(long.MaxValue);
-            Assert.IsTrue(result >= 0 && result < long.MaxValue);
-        }
-
-        [Test]
-        public void One_Arg_MinusOne_Throws() {
-            var longRandomizer = new LongRandomizer(new Random());
-            Assert.Throws<ArgumentOutOfRangeException>(() => longRandomizer.Long(-1));
-        }
-
-        [Test]
-        [Repeat(Amount)]
-        public void Two_Args_Max_More_Than_Min() {
-            const long min = long.MaxValue - 3000;
-            const long max = long.MaxValue - 2000;
-            var longRandomizer = new LongRandomizer(new Random());
-            var result = longRandomizer.Long(min, max);
-            Assert.IsTrue(result >= min && result < max);
-        }
-
-        [Test]
-        [Repeat(Amount)]
-        public void Two_Args_Max_More_Than_Min_Both_Negative() {
-            const int min = -2000;
-            const int max = -1000;
-            var longRandomizer = new LongRandomizer(new Random());
-            var result = longRandomizer.Long(min, max);
-
-            Assert.IsTrue(result >= min && result < max);
-        }
-
-        [Test]
-        public void Two_Args_Maxx_Less_Than_Min_Throws() {
-            const long min = long.MaxValue - 1000;
-            const long max = long.MaxValue - 2000;
-            var longRandomizer = new LongRandomizer(new Random());
-            Assert.Throws<ArgumentOutOfRangeException>(() => longRandomizer.Long(min, max));
-        }
-
-        [Test]
-        [Repeat(Amount)]
-        public void Two_Args_MinValue_And_Zero() {
-            var longRandomizer = new LongRandomizer(new Random());
-            var result = longRandomizer.Long(long.MinValue, 0);
-            Assert.IsTrue(result > long.MinValue && result < 0);
-        }
-
-        [Test]
-        [Repeat(Amount)]
-        public void Two_Args_Zero_And_MaxValue() {
-            var longRandomizer = new LongRandomizer(new Random());
-            var result = longRandomizer.Long(0, long.MaxValue);
-
-            Assert.IsTrue(result > 0 && result < long.MaxValue);
+            Assert.Throws<ArgumentOutOfRangeException>(() => LongProvider.Long(min, max));
         }
     }
 }

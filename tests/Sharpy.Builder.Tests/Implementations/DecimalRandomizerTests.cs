@@ -26,8 +26,8 @@ namespace Sharpy.Builder.Tests.Implementations
 
             decimals.AssertNotAllValuesAreTheSame();
             Assert.True(
-                decimals.All(x => x > 0 && x < decimal.MaxValue),
-                "decimals.All(x => x > 0 && x < decimal.MaxValue)"
+                decimals.All(x => x >= 0 && x < decimal.MaxValue),
+                "decimals.All(x => x >= 0 && x < decimal.MaxValue)"
             );
         }
 
@@ -42,8 +42,8 @@ namespace Sharpy.Builder.Tests.Implementations
 
             decimals.AssertNotAllValuesAreTheSame();
             Assert.True(
-                decimals.All(x => x > 0 && x < max),
-                "decimals.All(x => x > 0 && x < max)"
+                decimals.All(x => x >= 0 && x < max),
+                "decimals.All(x => x >= 0 && x < max)"
             );
         }
 
@@ -59,8 +59,8 @@ namespace Sharpy.Builder.Tests.Implementations
 
             decimals.AssertNotAllValuesAreTheSame();
             Assert.True(
-                decimals.All(x => x > min && x < max),
-                "decimals.All(x => x > min && x < max)"
+                decimals.All(x => x >= min && x < max),
+                "decimals.All(x => x >= min && x < max)"
             );
         }
 
@@ -84,16 +84,34 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var decimals = new decimal[Amount];
 
-            const decimal arg = 100;
+            const decimal max = 100;
+            const decimal min = max - MaxSupportedPrecision;
             for (var i = 0; i < Amount; i++)
-                decimals[i] = DecimalProvider.Decimal(arg - MaxSupportedPrecision, arg);
-            
+                decimals[i] = DecimalProvider.Decimal(min, max);
 
             decimals.AssertNotAllValuesAreTheSame();
             Assert.True(
-                decimals.All(x => x < arg),
-                "decimals.All(x => x < arg)"
+                decimals.All(x => x < max),
+                "decimals.All(x => x < max)"
             );
+        }
+
+        [Test]
+        public void Min_Equal_To_Max_Does_Not_Throw()
+        {
+            const decimal max = 100;
+            const decimal min = max;
+
+            Assert.DoesNotThrow(() => DecimalProvider.Decimal(min, max));
+        }
+
+        [Test]
+        public void Min_Greater_Than_Max_Does_Throw()
+        {
+            const decimal max = 100;
+            const decimal min = max + 1;
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => DecimalProvider.Decimal(min, max));
         }
     }
 }

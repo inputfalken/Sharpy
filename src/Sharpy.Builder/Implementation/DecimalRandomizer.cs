@@ -4,6 +4,7 @@ using Sharpy.Builder.IProviders;
 
 namespace Sharpy.Builder.Implementation
 {
+    /// <inheritdoc />
     public sealed class DecimalRandomizer : IDecimalProvider
     {
         private readonly Random _random;

@@ -500,5 +500,25 @@ namespace Sharpy.Builder.Tests.Implementations
                 "list.All(time => time.Second == BaseTime.Second)"
             );
         }
+        [Test]
+        public void Min_Equal_To_Max_Does_Not_Throw()
+        {
+            var max = DateTime.Now;
+            var min = max;
+            
+            var dateRandomizer = new DateTimeRandomizer(new Random());
+            
+            Assert.DoesNotThrow(() => dateRandomizer.DateTime(min, max));
+        }
+
+        [Test]
+        public void Min_Greater_Than_Max_Does_Throw()
+        {
+            var max = DateTime.Now;
+            var min = max.AddMilliseconds(1);
+            var dateRandomizer = new DateTimeRandomizer(new Random());
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => dateRandomizer.DateTime(min, max));
+        }
     }
 }

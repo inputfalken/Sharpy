@@ -3,6 +3,7 @@ using Sharpy.Builder.IProviders;
 
 namespace Sharpy.Builder.Implementation
 {
+    /// <inheritdoc />
     public sealed class GuidProvider : IGuidProvider
     {
         /// <inheritdoc cref="IGuidProvider.Guid()"/>
