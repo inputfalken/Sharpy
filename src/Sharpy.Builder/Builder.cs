@@ -12,7 +12,7 @@ namespace Sharpy.Builder
     /// </summary>
     public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, IElementProvider,
         IBoolProvider, IDateTimeProvider, IEmailProvider, ISecurityNumberProvider,
-        IPhoneNumberProvider, IUserNameProvider, IArgumentProvider, IGuidProvider, ITimeSpanProvider
+        IPhoneNumberProvider, IUserNameProvider, IArgumentProvider, IGuidProvider, ITimeSpanProvider, IDecimalProvider
     {
         private readonly IArgumentProvider _argumentProvider;
         private readonly IBoolProvider _boolProvider;
@@ -28,6 +28,7 @@ namespace Sharpy.Builder
         private readonly IUserNameProvider _userNameProvider;
         private readonly IGuidProvider _guidProvider;
         private readonly ITimeSpanProvider _timeSpanProvider;
+        private IDecimalProvider _decimalProvider;
 
         /// <summary>
         ///     <para>
@@ -68,6 +69,8 @@ namespace Sharpy.Builder
                             throw new ArgumentNullException(nameof(configurement.GuidProvider));
             _timeSpanProvider = configurement.TimeSpanProvider ??
                                 throw new ArgumentNullException(nameof(configurement.TimeSpanProvider));
+            _decimalProvider = configurement.DecimalProvider ??
+                                throw new ArgumentNullException(nameof(configurement.DecimalProvider));
         }
 
         /// <inheritdoc />
@@ -270,6 +273,21 @@ namespace Sharpy.Builder
         public TimeSpan TimeSpan(TimeSpan min, TimeSpan max)
         {
             return _timeSpanProvider.TimeSpan(min, max);
+        }
+
+        public decimal Decimal(decimal max)
+        {
+            return _decimalProvider.Decimal(max);
+        }
+
+        public decimal Decimal(decimal min, decimal max)
+        {
+            return _decimalProvider.Decimal(min, max);
+        }
+
+        public decimal Decimal()
+        {
+            return _decimalProvider.Decimal();
         }
     }
 }
