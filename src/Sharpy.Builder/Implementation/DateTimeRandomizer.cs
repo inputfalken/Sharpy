@@ -40,21 +40,19 @@ namespace Sharpy.Builder.Implementation
         public DateTime DateTimeByYear(int year)
         {
             if (year <= MinValue.Year) throw new ArgumentException($"{nameof(year)} cannot be negative");
-            var month = _random.Month();
-            return new DateTime(
-                year,
-                month,
-                _random.Day(year, month),
-                _random.Hour(),
-                _random.Minute(),
-                _random.Second(),
-                _random.MilliSecond()
+
+            return DateTime(
+                new DateTime(year, 1, 1),
+                new DateTime(year, 12, DaysInMonth(year, 12))
             );
         }
 
 
         /// <inheritdoc />
-        public DateTime DateTime() => DateTime(MinValue, MaxValue);
+        public DateTime DateTime()
+        {
+            return DateTime(MinValue, MaxValue);
+        }
 
         /// <inheritdoc />
         public DateTime DateTime(DateTime max)
