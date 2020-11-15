@@ -4,6 +4,7 @@ using Sharpy.Builder.Providers;
 
 namespace Sharpy.Builder.Implementation
 {
+    /// <inheritdoc />
     public class DateTimeOffsetRandomizer : IDateTimeOffsetProvider
     {
         private readonly Random _random;
