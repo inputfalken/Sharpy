@@ -13,6 +13,7 @@ namespace Sharpy.Builder
     public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, IElementProvider,
         IBoolProvider, IDateTimeProvider, IEmailProvider, ISecurityNumberProvider,
         IPhoneNumberProvider, IUserNameProvider, IArgumentProvider, IGuidProvider, ITimeSpanProvider, IDecimalProvider
+        , IDateTimeOffsetProvider
     {
         private readonly IArgumentProvider _argumentProvider;
         private readonly IBoolProvider _boolProvider;
@@ -28,7 +29,8 @@ namespace Sharpy.Builder
         private readonly IUserNameProvider _userNameProvider;
         private readonly IGuidProvider _guidProvider;
         private readonly ITimeSpanProvider _timeSpanProvider;
-        private IDecimalProvider _decimalProvider;
+        private readonly IDecimalProvider _decimalProvider;
+        private IDateTimeOffsetProvider _dateTimeOffsetProvider;
 
         /// <summary>
         ///     <para>
@@ -49,7 +51,7 @@ namespace Sharpy.Builder
             _nameProvider = configurement.NameProvider ??
                             throw new ArgumentNullException(nameof(configurement.NameProvider));
             _dateTimeProvider = configurement.DateTimeProvider ??
-                            throw new ArgumentNullException(nameof(configurement.DateTimeProvider));
+                                throw new ArgumentNullException(nameof(configurement.DateTimeProvider));
             _emailProvider = configurement.MailProvider ??
                              throw new ArgumentNullException(nameof(configurement.MailProvider));
             _securityNumberProvider = configurement.SecurityNumberProvider ??
@@ -70,7 +72,9 @@ namespace Sharpy.Builder
             _timeSpanProvider = configurement.TimeSpanProvider ??
                                 throw new ArgumentNullException(nameof(configurement.TimeSpanProvider));
             _decimalProvider = configurement.DecimalProvider ??
-                                throw new ArgumentNullException(nameof(configurement.DecimalProvider));
+                               throw new ArgumentNullException(nameof(configurement.DecimalProvider));
+            _dateTimeOffsetProvider = configurement.DateTimeOffSetProvider ??
+                                      throw new ArgumentNullException(nameof(configurement.DateTimeOffSetProvider));
         }
 
         /// <inheritdoc />
@@ -291,6 +295,24 @@ namespace Sharpy.Builder
         public decimal Decimal()
         {
             return _decimalProvider.Decimal();
+        }
+
+        /// <inheritdoc />
+        public DateTimeOffset DateTimeOffset()
+        {
+            return _dateTimeOffsetProvider.DateTimeOffset();
+        }
+
+        /// <inheritdoc />
+        public DateTimeOffset DateTimeOffset(DateTimeOffset max)
+        {
+            return _dateTimeOffsetProvider.DateTimeOffset(max);
+        }
+
+        /// <inheritdoc />
+        public DateTimeOffset DateTimeOffset(DateTimeOffset min, DateTimeOffset max)
+        {
+            return _dateTimeOffsetProvider.DateTimeOffset(min, max);
         }
     }
 }

@@ -41,6 +41,7 @@ namespace Sharpy.Builder {
             GuidProvider = new GuidProvider();
             TimeSpanProvider = new TimeSpanRandomizer(Random);
             DecimalProvider = new DecimalRandomizer(Random);
+            DateTimeOffSetProvider = new DateTimeOffsetRandomizer(Random);
         }
 
         /// <summary>
@@ -217,5 +218,15 @@ namespace Sharpy.Builder {
         ///     </para>
         /// </summary>
         public IDecimalProvider DecimalProvider { get; set; }
+
+        /// <summary>
+        ///     <para>
+        ///         Gets and sets the implementation for <see cref="IDateTimeOffsetProvider" />.
+        ///     </para>
+        ///     <para>
+        ///         By default it is <see cref="Sharpy.Builder.Implementation.DateTimeOffsetRandomizer" />.
+        ///     </para>
+        /// </summary>
+        public IDateTimeOffsetProvider DateTimeOffSetProvider { get; set; }
     }
 }
