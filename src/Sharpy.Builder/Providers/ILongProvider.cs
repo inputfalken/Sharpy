@@ -14,10 +14,6 @@ namespace Sharpy.Builder.Providers
         /// <param name="max">
         ///     The exclusive maximum bound.
         /// </param>
-        /// <returns>
-        ///     A <see cref="long" /> greater than or equal to argument <paramref name="min" /> and less than argument
-        ///     <paramref name="max" />.
-        /// </returns>
         long Long(long min, long max);
 
         /// <summary>
@@ -26,10 +22,6 @@ namespace Sharpy.Builder.Providers
         /// <param name="max">
         ///     The exclusive maximum bound.
         /// </param>
-        /// <returns>
-        ///     A <see cref="long" /> greater than or equal to 0 and less than argument
-        ///     <paramref name="max" />.
-        /// </returns>
         long Long(long max);
 
         /// <summary>

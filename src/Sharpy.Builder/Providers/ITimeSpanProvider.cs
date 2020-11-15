@@ -15,11 +15,20 @@ namespace Sharpy.Builder.Providers
         /// <summary>
         /// Provides a System.TimeSpan between System.TimeSpan.Zero and <paramref name="max"/>.
         /// </summary>
+        /// <param name="max">
+        ///     The exclusive maximum bound.
+        /// </param>
         TimeSpan TimeSpan(TimeSpan max);
 
         /// <summary>
         /// Provides a System.TimeSpan between <paramref name="min"/> and <paramref name="max"/>.
         /// </summary>
+        /// <param name="min">
+        ///     The inclusive minimum bound.
+        /// </param>
+        /// <param name="max">
+        ///     The exclusive maximum bound.
+        /// </param>
         TimeSpan TimeSpan(TimeSpan min, TimeSpan max);
     }
 }

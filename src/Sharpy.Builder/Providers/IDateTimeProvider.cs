@@ -25,11 +25,20 @@ namespace Sharpy.Builder.Providers
         /// <summary>
         /// Provides a DateTime between System.DateTime.MinVale and <paramref name="max"/>.
         /// </summary>
+        /// <param name="max">
+        ///     The exclusive maximum bound.
+        /// </param>
         DateTime DateTime(DateTime max);
 
         /// <summary>
         /// Provides a System.DateTime between <paramref name="min"/> and <paramref name="max"/>.
         /// </summary>
+        /// <param name="min">
+        ///     The inclusive minimum bound.
+        /// </param>
+        /// <param name="max">
+        ///     The exclusive maximum bound.
+        /// </param>
         DateTime DateTime(DateTime min, DateTime max);
     }
 }
