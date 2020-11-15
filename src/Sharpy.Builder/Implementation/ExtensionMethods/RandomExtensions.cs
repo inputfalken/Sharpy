@@ -493,5 +493,31 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
                 _ => NextDateTime(random, min, max)
             };
         }
+
+        /// <summary>
+        ///   Randomizes a System.DateTimeOffset within <paramref name="min"/> and <paramref name="max"/>.
+        /// </summary>
+        /// <param name="random">
+        ///   The System.Random to randomize with.
+        /// </param>
+        /// <param name="min">
+        ///   The minimum inclusive value.
+        /// </param>
+        /// <param name="max">
+        ///   The maximum exclusive value.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///   When <paramref name="random"/> is null.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///   When <paramref name="min"/> is greater than <paramref name="max"/>.
+        /// </exception>
+        /// <returns>
+        ///   A randomized System.DateTimeOffset within <paramref name="min"/> and <paramref name="max"/>.
+        /// </returns>
+        public static DateTimeOffset DateTimeOffset(this Random random, DateTimeOffset min, DateTimeOffset max)
+        {
+            return DateTime(random, min.DateTime, max.DateTime);
+        }
     }
 }

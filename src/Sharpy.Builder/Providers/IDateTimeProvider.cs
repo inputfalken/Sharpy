@@ -3,7 +3,7 @@
 namespace Sharpy.Builder.Providers
 {
     /// <summary>
-    ///  Methods to provide System.DateTime.
+    ///  Methods providing System.DateTime.
     /// </summary>
     public interface IDateTimeProvider
     {
