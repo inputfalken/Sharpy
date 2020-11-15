@@ -11,7 +11,7 @@ namespace Sharpy.Builder.Tests.Implementations
     public class DateTimeOffsetOffsetRandomizerTests
     {
         private const int Amount = 10000;
-        private readonly IDateTimeOffsetProvider _dateTimProvider = new DateTimeOffsetRandomizer(new Random());
+        private readonly IDateTimeOffsetProvider _dateTimeOffsetProvider = new DateTimeOffsetRandomizer(new Random());
 
 
         private static readonly DateTimeOffset BaseTime = DateTime.SpecifyKind(
@@ -25,7 +25,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTimeOffset>();
             var baseTimeTwoYearsLater = DateTimeOffset.Now.AddYears(2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimProvider.DateTimeOffset(baseTimeTwoYearsLater));
+                list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoYearsLater));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoYearsLater),
@@ -39,7 +39,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTimeOffset>();
             var baseTimeTwoYearsBefore = DateTimeOffset.Now.AddYears(-2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimProvider.DateTimeOffset(baseTimeTwoYearsBefore));
+                list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoYearsBefore));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoYearsBefore),
@@ -53,7 +53,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTimeOffset>();
             var baseTimeTwoMonthsLater = DateTimeOffset.Now.AddMonths(2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimProvider.DateTimeOffset(baseTimeTwoMonthsLater));
+                list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoMonthsLater));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoMonthsLater),
@@ -67,7 +67,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTimeOffset>();
             var baseTimeTwoMonthsBefore = DateTimeOffset.Now.AddMonths(-2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimProvider.DateTimeOffset(baseTimeTwoMonthsBefore));
+                list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoMonthsBefore));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoMonthsBefore),
@@ -81,7 +81,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTimeOffset>();
             var baseTimeTwoDaysLater = DateTimeOffset.Now.AddDays(2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimProvider.DateTimeOffset(baseTimeTwoDaysLater));
+                list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoDaysLater));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoDaysLater),
@@ -95,7 +95,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTimeOffset>();
             var baseTimeTwoDaysBefore = DateTimeOffset.Now.AddDays(-2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimProvider.DateTimeOffset(baseTimeTwoDaysBefore));
+                list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoDaysBefore));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoDaysBefore),
@@ -109,7 +109,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTimeOffset>();
             var baseTimeTwoHoursLater = DateTimeOffset.Now.AddHours(2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimProvider.DateTimeOffset(baseTimeTwoHoursLater));
+                list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoHoursLater));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoHoursLater),
@@ -123,7 +123,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTimeOffset>();
             var baseTimeTwoHoursBefore = DateTimeOffset.Now.AddHours(-2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimProvider.DateTimeOffset(baseTimeTwoHoursBefore));
+                list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoHoursBefore));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoHoursBefore),
@@ -137,7 +137,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTimeOffset>();
             var baseTimeTwoMinutesLater = DateTimeOffset.Now.AddMinutes(2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimProvider.DateTimeOffset(baseTimeTwoMinutesLater));
+                list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoMinutesLater));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoMinutesLater),
@@ -151,7 +151,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTimeOffset>();
             var baseTimeTwoMinutesBefore = DateTimeOffset.Now.AddMinutes(-2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimProvider.DateTimeOffset(baseTimeTwoMinutesBefore));
+                list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoMinutesBefore));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoMinutesBefore),
@@ -165,7 +165,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTimeOffset>();
             var baseTimeTwoSecondsLater = DateTimeOffset.Now.AddSeconds(2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimProvider.DateTimeOffset(baseTimeTwoSecondsLater));
+                list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoSecondsLater));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoSecondsLater),
@@ -179,7 +179,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTimeOffset>();
             var baseTimeTwoSecondsBefore = DateTimeOffset.Now.AddSeconds(-2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimProvider.DateTimeOffset(baseTimeTwoSecondsBefore));
+                list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoSecondsBefore));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoSecondsBefore),
@@ -193,7 +193,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTimeOffset>();
             var baseTimeTwoMilliSecondsLater = DateTimeOffset.Now.AddMilliseconds(2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimProvider.DateTimeOffset(baseTimeTwoMilliSecondsLater));
+                list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoMilliSecondsLater));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoMilliSecondsLater),
@@ -207,7 +207,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTimeOffset>();
             var baseTimeTwoMilliSecondsBefore = DateTimeOffset.Now.AddMilliseconds(-2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimProvider.DateTimeOffset(baseTimeTwoMilliSecondsBefore));
+                list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoMilliSecondsBefore));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoMilliSecondsBefore),
@@ -221,7 +221,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTimeOffset>();
             var baseTimeTwoYearsLater = DateTimeOffset.Now.AddYears(2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimProvider.DateTimeOffset(DateTimeOffset.Now, baseTimeTwoYearsLater));
+                list.Add(_dateTimeOffsetProvider.DateTimeOffset(DateTimeOffset.Now, baseTimeTwoYearsLater));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoYearsLater),
@@ -236,7 +236,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTimeOffset>();
             var baseTimeTwoYearsAgo = BaseTime.AddYears(-2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimProvider.DateTimeOffset(baseTimeTwoYearsAgo, BaseTime));
+                list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoYearsAgo, BaseTime));
 
             Assert.IsTrue(
                 list.All(time => time < BaseTime),
@@ -250,7 +250,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTimeOffset>();
             var baseTimeTwoMonthsLater = BaseTime.AddMonths(2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimProvider.DateTimeOffset(DateTimeOffset.Now, baseTimeTwoMonthsLater));
+                list.Add(_dateTimeOffsetProvider.DateTimeOffset(DateTimeOffset.Now, baseTimeTwoMonthsLater));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoMonthsLater),
@@ -264,7 +264,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTimeOffset>();
             var baseTimeTwoMonthsAgo = BaseTime.AddMonths(-2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimProvider.DateTimeOffset(baseTimeTwoMonthsAgo, BaseTime));
+                list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoMonthsAgo, BaseTime));
 
             Assert.IsTrue(
                 list.All(time => time < BaseTime),
@@ -282,7 +282,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTimeOffset>();
             var baseTimeTwoDaysLater = BaseTime.AddDays(2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimProvider.DateTimeOffset(BaseTime, baseTimeTwoDaysLater));
+                list.Add(_dateTimeOffsetProvider.DateTimeOffset(BaseTime, baseTimeTwoDaysLater));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoDaysLater),
@@ -296,7 +296,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTimeOffset>();
             var baseTimeTwoDaysAgo = BaseTime.AddDays(-2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimProvider.DateTimeOffset(baseTimeTwoDaysAgo, BaseTime));
+                list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoDaysAgo, BaseTime));
 
             Assert.IsTrue(
                 list.All(time => time < BaseTime), "list.All(time => time < BaseTime)"
@@ -313,7 +313,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTimeOffset>();
             var baseTimeTwoMinutesLater = BaseTime.AddMinutes(2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimProvider.DateTimeOffset(BaseTime, baseTimeTwoMinutesLater));
+                list.Add(_dateTimeOffsetProvider.DateTimeOffset(BaseTime, baseTimeTwoMinutesLater));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoMinutesLater),
@@ -327,7 +327,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTimeOffset>();
             var baseTimeTwoMinutesBefore = BaseTime.AddMinutes(-2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimProvider.DateTimeOffset(baseTimeTwoMinutesBefore, BaseTime));
+                list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoMinutesBefore, BaseTime));
 
             Assert.IsTrue(
                 list.All(time => time < BaseTime),
@@ -346,7 +346,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTimeOffset>();
             var baseTimeTwoSecondsLater = BaseTime.AddSeconds(2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimProvider.DateTimeOffset(BaseTime, baseTimeTwoSecondsLater));
+                list.Add(_dateTimeOffsetProvider.DateTimeOffset(BaseTime, baseTimeTwoSecondsLater));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoSecondsLater),
@@ -360,7 +360,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTimeOffset>();
             var baseTimeTwoSecondsAgo = BaseTime.AddSeconds(-2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimProvider.DateTimeOffset(baseTimeTwoSecondsAgo, BaseTime));
+                list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoSecondsAgo, BaseTime));
 
             Assert.IsTrue(
                 list.All(time => time < BaseTime),
@@ -378,7 +378,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTimeOffset>();
             var baseTimeTwoMillisecondsLater = BaseTime.AddMilliseconds(2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimProvider.DateTimeOffset(BaseTime, baseTimeTwoMillisecondsLater));
+                list.Add(_dateTimeOffsetProvider.DateTimeOffset(BaseTime, baseTimeTwoMillisecondsLater));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoMillisecondsLater),
@@ -392,7 +392,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTimeOffset>();
             var baseTimeTwoMiliSecondsBefore = BaseTime.AddMilliseconds(-2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimProvider.DateTimeOffset(baseTimeTwoMiliSecondsBefore, BaseTime));
+                list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoMiliSecondsBefore, BaseTime));
 
             Assert.IsTrue(list.All(time => time < BaseTime));
             Assert.IsTrue(
@@ -418,7 +418,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var max = DateTimeOffset.Now;
             var min = max.AddMilliseconds(1);
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => _dateTimProvider.DateTimeOffset(min, max));
+            Assert.Throws<ArgumentOutOfRangeException>(() => _dateTimeOffsetProvider.DateTimeOffset(min, max));
         }
     }
 }

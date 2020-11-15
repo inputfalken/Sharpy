@@ -33,6 +33,10 @@ namespace Sharpy.Builder.Tests
         [Test]
         public void Null_DateTimeOffsetProvider_Throws() =>
             Assert.Throws<ArgumentNullException>(() => new Builder(new Configurement {DateTimeOffSetProvider = null}));
+        [Test]
+        
+        public void Null_FloatProvider_Throws() =>
+            Assert.Throws<ArgumentNullException>(() => new Builder(new Configurement {FloatProvider = null}));
 
         [Test]
         public void Null_DateTimeProvider_Throws() =>

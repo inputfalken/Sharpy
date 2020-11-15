@@ -64,6 +64,42 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         }
 
         /// <summary>
+        ///   Randomizes a System.Single within <paramref name="min"/> and <paramref name="max"/>.
+        /// </summary>
+        /// <param name="random">
+        ///   The System.Random to randomize with.
+        /// </param>
+        /// <param name="min">
+        ///   The minimum inclusive value.
+        /// </param>
+        /// <param name="max">
+        ///   The maximum exclusive value.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///   When <paramref name="random"/> is null.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///   When <paramref name="min"/> is greater than <paramref name="max"/>.
+        /// </exception>
+        /// <returns>
+        ///   A randomized System.Single within <paramref name="min"/> and <paramref name="max"/>.
+        /// </returns>
+        public static float Float(this Random random, float min, float max)
+        {
+            return random switch
+            {
+                null => throw new ArgumentNullException(nameof(random)),
+                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max."),
+                _ when min == max => min,
+                _ => (float) (random.NextDouble() * (max - min) + min) switch
+                {
+                    {} x when x == max => x - 000_001f,
+                    {} x => x
+                }
+            };
+        }
+
+        /// <summary>
         ///   Randomizes a System.Double within <paramref name="min"/> and <paramref name="max"/>.
         /// </summary>
         /// <param name="random">

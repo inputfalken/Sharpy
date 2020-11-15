@@ -13,7 +13,7 @@ namespace Sharpy.Builder
     public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, IElementProvider,
         IBoolProvider, IDateTimeProvider, IEmailProvider, ISecurityNumberProvider,
         IPhoneNumberProvider, IUserNameProvider, IArgumentProvider, IGuidProvider, ITimeSpanProvider, IDecimalProvider
-        , IDateTimeOffsetProvider
+        , IDateTimeOffsetProvider, IFloatProvider
     {
         private readonly IArgumentProvider _argumentProvider;
         private readonly IBoolProvider _boolProvider;
@@ -30,7 +30,8 @@ namespace Sharpy.Builder
         private readonly IGuidProvider _guidProvider;
         private readonly ITimeSpanProvider _timeSpanProvider;
         private readonly IDecimalProvider _decimalProvider;
-        private IDateTimeOffsetProvider _dateTimeOffsetProvider;
+        private readonly IDateTimeOffsetProvider _dateTimeOffsetProvider;
+        private readonly IFloatProvider _floatProvider;
 
         /// <summary>
         ///     <para>
@@ -42,39 +43,57 @@ namespace Sharpy.Builder
         /// </param>
         public Builder(Configurement configurement)
         {
-            _doubleProvider = configurement.DoubleProvider ??
-                              throw new ArgumentNullException(nameof(configurement.DoubleProvider));
-            _integerProvider = configurement.IntegerProvider ??
-                               throw new ArgumentNullException(nameof(configurement.IntegerProvider));
-            _longProvider = configurement.LongProvider ??
-                            throw new ArgumentNullException(nameof(configurement.LongProvider));
-            _nameProvider = configurement.NameProvider ??
-                            throw new ArgumentNullException(nameof(configurement.NameProvider));
-            _dateTimeProvider = configurement.DateTimeProvider ??
-                                throw new ArgumentNullException(nameof(configurement.DateTimeProvider));
-            _emailProvider = configurement.MailProvider ??
-                             throw new ArgumentNullException(nameof(configurement.MailProvider));
-            _securityNumberProvider = configurement.SecurityNumberProvider ??
-                                      throw new ArgumentNullException(nameof(configurement.SecurityNumberProvider));
-            _elementProvider = configurement.ListElementPicker ??
-                               throw new ArgumentNullException(nameof(configurement.ListElementPicker));
-            _boolProvider = configurement.BoolProvider ??
-                            throw new ArgumentNullException(nameof(configurement.BoolProvider));
-            _phoneNumberProvider = configurement.PhoneNumberProvider ??
-                                   throw new ArgumentNullException(nameof(configurement.PhoneNumberProvider));
-            _userNameProvider = configurement.UserNameProvider ??
-                                throw new ArgumentNullException(nameof(configurement.UserNameProvider));
-            _argumentProvider = configurement.ArgumentProvider ??
-                                throw new ArgumentNullException(nameof(configurement.ArgumentProvider));
-
-            _guidProvider = configurement.GuidProvider ??
-                            throw new ArgumentNullException(nameof(configurement.GuidProvider));
-            _timeSpanProvider = configurement.TimeSpanProvider ??
-                                throw new ArgumentNullException(nameof(configurement.TimeSpanProvider));
-            _decimalProvider = configurement.DecimalProvider ??
-                               throw new ArgumentNullException(nameof(configurement.DecimalProvider));
-            _dateTimeOffsetProvider = configurement.DateTimeOffSetProvider ??
-                                      throw new ArgumentNullException(nameof(configurement.DateTimeOffSetProvider));
+            _doubleProvider = configurement.DoubleProvider ?? throw new ArgumentNullException(
+                nameof(configurement.DoubleProvider)
+            );
+            _integerProvider = configurement.IntegerProvider ?? throw new ArgumentNullException(
+                nameof(configurement.IntegerProvider)
+            );
+            _longProvider = configurement.LongProvider ?? throw new ArgumentNullException(
+                nameof(configurement.LongProvider)
+            );
+            _nameProvider = configurement.NameProvider ?? throw new ArgumentNullException(
+                nameof(configurement.NameProvider)
+            );
+            _dateTimeProvider = configurement.DateTimeProvider ?? throw new ArgumentNullException(
+                nameof(configurement.DateTimeProvider)
+            );
+            _emailProvider = configurement.MailProvider ?? throw new ArgumentNullException(
+                nameof(configurement.MailProvider)
+            );
+            _securityNumberProvider = configurement.SecurityNumberProvider ?? throw new ArgumentNullException(
+                nameof(configurement.SecurityNumberProvider)
+            );
+            _elementProvider = configurement.ListElementPicker ?? throw new ArgumentNullException(
+                nameof(configurement.ListElementPicker)
+            );
+            _boolProvider = configurement.BoolProvider ?? throw new ArgumentNullException(
+                nameof(configurement.BoolProvider)
+            );
+            _phoneNumberProvider = configurement.PhoneNumberProvider ?? throw new ArgumentNullException(
+                nameof(configurement.PhoneNumberProvider)
+            );
+            _userNameProvider = configurement.UserNameProvider ?? throw new ArgumentNullException(
+                nameof(configurement.UserNameProvider)
+            );
+            _argumentProvider = configurement.ArgumentProvider ?? throw new ArgumentNullException(
+                nameof(configurement.ArgumentProvider)
+            );
+            _guidProvider = configurement.GuidProvider ?? throw new ArgumentNullException(
+                nameof(configurement.GuidProvider)
+            );
+            _timeSpanProvider = configurement.TimeSpanProvider ?? throw new ArgumentNullException(
+                nameof(configurement.TimeSpanProvider)
+            );
+            _decimalProvider = configurement.DecimalProvider ?? throw new ArgumentNullException(
+                nameof(configurement.DecimalProvider)
+            );
+            _dateTimeOffsetProvider = configurement.DateTimeOffSetProvider ?? throw new ArgumentNullException(
+                nameof(configurement.DateTimeOffSetProvider)
+            );
+            _floatProvider = configurement.FloatProvider ?? throw new ArgumentNullException(
+                nameof(configurement.FloatProvider)
+            );
         }
 
         /// <inheritdoc />
@@ -313,6 +332,25 @@ namespace Sharpy.Builder
         public DateTimeOffset DateTimeOffset(DateTimeOffset min, DateTimeOffset max)
         {
             return _dateTimeOffsetProvider.DateTimeOffset(min, max);
+        }
+
+
+        /// <inheritdoc />
+        public float Float(float min, float max)
+        {
+            return _floatProvider.Float(min, max);
+        }
+
+        /// <inheritdoc />
+        public float Float(float max)
+        {
+            return _floatProvider.Float(max);
+        }
+
+        /// <inheritdoc />
+        public float Float()
+        {
+            return _floatProvider.Float();
         }
     }
 }
