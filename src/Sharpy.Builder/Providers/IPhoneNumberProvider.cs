@@ -1,4 +1,4 @@
-namespace Sharpy.Builder.IProviders
+namespace Sharpy.Builder.Providers
 {
     /// <summary>
     ///  Methods providing <see cref="string" /> representing a phone number.

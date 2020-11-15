@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sharpy.Builder.IProviders
+namespace Sharpy.Builder.Providers
 {
     /// <summary>
     ///  Methods to provide System.DateTime.

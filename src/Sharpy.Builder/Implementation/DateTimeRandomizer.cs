@@ -1,6 +1,6 @@
 ﻿using System;
 using Sharpy.Builder.Implementation.ExtensionMethods;
-using Sharpy.Builder.IProviders;
+using Sharpy.Builder.Providers;
 using static System.DateTime;
 
 namespace Sharpy.Builder.Implementation

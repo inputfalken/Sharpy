@@ -1,4 +1,4 @@
-namespace Sharpy.Builder.IProviders
+namespace Sharpy.Builder.Providers
 {
     /// <summary>
     ///  Methods providing System.Int32.

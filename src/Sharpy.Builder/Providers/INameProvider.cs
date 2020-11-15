@@ -1,6 +1,6 @@
 using Sharpy.Builder.Enums;
 
-namespace Sharpy.Builder.IProviders
+namespace Sharpy.Builder.Providers
 {
     /// <summary>
     ///  Methods providing System.String representing names.

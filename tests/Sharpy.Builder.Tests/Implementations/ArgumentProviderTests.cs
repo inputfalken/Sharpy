@@ -2,13 +2,14 @@ using System;
 using System.Linq;
 using NUnit.Framework;
 using Sharpy.Builder.Implementation;
+using Sharpy.Builder.Providers;
 
 namespace Sharpy.Builder.Tests.Implementations
 {
     [TestFixture]
     public class ArgumentProviderTests
     {
-        private readonly IProviders.IArgumentProvider _argumentProvider = new ArgumentRandomizer(new Random());
+        private readonly IArgumentProvider _argumentProvider = new ArgumentRandomizer(new Random());
         private const int Iterations = 1000;
         [Test]
         public void Two_Arguments()

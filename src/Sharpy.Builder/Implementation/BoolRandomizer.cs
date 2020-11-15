@@ -1,6 +1,6 @@
 ﻿using System;
 using Sharpy.Builder.Implementation.ExtensionMethods;
-using Sharpy.Builder.IProviders;
+using Sharpy.Builder.Providers;
 
 namespace Sharpy.Builder.Implementation {
     /// <summary>

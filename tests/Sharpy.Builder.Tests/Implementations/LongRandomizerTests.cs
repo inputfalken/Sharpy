@@ -2,7 +2,7 @@
 using System.Linq;
 using NUnit.Framework;
 using Sharpy.Builder.Implementation;
-using Sharpy.Builder.IProviders;
+using Sharpy.Builder.Providers;
 
 namespace Sharpy.Builder.Tests.Implementations {
     [TestFixture]

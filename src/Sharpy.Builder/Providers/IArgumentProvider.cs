@@ -1,4 +1,4 @@
-namespace Sharpy.Builder.IProviders
+namespace Sharpy.Builder.Providers
 {
     /// <summary>
     ///     Provides an element from the arguments.

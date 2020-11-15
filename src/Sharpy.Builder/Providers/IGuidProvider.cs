@@ -1,6 +1,6 @@
 using System;
 
-namespace Sharpy.Builder.IProviders
+namespace Sharpy.Builder.Providers
 {
     /// <summary>
     ///  Methods providing System.Guid and formatted System.String.

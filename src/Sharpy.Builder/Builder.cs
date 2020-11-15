@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Sharpy.Builder.Enums;
-using Sharpy.Builder.IProviders;
+using Sharpy.Builder.Providers;
 
 namespace Sharpy.Builder
 {

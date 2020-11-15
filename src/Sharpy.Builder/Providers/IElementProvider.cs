@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Sharpy.Builder.IProviders
+namespace Sharpy.Builder.Providers
 {
     /// <summary>
     ///     Provides elements from System.Collections.Generic.IReadonlyList&lt;out T&gt;

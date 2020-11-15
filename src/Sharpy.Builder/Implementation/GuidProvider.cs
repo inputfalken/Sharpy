@@ -1,5 +1,5 @@
 using System;
-using Sharpy.Builder.IProviders;
+using Sharpy.Builder.Providers;
 
 namespace Sharpy.Builder.Implementation
 {

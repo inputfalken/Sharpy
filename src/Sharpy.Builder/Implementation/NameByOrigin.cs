@@ -4,7 +4,7 @@ using System.Linq;
 using Sharpy.Builder.Enums;
 using Sharpy.Builder.Implementation.DataObjects;
 using Sharpy.Builder.Implementation.ExtensionMethods;
-using Sharpy.Builder.IProviders;
+using Sharpy.Builder.Providers;
 
 namespace Sharpy.Builder.Implementation {
     /// <summary>
