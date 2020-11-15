@@ -24,8 +24,8 @@ namespace Sharpy.Builder.Tests.Implementations
 
             ints.AssertNotAllValuesAreTheSame();
             Assert.True(
-                ints.All(x => x > 0 && x < int.MaxValue),
-                "ints.All(x => x > 0 && x < int.MaxValue)"
+                ints.All(x => x >= 0 && x < int.MaxValue),
+                "ints.All(x => x >= 0 && x < int.MaxValue)"
             );
         }
 
@@ -41,7 +41,7 @@ namespace Sharpy.Builder.Tests.Implementations
             ints.AssertNotAllValuesAreTheSame();
             Assert.True(
                 ints.All(x => x >= 0 && x < max),
-                "ints.All(x => x > 0 && x < max)"
+                "ints.All(x => x >= 0 && x < max)"
             );
         }
 
