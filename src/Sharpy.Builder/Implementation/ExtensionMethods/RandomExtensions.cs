@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace Sharpy.Builder.Implementation.ExtensionMethods
 {
@@ -199,8 +200,10 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
                 throw new ArgumentNullException(nameof(random));
 
 
-            return span[random.Next(span.Length)];
+            var spanElement = span[random.Next(span.Length)];
+            return spanElement;
         }
+
 
         public static T SpanElement<T>(this Random random, Span<T> span)
         {
@@ -586,6 +589,52 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         public static DateTimeOffset DateTimeOffset(this Random random, DateTimeOffset min, DateTimeOffset max)
         {
             return DateTime(random, min.DateTime, max.DateTime);
+        }
+
+        private static readonly Lazy<char[]> Chars;
+
+        static RandomExtensions()
+        {
+            Chars = new Lazy<char[]>(() =>
+                {
+                    const int length = char.MaxValue + 1;
+                    var chars = new char[length];
+                    for (var i = 0; i < length; i++) chars[i] = (char) i;
+
+                    return chars;
+                }, LazyThreadSafetyMode.None
+            );
+        }
+
+        /// <summary>
+        ///   Randomizes a System.Char within <paramref name="min"/> and <paramref name="max"/>.
+        /// </summary>
+        /// <param name="random">
+        ///   The System.Random to randomize with.
+        /// </param>
+        /// <param name="min">
+        ///   The minimum inclusive value.
+        /// </param>
+        /// <param name="max">
+        ///   The maximum inclusive value.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///   When <paramref name="random"/> is null.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///   When <paramref name="min"/> is greater than <paramref name="max"/>.
+        /// </exception>
+        /// <returns>
+        ///   A randomized System.Char within <paramref name="min"/> and <paramref name="max"/>.
+        /// </returns>
+        public static char Char(this Random random, char min, char max)
+        {
+            return random switch
+            {
+                null => throw new ArgumentNullException(nameof(random)),
+                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max."),
+                _ => SpanElement(random, new ReadOnlySpan<char>(Chars.Value, min, max - min + 1))
+            };
         }
     }
 }

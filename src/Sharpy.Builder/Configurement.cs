@@ -2,7 +2,8 @@
 using Sharpy.Builder.Implementation;
 using Sharpy.Builder.Providers;
 
-namespace Sharpy.Builder {
+namespace Sharpy.Builder
+{
     /// <summary>
     ///     <para>
     ///         Pass an instance of this class to a <see cref="Builder" /> constructor if you want to change the default
@@ -10,8 +11,8 @@ namespace Sharpy.Builder {
     ///         <see cref="Builder" />.
     ///     </para>
     /// </summary>
-    public class Configurement {
-
+    public class Configurement
+    {
         /// <summary>
         ///     <para>
         ///         Creates a <see cref="Configurement" /> with default implementations.
@@ -21,7 +22,8 @@ namespace Sharpy.Builder {
         ///     </para>
         /// </summary>
         /// <param name="random"></param>
-        public Configurement(Random random) {
+        public Configurement(Random random)
+        {
             Random = random;
             LongProvider = new LongRandomizer(Random);
             IntegerProvider = new IntegerRandomizer(Random);
@@ -43,6 +45,7 @@ namespace Sharpy.Builder {
             DecimalProvider = new DecimalRandomizer(Random);
             DateTimeOffSetProvider = new DateTimeOffsetRandomizer(Random);
             FloatProvider = new FloatRandomizer(Random);
+            CharProvider = new CharRandomizer(Random);
         }
 
         /// <summary>
@@ -54,14 +57,18 @@ namespace Sharpy.Builder {
         ///     </para>
         /// </summary>
         /// <param name="seed"></param>
-        public Configurement(int seed) : this(new Random(seed)) { }
+        public Configurement(int seed) : this(new Random(seed))
+        {
+        }
 
         /// <summary>
         ///     <para>
         ///         Creates a <see cref="Configurement" /> with default implementations.
         ///     </para>
         /// </summary>
-        public Configurement() : this(new Random()) { }
+        public Configurement() : this(new Random())
+        {
+        }
 
         /// <summary>
         ///     <para>
@@ -189,7 +196,7 @@ namespace Sharpy.Builder {
         ///     </para>
         /// </summary>
         public Random Random { get; }
-        
+
         /// <summary>
         ///     <para>
         ///         Gets and sets the implementation for <see cref="IGuidProvider" />.
@@ -209,7 +216,7 @@ namespace Sharpy.Builder {
         ///     </para>
         /// </summary>
         public ITimeSpanProvider TimeSpanProvider { get; set; }
-        
+
         /// <summary>
         ///     <para>
         ///         Gets and sets the implementation for <see cref="IDecimalProvider" />.
@@ -239,5 +246,15 @@ namespace Sharpy.Builder {
         ///     </para>
         /// </summary>
         public IFloatProvider FloatProvider { get; set; }
+
+        /// <summary>
+        ///     <para>
+        ///         Gets and sets the implementation for <see cref="ICharProvider" />.
+        ///     </para>
+        ///     <para>
+        ///         By default it is <see cref="Sharpy.Builder.Implementation.CharRandomizer" />.
+        ///     </para>
+        /// </summary>
+        public ICharProvider CharProvider { get; set; }
     }
 }

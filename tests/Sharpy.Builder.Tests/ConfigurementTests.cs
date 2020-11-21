@@ -33,10 +33,14 @@ namespace Sharpy.Builder.Tests
         [Test]
         public void Null_DateTimeOffsetProvider_Throws() =>
             Assert.Throws<ArgumentNullException>(() => new Builder(new Configurement {DateTimeOffSetProvider = null}));
+
         [Test]
-        
         public void Null_FloatProvider_Throws() =>
             Assert.Throws<ArgumentNullException>(() => new Builder(new Configurement {FloatProvider = null}));
+
+        [Test]
+        public void Null_CharProvider_Throws() =>
+            Assert.Throws<ArgumentNullException>(() => new Builder(new Configurement {CharProvider = null}));
 
         [Test]
         public void Null_DateTimeProvider_Throws() =>
@@ -52,7 +56,8 @@ namespace Sharpy.Builder.Tests
 
         [Test]
         public void Null_ListElementPicker_Throws() =>
-            Assert.Throws<ArgumentNullException>(() => new Builder(new Configurement {ListCollectionElementPicker = null}));
+            Assert.Throws<ArgumentNullException>(() =>
+                new Builder(new Configurement {ListCollectionElementPicker = null}));
 
         [Test]
         public void Null_LongProvider_Throws() =>
