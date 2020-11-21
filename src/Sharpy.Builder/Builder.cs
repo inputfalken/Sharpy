@@ -10,10 +10,25 @@ namespace Sharpy.Builder
     ///         Contains various methods for providing data.
     ///     </para>
     /// </summary>
-    public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, ICollectionElementProvider,
-        IBoolProvider, IDateTimeProvider, IEmailProvider, ISecurityNumberProvider,
-        IPhoneNumberProvider, IUserNameProvider, IArgumentProvider, IGuidProvider, ITimeSpanProvider, IDecimalProvider
-        , IDateTimeOffsetProvider, IFloatProvider, ICharProvider
+    public class Builder :
+        IDoubleProvider,
+        IIntegerProvider,
+        ILongProvider,
+        INameProvider,
+        ICollectionElementProvider,
+        IBoolProvider,
+        IDateTimeProvider,
+        IEmailProvider,
+        ISecurityNumberProvider,
+        IPhoneNumberProvider,
+        IUserNameProvider,
+        IArgumentProvider,
+        IGuidProvider,
+        ITimeSpanProvider,
+        IDecimalProvider,
+        IDateTimeOffsetProvider,
+        IFloatProvider,
+        ICharProvider
     {
         private readonly IArgumentProvider _argumentProvider;
         private readonly IBoolProvider _boolProvider;
