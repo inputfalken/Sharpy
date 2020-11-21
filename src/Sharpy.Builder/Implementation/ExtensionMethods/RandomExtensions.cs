@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Sharpy.Builder.Implementation.ExtensionMethods
 {
@@ -184,6 +185,36 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
                 {list: {Count: 1} x} => x[0],
                 _ => list[random.Next(list.Count)]
             };
+        }
+
+        public static T SpanElement<T>(this Random random, ReadOnlySpan<T> span)
+        {
+            if (span.Length == 0)
+                throw new ArgumentException("Span can not be empty.", nameof(span));
+
+            if (span.Length == 1)
+                return span[0];
+
+            if (random == null)
+                throw new ArgumentNullException(nameof(random));
+
+
+            return span[random.Next(span.Length)];
+        }
+
+        public static T SpanElement<T>(this Random random, Span<T> span)
+        {
+            if (span.Length == 0)
+                throw new ArgumentException("Span can not be empty.", nameof(span));
+
+            if (span.Length == 1)
+                return span[0];
+
+            if (random == null)
+                throw new ArgumentNullException(nameof(random));
+
+
+            return span[random.Next(span.Length)];
         }
 
         /// <summary>

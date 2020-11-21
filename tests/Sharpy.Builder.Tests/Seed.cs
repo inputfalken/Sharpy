@@ -47,8 +47,8 @@ namespace Sharpy.Builder.Tests {
             var g1 = new Builder();
             Thread.Sleep(SleepDuration);
             var g2 = new Builder();
-            var expected = Enumerable.Range(0, Count).Select(i => g1.Element(list));
-            var result = Enumerable.Range(0, Count).Select(i => g2.Element(list));
+            var expected = Enumerable.Range(0, Count).Select(i => g1.FromList(list));
+            var result = Enumerable.Range(0, Count).Select(i => g2.FromList(list));
             Assert.AreNotEqual(expected, result);
         }
 
@@ -242,8 +242,8 @@ namespace Sharpy.Builder.Tests {
             var g1 = new Builder();
             Thread.Sleep(SleepDuration);
             var g2 = new Builder();
-            var expected = Enumerable.Range(0, Count).Select(i => g1.Element(list));
-            var result = Enumerable.Range(0, Count).Select(i => g2.Element(list));
+            var expected = Enumerable.Range(0, Count).Select(i => g1.FromList(list));
+            var result = Enumerable.Range(0, Count).Select(i => g2.FromList(list));
             Assert.AreNotEqual(expected, result);
         }
 
@@ -301,8 +301,8 @@ namespace Sharpy.Builder.Tests {
             var g1 = new Builder(TestSeed);
             Thread.Sleep(SleepDuration);
             var g2 = new Builder(TestSeed);
-            var expected = Enumerable.Range(0, Count).Select(i => g1.Element(list));
-            var result = Enumerable.Range(0, Count).Select(i => g2.Element(list));
+            var expected = Enumerable.Range(0, Count).Select(i => g1.FromList(list));
+            var result = Enumerable.Range(0, Count).Select(i => g2.FromList(list));
             Assert.AreEqual(expected, result);
         }
 

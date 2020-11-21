@@ -167,9 +167,21 @@ namespace Sharpy.Builder
         }
 
         /// <inheritdoc />
-        public T Element<T>(IReadOnlyList<T> list)
+        public T FromList<T>(IReadOnlyList<T> list)
         {
-            return _elementProvider.Element(list);
+            return _collectionElementProvider.FromList(list);
+        }
+
+        /// <inheritdoc />
+        public T FromSpan<T>(ReadOnlySpan<T> span)
+        {
+            return _collectionElementProvider.FromSpan(span);
+        }
+
+        /// <inheritdoc />
+        public T FromSpan<T>(Span<T> span)
+        {
+            return _collectionElementProvider.FromSpan(span);
         }
 
         /// <inheritdoc />

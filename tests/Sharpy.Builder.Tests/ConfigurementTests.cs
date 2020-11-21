@@ -52,7 +52,7 @@ namespace Sharpy.Builder.Tests
 
         [Test]
         public void Null_ListElementPicker_Throws() =>
-            Assert.Throws<ArgumentNullException>(() => new Builder(new Configurement {ListElementPicker = null}));
+            Assert.Throws<ArgumentNullException>(() => new Builder(new Configurement {ListCollectionElementPicker = null}));
 
         [Test]
         public void Null_LongProvider_Throws() =>
