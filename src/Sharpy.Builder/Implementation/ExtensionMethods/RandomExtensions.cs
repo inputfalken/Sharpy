@@ -188,36 +188,69 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
             };
         }
 
+        /// <summary>
+        ///   Returns a random element from the System.ReadOnlySpan&lt;T&gt;.
+        /// </summary>
+        /// <param name="random">
+        ///   The System.Random to randomize with.
+        /// </param>
+        /// <param name="span">
+        ///   The span to randomize from.
+        /// </param>
+        /// <typeparam name="T">
+        ///   The type of the elements of <paramref name="span"/>.
+        /// </typeparam>
+        /// <exception cref="ArgumentNullException">
+        ///   When <paramref name="random"/> is null.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///   When <paramref name="span"/> is empty.
+        /// </exception>
+        /// <returns>
+        ///   A randomized <typeparamref name="T"/> from the <paramref name="span"/>.
+        /// </returns>
         public static T SpanElement<T>(this Random random, ReadOnlySpan<T> span)
         {
-            if (span.Length == 0)
-                throw new ArgumentException("Span can not be empty.", nameof(span));
-
-            if (span.Length == 1)
-                return span[0];
-
-            if (random == null)
-                throw new ArgumentNullException(nameof(random));
-
-
-            var spanElement = span[random.Next(span.Length)];
-            return spanElement;
+            return random switch
+            {
+                null => throw new ArgumentNullException(nameof(random)),
+                _ when span.Length == 0 => throw new ArgumentException("Span can not be empty.", nameof(span)),
+                _ when span.Length == 1 => span[0],
+                _ => span[random.Next(span.Length)]
+            };
         }
 
 
+        /// <summary>
+        ///   Returns a random element from the System.Span&lt;T&gt;.
+        /// </summary>
+        /// <param name="random">
+        ///   The System.Random to randomize with.
+        /// </param>
+        /// <param name="span">
+        ///   The span to randomize from.
+        /// </param>
+        /// <typeparam name="T">
+        ///   The type of the elements of <paramref name="span"/>.
+        /// </typeparam>
+        /// <exception cref="ArgumentNullException">
+        ///   When <paramref name="random"/> is null.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///   When <paramref name="span"/> is empty.
+        /// </exception>
+        /// <returns>
+        ///   A randomized <typeparamref name="T"/> from the <paramref name="span"/>.
+        /// </returns>
         public static T SpanElement<T>(this Random random, Span<T> span)
         {
-            if (span.Length == 0)
-                throw new ArgumentException("Span can not be empty.", nameof(span));
-
-            if (span.Length == 1)
-                return span[0];
-
-            if (random == null)
-                throw new ArgumentNullException(nameof(random));
-
-
-            return span[random.Next(span.Length)];
+            return random switch
+            {
+                null => throw new ArgumentNullException(nameof(random)),
+                _ when span.Length == 0 => throw new ArgumentException("Span can not be empty.", nameof(span)),
+                _ when span.Length == 1 => span[0],
+                _ => span[random.Next(span.Length)]
+            };
         }
 
         /// <summary>
