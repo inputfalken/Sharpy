@@ -10,16 +10,31 @@ namespace Sharpy.Builder
     ///         Contains various methods for providing data.
     ///     </para>
     /// </summary>
-    public class Builder : IDoubleProvider, IIntegerProvider, ILongProvider, INameProvider, IElementProvider,
-        IBoolProvider, IDateTimeProvider, IEmailProvider, ISecurityNumberProvider,
-        IPhoneNumberProvider, IUserNameProvider, IArgumentProvider, IGuidProvider, ITimeSpanProvider, IDecimalProvider
-        , IDateTimeOffsetProvider, IFloatProvider
+    public class Builder :
+        IDoubleProvider,
+        IIntegerProvider,
+        ILongProvider,
+        INameProvider,
+        ICollectionElementProvider,
+        IBoolProvider,
+        IDateTimeProvider,
+        IEmailProvider,
+        ISecurityNumberProvider,
+        IPhoneNumberProvider,
+        IUserNameProvider,
+        IArgumentProvider,
+        IGuidProvider,
+        ITimeSpanProvider,
+        IDecimalProvider,
+        IDateTimeOffsetProvider,
+        IFloatProvider,
+        ICharProvider
     {
         private readonly IArgumentProvider _argumentProvider;
         private readonly IBoolProvider _boolProvider;
         private readonly IDateTimeProvider _dateTimeProvider;
         private readonly IDoubleProvider _doubleProvider;
-        private readonly IElementProvider _elementProvider;
+        private readonly ICollectionElementProvider _collectionElementProvider;
         private readonly IEmailProvider _emailProvider;
         private readonly IIntegerProvider _integerProvider;
         private readonly ILongProvider _longProvider;
@@ -32,6 +47,7 @@ namespace Sharpy.Builder
         private readonly IDecimalProvider _decimalProvider;
         private readonly IDateTimeOffsetProvider _dateTimeOffsetProvider;
         private readonly IFloatProvider _floatProvider;
+        private readonly ICharProvider _charProvider;
 
         /// <summary>
         ///     <para>
@@ -64,8 +80,8 @@ namespace Sharpy.Builder
             _securityNumberProvider = configurement.SecurityNumberProvider ?? throw new ArgumentNullException(
                 nameof(configurement.SecurityNumberProvider)
             );
-            _elementProvider = configurement.ListElementPicker ?? throw new ArgumentNullException(
-                nameof(configurement.ListElementPicker)
+            _collectionElementProvider = configurement.ListCollectionElementPicker ?? throw new ArgumentNullException(
+                nameof(configurement.ListCollectionElementPicker)
             );
             _boolProvider = configurement.BoolProvider ?? throw new ArgumentNullException(
                 nameof(configurement.BoolProvider)
@@ -93,6 +109,9 @@ namespace Sharpy.Builder
             );
             _floatProvider = configurement.FloatProvider ?? throw new ArgumentNullException(
                 nameof(configurement.FloatProvider)
+            );
+            _charProvider = configurement.CharProvider ?? throw new ArgumentNullException(
+                nameof(configurement.CharProvider)
             );
         }
 
@@ -167,9 +186,21 @@ namespace Sharpy.Builder
         }
 
         /// <inheritdoc />
-        public T Element<T>(IReadOnlyList<T> list)
+        public T FromList<T>(IReadOnlyList<T> list)
         {
-            return _elementProvider.Element(list);
+            return _collectionElementProvider.FromList(list);
+        }
+
+        /// <inheritdoc />
+        public T FromSpan<T>(ReadOnlySpan<T> span)
+        {
+            return _collectionElementProvider.FromSpan(span);
+        }
+
+        /// <inheritdoc />
+        public T FromSpan<T>(Span<T> span)
+        {
+            return _collectionElementProvider.FromSpan(span);
         }
 
         /// <inheritdoc />
@@ -351,6 +382,24 @@ namespace Sharpy.Builder
         public float Float()
         {
             return _floatProvider.Float();
+        }
+
+        /// <inheritdoc />
+        public char Char()
+        {
+            return _charProvider.Char();
+        }
+
+        /// <inheritdoc />
+        public char Char(char max)
+        {
+            return _charProvider.Char(max);
+        }
+
+        /// <inheritdoc />
+        public char Char(char min, char max)
+        {
+            return _charProvider.Char(min, max);
         }
     }
 }

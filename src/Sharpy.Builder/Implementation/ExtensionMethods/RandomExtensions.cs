@@ -93,8 +93,7 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
                 _ when min == max => min,
                 _ => (float) (random.NextDouble() * (max - min) + min) switch
                 {
-                    {} x when x == max => x - 000_001f,
-                    {} x when x < 0 => Math.Abs(x),
+                    {} x when x == max => min,
                     {} x => x
                 }
             };
@@ -183,6 +182,71 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
                 {list: {Count: 0}} => throw new ArgumentException("List can not be empty.", nameof(list)),
                 {list: {Count: 1} x} => x[0],
                 _ => list[random.Next(list.Count)]
+            };
+        }
+
+        /// <summary>
+        ///   Returns a random element from the System.ReadOnlySpan&lt;T&gt;.
+        /// </summary>
+        /// <param name="random">
+        ///   The System.Random to randomize with.
+        /// </param>
+        /// <param name="span">
+        ///   The span to randomize from.
+        /// </param>
+        /// <typeparam name="T">
+        ///   The type of the elements of <paramref name="span"/>.
+        /// </typeparam>
+        /// <exception cref="ArgumentNullException">
+        ///   When <paramref name="random"/> is null.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///   When <paramref name="span"/> is empty.
+        /// </exception>
+        /// <returns>
+        ///   A randomized <typeparamref name="T"/> from the <paramref name="span"/>.
+        /// </returns>
+        public static T SpanElement<T>(this Random random, ReadOnlySpan<T> span)
+        {
+            return random switch
+            {
+                null => throw new ArgumentNullException(nameof(random)),
+                _ when span.Length == 0 => throw new ArgumentException("Span can not be empty.", nameof(span)),
+                _ when span.Length == 1 => span[0],
+                _ => span[random.Next(span.Length)]
+            };
+        }
+
+
+        /// <summary>
+        ///   Returns a random element from the System.Span&lt;T&gt;.
+        /// </summary>
+        /// <param name="random">
+        ///   The System.Random to randomize with.
+        /// </param>
+        /// <param name="span">
+        ///   The span to randomize from.
+        /// </param>
+        /// <typeparam name="T">
+        ///   The type of the elements of <paramref name="span"/>.
+        /// </typeparam>
+        /// <exception cref="ArgumentNullException">
+        ///   When <paramref name="random"/> is null.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///   When <paramref name="span"/> is empty.
+        /// </exception>
+        /// <returns>
+        ///   A randomized <typeparamref name="T"/> from the <paramref name="span"/>.
+        /// </returns>
+        public static T SpanElement<T>(this Random random, Span<T> span)
+        {
+            return random switch
+            {
+                null => throw new ArgumentNullException(nameof(random)),
+                _ when span.Length == 0 => throw new ArgumentException("Span can not be empty.", nameof(span)),
+                _ when span.Length == 1 => span[0],
+                _ => span[random.Next(span.Length)]
             };
         }
 
@@ -555,6 +619,37 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         public static DateTimeOffset DateTimeOffset(this Random random, DateTimeOffset min, DateTimeOffset max)
         {
             return DateTime(random, min.DateTime, max.DateTime);
+        }
+
+        /// <summary>
+        ///   Randomizes a System.Char within <paramref name="min"/> and <paramref name="max"/>.
+        /// </summary>
+        /// <param name="random">
+        ///   The System.Random to randomize with.
+        /// </param>
+        /// <param name="min">
+        ///   The minimum inclusive value.
+        /// </param>
+        /// <param name="max">
+        ///   The maximum inclusive value.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///   When <paramref name="random"/> is null.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///   When <paramref name="min"/> is greater than <paramref name="max"/>.
+        /// </exception>
+        /// <returns>
+        ///   A randomized System.Char within <paramref name="min"/> and <paramref name="max"/>.
+        /// </returns>
+        public static char Char(this Random random, char min, char max)
+        {
+            return random switch
+            {
+                null => throw new ArgumentNullException(nameof(random)),
+                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max."),
+                _ => (char) random.Next(min, max + 1)
+            };
         }
     }
 }
