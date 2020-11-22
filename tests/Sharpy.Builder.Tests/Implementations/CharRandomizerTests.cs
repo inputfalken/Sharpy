@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
 using Sharpy.Builder.Implementation;
 using Sharpy.Builder.Providers;
 
@@ -62,6 +63,85 @@ namespace Sharpy.Builder.Tests.Implementations
             );
         }
 
+        [Test]
+        public void All_Chars_Are_Distributed_0_To_9()
+        {
+            const char min = '0';
+            const char max = '9';
+            var chars = new char[Amount];
+            for (var i = 0; i < Amount; i++)
+                chars[i] = CharProvider.Char(min, max);
+
+            var digits = new[]
+            {
+                '0',
+                '1',
+                '2',
+                '3',
+                '4',
+                '5',
+                '6',
+                '7',
+                '8',
+                '9'
+            };
+
+            Assert.True(digits
+                    .SelectMany(x => chars)
+                    .GroupBy(x => x)
+                    .Count() == digits.Length,
+                "digits.SelectMany(x => chars).GroupBy(x => x).Count() == digits.Length"
+            );
+        }
+
+        [Test]
+        public void All_Chars_Are_Distributed_A_To_Z()
+        {
+            const char min = 'a';
+            const char max = 'z';
+            var chars = new char[Amount];
+            for (var i = 0; i < Amount; i++)
+                chars[i] = CharProvider.Char(min, max);
+
+            var alphabet = new[]
+            {
+                'a',
+                'b',
+                'c',
+                'd',
+                'e',
+                'f',
+                'g',
+                'h',
+                'i',
+                'j',
+                'k',
+                'l',
+                'm',
+                'n',
+                'o',
+                'p',
+                'q',
+                'r',
+                's',
+                't',
+                'u',
+                'v',
+                'w',
+                'x',
+                'y',
+                'z'
+            };
+
+            Assert.True(
+                alphabet
+                    .SelectMany(x => chars)
+                    .GroupBy(x => x)
+                    .Count() == alphabet.Length,
+                "Alphabet.SelectMany(x => chars).GroupBy(x => x).Count() == Alphabet.Length"
+            );
+        }
+
         [Test, Repeat(Repeats)]
         public void Inclusive_Min_Arg()
         {
@@ -82,7 +162,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var chars = new char[Amount];
 
-            const char max = char.MaxValue ;
+            const char max = char.MaxValue;
             const char min = max;
             for (var i = 0; i < Amount; i++)
                 chars[i] = CharProvider.Char(min, max);
@@ -93,6 +173,7 @@ namespace Sharpy.Builder.Tests.Implementations
                 "chars.All(x => x == min)"
             );
         }
+
         [Test]
         public void Min_Equal_To_Max_Does_Not_Throw()
         {

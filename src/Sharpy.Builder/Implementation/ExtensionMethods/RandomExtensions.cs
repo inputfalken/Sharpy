@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 
 namespace Sharpy.Builder.Implementation.ExtensionMethods
 {
@@ -624,21 +622,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
             return DateTime(random, min.DateTime, max.DateTime);
         }
 
-        private static readonly Lazy<char[]> Chars;
-
-        static RandomExtensions()
-        {
-            Chars = new Lazy<char[]>(() =>
-                {
-                    const int length = char.MaxValue + 1;
-                    var chars = new char[length];
-                    for (var i = 0; i < length; i++) chars[i] = (char) i;
-
-                    return chars;
-                }, LazyThreadSafetyMode.None
-            );
-        }
-
         /// <summary>
         ///   Randomizes a System.Char within <paramref name="min"/> and <paramref name="max"/>.
         /// </summary>
@@ -666,7 +649,7 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
             {
                 null => throw new ArgumentNullException(nameof(random)),
                 _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max."),
-                _ => SpanElement(random, new ReadOnlySpan<char>(Chars.Value, min, max - min + 1))
+                _ => (char) random.Next(min, max + 1)
             };
         }
     }
