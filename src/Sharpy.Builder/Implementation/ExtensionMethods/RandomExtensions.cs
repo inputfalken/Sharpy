@@ -93,8 +93,7 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
                 _ when min == max => min,
                 _ => (float) (random.NextDouble() * (max - min) + min) switch
                 {
-                    {} x when x == max => x - 000_001f,
-                    {} x when x < 0 => Math.Abs(x),
+                    {} x when x == max => min,
                     {} x => x
                 }
             };
