@@ -27,11 +27,5 @@ namespace Sharpy.Core.Tests.Implementations {
             Assert.IsTrue(invoked);
         }
 
-        [Test(
-            Description = "Verify that null argument to Lazy throw exceptions"
-        )]
-        public void With_Null_Arg_Throws() {
-            Assert.Throws<ArgumentNullException>(() => Generator.Lazy<string>(lazy: null));
-        }
     }
 }

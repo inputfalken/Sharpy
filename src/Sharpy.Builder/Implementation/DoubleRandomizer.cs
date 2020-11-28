@@ -12,13 +12,22 @@ namespace Sharpy.Builder.Implementation {
         /// <summary>
         ///     Creates a <see cref="DoubleRandomizer" />.
         /// </summary>
-        public DoubleRandomizer(Random random) => _random = random;
+        public DoubleRandomizer(Random random)
+        {
+            _random = random;
+        }
 
         /// <inheritdoc />
-        public double Double() => _random.NextDouble();
+        public double Double()
+        {
+            return _random.NextDouble();
+        }
 
         /// <inheritdoc />
-        public double Double(double max) => Double(0, max);
+        public double Double(double max)
+        {
+            return Double(0, max);
+        }
 
         /// <inheritdoc />
         public double Double(double min, double max)

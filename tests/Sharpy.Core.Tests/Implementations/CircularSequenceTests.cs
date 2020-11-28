@@ -89,11 +89,5 @@ namespace Sharpy.Core.Tests.Implementations {
             Assert.AreEqual(new[] {3, 2, 1}, generator.ToArray(3));
         }
 
-        [Test(
-            Description = "Verify that passing null when creating a circular sequence throws exception"
-        )]
-        public void Null_Enumerable() {
-            Assert.Throws<ArgumentNullException>(() => Generator.CircularSequence<string>(null));
-        }
     }
 }

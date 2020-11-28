@@ -15,7 +15,10 @@ namespace Sharpy.Builder.Implementation {
         public UniquePhoneNumberRandomizer(Random random) : base(random) { }
 
         /// <inheritdoc />
-        public string PhoneNumber() => PhoneNumber(8);
+        public string PhoneNumber()
+        {
+            return PhoneNumber(8);
+        }
 
         /// <summary>
         ///     <para>

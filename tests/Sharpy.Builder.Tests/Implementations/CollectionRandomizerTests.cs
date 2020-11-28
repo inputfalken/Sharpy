@@ -9,20 +9,22 @@ namespace Sharpy.Builder.Tests.Implementations
     [TestFixture]
     public class CollectionRandomizerTests
     {
-        private static readonly ICollectionElementProvider CollectionElementProvider = new CollectionRandomizer(new Random());
+        private static readonly ICollectionElementProvider CollectionElementProvider =
+            new CollectionRandomizer(new Random());
 
         [Test]
         public void Span()
         {
             var args = new Span<string>(new[] {"hello", "there", "foo"});
-            
+
             Assert.IsTrue(args.Contains(CollectionElementProvider.FromSpan(args)));
         }
+
         [Test]
         public void ReadOnlySpan()
         {
             var args = new ReadOnlySpan<string>(new[] {"hello", "there", "foo"});
-            
+
             Assert.IsTrue(args.Contains(CollectionElementProvider.FromSpan(args)));
         }
 
@@ -41,12 +43,6 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var args = new[] {"hello", "there", "foo"};
             Assert.IsTrue(args.Contains(CollectionElementProvider.FromList(args)));
-        }
-
-        [Test]
-        public void Null_List_Throws()
-        {
-            Assert.Throws<ArgumentNullException>(() => CollectionElementProvider.FromList<int>(null));
         }
 
         [Test]

@@ -21,7 +21,10 @@ namespace Sharpy.ReactiveBuilder {
         }
 
         /// <inheritdoc cref="IObservable{T}.Subscribe" />
-        public IDisposable Subscribe(IObserver<TBuilder> observer) => _observable.Subscribe(observer);
+        public IDisposable Subscribe(IObserver<TBuilder> observer)
+        {
+            return _observable.Subscribe(observer);
+        }
     }
 
     public static class ReactiveBuilder {
@@ -45,9 +48,11 @@ namespace Sharpy.ReactiveBuilder {
         /// </returns>
         public static IObservable<TResult> Observable<TBuilder, TResult>(this TBuilder builder,
             Func<TBuilder, TResult> selector)
-            where TBuilder : Builder.Builder =>
-            new ReactiveBuilder<TBuilder>(builder ?? throw new ArgumentNullException(nameof(builder)))
+            where TBuilder : Builder.Builder
+        {
+            return new ReactiveBuilder<TBuilder>(builder ?? throw new ArgumentNullException(nameof(builder)))
                 .Select(selector ?? throw new ArgumentNullException(nameof(selector)));
+        }
 
         /// <summary>
         ///     Creates an <see cref="IObservable{T}" /> from a <see cref="Builder" /> or one if its descenders.
@@ -70,8 +75,10 @@ namespace Sharpy.ReactiveBuilder {
         /// </returns>
         public static IObservable<TResult> Observable<TBuilder, TResult>(this TBuilder builder,
             Func<TBuilder, int, TResult> selector)
-            where TBuilder : Builder.Builder =>
-            new ReactiveBuilder<TBuilder>(builder ?? throw new ArgumentNullException(nameof(builder)))
+            where TBuilder : Builder.Builder
+        {
+            return new ReactiveBuilder<TBuilder>(builder ?? throw new ArgumentNullException(nameof(builder)))
                 .Select(selector ?? throw new ArgumentNullException(nameof(selector)));
+        }
     }
 }

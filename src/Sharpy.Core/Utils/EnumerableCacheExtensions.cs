@@ -9,11 +9,13 @@ using System.Collections.Generic;
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Sharpy.Core.Utils {
+namespace Sharpy.Core.Utils
+{
     /// <summary>
     ///     Extension methods for <see cref="IEnumerable{T}" /> types.
     /// </summary>
-    internal static class CachedEnumerable {
+    internal static class CachedEnumerable
+    {
         /// <summary>
         ///     Caches the results of enumerating over a given object so that subsequence enumerations
         ///     don't require interacting with the object a second time.
@@ -37,7 +39,8 @@ namespace Sharpy.Core.Utils {
         ///         to avoid double-caching.
         ///     </para>
         /// </remarks>
-        internal static IEnumerable<T> CacheGeneratedResults<T>(this IEnumerable<T> sequence) {
+        internal static IEnumerable<T> CacheGeneratedResults<T>(this IEnumerable<T> sequence)
+        {
             // Don't create a cache for types that don't need it.
             if (sequence is IList<T> ||
                 sequence is ICollection<T> ||
@@ -51,7 +54,8 @@ namespace Sharpy.Core.Utils {
         ///     from its <see cref="IEnumerable&lt;T&gt;.GetEnumerator" /> method.
         /// </summary>
         /// <typeparam name="T">The type of element in the sequence.</typeparam>
-        private class EnumerableCache<T> : IEnumerable<T> {
+        private class EnumerableCache<T> : IEnumerable<T>
+        {
             /// <summary>
             ///     The original generator method or other enumerable object whose contents should only be enumerated once.
             /// </summary>
@@ -69,20 +73,20 @@ namespace Sharpy.Core.Utils {
             /// <summary>
             ///     The results from enumeration of the live object that have been collected thus far.
             /// </summary>
-            private List<T> _cache;
+            private List<T>? _cache;
 
             /// <summary>
             ///     The enumerator we're using over the generator method's results.
             /// </summary>
-            private IEnumerator<T> _generatorEnumerator;
+            private IEnumerator<T>? _generatorEnumerator;
 
             /// <summary>
             ///     Initializes a new instance of the EnumerableCache class.
             /// </summary>
             /// <param name="generator">The generator.</param>
-            internal EnumerableCache(IEnumerable<T> generator) {
-                if (generator != null) _generator = generator;
-                else throw new ArgumentNullException(nameof(generator));
+            internal EnumerableCache(IEnumerable<T> generator)
+            {
+                _generator = generator;
             }
 
             #region IEnumerable<T> Members
@@ -93,7 +97,8 @@ namespace Sharpy.Core.Utils {
             /// <returns>
             ///     A <see cref="T:System.Collections.Generic.IEnumerator`1" /> that can be used to iterate through the collection.
             /// </returns>
-            public IEnumerator<T> GetEnumerator() {
+            public IEnumerator<T> GetEnumerator()
+            {
                 if (_generatorEnumerator != null) return new EnumeratorCache(this);
                 _cache = new List<T>();
                 _generatorEnumerator = _generator.GetEnumerator();
@@ -111,7 +116,10 @@ namespace Sharpy.Core.Utils {
             /// <returns>
             ///     An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
             /// </returns>
-            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return GetEnumerator();
+            }
 
             #endregion
 
@@ -119,7 +127,8 @@ namespace Sharpy.Core.Utils {
             ///     An enumerator that uses cached enumeration results whenever they are available,
             ///     and caches whatever results it has to pull from the original <see cref="IEnumerable&lt;T&gt;" /> object.
             /// </summary>
-            private sealed class EnumeratorCache : IEnumerator<T> {
+            private sealed class EnumeratorCache : IEnumerator<T>
+            {
                 /// <summary>
                 ///     The parent enumeration wrapper class that stores the cached results.
                 /// </summary>
@@ -134,9 +143,9 @@ namespace Sharpy.Core.Utils {
                 ///     Initializes a new instance of the <see cref="EnumerableCache&lt;T&gt;.EnumeratorCache" /> class.
                 /// </summary>
                 /// <param name="parent">The parent cached enumerable whose GetEnumerator method is calling this constructor.</param>
-                internal EnumeratorCache(EnumerableCache<T> parent) {
-                    if (parent != null) _parent = parent;
-                    else throw new ArgumentNullException(nameof(parent));
+                internal EnumeratorCache(EnumerableCache<T> parent)
+                {
+                    _parent = parent;
                 }
 
                 #region IEnumerator<T> Members
@@ -147,8 +156,12 @@ namespace Sharpy.Core.Utils {
                 /// <returns>
                 ///     The element in the collection at the current position of the enumerator.
                 /// </returns>
-                public T Current {
-                    get {
+                public T Current
+                {
+                    get
+                    {
+                        if (_parent._cache is null)
+                            throw new NullReferenceException(nameof(_parent._cache));
                         if (_cachePosition < 0 || _cachePosition >= _parent._cache.Count)
                             throw new InvalidOperationException();
 
@@ -166,7 +179,10 @@ namespace Sharpy.Core.Utils {
                 /// <returns>
                 ///     The element in the collection at the current position of the enumerator.
                 /// </returns>
-                object IEnumerator.Current => Current;
+                object? IEnumerator.Current
+                {
+                    get { return Current; }
+                }
 
                 #endregion
 
@@ -175,7 +191,8 @@ namespace Sharpy.Core.Utils {
                 /// <summary>
                 ///     Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
                 /// </summary>
-                public void Dispose() {
+                public void Dispose()
+                {
                     Dispose(true);
                     GC.SuppressFinalize(this);
                 }
@@ -189,7 +206,8 @@ namespace Sharpy.Core.Utils {
                 ///     <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only
                 ///     unmanaged resources.
                 /// </param>
-                private static void Dispose(bool disposing) {
+                private static void Dispose(bool disposing)
+                {
                     // Nothing to do here.
                 }
 
@@ -205,11 +223,17 @@ namespace Sharpy.Core.Utils {
                 /// <exception cref="T:System.InvalidOperationException">
                 ///     The collection was modified after the enumerator was created.
                 /// </exception>
-                public bool MoveNext() {
+                public bool MoveNext()
+                {
                     _cachePosition++;
+                    if (_parent._cache is null)
+                        throw new NullReferenceException(nameof(_parent._cache));
                     if (_cachePosition < _parent._cache.Count) return true;
-                    lock (_parent._generatorLock) {
+                    lock (_parent._generatorLock)
+                    {
                         if (_cachePosition < _parent._cache.Count) return true;
+                        if (_parent._generatorEnumerator is null)
+                            throw new NullReferenceException(nameof(_parent._cache));
                         if (_parent._generatorEnumerator.MoveNext())
                             _parent._cache.Add(_parent._generatorEnumerator.Current);
                         else return false;
@@ -224,7 +248,8 @@ namespace Sharpy.Core.Utils {
                 /// <exception cref="T:System.InvalidOperationException">
                 ///     The collection was modified after the enumerator was created.
                 /// </exception>
-                public void Reset() {
+                public void Reset()
+                {
                     _cachePosition = -1;
                 }
 

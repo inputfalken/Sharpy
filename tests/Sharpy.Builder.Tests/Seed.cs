@@ -13,8 +13,10 @@ namespace Sharpy.Builder.Tests {
     /// </summary>
     [TestFixture]
     public class Seed {
-        private static DateTime TrimMilliseconds(DateTime dt) =>
-            new DateTime(dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second, 0);
+        private static DateTime TrimMilliseconds(DateTime dt)
+        {
+            return new DateTime(dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second, 0);
+        }
 
         /// <summary>
         ///     <para>The seed given to all Provider instance created in the tests.</para>

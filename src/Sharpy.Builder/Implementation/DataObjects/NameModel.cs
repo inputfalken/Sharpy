@@ -12,17 +12,12 @@ namespace Sharpy.Builder.Implementation.DataObjects
         public NameType Type { get; set; }
 
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
 
         [JsonPropertyName("region")]
         public Origin Region { get; set; }
 
         [JsonPropertyName("country")]
         public Origin Country { get; set; }
-
-        /// <summary>
-        ///     Returns the name.
-        /// </summary>
-        public override string ToString() => Name;
     }
 }

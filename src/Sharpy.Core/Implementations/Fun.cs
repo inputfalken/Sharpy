@@ -30,6 +30,9 @@ namespace Sharpy.Core.Implementations {
         ///         Creates &lt;T&gt;
         ///     </para>
         /// </summary>
-        public T Generate() => _fn();
+        public T Generate()
+        {
+            return _fn();
+        }
     }
 }
