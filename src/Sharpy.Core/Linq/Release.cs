@@ -1,7 +1,9 @@
 using System;
 
-namespace Sharpy.Core.Linq {
-    public static partial class Extensions {
+namespace Sharpy.Core.Linq
+{
+    public static partial class Extensions
+    {
         /// <summary>
         ///     <para>
         ///         Releases the number given to <paramref name="amount" /> immediately from <see cref="IGenerator{T}" />.
@@ -33,14 +35,16 @@ namespace Sharpy.Core.Linq {
         ///         IGenerator&lt;int&gt; releasedGenerator = Generator.Incrementer(0).Release(20);
         ///     </code>
         /// </example>
-        public static IGenerator<TSource> Release<TSource>(this IGenerator<TSource> generator, int amount) {
+        public static IGenerator<TSource> Release<TSource>(this IGenerator<TSource> generator, int amount)
+        {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (amount == 0) return generator;
             if (amount < 0) throw new ArgumentException($"{nameof(amount)} can't be below ${amount}");
             return ReleaseIterator(generator, amount);
         }
 
-        private static IGenerator<T> ReleaseIterator<T>(IGenerator<T> generator, int count) {
+        private static IGenerator<T> ReleaseIterator<T>(IGenerator<T> generator, int count)
+        {
             for (var i = 0; i < count; i++) generator.Generate();
             return generator;
         }

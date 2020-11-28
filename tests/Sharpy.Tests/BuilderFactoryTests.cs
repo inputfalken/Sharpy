@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
-namespace Sharpy.Tests {
+namespace Sharpy.Tests
+{
     [TestFixture]
-    internal class BuilderFactoryTests {
+    internal class BuilderFactoryTests
+    {
         [Test]
         public void Enumerable_Is_Not_Null()
         {

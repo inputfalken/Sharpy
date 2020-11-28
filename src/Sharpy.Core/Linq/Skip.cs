@@ -1,7 +1,9 @@
 using System;
 
-namespace Sharpy.Core.Linq {
-    public static partial class Extensions {
+namespace Sharpy.Core.Linq
+{
+    public static partial class Extensions
+    {
         /// <summary>
         ///     <para>
         ///         Skips the number given to <paramref name="count" /> from <see cref="IGenerator{T}" />.
@@ -23,7 +25,8 @@ namespace Sharpy.Core.Linq {
         ///         This works the same way as <see cref="Release{TSource}" /> except that it's lazy evaluated.
         ///     </para>
         /// </remarks>
-        public static IGenerator<TSource> Skip<TSource>(this IGenerator<TSource> generator, int count) {
+        public static IGenerator<TSource> Skip<TSource>(this IGenerator<TSource> generator, int count)
+        {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (count < 0) throw new ArgumentException($"{nameof(count)} Cant be negative");
             if (count == 0) return generator;

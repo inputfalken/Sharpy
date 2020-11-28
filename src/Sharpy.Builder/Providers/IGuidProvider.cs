@@ -3,17 +3,17 @@ using System;
 namespace Sharpy.Builder.Providers
 {
     /// <summary>
-    ///  Methods providing System.Guid and formatted System.String.
+    ///     Methods providing System.Guid and formatted System.String.
     /// </summary>
     public interface IGuidProvider
     {
         /// <summary>
-        /// Provides a System.Guid.
+        ///     Provides a System.Guid.
         /// </summary>
         Guid Guid();
 
         /// <summary>
-        /// Provides a System.Guid in the in the format specified from <paramref name="format"/>. 
+        ///     Provides a System.Guid in the in the format specified from <paramref name="format" />.
         /// </summary>
         string Guid(GuidFormat format);
     }

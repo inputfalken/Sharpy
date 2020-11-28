@@ -1,7 +1,9 @@
 ﻿using System;
 
-namespace Sharpy.Core.Linq {
-    public static partial class Extensions {
+namespace Sharpy.Core.Linq
+{
+    public static partial class Extensions
+    {
         /// <summary>
         ///     <para>
         ///         Applies a specified function to the corresponding elements of two Generators, producing a Generator of the
@@ -38,7 +40,8 @@ namespace Sharpy.Core.Linq {
         /// </example>
         public static IGenerator<TResult> Zip<TSource, TSecond, TResult>(this IGenerator<TSource> first,
             IGenerator<TSecond> second,
-            Func<TSource, TSecond, TResult> resultSelector) {
+            Func<TSource, TSecond, TResult> resultSelector)
+        {
             if (first == null) throw new ArgumentNullException(nameof(first));
             if (second == null) throw new ArgumentNullException(nameof(second));
             if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));

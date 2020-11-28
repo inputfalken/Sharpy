@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using Sharpy.Builder.Implementation.ExtensionMethods;
 using Sharpy.Builder.Providers;
 
-namespace Sharpy.Builder.Implementation {
+namespace Sharpy.Builder.Implementation
+{
     /// <summary>
     ///     Randomizes strings representing user names from a <see cref="IReadOnlyList{T}" />.
     /// </summary>
-    public sealed class UserNameRandomizer : IUserNameProvider {
+    public sealed class UserNameRandomizer : IUserNameProvider
+    {
         private readonly Random _random;
 
         /// <summary>
         ///     Creates <see cref="UserNameRandomizer" />.
         /// </summary>
-        public UserNameRandomizer( Random random) {
+        public UserNameRandomizer(Random random)
+        {
             _random = random;
         }
 

@@ -2,17 +2,21 @@ using System;
 using Sharpy.Builder.Implementation.ExtensionMethods;
 using Sharpy.Builder.Providers;
 
-namespace Sharpy.Builder.Implementation {
+namespace Sharpy.Builder.Implementation
+{
     /// <summary>
     ///     Randomizes unique <see cref="string" /> representing phone numbers by <see cref="Random" />.
     /// </summary>
-    public sealed class UniquePhoneNumberRandomizer : UniqueRandomizer<int>, IPhoneNumberProvider {
+    public sealed class UniquePhoneNumberRandomizer : UniqueRandomizer<int>, IPhoneNumberProvider
+    {
         private (int, int) _numberByLengthState = (0, 0);
 
         /// <summary>
         ///     Creates a <see cref="UniquePhoneNumberRandomizer" />.
         /// </summary>
-        public UniquePhoneNumberRandomizer(Random random) : base(random) { }
+        public UniquePhoneNumberRandomizer(Random random) : base(random)
+        {
+        }
 
         /// <inheritdoc />
         public string PhoneNumber()
@@ -31,7 +35,8 @@ namespace Sharpy.Builder.Implementation {
         ///     A <see cref="string" /> with numbers with its length equal to the argument <paramref name="length" />.
         /// </returns>
         /// <exception cref="Exception">Reached maximum amount of combinations for the argument <paramref name="length" />.</exception>
-        public string PhoneNumber(int length) {
+        public string PhoneNumber(int length)
+        {
             //If _numberByLenghtState has changed
             if (_numberByLengthState.Item1 != length)
                 _numberByLengthState = (length, (int) Math.Pow(10, length) - 1);
@@ -45,21 +50,26 @@ namespace Sharpy.Builder.Implementation {
                 : number;
         }
 
-        private int RandomNumber(int min, int max, bool unique = false) {
+        private int RandomNumber(int min, int max, bool unique = false)
+        {
             var next = Random.Next(min, max);
             return unique ? CreateUniqueNumber(next, min, max) : next;
         }
 
-        private int CreateUniqueNumber(int number, int min, int max) {
+        private int CreateUniqueNumber(int number, int min, int max)
+        {
             var resets = 0;
             while (HashSet.Contains(number))
-                if (number < max) {
+                if (number < max)
+                {
                     number++;
                 }
-                else {
+                else
+                {
                     number = min;
                     if (resets++ == 2) return -1;
                 }
+
             HashSet.Add(number);
             return number;
         }

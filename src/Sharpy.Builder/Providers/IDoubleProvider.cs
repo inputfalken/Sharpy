@@ -1,17 +1,17 @@
 namespace Sharpy.Builder.Providers
 {
     /// <summary>
-    ///  Methods providing System.Double.
+    ///     Methods providing System.Double.
     /// </summary>
     public interface IDoubleProvider
     {
         /// <summary>
-        /// Provides a System.Double between 0 and 1.
+        ///     Provides a System.Double between 0 and 1.
         /// </summary>
         double Double();
 
         /// <summary>
-        /// Provides a System.Double between 0 and <paramref name="max"/>.
+        ///     Provides a System.Double between 0 and <paramref name="max" />.
         /// </summary>
         /// <param name="max">
         ///     The exclusive maximum bound.
@@ -19,7 +19,7 @@ namespace Sharpy.Builder.Providers
         double Double(double max);
 
         /// <summary>
-        /// Provides a System.Double between <paramref name="min"/> and <paramref name="max"/>.
+        ///     Provides a System.Double between <paramref name="min" /> and <paramref name="max" />.
         /// </summary>
         /// <param name="min">
         ///     The inclusive minimum bound.

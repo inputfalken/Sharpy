@@ -1,13 +1,15 @@
 ﻿using System;
 using Sharpy.Builder.Providers;
 
-namespace Sharpy.Builder.Implementation {
+namespace Sharpy.Builder.Implementation
+{
     /// <summary>
     ///     <para>
     ///         Randomizes <see cref="int" /> elements by using <see cref="Random" />.
     ///     </para>
     /// </summary>
-    public sealed class IntegerRandomizer : IIntegerProvider {
+    public sealed class IntegerRandomizer : IIntegerProvider
+    {
         private readonly Random _random;
 
         /// <summary>
@@ -25,7 +27,8 @@ namespace Sharpy.Builder.Implementation {
         }
 
         /// <inheritdoc />
-        public int Integer(int min, int max) {
+        public int Integer(int min, int max)
+        {
             if (max < min)
                 throw new ArgumentOutOfRangeException($"{nameof(max)} must be > {nameof(min)}");
             return _random.Next(min, max);

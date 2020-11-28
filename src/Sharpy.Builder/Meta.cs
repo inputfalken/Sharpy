@@ -16,10 +16,6 @@ namespace Sharpy.Builder
     {
         private const string DataFolder = "Sharpy.Builder.Data";
         private static readonly Lazy<Assembly> LazyAssembly = new Lazy<Assembly>(() => typeof(Builder).Assembly);
-        private static Assembly Assembly
-        {
-            get { return LazyAssembly.Value; }
-        }
 
         private static readonly Lazy<IReadOnlyList<NameModel>> LazyNames = new Lazy<IReadOnlyList<NameModel>>(() =>
         {
@@ -64,10 +60,8 @@ namespace Sharpy.Builder
             //TODO use source code generator to determine the capacity in the future.
             var list = new List<string>(90000);
             while (!reader.EndOfStream)
-            {
-                if (reader.ReadLine() is {} line) 
+                if (reader.ReadLine() is {} line)
                     list.Add(line);
-            }
 
             if (list.Count == 0)
                 throw new ArgumentException(exceptionMessage);
@@ -75,14 +69,10 @@ namespace Sharpy.Builder
             return list;
         });
 
-        internal static IReadOnlyList<NameModel> GetNames
-        {
-            get { return LazyNames.Value; }
-        }
+        private static Assembly Assembly => LazyAssembly.Value;
 
-        internal static IReadOnlyList<string> GetUserNames
-        {
-            get { return LazyUsernames.Value; }
-        }
+        internal static IReadOnlyList<NameModel> GetNames => LazyNames.Value;
+
+        internal static IReadOnlyList<string> GetUserNames => LazyUsernames.Value;
     }
 }

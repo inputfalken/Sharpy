@@ -4,20 +4,24 @@ using NUnit.Framework;
 using Sharpy.Builder.Enums;
 using Sharpy.Builder.Implementation;
 
-namespace Sharpy.Builder.Tests.Implementations {
+namespace Sharpy.Builder.Tests.Implementations
+{
     [TestFixture]
-    public class NameByOriginTests {
+    public class NameByOriginTests
+    {
         private const int Amount = 100;
 
         [Test]
-        public void All_Origins_Are_Supported() {
+        public void All_Origins_Are_Supported()
+        {
             var values = Enum.GetValues(typeof(Origin));
             foreach (var value in values)
                 Assert.DoesNotThrow(() => { new NameByOrigin((Origin) value).FirstName(); });
         }
 
         [Test]
-        public void Female_First_Name_Not_Null_Or_White_Space() {
+        public void Female_First_Name_Not_Null_Or_White_Space()
+        {
             var builder = new NameByOrigin();
             var names = Enumerable.Range(0, Amount).Select(i => builder.FirstName(Gender.Female)).ToList();
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
@@ -25,7 +29,8 @@ namespace Sharpy.Builder.Tests.Implementations {
         }
 
         [Test]
-        public void First_Name_Not_Null_Or_White_Space() {
+        public void First_Name_Not_Null_Or_White_Space()
+        {
             var builder = new NameByOrigin();
             var names = Enumerable.Range(0, Amount).Select(i => builder.FirstName()).ToList();
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
@@ -33,7 +38,8 @@ namespace Sharpy.Builder.Tests.Implementations {
         }
 
         [Test]
-        public void Last_Name_Not_Null_Or_White_Space() {
+        public void Last_Name_Not_Null_Or_White_Space()
+        {
             var builder = new NameByOrigin();
             var names = Enumerable.Range(0, Amount).Select(i => builder.LastName()).ToList();
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
@@ -41,7 +47,8 @@ namespace Sharpy.Builder.Tests.Implementations {
         }
 
         [Test]
-        public void Male_First_Name_Not_Null_Or_White_Space() {
+        public void Male_First_Name_Not_Null_Or_White_Space()
+        {
             var builder = new NameByOrigin();
             var names = Enumerable.Range(0, Amount).Select(i => builder.FirstName(Gender.Male)).ToList();
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
@@ -49,7 +56,8 @@ namespace Sharpy.Builder.Tests.Implementations {
         }
 
         [Test]
-        public void Origin_Restricted_Constructor_With_One_Country() {
+        public void Origin_Restricted_Constructor_With_One_Country()
+        {
             var builder = new NameByOrigin(Origin.Sweden);
             var names = Enumerable.Range(0, Amount).Select(i => builder.FirstName()).ToList();
             var allFinishNames = NameByOrigin.GetCollection(Origin.Finland);
@@ -59,9 +67,11 @@ namespace Sharpy.Builder.Tests.Implementations {
         }
 
         [Test]
-        public void Origin_Restricted_Constructor_With_One_Country_And_One_Region() {
+        public void Origin_Restricted_Constructor_With_One_Country_And_One_Region()
+        {
             var builder = new Builder(
-                new Configurement {
+                new Configurement
+                {
                     NameProvider = new NameByOrigin(Origin.Sweden, Origin.NorthAmerica)
                 }
             );
@@ -73,9 +83,11 @@ namespace Sharpy.Builder.Tests.Implementations {
         }
 
         [Test]
-        public void Origin_Restricted_Constructor_With_Two_Countries() {
+        public void Origin_Restricted_Constructor_With_Two_Countries()
+        {
             var builder = new Builder(
-                new Configurement {
+                new Configurement
+                {
                     NameProvider = new NameByOrigin(Origin.Sweden, Origin.Denmark)
                 }
             );
@@ -87,9 +99,11 @@ namespace Sharpy.Builder.Tests.Implementations {
         }
 
         [Test]
-        public void Origin_Restricted_Constructor_With_Two_Regions() {
+        public void Origin_Restricted_Constructor_With_Two_Regions()
+        {
             var builder = new Builder(
-                new Configurement {
+                new Configurement
+                {
                     NameProvider = new NameByOrigin(Origin.Europe, Origin.NorthAmerica)
                 }
             );

@@ -1,7 +1,9 @@
 ﻿using System;
 
-namespace Sharpy.Core.Linq {
-    public static partial class Extensions {
+namespace Sharpy.Core.Linq
+{
+    public static partial class Extensions
+    {
         /// <summary>
         ///     <para>
         ///         Projects each generation into a new form.
@@ -34,7 +36,8 @@ namespace Sharpy.Core.Linq {
         ///     </code>
         /// </example>
         public static IGenerator<TResult> Select<TSource, TResult>(this IGenerator<TSource> generator,
-            Func<TSource, TResult> selector) {
+            Func<TSource, TResult> selector)
+        {
             if (selector == null) throw new ArgumentNullException(nameof(selector));
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             return Generator.Function(() => selector(generator.Generate()));
@@ -75,7 +78,8 @@ namespace Sharpy.Core.Linq {
         ///     </code>
         /// </example>
         public static IGenerator<TResult> Select<TSource, TResult>(this IGenerator<TSource> generator,
-            Func<TSource, int, TResult> selector) {
+            Func<TSource, int, TResult> selector)
+        {
             var count = 0;
             return generator.Select(source => selector(source, count++));
         }

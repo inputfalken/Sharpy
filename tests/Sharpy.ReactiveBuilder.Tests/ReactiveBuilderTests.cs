@@ -4,9 +4,11 @@ using System.Linq;
 using System.Reactive.Linq;
 using NUnit.Framework;
 
-namespace Sharpy.ReactiveBuilder.Tests {
+namespace Sharpy.ReactiveBuilder.Tests
+{
     [TestFixture]
-    internal class ReactiveBuilderTests {
+    internal class ReactiveBuilderTests
+    {
         [Test]
         public void Not_Null()
         {
@@ -20,25 +22,29 @@ namespace Sharpy.ReactiveBuilder.Tests {
         }
 
         [Test]
-        public void Null_Builder_Throws() {
+        public void Null_Builder_Throws()
+        {
             Builder.Builder builder = null;
             Assert.Throws<ArgumentNullException>(() => builder.Observable(b => b.Integer()));
         }
 
         [Test]
-        public void Null_Selector_Throws() {
+        public void Null_Selector_Throws()
+        {
             Func<Builder.Builder, int> selector = null;
             Assert.Throws<ArgumentNullException>(() => new Builder.Builder().Observable(selector));
         }
 
         [Test]
-        public void Null_Selector_With_Counter_Throws() {
+        public void Null_Selector_With_Counter_Throws()
+        {
             Func<Builder.Builder, int, int> selector = null;
             Assert.Throws<ArgumentNullException>(() => new Builder.Builder().Observable(selector));
         }
 
         [Test]
-        public void Building_Integers() {
+        public void Building_Integers()
+        {
             const int seed = 20;
             var builder = new Builder.Builder(seed);
             var expected = new List<int>();
@@ -54,7 +60,8 @@ namespace Sharpy.ReactiveBuilder.Tests {
         }
 
         [Test]
-        public void Building_Doubles() {
+        public void Building_Doubles()
+        {
             const int seed = 20;
             var builder = new Builder.Builder(seed);
             var expected = new List<double>();
@@ -70,7 +77,8 @@ namespace Sharpy.ReactiveBuilder.Tests {
         }
 
         [Test]
-        public void Building_Booleans() {
+        public void Building_Booleans()
+        {
             const int seed = 20;
             var builder = new Builder.Builder(seed);
             var expected = new List<bool>();

@@ -1,12 +1,12 @@
 namespace Sharpy.Builder.Providers
 {
     /// <summary>
-    ///   Methods providing System.Int64.
+    ///     Methods providing System.Int64.
     /// </summary>
     public interface ILongProvider
     {
         /// <summary>
-        /// Provides a System.Int64 between <paramref name="min"/> and <paramref name="max"/>.
+        ///     Provides a System.Int64 between <paramref name="min" /> and <paramref name="max" />.
         /// </summary>
         /// <param name="min">
         ///     The inclusive minimum bound.
@@ -17,7 +17,7 @@ namespace Sharpy.Builder.Providers
         long Long(long min, long max);
 
         /// <summary>
-        /// Provides a System.Int64 between 0 and <paramref name="max"/>.
+        ///     Provides a System.Int64 between 0 and <paramref name="max" />.
         /// </summary>
         /// <param name="max">
         ///     The exclusive maximum bound.
@@ -25,7 +25,7 @@ namespace Sharpy.Builder.Providers
         long Long(long max);
 
         /// <summary>
-        /// Provides a System.Int64 between 0 and System.Int64.MaxValue. 
+        ///     Provides a System.Int64 between 0 and System.Int64.MaxValue.
         /// </summary>
         long Long();
     }

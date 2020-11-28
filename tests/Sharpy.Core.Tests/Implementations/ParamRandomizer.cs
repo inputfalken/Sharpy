@@ -4,11 +4,14 @@ using System.Threading;
 using NUnit.Framework;
 using Sharpy.Core.Linq;
 
-namespace Sharpy.Core.Tests.Implementations {
+namespace Sharpy.Core.Tests.Implementations
+{
     [TestFixture]
-    internal class ParameterRandomizer {
+    internal class ParameterRandomizer
+    {
         [Test]
-        public void Randomizes_As_Expected_With_Seed() {
+        public void Randomizes_As_Expected_With_Seed()
+        {
             var items = new List<string> {"Foo", "Bar", "Doe"};
             var result = Generator
                 .ArgumentRandomizer(new Random(20), "Foo", "Bar", "Doe")
@@ -22,7 +25,8 @@ namespace Sharpy.Core.Tests.Implementations {
         }
 
         [Test]
-        public void Randomizes_Different_Values_If_No_Seed_Is_Provided() {
+        public void Randomizes_Different_Values_If_No_Seed_Is_Provided()
+        {
             var items = new List<string> {"Foo", "Bar", "Doe"};
             var result = Generator
                 .ArgumentRandomizer("Foo", "Bar", "Doe")

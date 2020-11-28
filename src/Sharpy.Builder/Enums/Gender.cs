@@ -1,8 +1,10 @@
-﻿namespace Sharpy.Builder.Enums {
+﻿namespace Sharpy.Builder.Enums
+{
     /// <summary>
     ///     An enum representing genders.
     /// </summary>
-    public enum Gender {
+    public enum Gender
+    {
         /// <summary>
         ///     Female gender
         /// </summary>

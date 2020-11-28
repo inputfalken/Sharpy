@@ -1,4 +1,5 @@
-﻿namespace Sharpy.Core {
+﻿namespace Sharpy.Core
+{
     /// <summary>
     ///     <para>
     ///         Represent a generator which can generate any amount of elements by invoking method <see cref="Generate" />.
@@ -7,7 +8,8 @@
     /// <typeparam name="T">
     ///     The type of the element to generate.
     /// </typeparam>
-    public interface IGenerator<out T> {
+    public interface IGenerator<out T>
+    {
         /// <summary>
         ///     <para>Generate next element.</para>
         /// </summary>

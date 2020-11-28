@@ -4,16 +4,19 @@ using System.Linq;
 using NUnit.Framework;
 using Sharpy.Builder.Implementation;
 
-namespace Sharpy.Builder.Tests.Implementations {
+namespace Sharpy.Builder.Tests.Implementations
+{
     [TestFixture]
-    public class UniqueSecurityBuilderTests {
+    public class UniqueSecurityBuilderTests
+    {
         /// <summary>
         ///     This number is maximum amount of possible number per date.
         /// </summary>
         private const int Limit = 10000;
 
         [Test]
-        public void All_Are_Unique() {
+        public void All_Are_Unique()
+        {
             var dateTime = new DateTime(2000, 10, 10);
             var uniqueSecurityBuilder = new UniqueSecurityBuilder(new Random());
             var list = new List<string>();
@@ -22,7 +25,8 @@ namespace Sharpy.Builder.Tests.Implementations {
         }
 
         [Test]
-        public void All_Got_Same_Length() {
+        public void All_Got_Same_Length()
+        {
             var dateTime = new DateTime(2000, 10, 10);
             var uniqueSecurityBuilder = new UniqueSecurityBuilder(new Random());
             var list = new List<string>();
@@ -31,7 +35,8 @@ namespace Sharpy.Builder.Tests.Implementations {
         }
 
         [Test]
-        public void Crate_More_Max_Combination_Throws() {
+        public void Crate_More_Max_Combination_Throws()
+        {
             var dateTime = new DateTime(2000, 10, 10);
             var uniqueSecurityBuilder = new UniqueSecurityBuilder(new Random());
             var list = new List<string>();

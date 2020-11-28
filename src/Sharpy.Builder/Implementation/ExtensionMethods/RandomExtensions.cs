@@ -4,27 +4,27 @@ using System.Collections.Generic;
 namespace Sharpy.Builder.Implementation.ExtensionMethods
 {
     /// <summary>
-    ///   Contains a set of static extension method on System.Random.
+    ///     Contains a set of static extension method on System.Random.
     /// </summary>
     internal static class RandomExtensions
     {
         /// <summary>
-        ///   Randomizes a System.Decimal within <paramref name="min"/> and <paramref name="max"/>.
+        ///     Randomizes a System.Decimal within <paramref name="min" /> and <paramref name="max" />.
         /// </summary>
         /// <param name="random">
-        ///   The System.Random to randomize with.
+        ///     The System.Random to randomize with.
         /// </param>
         /// <param name="min">
-        ///   The minimum inclusive value.
+        ///     The minimum inclusive value.
         /// </param>
         /// <param name="max">
-        ///   The maximum exclusive value.
+        ///     The maximum exclusive value.
         /// </param>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///   When <paramref name="min"/> is greater than <paramref name="max"/>.
+        ///     When <paramref name="min" /> is greater than <paramref name="max" />.
         /// </exception>
         /// <returns>
-        ///   A randomized System.Decimal within <paramref name="min"/> and <paramref name="max"/>.
+        ///     A randomized System.Decimal within <paramref name="min" /> and <paramref name="max" />.
         /// </returns>
         public static decimal Decimal(this Random random, decimal min, decimal max)
         {
@@ -60,22 +60,22 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         }
 
         /// <summary>
-        ///   Randomizes a System.Single within <paramref name="min"/> and <paramref name="max"/>.
+        ///     Randomizes a System.Single within <paramref name="min" /> and <paramref name="max" />.
         /// </summary>
         /// <param name="random">
-        ///   The System.Random to randomize with.
+        ///     The System.Random to randomize with.
         /// </param>
         /// <param name="min">
-        ///   The minimum inclusive value.
+        ///     The minimum inclusive value.
         /// </param>
         /// <param name="max">
-        ///   The maximum exclusive value.
+        ///     The maximum exclusive value.
         /// </param>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///   When <paramref name="min"/> is greater than <paramref name="max"/>.
+        ///     When <paramref name="min" /> is greater than <paramref name="max" />.
         /// </exception>
         /// <returns>
-        ///   A randomized System.Single within <paramref name="min"/> and <paramref name="max"/>.
+        ///     A randomized System.Single within <paramref name="min" /> and <paramref name="max" />.
         /// </returns>
         public static float Float(this Random random, float min, float max)
         {
@@ -90,22 +90,22 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         }
 
         /// <summary>
-        ///   Randomizes a System.Double within <paramref name="min"/> and <paramref name="max"/>.
+        ///     Randomizes a System.Double within <paramref name="min" /> and <paramref name="max" />.
         /// </summary>
         /// <param name="random">
-        ///   The System.Random to randomize with.
+        ///     The System.Random to randomize with.
         /// </param>
         /// <param name="min">
-        ///   The minimum inclusive value.
+        ///     The minimum inclusive value.
         /// </param>
         /// <param name="max">
-        ///   The maximum exclusive value.
+        ///     The maximum exclusive value.
         /// </param>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///   When <paramref name="min"/> is greater than <paramref name="max"/>.
+        ///     When <paramref name="min" /> is greater than <paramref name="max" />.
         /// </exception>
         /// <returns>
-        ///   A randomized System.Double within <paramref name="min"/> and <paramref name="max"/>.
+        ///     A randomized System.Double within <paramref name="min" /> and <paramref name="max" />.
         /// </returns>
         public static double Double(this Random random, double min, double max)
         {
@@ -120,13 +120,13 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         }
 
         /// <summary>
-        ///   Randomizes a System.Boolean.
+        ///     Randomizes a System.Boolean.
         /// </summary>
         /// <param name="random">
-        ///   The System.Random to randomize with.
+        ///     The System.Random to randomize with.
         /// </param>
         /// <returns>
-        ///   A randomized System.Boolean.
+        ///     A randomized System.Boolean.
         /// </returns>
         public static bool Bool(this Random random)
         {
@@ -137,22 +137,22 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         }
 
         /// <summary>
-        ///   Returns a random element from the System.Collections.Generic.IReadonlyList&lt;out T&gt;.
+        ///     Returns a random element from the System.Collections.Generic.IReadonlyList&lt;out T&gt;.
         /// </summary>
         /// <param name="random">
-        ///   The System.Random to randomize with.
+        ///     The System.Random to randomize with.
         /// </param>
         /// <param name="list">
-        ///   The list to randomize from.
+        ///     The list to randomize from.
         /// </param>
         /// <typeparam name="T">
-        ///   The type of the elements of <paramref name="list"/>.
+        ///     The type of the elements of <paramref name="list" />.
         /// </typeparam>
         /// <exception cref="ArgumentException">
-        ///   When <paramref name="list"/> is empty.
+        ///     When <paramref name="list" /> is empty.
         /// </exception>
         /// <returns>
-        ///   A randomized <typeparamref name="T"/> from the <paramref name="list"/>.
+        ///     A randomized <typeparamref name="T" /> from the <paramref name="list" />.
         /// </returns>
         public static T ListElement<T>(this Random random, IReadOnlyList<T> list)
         {
@@ -165,22 +165,22 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         }
 
         /// <summary>
-        ///   Returns a random element from the System.ReadOnlySpan&lt;T&gt;.
+        ///     Returns a random element from the System.ReadOnlySpan&lt;T&gt;.
         /// </summary>
         /// <param name="random">
-        ///   The System.Random to randomize with.
+        ///     The System.Random to randomize with.
         /// </param>
         /// <param name="span">
-        ///   The span to randomize from.
+        ///     The span to randomize from.
         /// </param>
         /// <typeparam name="T">
-        ///   The type of the elements of <paramref name="span"/>.
+        ///     The type of the elements of <paramref name="span" />.
         /// </typeparam>
         /// <exception cref="ArgumentException">
-        ///   When <paramref name="span"/> is empty.
+        ///     When <paramref name="span" /> is empty.
         /// </exception>
         /// <returns>
-        ///   A randomized <typeparamref name="T"/> from the <paramref name="span"/>.
+        ///     A randomized <typeparamref name="T" /> from the <paramref name="span" />.
         /// </returns>
         public static T SpanElement<T>(this Random random, ReadOnlySpan<T> span)
         {
@@ -194,22 +194,22 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
 
 
         /// <summary>
-        ///   Returns a random element from the System.Span&lt;T&gt;.
+        ///     Returns a random element from the System.Span&lt;T&gt;.
         /// </summary>
         /// <param name="random">
-        ///   The System.Random to randomize with.
+        ///     The System.Random to randomize with.
         /// </param>
         /// <param name="span">
-        ///   The span to randomize from.
+        ///     The span to randomize from.
         /// </param>
         /// <typeparam name="T">
-        ///   The type of the elements of <paramref name="span"/>.
+        ///     The type of the elements of <paramref name="span" />.
         /// </typeparam>
         /// <exception cref="ArgumentException">
-        ///   When <paramref name="span"/> is empty.
+        ///     When <paramref name="span" /> is empty.
         /// </exception>
         /// <returns>
-        ///   A randomized <typeparamref name="T"/> from the <paramref name="span"/>.
+        ///     A randomized <typeparamref name="T" /> from the <paramref name="span" />.
         /// </returns>
         public static T SpanElement<T>(this Random random, Span<T> span)
         {
@@ -222,56 +222,216 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         }
 
         /// <summary>
-        ///   Returns a randomized argument.
+        ///     Returns a randomized argument.
         /// </summary>
         /// <param name="random">
-        ///   The System.Random to randomize with.
+        ///     The System.Random to randomize with.
         /// </param>
         /// <param name="first">
-        ///   The first argument.
+        ///     The first argument.
         /// </param>
         /// <param name="second">
-        ///   The second argument.
-        /// </param>
-        /// <param name="additional">
-        ///   The optional remaining arguments.
+        ///     The second argument.
         /// </param>
         /// <typeparam name="T">
-        ///   The type provided in the arguments.
+        ///     The type provided in the arguments.
         /// </typeparam>
         /// <returns>
-        ///   A randomized argument.
+        ///     A randomized argument.
         /// </returns>
-        public static T Argument<T>(this Random random, T first, T second, params T[] additional)
+        public static T Argument<T>(this Random random, T first, T second)
         {
             return random switch
             {
-                _ => random.Next(-2, additional.Length) switch
+                _ => random.Next(-2, 0) switch
                 {
-                    -2 => first,
-                    -1 => second,
+                    -2 => second,
+                    -1 => first,
+                    _ => throw new IndexOutOfRangeException()
+                }
+            };
+        }
+
+        /// <summary>
+        ///     Returns a randomized argument.
+        /// </summary>
+        /// <param name="random">
+        ///     The System.Random to randomize with.
+        /// </param>
+        /// <param name="first">
+        ///     The first argument.
+        /// </param>
+        /// <param name="second">
+        ///     The second argument.
+        /// </param>
+        /// <param name="third">
+        ///     The third argument.
+        /// </param>
+        /// <typeparam name="T">
+        ///     The type provided in the arguments.
+        /// </typeparam>
+        /// <returns>
+        ///     A randomized argument.
+        /// </returns>
+        public static T Argument<T>(this Random random, T first, T second, T third)
+        {
+            return random switch
+            {
+                _ => random.Next(-3, 0) switch
+                {
+                    -3 => third,
+                    -2 => second,
+                    -1 => first,
+                    _ => throw new IndexOutOfRangeException()
+                }
+            };
+        }
+
+        /// <summary>
+        ///     Returns a randomized argument.
+        /// </summary>
+        /// <param name="random">
+        ///     The System.Random to randomize with.
+        /// </param>
+        /// <param name="first">
+        ///     The first argument.
+        /// </param>
+        /// <param name="second">
+        ///     The second argument.
+        /// </param>
+        /// <param name="third">
+        ///     The third argument.
+        /// </param>
+        /// <param name="fourth">
+        ///     The fourth argument.
+        /// </param>
+        /// <typeparam name="T">
+        ///     The type provided in the arguments.
+        /// </typeparam>
+        /// <returns>
+        ///     A randomized argument.
+        /// </returns>
+        public static T Argument<T>(this Random random, T first, T second, T third, T fourth)
+        {
+            return random switch
+            {
+                _ => random.Next(-4, 0) switch
+                {
+                    -4 => fourth,
+                    -3 => third,
+                    -2 => second,
+                    -1 => first,
+                    _ => throw new IndexOutOfRangeException()
+                }
+            };
+        }
+
+        /// <summary>
+        ///     Returns a randomized argument.
+        /// </summary>
+        /// <param name="random">
+        ///     The System.Random to randomize with.
+        /// </param>
+        /// <param name="first">
+        ///     The first argument.
+        /// </param>
+        /// <param name="second">
+        ///     The second argument.
+        /// </param>
+        /// <param name="third">
+        ///     The third argument.
+        /// </param>
+        /// <param name="fourth">
+        ///     The fourth argument.
+        /// </param>
+        /// <param name="fifth">
+        ///     The fourth argument.
+        /// </param>
+        /// <typeparam name="T">
+        ///     The type provided in the arguments.
+        /// </typeparam>
+        /// <returns>
+        ///     A randomized argument.
+        /// </returns>
+        public static T Argument<T>(this Random random, T first, T second, T third, T fourth, T fifth)
+        {
+            return random switch
+            {
+                _ => random.Next(-5, 0) switch
+                {
+                    -5 => fifth,
+                    -4 => fourth,
+                    -3 => third,
+                    -2 => second,
+                    -1 => first,
+                    _ => throw new IndexOutOfRangeException()
+                }
+            };
+        }
+
+        /// <summary>
+        ///     Returns a randomized argument.
+        /// </summary>
+        /// <param name="random">
+        ///     The System.Random to randomize with.
+        /// </param>
+        /// <param name="first">
+        ///     The first argument.
+        /// </param>
+        /// <param name="second">
+        ///     The second argument.
+        /// </param>
+        /// <param name="third">
+        ///     The third argument.
+        /// </param>
+        /// <param name="fourth">
+        ///     The fourth argument.
+        /// </param>
+        /// <param name="fifth">
+        ///     The fourth argument.
+        /// </param>
+        /// <param name="additional">
+        ///     The remaining arguments.
+        /// </param>
+        /// <typeparam name="T">
+        ///     The type provided in the arguments.
+        /// </typeparam>
+        /// <returns>
+        ///     A randomized argument.
+        /// </returns>
+        public static T Argument<T>(this Random random, T first, T second, T third, T fourth, T fifth, T[] additional)
+        {
+            return random switch
+            {
+                _ => random.Next(-5, additional.Length) switch
+                {
+                    -5 => fifth,
+                    -4 => fourth,
+                    -3 => third,
+                    -2 => second,
+                    -1 => first,
                     {} x => additional[x]
                 }
             };
         }
 
         /// <summary>
-        ///   Randomizes a System.Long within <paramref name="min"/> and <paramref name="max"/>.
+        ///     Randomizes a System.Long within <paramref name="min" /> and <paramref name="max" />.
         /// </summary>
         /// <param name="random">
-        ///   The System.Random to randomize with.
+        ///     The System.Random to randomize with.
         /// </param>
         /// <param name="min">
-        ///   The minimum inclusive value.
+        ///     The minimum inclusive value.
         /// </param>
         /// <param name="max">
-        ///   The maximum exclusive value.
+        ///     The maximum exclusive value.
         /// </param>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///   When <paramref name="min"/> is greater than <paramref name="max"/>.
+        ///     When <paramref name="min" /> is greater than <paramref name="max" />.
         /// </exception>
         /// <returns>
-        ///   A randomized System.Long within <paramref name="min"/> and <paramref name="max"/>.
+        ///     A randomized System.Long within <paramref name="min" /> and <paramref name="max" />.
         /// </returns>
         public static long Long(this Random random, long min, long max)
         {
@@ -304,22 +464,22 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         }
 
         /// <summary>
-        ///   Randomizes a System.TimeSpan within <paramref name="min"/> and <paramref name="max"/>.
+        ///     Randomizes a System.TimeSpan within <paramref name="min" /> and <paramref name="max" />.
         /// </summary>
         /// <param name="random">
-        ///   The System.Random to randomize with.
+        ///     The System.Random to randomize with.
         /// </param>
         /// <param name="min">
-        ///   The minimum inclusive value.
+        ///     The minimum inclusive value.
         /// </param>
         /// <param name="max">
-        ///   The maximum exclusive value.
+        ///     The maximum exclusive value.
         /// </param>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///   When <paramref name="min"/> is greater than <paramref name="max"/>.
+        ///     When <paramref name="min" /> is greater than <paramref name="max" />.
         /// </exception>
         /// <returns>
-        ///   A randomized System.TimeSpan within <paramref name="min"/> and <paramref name="max"/>.
+        ///     A randomized System.TimeSpan within <paramref name="min" /> and <paramref name="max" />.
         /// </returns>
         public static TimeSpan TimeSpan(this Random random, TimeSpan min, TimeSpan max)
         {
@@ -338,19 +498,19 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         }
 
         /// <summary>
-        ///  Randomizes a day relative to the <paramref name="year"/> and  <paramref name="month"/>..
+        ///     Randomizes a day relative to the <paramref name="year" /> and  <paramref name="month" />..
         /// </summary>
         /// <param name="random">
-        ///   The System.Random to randomize with.
+        ///     The System.Random to randomize with.
         /// </param>
         /// <param name="year">
-        ///   The year.
+        ///     The year.
         /// </param>
         /// <param name="month">
-        ///   The month relative to <paramref name="year"/>.
+        ///     The month relative to <paramref name="year" />.
         /// </param>
         /// <returns>
-        ///   A valid day relative to the <paramref name="year"/> and  <paramref name="month"/>.
+        ///     A valid day relative to the <paramref name="year" /> and  <paramref name="month" />.
         /// </returns>
         public static int Day(this Random random, int year, int month)
         {
@@ -361,13 +521,13 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         }
 
         /// <summary>
-        ///  Randomizes a month.
+        ///     Randomizes a month.
         /// </summary>
         /// <param name="random">
-        ///   The System.Random to randomize with.
+        ///     The System.Random to randomize with.
         /// </param>
         /// <returns>
-        ///   A randomized month.
+        ///     A randomized month.
         /// </returns>
         public static int Month(this Random random)
         {
@@ -378,13 +538,13 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         }
 
         /// <summary>
-        ///  Randomizes an hour.
+        ///     Randomizes an hour.
         /// </summary>
         /// <param name="random">
-        ///   The System.Random to randomize with.
+        ///     The System.Random to randomize with.
         /// </param>
         /// <returns>
-        ///   A randomized hour.
+        ///     A randomized hour.
         /// </returns>
         public static int Hour(this Random random)
         {
@@ -392,13 +552,13 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         }
 
         /// <summary>
-        ///  Randomizes a minute.
+        ///     Randomizes a minute.
         /// </summary>
         /// <param name="random">
-        ///   The System.Random to randomize with.
+        ///     The System.Random to randomize with.
         /// </param>
         /// <returns>
-        ///   A randomized minute.
+        ///     A randomized minute.
         /// </returns>
         public static int Minute(this Random random)
         {
@@ -406,13 +566,13 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         }
 
         /// <summary>
-        ///  Randomizes a second.
+        ///     Randomizes a second.
         /// </summary>
         /// <param name="random">
-        ///   The System.Random to randomize with.
+        ///     The System.Random to randomize with.
         /// </param>
         /// <returns>
-        ///   A randomized second.
+        ///     A randomized second.
         /// </returns>
         public static int Second(this Random random)
         {
@@ -420,13 +580,13 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         }
 
         /// <summary>
-        ///  Randomizes a millisecond.
+        ///     Randomizes a millisecond.
         /// </summary>
         /// <param name="random">
-        ///   The System.Random to randomize with.
+        ///     The System.Random to randomize with.
         /// </param>
         /// <returns>
-        ///   A randomized millisecond.
+        ///     A randomized millisecond.
         /// </returns>
         public static int MilliSecond(this Random random)
         {
@@ -434,22 +594,22 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         }
 
         /// <summary>
-        ///   Randomizes a System.DateTime within <paramref name="min"/> and <paramref name="max"/>.
+        ///     Randomizes a System.DateTime within <paramref name="min" /> and <paramref name="max" />.
         /// </summary>
         /// <param name="random">
-        ///   The System.Random to randomize with.
+        ///     The System.Random to randomize with.
         /// </param>
         /// <param name="min">
-        ///   The minimum inclusive value.
+        ///     The minimum inclusive value.
         /// </param>
         /// <param name="max">
-        ///   The maximum exclusive value.
+        ///     The maximum exclusive value.
         /// </param>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///   When <paramref name="min"/> is greater than <paramref name="max"/>.
+        ///     When <paramref name="min" /> is greater than <paramref name="max" />.
         /// </exception>
         /// <returns>
-        ///   A randomized System.DateTime within <paramref name="min"/> and <paramref name="max"/>.
+        ///     A randomized System.DateTime within <paramref name="min" /> and <paramref name="max" />.
         /// </returns>
         public static DateTime DateTime(this Random random, DateTime min, DateTime max)
         {
@@ -515,22 +675,22 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         }
 
         /// <summary>
-        ///   Randomizes a System.DateTimeOffset within <paramref name="min"/> and <paramref name="max"/>.
+        ///     Randomizes a System.DateTimeOffset within <paramref name="min" /> and <paramref name="max" />.
         /// </summary>
         /// <param name="random">
-        ///   The System.Random to randomize with.
+        ///     The System.Random to randomize with.
         /// </param>
         /// <param name="min">
-        ///   The minimum inclusive value.
+        ///     The minimum inclusive value.
         /// </param>
         /// <param name="max">
-        ///   The maximum exclusive value.
+        ///     The maximum exclusive value.
         /// </param>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///   When <paramref name="min"/> is greater than <paramref name="max"/>.
+        ///     When <paramref name="min" /> is greater than <paramref name="max" />.
         /// </exception>
         /// <returns>
-        ///   A randomized System.DateTimeOffset within <paramref name="min"/> and <paramref name="max"/>.
+        ///     A randomized System.DateTimeOffset within <paramref name="min" /> and <paramref name="max" />.
         /// </returns>
         public static DateTimeOffset DateTimeOffset(this Random random, DateTimeOffset min, DateTimeOffset max)
         {
@@ -543,22 +703,22 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         }
 
         /// <summary>
-        ///   Randomizes a System.Char within <paramref name="min"/> and <paramref name="max"/>.
+        ///     Randomizes a System.Char within <paramref name="min" /> and <paramref name="max" />.
         /// </summary>
         /// <param name="random">
-        ///   The System.Random to randomize with.
+        ///     The System.Random to randomize with.
         /// </param>
         /// <param name="min">
-        ///   The minimum inclusive value.
+        ///     The minimum inclusive value.
         /// </param>
         /// <param name="max">
-        ///   The maximum inclusive value.
+        ///     The maximum inclusive value.
         /// </param>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///   When <paramref name="min"/> is greater than <paramref name="max"/>.
+        ///     When <paramref name="min" /> is greater than <paramref name="max" />.
         /// </exception>
         /// <returns>
-        ///   A randomized System.Char within <paramref name="min"/> and <paramref name="max"/>.
+        ///     A randomized System.Char within <paramref name="min" /> and <paramref name="max" />.
         /// </returns>
         public static char Char(this Random random, char min, char max)
         {

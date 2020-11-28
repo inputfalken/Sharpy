@@ -1,12 +1,14 @@
 ﻿using System;
 
-namespace Sharpy.Core.Implementations {
+namespace Sharpy.Core.Implementations
+{
     /// <summary>
     ///     <para>
     ///         A Generator using <see cref="Func{TResult}" />
     ///     </para>
     /// </summary>
-    internal sealed class Fun<T> : IGenerator<T> {
+    internal sealed class Fun<T> : IGenerator<T>
+    {
         private readonly Func<T> _fn;
 
         /// <summary>
@@ -20,7 +22,8 @@ namespace Sharpy.Core.Implementations {
         ///         </para>
         ///     </remarks>
         /// </summary>
-        public Fun(Func<T> fn) {
+        public Fun(Func<T> fn)
+        {
             if (fn != null) _fn = fn;
             else throw new ArgumentNullException(nameof(fn));
         }

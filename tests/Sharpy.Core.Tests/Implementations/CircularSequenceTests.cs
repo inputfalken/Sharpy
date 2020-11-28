@@ -1,15 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Sharpy.Core.Linq;
 
-namespace Sharpy.Core.Tests.Implementations {
+namespace Sharpy.Core.Tests.Implementations
+{
     [TestFixture]
-    public class CircularSequenceTests {
+    public class CircularSequenceTests
+    {
         [SetUp]
-        public void Initiate() {
-            _list = new List<string> {
+        public void Initiate()
+        {
+            _list = new List<string>
+            {
                 "test1",
                 "test2",
                 "test3",
@@ -25,7 +28,8 @@ namespace Sharpy.Core.Tests.Implementations {
         }
 
         [TearDown]
-        public void Dispose() {
+        public void Dispose()
+        {
             _generator = null;
         }
 
@@ -35,7 +39,8 @@ namespace Sharpy.Core.Tests.Implementations {
         [Test(
             Description = "Verify that it's possible to use ArrayList"
         )]
-        public void Generic_List() {
+        public void Generic_List()
+        {
             var list = new List<int> {1, 2, 3};
             var generator = Generator
                 .CircularSequence(list);
@@ -46,14 +51,16 @@ namespace Sharpy.Core.Tests.Implementations {
         [Test(
             Description = "Verify that generator iterates through the list supplied"
         )]
-        public void Generic_List_Iterates_All_Elements() {
+        public void Generic_List_Iterates_All_Elements()
+        {
             Assert.IsTrue(_generator.Take(10).SequenceEqual(_list));
         }
 
         [Test(
             Description = "Verify that generator restarts when all elements has been iterated"
         )]
-        public void Generic_List_Repeats() {
+        public void Generic_List_Repeats()
+        {
             var list = _generator.Take(40).ToList();
             //Verify that you get the correct ammount from take
             Assert.AreEqual(40, list.Count);
@@ -64,7 +71,8 @@ namespace Sharpy.Core.Tests.Implementations {
         [Test(
             Description = "Verify that it's possible to use Queue"
         )]
-        public void Generic_Queue() {
+        public void Generic_Queue()
+        {
             var stack = new Queue<int>();
             stack.Enqueue(1);
             stack.Enqueue(2);
@@ -78,7 +86,8 @@ namespace Sharpy.Core.Tests.Implementations {
         [Test(
             Description = "Verify that it's possible to use Stack"
         )]
-        public void Generic_Stack() {
+        public void Generic_Stack()
+        {
             var stack = new Stack<int>();
             stack.Push(1);
             stack.Push(2);
@@ -88,6 +97,5 @@ namespace Sharpy.Core.Tests.Implementations {
 
             Assert.AreEqual(new[] {3, 2, 1}, generator.ToArray(3));
         }
-
     }
 }

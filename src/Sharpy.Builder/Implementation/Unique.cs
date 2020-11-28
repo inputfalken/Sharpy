@@ -1,16 +1,19 @@
 using System;
 using System.Collections.Generic;
 
-namespace Sharpy.Builder.Implementation {
+namespace Sharpy.Builder.Implementation
+{
     /// <summary>
     ///     Provides <see cref="ISet{T}" /> and <see cref="System.Random" />.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class UniqueRandomizer<T> {
+    public abstract class UniqueRandomizer<T>
+    {
         /// <summary>
         /// </summary>
         /// <param name="random"></param>
-        protected UniqueRandomizer(Random random) {
+        protected UniqueRandomizer(Random random)
+        {
             Random = random;
             HashSet = new HashSet<T>();
         }

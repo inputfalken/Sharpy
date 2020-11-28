@@ -4,11 +4,14 @@ using System.Linq;
 using NUnit.Framework;
 using Sharpy.Builder.Implementation;
 
-namespace Sharpy.Builder.Tests.Implementations {
+namespace Sharpy.Builder.Tests.Implementations
+{
     [TestFixture]
-    public class BoolRandomizerTests {
+    public class BoolRandomizerTests
+    {
         [Test]
-        public void Returns_Various_Results() {
+        public void Returns_Various_Results()
+        {
             var boolRandomizer = new BoolRandomizer(new Random());
             var list = new List<bool>(100);
             for (var i = 0; i < 100; i++) list.Add(boolRandomizer.Bool());

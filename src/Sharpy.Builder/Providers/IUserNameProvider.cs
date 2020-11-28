@@ -1,7 +1,7 @@
 namespace Sharpy.Builder.Providers
 {
     /// <summary>
-    ///         Methods providing System.String representing user name.
+    ///     Methods providing System.String representing user name.
     /// </summary>
     public interface IUserNameProvider
     {

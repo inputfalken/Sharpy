@@ -1,7 +1,7 @@
 namespace Sharpy.Builder.Providers
 {
     /// <summary>
-    ///  Methods providing System.String representing a phone number.
+    ///     Methods providing System.String representing a phone number.
     /// </summary>
     public interface IPhoneNumberProvider
     {
@@ -11,7 +11,7 @@ namespace Sharpy.Builder.Providers
         string PhoneNumber();
 
         /// <summary>
-        ///     Provides a System.String representing a phone number based on argument <paramref name="length"/>.
+        ///     Provides a System.String representing a phone number based on argument <paramref name="length" />.
         /// </summary>
         string PhoneNumber(int length);
     }

@@ -7,12 +7,11 @@ using Sharpy.Builder.Providers;
 
 namespace Sharpy.Builder.Tests.Implementations
 {
-    
     [TestFixture]
     public class DateTimeRandomizerTests
     {
         private const int Amount = 10000000;
-        private IDateTimeProvider _dateTimProvider = new DateTimeRandomizer(new Random());
+        private readonly IDateTimeProvider _dateTimProvider = new DateTimeRandomizer(new Random());
 
         [Test]
         public void DateTime_By_Age_Arg_MinusOne_Throws()
@@ -469,14 +468,15 @@ namespace Sharpy.Builder.Tests.Implementations
                 "list.All(time => time.Second == BaseTime.Second)"
             );
         }
+
         [Test]
         public void Min_Equal_To_Max_Does_Not_Throw()
         {
             var max = DateTime.Now;
             var min = max;
-            
+
             var dateRandomizer = new DateTimeRandomizer(new Random());
-            
+
             Assert.DoesNotThrow(() => dateRandomizer.DateTime(min, max));
         }
 

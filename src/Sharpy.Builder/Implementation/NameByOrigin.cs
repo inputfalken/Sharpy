@@ -6,14 +6,17 @@ using Sharpy.Builder.Implementation.DataObjects;
 using Sharpy.Builder.Implementation.ExtensionMethods;
 using Sharpy.Builder.Providers;
 
-namespace Sharpy.Builder.Implementation {
+namespace Sharpy.Builder.Implementation
+{
     /// <summary>
     ///     <para>
     ///         Randomizes <see cref="string" /> elements representing names by using <see cref="Random" />.
     ///     </para>
     /// </summary>
-    public sealed class NameByOrigin : INameProvider {
-        private static readonly ISet<Origin> Regions = new HashSet<Origin> {
+    public sealed class NameByOrigin : INameProvider
+    {
+        private static readonly ISet<Origin> Regions = new HashSet<Origin>
+        {
             Enums.Origin.Europe,
             Enums.Origin.NorthAmerica,
             Enums.Origin.CentralAmerica,
@@ -27,7 +30,8 @@ namespace Sharpy.Builder.Implementation {
         private readonly ISet<Origin> _selectedCountries = new HashSet<Origin>();
         private readonly ISet<Origin> _selectedRegions = new HashSet<Origin>();
 
-        private NameByOrigin(Random random) {
+        private NameByOrigin(Random random)
+        {
             _dictionary = new Dictionary<NameType, IReadOnlyList<string>>();
             _random = random;
         }
@@ -37,7 +41,8 @@ namespace Sharpy.Builder.Implementation {
         ///         Randomizes common names by <see cref="Enums.Origin" /> using argument <paramref name="random" />.
         ///     </para>
         /// </summary>
-        public NameByOrigin(Random random, params Origin[] origins) : this(random) {
+        public NameByOrigin(Random random, params Origin[] origins) : this(random)
+        {
             _origins = new HashSet<Origin>(origins);
             foreach (var origin in _origins)
                 if (Regions.Contains(origin)) _selectedRegions.Add(origin);
@@ -53,12 +58,11 @@ namespace Sharpy.Builder.Implementation {
         /// <param name="origins">
         ///     The name origins.
         /// </param>
-        public NameByOrigin(params Origin[] origins) : this(new Random(), origins) { }
-
-        private static IEnumerable<NameModel> Names
+        public NameByOrigin(params Origin[] origins) : this(new Random(), origins)
         {
-            get { return Data.GetNames; }
         }
+
+        private static IEnumerable<NameModel> Names => Data.GetNames;
 
         /// <inheritdoc />
         public string FirstName(Gender gender)
@@ -92,7 +96,8 @@ namespace Sharpy.Builder.Implementation {
         /// <returns>
         ///     A <see cref="IEnumerable{T}" /> with names from the <paramref name="origins" /> used.
         /// </returns>
-        public static IEnumerable<string> GetCollection(params Origin[] origins) {
+        public static IEnumerable<string> GetCollection(params Origin[] origins)
+        {
             return origins.Length > 0
                 ? Names
                     .Where(n => origins.Contains(n.Country) || origins.Contains(n.Region))
@@ -113,7 +118,8 @@ namespace Sharpy.Builder.Implementation {
             return _random.ListElement(_dictionary[arg]);
         }
 
-        private IEnumerable<NameModel> Origin(IEnumerable<NameModel> names) {
+        private IEnumerable<NameModel> Origin(IEnumerable<NameModel> names)
+        {
             return _origins != null && _origins.Count > 0
                 ? names.Where(
                     name => _selectedCountries.Contains(name.Country) | _selectedRegions.Contains(name.Region))

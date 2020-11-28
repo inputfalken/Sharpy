@@ -17,7 +17,7 @@ namespace Sharpy.Core.Linq
         /// <typeparam name="TSource">The type of <paramref name="generator" />.</typeparam>
         /// <typeparam name="TResult">The type of the <see cref="IEnumerable{T}" />.</typeparam>
         /// <returns>
-        ///     A <see cref="IGenerator{T}"/> based on the parameter <paramref name="enumerableSelector"/>.
+        ///     A <see cref="IGenerator{T}" /> based on the parameter <paramref name="enumerableSelector" />.
         /// </returns>
         /// <exception cref="ArgumentNullException">Argument <paramref name="generator" /> is null</exception>
         /// <exception cref="ArgumentNullException">Argument <paramref name="enumerableSelector" /> is null</exception>
@@ -42,7 +42,8 @@ namespace Sharpy.Core.Linq
         /// <typeparam name="TCollection">The type of the <see cref="IEnumerable{T}" />.</typeparam>
         /// <typeparam name="TResult">The type of the returning <see cref="IGenerator{T}" />.</typeparam>
         /// <returns>
-        ///     A <see cref="IGenerator{T}"/> based on the parameters <paramref name="enumerableSelector"/> and <paramref name="resultSelector"/>.
+        ///     A <see cref="IGenerator{T}" /> based on the parameters <paramref name="enumerableSelector" /> and
+        ///     <paramref name="resultSelector" />.
         /// </returns>
         /// <exception cref="ArgumentNullException">Argument <paramref name="generator" /> is null</exception>
         /// <exception cref="ArgumentNullException">Argument <paramref name="enumerableSelector" /> is null</exception>
@@ -59,5 +60,4 @@ namespace Sharpy.Core.Linq
                 .Select(result => resultSelector(source, result)));
         }
     }
-
 }

@@ -1,8 +1,10 @@
-namespace Sharpy.Builder.Enums {
+namespace Sharpy.Builder.Enums
+{
     /// <summary>
     ///     Is used as argument when filtering names
     /// </summary>
-    internal enum NameType {
+    internal enum NameType
+    {
         /// <summary>
         ///     Will give you back a random female first name.
         /// </summary>

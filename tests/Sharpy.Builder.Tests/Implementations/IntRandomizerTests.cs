@@ -82,7 +82,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var ints = new int[Amount];
 
             const int max = 100;
-            const int min = max -1;
+            const int min = max - 1;
             for (var i = 0; i < Amount; i++)
                 ints[i] = IntegerProvider.Integer(min, max);
 
@@ -92,6 +92,7 @@ namespace Sharpy.Builder.Tests.Implementations
                 "ints.All(x => x == min)"
             );
         }
+
         [Test]
         public void Min_Equal_To_Max_Does_Not_Throw()
         {
