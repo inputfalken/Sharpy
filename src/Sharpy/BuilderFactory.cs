@@ -4,11 +4,13 @@ using Sharpy.Core;
 using Sharpy.Core.Linq;
 using static Sharpy.Core.Generator;
 
-namespace Sharpy {
+namespace Sharpy
+{
     /// <summary>
     ///     Provides a set of static members to create objects by using <see cref="Builder" />.
     /// </summary>
-    public static class BuilderFactory {
+    public static class BuilderFactory
+    {
         /// <summary>
         ///     <para>
         ///         Turns the <see cref="Builder" /> into a <see cref="IGenerator{T}" />.
@@ -33,19 +35,22 @@ namespace Sharpy {
         ///     A <see cref="IGenerator{T}" /> whose type is the result from the function argument <paramref name="selector" />.
         /// </returns>
         public static IGenerator<TResult> Generator<TBuilder, TResult>(this TBuilder source,
-            Func<TBuilder, TResult> selector) where TBuilder : Builder.Builder {
-            if (source == null) throw new ArgumentNullException(nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            Func<TBuilder, TResult> selector) where TBuilder : Builder.Builder
+        {
             return Create(source).Select(selector);
         }
 
         /// <inheritdoc cref="Generator{TBuilder,TResult}(TBuilder,Func{TBuilder,TResult})" />
-        public static IGenerator<TResult> Generator<TResult>(Func<Builder.Builder, TResult> selector) =>
-            new Builder.Builder().Generator(selector);
+        public static IGenerator<TResult> Generator<TResult>(Func<Builder.Builder, TResult> selector)
+        {
+            return new Builder.Builder().Generator(selector);
+        }
 
         /// <inheritdoc cref="Generator{TBuilder,TResult}(TBuilder,Func{TBuilder,int,TResult})" />
-        public static IGenerator<TResult> Generator<TResult>(Func<Builder.Builder, int, TResult> selector) =>
-            new Builder.Builder().Generator(selector);
+        public static IGenerator<TResult> Generator<TResult>(Func<Builder.Builder, int, TResult> selector)
+        {
+            return new Builder.Builder().Generator(selector);
+        }
 
         /// <summary>
         ///     <para>
@@ -70,10 +75,11 @@ namespace Sharpy {
         /// <returns>
         ///     A <see cref="IGenerator{T}" /> whose type is the result from the function argument <paramref name="selector" />.
         /// </returns>
-        public static IGenerator<TResult> Generator<TBuilder, TResult>(this TBuilder source,
-            Func<TBuilder, int, TResult> selector) where TBuilder : Builder.Builder {
-            if (source == null) throw new ArgumentNullException(nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+        public static IGenerator<TResult> Generator<TBuilder, TResult>(
+            this TBuilder source,
+            Func<TBuilder, int, TResult> selector
+        ) where TBuilder : Builder.Builder
+        {
             return Create(source).Select(selector);
         }
 
@@ -104,20 +110,22 @@ namespace Sharpy {
         ///     A <see cref="IEnumerable{T}" /> whose type is the result from the function argument <paramref name="selector" />.
         /// </returns>
         public static IEnumerable<TResult> Enumerable<TBuilder, TResult>(this TBuilder source,
-            Func<TBuilder, TResult> selector, int count) where TBuilder : Builder.Builder {
-            if (source == null) throw new ArgumentNullException(nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            Func<TBuilder, TResult> selector, int count) where TBuilder : Builder.Builder
+        {
             for (var i = 0; i < count; i++) yield return selector(source);
         }
 
         /// <inheritdoc cref="Enumerable{TBuilder,TResult}(TBuilder,Func{TBuilder,TResult},int)" />
-        public static IEnumerable<TResult> Enumerable<TResult>(Func<Builder.Builder, TResult> selector, int count) =>
-            new Builder.Builder().Enumerable(selector, count);
+        public static IEnumerable<TResult> Enumerable<TResult>(Func<Builder.Builder, TResult> selector, int count)
+        {
+            return new Builder.Builder().Enumerable(selector, count);
+        }
 
         /// <inheritdoc cref="Enumerable{TBuilder,TResult}(TBuilder,Func{TBuilder,int,TResult},int)" />
-        public static IEnumerable<TResult>
-            Enumerable<TResult>(Func<Builder.Builder, int, TResult> selector, int count) =>
-            new Builder.Builder().Enumerable(selector, count);
+        public static IEnumerable<TResult> Enumerable<TResult>(Func<Builder.Builder, int, TResult> selector, int count)
+        {
+            return new Builder.Builder().Enumerable(selector, count);
+        }
 
         /// <summary>
         ///     <para>
@@ -146,9 +154,8 @@ namespace Sharpy {
         ///     A <see cref="IEnumerable{T}" /> whose type is the result from the function argument <paramref name="selector" />.
         /// </returns>
         public static IEnumerable<TResult> Enumerable<TBuilder, TResult>(this TBuilder source,
-            Func<TBuilder, int, TResult> selector, int count) where TBuilder : Builder.Builder {
-            if (source == null) throw new ArgumentNullException(nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            Func<TBuilder, int, TResult> selector, int count) where TBuilder : Builder.Builder
+        {
             for (var i = 0; i < count; i++) yield return selector(source, i);
         }
     }

@@ -12,9 +12,15 @@ namespace Sharpy.Builder.Implementation {
         /// <summary>
         ///     Creates <see cref="BoolRandomizer" />.
         /// </summary>
-        public BoolRandomizer(Random random) => _random = random;
+        public BoolRandomizer(Random random)
+        {
+            _random = random;
+        }
 
         /// <inheritdoc />
-        public bool Bool() => _random.Bool();
+        public bool Bool()
+        {
+            return _random.Bool();
+        }
     }
 }

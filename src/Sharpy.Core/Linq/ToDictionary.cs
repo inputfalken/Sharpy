@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Sharpy.Core.Linq
@@ -36,22 +37,13 @@ namespace Sharpy.Core.Linq
             int count,
             Func<TSource, TKey> keySelector,
             Func<TSource, TValue> elementSelector
-        )
+        ) where TKey : notnull
         {
-            if (generator is null)
-                throw new ArgumentNullException(nameof(generator));
-            
             if (count < 0)
                 throw new ArgumentException("Can not be negative", nameof(count));
-            
-            if (keySelector is null)
-                throw new ArgumentNullException(nameof(generator));
-            
-            if (elementSelector is null)
-                throw new ArgumentNullException(nameof(generator));
-            
+
             var dictionary = new Dictionary<TKey, TValue>(count);
-            
+
             if (count == 0)
                 return dictionary;
 

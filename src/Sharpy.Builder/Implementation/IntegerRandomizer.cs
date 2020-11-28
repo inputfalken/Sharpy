@@ -13,10 +13,16 @@ namespace Sharpy.Builder.Implementation {
         /// <summary>
         ///     Creates a <see cref="IntegerRandomizer" />.
         /// </summary>
-        public IntegerRandomizer(Random random) => _random = random;
+        public IntegerRandomizer(Random random)
+        {
+            _random = random;
+        }
 
         /// <inheritdoc />
-        public int Integer(int max) => _random.Next(max);
+        public int Integer(int max)
+        {
+            return _random.Next(max);
+        }
 
         /// <inheritdoc />
         public int Integer(int min, int max) {
@@ -26,6 +32,9 @@ namespace Sharpy.Builder.Implementation {
         }
 
         /// <inheritdoc />
-        public int Integer() => _random.Next();
+        public int Integer()
+        {
+            return _random.Next();
+        }
     }
 }

@@ -16,7 +16,10 @@ namespace Sharpy.Builder.Implementation
         ///     Creates <see cref="DateTimeRandomizer" />.
         /// </summary>
         /// <param name="random"></param>
-        public DateTimeRandomizer(Random random) => _random = random;
+        public DateTimeRandomizer(Random random)
+        {
+            _random = random;
+        }
 
         /// <inheritdoc />
         public DateTime DateTimeByAge(int age)

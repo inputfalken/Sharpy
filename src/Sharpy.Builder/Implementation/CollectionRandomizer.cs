@@ -15,7 +15,10 @@ namespace Sharpy.Builder.Implementation
         /// <summary>
         ///     Creates a <see cref="CollectionRandomizer" />.
         /// </summary>
-        public CollectionRandomizer(Random random) => _random = random ?? throw new ArgumentNullException(nameof(random));
+        public CollectionRandomizer(Random random)
+        {
+            _random = random ?? throw new ArgumentNullException(nameof(random));
+        }
 
         /// <summary>
         ///     Returns a randomized element from the argument <paramref name="list" />.
@@ -29,7 +32,10 @@ namespace Sharpy.Builder.Implementation
         /// <returns>
         ///     One of the elements inside argument <paramref name="list" />.
         /// </returns>
-        public T FromList<T>(IReadOnlyList<T> list) => _random.ListElement(list);
+        public T FromList<T>(IReadOnlyList<T> list)
+        {
+            return _random.ListElement(list);
+        }
 
         /// <inheritdoc />
         public T FromSpan<T>(ReadOnlySpan<T> span)

@@ -20,9 +20,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <param name="max">
         ///   The maximum exclusive value.
         /// </param>
-        /// <exception cref="ArgumentNullException">
-        ///   When <paramref name="random"/> is null.
-        /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
         ///   When <paramref name="min"/> is greater than <paramref name="max"/>.
         /// </exception>
@@ -56,7 +53,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
 
             return random switch
             {
-                null => throw new ArgumentNullException(nameof(random)),
                 _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max."),
                 _ when min == max => min,
                 _ => NextDecimal(random) * (max - min) + min
@@ -75,9 +71,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <param name="max">
         ///   The maximum exclusive value.
         /// </param>
-        /// <exception cref="ArgumentNullException">
-        ///   When <paramref name="random"/> is null.
-        /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
         ///   When <paramref name="min"/> is greater than <paramref name="max"/>.
         /// </exception>
@@ -88,7 +81,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         {
             return random switch
             {
-                null => throw new ArgumentNullException(nameof(random)),
                 _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max."),
                 _ when min == max => min,
                 _ => (float) (random.NextDouble() * (max - min) + min) switch
@@ -111,9 +103,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <param name="max">
         ///   The maximum exclusive value.
         /// </param>
-        /// <exception cref="ArgumentNullException">
-        ///   When <paramref name="random"/> is null.
-        /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
         ///   When <paramref name="min"/> is greater than <paramref name="max"/>.
         /// </exception>
@@ -124,7 +113,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         {
             return random switch
             {
-                null => throw new ArgumentNullException(nameof(random)),
                 _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max."),
                 _ when min == max => min,
                 _ => random.NextDouble() * (max - min) + min
@@ -137,9 +125,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <param name="random">
         ///   The System.Random to randomize with.
         /// </param>
-        /// <exception cref="ArgumentNullException">
-        ///   When <paramref name="random"/> is null.
-        /// </exception>
         /// <returns>
         ///   A randomized System.Boolean.
         /// </returns>
@@ -147,7 +132,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         {
             return random switch
             {
-                null => throw new ArgumentNullException(nameof(random)),
                 _ => random.Next(2) != 0
             };
         }
@@ -164,9 +148,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <typeparam name="T">
         ///   The type of the elements of <paramref name="list"/>.
         /// </typeparam>
-        /// <exception cref="ArgumentNullException">
-        ///   When <paramref name="random"/> or <paramref name="list"/> is null.
-        /// </exception>
         /// <exception cref="ArgumentException">
         ///   When <paramref name="list"/> is empty.
         /// </exception>
@@ -177,8 +158,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         {
             return (random, list) switch
             {
-                {random : null} => throw new ArgumentNullException(nameof(random)),
-                {list: null} => throw new ArgumentNullException(nameof(list)),
                 {list: {Count: 0}} => throw new ArgumentException("List can not be empty.", nameof(list)),
                 {list: {Count: 1} x} => x[0],
                 _ => list[random.Next(list.Count)]
@@ -197,9 +176,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <typeparam name="T">
         ///   The type of the elements of <paramref name="span"/>.
         /// </typeparam>
-        /// <exception cref="ArgumentNullException">
-        ///   When <paramref name="random"/> is null.
-        /// </exception>
         /// <exception cref="ArgumentException">
         ///   When <paramref name="span"/> is empty.
         /// </exception>
@@ -210,7 +186,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         {
             return random switch
             {
-                null => throw new ArgumentNullException(nameof(random)),
                 _ when span.Length == 0 => throw new ArgumentException("Span can not be empty.", nameof(span)),
                 _ when span.Length == 1 => span[0],
                 _ => span[random.Next(span.Length)]
@@ -230,9 +205,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <typeparam name="T">
         ///   The type of the elements of <paramref name="span"/>.
         /// </typeparam>
-        /// <exception cref="ArgumentNullException">
-        ///   When <paramref name="random"/> is null.
-        /// </exception>
         /// <exception cref="ArgumentException">
         ///   When <paramref name="span"/> is empty.
         /// </exception>
@@ -243,7 +215,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         {
             return random switch
             {
-                null => throw new ArgumentNullException(nameof(random)),
                 _ when span.Length == 0 => throw new ArgumentException("Span can not be empty.", nameof(span)),
                 _ when span.Length == 1 => span[0],
                 _ => span[random.Next(span.Length)]
@@ -268,9 +239,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <typeparam name="T">
         ///   The type provided in the arguments.
         /// </typeparam>
-        /// <exception cref="ArgumentNullException">
-        ///   When <paramref name="random"/> is null.
-        /// </exception>
         /// <returns>
         ///   A randomized argument.
         /// </returns>
@@ -278,7 +246,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         {
             return random switch
             {
-                null => throw new ArgumentNullException(nameof(random)),
                 _ => random.Next(-2, additional.Length) switch
                 {
                     -2 => first,
@@ -300,9 +267,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <param name="max">
         ///   The maximum exclusive value.
         /// </param>
-        /// <exception cref="ArgumentNullException">
-        ///   When <paramref name="random"/> is null.
-        /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
         ///   When <paramref name="min"/> is greater than <paramref name="max"/>.
         /// </exception>
@@ -333,7 +297,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
 
             return random switch
             {
-                null => throw new ArgumentNullException(nameof(random)),
                 _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max."),
                 _ when min == max => min,
                 _ => NextLong(random, min, max)
@@ -352,9 +315,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <param name="max">
         ///   The maximum exclusive value.
         /// </param>
-        /// <exception cref="ArgumentNullException">
-        ///   When <paramref name="random"/> is null.
-        /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
         ///   When <paramref name="min"/> is greater than <paramref name="max"/>.
         /// </exception>
@@ -365,7 +325,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         {
             return random switch
             {
-                null => throw new ArgumentNullException(nameof(random)),
                 _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max."),
                 _ when min == max => min,
                 _ => System.TimeSpan.FromMilliseconds(
@@ -390,9 +349,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <param name="month">
         ///   The month relative to <paramref name="year"/>.
         /// </param>
-        /// <exception cref="ArgumentNullException">
-        ///   When <paramref name="random"/> is null.
-        /// </exception>
         /// <returns>
         ///   A valid day relative to the <paramref name="year"/> and  <paramref name="month"/>.
         /// </returns>
@@ -400,7 +356,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         {
             return random switch
             {
-                null => throw new ArgumentNullException(nameof(random)),
                 _ => random.Next(1, System.DateTime.DaysInMonth(year, month) + 1)
             };
         }
@@ -411,9 +366,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <param name="random">
         ///   The System.Random to randomize with.
         /// </param>
-        /// <exception cref="ArgumentNullException">
-        ///   When <paramref name="random"/> is null.
-        /// </exception>
         /// <returns>
         ///   A randomized month.
         /// </returns>
@@ -421,7 +373,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         {
             return random switch
             {
-                null => throw new ArgumentNullException(nameof(random)),
                 _ => random.Next(1, 13)
             };
         }
@@ -432,19 +383,12 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <param name="random">
         ///   The System.Random to randomize with.
         /// </param>
-        /// <exception cref="ArgumentNullException">
-        ///   When <paramref name="random"/> is null.
-        /// </exception>
         /// <returns>
         ///   A randomized hour.
         /// </returns>
         public static int Hour(this Random random)
         {
-            return random switch
-            {
-                null => throw new ArgumentNullException(nameof(random)),
-                _ => random.Next(0, 24)
-            };
+            return random.Next(0, 24);
         }
 
         /// <summary>
@@ -453,19 +397,12 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <param name="random">
         ///   The System.Random to randomize with.
         /// </param>
-        /// <exception cref="ArgumentNullException">
-        ///   When <paramref name="random"/> is null.
-        /// </exception>
         /// <returns>
         ///   A randomized minute.
         /// </returns>
         public static int Minute(this Random random)
         {
-            return random switch
-            {
-                null => throw new ArgumentNullException(nameof(random)),
-                _ => random.Next(0, 60)
-            };
+            return random.Next(0, 60);
         }
 
         /// <summary>
@@ -474,19 +411,12 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <param name="random">
         ///   The System.Random to randomize with.
         /// </param>
-        /// <exception cref="ArgumentNullException">
-        ///   When <paramref name="random"/> is null.
-        /// </exception>
         /// <returns>
         ///   A randomized second.
         /// </returns>
         public static int Second(this Random random)
         {
-            return random switch
-            {
-                null => throw new ArgumentNullException(nameof(random)),
-                _ => random.Next(0, 60)
-            };
+            return random.Next(0, 60);
         }
 
         /// <summary>
@@ -495,19 +425,12 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <param name="random">
         ///   The System.Random to randomize with.
         /// </param>
-        /// <exception cref="ArgumentNullException">
-        ///   When <paramref name="random"/> is null.
-        /// </exception>
         /// <returns>
         ///   A randomized millisecond.
         /// </returns>
         public static int MilliSecond(this Random random)
         {
-            return random switch
-            {
-                null => throw new ArgumentNullException(nameof(random)),
-                _ => random.Next(0, 1000)
-            };
+            return random.Next(0, 1000);
         }
 
         /// <summary>
@@ -522,9 +445,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <param name="max">
         ///   The maximum exclusive value.
         /// </param>
-        /// <exception cref="ArgumentNullException">
-        ///   When <paramref name="random"/> is null.
-        /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
         ///   When <paramref name="min"/> is greater than <paramref name="max"/>.
         /// </exception>
@@ -588,7 +508,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
 
             return random switch
             {
-                null => throw new ArgumentNullException(nameof(random)),
                 _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max."),
                 _ when min == max => min,
                 _ => NextDateTime(random, min, max)
@@ -607,9 +526,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <param name="max">
         ///   The maximum exclusive value.
         /// </param>
-        /// <exception cref="ArgumentNullException">
-        ///   When <paramref name="random"/> is null.
-        /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
         ///   When <paramref name="min"/> is greater than <paramref name="max"/>.
         /// </exception>
@@ -633,9 +549,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <param name="max">
         ///   The maximum inclusive value.
         /// </param>
-        /// <exception cref="ArgumentNullException">
-        ///   When <paramref name="random"/> is null.
-        /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
         ///   When <paramref name="min"/> is greater than <paramref name="max"/>.
         /// </exception>
@@ -646,7 +559,6 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         {
             return random switch
             {
-                null => throw new ArgumentNullException(nameof(random)),
                 _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max."),
                 _ => (char) random.Next(min, max + 1)
             };

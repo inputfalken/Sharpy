@@ -68,7 +68,10 @@ namespace Sharpy.Builder.Implementation {
             return new DateTime(year, month, date);
         }
 
-        private static string FormatDigit(int i) => i < 10 ? i.Prefix(1) : i.ToString();
+        private static string FormatDigit(int i)
+        {
+            return i < 10 ? i.Prefix(1) : i.ToString();
+        }
     }
 
     /// <summary>
@@ -78,10 +81,16 @@ namespace Sharpy.Builder.Implementation {
         internal UniqueFormattedSecurityBuilder(Random random) : base(random) { }
 
         /// <inheritdoc />
-        public string SecurityNumber(DateTime date) => SecurityNumber(date, true);
+        public string SecurityNumber(DateTime date)
+        {
+            return SecurityNumber(date, true);
+        }
 
         /// <inheritdoc />
-        public string SecurityNumber() => SecurityNumber(RandomizeDate());
+        public string SecurityNumber()
+        {
+            return SecurityNumber(RandomizeDate());
+        }
     }
 
     /// <summary>
@@ -91,9 +100,15 @@ namespace Sharpy.Builder.Implementation {
         internal UniqueSecurityBuilder(Random random) : base(random) { }
 
         /// <inheritdoc />
-        public string SecurityNumber(DateTime date) => SecurityNumber(date, false);
+        public string SecurityNumber(DateTime date)
+        {
+            return SecurityNumber(date, false);
+        }
 
         /// <inheritdoc />
-        public string SecurityNumber() => SecurityNumber(RandomizeDate());
+        public string SecurityNumber()
+        {
+            return SecurityNumber(RandomizeDate());
+        }
     }
 }

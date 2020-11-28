@@ -8,10 +8,16 @@ namespace Sharpy.ReactiveBuilder.Tests {
     [TestFixture]
     internal class ReactiveBuilderTests {
         [Test]
-        public void Not_Null() => Assert.NotNull(new Builder.Builder().Observable(b => b.Integer()));
+        public void Not_Null()
+        {
+            Assert.NotNull(new Builder.Builder().Observable(b => b.Integer()));
+        }
 
         [Test]
-        public void Not_Null_With_Counter() => Assert.NotNull(new Builder.Builder().Observable((b, i) => b.Integer()));
+        public void Not_Null_With_Counter()
+        {
+            Assert.NotNull(new Builder.Builder().Observable((b, i) => b.Integer()));
+        }
 
         [Test]
         public void Null_Builder_Throws() {

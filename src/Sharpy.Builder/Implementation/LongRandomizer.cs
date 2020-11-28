@@ -12,7 +12,10 @@ namespace Sharpy.Builder.Implementation {
         /// <summary>
         ///     Creates a <see cref="LongRandomizer" />.
         /// </summary>
-        public LongRandomizer(Random random) => _random = random;
+        public LongRandomizer(Random random)
+        {
+            _random = random;
+        }
 
         /// <inheritdoc />
         public long Long(long min, long max)

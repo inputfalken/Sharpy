@@ -25,31 +25,6 @@ namespace Sharpy.Core.Tests.ExtensionTests {
             Assert.Throws<ArgumentException>(() => _generator.ToDictionary(-1, i => i, i => i));
         }
 
-        [Test(
-            Description = "Verify that null generator throws ArgumentNullException."
-        )]
-        public void Null_Generator_Throws() {
-            _generator = null;
-            Assert.Throws<ArgumentNullException>(() => _generator.ToDictionary(2, i => i, i => i));
-        }
-
-        [Test(
-            Description = "Verify that null KeySelector throws ArgumetNullException."
-        )]
-        public void Null_KeySelector_Throws() {
-            Func<int, int> keySelector = null;
-            Assert.Throws<ArgumentNullException>(
-                () => _generator.ToDictionary(1, keySelector, i => i));
-        }
-
-        [Test(
-            Description = "Verify that Null valueSelector throws ArgumetNullException"
-        )]
-        public void Null_ValueSelector_Throws() {
-            Func<int, int> elementSelector = null;
-            Assert.Throws<ArgumentNullException>(
-                () => _generator.ToDictionary(1, i => i, elementSelector));
-        }
 
         [Test(
             Description = "Verify the expeceted amount of elements is returned."

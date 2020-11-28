@@ -89,6 +89,9 @@ namespace Sharpy.Builder.Implementation {
             }
         }
 
-        private string ResolveDuplicate(string item) => item.Append(Random.Next(10));
+        private string ResolveDuplicate(string item)
+        {
+            return item.Append(Random.Next(10));
+        }
     }
 }

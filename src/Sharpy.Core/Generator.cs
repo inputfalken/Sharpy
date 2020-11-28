@@ -23,7 +23,10 @@ namespace Sharpy.Core {
         /// <returns>
         ///     A <typeparamref name="TSource"> </typeparamref> <see cref="IGenerator{T}" />.
         /// </returns>
-        public static IGenerator<TSource> Create<TSource>(TSource source) => new Fun<TSource>(() => source);
+        public static IGenerator<TSource> Create<TSource>(TSource source)
+        {
+            return new Fun<TSource>(() => source);
+        }
 
         /// <summary>
         ///     <para>
@@ -40,9 +43,10 @@ namespace Sharpy.Core {
         ///     A <typeparamref name="TSource"> </typeparamref> <see cref="IGenerator{T}" />.
         /// </returns>
         /// <exception cref="ArgumentNullException">Argument <paramref name="lazy" /> is null.</exception>
-        public static IGenerator<TSource> Lazy<TSource>(Lazy<TSource> lazy) => lazy == null
-            ? throw new ArgumentNullException(nameof(lazy))
-            : new Fun<TSource>(() => lazy.Value);
+        public static IGenerator<TSource> Lazy<TSource>(Lazy<TSource> lazy)
+        {
+            return new Fun<TSource>(() => lazy.Value);
+        }
 
         /// <summary>
         ///     <para>
@@ -60,7 +64,10 @@ namespace Sharpy.Core {
         ///     A <typeparamref name="TSource"> </typeparamref> <see cref="IGenerator{T}" />.
         /// </returns>
         /// <exception cref="ArgumentNullException">Argument <paramref name="fn" /> is null.</exception>
-        public static IGenerator<TSource> Lazy<TSource>(Func<TSource> fn) => Lazy(new Lazy<TSource>(fn));
+        public static IGenerator<TSource> Lazy<TSource>(Func<TSource> fn)
+        {
+            return Lazy(new Lazy<TSource>(fn));
+        }
 
         /// <summary>
         ///     <para>
@@ -78,7 +85,10 @@ namespace Sharpy.Core {
         ///     A <typeparamref name="TSource"> </typeparamref> <see cref="IGenerator{T}" />.
         /// </returns>
         /// <exception cref="ArgumentNullException">Argument <paramref name="fn" /> is null.</exception>
-        public static IGenerator<TSource> Function<TSource>(Func<TSource> fn) => new Fun<TSource>(fn);
+        public static IGenerator<TSource> Function<TSource>(Func<TSource> fn)
+        {
+            return new Fun<TSource>(fn);
+        }
 
         /// <summary>
         ///     <para>
@@ -96,10 +106,10 @@ namespace Sharpy.Core {
         ///     A <typeparamref name="TSource"> </typeparamref> <see cref="IGenerator{T}" />.
         /// </returns>
         /// <exception cref="ArgumentNullException">Argument <paramref name="enumerable" /> is null.</exception>
-        public static IGenerator<TSource> CircularSequence<TSource>(IEnumerable<TSource> enumerable) =>
-            enumerable == null
-                ? throw new ArgumentNullException(nameof(enumerable))
-                : new Seq<TSource>(enumerable);
+        public static IGenerator<TSource> CircularSequence<TSource>(IEnumerable<TSource> enumerable)
+        {
+            return new Seq<TSource>(enumerable);
+        }
 
         /// <summary>
         ///     <para>
@@ -126,9 +136,12 @@ namespace Sharpy.Core {
         ///         IGenerator&lt;int&gt; = Generator.Randomizer(0, 100);
         ///     </code>
         /// </example>
-        public static IGenerator<int> Randomizer(int min, int max, Random random = null) => max > min
-            ? Create(random ?? new Random()).Select(rnd => rnd.Next(min, max))
-            : throw new ArgumentOutOfRangeException(nameof(max), @"max must be > min!");
+        public static IGenerator<int> Randomizer(int min, int max, Random? random = null)
+        {
+            return max > min
+                ? Create(random ?? new Random()).Select(rnd => rnd.Next(min, max))
+                : throw new ArgumentOutOfRangeException(nameof(max), @"max must be > min!");
+        }
 
         /// <summary>
         ///     <para>
@@ -156,22 +169,27 @@ namespace Sharpy.Core {
         ///         IGenerator&lt;int&gt; = Generator.Randomizer(long.MinValue, long.MaxValue);
         ///     </code>
         /// </example>
-        public static IGenerator<long> Randomizer(long min, long max, Random random = null) => max <= min
-            ? throw new ArgumentOutOfRangeException(nameof(max), @"max must be > min!")
-            : Create((Urange:(ulong) (max - min), Rnd:random ?? new Random())).Select(tuple => {
-                //Prevent a modulo bias; see http://stackoverflow.com/a/10984975/238419
-                //for more information.
-                //In the worst case, the expected number of calls is 2 (though usually it's
-                //much closer to 1) so this loop doesn't really hurt performance at all.
-                ulong ulongRand;
-                do {
-                    var buf = new byte[8];
-                    tuple.Rnd.NextBytes(buf);
-                    ulongRand = (ulong) BitConverter.ToInt64(buf, 0);
-                } while (ulongRand > ulong.MaxValue - (ulong.MaxValue % tuple.Urange + 1) % tuple.Urange);
+        public static IGenerator<long> Randomizer(long min, long max, Random? random = null)
+        {
+            return max <= min
+                ? throw new ArgumentOutOfRangeException(nameof(max), @"max must be > min!")
+                : Create((Urange: (ulong) (max - min), Rnd: random ?? new Random())).Select(tuple =>
+                {
+                    //Prevent a modulo bias; see http://stackoverflow.com/a/10984975/238419
+                    //for more information.
+                    //In the worst case, the expected number of calls is 2 (though usually it's
+                    //much closer to 1) so this loop doesn't really hurt performance at all.
+                    ulong ulongRand;
+                    do
+                    {
+                        var buf = new byte[8];
+                        tuple.Rnd.NextBytes(buf);
+                        ulongRand = (ulong) BitConverter.ToInt64(buf, 0);
+                    } while (ulongRand > ulong.MaxValue - (ulong.MaxValue % tuple.Urange + 1) % tuple.Urange);
 
-                return (long) (ulongRand % tuple.Urange) + min;
-            });
+                    return (long) (ulongRand % tuple.Urange) + min;
+                });
+        }
 
         /// <summary>
         ///     <para>
@@ -181,7 +199,10 @@ namespace Sharpy.Core {
         /// <returns>
         ///     A <see cref="System.Guid" /> <see cref="IGenerator{T}" />.
         /// </returns>
-        public static IGenerator<Guid> Guid() => Function(NewGuid);
+        public static IGenerator<Guid> Guid()
+        {
+            return Function(NewGuid);
+        }
 
         /// <summary>
         ///     <para>
@@ -205,7 +226,10 @@ namespace Sharpy.Core {
         ///         IGenerator&lt;int&gt; = Generator.Incrementer(20);
         ///     </code>
         /// </example>
-        public static IGenerator<int> Incrementer(int start) => Function(() => checked(start++));
+        public static IGenerator<int> Incrementer(int start)
+        {
+            return Function(() => checked(start++));
+        }
 
         /// <summary>
         ///     <para>
@@ -229,7 +253,10 @@ namespace Sharpy.Core {
         ///         IGenerator&lt;int&gt; = Generator.Incrementer(20);
         ///     </code>
         /// </example>
-        public static IGenerator<long> Incrementer(long start) => Function(() => checked(start++));
+        public static IGenerator<long> Incrementer(long start)
+        {
+            return Function(() => checked(start++));
+        }
 
         /// <summary>
         ///     <para>
@@ -253,7 +280,10 @@ namespace Sharpy.Core {
         ///         IGenerator&lt;long&gt; = Generator.Incrementer(20);
         ///     </code>
         /// </example>
-        public static IGenerator<long> Decrementer(long start) => Function(() => checked(start--));
+        public static IGenerator<long> Decrementer(long start)
+        {
+            return Function(() => checked(start--));
+        }
 
         /// <summary>
         ///     <para>
@@ -277,7 +307,10 @@ namespace Sharpy.Core {
         ///         IGenerator&lt;int&gt; = Generator.Incrementer(20);
         ///     </code>
         /// </example>
-        public static IGenerator<int> Decrementer(int start) => Function(() => checked(start--));
+        public static IGenerator<int> Decrementer(int start)
+        {
+            return Function(() => checked(start--));
+        }
 
         /// <summary>
         ///     Creates a <see cref="IGenerator{T}" /> who randomizes elements from the <paramref name="items" /> parameter.
@@ -288,11 +321,10 @@ namespace Sharpy.Core {
         /// <returns>
         ///     A <typeparamref name="T"> </typeparamref> <see cref="IGenerator{T}" />.
         /// </returns>
-        public static IGenerator<T> ListRandomizer<T>(Random random, IReadOnlyList<T> items) => random != null
-            ? (items == null
-                ? throw new ArgumentNullException(nameof(items))
-                : Create(random).Select(r => items[r.Next(items.Count)]))
-            : throw new ArgumentNullException(nameof(random));
+        public static IGenerator<T> ListRandomizer<T>(Random random, IReadOnlyList<T> items)
+        {
+            return Create(random).Select(r => items[r.Next(items.Count)]);
+        }
 
         /// <summary>
         ///     Creates a <see cref="IGenerator{T}" /> who randomizes elements from the <paramref name="items" /> parameter.
@@ -302,7 +334,10 @@ namespace Sharpy.Core {
         /// <returns>
         ///     A <typeparamref name="T"> </typeparamref> <see cref="IGenerator{T}" />.
         /// </returns>
-        public static IGenerator<T> ListRandomizer<T>(IReadOnlyList<T> items) => ListRandomizer(new Random(), items);
+        public static IGenerator<T> ListRandomizer<T>(IReadOnlyList<T> items)
+        {
+            return ListRandomizer(new Random(), items);
+        }
 
         /// <summary>
         ///     Creates a <see cref="IGenerator{T}" /> who randomizes from the parameters.
@@ -315,15 +350,19 @@ namespace Sharpy.Core {
         /// <returns>
         ///     A <typeparamref name="T"> </typeparamref> <see cref="IGenerator{T}" />.
         /// </returns>
-        public static IGenerator<T> ArgumentRandomizer<T>(Random random, T first, T second, params T[] additional) =>
-            Function(() => {
+        public static IGenerator<T> ArgumentRandomizer<T>(Random random, T first, T second, params T[] additional)
+        {
+            return Function(() =>
+            {
                 var res = random.Next(-2, additional.Length);
-                switch (res) {
+                switch (res)
+                {
                     case -2: return first;
                     case -1: return second;
                     default: return additional[res];
                 }
             });
+        }
 
         /// <summary>
         ///     Creates a <see cref="IGenerator{T}" /> who randomizes from the parameters.
@@ -335,7 +374,9 @@ namespace Sharpy.Core {
         /// <returns>
         ///     A <typeparamref name="T"> </typeparamref> <see cref="IGenerator{T}" />.
         /// </returns>
-        public static IGenerator<T> ArgumentRandomizer<T>(T first, T second, params T[] additional) =>
-            ArgumentRandomizer(new Random(), first, second, additional);
+        public static IGenerator<T> ArgumentRandomizer<T>(T first, T second, params T[] additional)
+        {
+            return ArgumentRandomizer(new Random(), first, second, additional);
+        }
     }
 }

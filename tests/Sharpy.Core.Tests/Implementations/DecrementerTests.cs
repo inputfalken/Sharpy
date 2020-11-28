@@ -7,9 +7,12 @@ using Sharpy.Core.Linq;
 namespace Sharpy.Core.Tests.Implementations {
     [TestFixture]
     internal class DecrementerTests {
-        private static IEnumerable<int> GetExpectedDecrementationEnumerable(int start, int count) => Enumerable
-            .Range((start * -1 + count) * -1 + 1, count)
-            .Reverse();
+        private static IEnumerable<int> GetExpectedDecrementationEnumerable(int start, int count)
+        {
+            return Enumerable
+                .Range((start * -1 + count) * -1 + 1, count)
+                .Reverse();
+        }
 
         [Test]
         public void Int_MinValue_Throws() {

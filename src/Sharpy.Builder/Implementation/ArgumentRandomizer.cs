@@ -14,7 +14,10 @@ namespace Sharpy.Builder.Implementation
         /// <summary>
         ///     The <see cref="Random" /> for randomizing arguments.
         /// </summary>
-        public ArgumentRandomizer(Random random) => _random = random ?? throw new ArgumentNullException(nameof(random));
+        public ArgumentRandomizer(Random random)
+        {
+            _random = random ?? throw new ArgumentNullException(nameof(random));
+        }
 
         /// <summary>
         ///     Returns a randomized element from the arguments supplied.
