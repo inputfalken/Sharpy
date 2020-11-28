@@ -12,15 +12,15 @@ namespace Sharpy.Builder.Tests.Implementations
         /// <summary>
         ///     <para>The amount generated from GenrateMany Tests.</para>
         /// </summary>
-        private const int Count = 10000;
+        private const int Amount = 10000000;
 
         [Test]
         public void IsUnique()
         {
             var guidProvider = new GuidProvider();
-            var guids = new Guid[Count];
+            var guids = new Guid[Amount];
 
-            for (var i = 0; i < Count; i++) guids[i] = guidProvider.Guid();
+            for (var i = 0; i < Amount; i++) guids[i] = guidProvider.Guid();
 
             Assert.True(
                 guids.GroupBy(x => x).All(x => x.Count() == 1),

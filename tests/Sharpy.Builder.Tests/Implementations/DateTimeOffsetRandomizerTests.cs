@@ -10,7 +10,7 @@ namespace Sharpy.Builder.Tests.Implementations
     [TestFixture]
     public class DateTimeOffsetOffsetRandomizerTests
     {
-        private const int Amount = 10000;
+        private const int Amount = 10000000;
         private readonly IDateTimeOffsetProvider _dateTimeOffsetProvider = new DateTimeOffsetRandomizer(new Random());
 
 

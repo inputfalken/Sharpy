@@ -9,13 +9,12 @@ namespace Sharpy.Builder.Tests.Implementations
     [TestFixture]
     public class FloatRandomizerTests
     {
-        private const int Amount = 100000;
-        private const int Repeats = 100;
+        private const int Amount = 10000000;
         private const float MaxSupportedPrecision = 0.100_00f;
 
         private static readonly IFloatProvider FloatProvider = new FloatRandomizer(new Random());
 
-        [Test, Repeat(Repeats)]
+        [Test]
         public void No_Arg_All_Values_Are_Between_Zero_And_MaxValue()
         {
             var floats = new float[Amount];
@@ -30,7 +29,7 @@ namespace Sharpy.Builder.Tests.Implementations
             );
         }
 
-        [Test, Repeat(Repeats)]
+        [Test]
         public void All_Values_Are_Between_Zero_And_Max()
         {
             var floats = new float[Amount];
@@ -46,7 +45,7 @@ namespace Sharpy.Builder.Tests.Implementations
             );
         }
 
-        [Test, Repeat(Repeats)]
+        [Test]
         public void All_Values_Are_Between_Min_And_Max()
         {
             var floats = new float[Amount];
@@ -63,7 +62,7 @@ namespace Sharpy.Builder.Tests.Implementations
             );
         }
 
-        [Test, Repeat(Repeats)]
+        [Test]
         public void Inclusive_Min_Arg()
         {
             var floats = new float[Amount];
@@ -78,7 +77,7 @@ namespace Sharpy.Builder.Tests.Implementations
             );
         }
 
-        [Test, Repeat(Repeats)]
+        [Test]
         public void Exclusive_Max_Arg()
         {
             var floats = new float[Amount];

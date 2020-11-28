@@ -79,16 +79,14 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// </returns>
         public static float Float(this Random random, float min, float max)
         {
-            return random switch
+            var res = random switch
             {
                 _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max."),
                 _ when min == max => min,
-                _ => (float) (random.NextDouble() * (max - min) + min) switch
-                {
-                    {} x when x == max => min,
-                    {} x => x
-                }
+                _ => (float) (random.NextDouble() * (max - min) + min)
             };
+
+            return res == max ? min : res;
         }
 
         /// <summary>
@@ -111,12 +109,14 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// </returns>
         public static double Double(this Random random, double min, double max)
         {
-            return random switch
+            var res = random switch
             {
                 _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max."),
                 _ when min == max => min,
                 _ => random.NextDouble() * (max - min) + min
             };
+
+            return res == max ? min : res;
         }
 
         /// <summary>

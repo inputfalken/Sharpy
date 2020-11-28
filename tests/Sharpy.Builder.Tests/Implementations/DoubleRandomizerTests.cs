@@ -9,13 +9,12 @@ namespace Sharpy.Builder.Tests.Implementations
     [TestFixture]
     public class DoubleRandomizerTests
     {
-        private const int Amount = 100000;
-        private const int Repeats = 100;
+        private const int Amount = 10000000;
         private const double MaxSupportedPrecision = 0.000_001_000_000_000d;
 
         private static readonly IDoubleProvider DoubleProvider = new DoubleRandomizer(new Random());
 
-        [Test, Repeat(Repeats)]
+        [Test]
         public void No_Arg_All_Values_Are_Between_Zero_And_MaxValue()
         {
             var doubles = new double[Amount];
@@ -30,7 +29,7 @@ namespace Sharpy.Builder.Tests.Implementations
             );
         }
 
-        [Test, Repeat(Repeats)]
+        [Test]
         public void All_Values_Are_Between_Zero_And_Max()
         {
             var doubles = new double[Amount];
@@ -46,7 +45,7 @@ namespace Sharpy.Builder.Tests.Implementations
             );
         }
 
-        [Test, Repeat(Repeats)]
+        [Test]
         public void All_Values_Are_Between_Min_And_Max()
         {
             var doubles = new double[Amount];
@@ -63,7 +62,7 @@ namespace Sharpy.Builder.Tests.Implementations
             );
         }
 
-        [Test, Repeat(Repeats)]
+        [Test]
         public void Inclusive_Min_Arg()
         {
             var doubles = new double[Amount];
@@ -78,7 +77,7 @@ namespace Sharpy.Builder.Tests.Implementations
             );
         }
 
-        [Test, Repeat(Repeats)]
+        [Test]
         public void Exclusive_Max_Arg()
         {
             var doubles = new double[Amount];

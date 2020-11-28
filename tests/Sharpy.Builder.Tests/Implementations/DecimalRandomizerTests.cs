@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Sharpy.Builder.Implementation;
@@ -10,13 +9,12 @@ namespace Sharpy.Builder.Tests.Implementations
     [TestFixture]
     public class DecimalRandomizerTests
     {
-        private const int Amount = 100000;
-        private const int Repeats = 100;
+        private const int Amount = 10000000;
         private const decimal MaxSupportedPrecision = 0.000_000_000_000_000_010m;
 
         private static readonly IDecimalProvider DecimalProvider = new DecimalRandomizer(new Random());
 
-        [Test, Repeat(Repeats)]
+        [Test]
         public void No_Arg_All_Values_Are_Between_Zero_And_MaxValue()
         {
             var decimals = new decimal[Amount];
@@ -31,7 +29,7 @@ namespace Sharpy.Builder.Tests.Implementations
             );
         }
 
-        [Test, Repeat(Repeats)]
+        [Test]
         public void All_Values_Are_Between_Zero_And_Max()
         {
             var decimals = new decimal[Amount];
@@ -47,7 +45,7 @@ namespace Sharpy.Builder.Tests.Implementations
             );
         }
 
-        [Test, Repeat(Repeats)]
+        [Test]
         public void All_Values_Are_Between_Min_And_Max()
         {
             var decimals = new decimal[Amount];
@@ -64,7 +62,7 @@ namespace Sharpy.Builder.Tests.Implementations
             );
         }
 
-        [Test, Repeat(Repeats)]
+        [Test]
         public void Inclusive_Min_Arg()
         {
             var decimals = new decimal[Amount];
@@ -79,7 +77,7 @@ namespace Sharpy.Builder.Tests.Implementations
             );
         }
 
-        [Test, Repeat(Repeats)]
+        [Test]
         public void Exclusive_Max_Arg()
         {
             var decimals = new decimal[Amount];

@@ -11,7 +11,7 @@ namespace Sharpy.Builder.Tests.Implementations
     [TestFixture]
     public class DateTimeRandomizerTests
     {
-        private const int Amount = 10000;
+        private const int Amount = 10000000;
         private IDateTimeProvider _dateTimProvider = new DateTimeRandomizer(new Random());
 
         [Test]

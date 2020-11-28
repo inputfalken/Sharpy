@@ -7,12 +7,11 @@ using Sharpy.Builder.Providers;
 namespace Sharpy.Builder.Tests.Implementations {
     [TestFixture]
     public class LongRandomizerTests {
-        private const int Amount = 100000;
-        private const int Repeats = 100;
+        private const int Amount = 10000000;
 
         private static readonly ILongProvider LongProvider = new LongRandomizer(new Random());
 
-        [Test, Repeat(Repeats)]
+        [Test]
         public void No_Arg_All_Values_Are_Between_Zero_And_MaxValue()
         {
             var longs = new long[Amount];
@@ -27,7 +26,7 @@ namespace Sharpy.Builder.Tests.Implementations {
             );
         }
 
-        [Test, Repeat(Repeats)]
+        [Test]
         public void All_Values_Are_Between_Zero_And_Max()
         {
             var longs = new long[Amount];
@@ -43,7 +42,7 @@ namespace Sharpy.Builder.Tests.Implementations {
             );
         }
 
-        [Test, Repeat(Repeats)]
+        [Test]
         public void All_Values_Are_Between_Min_And_Max()
         {
             var longs = new long[Amount];
@@ -60,7 +59,7 @@ namespace Sharpy.Builder.Tests.Implementations {
             );
         }
 
-        [Test, Repeat(Repeats)]
+        [Test]
         public void Inclusive_Min_Arg()
         {
             var longs = new long[Amount];
@@ -75,7 +74,7 @@ namespace Sharpy.Builder.Tests.Implementations {
             );
         }
 
-        [Test, Repeat(Repeats)]
+        [Test]
         public void Exclusive_Max_Arg()
         {
             var longs = new long[Amount];
