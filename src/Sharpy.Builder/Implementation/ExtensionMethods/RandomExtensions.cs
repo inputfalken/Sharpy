@@ -534,7 +534,12 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// </returns>
         public static DateTimeOffset DateTimeOffset(this Random random, DateTimeOffset min, DateTimeOffset max)
         {
-            return DateTime(random, min.DateTime, max.DateTime);
+            var dateTime = DateTime(random, min.DateTime, max.DateTime);
+            var offset = System.DateTimeOffset.Now.Offset;
+
+            return dateTime.TimeOfDay < offset
+                ? dateTime.Add(offset)
+                : dateTime;
         }
 
         /// <summary>

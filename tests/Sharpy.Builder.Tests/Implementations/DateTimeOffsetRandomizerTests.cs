@@ -76,11 +76,49 @@ namespace Sharpy.Builder.Tests.Implementations
         }
 
         [Test]
-        public void Foo()
+        public void Does_Not_Throw_When_OffSet_Is_Out_Of_Range()
         {
-            var dateTimeOffset = _dateTimeOffsetProvider.DateTimeOffset(DateTimeOffset.MinValue, DateTimeOffset.MinValue.AddMinutes(1));
-            
+            // MinValue
+            Assert.DoesNotThrow(() =>
+                _dateTimeOffsetProvider.DateTimeOffset(
+                    DateTimeOffset.MinValue,
+                    DateTimeOffset.MinValue.AddMinutes(1)
+                )
+            );
+            Assert.DoesNotThrow(() =>
+                _dateTimeOffsetProvider.DateTimeOffset(
+                    DateTimeOffset.MinValue,
+                    DateTimeOffset.MinValue.AddSeconds(1)
+                )
+            );
+            Assert.DoesNotThrow(() =>
+                _dateTimeOffsetProvider.DateTimeOffset(
+                    DateTimeOffset.MinValue,
+                    DateTimeOffset.MinValue.AddMilliseconds(1)
+                )
+            );
+
+            // MaxValue
+            Assert.DoesNotThrow(() =>
+                _dateTimeOffsetProvider.DateTimeOffset(
+                    DateTimeOffset.MaxValue.AddMinutes(-1),
+                    DateTimeOffset.MaxValue
+                )
+            );
+            Assert.DoesNotThrow(() =>
+                _dateTimeOffsetProvider.DateTimeOffset(
+                    DateTimeOffset.MaxValue.AddSeconds(-1),
+                    DateTimeOffset.MaxValue
+                )
+            );
+            Assert.DoesNotThrow(() =>
+                _dateTimeOffsetProvider.DateTimeOffset(
+                    DateTimeOffset.MaxValue.AddMilliseconds(-1),
+                    DateTimeOffset.MaxValue
+                )
+            );
         }
+
         [Test]
         public void DateTimeOffset_MaxDateTimeOffset__Adding_Days()
         {
