@@ -76,6 +76,12 @@ namespace Sharpy.Builder.Tests.Implementations
         }
 
         [Test]
+        public void Foo()
+        {
+            var dateTimeOffset = _dateTimeOffsetProvider.DateTimeOffset(DateTimeOffset.MinValue, DateTimeOffset.MinValue.AddMinutes(1));
+            
+        }
+        [Test]
         public void DateTimeOffset_MaxDateTimeOffset__Adding_Days()
         {
             var list = new List<DateTimeOffset>();
