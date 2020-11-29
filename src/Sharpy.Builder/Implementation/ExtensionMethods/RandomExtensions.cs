@@ -243,10 +243,10 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         {
             return random switch
             {
-                _ => random.Next(-2, 0) switch
+                _ => random.Next(0, 2) switch
                 {
-                    -2 => second,
-                    -1 => first,
+                    1 => second,
+                    0 => first,
                     _ => throw new IndexOutOfRangeException()
                 }
             };
@@ -277,11 +277,11 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         {
             return random switch
             {
-                _ => random.Next(-3, 0) switch
+                _ => random.Next(0, 3) switch
                 {
-                    -3 => third,
-                    -2 => second,
-                    -1 => first,
+                    2 => third,
+                    1 => second,
+                    0 => first,
                     _ => throw new IndexOutOfRangeException()
                 }
             };
@@ -315,12 +315,12 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         {
             return random switch
             {
-                _ => random.Next(-4, 0) switch
+                _ => random.Next(0, 4) switch
                 {
-                    -4 => fourth,
-                    -3 => third,
-                    -2 => second,
-                    -1 => first,
+                    3 => fourth,
+                    2 => third,
+                    1 => second,
+                    0 => first,
                     _ => throw new IndexOutOfRangeException()
                 }
             };
@@ -357,13 +357,13 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         {
             return random switch
             {
-                _ => random.Next(-5, 0) switch
+                _ => random.Next(0, 5) switch
                 {
-                    -5 => fifth,
-                    -4 => fourth,
-                    -3 => third,
-                    -2 => second,
-                    -1 => first,
+                    4 => fifth,
+                    3 => fourth,
+                    2 => third,
+                    1 => second,
+                    0 => first,
                     _ => throw new IndexOutOfRangeException()
                 }
             };
