@@ -37,9 +37,8 @@ namespace Sharpy.Builder
                 new[] {"gmail.com", "live.com", "outlook.com", "hotmail.com", "yahoo.com"},
                 Random
             );
-            ListCollectionElementPicker = new CollectionRandomizer(Random);
+            ListElementPicker = new ElementRandomizer(Random);
             BoolProvider = new BoolRandomizer(Random);
-            ArgumentProvider = new ArgumentRandomizer(Random);
             GuidProvider = new GuidProvider();
             TimeSpanProvider = new TimeSpanRandomizer(Random);
             DecimalProvider = new DecimalRandomizer(Random);
@@ -70,15 +69,6 @@ namespace Sharpy.Builder
         {
         }
 
-        /// <summary>
-        ///     <para>
-        ///         Gets and sets the implementation for <see cref="IArgumentProvider" />.
-        ///     </para>
-        ///     <para>
-        ///         By default it is <see cref="ArgumentRandomizer" />.
-        ///     </para>
-        /// </summary>
-        public IArgumentProvider ArgumentProvider { get; set; }
 
         /// <summary>
         ///     <para>
@@ -132,13 +122,13 @@ namespace Sharpy.Builder
 
         /// <summary>
         ///     <para>
-        ///         Gets and sets the implementation for <see cref="ICollectionElementProvider" />.
+        ///         Gets and sets the implementation for <see cref="IElementProvider" />.
         ///     </para>
         ///     <para>
-        ///         By default it is <see cref="CollectionRandomizer" />.
+        ///         By default it is <see cref="ElementRandomizer" />.
         ///     </para>
         /// </summary>
-        public ICollectionElementProvider ListCollectionElementPicker { get; set; }
+        public IElementProvider ListElementPicker { get; set; }
 
         /// <summary>
         ///     <para>

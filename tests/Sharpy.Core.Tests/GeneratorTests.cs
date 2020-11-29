@@ -1,17 +1,21 @@
 ﻿using NUnit.Framework;
 using NUnit.Framework.Internal;
 
-namespace Sharpy.Core.Tests {
+namespace Sharpy.Core.Tests
+{
     [TestFixture]
-    internal class GeneratorTests {
+    internal class GeneratorTests
+    {
         [SetUp]
-        public void Initiate() {
+        public void Initiate()
+        {
             var randomizer = new Randomizer(Seed);
             _generator = Generator.Function(randomizer.GetString);
         }
 
         [TearDown]
-        public void Dispose() {
+        public void Dispose()
+        {
             _generator = null;
         }
 
@@ -21,7 +25,8 @@ namespace Sharpy.Core.Tests {
         [Test(
             Description = "Verify that Generate gives expected result"
         )]
-        public void Generate_Expected_Result() {
+        public void Generate_Expected_Result()
+        {
             var result = _generator.Generate();
             var expected = new Randomizer(Seed).GetString();
             Assert.AreEqual(expected, result);
@@ -30,7 +35,8 @@ namespace Sharpy.Core.Tests {
         [Test(
             Description = "Verify that does not return null"
         )]
-        public void Generate_Not_Null() {
+        public void Generate_Not_Null()
+        {
             var result = _generator.Generate();
             Assert.IsNotNull(result);
         }

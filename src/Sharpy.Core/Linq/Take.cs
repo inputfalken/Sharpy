@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Sharpy.Core.Linq {
-    public static partial class Extensions {
+namespace Sharpy.Core.Linq
+{
+    public static partial class Extensions
+    {
         /// <summary>
         ///     <para>
         ///         Creates an <see cref="IEnumerable{T}" /> from <see cref="IGenerator{T}" />.
@@ -27,14 +29,16 @@ namespace Sharpy.Core.Linq {
         ///          IEenumerable&lt;int&gt; = Generator.Incrementer(0).Take(100);
         ///     </code>
         /// </example>
-        public static IEnumerable<TSource> Take<TSource>(this IGenerator<TSource> generator, int count) {
+        public static IEnumerable<TSource> Take<TSource>(this IGenerator<TSource> generator, int count)
+        {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (count <= 0) throw new ArgumentException($"{nameof(count)} Must be more than zero");
             //Is needed so the above if statement is checked.
             return Iterator(count, generator);
         }
 
-        private static IEnumerable<TSource> Iterator<TSource>(int count, IGenerator<TSource> generator) {
+        private static IEnumerable<TSource> Iterator<TSource>(int count, IGenerator<TSource> generator)
+        {
             for (var i = 0; i < count; i++) yield return generator.Generate();
         }
     }

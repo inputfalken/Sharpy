@@ -4,11 +4,13 @@ using Sharpy.Core.Implementations;
 using Sharpy.Core.Linq;
 using static System.Guid;
 
-namespace Sharpy.Core {
+namespace Sharpy.Core
+{
     /// <summary>
     ///     Provides a set of static members for creating <see cref="IGenerator{T}" />.
     /// </summary>
-    public static class Generator {
+    public static class Generator
+    {
         /// <summary>
         ///     <para>
         ///         Creates a <see cref="IGenerator{T}" /> which uses the same <paramref name="source" /> parameter.

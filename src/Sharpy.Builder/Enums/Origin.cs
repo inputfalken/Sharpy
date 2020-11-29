@@ -1,8 +1,10 @@
-namespace Sharpy.Builder.Enums {
+namespace Sharpy.Builder.Enums
+{
     /// <summary>
     ///     Is used as argument when filtering by country and region.
     /// </summary>
-    public enum Origin {
+    public enum Origin
+    {
         /// <summary>
         /// </summary>
         CostaRica,

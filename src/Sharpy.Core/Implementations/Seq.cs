@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using Sharpy.Core.Utils;
 
-namespace Sharpy.Core.Implementations {
+namespace Sharpy.Core.Implementations
+{
     /// <summary>
     ///     <para>
     ///         A Generator using <see cref="IEnumerable{T}" />
     ///     </para>
     /// </summary>
-    internal sealed class Seq<T> : IGenerator<T> {
+    internal sealed class Seq<T> : IGenerator<T>
+    {
         private readonly Lazy<IEnumerator<T>> _lazyEnumerator;
 
         public Seq(IEnumerable<T> enumerable)
@@ -16,14 +18,14 @@ namespace Sharpy.Core.Implementations {
             _lazyEnumerator = new Lazy<IEnumerator<T>>(enumerable.CacheGeneratedResults().GetEnumerator);
         }
 
-        public Seq(Func<IEnumerable<T>> fn) : this(Invoker(fn)) { }
-
-        private IEnumerator<T> Enumerator
+        public Seq(Func<IEnumerable<T>> fn) : this(Invoker(fn))
         {
-            get { return _lazyEnumerator.Value; }
         }
 
-        public T Generate() {
+        private IEnumerator<T> Enumerator => _lazyEnumerator.Value;
+
+        public T Generate()
+        {
             if (Enumerator.MoveNext()) return Enumerator.Current;
             Enumerator.Reset();
             Enumerator.MoveNext();
@@ -35,8 +37,11 @@ namespace Sharpy.Core.Implementations {
         ///         QUAS WEX EXORT
         ///     </para>
         /// </summary>
-        private static IEnumerable<T> Invoker(Func<IEnumerable<T>> fn) {
-            while (true) foreach (var element in fn()) yield return element;
+        private static IEnumerable<T> Invoker(Func<IEnumerable<T>> fn)
+        {
+            while (true)
+                foreach (var element in fn())
+                    yield return element;
         }
     }
 }

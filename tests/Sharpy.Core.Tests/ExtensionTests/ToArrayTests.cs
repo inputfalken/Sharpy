@@ -3,16 +3,20 @@ using System.Linq;
 using NUnit.Framework;
 using Sharpy.Core.Linq;
 
-namespace Sharpy.Core.Tests.ExtensionTests {
+namespace Sharpy.Core.Tests.ExtensionTests
+{
     [TestFixture]
-    internal class ToArrayTests {
+    internal class ToArrayTests
+    {
         [SetUp]
-        public void Initiate() {
+        public void Initiate()
+        {
             _generator = Generator.Incrementer(0);
         }
 
         [TearDown]
-        public void Dispose() {
+        public void Dispose()
+        {
             _generator = null;
         }
 
@@ -21,14 +25,16 @@ namespace Sharpy.Core.Tests.ExtensionTests {
         [Test(
             Description = "Verify that when argument less than zero, an exception is thrown"
         )]
-        public void Negative_Length_Throws() {
+        public void Negative_Length_Throws()
+        {
             Assert.Throws<ArgumentException>(() => _generator.ToArray(-1));
         }
 
         [Test(
             Description = "Verify that ArgumentNullException is thrown when generator is null."
         )]
-        public void Null_Generator_Throws() {
+        public void Null_Generator_Throws()
+        {
             _generator = null;
             Assert.Throws<ArgumentNullException>(() => _generator.ToArray(10));
         }
@@ -36,7 +42,8 @@ namespace Sharpy.Core.Tests.ExtensionTests {
         [Test(
             Description = "Verify the expeceted amount of elements is returned."
         )]
-        public void Returns_Expected_Amount() {
+        public void Returns_Expected_Amount()
+        {
             const int count = 20;
             var result = _generator.ToArray(count);
             Assert.AreEqual(count, result.Length);
@@ -45,7 +52,8 @@ namespace Sharpy.Core.Tests.ExtensionTests {
         [Test(
             Description = "Verify the expeceted elements is returned."
         )]
-        public void Returns_Expected_Elements() {
+        public void Returns_Expected_Elements()
+        {
             var result = _generator.ToArray(20);
             var expected = Enumerable.Range(0, 20);
             Assert.AreEqual(expected, result);
@@ -54,7 +62,8 @@ namespace Sharpy.Core.Tests.ExtensionTests {
         [Test(
             Description = "Verify that when argument count is zero an empty array is returned."
         )]
-        public void Zero_Length_Returns_EmptyArray() {
+        public void Zero_Length_Returns_EmptyArray()
+        {
             Assert.AreEqual(Array.Empty<int>(), _generator.ToArray(0));
         }
     }

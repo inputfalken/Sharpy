@@ -1,12 +1,12 @@
 namespace Sharpy.Builder.Providers
 {
     /// <summary>
-    ///   Methods providing System.Single.
+    ///     Methods providing System.Single.
     /// </summary>
     public interface IFloatProvider
     {
         /// <summary>
-        /// Provides a System.Single between <paramref name="min"/> and <paramref name="max"/>.
+        ///     Provides a System.Single between <paramref name="min" /> and <paramref name="max" />.
         /// </summary>
         /// <param name="min">
         ///     The inclusive minimum bound.
@@ -17,7 +17,7 @@ namespace Sharpy.Builder.Providers
         float Float(float min, float max);
 
         /// <summary>
-        /// Provides a System.Single between 0 and <paramref name="max"/>.
+        ///     Provides a System.Single between 0 and <paramref name="max" />.
         /// </summary>
         /// <param name="max">
         ///     The exclusive maximum bound.
@@ -25,7 +25,7 @@ namespace Sharpy.Builder.Providers
         float Float(float max);
 
         /// <summary>
-        /// Provides a System.Single between 0 and System.Single.MaxValue. 
+        ///     Provides a System.Single between 0 and System.Single.MaxValue.
         /// </summary>
         float Float();
     }

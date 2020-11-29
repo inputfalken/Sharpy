@@ -1,10 +1,12 @@
 ﻿using System;
 
-namespace Sharpy.Builder.Providers {
+namespace Sharpy.Builder.Providers
+{
     /// <summary>
-    ///   Methods providing System.String representing security numbers.
+    ///     Methods providing System.String representing security numbers.
     /// </summary>
-    public interface ISecurityNumberProvider {
+    public interface ISecurityNumberProvider
+    {
         /// <summary>
         ///     Provides a security number based on argument <paramref name="date" />.
         /// </summary>

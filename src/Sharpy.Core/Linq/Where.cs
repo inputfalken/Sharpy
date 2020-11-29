@@ -1,7 +1,9 @@
 ﻿using System;
 
-namespace Sharpy.Core.Linq {
-    public static partial class Extensions {
+namespace Sharpy.Core.Linq
+{
+    public static partial class Extensions
+    {
         /// <summary>
         ///     <para>
         ///         Filters a <see cref="IGenerator{T}" /> based on a predicate.
@@ -35,14 +37,18 @@ namespace Sharpy.Core.Linq {
         /// </example>
         public static IGenerator<TSource> Where<TSource>(this IGenerator<TSource> generator,
             Func<TSource, bool> predicate,
-            int threshold = 100000) {
+            int threshold = 100000)
+        {
             if (predicate == null) throw new ArgumentNullException(nameof(predicate));
             if (generator == null) throw new ArgumentNullException(nameof(generator));
-            return Generator.Function(() => {
-                for (var i = 0; i < threshold; i++) {
+            return Generator.Function(() =>
+            {
+                for (var i = 0; i < threshold; i++)
+                {
                     var generation = generator.Generate();
                     if (predicate(generation)) return generation;
                 }
+
                 throw new ArgumentException($"Could not match the predicate with {threshold} attempts. ");
             });
         }

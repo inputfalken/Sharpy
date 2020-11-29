@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace Sharpy.Core.Linq
 {
@@ -28,15 +27,15 @@ namespace Sharpy.Core.Linq
         {
             if (generator is null)
                 throw new ArgumentNullException(nameof(generator));
-            
+
             if (length < 0)
                 throw new ArgumentException("Can not pass negative values.");
-            
+
             if (length == 0)
                 return Array.Empty<TSource>();
 
             var sources = new TSource[length];
-            for (var i = 0; i < length; i++) 
+            for (var i = 0; i < length; i++)
                 sources[i] = generator.Generate();
 
             return sources;

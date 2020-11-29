@@ -3,16 +3,19 @@ using System.Linq;
 using NUnit.Framework;
 using Sharpy.Builder.Implementation.DataObjects;
 
-namespace Sharpy.Builder.Tests {
+namespace Sharpy.Builder.Tests
+{
     [TestFixture]
-    internal class FileTests {
+    internal class FileTests
+    {
         private static readonly IEnumerable<NameModel> GetNames = Data.GetNames;
         private static readonly IReadOnlyList<string> GetUserNames = Data.GetUserNames;
 
         [Test(
             Description = "Verify that no name contains number"
         )]
-        public void Name_Contains_No_Numbers() {
+        public void Name_Contains_No_Numbers()
+        {
             var deserializeObject = GetNames;
             var containsNumber = deserializeObject.Select(name => name.Name).All(s => s.Any(char.IsNumber));
             Assert.IsFalse(containsNumber);
@@ -21,7 +24,8 @@ namespace Sharpy.Builder.Tests {
         [Test(
             Description = "Verify that no name contains punctuation"
         )]
-        public void Name_Contains_No_Punctuations() {
+        public void Name_Contains_No_Punctuations()
+        {
             var deserializeObject = GetNames;
             var containsPuncation = deserializeObject.Select(name => name.Name).All(s => s.Any(char.IsPunctuation));
             Assert.IsFalse(containsPuncation);
@@ -30,7 +34,8 @@ namespace Sharpy.Builder.Tests {
         [Test(
             Description = "Verify that no name contains separators"
         )]
-        public void Name_Contains_No_Separator() {
+        public void Name_Contains_No_Separator()
+        {
             var deserializeObject = GetNames;
             var containsSeperator = deserializeObject
                 .Select(name => name.Name)
@@ -41,7 +46,8 @@ namespace Sharpy.Builder.Tests {
         [Test(
             Description = "Verify that no name contains symbol"
         )]
-        public void Name_Contains_No_Symbols() {
+        public void Name_Contains_No_Symbols()
+        {
             var deserializeObject = GetNames;
             var containsSymbols = deserializeObject
                 .Select(name => name.Name)
@@ -52,7 +58,8 @@ namespace Sharpy.Builder.Tests {
         [Test(
             Description = "Verify that no name contains white space."
         )]
-        public void Name_Contains_No_White_Space() {
+        public void Name_Contains_No_White_Space()
+        {
             var deserializeObject = GetNames;
             var containsWhiteSpace = deserializeObject
                 .Select(name => name.Name)
@@ -63,7 +70,8 @@ namespace Sharpy.Builder.Tests {
         [Test(
             Description = "Verify that all names starts with upper case"
         )]
-        public void Name_Starts_With_Capital_Letter() {
+        public void Name_Starts_With_Capital_Letter()
+        {
             var deserializeObject = GetNames;
             var startsWithUpperCase = deserializeObject
                 .Select(name => name.Name)
@@ -74,7 +82,8 @@ namespace Sharpy.Builder.Tests {
         [Test(
             Description = "Verify that no user name contains number."
         )]
-        public void User_Name_Contains_No_Numbers() {
+        public void User_Name_Contains_No_Numbers()
+        {
             var containsNumber =
                 GetUserNames
                     .Any(s => s.Any(char.IsNumber));
@@ -84,7 +93,8 @@ namespace Sharpy.Builder.Tests {
         [Test(
             Description = "Verify that no user name contains punctuation."
         )]
-        public void User_Name_Contains_No_Punctuations() {
+        public void User_Name_Contains_No_Punctuations()
+        {
             var containsPunctuations =
                 GetUserNames.All(s => s.Any(char.IsPunctuation));
             Assert.IsFalse(containsPunctuations);
@@ -93,7 +103,8 @@ namespace Sharpy.Builder.Tests {
         [Test(
             Description = "Verify that no user name contains separator."
         )]
-        public void User_Name_Contains_No_Separator() {
+        public void User_Name_Contains_No_Separator()
+        {
             var containsSeparator =
                 GetUserNames
                     .Any(s => s.Any(char.IsSeparator));
@@ -103,7 +114,8 @@ namespace Sharpy.Builder.Tests {
         [Test(
             Description = "Verify that no user name contains symbol."
         )]
-        public void User_Name_Contains_No_Symbols() {
+        public void User_Name_Contains_No_Symbols()
+        {
             var containsSymbols = GetUserNames
                 .Any(s => s.Any(char.IsSymbol));
             Assert.IsFalse(containsSymbols);
@@ -112,7 +124,8 @@ namespace Sharpy.Builder.Tests {
         [Test(
             Description = "Verify that no user name contains white space."
         )]
-        public void User_Name_Contains_No_White_Space() {
+        public void User_Name_Contains_No_White_Space()
+        {
             var containsWhitespace =
                 GetUserNames
                     .Any(s => s.Any(char.IsWhiteSpace));

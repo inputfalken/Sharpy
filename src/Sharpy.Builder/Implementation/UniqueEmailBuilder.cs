@@ -4,11 +4,13 @@ using System.Linq;
 using Sharpy.Builder.Implementation.ExtensionMethods;
 using Sharpy.Builder.Providers;
 
-namespace Sharpy.Builder.Implementation {
+namespace Sharpy.Builder.Implementation
+{
     /// <summary>
     ///     Builds unique email addresses.
     /// </summary>
-    public sealed class UniqueEmailBuilder : UniqueRandomizer<string>, IEmailProvider {
+    public sealed class UniqueEmailBuilder : UniqueRandomizer<string>, IEmailProvider
+    {
         private const int Limit = 2;
 
         /// <summary>
@@ -18,7 +20,8 @@ namespace Sharpy.Builder.Implementation {
 
         private readonly IEnumerator<char> _separatorEnumerator;
 
-        internal UniqueEmailBuilder(IEnumerable<string> providers, Random random) : base(random) {
+        internal UniqueEmailBuilder(IEnumerable<string> providers, Random random) : base(random)
+        {
             _domainsEnumerator = providers.GetEnumerator();
             _separatorEnumerator = Infinite().GetEnumerator();
         }
@@ -32,7 +35,8 @@ namespace Sharpy.Builder.Implementation {
         /// <returns>
         ///     A string representing a email address.
         /// </returns>
-        public string Mail(params string[] names) {
+        public string Mail(params string[] names)
+        {
             if (names == null) throw new ArgumentNullException(nameof(names));
             if (names.Length < 1) throw new ArgumentException($"Argument '{nameof(names)}' can not be empty.");
             var resets = 0;
@@ -46,9 +50,11 @@ namespace Sharpy.Builder.Implementation {
                 ).ToArray();
 
             while (resets < Limit)
-                if (_domainsEnumerator.MoveNext()) {
+                if (_domainsEnumerator.MoveNext())
+                {
                     var mailAddress = namesWithIndex.Aggregate(string.Empty,
-                        (acc, curr) => {
+                        (acc, curr) =>
+                        {
                             _separatorEnumerator.MoveNext();
                             return
                                 $"{acc}{(curr.iteration == names.Length - 1 ? curr.name : curr.name.Append(_separatorEnumerator.Current.ToString()))}";
@@ -56,15 +62,18 @@ namespace Sharpy.Builder.Implementation {
                         result => result.Append('@', _domainsEnumerator.Current).ToLower()
                     );
 
-                    if (!HashSet.Contains(mailAddress)) {
+                    if (!HashSet.Contains(mailAddress))
+                    {
                         HashSet.Add(mailAddress);
                         return mailAddress;
                     }
                 }
-                else {
+                else
+                {
                     _domainsEnumerator.Reset();
                     resets++;
                 }
+
             names[names.Length - 1] = ResolveDuplicate(names[names.Length - 1]);
             return Mail(names);
         }
@@ -73,16 +82,20 @@ namespace Sharpy.Builder.Implementation {
         ///     Creates an email with a randomized user name.
         /// </summary>
         /// <returns></returns>
-        public string Mail() {
-            while (true) {
+        public string Mail()
+        {
+            while (true)
+            {
                 var randomItem = Random.ListElement(Data.GetUserNames);
                 if (randomItem.Length < 4) continue;
                 return Mail(randomItem);
             }
         }
 
-        private static IEnumerable<char> Infinite() {
-            while (true) {
+        private static IEnumerable<char> Infinite()
+        {
+            while (true)
+            {
                 yield return '.';
                 yield return '_';
                 yield return '-';

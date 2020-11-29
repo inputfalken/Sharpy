@@ -6,13 +6,15 @@ using NUnit.Framework;
 using Sharpy.Builder.Enums;
 using Sharpy.Builder.Implementation;
 
-namespace Sharpy.Builder.Tests {
+namespace Sharpy.Builder.Tests
+{
     /// <summary>
     ///     <para>These tests check that the result will be the same when setting a seed.</para>
     ///     <para>Thread.Sleep is for making sure a new seed would be given if the Seed given does not work.</para>
     /// </summary>
     [TestFixture]
-    public class Seed {
+    public class Seed
+    {
         private static DateTime TrimMilliseconds(DateTime dt)
         {
             return new DateTime(dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second, 0);
@@ -34,7 +36,8 @@ namespace Sharpy.Builder.Tests {
         private const int SleepDuration = 20;
 
         [Test]
-        public void No_Seed_Bool() {
+        public void No_Seed_Bool()
+        {
             var g1 = new Builder();
             Thread.Sleep(SleepDuration);
             var g2 = new Builder();
@@ -44,7 +47,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void No_Seed_CustomCollection() {
+        public void No_Seed_CustomCollection()
+        {
             var list = new List<string> {"Foo", "Bar", "John", "Doe"};
             var g1 = new Builder();
             Thread.Sleep(SleepDuration);
@@ -55,7 +59,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void No_Seed_DateByAge() {
+        public void No_Seed_DateByAge()
+        {
             var g1 = new Builder();
             Thread.Sleep(SleepDuration);
             var g2 = new Builder();
@@ -65,7 +70,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void No_Seed_DateByYear() {
+        public void No_Seed_DateByYear()
+        {
             var g1 = new Builder();
             Thread.Sleep(SleepDuration);
             var g2 = new Builder();
@@ -75,7 +81,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void No_Seed_Double_No_Arg() {
+        public void No_Seed_Double_No_Arg()
+        {
             var g1 = new Builder();
             Thread.Sleep(SleepDuration);
             var g2 = new Builder();
@@ -85,7 +92,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void No_Seed_Double_One_Arg() {
+        public void No_Seed_Double_One_Arg()
+        {
             const double max = 3.3;
             var g1 = new Builder();
             Thread.Sleep(SleepDuration);
@@ -96,7 +104,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void No_Seed_Double_Two_Args() {
+        public void No_Seed_Double_Two_Args()
+        {
             const double max = 3.3;
             const double min = 1.3;
             var g1 = new Builder();
@@ -108,7 +117,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void No_Seed_Integer_No_Arg() {
+        public void No_Seed_Integer_No_Arg()
+        {
             var generator = new Builder();
             Thread.Sleep(SleepDuration);
             var generator2 = new Builder();
@@ -118,7 +128,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void No_Seed_Integer_One_Arg() {
+        public void No_Seed_Integer_One_Arg()
+        {
             const int max = 100;
             var g1 = new Builder();
             Thread.Sleep(SleepDuration);
@@ -129,7 +140,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void No_Seed_Integer_Two_Args() {
+        public void No_Seed_Integer_Two_Args()
+        {
             const int max = 100;
             const int min = 20;
             var g1 = new Builder();
@@ -141,7 +153,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void No_Seed_Long_No_Arg() {
+        public void No_Seed_Long_No_Arg()
+        {
             var g1 = new Builder();
             Thread.Sleep(SleepDuration);
             var g2 = new Builder();
@@ -151,7 +164,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void No_Seed_Long_One_Arg() {
+        public void No_Seed_Long_One_Arg()
+        {
             var g1 = new Builder();
             Thread.Sleep(SleepDuration);
             var g2 = new Builder();
@@ -162,7 +176,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void No_Seed_Long_Two_Args() {
+        public void No_Seed_Long_Two_Args()
+        {
             var g1 = new Builder();
             Thread.Sleep(SleepDuration);
             var g2 = new Builder();
@@ -174,7 +189,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void No_Seed_MailAddress() {
+        public void No_Seed_MailAddress()
+        {
             const string name = "bob";
             var g1 = new Builder();
             Thread.Sleep(SleepDuration);
@@ -185,7 +201,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void No_Seed_Name_FemaleFirstName() {
+        public void No_Seed_Name_FemaleFirstName()
+        {
             var g1 = new Builder();
             Thread.Sleep(SleepDuration);
             var g2 = new Builder();
@@ -196,7 +213,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void No_Seed_Name_FirstName() {
+        public void No_Seed_Name_FirstName()
+        {
             var g1 = new Builder();
             Thread.Sleep(SleepDuration);
             var g2 = new Builder();
@@ -207,7 +225,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void No_Seed_Name_LastName() {
+        public void No_Seed_Name_LastName()
+        {
             var g1 = new Builder();
             Thread.Sleep(SleepDuration);
             var g2 = new Builder();
@@ -217,7 +236,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void No_Seed_Name_MaleFirstName() {
+        public void No_Seed_Name_MaleFirstName()
+        {
             var g1 = new Builder();
             Thread.Sleep(SleepDuration);
             var g2 = new Builder();
@@ -228,7 +248,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void No_Seed_Name_UserName() {
+        public void No_Seed_Name_UserName()
+        {
             var g1 = new Builder();
             Thread.Sleep(SleepDuration);
             var g2 = new Builder();
@@ -239,7 +260,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void No_Seed_Params() {
+        public void No_Seed_Params()
+        {
             var list = new List<string> {"Foo", "Bar", "John", "Doe"};
             var g1 = new Builder();
             Thread.Sleep(SleepDuration);
@@ -250,7 +272,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void No_Seed_PhoneNumber() {
+        public void No_Seed_PhoneNumber()
+        {
             var g1 = new Builder();
             Thread.Sleep(SleepDuration);
             var g2 = new Builder();
@@ -260,7 +283,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void No_Seed_SecurityNumber_Formated_False() {
+        public void No_Seed_SecurityNumber_Formated_False()
+        {
             var c1 = new Configurement();
             c1.SecurityNumberProvider = new UniqueSecurityBuilder(c1.Random);
             var g1 = new Builder(c1);
@@ -276,7 +300,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void No_Seed_SecurityNumber_Formated_True() {
+        public void No_Seed_SecurityNumber_Formated_True()
+        {
             var g1 = new Builder();
             Thread.Sleep(SleepDuration);
             var g2 = new Builder();
@@ -288,7 +313,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void Seed_Bool() {
+        public void Seed_Bool()
+        {
             var g1 = new Builder(TestSeed);
             Thread.Sleep(SleepDuration);
             var g2 = new Builder(TestSeed);
@@ -298,7 +324,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void Seed_CustomCollection() {
+        public void Seed_CustomCollection()
+        {
             var list = new List<string> {"Foo", "Bar", "John", "Doe"};
             var g1 = new Builder(TestSeed);
             Thread.Sleep(SleepDuration);
@@ -309,7 +336,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void Seed_DateByAge() {
+        public void Seed_DateByAge()
+        {
             var g1 = new Builder(TestSeed);
             Thread.Sleep(SleepDuration);
             var g2 = new Builder(TestSeed);
@@ -319,7 +347,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void Seed_DateByYear() {
+        public void Seed_DateByYear()
+        {
             var g1 = new Builder(TestSeed);
             Thread.Sleep(SleepDuration);
             var g2 = new Builder(TestSeed);
@@ -329,7 +358,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void Seed_Double_No_Arg() {
+        public void Seed_Double_No_Arg()
+        {
             var g1 = new Builder(TestSeed);
             Thread.Sleep(SleepDuration);
             var g2 = new Builder(TestSeed);
@@ -339,7 +369,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void Seed_Double_One_Arg() {
+        public void Seed_Double_One_Arg()
+        {
             const double max = 3.3;
             var g1 = new Builder(TestSeed);
             Thread.Sleep(SleepDuration);
@@ -350,7 +381,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void Seed_Double_Two_Args() {
+        public void Seed_Double_Two_Args()
+        {
             const double max = 3.3;
             const double min = 1.3;
             var g1 = new Builder(TestSeed);
@@ -362,7 +394,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void Seed_Integer_No_Arg() {
+        public void Seed_Integer_No_Arg()
+        {
             var generator = new Builder(TestSeed);
             Thread.Sleep(SleepDuration);
             var generator2 = new Builder(TestSeed);
@@ -372,7 +405,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void Seed_Integer_One_Arg() {
+        public void Seed_Integer_One_Arg()
+        {
             const int max = 100;
             var g1 = new Builder(TestSeed);
             Thread.Sleep(SleepDuration);
@@ -383,7 +417,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void Seed_Integer_Two_Args() {
+        public void Seed_Integer_Two_Args()
+        {
             const int max = 100;
             const int min = 20;
             var g1 = new Builder(TestSeed);
@@ -395,7 +430,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void Seed_Long_No_Arg() {
+        public void Seed_Long_No_Arg()
+        {
             var g1 = new Builder(TestSeed);
             Thread.Sleep(SleepDuration);
             var g2 = new Builder(TestSeed);
@@ -405,7 +441,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void Seed_Long_One_Arg() {
+        public void Seed_Long_One_Arg()
+        {
             var g1 = new Builder(TestSeed);
             Thread.Sleep(SleepDuration);
             var g2 = new Builder(TestSeed);
@@ -416,7 +453,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void Seed_Long_Two_Args() {
+        public void Seed_Long_Two_Args()
+        {
             var g1 = new Builder(TestSeed);
             Thread.Sleep(SleepDuration);
             var g2 = new Builder(TestSeed);
@@ -428,7 +466,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void Seed_MailAddress() {
+        public void Seed_MailAddress()
+        {
             const string name = "bob";
             var g1 = new Builder(TestSeed);
             Thread.Sleep(SleepDuration);
@@ -439,7 +478,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void Seed_Name_FemaleFirstName() {
+        public void Seed_Name_FemaleFirstName()
+        {
             var g1 = new Builder(TestSeed);
             Thread.Sleep(SleepDuration);
             var g2 = new Builder(TestSeed);
@@ -450,7 +490,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void Seed_Name_FirstName() {
+        public void Seed_Name_FirstName()
+        {
             var g1 = new Builder(TestSeed);
             Thread.Sleep(SleepDuration);
             var g2 = new Builder(TestSeed);
@@ -461,7 +502,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void Seed_Name_LastName() {
+        public void Seed_Name_LastName()
+        {
             var g1 = new Builder(TestSeed);
             Thread.Sleep(SleepDuration);
             var g2 = new Builder(TestSeed);
@@ -471,7 +513,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void Seed_Name_MaleFirstName() {
+        public void Seed_Name_MaleFirstName()
+        {
             var g1 = new Builder(TestSeed);
             Thread.Sleep(SleepDuration);
             var g2 = new Builder(TestSeed);
@@ -482,7 +525,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void Seed_Name_UserName() {
+        public void Seed_Name_UserName()
+        {
             var g1 = new Builder(TestSeed);
             Thread.Sleep(SleepDuration);
             var g2 = new Builder(TestSeed);
@@ -493,17 +537,19 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void Seed_Params() {
+        public void Seed_Params()
+        {
             var g1 = new Builder(TestSeed);
             Thread.Sleep(SleepDuration);
             var g2 = new Builder(TestSeed);
-            var expected = Enumerable.Range(0, Count).Select(i => g1.Argument("Foo", "Bar", "John", "Doe"));
-            var result = Enumerable.Range(0, Count).Select(i => g2.Argument("Foo", "Bar", "John", "Doe"));
+            var expected = Enumerable.Range(0, Count).Select(i => g1.FromArgument("Foo", "Bar", "John", "Doe"));
+            var result = Enumerable.Range(0, Count).Select(i => g2.FromArgument("Foo", "Bar", "John", "Doe"));
             Assert.AreEqual(expected, result);
         }
 
         [Test]
-        public void Seed_PhoneNumber() {
+        public void Seed_PhoneNumber()
+        {
             var g1 = new Builder(TestSeed);
             Thread.Sleep(SleepDuration);
             var g2 = new Builder(TestSeed);
@@ -511,8 +557,10 @@ namespace Sharpy.Builder.Tests {
             var result = Enumerable.Range(0, Count).Select(i => g2.PhoneNumber(10));
             Assert.AreEqual(expected, result);
         }
+
         [Test]
-        public void No_Seed_DateTime() {
+        public void No_Seed_DateTime()
+        {
             var g1 = new Builder();
             Thread.Sleep(SleepDuration);
             var g2 = new Builder();
@@ -520,8 +568,10 @@ namespace Sharpy.Builder.Tests {
             var result = Enumerable.Range(0, Count).Select(i => g2.TimeSpan(TimeSpan.Zero, TimeSpan.MaxValue));
             Assert.AreNotEqual(expected, result);
         }
+
         [Test]
-        public void Seed_DateTime() {
+        public void Seed_DateTime()
+        {
             var g1 = new Builder(TestSeed);
             Thread.Sleep(SleepDuration);
             var g2 = new Builder(TestSeed);
@@ -529,9 +579,10 @@ namespace Sharpy.Builder.Tests {
             var result = Enumerable.Range(0, Count).Select(i => g2.DateTime(DateTime.Now, DateTime.MaxValue));
             Assert.AreEqual(expected, result);
         }
-        
+
         [Test]
-        public void No_Seed_TimeSpan() {
+        public void No_Seed_TimeSpan()
+        {
             var g1 = new Builder();
             Thread.Sleep(SleepDuration);
             var g2 = new Builder();
@@ -539,8 +590,10 @@ namespace Sharpy.Builder.Tests {
             var result = Enumerable.Range(0, Count).Select(i => g2.TimeSpan(TimeSpan.Zero, TimeSpan.MaxValue));
             Assert.AreNotEqual(expected, result);
         }
+
         [Test]
-        public void Seed_TimeSpan() {
+        public void Seed_TimeSpan()
+        {
             var g1 = new Builder(TestSeed);
             Thread.Sleep(SleepDuration);
             var g2 = new Builder(TestSeed);
@@ -550,7 +603,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void Seed_SecurityNumber_Formated_False() {
+        public void Seed_SecurityNumber_Formated_False()
+        {
             var c1 = new Configurement(TestSeed);
             c1.SecurityNumberProvider = new UniqueSecurityBuilder(c1.Random);
             var g1 = new Builder(c1);
@@ -566,7 +620,8 @@ namespace Sharpy.Builder.Tests {
         }
 
         [Test]
-        public void Seed_SecurityNumber_Formated_True() {
+        public void Seed_SecurityNumber_Formated_True()
+        {
             var g1 = new Builder(TestSeed);
             Thread.Sleep(SleepDuration);
             var g2 = new Builder(TestSeed);

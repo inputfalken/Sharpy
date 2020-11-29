@@ -2,16 +2,20 @@
 using NUnit.Framework;
 using Sharpy.Core.Linq;
 
-namespace Sharpy.Core.Tests.ExtensionTests {
+namespace Sharpy.Core.Tests.ExtensionTests
+{
     [TestFixture]
-    public class WhereTests {
+    public class WhereTests
+    {
         [SetUp]
-        public void Initiate() {
+        public void Initiate()
+        {
             _generator = Generator.Incrementer(0);
         }
 
         [TearDown]
-        public void Dispose() {
+        public void Dispose()
+        {
             _generator = null;
         }
 
@@ -20,7 +24,8 @@ namespace Sharpy.Core.Tests.ExtensionTests {
         [Test(
             Description = "Verify that bad predicates do not run forever."
         )]
-        public void Bad_Predicate_Throws() {
+        public void Bad_Predicate_Throws()
+        {
             var result = _generator
                 .Where(s => false);
 
@@ -30,7 +35,8 @@ namespace Sharpy.Core.Tests.ExtensionTests {
         [Test(
             Description = "Verify that where does not return null"
         )]
-        public void Does_Not_Return_Null() {
+        public void Does_Not_Return_Null()
+        {
             var result = _generator.Where(s => true);
             Assert.IsNotNull(result);
         }
@@ -38,7 +44,8 @@ namespace Sharpy.Core.Tests.ExtensionTests {
         [Test(
             Description = "Verify that Where with null Generator and Argument throws exception"
         )]
-        public void Filter_Null_Generator_And_Arg_Throws() {
+        public void Filter_Null_Generator_And_Arg_Throws()
+        {
             IGenerator<string> generator = null;
             Assert.Throws<ArgumentNullException>(() => generator.Where(null));
         }
@@ -46,7 +53,8 @@ namespace Sharpy.Core.Tests.ExtensionTests {
         [Test(
             Description = "Verify that Where with null Generator throws exception"
         )]
-        public void Filter_Null_Generator_Throws() {
+        public void Filter_Null_Generator_Throws()
+        {
             IGenerator<string> generator = null;
             Assert.Throws<ArgumentNullException>(() => generator.Where(s => s.Length == 0));
         }
@@ -54,14 +62,16 @@ namespace Sharpy.Core.Tests.ExtensionTests {
         [Test(
             Description = "Verify that passing null does not work and throws exception"
         )]
-        public void Filter_Null_Param_Throws() {
+        public void Filter_Null_Param_Throws()
+        {
             Assert.Throws<ArgumentNullException>(() => _generator.Where(null));
         }
 
         [Test(
             Description = "Verify to see that where only returns data fiting the predicate"
         )]
-        public void Int_Dividable_By_Two() {
+        public void Int_Dividable_By_Two()
+        {
             Func<int, bool> predicate = i => i % 2 == 0;
             var result = _generator.Where(predicate);
 
@@ -80,7 +90,8 @@ namespace Sharpy.Core.Tests.ExtensionTests {
         [Test(
             Description = "Verify to see that where only returns data fiting the predicate"
         )]
-        public void Int_Dividable_By_Two_Without_Filter() {
+        public void Int_Dividable_By_Two_Without_Filter()
+        {
             Func<int, bool> predicate = i => i % 2 == 0;
 
             Assert.AreEqual(true, predicate(_generator.Generate()));
@@ -99,9 +110,11 @@ namespace Sharpy.Core.Tests.ExtensionTests {
         [Test(
             Description = "Verifys that the Func is only invoked if Generate is invoked"
         )]
-        public void Is_Evaluated_After_Take_Is_Invoked() {
+        public void Is_Evaluated_After_Take_Is_Invoked()
+        {
             var invoked = false;
-            var generator = _generator.Where(s => {
+            var generator = _generator.Where(s =>
+            {
                 invoked = true;
                 return true;
             });

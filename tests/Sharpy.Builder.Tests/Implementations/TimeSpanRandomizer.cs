@@ -34,7 +34,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var timeSpans = new TimeSpan[Amount];
 
             var max = TimeSpan.FromDays(1);
-            
+
             for (var i = 0; i < Amount; i++)
                 timeSpans[i] = TimeSpanProvider.TimeSpan(max);
 
@@ -92,6 +92,7 @@ namespace Sharpy.Builder.Tests.Implementations
                 "TimeSpans.All(x => x == min)"
             );
         }
+
         [Test]
         public void Min_Equal_To_Max_Does_Not_Throw()
         {

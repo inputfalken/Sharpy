@@ -1,7 +1,7 @@
 namespace Sharpy.Builder.Providers
 {
     /// <summary>
-    ///         Method providing System.Boolean.
+    ///     Method providing System.Boolean.
     /// </summary>
     public interface IBoolProvider
     {

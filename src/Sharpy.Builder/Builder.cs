@@ -15,14 +15,13 @@ namespace Sharpy.Builder
         IIntegerProvider,
         ILongProvider,
         INameProvider,
-        ICollectionElementProvider,
+        IElementProvider,
         IBoolProvider,
         IDateTimeProvider,
         IEmailProvider,
         ISecurityNumberProvider,
         IPhoneNumberProvider,
         IUserNameProvider,
-        IArgumentProvider,
         IGuidProvider,
         ITimeSpanProvider,
         IDecimalProvider,
@@ -30,24 +29,23 @@ namespace Sharpy.Builder
         IFloatProvider,
         ICharProvider
     {
-        private readonly IArgumentProvider _argumentProvider;
         private readonly IBoolProvider _boolProvider;
+        private readonly ICharProvider _charProvider;
+        private readonly IDateTimeOffsetProvider _dateTimeOffsetProvider;
         private readonly IDateTimeProvider _dateTimeProvider;
+        private readonly IDecimalProvider _decimalProvider;
         private readonly IDoubleProvider _doubleProvider;
-        private readonly ICollectionElementProvider _collectionElementProvider;
+        private readonly IElementProvider _elementProvider;
         private readonly IEmailProvider _emailProvider;
+        private readonly IFloatProvider _floatProvider;
+        private readonly IGuidProvider _guidProvider;
         private readonly IIntegerProvider _integerProvider;
         private readonly ILongProvider _longProvider;
         private readonly INameProvider _nameProvider;
         private readonly IPhoneNumberProvider _phoneNumberProvider;
         private readonly ISecurityNumberProvider _securityNumberProvider;
-        private readonly IUserNameProvider _userNameProvider;
-        private readonly IGuidProvider _guidProvider;
         private readonly ITimeSpanProvider _timeSpanProvider;
-        private readonly IDecimalProvider _decimalProvider;
-        private readonly IDateTimeOffsetProvider _dateTimeOffsetProvider;
-        private readonly IFloatProvider _floatProvider;
-        private readonly ICharProvider _charProvider;
+        private readonly IUserNameProvider _userNameProvider;
 
         /// <summary>
         ///     <para>
@@ -66,11 +64,10 @@ namespace Sharpy.Builder
             _dateTimeProvider = configurement.DateTimeProvider;
             _emailProvider = configurement.MailProvider;
             _securityNumberProvider = configurement.SecurityNumberProvider;
-            _collectionElementProvider = configurement.ListCollectionElementPicker;
+            _elementProvider = configurement.ListElementPicker;
             _boolProvider = configurement.BoolProvider;
             _phoneNumberProvider = configurement.PhoneNumberProvider;
             _userNameProvider = configurement.UserNameProvider;
-            _argumentProvider = configurement.ArgumentProvider;
             _guidProvider = configurement.GuidProvider;
             _timeSpanProvider = configurement.TimeSpanProvider;
             _decimalProvider = configurement.DecimalProvider;
@@ -90,15 +87,45 @@ namespace Sharpy.Builder
         }
 
         /// <inheritdoc />
-        public T Argument<T>(T first, T second, params T[] additional)
-        {
-            return _argumentProvider.Argument(first, second, additional);
-        }
-
-        /// <inheritdoc />
         public bool Bool()
         {
             return _boolProvider.Bool();
+        }
+
+        /// <inheritdoc />
+        public char Char()
+        {
+            return _charProvider.Char();
+        }
+
+        /// <inheritdoc />
+        public char Char(char max)
+        {
+            return _charProvider.Char(max);
+        }
+
+        /// <inheritdoc />
+        public char Char(char min, char max)
+        {
+            return _charProvider.Char(min, max);
+        }
+
+        /// <inheritdoc />
+        public DateTimeOffset DateTimeOffset()
+        {
+            return _dateTimeOffsetProvider.DateTimeOffset();
+        }
+
+        /// <inheritdoc />
+        public DateTimeOffset DateTimeOffset(DateTimeOffset max)
+        {
+            return _dateTimeOffsetProvider.DateTimeOffset(max);
+        }
+
+        /// <inheritdoc />
+        public DateTimeOffset DateTimeOffset(DateTimeOffset min, DateTimeOffset max)
+        {
+            return _dateTimeOffsetProvider.DateTimeOffset(min, max);
         }
 
         /// <inheritdoc />
@@ -132,6 +159,24 @@ namespace Sharpy.Builder
         }
 
         /// <inheritdoc />
+        public decimal Decimal(decimal max)
+        {
+            return _decimalProvider.Decimal(max);
+        }
+
+        /// <inheritdoc />
+        public decimal Decimal(decimal min, decimal max)
+        {
+            return _decimalProvider.Decimal(min, max);
+        }
+
+        /// <inheritdoc />
+        public decimal Decimal()
+        {
+            return _decimalProvider.Decimal();
+        }
+
+        /// <inheritdoc />
         public double Double()
         {
             return _doubleProvider.Double();
@@ -150,21 +195,51 @@ namespace Sharpy.Builder
         }
 
         /// <inheritdoc />
+        public T FromArgument<T>(T first, T second)
+        {
+            return _elementProvider.FromArgument(first, second);
+        }
+
+        /// <inheritdoc />
+        public T FromArgument<T>(T first, T second, T third)
+        {
+            return _elementProvider.FromArgument(first, second, third);
+        }
+
+        /// <inheritdoc />
+        public T FromArgument<T>(T first, T second, T third, T fourth)
+        {
+            return _elementProvider.FromArgument(first, second, third, fourth);
+        }
+
+        /// <inheritdoc />
+        public T FromArgument<T>(T first, T second, T third, T fourth, T fifth)
+        {
+            return _elementProvider.FromArgument(first, second, third, fourth, fifth);
+        }
+
+        /// <inheritdoc />
+        public T FromArgument<T>(T first, T second, T third, T fourth, T fifth, params T[] additional)
+        {
+            return _elementProvider.FromArgument(first, second, third, fourth, fifth, additional);
+        }
+
+        /// <inheritdoc />
         public T FromList<T>(IReadOnlyList<T> list)
         {
-            return _collectionElementProvider.FromList(list);
+            return _elementProvider.FromList(list);
         }
 
         /// <inheritdoc />
         public T FromSpan<T>(ReadOnlySpan<T> span)
         {
-            return _collectionElementProvider.FromSpan(span);
+            return _elementProvider.FromSpan(span);
         }
 
         /// <inheritdoc />
         public T FromSpan<T>(Span<T> span)
         {
-            return _collectionElementProvider.FromSpan(span);
+            return _elementProvider.FromSpan(span);
         }
 
         /// <inheritdoc />
@@ -177,6 +252,37 @@ namespace Sharpy.Builder
         public string Mail()
         {
             return _emailProvider.Mail();
+        }
+
+
+        /// <inheritdoc />
+        public float Float(float min, float max)
+        {
+            return _floatProvider.Float(min, max);
+        }
+
+        /// <inheritdoc />
+        public float Float(float max)
+        {
+            return _floatProvider.Float(max);
+        }
+
+        /// <inheritdoc />
+        public float Float()
+        {
+            return _floatProvider.Float();
+        }
+
+        /// <inheritdoc />
+        public Guid Guid()
+        {
+            return _guidProvider.Guid();
+        }
+
+        /// <inheritdoc />
+        public string Guid(GuidFormat format)
+        {
+            return _guidProvider.Guid(format);
         }
 
         /// <inheritdoc />
@@ -258,24 +364,6 @@ namespace Sharpy.Builder
         }
 
         /// <inheritdoc />
-        public string UserName()
-        {
-            return _userNameProvider.UserName();
-        }
-
-        /// <inheritdoc />
-        public Guid Guid()
-        {
-            return _guidProvider.Guid();
-        }
-
-        /// <inheritdoc />
-        public string Guid(GuidFormat format)
-        {
-            return _guidProvider.Guid(format);
-        }
-
-        /// <inheritdoc />
         public TimeSpan TimeSpan()
         {
             return _timeSpanProvider.TimeSpan();
@@ -294,76 +382,9 @@ namespace Sharpy.Builder
         }
 
         /// <inheritdoc />
-        public decimal Decimal(decimal max)
+        public string UserName()
         {
-            return _decimalProvider.Decimal(max);
-        }
-
-        /// <inheritdoc />
-        public decimal Decimal(decimal min, decimal max)
-        {
-            return _decimalProvider.Decimal(min, max);
-        }
-
-        /// <inheritdoc />
-        public decimal Decimal()
-        {
-            return _decimalProvider.Decimal();
-        }
-
-        /// <inheritdoc />
-        public DateTimeOffset DateTimeOffset()
-        {
-            return _dateTimeOffsetProvider.DateTimeOffset();
-        }
-
-        /// <inheritdoc />
-        public DateTimeOffset DateTimeOffset(DateTimeOffset max)
-        {
-            return _dateTimeOffsetProvider.DateTimeOffset(max);
-        }
-
-        /// <inheritdoc />
-        public DateTimeOffset DateTimeOffset(DateTimeOffset min, DateTimeOffset max)
-        {
-            return _dateTimeOffsetProvider.DateTimeOffset(min, max);
-        }
-
-
-        /// <inheritdoc />
-        public float Float(float min, float max)
-        {
-            return _floatProvider.Float(min, max);
-        }
-
-        /// <inheritdoc />
-        public float Float(float max)
-        {
-            return _floatProvider.Float(max);
-        }
-
-        /// <inheritdoc />
-        public float Float()
-        {
-            return _floatProvider.Float();
-        }
-
-        /// <inheritdoc />
-        public char Char()
-        {
-            return _charProvider.Char();
-        }
-
-        /// <inheritdoc />
-        public char Char(char max)
-        {
-            return _charProvider.Char(max);
-        }
-
-        /// <inheritdoc />
-        public char Char(char min, char max)
-        {
-            return _charProvider.Char(min, max);
+            return _userNameProvider.UserName();
         }
     }
 }

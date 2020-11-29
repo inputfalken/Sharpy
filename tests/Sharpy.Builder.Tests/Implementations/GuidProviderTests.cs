@@ -35,9 +35,12 @@ namespace Sharpy.Builder.Tests.Implementations
 
             Assert.DoesNotThrow(() => Guid.ParseExact(guidProvider.Guid(GuidFormat.DigitsOnly), "N"));
             Assert.DoesNotThrow(() => Guid.ParseExact(guidProvider.Guid(GuidFormat.DigitsWithHyphens), "D"));
-            Assert.DoesNotThrow(() => Guid.ParseExact(guidProvider.Guid(GuidFormat.DigitsWithHyphensWrappedInBrackets), "B"));
-            Assert.DoesNotThrow(() => Guid.ParseExact(guidProvider.Guid(GuidFormat.DigitsWithHyphensWrappedInParentheses), "P"));
-            Assert.DoesNotThrow(() => Guid.ParseExact(guidProvider.Guid(GuidFormat.FourHexadecimalWrappedInBrackets), "X"));
+            Assert.DoesNotThrow(() =>
+                Guid.ParseExact(guidProvider.Guid(GuidFormat.DigitsWithHyphensWrappedInBrackets), "B"));
+            Assert.DoesNotThrow(() =>
+                Guid.ParseExact(guidProvider.Guid(GuidFormat.DigitsWithHyphensWrappedInParentheses), "P"));
+            Assert.DoesNotThrow(() =>
+                Guid.ParseExact(guidProvider.Guid(GuidFormat.FourHexadecimalWrappedInBrackets), "X"));
         }
     }
 }

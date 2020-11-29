@@ -2,16 +2,20 @@
 using NUnit.Framework;
 using Sharpy.Core.Linq;
 
-namespace Sharpy.Core.Tests.ExtensionTests {
+namespace Sharpy.Core.Tests.ExtensionTests
+{
     [TestFixture]
-    public class SelectTests {
+    public class SelectTests
+    {
         [SetUp]
-        public void Initiate() {
+        public void Initiate()
+        {
             _generator = Generator.Incrementer(0);
         }
 
         [TearDown]
-        public void Dispose() {
+        public void Dispose()
+        {
             _generator = null;
         }
 
@@ -20,7 +24,8 @@ namespace Sharpy.Core.Tests.ExtensionTests {
         [Test(
             Description = "Verify that counter increments for each element"
         )]
-        public void Counter_Increments_For_Each_Generation() {
+        public void Counter_Increments_For_Each_Generation()
+        {
             var result = _generator
                 .Select((s, i) => i);
             Assert.AreEqual(0, result.Generate());
@@ -33,7 +38,8 @@ namespace Sharpy.Core.Tests.ExtensionTests {
         [Test(
             Description = "Verify that counter starts on zero"
         )]
-        public void Counter_Starts_Zero() {
+        public void Counter_Starts_Zero()
+        {
             var result = _generator
                 .Select((s, i) => i);
             Assert.AreEqual(0, result.Generate());
@@ -42,7 +48,8 @@ namespace Sharpy.Core.Tests.ExtensionTests {
         [Test(
             Description = "Verify that Select does not return null"
         )]
-        public void Does_Not_Return_Null() {
+        public void Does_Not_Return_Null()
+        {
             var result = _generator.Select(i => i);
             Assert.IsNotNull(result);
         }
@@ -50,7 +57,8 @@ namespace Sharpy.Core.Tests.ExtensionTests {
         [Test(
             Description = "Verifys that the Select is only invoked if Generate is invoked"
         )]
-        public void Is_Evaluated_After_Take_Is_Invoked() {
+        public void Is_Evaluated_After_Take_Is_Invoked()
+        {
             var invoked = false;
             var generator = _generator
                 .Select(s => invoked = true);
@@ -64,7 +72,8 @@ namespace Sharpy.Core.Tests.ExtensionTests {
         [Test(
             Description = "Verify that Select with null Generator and Argument throws exception"
         )]
-        public void Null_Generator_And_Selector_Throws() {
+        public void Null_Generator_And_Selector_Throws()
+        {
             Func<string, int> selector = null;
             IGenerator<string> generator = null;
             Assert.Throws<ArgumentNullException>(() => generator.Select(selector));
@@ -73,7 +82,8 @@ namespace Sharpy.Core.Tests.ExtensionTests {
         [Test(
             Description = "Verify that Select with null Generator throws exception"
         )]
-        public void Null_Generator_Throws() {
+        public void Null_Generator_Throws()
+        {
             IGenerator<string> generator = null;
             Assert.Throws<ArgumentNullException>(() => generator.Select(s => s.Length));
         }
@@ -81,7 +91,8 @@ namespace Sharpy.Core.Tests.ExtensionTests {
         [Test(
             Description = "Verify that null Func given to Select throws exception"
         )]
-        public void Null_Selector_Throws() {
+        public void Null_Selector_Throws()
+        {
             Func<int, int> selector = null;
             Assert.Throws<ArgumentNullException>(() => _generator.Select(selector));
         }
@@ -89,7 +100,8 @@ namespace Sharpy.Core.Tests.ExtensionTests {
         [Test(
             Description = "Verify that mapping works"
         )]
-        public void Selector_Returns_String_Length() {
+        public void Selector_Returns_String_Length()
+        {
             var result = _generator
                 .Select(s => s.ToString().Length);
 

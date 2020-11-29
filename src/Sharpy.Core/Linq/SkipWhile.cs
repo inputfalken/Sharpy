@@ -1,7 +1,9 @@
 ﻿using System;
 
-namespace Sharpy.Core.Linq {
-    public static partial class Extensions {
+namespace Sharpy.Core.Linq
+{
+    public static partial class Extensions
+    {
         /// <summary>
         ///     <para>
         ///         Denies generated elements until the specified condition in the predicate is matched.
@@ -15,16 +17,20 @@ namespace Sharpy.Core.Linq {
         ///     A <see cref="IGenerator{T}" /> whose generations will continue from the matched predicate.
         /// </returns>
         public static IGenerator<TSource> SkipWhile<TSource>(this IGenerator<TSource> generator,
-            Func<TSource, bool> predicate, int threshold = 10000) {
+            Func<TSource, bool> predicate, int threshold = 10000)
+        {
             if (generator == null) throw new ArgumentNullException(nameof(generator));
             if (predicate == null) throw new ArgumentNullException(nameof(predicate));
 
-            var skip = new Lazy<TSource>(() => {
-                for (var i = 0; i < threshold; i++) {
+            var skip = new Lazy<TSource>(() =>
+            {
+                for (var i = 0; i < threshold; i++)
+                {
                     var generate = generator.Generate();
                     if (predicate(generate)) continue;
                     return generate;
                 }
+
                 throw new ArgumentException($"Could not match the predicate with {threshold} attempts.");
             });
 
@@ -33,7 +39,8 @@ namespace Sharpy.Core.Linq {
         }
 
         private static IGenerator<TSource> SkipWhileGenerator<TSource>(Lazy<TSource> lazy,
-            IGenerator<TSource> generator) {
+            IGenerator<TSource> generator)
+        {
             return Generator.Function(() => lazy.IsValueCreated ? generator.Generate() : lazy.Value);
         }
     }

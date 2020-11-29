@@ -4,9 +4,11 @@ using NUnit.Framework;
 using Sharpy.Builder.Implementation;
 using Sharpy.Builder.Providers;
 
-namespace Sharpy.Builder.Tests.Implementations {
+namespace Sharpy.Builder.Tests.Implementations
+{
     [TestFixture]
-    public class LongRandomizerTests {
+    public class LongRandomizerTests
+    {
         private const int Amount = 10000000;
 
         private static readonly ILongProvider LongProvider = new LongRandomizer(new Random());
@@ -80,7 +82,7 @@ namespace Sharpy.Builder.Tests.Implementations {
             var longs = new long[Amount];
 
             const long max = 100;
-            const long min = max -1;
+            const long min = max - 1;
             for (var i = 0; i < Amount; i++)
                 longs[i] = LongProvider.Long(min, max);
 
@@ -90,6 +92,7 @@ namespace Sharpy.Builder.Tests.Implementations {
                 "longs.All(x => x == min)"
             );
         }
+
         [Test]
         public void Min_Equal_To_Max_Does_Not_Throw()
         {

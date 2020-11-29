@@ -2,11 +2,13 @@
 using Sharpy.Builder.Implementation.ExtensionMethods;
 using Sharpy.Builder.Providers;
 
-namespace Sharpy.Builder.Implementation {
+namespace Sharpy.Builder.Implementation
+{
     /// <summary>
     ///     Randomizes <see cref="long" /> elements by using <see cref="Random" />.
     /// </summary>
-    public sealed class LongRandomizer : ILongProvider {
+    public sealed class LongRandomizer : ILongProvider
+    {
         private readonly Random _random;
 
         /// <summary>

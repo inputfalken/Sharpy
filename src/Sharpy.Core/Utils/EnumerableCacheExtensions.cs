@@ -179,10 +179,7 @@ namespace Sharpy.Core.Utils
                 /// <returns>
                 ///     The element in the collection at the current position of the enumerator.
                 /// </returns>
-                object? IEnumerator.Current
-                {
-                    get { return Current; }
-                }
+                object? IEnumerator.Current => Current;
 
                 #endregion
 

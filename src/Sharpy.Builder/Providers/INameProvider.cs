@@ -3,12 +3,12 @@ using Sharpy.Builder.Enums;
 namespace Sharpy.Builder.Providers
 {
     /// <summary>
-    ///  Methods providing System.String representing names.
+    ///     Methods providing System.String representing names.
     /// </summary>
     public interface INameProvider
     {
         /// <summary>
-        ///      Provides a string representing a first name.
+        ///     Provides a string representing a first name.
         /// </summary>
         /// <param name="gender">
         ///     The gender of the first name.

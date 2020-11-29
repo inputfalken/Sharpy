@@ -1,17 +1,17 @@
 namespace Sharpy.Builder.Providers
 {
     /// <summary>
-    ///  Methods providing System.Char.
+    ///     Methods providing System.Char.
     /// </summary>
     public interface ICharProvider
     {
         /// <summary>
-        /// Provides a System.Char between 0 and System.Int32.MaxValue. 
+        ///     Provides a System.Char between 0 and System.Int32.MaxValue.
         /// </summary>
         char Char();
 
         /// <summary>
-        /// Provides a System.Char between 0 and <paramref name="max"/>.
+        ///     Provides a System.Char between 0 and <paramref name="max" />.
         /// </summary>
         /// <param name="max">
         ///     The inclusive maximum bound.
@@ -19,7 +19,7 @@ namespace Sharpy.Builder.Providers
         char Char(char max);
 
         /// <summary>
-        /// Provides a System.Char between <paramref name="min"/> and <paramref name="max"/>.
+        ///     Provides a System.Char between <paramref name="min" /> and <paramref name="max" />.
         /// </summary>
         /// <param name="min">
         ///     The inclusive minimum bound.

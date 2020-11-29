@@ -1,7 +1,9 @@
 ﻿using System;
 
-namespace Sharpy.Core.Linq {
-    public static partial class Extensions {
+namespace Sharpy.Core.Linq
+{
+    public static partial class Extensions
+    {
         /// <summary>
         ///     <para>
         ///         Exposes the element from <see cref="IGenerator{T}" />.
@@ -26,10 +28,12 @@ namespace Sharpy.Core.Linq {
         ///          IGenerator&lt;int&gt; = Generator.Incrementer(0).Do((int x) => Console.WriteLine(x));
         ///     </code>
         /// </example>
-        public static IGenerator<TSource> Do<TSource>(this IGenerator<TSource> generator, Action<TSource> action) {
+        public static IGenerator<TSource> Do<TSource>(this IGenerator<TSource> generator, Action<TSource> action)
+        {
             if (action == null) throw new ArgumentNullException(nameof(action));
             if (generator == null) throw new ArgumentNullException(nameof(generator));
-            return Generator.Function(() => {
+            return Generator.Function(() =>
+            {
                 var generation = generator.Generate();
                 action(generation);
                 return generation;

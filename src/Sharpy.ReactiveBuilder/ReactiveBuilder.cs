@@ -1,8 +1,10 @@
 ﻿using System;
 using static System.Reactive.Linq.Observable;
 
-namespace Sharpy.ReactiveBuilder {
-    internal class ReactiveBuilder<TBuilder> : IObservable<TBuilder> where TBuilder : Builder.Builder {
+namespace Sharpy.ReactiveBuilder
+{
+    internal class ReactiveBuilder<TBuilder> : IObservable<TBuilder> where TBuilder : Builder.Builder
+    {
         private readonly IObservable<TBuilder> _observable;
 
         /// <summary>
@@ -11,7 +13,8 @@ namespace Sharpy.ReactiveBuilder {
         /// <param name="builder">
         ///     A <see cref="Builder" /> or one of its descenders.
         /// </param>
-        public ReactiveBuilder(TBuilder builder) {
+        public ReactiveBuilder(TBuilder builder)
+        {
             _observable = Generate(
                 builder,
                 b => true,
@@ -27,7 +30,8 @@ namespace Sharpy.ReactiveBuilder {
         }
     }
 
-    public static class ReactiveBuilder {
+    public static class ReactiveBuilder
+    {
         /// <summary>
         ///     Creates an <see cref="IObservable{T}" /> from a <see cref="Builder" /> or one if its descenders.
         /// </summary>
