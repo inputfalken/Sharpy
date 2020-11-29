@@ -130,10 +130,7 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// </returns>
         public static bool Bool(this Random random)
         {
-            return random switch
-            {
-                _ => random.Next(2) != 0
-            };
+            return random.Next(2) != 0;
         }
 
         /// <summary>
