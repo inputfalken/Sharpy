@@ -91,7 +91,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTime_MaxDateTime__Adding_Years()
         {
             var list = new List<DateTime>();
-            var baseTimeTwoYearsLater = DateTime.Now.AddYears(2);
+            var baseTimeTwoYearsLater = BaseTime.AddYears(2);
             for (var i = 0; i < Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoYearsLater));
 
@@ -105,7 +105,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTime_MaxDateTime__Subtracting_Years()
         {
             var list = new List<DateTime>();
-            var baseTimeTwoYearsBefore = DateTime.Now.AddYears(-2);
+            var baseTimeTwoYearsBefore = BaseTime.AddYears(-2);
             for (var i = 0; i < Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoYearsBefore));
 
@@ -119,7 +119,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTime_MaxDateTime__Adding_Months()
         {
             var list = new List<DateTime>();
-            var baseTimeTwoMonthsLater = DateTime.Now.AddMonths(2);
+            var baseTimeTwoMonthsLater = BaseTime.AddMonths(2);
             for (var i = 0; i < Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoMonthsLater));
 
@@ -133,7 +133,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTime_MaxDateTime__Subtracting_Months()
         {
             var list = new List<DateTime>();
-            var baseTimeTwoMonthsBefore = DateTime.Now.AddMonths(-2);
+            var baseTimeTwoMonthsBefore = BaseTime.AddMonths(-2);
             for (var i = 0; i < Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoMonthsBefore));
 
@@ -147,7 +147,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTime_MaxDateTime__Adding_Days()
         {
             var list = new List<DateTime>();
-            var baseTimeTwoDaysLater = DateTime.Now.AddDays(2);
+            var baseTimeTwoDaysLater = BaseTime.AddDays(2);
             for (var i = 0; i < Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoDaysLater));
 
@@ -161,7 +161,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTime_MaxDateTime__Subtracting_Days()
         {
             var list = new List<DateTime>();
-            var baseTimeTwoDaysBefore = DateTime.Now.AddDays(-2);
+            var baseTimeTwoDaysBefore = BaseTime.AddDays(-2);
             for (var i = 0; i < Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoDaysBefore));
 
@@ -175,7 +175,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTime_MaxDateTime__Adding_Hours()
         {
             var list = new List<DateTime>();
-            var baseTimeTwoHoursLater = DateTime.Now.AddHours(2);
+            var baseTimeTwoHoursLater = BaseTime.AddHours(2);
             for (var i = 0; i < Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoHoursLater));
 
@@ -189,7 +189,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTime_MaxDateTime__Subtracting_Hours()
         {
             var list = new List<DateTime>();
-            var baseTimeTwoHoursBefore = DateTime.Now.AddHours(-2);
+            var baseTimeTwoHoursBefore = BaseTime.AddHours(-2);
             for (var i = 0; i < Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoHoursBefore));
 
@@ -203,7 +203,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTime_MaxDateTime__Adding_Minutes()
         {
             var list = new List<DateTime>();
-            var baseTimeTwoMinutesLater = DateTime.Now.AddMinutes(2);
+            var baseTimeTwoMinutesLater = BaseTime.AddMinutes(2);
             for (var i = 0; i < Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoMinutesLater));
 
@@ -217,7 +217,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTime_MaxDateTime__Subtracting_Minutes()
         {
             var list = new List<DateTime>();
-            var baseTimeTwoMinutesBefore = DateTime.Now.AddMinutes(-2);
+            var baseTimeTwoMinutesBefore = BaseTime.AddMinutes(-2);
             for (var i = 0; i < Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoMinutesBefore));
 
@@ -231,7 +231,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTime_MaxDateTime__Adding_Seconds()
         {
             var list = new List<DateTime>();
-            var baseTimeTwoSecondsLater = DateTime.Now.AddSeconds(2);
+            var baseTimeTwoSecondsLater = BaseTime.AddSeconds(2);
             for (var i = 0; i < Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoSecondsLater));
 
@@ -245,7 +245,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTime_MaxDateTime__Subtracting_Seconds()
         {
             var list = new List<DateTime>();
-            var baseTimeTwoSecondsBefore = DateTime.Now.AddSeconds(-2);
+            var baseTimeTwoSecondsBefore = BaseTime.AddSeconds(-2);
             for (var i = 0; i < Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoSecondsBefore));
 
@@ -259,7 +259,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTime_MaxDateTime__Adding_MilliSeconds()
         {
             var list = new List<DateTime>();
-            var baseTimeTwoMilliSecondsLater = DateTime.Now.AddMilliseconds(2);
+            var baseTimeTwoMilliSecondsLater = BaseTime.AddMilliseconds(2);
             for (var i = 0; i < Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoMilliSecondsLater));
 
@@ -273,7 +273,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTime_MaxDateTime__Subtracting_MilliSeconds()
         {
             var list = new List<DateTime>();
-            var baseTimeTwoMilliSecondsBefore = DateTime.Now.AddMilliseconds(-2);
+            var baseTimeTwoMilliSecondsBefore = BaseTime.AddMilliseconds(-2);
             for (var i = 0; i < Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoMilliSecondsBefore));
 
@@ -287,9 +287,9 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTime_MinDateTime_MaxDateTime__Adding_Years()
         {
             var list = new List<DateTime>();
-            var baseTimeTwoYearsLater = DateTime.Now.AddYears(2);
+            var baseTimeTwoYearsLater = BaseTime.AddYears(2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimProvider.DateTime(DateTime.Now, baseTimeTwoYearsLater));
+                list.Add(_dateTimProvider.DateTime(BaseTime, baseTimeTwoYearsLater));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoYearsLater),
@@ -318,7 +318,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTime>();
             var baseTimeTwoMonthsLater = BaseTime.AddMonths(2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimProvider.DateTime(DateTime.Now, baseTimeTwoMonthsLater));
+                list.Add(_dateTimProvider.DateTime(BaseTime, baseTimeTwoMonthsLater));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoMonthsLater),

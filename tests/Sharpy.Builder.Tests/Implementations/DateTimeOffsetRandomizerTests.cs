@@ -23,7 +23,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTimeOffset_MaxDateTimeOffset__Adding_Years()
         {
             var list = new List<DateTimeOffset>();
-            var baseTimeTwoYearsLater = DateTimeOffset.Now.AddYears(2);
+            var baseTimeTwoYearsLater = BaseTime.AddYears(2);
             for (var i = 0; i < Amount; i++)
                 list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoYearsLater));
 
@@ -37,7 +37,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTimeOffset_MaxDateTimeOffset__Subtracting_Years()
         {
             var list = new List<DateTimeOffset>();
-            var baseTimeTwoYearsBefore = DateTimeOffset.Now.AddYears(-2);
+            var baseTimeTwoYearsBefore = BaseTime.AddYears(-2);
             for (var i = 0; i < Amount; i++)
                 list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoYearsBefore));
 
@@ -51,7 +51,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTimeOffset_MaxDateTimeOffset__Adding_Months()
         {
             var list = new List<DateTimeOffset>();
-            var baseTimeTwoMonthsLater = DateTimeOffset.Now.AddMonths(2);
+            var baseTimeTwoMonthsLater = BaseTime.AddMonths(2);
             for (var i = 0; i < Amount; i++)
                 list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoMonthsLater));
 
@@ -65,7 +65,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTimeOffset_MaxDateTimeOffset__Subtracting_Months()
         {
             var list = new List<DateTimeOffset>();
-            var baseTimeTwoMonthsBefore = DateTimeOffset.Now.AddMonths(-2);
+            var baseTimeTwoMonthsBefore = BaseTime.AddMonths(-2);
             for (var i = 0; i < Amount; i++)
                 list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoMonthsBefore));
 
@@ -123,7 +123,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTimeOffset_MaxDateTimeOffset__Adding_Days()
         {
             var list = new List<DateTimeOffset>();
-            var baseTimeTwoDaysLater = DateTimeOffset.Now.AddDays(2);
+            var baseTimeTwoDaysLater = BaseTime.AddDays(2);
             for (var i = 0; i < Amount; i++)
                 list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoDaysLater));
 
@@ -137,7 +137,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTimeOffset_MaxDateTimeOffset__Subtracting_Days()
         {
             var list = new List<DateTimeOffset>();
-            var baseTimeTwoDaysBefore = DateTimeOffset.Now.AddDays(-2);
+            var baseTimeTwoDaysBefore = BaseTime.AddDays(-2);
             for (var i = 0; i < Amount; i++)
                 list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoDaysBefore));
 
@@ -151,7 +151,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTimeOffset_MaxDateTimeOffset__Adding_Hours()
         {
             var list = new List<DateTimeOffset>();
-            var baseTimeTwoHoursLater = DateTimeOffset.Now.AddHours(2);
+            var baseTimeTwoHoursLater = BaseTime.AddHours(2);
             for (var i = 0; i < Amount; i++)
                 list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoHoursLater));
 
@@ -165,7 +165,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTimeOffset_MaxDateTimeOffset__Subtracting_Hours()
         {
             var list = new List<DateTimeOffset>();
-            var baseTimeTwoHoursBefore = DateTimeOffset.Now.AddHours(-2);
+            var baseTimeTwoHoursBefore = BaseTime.AddHours(-2);
             for (var i = 0; i < Amount; i++)
                 list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoHoursBefore));
 
@@ -179,7 +179,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTimeOffset_MaxDateTimeOffset__Adding_Minutes()
         {
             var list = new List<DateTimeOffset>();
-            var baseTimeTwoMinutesLater = DateTimeOffset.Now.AddMinutes(2);
+            var baseTimeTwoMinutesLater = BaseTime.AddMinutes(2);
             for (var i = 0; i < Amount; i++)
                 list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoMinutesLater));
 
@@ -193,7 +193,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTimeOffset_MaxDateTimeOffset__Subtracting_Minutes()
         {
             var list = new List<DateTimeOffset>();
-            var baseTimeTwoMinutesBefore = DateTimeOffset.Now.AddMinutes(-2);
+            var baseTimeTwoMinutesBefore = BaseTime.AddMinutes(-2);
             for (var i = 0; i < Amount; i++)
                 list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoMinutesBefore));
 
@@ -207,7 +207,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTimeOffset_MaxDateTimeOffset__Adding_Seconds()
         {
             var list = new List<DateTimeOffset>();
-            var baseTimeTwoSecondsLater = DateTimeOffset.Now.AddSeconds(2);
+            var baseTimeTwoSecondsLater = BaseTime.AddSeconds(2);
             for (var i = 0; i < Amount; i++)
                 list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoSecondsLater));
 
@@ -221,7 +221,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTimeOffset_MaxDateTimeOffset__Subtracting_Seconds()
         {
             var list = new List<DateTimeOffset>();
-            var baseTimeTwoSecondsBefore = DateTimeOffset.Now.AddSeconds(-2);
+            var baseTimeTwoSecondsBefore = BaseTime.AddSeconds(-2);
             for (var i = 0; i < Amount; i++)
                 list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoSecondsBefore));
 
@@ -235,7 +235,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTimeOffset_MaxDateTimeOffset__Adding_MilliSeconds()
         {
             var list = new List<DateTimeOffset>();
-            var baseTimeTwoMilliSecondsLater = DateTimeOffset.Now.AddMilliseconds(2);
+            var baseTimeTwoMilliSecondsLater = BaseTime.AddMilliseconds(2);
             for (var i = 0; i < Amount; i++)
                 list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoMilliSecondsLater));
 
@@ -249,7 +249,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTimeOffset_MaxDateTimeOffset__Subtracting_MilliSeconds()
         {
             var list = new List<DateTimeOffset>();
-            var baseTimeTwoMilliSecondsBefore = DateTimeOffset.Now.AddMilliseconds(-2);
+            var baseTimeTwoMilliSecondsBefore = BaseTime.AddMilliseconds(-2);
             for (var i = 0; i < Amount; i++)
                 list.Add(_dateTimeOffsetProvider.DateTimeOffset(baseTimeTwoMilliSecondsBefore));
 
@@ -263,9 +263,9 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTimeOffset_MinDateTimeOffset_MaxDateTimeOffset__Adding_Years()
         {
             var list = new List<DateTimeOffset>();
-            var baseTimeTwoYearsLater = DateTimeOffset.Now.AddYears(2);
+            var baseTimeTwoYearsLater = BaseTime.AddYears(2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimeOffsetProvider.DateTimeOffset(DateTimeOffset.Now, baseTimeTwoYearsLater));
+                list.Add(_dateTimeOffsetProvider.DateTimeOffset(BaseTime, baseTimeTwoYearsLater));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoYearsLater),
@@ -294,7 +294,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var list = new List<DateTimeOffset>();
             var baseTimeTwoMonthsLater = BaseTime.AddMonths(2);
             for (var i = 0; i < Amount; i++)
-                list.Add(_dateTimeOffsetProvider.DateTimeOffset(DateTimeOffset.Now, baseTimeTwoMonthsLater));
+                list.Add(_dateTimeOffsetProvider.DateTimeOffset(BaseTime, baseTimeTwoMonthsLater));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoMonthsLater),
