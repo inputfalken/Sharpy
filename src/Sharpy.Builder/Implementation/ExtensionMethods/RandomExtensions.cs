@@ -627,14 +627,14 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
                 var hour = isSameYear && isSameMonth && isSameDay
                     ? isSameHour
                         ? min.Hour
-                        : random.Next(1, max.Hour)
+                        : random.Next(0, max.Hour)
                     : Hour(random);
 
                 var isSameMinute = min.Minute == max.Minute;
                 var minute = isSameYear && isSameMonth && isSameDay && isSameHour
                     ? isSameMinute
                         ? min.Minute
-                        : random.Next(1, max.Minute)
+                        : random.Next(0, max.Minute)
                     : Minute(random);
 
                 var isSameSecond = min.Second == max.Second;
@@ -642,7 +642,7 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
                 var second = isSameYear && isSameMonth && isSameDay && isSameHour
                     ? isSameSecond
                         ? min.Second
-                        : random.Next(1, max.Second)
+                        : random.Next(0, max.Second)
                     : Second(random);
 
 
@@ -651,7 +651,7 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
                 var milliSecond = isSameYear && isSameMonth && isSameDay && isSameHour && isSameMinute && isSameSecond
                     ? isSameMillisSecond
                         ? min.Millisecond
-                        : random.Next(1, max.Millisecond)
+                        : random.Next(0, max.Millisecond)
                     : MilliSecond(random);
 
                 return new DateTime(year, month, day, hour, minute, second, milliSecond);
