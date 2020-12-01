@@ -511,10 +511,7 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// </returns>
         public static int Day(this Random random, int year, int month)
         {
-            return random switch
-            {
-                _ => random.Next(1, System.DateTime.DaysInMonth(year, month) + 1)
-            };
+            return random.Next(1, System.DateTime.DaysInMonth(year, month) + 1);
         }
 
         /// <summary>
@@ -528,10 +525,7 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// </returns>
         public static int Month(this Random random)
         {
-            return random switch
-            {
-                _ => random.Next(1, 13)
-            };
+            return random.Next(1, 13);
         }
 
         /// <summary>
