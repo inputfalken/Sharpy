@@ -27,16 +27,9 @@ namespace Sharpy.Builder.Implementation
             if (age < 0)
                 throw new ArgumentException($"{nameof(age)} cannot be negative");
 
-            var date = Now
-                .AddYears(-age)
-                .AddMonths(-_random.Next(1, 12) + 1);
-
-            return date
-                .AddDays(-_random.Day(date.Year, date.Month))
-                .AddHours(_random.Hour())
-                .AddMinutes(_random.Minute())
-                .AddSeconds(_random.Second())
-                .AddMilliseconds(_random.MilliSecond());
+            var dateTime = Now.AddYears(-age);
+            
+            return DateTime(DateTimeByYear(dateTime.Year), dateTime);
         }
 
         /// <inheritdoc />
