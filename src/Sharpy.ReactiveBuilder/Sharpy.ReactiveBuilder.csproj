@@ -23,6 +23,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Sharpy.Builder" Version="0.2.0" />
-    <PackageReference Include="system.reactive" Version="4.4.1" />
+    <PackageReference Include="system.reactive" Version="5.0.0" />
   </ItemGroup>
 </Project>
