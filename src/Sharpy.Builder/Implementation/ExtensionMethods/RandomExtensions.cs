@@ -637,46 +637,46 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
             static DateTime NextDateTime(Random random, DateTime min, DateTime max)
             {
                 var isSameYear = min.Year == max.Year;
-                var year = isSameYear ? min.Year : random.Next(min.Year, max.Year);
-
                 var isSameMonth = min.Month == max.Month;
+                var isSameDay = min.Day == max.Day;
+                var isSameHour = min.Hour == max.Hour;
+                var isSameMinute = min.Minute == max.Minute;
+                var isSameSecond = min.Second == max.Second;
+                var isSameMillisSecond = min.Millisecond == max.Millisecond;
+                
+                var year = isSameYear 
+                    ? min.Year 
+                    : random.Next(min.Year, max.Year);
+
                 var month = isSameYear
                     ? isSameMonth
                         ? min.Month
                         : random.Month(1, max.Month)
                     : Month(random);
 
-                var isSameDay = min.Day == max.Day;
                 var day = isSameYear && isSameMonth
                     ? isSameDay
                         ? min.Day
                         : random.Next(1, max.Day)
                     : Day(random, year, month);
 
-                var isSameHour = min.Hour == max.Hour;
                 var hour = isSameYear && isSameMonth && isSameDay
                     ? isSameHour
                         ? min.Hour
                         : random.Hour(0, max.Hour)
                     : Hour(random);
 
-                var isSameMinute = min.Minute == max.Minute;
                 var minute = isSameYear && isSameMonth && isSameDay && isSameHour
                     ? isSameMinute
                         ? min.Minute
                         : random.Minute(0, max.Minute)
                     : Minute(random);
 
-                var isSameSecond = min.Second == max.Second;
-
                 var second = isSameYear && isSameMonth && isSameDay && isSameHour
                     ? isSameSecond
                         ? min.Second
                         : random.Second(0, max.Second)
                     : Second(random);
-
-
-                var isSameMillisSecond = min.Millisecond == max.Millisecond;
 
                 var milliSecond = isSameYear && isSameMonth && isSameDay && isSameHour && isSameMinute && isSameSecond
                     ? isSameMillisSecond
