@@ -509,7 +509,7 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <returns>
         ///     A valid day relative to the <paramref name="year" /> and  <paramref name="month" />.
         /// </returns>
-        public static int Day(this Random random, int year, int month)
+        private static int Day(this Random random, int year, int month)
         {
             return random.Next(1, System.DateTime.DaysInMonth(year, month) + 1);
         }
@@ -520,12 +520,18 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <param name="random">
         ///     The System.Random to randomize with.
         /// </param>
+        /// <param name="min">
+        ///     The minimum inclusive value.
+        /// </param>
+        /// <param name="max">
+        ///     The maximum exclusive value.
+        /// </param>
         /// <returns>
         ///     A randomized month.
         /// </returns>
-        public static int Month(this Random random)
+        private static int Month(this Random random, int min = 1, int max = 13)
         {
-            return random.Next(1, 13);
+            return random.Next(min, max);
         }
 
         /// <summary>
@@ -534,12 +540,18 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <param name="random">
         ///     The System.Random to randomize with.
         /// </param>
+        /// <param name="min">
+        ///     The minimum inclusive value.
+        /// </param>
+        /// <param name="max">
+        ///     The maximum exclusive value.
+        /// </param>
         /// <returns>
         ///     A randomized hour.
         /// </returns>
-        public static int Hour(this Random random)
+        private static int Hour(this Random random, int min = 0, int max = 24)
         {
-            return random.Next(0, 24);
+            return random.Next(min, max);
         }
 
         /// <summary>
@@ -548,12 +560,18 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <param name="random">
         ///     The System.Random to randomize with.
         /// </param>
+        /// <param name="min">
+        ///     The minimum inclusive value.
+        /// </param>
+        /// <param name="max">
+        ///     The maximum exclusive value.
+        /// </param>
         /// <returns>
         ///     A randomized minute.
         /// </returns>
-        public static int Minute(this Random random)
+        private static int Minute(this Random random, int min = 0, int max = 60)
         {
-            return random.Next(0, 60);
+            return random.Next(min, max);
         }
 
         /// <summary>
@@ -562,12 +580,18 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <param name="random">
         ///     The System.Random to randomize with.
         /// </param>
+        /// <param name="min">
+        ///     The minimum inclusive value.
+        /// </param>
+        /// <param name="max">
+        ///     The maximum exclusive value.
+        /// </param>
         /// <returns>
         ///     A randomized second.
         /// </returns>
-        public static int Second(this Random random)
+        private static int Second(this Random random, int min = 0, int max = 60)
         {
-            return random.Next(0, 60);
+            return random.Next(min, max);
         }
 
         /// <summary>
@@ -576,12 +600,18 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <param name="random">
         ///     The System.Random to randomize with.
         /// </param>
+        /// <param name="min">
+        ///     The minimum inclusive value.
+        /// </param>
+        /// <param name="max">
+        ///     The maximum exclusive value.
+        /// </param>
         /// <returns>
         ///     A randomized millisecond.
         /// </returns>
-        public static int MilliSecond(this Random random)
+        private static int MilliSecond(this Random random, int min = 0, int max = 1000)
         {
-            return random.Next(0, 1000);
+            return random.Next(min, max);
         }
 
         /// <summary>
@@ -613,7 +643,7 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
                 var month = isSameYear
                     ? isSameMonth
                         ? min.Month
-                        : random.Next(1, max.Month)
+                        : random.Month(1, max.Month)
                     : Month(random);
 
                 var isSameDay = min.Day == max.Day;
@@ -627,14 +657,14 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
                 var hour = isSameYear && isSameMonth && isSameDay
                     ? isSameHour
                         ? min.Hour
-                        : random.Next(0, max.Hour)
+                        : random.Hour(0, max.Hour)
                     : Hour(random);
 
                 var isSameMinute = min.Minute == max.Minute;
                 var minute = isSameYear && isSameMonth && isSameDay && isSameHour
                     ? isSameMinute
                         ? min.Minute
-                        : random.Next(0, max.Minute)
+                        : random.Minute(0, max.Minute)
                     : Minute(random);
 
                 var isSameSecond = min.Second == max.Second;
@@ -642,7 +672,7 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
                 var second = isSameYear && isSameMonth && isSameDay && isSameHour
                     ? isSameSecond
                         ? min.Second
-                        : random.Next(0, max.Second)
+                        : random.Second(0, max.Second)
                     : Second(random);
 
 
@@ -651,7 +681,7 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
                 var milliSecond = isSameYear && isSameMonth && isSameDay && isSameHour && isSameMinute && isSameSecond
                     ? isSameMillisSecond
                         ? min.Millisecond
-                        : random.Next(0, max.Millisecond)
+                        : random.MilliSecond(0, max.Millisecond)
                     : MilliSecond(random);
 
                 return new DateTime(year, month, day, hour, minute, second, milliSecond);
