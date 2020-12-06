@@ -10,22 +10,20 @@ namespace Sharpy.Builder.Tests.Implementations
     public class CharRandomizerTests
     {
         private static readonly ICharProvider CharProvider = new CharRandomizer(new Random());
-        private const int MainSeed = 100;
-        private const int SecondarySeed = MainSeed + 1;
 
         [Test]
         public void No_Arg_Is_Deterministic_With_Seed()
         {
-            var expected = new CharRandomizer(new Random(MainSeed));
-            var result = new CharRandomizer(new Random(MainSeed));
+            var expected = new CharRandomizer(new Random(Assertion.MainSeed));
+            var result = new CharRandomizer(new Random(Assertion.MainSeed));
             Assertion.AreEqual(expected, result, x => x.Char());
         }
 
         [Test]
         public void No_Arg_Is_Not_Deterministic_With_Different_Seed()
         {
-            var expected = new CharRandomizer(new Random(MainSeed));
-            var result = new CharRandomizer(new Random(SecondarySeed));
+            var expected = new CharRandomizer(new Random(Assertion.MainSeed));
+            var result = new CharRandomizer(new Random(Assertion.SecondarySeed));
 
             Assertion.AreNotEqual(expected, result, x => x.Char());
         }
@@ -33,16 +31,16 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void Max_Arg_Is_Deterministic_With_Seed()
         {
-            var expected = new CharRandomizer(new Random(MainSeed));
-            var result = new CharRandomizer(new Random(MainSeed));
+            var expected = new CharRandomizer(new Random(Assertion.MainSeed));
+            var result = new CharRandomizer(new Random(Assertion.MainSeed));
             Assertion.AreEqual(expected, result, x => x.Char('z'));
         }
 
         [Test]
         public void Max_Arg_Is_Not_Deterministic_With_Different_Seed()
         {
-            var expected = new CharRandomizer(new Random(MainSeed));
-            var result = new CharRandomizer(new Random(SecondarySeed));
+            var expected = new CharRandomizer(new Random(Assertion.MainSeed));
+            var result = new CharRandomizer(new Random(Assertion.SecondarySeed));
 
             Assertion.AreNotEqual(expected, result, x => x.Char('z'));
         }
@@ -50,16 +48,16 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void Min_Max_Arg_Is_Deterministic_With_Seed()
         {
-            var expected = new CharRandomizer(new Random(MainSeed));
-            var result = new CharRandomizer(new Random(MainSeed));
+            var expected = new CharRandomizer(new Random(Assertion.MainSeed));
+            var result = new CharRandomizer(new Random(Assertion.MainSeed));
             Assertion.AreEqual(expected, result, x => x.Char('a', 'z'));
         }
 
         [Test]
         public void Min_Max_Arg_Is_Not_Deterministic_With_Different_Seed()
         {
-            var expected = new CharRandomizer(new Random(MainSeed));
-            var result = new CharRandomizer(new Random(SecondarySeed));
+            var expected = new CharRandomizer(new Random(Assertion.MainSeed));
+            var result = new CharRandomizer(new Random(Assertion.SecondarySeed));
 
             Assertion.AreNotEqual(expected, result, x => x.Char('a', 'z'));
         }
@@ -67,7 +65,7 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void No_Arg_Values_Are_Distributed()
         {
-            var result = new CharRandomizer(new Random(MainSeed));
+            var result = new CharRandomizer(new Random(Assertion.MainSeed));
             Assertion.IsDistributed(result, x => x.Char(), x => Assert.GreaterOrEqual(x.Count, char.MaxValue / 2));
         }
 

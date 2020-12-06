@@ -12,22 +12,20 @@ namespace Sharpy.Builder.Tests.Implementations
     {
         private const int Amount = 10000000;
         private readonly IDateTimeProvider _dateTimProvider = new DateTimeRandomizer(new Random());
-        private const int MainSeed = 100;
-        private const int SecondarySeed = MainSeed + 1;
 
         [Test]
         public void No_Arg_Is_Deterministic_With_Seed()
         {
-            var expected = new DateTimeRandomizer(new Random(MainSeed));
-            var result = new DateTimeRandomizer(new Random(MainSeed));
+            var expected = new DateTimeRandomizer(new Random(Assertion.MainSeed));
+            var result = new DateTimeRandomizer(new Random(Assertion.MainSeed));
             Assertion.AreEqual(expected, result, x => x.DateTime());
         }
 
         [Test]
         public void No_Arg_Is_Not_Deterministic_With_Different_Seed()
         {
-            var expected = new DateTimeRandomizer(new Random(MainSeed));
-            var result = new DateTimeRandomizer(new Random(SecondarySeed));
+            var expected = new DateTimeRandomizer(new Random(Assertion.MainSeed));
+            var result = new DateTimeRandomizer(new Random(Assertion.SecondarySeed));
 
             Assertion.AreNotEqual(expected, result, x => x.DateTime());
         }
@@ -35,8 +33,8 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void Max_Arg_Is_Deterministic_With_Seed()
         {
-            var expected = new DateTimeRandomizer(new Random(MainSeed));
-            var result = new DateTimeRandomizer(new Random(MainSeed));
+            var expected = new DateTimeRandomizer(new Random(Assertion.MainSeed));
+            var result = new DateTimeRandomizer(new Random(Assertion.MainSeed));
             var max = BaseTime;
             Assertion.AreEqual(expected, result, x => x.DateTime(max));
         }
@@ -44,8 +42,8 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void Max__Arg_Is_Not_Deterministic_With_Different_Seed()
         {
-            var expected = new DateTimeRandomizer(new Random(MainSeed));
-            var result = new DateTimeRandomizer(new Random(SecondarySeed));
+            var expected = new DateTimeRandomizer(new Random(Assertion.MainSeed));
+            var result = new DateTimeRandomizer(new Random(Assertion.SecondarySeed));
             var max = BaseTime;
 
             Assertion.AreNotEqual(expected, result, x => x.DateTime(max));
@@ -54,8 +52,8 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void Min_Max_Arg_Is_Deterministic_With_Seed()
         {
-            var expected = new DateTimeRandomizer(new Random(MainSeed));
-            var result = new DateTimeRandomizer(new Random(MainSeed));
+            var expected = new DateTimeRandomizer(new Random(Assertion.MainSeed));
+            var result = new DateTimeRandomizer(new Random(Assertion.MainSeed));
             var min = BaseTime;
             var max = min.AddYears(1);
             Assertion.AreEqual(expected, result, x => x.DateTime(min, max));
@@ -64,8 +62,8 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void Min_Max__Arg_Is_Not_Deterministic_With_Different_Seed()
         {
-            var expected = new DateTimeRandomizer(new Random(MainSeed));
-            var result = new DateTimeRandomizer(new Random(SecondarySeed));
+            var expected = new DateTimeRandomizer(new Random(Assertion.MainSeed));
+            var result = new DateTimeRandomizer(new Random(Assertion.SecondarySeed));
             var min = BaseTime;
             var max = min.AddYears(1);
             Assertion.AreNotEqual(expected, result, x => x.DateTime(min, max));

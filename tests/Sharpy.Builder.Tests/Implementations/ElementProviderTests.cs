@@ -52,7 +52,6 @@ namespace Sharpy.Builder.Tests.Implementations
             );
         }
 
-
         [Test]
         public void Six_Arguments_IsDistributed()
         {
@@ -72,6 +71,7 @@ namespace Sharpy.Builder.Tests.Implementations
                 x => Assert.AreEqual(7, x.Count)
             );
         }
+
         [Test]
         public void Eight_Arguments_IsDistributed()
         {
@@ -81,6 +81,7 @@ namespace Sharpy.Builder.Tests.Implementations
                 x => Assert.AreEqual(8, x.Count)
             );
         }
+
         [Test]
         public void Nine_Arguments_IsDistributed()
         {
@@ -90,6 +91,7 @@ namespace Sharpy.Builder.Tests.Implementations
                 x => Assert.AreEqual(9, x.Count)
             );
         }
+
         [Test]
         public void Ten_Arguments_IsDistributed()
         {
@@ -101,9 +103,10 @@ namespace Sharpy.Builder.Tests.Implementations
         }
 
         [Test]
-        public void Span_One_Element()
+        public void Span_One_Element_All_Values_Are_The_Same()
         {
             var args = new Span<int>(new[] {1});
+
             var arr = new int[Assertion.Amount];
             for (var i = 0; i < Assertion.Amount; i++)
                 arr[i] = ElementProvider.FromSpan(args);
@@ -112,50 +115,30 @@ namespace Sharpy.Builder.Tests.Implementations
         }
 
         [Test]
-        public void Span_Two_Elements()
+        public void Span_Two_Elements_IsDistributed()
         {
-            var args = new Span<int>(new[] {1, 2});
-            var arr = new int[Assertion.Amount];
-            for (var i = 0; i < Assertion.Amount; i++)
-                arr[i] = ElementProvider.FromSpan(args);
-
-            var grouping = arr
-                .GroupBy(x => x)
-                .OrderBy(x => x.Key)
-                .ToList();
-
-            Assert.AreEqual(1, grouping[0].Key);
-            Assert.AreEqual(2, grouping[1].Key);
-            Assert.IsNotEmpty(grouping[0]);
-            Assert.IsNotEmpty(grouping[1]);
+            Assertion.IsDistributed(
+                ElementProvider,
+                x => x.FromSpan(new Span<int>(new[] {1, 2})),
+                x => Assert.AreEqual(2, x.Count)
+            );
         }
 
         [Test]
-        public void Span_Three_Elements()
+        public void Span_Three_Elements_IsDistributed()
         {
-            var args = new Span<int>(new[] {1, 2, 3});
-            var arr = new int[Assertion.Amount];
-            for (var i = 0; i < Assertion.Amount; i++)
-                arr[i] = ElementProvider.FromSpan(args);
-
-            var grouping = arr
-                .GroupBy(x => x)
-                .OrderBy(x => x.Key)
-                .ToList();
-
-            Assert.AreEqual(1, grouping[0].Key);
-            Assert.AreEqual(2, grouping[1].Key);
-            Assert.AreEqual(3, grouping[2].Key);
-            Assert.IsNotEmpty(grouping[0]);
-            Assert.IsNotEmpty(grouping[1]);
-            Assert.IsNotEmpty(grouping[2]);
+            Assertion.IsDistributed(
+                ElementProvider,
+                x => x.FromSpan(new Span<int>(new[] {1, 2, 3})),
+                x => Assert.AreEqual(3, x.Count)
+            );
         }
 
-
         [Test]
-        public void ReadOnlySpan_One_Element()
+        public void ReadOnlySpan_One_Element_All_Values_Are_The_Same()
         {
             var args = new ReadOnlySpan<int>(new[] {1});
+
             var arr = new int[Assertion.Amount];
             for (var i = 0; i < Assertion.Amount; i++)
                 arr[i] = ElementProvider.FromSpan(args);
@@ -164,47 +147,27 @@ namespace Sharpy.Builder.Tests.Implementations
         }
 
         [Test]
-        public void ReadOnlySpan_Two_Elements()
+        public void ReadOnlySpan_Two_Elements_IsDistributed()
         {
-            var args = new ReadOnlySpan<int>(new[] {1, 2});
-            var arr = new int[Assertion.Amount];
-            for (var i = 0; i < Assertion.Amount; i++)
-                arr[i] = ElementProvider.FromSpan(args);
-
-            var grouping = arr
-                .GroupBy(x => x)
-                .OrderBy(x => x.Key)
-                .ToList();
-
-            Assert.AreEqual(1, grouping[0].Key);
-            Assert.AreEqual(2, grouping[1].Key);
-            Assert.IsNotEmpty(grouping[0]);
-            Assert.IsNotEmpty(grouping[1]);
+            Assertion.IsDistributed(
+                ElementProvider,
+                x => x.FromSpan(new ReadOnlySpan<int>(new[] {1, 2})),
+                x => Assert.AreEqual(2, x.Count)
+            );
         }
 
         [Test]
-        public void ReadOnlySpan_Three_Elements()
+        public void ReadOnlySpan_Three_Elements_IsDistributed()
         {
-            var args = new ReadOnlySpan<int>(new[] {1, 2, 3});
-            var arr = new int[Assertion.Amount];
-            for (var i = 0; i < Assertion.Amount; i++)
-                arr[i] = ElementProvider.FromSpan(args);
-
-            var grouping = arr
-                .GroupBy(x => x)
-                .OrderBy(x => x.Key)
-                .ToList();
-
-            Assert.AreEqual(1, grouping[0].Key);
-            Assert.AreEqual(2, grouping[1].Key);
-            Assert.AreEqual(3, grouping[2].Key);
-            Assert.IsNotEmpty(grouping[0]);
-            Assert.IsNotEmpty(grouping[1]);
-            Assert.IsNotEmpty(grouping[2]);
+            Assertion.IsDistributed(
+                ElementProvider,
+                x => x.FromSpan(new ReadOnlySpan<int>(new[] {1, 2, 3})),
+                x => Assert.AreEqual(3, x.Count)
+            );
         }
 
         [Test]
-        public void Array_One_Element()
+        public void Array_One_Element_All_Values_Are_The_Same()
         {
             var args = new[] {1};
             var arr = new int[Assertion.Amount];
@@ -215,48 +178,30 @@ namespace Sharpy.Builder.Tests.Implementations
         }
 
         [Test]
-        public void Array_Two_Elements()
+        public void Array_Two_Elements_IsDistributed()
         {
             var args = new[] {1, 2};
 
-            var arr = new int[Assertion.Amount];
-            for (var i = 0; i < Assertion.Amount; i++)
-                arr[i] = ElementProvider.FromList(args);
-
-            var grouping = arr
-                .GroupBy(x => x)
-                .OrderBy(x => x.Key)
-                .ToList();
-
-            Assert.AreEqual(1, grouping[0].Key);
-            Assert.AreEqual(2, grouping[1].Key);
-            Assert.IsNotEmpty(grouping[0]);
-            Assert.IsNotEmpty(grouping[1]);
+            Assertion.IsDistributed(
+                ElementProvider,
+                x => x.FromList(args),
+                x => Assert.AreEqual(2, x.Count)
+            );
         }
 
         [Test]
-        public void Array_Three_Elements()
+        public void Array_Three_Elements_IsDistributed()
         {
             var args = new[] {1, 2, 3};
-            var arr = new int[Assertion.Amount];
-            for (var i = 0; i < Assertion.Amount; i++)
-                arr[i] = ElementProvider.FromList(args);
-
-            var grouping = arr
-                .GroupBy(x => x)
-                .OrderBy(x => x.Key)
-                .ToList();
-
-            Assert.AreEqual(1, grouping[0].Key);
-            Assert.AreEqual(2, grouping[1].Key);
-            Assert.AreEqual(3, grouping[2].Key);
-            Assert.IsNotEmpty(grouping[0]);
-            Assert.IsNotEmpty(grouping[1]);
-            Assert.IsNotEmpty(grouping[2]);
+            Assertion.IsDistributed(
+                ElementProvider,
+                x => x.FromList(args),
+                x => Assert.AreEqual(3, x.Count)
+            );
         }
 
         [Test]
-        public void List_One_Element()
+        public void List_One_Element_All_Values_Are_The_Same()
         {
             var args = new List<int> {1};
             var arr = new int[Assertion.Amount];
@@ -267,51 +212,32 @@ namespace Sharpy.Builder.Tests.Implementations
         }
 
         [Test]
-        public void List_Two_Elements()
+        public void List_Two_Elements_IsDistributed()
         {
             var args = new List<int> {1, 2};
-
-            var arr = new int[Assertion.Amount];
-            for (var i = 0; i < Assertion.Amount; i++)
-                arr[i] = ElementProvider.FromList(args);
-
-            var grouping = arr
-                .GroupBy(x => x)
-                .OrderBy(x => x.Key)
-                .ToList();
-
-            Assert.AreEqual(1, grouping[0].Key);
-            Assert.AreEqual(2, grouping[1].Key);
-            Assert.IsNotEmpty(grouping[0]);
-            Assert.IsNotEmpty(grouping[1]);
+            Assertion.IsDistributed(
+                ElementProvider,
+                x => x.FromList(args),
+                x => Assert.AreEqual(2, x.Count)
+            );
         }
 
         [Test]
-        public void List_Three_Elements()
+        public void List_Three_Elements_IsDistributed()
         {
             var args = new List<int> {1, 2, 3};
-            var arr = new int[Assertion.Amount];
-            for (var i = 0; i < Assertion.Amount; i++)
-                arr[i] = ElementProvider.FromList(args);
-
-            var grouping = arr
-                .GroupBy(x => x)
-                .OrderBy(x => x.Key)
-                .ToList();
-
-            Assert.AreEqual(1, grouping[0].Key);
-            Assert.AreEqual(2, grouping[1].Key);
-            Assert.AreEqual(3, grouping[2].Key);
-            Assert.IsNotEmpty(grouping[0]);
-            Assert.IsNotEmpty(grouping[1]);
-            Assert.IsNotEmpty(grouping[2]);
+            Assertion.IsDistributed(
+                ElementProvider,
+                x => x.FromList(args),
+                x => Assert.AreEqual(3, x.Count)
+            );
         }
 
         [Test]
         public void Empty_List_Throws()
         {
             Assert.Throws<ArgumentException>(() => ElementProvider.FromList(new List<int>()));
-            Assert.Throws<ArgumentException>(() => ElementProvider.FromList(System.Array.Empty<int>()));
+            Assert.Throws<ArgumentException>(() => ElementProvider.FromList(Array.Empty<int>()));
         }
 
         [Test]
