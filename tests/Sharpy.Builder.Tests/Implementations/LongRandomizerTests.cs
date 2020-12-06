@@ -9,16 +9,14 @@ namespace Sharpy.Builder.Tests.Implementations
     [TestFixture]
     public class LongRandomizerTests
     {
-        private const int Amount = 10000000;
-
         private static readonly ILongProvider LongProvider = new LongRandomizer(new Random());
 
         [Test]
         public void No_Arg_All_Values_Are_Between_Zero_And_MaxValue()
         {
-            var longs = new long[Amount];
+            var longs = new long[Assertion.Amount];
 
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 longs[i] = LongProvider.Long();
 
             longs.AssertNotAllValuesAreTheSame();
@@ -31,10 +29,10 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void All_Values_Are_Between_Zero_And_Max()
         {
-            var longs = new long[Amount];
+            var longs = new long[Assertion.Amount];
 
             const long max = 200;
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 longs[i] = LongProvider.Long(max);
 
             longs.AssertNotAllValuesAreTheSame();
@@ -47,11 +45,11 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void All_Values_Are_Between_Min_And_Max()
         {
-            var longs = new long[Amount];
+            var longs = new long[Assertion.Amount];
 
             const long min = 100;
             const long max = 200;
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 longs[i] = LongProvider.Long(min, max);
 
             longs.AssertNotAllValuesAreTheSame();
@@ -64,10 +62,10 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void Inclusive_Min_Arg()
         {
-            var longs = new long[Amount];
+            var longs = new long[Assertion.Amount];
 
             const long arg = 100;
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 longs[i] = LongProvider.Long(arg, arg);
 
             Assert.True(
@@ -79,11 +77,11 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void Exclusive_Max_Arg()
         {
-            var longs = new long[Amount];
+            var longs = new long[Assertion.Amount];
 
             const long max = 100;
             const long min = max - 1;
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 longs[i] = LongProvider.Long(min, max);
 
 

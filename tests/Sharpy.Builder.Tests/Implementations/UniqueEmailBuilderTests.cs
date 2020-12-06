@@ -10,7 +10,6 @@ namespace Sharpy.Builder.Tests.Implementations
     public class UniqueEmailBuilderTests
     {
         private const string MailUserName = "test";
-        private const int Amount = 100000;
 
         private static List<string> FindDuplicates(IEnumerable<string> enumerable)
         {
@@ -25,7 +24,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var uniqueEmailBuilder = new UniqueEmailBuilder(new List<string> {"hotmail.com"}, new Random());
             var mails = new List<string>();
-            for (var i = 0; i < Amount; i++) mails.Add(uniqueEmailBuilder.Mail());
+            for (var i = 0; i < Assertion.Amount; i++) mails.Add(uniqueEmailBuilder.Mail());
             Assert.IsTrue(mails.All(s => s.IndexOf('@') > 1));
         }
 
@@ -34,7 +33,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var uniqueEmailBuilder = new UniqueEmailBuilder(new List<string> {"hotmail.com"}, new Random());
             var mails = new List<string>();
-            for (var i = 0; i < Amount; i++) mails.Add(uniqueEmailBuilder.Mail());
+            for (var i = 0; i < Assertion.Amount; i++) mails.Add(uniqueEmailBuilder.Mail());
             Assert.IsTrue(FindDuplicates(mails).Count == 0);
         }
 
@@ -44,7 +43,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var uniqueEmailBuilder =
                 new UniqueEmailBuilder(new List<string> {"hotmail.com", "gmail.com", "foo.com"}, new Random());
             var mails = new List<string>();
-            for (var i = 0; i < Amount; i++) mails.Add(uniqueEmailBuilder.Mail());
+            for (var i = 0; i < Assertion.Amount; i++) mails.Add(uniqueEmailBuilder.Mail());
             Assert.IsTrue(FindDuplicates(mails).Count == 0);
         }
 
@@ -54,7 +53,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var uniqueEmailBuilder =
                 new UniqueEmailBuilder(new List<string> {"hotmail.com", "gmail.com"}, new Random());
             var mails = new List<string>();
-            for (var i = 0; i < Amount; i++) mails.Add(uniqueEmailBuilder.Mail());
+            for (var i = 0; i < Assertion.Amount; i++) mails.Add(uniqueEmailBuilder.Mail());
             Assert.IsTrue(FindDuplicates(mails).Count == 0);
         }
 
@@ -63,7 +62,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var uniqueEmailBuilder = new UniqueEmailBuilder(new List<string> {"hotmail.com"}, new Random());
             Assert.IsFalse(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
-            for (var i = 0; i < Amount; i++) Assert.IsTrue(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
+            for (var i = 0; i < Assertion.Amount; i++) Assert.IsTrue(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
         }
 
         [Test]
@@ -74,7 +73,7 @@ namespace Sharpy.Builder.Tests.Implementations
             Assert.IsFalse(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
             Assert.IsFalse(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
             Assert.IsFalse(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
-            for (var i = 0; i < Amount; i++) Assert.IsTrue(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
+            for (var i = 0; i < Assertion.Amount; i++) Assert.IsTrue(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
         }
 
         [Test]
@@ -84,7 +83,7 @@ namespace Sharpy.Builder.Tests.Implementations
                 new UniqueEmailBuilder(new List<string> {"hotmail.com", "google.com"}, new Random());
             Assert.IsFalse(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
             Assert.IsFalse(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
-            for (var i = 0; i < Amount; i++) Assert.IsTrue(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
+            for (var i = 0; i < Assertion.Amount; i++) Assert.IsTrue(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
         }
 
         [Test]
@@ -92,7 +91,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var uniqueEmailBuilder = new UniqueEmailBuilder(new List<string> {"hotmail.com"}, new Random());
             var mails = new List<string>();
-            for (var i = 0; i < Amount; i++) mails.Add(uniqueEmailBuilder.Mail(MailUserName));
+            for (var i = 0; i < Assertion.Amount; i++) mails.Add(uniqueEmailBuilder.Mail(MailUserName));
             Assert.IsTrue(mails.All(s => s.IndexOf('@') > 1));
         }
 
@@ -101,7 +100,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var uniqueEmailBuilder = new UniqueEmailBuilder(new List<string> {"hotmail.com"}, new Random());
             var mails = new List<string>();
-            for (var i = 0; i < Amount; i++) mails.Add(uniqueEmailBuilder.Mail(MailUserName));
+            for (var i = 0; i < Assertion.Amount; i++) mails.Add(uniqueEmailBuilder.Mail(MailUserName));
             Assert.IsTrue(FindDuplicates(mails).Count == 0);
         }
 
@@ -111,7 +110,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var uniqueEmailBuilder =
                 new UniqueEmailBuilder(new List<string> {"hotmail.com", "gmail.com", "foo.com"}, new Random());
             var mails = new List<string>();
-            for (var i = 0; i < Amount; i++) mails.Add(uniqueEmailBuilder.Mail(MailUserName));
+            for (var i = 0; i < Assertion.Amount; i++) mails.Add(uniqueEmailBuilder.Mail(MailUserName));
             Assert.IsTrue(FindDuplicates(mails).Count == 0);
         }
 
@@ -121,7 +120,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var uniqueEmailBuilder =
                 new UniqueEmailBuilder(new List<string> {"hotmail.com", "gmail.com"}, new Random());
             var mails = new List<string>();
-            for (var i = 0; i < Amount; i++) mails.Add(uniqueEmailBuilder.Mail(MailUserName));
+            for (var i = 0; i < Assertion.Amount; i++) mails.Add(uniqueEmailBuilder.Mail(MailUserName));
             Assert.IsTrue(FindDuplicates(mails).Count == 0);
         }
 
@@ -130,7 +129,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var uniqueEmailBuilder = new UniqueEmailBuilder(new List<string> {"hotmail.com"}, new Random());
             var mails = new List<string>();
-            for (var i = 0; i < Amount; i++) mails.Add(uniqueEmailBuilder.Mail(MailUserName));
+            for (var i = 0; i < Assertion.Amount; i++) mails.Add(uniqueEmailBuilder.Mail(MailUserName));
             Assert.IsTrue(mails.All(s => s.Split('@')[0].StartsWith(MailUserName)));
         }
 
@@ -140,7 +139,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var uniqueEmailBuilder =
                 new UniqueEmailBuilder(new List<string> {"hotmail.com", "gmail.com", "foo.com"}, new Random());
             var mails = new List<string>();
-            for (var i = 0; i < Amount; i++) mails.Add(uniqueEmailBuilder.Mail(MailUserName));
+            for (var i = 0; i < Assertion.Amount; i++) mails.Add(uniqueEmailBuilder.Mail(MailUserName));
             Assert.IsTrue(mails.All(s => s.Split('@')[0].StartsWith(MailUserName)));
         }
 
@@ -150,7 +149,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var uniqueEmailBuilder =
                 new UniqueEmailBuilder(new List<string> {"hotmail.com", "gmail.com"}, new Random());
             var mails = new List<string>();
-            for (var i = 0; i < Amount; i++) mails.Add(uniqueEmailBuilder.Mail(MailUserName));
+            for (var i = 0; i < Assertion.Amount; i++) mails.Add(uniqueEmailBuilder.Mail(MailUserName));
             Assert.IsTrue(mails.All(s => s.Split('@')[0].StartsWith(MailUserName)));
         }
     }

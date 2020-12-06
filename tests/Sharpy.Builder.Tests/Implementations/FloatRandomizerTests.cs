@@ -9,7 +9,6 @@ namespace Sharpy.Builder.Tests.Implementations
     [TestFixture]
     public class FloatRandomizerTests
     {
-        private const int Amount = 10000000;
         private const float MaxSupportedPrecision = 0.100_00f;
 
         private static readonly IFloatProvider FloatProvider = new FloatRandomizer(new Random());
@@ -17,9 +16,9 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void No_Arg_All_Values_Are_Between_Zero_And_MaxValue()
         {
-            var floats = new float[Amount];
+            var floats = new float[Assertion.Amount];
 
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 floats[i] = FloatProvider.Float();
 
             floats.AssertNotAllValuesAreTheSame();
@@ -32,10 +31,10 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void All_Values_Are_Between_Zero_And_Max()
         {
-            var floats = new float[Amount];
+            var floats = new float[Assertion.Amount];
 
             const float max = 200;
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 floats[i] = FloatProvider.Float(max);
 
             floats.AssertNotAllValuesAreTheSame();
@@ -48,11 +47,11 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void All_Values_Are_Between_Min_And_Max()
         {
-            var floats = new float[Amount];
+            var floats = new float[Assertion.Amount];
 
             const float min = 100;
             const float max = 200;
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 floats[i] = FloatProvider.Float(min, max);
 
             floats.AssertNotAllValuesAreTheSame();
@@ -65,10 +64,10 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void Inclusive_Min_Arg()
         {
-            var floats = new float[Amount];
+            var floats = new float[Assertion.Amount];
 
             const float arg = 100;
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 floats[i] = FloatProvider.Float(arg, arg);
 
             Assert.True(
@@ -80,11 +79,11 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void Exclusive_Max_Arg()
         {
-            var floats = new float[Amount];
+            var floats = new float[Assertion.Amount];
             const float max = 100;
             const float min = max - MaxSupportedPrecision;
 
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 floats[i] = FloatProvider.Float(min, max);
 
 

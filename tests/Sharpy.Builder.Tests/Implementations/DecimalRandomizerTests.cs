@@ -9,7 +9,6 @@ namespace Sharpy.Builder.Tests.Implementations
     [TestFixture]
     public class DecimalRandomizerTests
     {
-        private const int Amount = 10000000;
         private const decimal MaxSupportedPrecision = 0.000_000_000_000_000_010m;
 
         private static readonly IDecimalProvider DecimalProvider = new DecimalRandomizer(new Random());
@@ -68,9 +67,9 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void No_Arg_All_Values_Are_Between_Zero_And_MaxValue()
         {
-            var decimals = new decimal[Amount];
+            var decimals = new decimal[Assertion.Amount];
 
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 decimals[i] = DecimalProvider.Decimal();
 
             decimals.AssertNotAllValuesAreTheSame();
@@ -83,10 +82,10 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void All_Values_Are_Between_Zero_And_Max()
         {
-            var decimals = new decimal[Amount];
+            var decimals = new decimal[Assertion.Amount];
 
             const decimal max = 200;
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 decimals[i] = DecimalProvider.Decimal(max);
 
             decimals.AssertNotAllValuesAreTheSame();
@@ -99,11 +98,11 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void All_Values_Are_Between_Min_And_Max()
         {
-            var decimals = new decimal[Amount];
+            var decimals = new decimal[Assertion.Amount];
 
             const decimal min = 100;
             const decimal max = 200;
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 decimals[i] = DecimalProvider.Decimal(min, max);
 
             decimals.AssertNotAllValuesAreTheSame();
@@ -116,10 +115,10 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void Inclusive_Min_Arg()
         {
-            var decimals = new decimal[Amount];
+            var decimals = new decimal[Assertion.Amount];
 
             const decimal arg = 100;
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 decimals[i] = DecimalProvider.Decimal(arg, arg);
 
             Assert.True(
@@ -131,11 +130,11 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void Exclusive_Max_Arg()
         {
-            var decimals = new decimal[Amount];
+            var decimals = new decimal[Assertion.Amount];
 
             const decimal max = 100;
             const decimal min = max - MaxSupportedPrecision;
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 decimals[i] = DecimalProvider.Decimal(min, max);
 
             decimals.AssertNotAllValuesAreTheSame();

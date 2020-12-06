@@ -9,7 +9,7 @@ namespace Sharpy.Builder.Tests
     {
         public const int MainSeed = 100;
         public const int SecondarySeed = MainSeed + 1;
-        public const int Amount = 10000000;
+        public const int Amount = 100000;
 
         public static void AssertNotAllValuesAreTheSame<T>(this ICollection<T> collection)
         {

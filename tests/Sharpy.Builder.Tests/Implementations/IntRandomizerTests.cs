@@ -9,16 +9,14 @@ namespace Sharpy.Builder.Tests.Implementations
     [TestFixture]
     public class IntRandomizerTests
     {
-        private const int Amount = 10000000;
-
         private static readonly IIntegerProvider IntegerProvider = new IntegerRandomizer(new Random());
 
         [Test]
         public void No_Arg_All_Values_Are_Between_Zero_And_MaxValue()
         {
-            var ints = new int[Amount];
+            var ints = new int[Assertion.Amount];
 
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 ints[i] = IntegerProvider.Integer();
 
             ints.AssertNotAllValuesAreTheSame();
@@ -31,10 +29,10 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void All_Values_Are_Between_Zero_And_Max()
         {
-            var ints = new int[Amount];
+            var ints = new int[Assertion.Amount];
 
             const int max = 200;
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 ints[i] = IntegerProvider.Integer(max);
 
             ints.AssertNotAllValuesAreTheSame();
@@ -47,11 +45,11 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void All_Values_Are_Between_Min_And_Max()
         {
-            var ints = new int[Amount];
+            var ints = new int[Assertion.Amount];
 
             const int min = 100;
             const int max = 200;
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 ints[i] = IntegerProvider.Integer(min, max);
 
             ints.AssertNotAllValuesAreTheSame();
@@ -64,10 +62,10 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void Inclusive_Min_Arg()
         {
-            var ints = new int[Amount];
+            var ints = new int[Assertion.Amount];
 
             const int arg = 100;
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 ints[i] = IntegerProvider.Integer(arg, arg);
 
             Assert.True(
@@ -79,11 +77,11 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void Exclusive_Max_Arg()
         {
-            var ints = new int[Amount];
+            var ints = new int[Assertion.Amount];
 
             const int max = 100;
             const int min = max - 1;
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 ints[i] = IntegerProvider.Integer(min, max);
 
 
