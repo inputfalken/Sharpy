@@ -129,15 +129,15 @@ namespace Sharpy.Builder
         }
 
         /// <inheritdoc />
-        public DateTime DateTimeByAge(int age)
+        public DateTime DateTimeFromAge(int age)
         {
-            return _dateTimeProvider.DateTimeByAge(age);
+            return _dateTimeProvider.DateTimeFromAge(age);
         }
 
         /// <inheritdoc />
-        public DateTime DateTimeByYear(int year)
+        public DateTime DateTimeFromYear(int year)
         {
-            return _dateTimeProvider.DateTimeByYear(year);
+            return _dateTimeProvider.DateTimeFromYear(year);
         }
 
         /// <inheritdoc />

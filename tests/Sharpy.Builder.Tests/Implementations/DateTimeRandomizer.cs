@@ -61,7 +61,7 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void DateTime_By_Age_Arg_MinusOne_Throws()
         {
-            Assert.Throws<ArgumentException>(() => _dateTimProvider.DateTimeByAge(-1));
+            Assert.Throws<ArgumentException>(() => _dateTimProvider.DateTimeFromAge(-1));
         }
 
         [Test]
@@ -69,7 +69,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             const int age = 20;
             var list = new List<DateTime>();
-            for (var i = 0; i < Assertion.Amount; i++) list.Add(_dateTimProvider.DateTimeByAge(age));
+            for (var i = 0; i < Assertion.Amount; i++) list.Add(_dateTimProvider.DateTimeFromAge(age));
             var dateTime = DateTime.Now;
             var twentyYearsAgo = dateTime.AddYears(-age);
             var twentyOneYearsAgo = dateTime.AddYears(-(age + 1));
@@ -82,7 +82,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             const int age = 0;
             var list = new List<DateTime>();
-            for (var i = 0; i < Assertion.Amount; i++) list.Add(_dateTimProvider.DateTimeByAge(age));
+            for (var i = 0; i < Assertion.Amount; i++) list.Add(_dateTimProvider.DateTimeFromAge(age));
             // Checks that date will be more than now.
             Assert.IsTrue(list.All(time => DateTime.Now > time));
         }
@@ -92,7 +92,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             const int age = 20;
             var list = new List<DateTime>();
-            for (var i = 0; i < Assertion.Amount; i++) list.Add(_dateTimProvider.DateTimeByAge(age));
+            for (var i = 0; i < Assertion.Amount; i++) list.Add(_dateTimProvider.DateTimeFromAge(age));
             // Checks if any time is not zero.
             Assert.IsTrue(list.Any(time => time.Minute != 0 || time.Second != 0 || time.Hour != 0));
         }
@@ -101,7 +101,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTime_By_Year_Arg_Current_Year()
         {
             var list = new List<DateTime>();
-            for (var i = 0; i < Assertion.Amount; i++) list.Add(_dateTimProvider.DateTimeByYear(DateTime.Now.Year));
+            for (var i = 0; i < Assertion.Amount; i++) list.Add(_dateTimProvider.DateTimeFromYear(DateTime.Now.Year));
             //will make sure that the date created is earlier than today this year
             Assert.IsTrue(list.All(time => time.Year == DateTime.Now.Year));
         }
@@ -109,7 +109,7 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void DateTime_By_Year_Arg_MinusOne_Throws()
         {
-            Assert.Throws<ArgumentException>(() => _dateTimProvider.DateTimeByYear(-1));
+            Assert.Throws<ArgumentException>(() => _dateTimProvider.DateTimeFromYear(-1));
         }
 
         [Test]
@@ -117,7 +117,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             const int year = 2000;
             var list = new List<DateTime>();
-            for (var i = 0; i < Assertion.Amount; i++) list.Add(_dateTimProvider.DateTimeByYear(year));
+            for (var i = 0; i < Assertion.Amount; i++) list.Add(_dateTimProvider.DateTimeFromYear(year));
             Assert.IsTrue(list.All(time => time.Year == year));
         }
 
@@ -126,7 +126,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             const int year = 2010;
             var list = new List<DateTime>();
-            for (var i = 0; i < Assertion.Amount; i++) list.Add(_dateTimProvider.DateTimeByYear(year));
+            for (var i = 0; i < Assertion.Amount; i++) list.Add(_dateTimProvider.DateTimeFromYear(year));
             Assert.IsTrue(list.All(time => time.Year == year));
         }
 

@@ -10,12 +10,12 @@ namespace Sharpy.Builder.Providers
         /// <summary>
         ///     Provides a System.DateTime by <paramref name="age" />.
         /// </summary>
-        DateTime DateTimeByAge(int age);
+        DateTime DateTimeFromAge(int age);
 
         /// <summary>
         ///     Provides a System.DateTime by <paramref name="year" />.
         /// </summary>
-        DateTime DateTimeByYear(int year);
+        DateTime DateTimeFromYear(int year);
 
         /// <summary>
         ///     Provides a DateTime between DateTime.MinVale and DateTime.MaxValue.

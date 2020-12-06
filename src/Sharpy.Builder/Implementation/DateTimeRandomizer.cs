@@ -22,7 +22,7 @@ namespace Sharpy.Builder.Implementation
         }
 
         /// <inheritdoc />
-        public DateTime DateTimeByAge(int age)
+        public DateTime DateTimeFromAge(int age)
         {
             if (age < 0)
                 throw new ArgumentException($"{nameof(age)} cannot be negative");
@@ -33,9 +33,10 @@ namespace Sharpy.Builder.Implementation
         }
 
         /// <inheritdoc />
-        public DateTime DateTimeByYear(int year)
+        public DateTime DateTimeFromYear(int year)
         {
-            if (year <= MinValue.Year) throw new ArgumentException($"{nameof(year)} cannot be negative");
+            if (year <= 0) 
+                throw new ArgumentException($"{nameof(year)} cannot be negative");
 
             return DateTime(
                 new DateTime(year, 1, 1),
