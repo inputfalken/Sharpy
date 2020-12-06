@@ -26,7 +26,8 @@ namespace Sharpy.Builder.Tests.Implementations
             Assertion.IsNotDeterministic(i => new UniqueSecurityBuilder(new Random(i)), x => x.SecurityNumber());
         }
 
-        [Test, Ignore("Will fix later")]
+        [Test]
+        [Ignore("Will fix later")]
         public void One_Arg_Is_Deterministic_With_Seed()
         {
             Assertion.IsDeterministic(

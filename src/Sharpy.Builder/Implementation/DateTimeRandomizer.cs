@@ -35,7 +35,7 @@ namespace Sharpy.Builder.Implementation
         /// <inheritdoc />
         public DateTime DateTimeFromYear(int year)
         {
-            if (year <= 0) 
+            if (year <= 0)
                 throw new ArgumentException($"{nameof(year)} cannot be negative");
 
             return DateTime(

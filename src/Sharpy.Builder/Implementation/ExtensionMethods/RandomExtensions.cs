@@ -396,7 +396,8 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <returns>
         ///     A randomized argument.
         /// </returns>
-        public static T Argument<T>(this Random random, T first, T second, T third, T fourth, T fifth, params T[] additional)
+        public static T Argument<T>(this Random random, T first, T second, T third, T fourth, T fifth,
+            params T[] additional)
         {
             return random switch
             {

@@ -46,6 +46,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             Assertion.IsNotDeterministic(i => new LongRandomizer(new Random(i)), x => x.Long(0, 50));
         }
+
         [Test]
         public void No_Arg_All_Values_Are_Between_Zero_And_MaxValue()
         {

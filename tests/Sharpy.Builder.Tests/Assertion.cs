@@ -13,12 +13,15 @@ namespace Sharpy.Builder.Tests
 
         public static void IsDeterministic<T, TResult>(Func<int, T> factory, Func<T, TResult> fn, int amount = Amount)
         {
-            Assert.AreEqual(EnumerableFactory(factory(MainSeed), fn, amount), EnumerableFactory(factory(MainSeed), fn, amount));
+            Assert.AreEqual(EnumerableFactory(factory(MainSeed), fn, amount),
+                EnumerableFactory(factory(MainSeed), fn, amount));
         }
 
-        public static void IsNotDeterministic<T, TResult>(Func<int, T> factory, Func<T, TResult> fn, int amount = Amount)
+        public static void IsNotDeterministic<T, TResult>(Func<int, T> factory, Func<T, TResult> fn,
+            int amount = Amount)
         {
-            Assert.AreNotEqual(EnumerableFactory(factory(MainSeed), fn, amount), EnumerableFactory(factory(SecondarySeed), fn, amount));
+            Assert.AreNotEqual(EnumerableFactory(factory(MainSeed), fn, amount),
+                EnumerableFactory(factory(SecondarySeed), fn, amount));
         }
 
         public static void AssertNotAllValuesAreTheSame<T>(this IEnumerable<T> collection)
@@ -38,7 +41,7 @@ namespace Sharpy.Builder.Tests
         )
         {
             var results = new TResult[Amount];
-            foreach (var (element, index) in EnumerableFactory(source, fn).Select((x,y) => (Element: x,Index:y )))
+            foreach (var (element, index) in EnumerableFactory(source, fn).Select((x, y) => (Element: x, Index: y)))
                 results[index] = element;
 
             AssertNotAllValuesAreTheSame(results);
@@ -48,7 +51,8 @@ namespace Sharpy.Builder.Tests
                 Assert.IsNotEmpty(grouping);
         }
 
-        private static IEnumerable<TResult> EnumerableFactory<T, TResult>(this T source, Func<T, TResult> fn, int amount = Amount)
+        private static IEnumerable<TResult> EnumerableFactory<T, TResult>(this T source, Func<T, TResult> fn,
+            int amount = Amount)
         {
             for (var i = 0; i < Amount; i++)
                 yield return fn(source);
