@@ -19,8 +19,6 @@ namespace Sharpy.Builder
         IBoolProvider,
         IDateTimeProvider,
         IEmailProvider,
-        ISecurityNumberProvider,
-        IPhoneNumberProvider,
         IUserNameProvider,
         IGuidProvider,
         ITimeSpanProvider,
@@ -42,8 +40,6 @@ namespace Sharpy.Builder
         private readonly IIntProvider _intProvider;
         private readonly ILongProvider _longProvider;
         private readonly INameProvider _nameProvider;
-        private readonly IPhoneNumberProvider _phoneNumberProvider;
-        private readonly ISecurityNumberProvider _securityNumberProvider;
         private readonly ITimeSpanProvider _timeSpanProvider;
         private readonly IUserNameProvider _userNameProvider;
 
@@ -63,10 +59,8 @@ namespace Sharpy.Builder
             _nameProvider = configurement.NameProvider;
             _dateTimeProvider = configurement.DateTimeProvider;
             _emailProvider = configurement.MailProvider;
-            _securityNumberProvider = configurement.SecurityNumberProvider;
             _elementProvider = configurement.ListElementPicker;
             _boolProvider = configurement.BoolProvider;
-            _phoneNumberProvider = configurement.PhoneNumberProvider;
             _userNameProvider = configurement.UserNameProvider;
             _guidProvider = configurement.GuidProvider;
             _timeSpanProvider = configurement.TimeSpanProvider;
@@ -337,30 +331,6 @@ namespace Sharpy.Builder
         public string LastName()
         {
             return _nameProvider.LastName();
-        }
-
-        ///<inheritdoc />
-        public string PhoneNumber(int length)
-        {
-            return _phoneNumberProvider.PhoneNumber(length);
-        }
-
-        ///<inheritdoc />
-        public string PhoneNumber()
-        {
-            return _phoneNumberProvider.PhoneNumber();
-        }
-
-        /// <inheritdoc />
-        public string SecurityNumber(DateTime date)
-        {
-            return _securityNumberProvider.SecurityNumber(date);
-        }
-
-        /// <inheritdoc />
-        public string SecurityNumber()
-        {
-            return _securityNumberProvider.SecurityNumber();
         }
 
         /// <inheritdoc />

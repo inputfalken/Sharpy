@@ -30,8 +30,6 @@ namespace Sharpy.Builder
             DoubleProvider = new DoubleRandomizer(Random);
             NameProvider = new NameByOrigin(Random);
             DateTimeProvider = new DateTimeRandomizer(Random);
-            SecurityNumberProvider = new UniqueFormattedSecurityBuilder(Random);
-            PhoneNumberProvider = new UniquePhoneNumberRandomizer(Random);
             UserNameProvider = new UserNameRandomizer(Random);
             MailProvider = new UniqueEmailBuilder(
                 new[] {"gmail.com", "live.com", "outlook.com", "hotmail.com", "yahoo.com"},
@@ -69,26 +67,6 @@ namespace Sharpy.Builder
         {
         }
 
-
-        /// <summary>
-        ///     <para>
-        ///         Gets and sets the implementation for <see cref="ISecurityNumberProvider" />.
-        ///     </para>
-        ///     <para>
-        ///         By default it is <see cref="UniqueSecurityNumberBuilder" />.
-        ///     </para>
-        /// </summary>
-        public ISecurityNumberProvider SecurityNumberProvider { get; set; }
-
-        /// <summary>
-        ///     <para>
-        ///         Gets and sets the implementation for <see cref="IPhoneNumberProvider" />.
-        ///     </para>
-        ///     <para>
-        ///         By default it is <see cref="UniquePhoneNumberRandomizer" />.
-        ///     </para>
-        /// </summary>
-        public IPhoneNumberProvider PhoneNumberProvider { get; set; }
 
         /// <summary>
         ///     <para>
