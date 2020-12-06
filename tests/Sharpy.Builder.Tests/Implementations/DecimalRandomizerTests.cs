@@ -11,8 +11,61 @@ namespace Sharpy.Builder.Tests.Implementations
     {
         private const int Amount = 10000000;
         private const decimal MaxSupportedPrecision = 0.000_000_000_000_000_010m;
+        private const int MainSeed = 100;
+        private const int SecondarySeed = MainSeed + 1;
 
         private static readonly IDecimalProvider DecimalProvider = new DecimalRandomizer(new Random());
+
+        [Test]
+        public void No_Arg_Is_Deterministic_With_Seed()
+        {
+            var expected = new DecimalRandomizer(new Random(MainSeed));
+            var result = new DecimalRandomizer(new Random(MainSeed));
+            Assertion.AreEqual(expected, result, x => x.Decimal());
+        }
+
+        [Test]
+        public void No_Arg_Is_Not_Deterministic_With_Different_Seed()
+        {
+            var expected = new DecimalRandomizer(new Random(MainSeed));
+            var result = new DecimalRandomizer(new Random(SecondarySeed));
+
+            Assertion.AreNotEqual(expected, result, x => x.Decimal());
+        }
+
+        [Test]
+        public void Max_Arg_Is_Deterministic_With_Seed()
+        {
+            var expected = new DecimalRandomizer(new Random(MainSeed));
+            var result = new DecimalRandomizer(new Random(MainSeed));
+            Assertion.AreEqual(expected, result, x => x.Decimal(50));
+        }
+
+        [Test]
+        public void Max_Arg_Is_Not_Deterministic_With_Different_Seed()
+        {
+            var expected = new DecimalRandomizer(new Random(MainSeed));
+            var result = new DecimalRandomizer(new Random(SecondarySeed));
+
+            Assertion.AreNotEqual(expected, result, x => x.Decimal(50));
+        }
+
+        [Test]
+        public void Min_Max_Arg_Is_Deterministic_With_Seed()
+        {
+            var expected = new DecimalRandomizer(new Random(MainSeed));
+            var result = new DecimalRandomizer(new Random(MainSeed));
+            Assertion.AreEqual(expected, result, x => x.Decimal(0, 50));
+        }
+
+        [Test]
+        public void Min_Max_Arg_Is_Not_Deterministic_With_Different_Seed()
+        {
+            var expected = new DecimalRandomizer(new Random(MainSeed));
+            var result = new DecimalRandomizer(new Random(SecondarySeed));
+
+            Assertion.AreNotEqual(expected, result, x => x.Decimal(0, 50));
+        }
 
         [Test]
         public void No_Arg_All_Values_Are_Between_Zero_And_MaxValue()

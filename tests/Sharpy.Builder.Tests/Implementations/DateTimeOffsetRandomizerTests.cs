@@ -12,6 +12,8 @@ namespace Sharpy.Builder.Tests.Implementations
     {
         private const int Amount = 10000000;
         private readonly IDateTimeOffsetProvider _dateTimeOffsetProvider = new DateTimeOffsetRandomizer(new Random());
+        private const int MainSeed = 100;
+        private const int SecondarySeed = MainSeed + 1;
 
 
         private static readonly DateTimeOffset BaseTime = DateTime.SpecifyKind(
@@ -19,6 +21,63 @@ namespace Sharpy.Builder.Tests.Implementations
             DateTimeKind.Utc
         );
 
+        [Test]
+        public void No_Arg_Is_Deterministic_With_Seed()
+        {
+            var expected = new DateTimeOffsetRandomizer(new Random(MainSeed));
+            var result = new DateTimeOffsetRandomizer(new Random(MainSeed));
+            Assertion.AreEqual(expected, result, x => x.DateTimeOffset());
+        }
+
+        [Test]
+        public void No_Arg_Is_Not_Deterministic_With_Different_Seed()
+        {
+            var expected = new DateTimeOffsetRandomizer(new Random(MainSeed));
+            var result = new DateTimeOffsetRandomizer(new Random(SecondarySeed));
+
+            Assertion.AreNotEqual(expected, result, x => x.DateTimeOffset());
+        }
+        
+        [Test]
+        public void Max_Arg_Is_Deterministic_With_Seed()
+        {
+            var expected = new DateTimeOffsetRandomizer(new Random(MainSeed));
+            var result = new DateTimeOffsetRandomizer(new Random(MainSeed));
+            var max = BaseTime;
+            Assertion.AreEqual(expected, result, x => x.DateTimeOffset(max));
+        }
+
+        [Test]
+        public void Max__Arg_Is_Not_Deterministic_With_Different_Seed()
+        {
+            var expected = new DateTimeOffsetRandomizer(new Random(MainSeed));
+            var result = new DateTimeOffsetRandomizer(new Random(SecondarySeed));
+            var max = BaseTime;
+
+            Assertion.AreNotEqual(expected, result, x => x.DateTimeOffset(max));
+        }
+        
+        [Test]
+        public void Min_Max_Arg_Is_Deterministic_With_Seed()
+        {
+            var expected = new DateTimeOffsetRandomizer(new Random(MainSeed));
+            var result = new DateTimeOffsetRandomizer(new Random(MainSeed));
+            var min = BaseTime;
+            var max = min.AddYears(1);
+            Assertion.AreEqual(expected, result, x => x.DateTimeOffset(min, max));
+        }
+
+        [Test]
+        public void Min_Max__Arg_Is_Not_Deterministic_With_Different_Seed()
+        {
+            var expected = new DateTimeOffsetRandomizer(new Random(MainSeed));
+            var result = new DateTimeOffsetRandomizer(new Random(SecondarySeed));
+            var min = BaseTime;
+            var max = min.AddYears(1);
+
+            Assertion.AreNotEqual(expected, result, x => x.DateTimeOffset(min, max));
+        }
+        
         [Test]
         public void DateTimeOffset_MaxDateTimeOffset__Adding_Years()
         {

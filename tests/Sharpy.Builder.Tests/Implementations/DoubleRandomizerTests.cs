@@ -9,17 +9,67 @@ namespace Sharpy.Builder.Tests.Implementations
     [TestFixture]
     public class DoubleRandomizerTests
     {
-        private const int Amount = 10000000;
         private const double MaxSupportedPrecision = 0.000_001_000_000_000d;
+        private const int MainSeed = 100;
+        private const int SecondarySeed = MainSeed + 1;
 
         private static readonly IDoubleProvider DoubleProvider = new DoubleRandomizer(new Random());
 
         [Test]
+        public void No_Arg_Is_Deterministic_With_Seed()
+        {
+            var expected = new DoubleRandomizer(new Random(MainSeed));
+            var result = new DoubleRandomizer(new Random(MainSeed));
+            Assertion.AreEqual(expected, result, x => x.Double());
+        }
+
+        [Test]
+        public void No_Arg_Is_Not_Deterministic_With_Different_Seed()
+        {
+            var expected = new DoubleRandomizer(new Random(MainSeed));
+            var result = new DoubleRandomizer(new Random(SecondarySeed));
+
+            Assertion.AreNotEqual(expected, result, x => x.Double());
+        }
+
+        [Test]
+        public void Max_Arg_Is_Deterministic_With_Seed()
+        {
+            var expected = new DoubleRandomizer(new Random(MainSeed));
+            var result = new DoubleRandomizer(new Random(MainSeed));
+            Assertion.AreEqual(expected, result, x => x.Double(50d));
+        }
+
+        [Test]
+        public void Max__Arg_Is_Not_Deterministic_With_Different_Seed()
+        {
+            var expected = new DoubleRandomizer(new Random(MainSeed));
+            var result = new DoubleRandomizer(new Random(SecondarySeed));
+            Assertion.AreEqual(expected, result, x => x.Double(50d));
+        }
+
+        [Test]
+        public void Min_Max_Arg_Is_Deterministic_With_Seed()
+        {
+            var expected = new DoubleRandomizer(new Random(MainSeed));
+            var result = new DoubleRandomizer(new Random(MainSeed));
+            Assertion.AreEqual(expected, result, x => x.Double(1, 50d));
+        }
+
+        [Test]
+        public void Min_Max__Arg_Is_Not_Deterministic_With_Different_Seed()
+        {
+            var expected = new DoubleRandomizer(new Random(MainSeed));
+            var result = new DoubleRandomizer(new Random(SecondarySeed));
+            Assertion.AreEqual(expected, result, x => x.Double(1, 50d));
+        }
+
+        [Test]
         public void No_Arg_All_Values_Are_Between_Zero_And_MaxValue()
         {
-            var doubles = new double[Amount];
+            var doubles = new double[Assertion.Amount];
 
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 doubles[i] = DoubleProvider.Double();
 
             doubles.AssertNotAllValuesAreTheSame();
@@ -32,10 +82,10 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void All_Values_Are_Between_Zero_And_Max()
         {
-            var doubles = new double[Amount];
+            var doubles = new double[Assertion.Amount];
 
             const double max = 200;
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 doubles[i] = DoubleProvider.Double(max);
 
             doubles.AssertNotAllValuesAreTheSame();
@@ -48,11 +98,11 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void All_Values_Are_Between_Min_And_Max()
         {
-            var doubles = new double[Amount];
+            var doubles = new double[Assertion.Amount];
 
             const double min = 100;
             const double max = 200;
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 doubles[i] = DoubleProvider.Double(min, max);
 
             doubles.AssertNotAllValuesAreTheSame();
@@ -65,10 +115,10 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void Inclusive_Min_Arg()
         {
-            var doubles = new double[Amount];
+            var doubles = new double[Assertion.Amount];
 
             const double arg = 100;
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 doubles[i] = DoubleProvider.Double(arg, arg);
 
             Assert.True(
@@ -80,11 +130,11 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void Exclusive_Max_Arg()
         {
-            var doubles = new double[Amount];
+            var doubles = new double[Assertion.Amount];
             const double max = 100;
             const double min = max - MaxSupportedPrecision;
 
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 doubles[i] = DoubleProvider.Double(min, max);
 
 
