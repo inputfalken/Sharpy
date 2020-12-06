@@ -50,8 +50,7 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void No_Arg_Values_Are_Distributed()
         {
-            var result = new CharRandomizer(new Random(Assertion.MainSeed));
-            Assertion.IsDistributed(result, x => x.Char(), x => Assert.GreaterOrEqual(x.Count, char.MaxValue / 2));
+            Assertion.IsDistributed(new CharRandomizer(new Random(Assertion.MainSeed)), x => x.Char(), x => Assert.GreaterOrEqual(x.Count, char.MaxValue / 2));
         }
 
         [Test]
