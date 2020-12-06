@@ -9,42 +9,42 @@ namespace Sharpy.Builder.Tests.Implementations
     [TestFixture]
     public class IntRandomizerTests
     {
-        private static readonly IIntegerProvider IntegerProvider = new IntegerRandomizer(new Random());
+        private static readonly IIntProvider IntProvider = new IntRandomizer(new Random());
 
         [Test]
         public void No_Arg_Is_Deterministic_With_Seed()
         {
-            Assertion.IsDeterministic(i => new IntegerRandomizer(new Random(i)), x => x.Integer());
+            Assertion.IsDeterministic(i => new IntRandomizer(new Random(i)), x => x.Int());
         }
 
         [Test]
         public void No_Arg_Is_Not_Deterministic_With_Different_Seed()
         {
-            Assertion.IsNotDeterministic(i => new IntegerRandomizer(new Random(i)), x => x.Integer());
+            Assertion.IsNotDeterministic(i => new IntRandomizer(new Random(i)), x => x.Int());
         }
 
         [Test]
         public void Max_Arg_Is_Deterministic_With_Seed()
         {
-            Assertion.IsDeterministic(i => new IntegerRandomizer(new Random(i)), x => x.Integer(50));
+            Assertion.IsDeterministic(i => new IntRandomizer(new Random(i)), x => x.Int(50));
         }
 
         [Test]
         public void Max_Arg_Is_Not_Deterministic_With_Different_Seed()
         {
-            Assertion.IsNotDeterministic(i => new IntegerRandomizer(new Random(i)), x => x.Integer(50));
+            Assertion.IsNotDeterministic(i => new IntRandomizer(new Random(i)), x => x.Int(50));
         }
 
         [Test]
         public void Min_Max_Arg_Is_Deterministic_With_Seed()
         {
-            Assertion.IsDeterministic(i => new IntegerRandomizer(new Random(i)), x => x.Integer(0, 50));
+            Assertion.IsDeterministic(i => new IntRandomizer(new Random(i)), x => x.Int(0, 50));
         }
 
         [Test]
         public void Min_Max_Arg_Is_Not_Deterministic_With_Different_Seed()
         {
-            Assertion.IsNotDeterministic(i => new IntegerRandomizer(new Random(i)), x => x.Integer(0, 50));
+            Assertion.IsNotDeterministic(i => new IntRandomizer(new Random(i)), x => x.Int(0, 50));
         }
         [Test]
         public void No_Arg_All_Values_Are_Between_Zero_And_MaxValue()
@@ -52,7 +52,7 @@ namespace Sharpy.Builder.Tests.Implementations
             var ints = new int[Assertion.Amount];
 
             for (var i = 0; i < Assertion.Amount; i++)
-                ints[i] = IntegerProvider.Integer();
+                ints[i] = IntProvider.Int();
 
             ints.AssertNotAllValuesAreTheSame();
             Assert.True(
@@ -68,7 +68,7 @@ namespace Sharpy.Builder.Tests.Implementations
 
             const int max = 200;
             for (var i = 0; i < Assertion.Amount; i++)
-                ints[i] = IntegerProvider.Integer(max);
+                ints[i] = IntProvider.Int(max);
 
             ints.AssertNotAllValuesAreTheSame();
             Assert.True(
@@ -85,7 +85,7 @@ namespace Sharpy.Builder.Tests.Implementations
             const int min = 100;
             const int max = 200;
             for (var i = 0; i < Assertion.Amount; i++)
-                ints[i] = IntegerProvider.Integer(min, max);
+                ints[i] = IntProvider.Int(min, max);
 
             ints.AssertNotAllValuesAreTheSame();
             Assert.True(
@@ -101,7 +101,7 @@ namespace Sharpy.Builder.Tests.Implementations
 
             const int arg = 100;
             for (var i = 0; i < Assertion.Amount; i++)
-                ints[i] = IntegerProvider.Integer(arg, arg);
+                ints[i] = IntProvider.Int(arg, arg);
 
             Assert.True(
                 ints.All(x => x == arg),
@@ -117,7 +117,7 @@ namespace Sharpy.Builder.Tests.Implementations
             const int max = 100;
             const int min = max - 1;
             for (var i = 0; i < Assertion.Amount; i++)
-                ints[i] = IntegerProvider.Integer(min, max);
+                ints[i] = IntProvider.Int(min, max);
 
 
             Assert.True(
@@ -132,7 +132,7 @@ namespace Sharpy.Builder.Tests.Implementations
             const int max = 100;
             const int min = max;
 
-            Assert.DoesNotThrow(() => IntegerProvider.Integer(min, max));
+            Assert.DoesNotThrow(() => IntProvider.Int(min, max));
         }
 
         [Test]
@@ -141,7 +141,7 @@ namespace Sharpy.Builder.Tests.Implementations
             const int max = 100;
             const int min = max + 1;
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => IntegerProvider.Integer(min, max));
+            Assert.Throws<ArgumentOutOfRangeException>(() => IntProvider.Int(min, max));
         }
     }
 }

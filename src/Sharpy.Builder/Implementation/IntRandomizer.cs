@@ -8,26 +8,26 @@ namespace Sharpy.Builder.Implementation
     ///         Randomizes <see cref="int" /> elements by using <see cref="Random" />.
     ///     </para>
     /// </summary>
-    public sealed class IntegerRandomizer : IIntegerProvider
+    public sealed class IntRandomizer : IIntProvider
     {
         private readonly Random _random;
 
         /// <summary>
-        ///     Creates a <see cref="IntegerRandomizer" />.
+        ///     Creates a <see cref="IntRandomizer" />.
         /// </summary>
-        public IntegerRandomizer(Random random)
+        public IntRandomizer(Random random)
         {
             _random = random;
         }
 
         /// <inheritdoc />
-        public int Integer(int max)
+        public int Int(int max)
         {
             return _random.Next(max);
         }
 
         /// <inheritdoc />
-        public int Integer(int min, int max)
+        public int Int(int min, int max)
         {
             if (max < min)
                 throw new ArgumentOutOfRangeException($"{nameof(max)} must be > {nameof(min)}");
@@ -35,7 +35,7 @@ namespace Sharpy.Builder.Implementation
         }
 
         /// <inheritdoc />
-        public int Integer()
+        public int Int()
         {
             return _random.Next();
         }

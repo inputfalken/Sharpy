@@ -12,7 +12,7 @@ namespace Sharpy.Builder
     /// </summary>
     public class Builder :
         IDoubleProvider,
-        IIntegerProvider,
+        IIntProvider,
         ILongProvider,
         INameProvider,
         IElementProvider,
@@ -39,7 +39,7 @@ namespace Sharpy.Builder
         private readonly IEmailProvider _emailProvider;
         private readonly IFloatProvider _floatProvider;
         private readonly IGuidProvider _guidProvider;
-        private readonly IIntegerProvider _integerProvider;
+        private readonly IIntProvider _intProvider;
         private readonly ILongProvider _longProvider;
         private readonly INameProvider _nameProvider;
         private readonly IPhoneNumberProvider _phoneNumberProvider;
@@ -58,7 +58,7 @@ namespace Sharpy.Builder
         public Builder(Configurement configurement)
         {
             _doubleProvider = configurement.DoubleProvider;
-            _integerProvider = configurement.IntegerProvider;
+            _intProvider = configurement.IntProvider;
             _longProvider = configurement.LongProvider;
             _nameProvider = configurement.NameProvider;
             _dateTimeProvider = configurement.DateTimeProvider;
@@ -286,21 +286,21 @@ namespace Sharpy.Builder
         }
 
         /// <inheritdoc />
-        public int Integer(int max)
+        public int Int(int max)
         {
-            return _integerProvider.Integer(max);
+            return _intProvider.Int(max);
         }
 
         /// <inheritdoc />
-        public int Integer(int min, int max)
+        public int Int(int min, int max)
         {
-            return _integerProvider.Integer(min, max);
+            return _intProvider.Int(min, max);
         }
 
         /// <inheritdoc />
-        public int Integer()
+        public int Int()
         {
-            return _integerProvider.Integer();
+            return _intProvider.Int();
         }
 
         /// <inheritdoc />

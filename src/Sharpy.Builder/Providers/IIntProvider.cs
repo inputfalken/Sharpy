@@ -3,7 +3,7 @@ namespace Sharpy.Builder.Providers
     /// <summary>
     ///     Methods providing System.Int32.
     /// </summary>
-    public interface IIntegerProvider
+    public interface IIntProvider
     {
         /// <summary>
         ///     Provides a System.Int32 between 0 and <paramref name="max" />.
@@ -11,7 +11,7 @@ namespace Sharpy.Builder.Providers
         /// <param name="max">
         ///     The exclusive maximum bound.
         /// </param>
-        int Integer(int max);
+        int Int(int max);
 
         /// <summary>
         ///     Provides a System.Int32 between <paramref name="min" /> and <paramref name="max" />.
@@ -22,11 +22,11 @@ namespace Sharpy.Builder.Providers
         /// <param name="max">
         ///     The exclusive maximum bound.
         /// </param>
-        int Integer(int min, int max);
+        int Int(int min, int max);
 
         /// <summary>
         ///     Provides a System.Int32 between 0 and System.Int32.MaxValue.
         /// </summary>
-        int Integer();
+        int Int();
     }
 }
