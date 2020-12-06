@@ -634,64 +634,11 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// </returns>
         public static DateTime DateTime(this Random random, DateTime min, DateTime max)
         {
-            static DateTime NextDateTime(Random random, DateTime min, DateTime max)
-            {
-                var isSameYear = min.Year == max.Year;
-                var isSameMonth = min.Month == max.Month;
-                var isSameDay = min.Day == max.Day;
-                var isSameHour = min.Hour == max.Hour;
-                var isSameMinute = min.Minute == max.Minute;
-                var isSameSecond = min.Second == max.Second;
-                var isSameMillisSecond = min.Millisecond == max.Millisecond;
-                
-                var year = isSameYear 
-                    ? min.Year 
-                    : random.Next(min.Year, max.Year);
-
-                var month = isSameYear
-                    ? isSameMonth
-                        ? min.Month
-                        : random.Month(1, max.Month)
-                    : Month(random);
-
-                var day = isSameYear && isSameMonth
-                    ? isSameDay
-                        ? min.Day
-                        : random.Next(1, max.Day)
-                    : Day(random, year, month);
-
-                var hour = isSameYear && isSameMonth && isSameDay
-                    ? isSameHour
-                        ? min.Hour
-                        : random.Hour(0, max.Hour)
-                    : Hour(random);
-
-                var minute = isSameYear && isSameMonth && isSameDay && isSameHour
-                    ? isSameMinute
-                        ? min.Minute
-                        : random.Minute(0, max.Minute)
-                    : Minute(random);
-
-                var second = isSameYear && isSameMonth && isSameDay && isSameHour
-                    ? isSameSecond
-                        ? min.Second
-                        : random.Second(0, max.Second)
-                    : Second(random);
-
-                var milliSecond = isSameYear && isSameMonth && isSameDay && isSameHour && isSameMinute && isSameSecond
-                    ? isSameMillisSecond
-                        ? min.Millisecond
-                        : random.MilliSecond(0, max.Millisecond)
-                    : MilliSecond(random);
-
-                return new DateTime(year, month, day, hour, minute, second, milliSecond);
-            }
-
             return random switch
             {
                 _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max."),
                 _ when min == max => min,
-                _ => NextDateTime(random, min, max)
+                _ => new DateTime(random.Long(min.Ticks, max.Ticks))
             };
         }
 
