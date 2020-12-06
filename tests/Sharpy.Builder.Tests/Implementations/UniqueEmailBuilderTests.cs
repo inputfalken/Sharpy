@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using NUnit.Framework;
 using Sharpy.Builder.Implementation;
 
@@ -26,6 +27,68 @@ namespace Sharpy.Builder.Tests.Implementations
                 i => new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(i)),
                 x => x.Mail()
             );
+        }
+
+        [Test]
+        public void No_Arg_Produces_Valid_Emails()
+        {
+            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random());
+            for (var i = 0; i < Assertion.Amount; i++)
+            {
+                Assert.DoesNotThrow(() => new MailAddress(uniqueEmailBuilder.Mail()));
+            }
+        }
+
+        [Test]
+        public void One_Arg_Produces_Valid_Emails()
+        {
+            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random());
+            for (var i = 0; i < Assertion.Amount; i++)
+            {
+                Assert.DoesNotThrow(() => new MailAddress(uniqueEmailBuilder.Mail(MailUserName)));
+            }
+        }
+
+        [Test]
+        public void Two_Arg_Produces_Valid_Emails()
+        {
+            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random());
+            for (var i = 0; i < Assertion.Amount; i++)
+            {
+                Assert.DoesNotThrow(() => new MailAddress(uniqueEmailBuilder.Mail(MailUserName, "foo")));
+            }
+        }
+
+        [Test]
+        public void Three_Arg_Produces_Valid_Emails()
+        {
+            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random());
+            for (var i = 0; i < Assertion.Amount; i++)
+            {
+                Assert.DoesNotThrow(() => new MailAddress(uniqueEmailBuilder.Mail(MailUserName, "foo", "bar")));
+            }
+        }
+
+        [Test]
+        public void Four_Arg_Produces_Valid_Emails()
+        {
+            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random());
+            for (var i = 0; i < Assertion.Amount; i++)
+            {
+                Assert.DoesNotThrow(() =>
+                    new MailAddress(uniqueEmailBuilder.Mail(MailUserName, "foo", "bar", "john")));
+            }
+        }
+
+        [Test]
+        public void Five_Arg_Produces_Valid_Emails()
+        {
+            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random());
+            for (var i = 0; i < Assertion.Amount; i++)
+            {
+                Assert.DoesNotThrow(() =>
+                    new MailAddress(uniqueEmailBuilder.Mail(MailUserName, "foo", "bar", "john", "doe")));
+            }
         }
 
         [Test]

@@ -57,9 +57,11 @@ namespace Sharpy.Builder.Implementation
                                 );
 
                             var skipSeparator = i == names.Length - 1;
-                            var arr = new char[skipSeparator
-                                ? name.Length
-                                : name.Length + 1];
+                            var arr = new char[
+                                skipSeparator
+                                    ? name.Length
+                                    : name.Length + 1
+                            ];
 
                             for (var y = 0; y < name.Length; y++)
                                 arr[y] = name[y];
