@@ -8,10 +8,20 @@ namespace Sharpy.Builder.Tests
     public static class Assertion
     {
         public const int MainSeed = 100;
-        public const int SecondarySeed = MainSeed + 1;
+        private const int SecondarySeed = MainSeed + 1;
         public const int Amount = 100000;
 
-        public static void AssertNotAllValuesAreTheSame<T>(this ICollection<T> collection)
+        public static void IsDeterministic<T, TResult>(Func<int, T> factory, Func<T, TResult> fn)
+        {
+            Assert.AreEqual(EnumerableFactory(factory(MainSeed), fn), EnumerableFactory(factory(MainSeed), fn));
+        }
+
+        public static void IsNotDeterministic<T, TResult>(Func<int, T> factory, Func<T, TResult> fn)
+        {
+            Assert.AreNotEqual(EnumerableFactory(factory(MainSeed), fn), EnumerableFactory(factory(SecondarySeed), fn));
+        }
+
+        public static void AssertNotAllValuesAreTheSame<T>(this IEnumerable<T> collection)
         {
             Assert.False(
                 collection
@@ -27,40 +37,21 @@ namespace Sharpy.Builder.Tests
             Action<List<IGrouping<TResult, TResult>>> action
         )
         {
-            var buildArray = BuildArray(source, fn);
-            AssertNotAllValuesAreTheSame(buildArray);
-            var result = buildArray.GroupBy(x => x).ToList();
+            var results = new TResult[Amount];
+            foreach (var (element, index) in EnumerableFactory(source, fn).Select((x,y) => (Element: x,Index:y )))
+                results[index] = element;
+
+            AssertNotAllValuesAreTheSame(results);
+            var result = results.GroupBy(x => x).ToList();
             action(result);
             foreach (var grouping in result)
                 Assert.IsNotEmpty(grouping);
         }
 
-        public static void AreNotEqual<T, TResult>(
-            T expected,
-            T result,
-            Func<T, TResult> fn
-        )
+        private static IEnumerable<TResult> EnumerableFactory<T, TResult>(this T source, Func<T, TResult> fn)
         {
-            Assert.AreNotEqual(BuildArray(expected, fn), BuildArray(result, fn));
-        }
-
-        public static void AreEqual<T, TResult>(
-            T expected,
-            T result,
-            Func<T, TResult> fn
-        )
-        {
-            Assert.AreEqual(BuildArray(expected, fn), BuildArray(result, fn));
-        }
-
-        private static TResult[] BuildArray<T, TResult>(this T source, Func<T, TResult> fn)
-        {
-            var array = new TResult[Amount];
-
             for (var i = 0; i < Amount; i++)
-                array[i] = fn(source);
-
-            return array;
+                yield return fn(source);
         }
     }
 }

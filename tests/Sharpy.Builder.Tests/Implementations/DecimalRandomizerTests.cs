@@ -16,52 +16,37 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void No_Arg_Is_Deterministic_With_Seed()
         {
-            var expected = new DecimalRandomizer(new Random(Assertion.MainSeed));
-            var result = new DecimalRandomizer(new Random(Assertion.MainSeed));
-            Assertion.AreEqual(expected, result, x => x.Decimal());
+            Assertion.IsDeterministic(i => new DecimalRandomizer(new Random(i)), x => x.Decimal());
         }
 
         [Test]
         public void No_Arg_Is_Not_Deterministic_With_Different_Seed()
         {
-            var expected = new DecimalRandomizer(new Random(Assertion.MainSeed));
-            var result = new DecimalRandomizer(new Random(Assertion.SecondarySeed));
-
-            Assertion.AreNotEqual(expected, result, x => x.Decimal());
+            Assertion.IsNotDeterministic(i => new DecimalRandomizer(new Random(i)), x => x.Decimal());
         }
 
         [Test]
         public void Max_Arg_Is_Deterministic_With_Seed()
         {
-            var expected = new DecimalRandomizer(new Random(Assertion.MainSeed));
-            var result = new DecimalRandomizer(new Random(Assertion.MainSeed));
-            Assertion.AreEqual(expected, result, x => x.Decimal(50));
+            Assertion.IsDeterministic(i => new DecimalRandomizer(new Random(i)), x => x.Decimal(50));
         }
 
         [Test]
         public void Max_Arg_Is_Not_Deterministic_With_Different_Seed()
         {
-            var expected = new DecimalRandomizer(new Random(Assertion.MainSeed));
-            var result = new DecimalRandomizer(new Random(Assertion.SecondarySeed));
-
-            Assertion.AreNotEqual(expected, result, x => x.Decimal(50));
+            Assertion.IsNotDeterministic(i => new DecimalRandomizer(new Random(i)), x => x.Decimal(50));
         }
 
         [Test]
         public void Min_Max_Arg_Is_Deterministic_With_Seed()
         {
-            var expected = new DecimalRandomizer(new Random(Assertion.MainSeed));
-            var result = new DecimalRandomizer(new Random(Assertion.MainSeed));
-            Assertion.AreEqual(expected, result, x => x.Decimal(0, 50));
+            Assertion.IsDeterministic(i => new DecimalRandomizer(new Random(i)), x => x.Decimal(0, 50));
         }
 
         [Test]
         public void Min_Max_Arg_Is_Not_Deterministic_With_Different_Seed()
         {
-            var expected = new DecimalRandomizer(new Random(Assertion.MainSeed));
-            var result = new DecimalRandomizer(new Random(Assertion.SecondarySeed));
-
-            Assertion.AreNotEqual(expected, result, x => x.Decimal(0, 50));
+            Assertion.IsNotDeterministic(i => new DecimalRandomizer(new Random(i)), x => x.Decimal(0, 50));
         }
 
         [Test]

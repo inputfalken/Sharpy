@@ -14,52 +14,37 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void No_Arg_Is_Deterministic_With_Seed()
         {
-            var expected = new CharRandomizer(new Random(Assertion.MainSeed));
-            var result = new CharRandomizer(new Random(Assertion.MainSeed));
-            Assertion.AreEqual(expected, result, x => x.Char());
+            Assertion.IsDeterministic(i => new CharRandomizer(new Random(i)), x => x.Char());
         }
 
         [Test]
         public void No_Arg_Is_Not_Deterministic_With_Different_Seed()
         {
-            var expected = new CharRandomizer(new Random(Assertion.MainSeed));
-            var result = new CharRandomizer(new Random(Assertion.SecondarySeed));
-
-            Assertion.AreNotEqual(expected, result, x => x.Char());
+            Assertion.IsNotDeterministic(i => new CharRandomizer(new Random(i)), x => x.Char());
         }
 
         [Test]
         public void Max_Arg_Is_Deterministic_With_Seed()
         {
-            var expected = new CharRandomizer(new Random(Assertion.MainSeed));
-            var result = new CharRandomizer(new Random(Assertion.MainSeed));
-            Assertion.AreEqual(expected, result, x => x.Char('z'));
+            Assertion.IsDeterministic(i => new CharRandomizer(new Random(i)), x => x.Char('z'));
         }
 
         [Test]
         public void Max_Arg_Is_Not_Deterministic_With_Different_Seed()
         {
-            var expected = new CharRandomizer(new Random(Assertion.MainSeed));
-            var result = new CharRandomizer(new Random(Assertion.SecondarySeed));
-
-            Assertion.AreNotEqual(expected, result, x => x.Char('z'));
+            Assertion.IsNotDeterministic(i => new CharRandomizer(new Random(i)), x => x.Char('z'));
         }
 
         [Test]
         public void Min_Max_Arg_Is_Deterministic_With_Seed()
         {
-            var expected = new CharRandomizer(new Random(Assertion.MainSeed));
-            var result = new CharRandomizer(new Random(Assertion.MainSeed));
-            Assertion.AreEqual(expected, result, x => x.Char('a', 'z'));
+            Assertion.IsDeterministic(i => new CharRandomizer(new Random(i)), x => x.Char('a', 'z'));
         }
 
         [Test]
         public void Min_Max_Arg_Is_Not_Deterministic_With_Different_Seed()
         {
-            var expected = new CharRandomizer(new Random(Assertion.MainSeed));
-            var result = new CharRandomizer(new Random(Assertion.SecondarySeed));
-
-            Assertion.AreNotEqual(expected, result, x => x.Char('a', 'z'));
+            Assertion.IsNotDeterministic(i => new CharRandomizer(new Random(i)), x => x.Char('a', 'z'));
         }
 
         [Test]

@@ -10,26 +10,29 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void Is_Deterministic_With_Seed()
         {
-            var expected = new BoolRandomizer(new Random(Assertion.MainSeed));
-            var result = new BoolRandomizer(new Random(Assertion.MainSeed));
-
-            Assertion.AreEqual(expected, result, x => x.Bool());
+            Assertion.IsDeterministic(
+                i => new BoolRandomizer(new Random(i)),
+                x => x.Bool()
+            );
         }
 
         [Test]
         public void Is_Not_Deterministic_With_Different_Seed()
         {
-            var expected = new BoolRandomizer(new Random(Assertion.MainSeed));
-            var result = new BoolRandomizer(new Random(Assertion.SecondarySeed));
-
-            Assertion.AreNotEqual(expected, result, x => x.Bool());
+            Assertion.IsNotDeterministic(
+                i => new BoolRandomizer(new Random(i)),
+                x => x.Bool()
+            );
         }
 
         [Test]
         public void Values_Are_Distributed()
         {
-            var result = new BoolRandomizer(new Random(Assertion.MainSeed));
-            Assertion.IsDistributed(result, x => x.Bool(), grouping => Assert.AreEqual(2, grouping.Count));
+            Assertion.IsDistributed(
+                new BoolRandomizer(new Random(Assertion.MainSeed)),
+                x => x.Bool(),
+                grouping => Assert.AreEqual(2, grouping.Count)
+            );
         }
     }
 }

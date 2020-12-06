@@ -16,50 +16,37 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void No_Arg_Is_Deterministic_With_Seed()
         {
-            var expected = new DoubleRandomizer(new Random(Assertion.MainSeed));
-            var result = new DoubleRandomizer(new Random(Assertion.MainSeed));
-            Assertion.AreEqual(expected, result, x => x.Double());
+            Assertion.IsDeterministic(i => new DoubleRandomizer(new Random(i)), x => x.Double());
         }
 
         [Test]
         public void No_Arg_Is_Not_Deterministic_With_Different_Seed()
         {
-            var expected = new DoubleRandomizer(new Random(Assertion.MainSeed));
-            var result = new DoubleRandomizer(new Random(Assertion.SecondarySeed));
-
-            Assertion.AreNotEqual(expected, result, x => x.Double());
+            Assertion.IsNotDeterministic(i => new DoubleRandomizer(new Random(i)), x => x.Double());
         }
 
         [Test]
         public void Max_Arg_Is_Deterministic_With_Seed()
         {
-            var expected = new DoubleRandomizer(new Random(Assertion.MainSeed));
-            var result = new DoubleRandomizer(new Random(Assertion.MainSeed));
-            Assertion.AreEqual(expected, result, x => x.Double(50d));
+            Assertion.IsDeterministic(i => new DoubleRandomizer(new Random(i)), x => x.Double(50));
         }
 
         [Test]
-        public void Max__Arg_Is_Not_Deterministic_With_Different_Seed()
+        public void Max_Arg_Is_Not_Deterministic_With_Different_Seed()
         {
-            var expected = new DoubleRandomizer(new Random(Assertion.MainSeed));
-            var result = new DoubleRandomizer(new Random(Assertion.SecondarySeed));
-            Assertion.AreNotEqual(expected, result, x => x.Double(50d));
+            Assertion.IsNotDeterministic(i => new DoubleRandomizer(new Random(i)), x => x.Double(50));
         }
 
         [Test]
         public void Min_Max_Arg_Is_Deterministic_With_Seed()
         {
-            var expected = new DoubleRandomizer(new Random(Assertion.MainSeed));
-            var result = new DoubleRandomizer(new Random(Assertion.MainSeed));
-            Assertion.AreEqual(expected, result, x => x.Double(1, 50d));
+            Assertion.IsDeterministic(i => new DoubleRandomizer(new Random(i)), x => x.Double(0, 50));
         }
 
         [Test]
-        public void Min_Max__Arg_Is_Not_Deterministic_With_Different_Seed()
+        public void Min_Max_Arg_Is_Not_Deterministic_With_Different_Seed()
         {
-            var expected = new DoubleRandomizer(new Random(Assertion.MainSeed));
-            var result = new DoubleRandomizer(new Random(Assertion.SecondarySeed));
-            Assertion.AreNotEqual(expected, result, x => x.Double(1, 50d));
+            Assertion.IsNotDeterministic(i => new DoubleRandomizer(new Random(i)), x => x.Double(0, 50));
         }
 
         [Test]

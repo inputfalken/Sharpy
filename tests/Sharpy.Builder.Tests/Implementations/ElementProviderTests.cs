@@ -13,6 +13,44 @@ namespace Sharpy.Builder.Tests.Implementations
         private static readonly IElementProvider ElementProvider = new ElementRandomizer(new Random());
 
         [Test]
+        public void Two_Arguments_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(
+                i => new ElementRandomizer(new Random(i)), x => x.FromArgument(1, 2)
+            );
+        }
+
+        [Test]
+        public void Two_Arguments_Is_Deterministic_With_DifferentSeed()
+        {
+            Assertion.IsNotDeterministic(i => new ElementRandomizer(new Random(i)), x => x.FromArgument(1, 2));
+        }
+
+        [Test]
+        public void Three_Arguments_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(i => new ElementRandomizer(new Random(i)), x => x.FromArgument(1, 2, 3));
+        }
+
+        [Test]
+        public void Three_Arguments_Is_Deterministic_With_DifferentSeed()
+        {
+            Assertion.IsNotDeterministic(i => new ElementRandomizer(new Random(i)), x => x.FromArgument(1, 2, 3));
+        }
+
+        [Test]
+        public void Four_Arguments_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(i => new ElementRandomizer(new Random(i)), x => x.FromArgument(1, 2, 3, 4));
+        }
+
+        [Test]
+        public void Four_Arguments_Is_Deterministic_With_DifferentSeed()
+        {
+            Assertion.IsNotDeterministic(i => new ElementRandomizer(new Random(i)), x => x.FromArgument(1, 2, 3, 4));
+        }
+
+        [Test]
         public void Two_Arguments_IsDistributed()
         {
             Assertion.IsDistributed(
