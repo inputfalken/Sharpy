@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Sharpy.Builder.Implementation.ExtensionMethods;
 using Sharpy.Builder.Providers;
 
@@ -37,45 +38,61 @@ namespace Sharpy.Builder.Implementation
         /// </returns>
         public string Mail(params string[] names)
         {
-            if (names == null) throw new ArgumentNullException(nameof(names));
             if (names.Length < 1) throw new ArgumentException($"Argument '{nameof(names)}' can not be empty.");
-            var resets = 0;
-            var namesWithIndex = names
-                .Select((s, i) => (
-                    name: string.IsNullOrEmpty(s)
-                        ? throw new ArgumentNullException(
-                            $"No string in argument '{nameof(names)}' can be null or empty string.")
-                        : s,
-                    iteration: i)
-                ).ToArray();
+            while (true)
+            {
+                var resets = 0;
 
-            while (resets < Limit)
-                if (_domainsEnumerator.MoveNext())
-                {
-                    var mailAddress = namesWithIndex.Aggregate(string.Empty,
-                        (acc, curr) =>
+                while (resets < Limit)
+                    if (_domainsEnumerator.MoveNext())
+                    {
+                        var mailBuilder = new StringBuilder();
+                        for (var i = 0; i < names.Length; i++)
                         {
                             _separatorEnumerator.MoveNext();
-                            return
-                                $"{acc}{(curr.iteration == names.Length - 1 ? curr.name : curr.name.Append(_separatorEnumerator.Current.ToString()))}";
-                        },
-                        result => result.Append('@', _domainsEnumerator.Current).ToLower()
-                    );
+                            var name = names[i];
+                            if (string.IsNullOrEmpty(name))
+                                throw new ArgumentNullException(
+                                    $"No string in argument '{nameof(names)}' can be null or empty string."
+                                );
 
-                    if (!HashSet.Contains(mailAddress))
-                    {
+                            var skipSeparator = i == names.Length - 1;
+                            var arr = new char[skipSeparator
+                                ? name.Length
+                                : name.Length + 1];
+
+                            for (var y = 0; y < name.Length; y++)
+                                arr[y] = name[y];
+
+                            if (skipSeparator)
+                            {
+                                mailBuilder.Append(arr);
+                                continue;
+                            }
+
+                            arr[^1] = _separatorEnumerator.Current;
+
+                            mailBuilder.Append(arr);
+                        }
+
+                        var mailAddress = mailBuilder
+                            .Append('@')
+                            .Append(_domainsEnumerator.Current)
+                            .ToString();
+
+                        if (HashSet.Contains(mailAddress)) continue;
                         HashSet.Add(mailAddress);
                         return mailAddress;
                     }
-                }
-                else
-                {
-                    _domainsEnumerator.Reset();
-                    resets++;
-                }
+                    else
+                    {
+                        _domainsEnumerator.Reset();
+                        resets++;
+                    }
 
-            names[names.Length - 1] = ResolveDuplicate(names[names.Length - 1]);
-            return Mail(names);
+                // If emails are duplicated, we append numbers to the last element in names.
+                names[^1] = names[^1] + Random.Next(10);
+            }
         }
 
         /// <summary>
@@ -100,11 +117,6 @@ namespace Sharpy.Builder.Implementation
                 yield return '_';
                 yield return '-';
             }
-        }
-
-        private string ResolveDuplicate(string item)
-        {
-            return item.Append(Random.Next(10));
         }
     }
 }
