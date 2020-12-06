@@ -9,16 +9,56 @@ namespace Sharpy.Builder.Tests.Implementations
     [TestFixture]
     public class CharRandomizerTests
     {
-        private const int Amount = 10000000;
-
         private static readonly ICharProvider CharProvider = new CharRandomizer(new Random());
+
+        [Test]
+        public void No_Arg_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(i => new CharRandomizer(new Random(i)), x => x.Char());
+        }
+
+        [Test]
+        public void No_Arg_Is_Not_Deterministic_With_Different_Seed()
+        {
+            Assertion.IsNotDeterministic(i => new CharRandomizer(new Random(i)), x => x.Char());
+        }
+
+        [Test]
+        public void Max_Arg_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(i => new CharRandomizer(new Random(i)), x => x.Char('z'));
+        }
+
+        [Test]
+        public void Max_Arg_Is_Not_Deterministic_With_Different_Seed()
+        {
+            Assertion.IsNotDeterministic(i => new CharRandomizer(new Random(i)), x => x.Char('z'));
+        }
+
+        [Test]
+        public void Min_Max_Arg_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(i => new CharRandomizer(new Random(i)), x => x.Char('a', 'z'));
+        }
+
+        [Test]
+        public void Min_Max_Arg_Is_Not_Deterministic_With_Different_Seed()
+        {
+            Assertion.IsNotDeterministic(i => new CharRandomizer(new Random(i)), x => x.Char('a', 'z'));
+        }
+
+        [Test]
+        public void No_Arg_Values_Are_Distributed()
+        {
+            Assertion.IsDistributed(new CharRandomizer(new Random(Assertion.MainSeed)), x => x.Char(), x => Assert.GreaterOrEqual(x.Count, char.MaxValue / 2));
+        }
 
         [Test]
         public void No_Arg_All_Values_Are_Between_Zero_And_MaxValue()
         {
-            var chars = new char[Amount];
+            var chars = new char[Assertion.Amount];
 
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 chars[i] = CharProvider.Char();
 
             chars.AssertNotAllValuesAreTheSame();
@@ -31,10 +71,10 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void All_Values_Are_Between_Zero_And_Max()
         {
-            var chars = new char[Amount];
+            var chars = new char[Assertion.Amount];
 
             const char max = 'z';
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 chars[i] = CharProvider.Char(max);
 
             chars.AssertNotAllValuesAreTheSame();
@@ -47,11 +87,11 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void All_Values_Are_Between_Min_And_Max()
         {
-            var chars = new char[Amount];
+            var chars = new char[Assertion.Amount];
 
             const char min = 'a';
             const char max = 'z';
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 chars[i] = CharProvider.Char(min, max);
 
             chars.AssertNotAllValuesAreTheSame();
@@ -66,10 +106,6 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             const char min = '0';
             const char max = '9';
-            var chars = new char[Amount];
-            for (var i = 0; i < Amount; i++)
-                chars[i] = CharProvider.Char(min, max);
-
             var digits = new[]
             {
                 '0',
@@ -84,11 +120,16 @@ namespace Sharpy.Builder.Tests.Implementations
                 '9'
             };
 
-            Assert.True(digits
-                    .SelectMany(x => chars)
-                    .GroupBy(x => x)
-                    .Count() == digits.Length,
-                "digits.SelectMany(x => chars).GroupBy(x => x).Count() == digits.Length"
+            Assertion.IsDistributed(
+                CharProvider,
+                x => x.Char(min, max),
+                x =>
+                {
+                    Assert.AreEqual(
+                        digits.Length,
+                        x.Join(digits, y => y.Key, y => y, (y, z) => true).Count()
+                    );
+                }
             );
         }
 
@@ -97,9 +138,6 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             const char min = 'a';
             const char max = 'z';
-            var chars = new char[Amount];
-            for (var i = 0; i < Amount; i++)
-                chars[i] = CharProvider.Char(min, max);
 
             var alphabet = new[]
             {
@@ -131,22 +169,26 @@ namespace Sharpy.Builder.Tests.Implementations
                 'z'
             };
 
-            Assert.True(
-                alphabet
-                    .SelectMany(x => chars)
-                    .GroupBy(x => x)
-                    .Count() == alphabet.Length,
-                "Alphabet.SelectMany(x => chars).GroupBy(x => x).Count() == Alphabet.Length"
+            Assertion.IsDistributed(
+                CharProvider,
+                x => x.Char(min, max),
+                x =>
+                {
+                    Assert.AreEqual(
+                        alphabet.Length,
+                        x.Join(alphabet, y => y.Key, y => y, (y, z) => true).Count()
+                    );
+                }
             );
         }
 
         [Test]
         public void Inclusive_Min_Arg()
         {
-            var chars = new char[Amount];
+            var chars = new char[Assertion.Amount];
 
             const char arg = 'h';
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 chars[i] = CharProvider.Char(arg, arg);
 
             Assert.True(
@@ -158,11 +200,11 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void Inclusive_Max_Arg()
         {
-            var chars = new char[Amount];
+            var chars = new char[Assertion.Amount];
 
             const char max = char.MaxValue;
             const char min = max;
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 chars[i] = CharProvider.Char(min, max);
 
 

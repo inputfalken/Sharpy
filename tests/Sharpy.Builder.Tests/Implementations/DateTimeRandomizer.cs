@@ -10,8 +10,53 @@ namespace Sharpy.Builder.Tests.Implementations
     [TestFixture]
     public class DateTimeRandomizerTests
     {
-        private const int Amount = 10000000;
         private readonly IDateTimeProvider _dateTimProvider = new DateTimeRandomizer(new Random());
+
+        [Test]
+        public void No_Arg_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(i => new DateTimeRandomizer(new Random(i)), x => x.DateTime());
+        }
+
+        [Test]
+        public void No_Arg_Is_Not_Deterministic_With_Different_Seed()
+        {
+            Assertion.IsNotDeterministic(i => new DateTimeRandomizer(new Random(i)), x => x.DateTime());
+        }
+
+        [Test]
+        public void Max_Arg_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(i => new DateTimeRandomizer(new Random(i)),
+                x => x.DateTime(BaseTime));
+        }
+
+        [Test]
+        public void Max__Arg_Is_Not_Deterministic_With_Different_Seed()
+        {
+            Assertion.IsNotDeterministic(i => new DateTimeRandomizer(new Random(i)),
+                x => x.DateTime(BaseTime));
+        }
+
+        [Test]
+        public void Min_Max_Arg_Is_Deterministic_With_Seed()
+        {
+            var max = BaseTime.AddYears(1);
+            Assertion.IsDeterministic(
+                i => new DateTimeRandomizer(new Random(i)),
+                x => x.DateTime(BaseTime, max)
+            );
+        }
+
+        [Test]
+        public void Min_Max__Arg_Is_Not_Deterministic_With_Different_Seed()
+        {
+            var max = BaseTime.AddYears(1);
+            Assertion.IsNotDeterministic(
+                i => new DateTimeRandomizer(new Random(i)),
+                x => x.DateTime(BaseTime, max)
+            );
+        }
 
         [Test]
         public void DateTime_By_Age_Arg_MinusOne_Throws()
@@ -24,7 +69,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             const int age = 20;
             var list = new List<DateTime>();
-            for (var i = 0; i < Amount; i++) list.Add(_dateTimProvider.DateTimeByAge(age));
+            for (var i = 0; i < Assertion.Amount; i++) list.Add(_dateTimProvider.DateTimeByAge(age));
             var dateTime = DateTime.Now;
             var twentyYearsAgo = dateTime.AddYears(-age);
             var twentyOneYearsAgo = dateTime.AddYears(-(age + 1));
@@ -37,7 +82,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             const int age = 0;
             var list = new List<DateTime>();
-            for (var i = 0; i < Amount; i++) list.Add(_dateTimProvider.DateTimeByAge(age));
+            for (var i = 0; i < Assertion.Amount; i++) list.Add(_dateTimProvider.DateTimeByAge(age));
             // Checks that date will be more than now.
             Assert.IsTrue(list.All(time => DateTime.Now > time));
         }
@@ -47,7 +92,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             const int age = 20;
             var list = new List<DateTime>();
-            for (var i = 0; i < Amount; i++) list.Add(_dateTimProvider.DateTimeByAge(age));
+            for (var i = 0; i < Assertion.Amount; i++) list.Add(_dateTimProvider.DateTimeByAge(age));
             // Checks if any time is not zero.
             Assert.IsTrue(list.Any(time => time.Minute != 0 || time.Second != 0 || time.Hour != 0));
         }
@@ -56,7 +101,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void DateTime_By_Year_Arg_Current_Year()
         {
             var list = new List<DateTime>();
-            for (var i = 0; i < Amount; i++) list.Add(_dateTimProvider.DateTimeByYear(DateTime.Now.Year));
+            for (var i = 0; i < Assertion.Amount; i++) list.Add(_dateTimProvider.DateTimeByYear(DateTime.Now.Year));
             //will make sure that the date created is earlier than today this year
             Assert.IsTrue(list.All(time => time.Year == DateTime.Now.Year));
         }
@@ -72,7 +117,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             const int year = 2000;
             var list = new List<DateTime>();
-            for (var i = 0; i < Amount; i++) list.Add(_dateTimProvider.DateTimeByYear(year));
+            for (var i = 0; i < Assertion.Amount; i++) list.Add(_dateTimProvider.DateTimeByYear(year));
             Assert.IsTrue(list.All(time => time.Year == year));
         }
 
@@ -81,7 +126,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             const int year = 2010;
             var list = new List<DateTime>();
-            for (var i = 0; i < Amount; i++) list.Add(_dateTimProvider.DateTimeByYear(year));
+            for (var i = 0; i < Assertion.Amount; i++) list.Add(_dateTimProvider.DateTimeByYear(year));
             Assert.IsTrue(list.All(time => time.Year == year));
         }
 
@@ -92,7 +137,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var list = new List<DateTime>();
             var baseTimeTwoYearsLater = BaseTime.AddYears(2);
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoYearsLater));
 
             Assert.IsTrue(
@@ -106,7 +151,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var list = new List<DateTime>();
             var baseTimeTwoYearsBefore = BaseTime.AddYears(-2);
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoYearsBefore));
 
             Assert.IsTrue(
@@ -120,7 +165,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var list = new List<DateTime>();
             var baseTimeTwoMonthsLater = BaseTime.AddMonths(2);
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoMonthsLater));
 
             Assert.IsTrue(
@@ -134,7 +179,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var list = new List<DateTime>();
             var baseTimeTwoMonthsBefore = BaseTime.AddMonths(-2);
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoMonthsBefore));
 
             Assert.IsTrue(
@@ -148,7 +193,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var list = new List<DateTime>();
             var baseTimeTwoDaysLater = BaseTime.AddDays(2);
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoDaysLater));
 
             Assert.IsTrue(
@@ -162,7 +207,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var list = new List<DateTime>();
             var baseTimeTwoDaysBefore = BaseTime.AddDays(-2);
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoDaysBefore));
 
             Assert.IsTrue(
@@ -176,7 +221,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var list = new List<DateTime>();
             var baseTimeTwoHoursLater = BaseTime.AddHours(2);
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoHoursLater));
 
             Assert.IsTrue(
@@ -190,7 +235,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var list = new List<DateTime>();
             var baseTimeTwoHoursBefore = BaseTime.AddHours(-2);
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoHoursBefore));
 
             Assert.IsTrue(
@@ -204,7 +249,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var list = new List<DateTime>();
             var baseTimeTwoMinutesLater = BaseTime.AddMinutes(2);
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoMinutesLater));
 
             Assert.IsTrue(
@@ -218,7 +263,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var list = new List<DateTime>();
             var baseTimeTwoMinutesBefore = BaseTime.AddMinutes(-2);
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoMinutesBefore));
 
             Assert.IsTrue(
@@ -232,7 +277,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var list = new List<DateTime>();
             var baseTimeTwoSecondsLater = BaseTime.AddSeconds(2);
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoSecondsLater));
 
             Assert.IsTrue(
@@ -246,7 +291,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var list = new List<DateTime>();
             var baseTimeTwoSecondsBefore = BaseTime.AddSeconds(-2);
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoSecondsBefore));
 
             Assert.IsTrue(
@@ -260,7 +305,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var list = new List<DateTime>();
             var baseTimeTwoMilliSecondsLater = BaseTime.AddMilliseconds(2);
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoMilliSecondsLater));
 
             Assert.IsTrue(
@@ -274,7 +319,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var list = new List<DateTime>();
             var baseTimeTwoMilliSecondsBefore = BaseTime.AddMilliseconds(-2);
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoMilliSecondsBefore));
 
             Assert.IsTrue(
@@ -288,7 +333,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var list = new List<DateTime>();
             var baseTimeTwoYearsLater = BaseTime.AddYears(2);
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 list.Add(_dateTimProvider.DateTime(BaseTime, baseTimeTwoYearsLater));
 
             Assert.IsTrue(
@@ -303,7 +348,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var list = new List<DateTime>();
             var baseTimeTwoYearsAgo = BaseTime.AddYears(-2);
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoYearsAgo, BaseTime));
 
             Assert.IsTrue(
@@ -317,7 +362,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var list = new List<DateTime>();
             var baseTimeTwoMonthsLater = BaseTime.AddMonths(2);
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 list.Add(_dateTimProvider.DateTime(BaseTime, baseTimeTwoMonthsLater));
 
             Assert.IsTrue(
@@ -331,7 +376,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var list = new List<DateTime>();
             var baseTimeTwoMonthsAgo = BaseTime.AddMonths(-2);
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoMonthsAgo, BaseTime));
 
             Assert.IsTrue(
@@ -349,7 +394,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var list = new List<DateTime>();
             var baseTimeTwoDaysLater = BaseTime.AddDays(2);
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 list.Add(_dateTimProvider.DateTime(BaseTime, baseTimeTwoDaysLater));
 
             Assert.IsTrue(
@@ -363,7 +408,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var list = new List<DateTime>();
             var baseTimeTwoDaysAgo = BaseTime.AddDays(-2);
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoDaysAgo, BaseTime));
 
             Assert.IsTrue(
@@ -380,7 +425,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var list = new List<DateTime>();
             var baseTimeTwoMinutesLater = BaseTime.AddMinutes(2);
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 list.Add(_dateTimProvider.DateTime(BaseTime, baseTimeTwoMinutesLater));
 
             Assert.IsTrue(
@@ -394,7 +439,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var list = new List<DateTime>();
             var baseTimeTwoMinutesBefore = BaseTime.AddMinutes(-2);
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoMinutesBefore, BaseTime));
 
             Assert.IsTrue(
@@ -413,7 +458,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var list = new List<DateTime>();
             var baseTimeTwoSecondsLater = BaseTime.AddSeconds(2);
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 list.Add(_dateTimProvider.DateTime(BaseTime, baseTimeTwoSecondsLater));
 
             Assert.IsTrue(
@@ -427,7 +472,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var list = new List<DateTime>();
             var baseTimeTwoSecondsAgo = BaseTime.AddSeconds(-2);
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoSecondsAgo, BaseTime));
 
             Assert.IsTrue(
@@ -445,7 +490,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var list = new List<DateTime>();
             var baseTimeTwoMillisecondsLater = BaseTime.AddMilliseconds(2);
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 list.Add(_dateTimProvider.DateTime(BaseTime, baseTimeTwoMillisecondsLater));
 
             Assert.IsTrue(
@@ -459,7 +504,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var list = new List<DateTime>();
             var baseTimeTwoMiliSecondsBefore = BaseTime.AddMilliseconds(-2);
-            for (var i = 0; i < Amount; i++)
+            for (var i = 0; i < Assertion.Amount; i++)
                 list.Add(_dateTimProvider.DateTime(baseTimeTwoMiliSecondsBefore, BaseTime));
 
             Assert.IsTrue(list.All(time => time < BaseTime));

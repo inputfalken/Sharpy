@@ -15,6 +15,38 @@ namespace Sharpy.Builder.Tests.Implementations
         private const int Limit = 10000;
 
         [Test]
+        public void No_Arg_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(i => new UniqueSecurityBuilder(new Random(i)), x => x.SecurityNumber());
+        }
+
+        [Test]
+        public void No_Arg_Is_Deterministic_With_Different_Seed()
+        {
+            Assertion.IsNotDeterministic(i => new UniqueSecurityBuilder(new Random(i)), x => x.SecurityNumber());
+        }
+
+        [Test, Ignore("Will fix later")]
+        public void One_Arg_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(
+                i => new UniqueSecurityBuilder(new Random(i)),
+                x => x.SecurityNumber(new DateTime(2000, 10, 10)),
+                5
+            );
+        }
+
+        [Test]
+        public void One_Arg_Is_Deterministic_With_Different_Seed()
+        {
+            Assertion.IsNotDeterministic(
+                i => new UniqueSecurityBuilder(new Random(i)),
+                x => x.SecurityNumber(new DateTime(2000, 10, 10)),
+                Limit
+            );
+        }
+
+        [Test]
         public void All_Are_Unique()
         {
             var dateTime = new DateTime(2000, 10, 10);

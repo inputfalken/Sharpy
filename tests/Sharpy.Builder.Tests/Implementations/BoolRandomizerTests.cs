@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using NUnit.Framework;
 using Sharpy.Builder.Implementation;
 
@@ -10,12 +8,31 @@ namespace Sharpy.Builder.Tests.Implementations
     public class BoolRandomizerTests
     {
         [Test]
-        public void Returns_Various_Results()
+        public void Is_Deterministic_With_Seed()
         {
-            var boolRandomizer = new BoolRandomizer(new Random());
-            var list = new List<bool>(100);
-            for (var i = 0; i < 100; i++) list.Add(boolRandomizer.Bool());
-            Assert.IsFalse(list.All(b => b));
+            Assertion.IsDeterministic(
+                i => new BoolRandomizer(new Random(i)),
+                x => x.Bool()
+            );
+        }
+
+        [Test]
+        public void Is_Not_Deterministic_With_Different_Seed()
+        {
+            Assertion.IsNotDeterministic(
+                i => new BoolRandomizer(new Random(i)),
+                x => x.Bool()
+            );
+        }
+
+        [Test]
+        public void Values_Are_Distributed()
+        {
+            Assertion.IsDistributed(
+                new BoolRandomizer(new Random(Assertion.MainSeed)),
+                x => x.Bool(),
+                grouping => Assert.AreEqual(2, grouping.Count)
+            );
         }
     }
 }

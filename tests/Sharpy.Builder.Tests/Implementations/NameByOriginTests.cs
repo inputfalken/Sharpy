@@ -9,7 +9,47 @@ namespace Sharpy.Builder.Tests.Implementations
     [TestFixture]
     public class NameByOriginTests
     {
-        private const int Amount = 100;
+        [Test]
+        public void FirstName_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(i => new NameByOrigin(new Random(i)), x => x.FirstName());
+        }
+
+        [Test]
+        public void Male_Arg_FirstName_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(i => new NameByOrigin(new Random(i)), x => x.FirstName(Gender.Male));
+        }
+
+        [Test]
+        public void Female_Arg_FirstName_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(i => new NameByOrigin(new Random(i)), x => x.FirstName(Gender.Female));
+        }
+
+        [Test]
+        public void FirstName_Is_Not_Deterministic_With_Different_Seed()
+        {
+            Assertion.IsNotDeterministic(i => new NameByOrigin(new Random(i)), x => x.FirstName());
+        }
+
+        [Test]
+        public void Male_Arg_FirstName_Is_Not_Deterministic_With_Different_Seed()
+        {
+            Assertion.IsNotDeterministic(i => new NameByOrigin(new Random(i)), x => x.FirstName(Gender.Male));
+        }
+
+        [Test]
+        public void Female_Arg_FirstName_Is_Not_Deterministic_With_Different_Seed()
+        {
+            Assertion.IsNotDeterministic(i => new NameByOrigin(new Random(i)), x => x.FirstName(Gender.Female));
+        }
+
+        [Test]
+        public void LastName_Is_Deterministic_With_Same_Seed()
+        {
+            Assertion.IsDeterministic(i => new NameByOrigin(new Random(i)), x => x.LastName());
+        }
 
         [Test]
         public void All_Origins_Are_Supported()
@@ -23,7 +63,8 @@ namespace Sharpy.Builder.Tests.Implementations
         public void Female_First_Name_Not_Null_Or_White_Space()
         {
             var builder = new NameByOrigin();
-            var names = Enumerable.Range(0, Amount).Select(i => builder.FirstName(Gender.Female)).ToList();
+            var names = Enumerable.Range(0, Assertion.Amount / 1000).Select(i => builder.FirstName(Gender.Female))
+                .ToList();
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
         }
@@ -32,7 +73,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void First_Name_Not_Null_Or_White_Space()
         {
             var builder = new NameByOrigin();
-            var names = Enumerable.Range(0, Amount).Select(i => builder.FirstName()).ToList();
+            var names = Enumerable.Range(0, Assertion.Amount / 1000).Select(i => builder.FirstName()).ToList();
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
         }
@@ -41,7 +82,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void Last_Name_Not_Null_Or_White_Space()
         {
             var builder = new NameByOrigin();
-            var names = Enumerable.Range(0, Amount).Select(i => builder.LastName()).ToList();
+            var names = Enumerable.Range(0, Assertion.Amount / 1000).Select(i => builder.LastName()).ToList();
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
         }
@@ -50,7 +91,8 @@ namespace Sharpy.Builder.Tests.Implementations
         public void Male_First_Name_Not_Null_Or_White_Space()
         {
             var builder = new NameByOrigin();
-            var names = Enumerable.Range(0, Amount).Select(i => builder.FirstName(Gender.Male)).ToList();
+            var names = Enumerable.Range(0, Assertion.Amount / 1000).Select(i => builder.FirstName(Gender.Male))
+                .ToList();
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
         }
@@ -59,7 +101,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void Origin_Restricted_Constructor_With_One_Country()
         {
             var builder = new NameByOrigin(Origin.Sweden);
-            var names = Enumerable.Range(0, Amount).Select(i => builder.FirstName()).ToList();
+            var names = Enumerable.Range(0, Assertion.Amount / 1000).Select(i => builder.FirstName()).ToList();
             var allFinishNames = NameByOrigin.GetCollection(Origin.Finland);
             var allSwedishNames = NameByOrigin.GetCollection(Origin.Sweden);
             Assert.IsTrue(names.All(s => allSwedishNames.Contains(s)));
@@ -75,7 +117,7 @@ namespace Sharpy.Builder.Tests.Implementations
                     NameProvider = new NameByOrigin(Origin.Sweden, Origin.NorthAmerica)
                 }
             );
-            var names = Enumerable.Range(0, Amount).Select(i => builder.FirstName()).ToList();
+            var names = Enumerable.Range(0, Assertion.Amount / 1000).Select(i => builder.FirstName()).ToList();
             var allSwedishAndNorthAmericanNames = NameByOrigin.GetCollection(Origin.Sweden, Origin.NorthAmerica);
             var allDanishNames = NameByOrigin.GetCollection(Origin.Denmark);
             Assert.IsTrue(names.All(s => allSwedishAndNorthAmericanNames.Contains(s)));
@@ -91,7 +133,7 @@ namespace Sharpy.Builder.Tests.Implementations
                     NameProvider = new NameByOrigin(Origin.Sweden, Origin.Denmark)
                 }
             );
-            var names = Enumerable.Range(0, Amount).Select(i => builder.FirstName()).ToList();
+            var names = Enumerable.Range(0, Assertion.Amount / 1000).Select(i => builder.FirstName()).ToList();
             var allFinishNames = NameByOrigin.GetCollection(Origin.Finland);
             var allSvDkNames = NameByOrigin.GetCollection(Origin.Sweden, Origin.Denmark);
             Assert.IsTrue(names.All(s => allSvDkNames.Contains(s)));
@@ -107,7 +149,7 @@ namespace Sharpy.Builder.Tests.Implementations
                     NameProvider = new NameByOrigin(Origin.Europe, Origin.NorthAmerica)
                 }
             );
-            var names = Enumerable.Range(0, Amount).Select(i => builder.FirstName()).ToList();
+            var names = Enumerable.Range(0, Assertion.Amount / 1000).Select(i => builder.FirstName()).ToList();
             var allEuropeanAndNorthAmericanNames = NameByOrigin.GetCollection(Origin.Europe, Origin.NorthAmerica);
             var allBrazilianNames = NameByOrigin.GetCollection(Origin.Brazil);
             Assert.IsTrue(names.All(s => allEuropeanAndNorthAmericanNames.Contains(s)));
