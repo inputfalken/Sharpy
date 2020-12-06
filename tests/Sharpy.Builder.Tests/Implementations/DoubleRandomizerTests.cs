@@ -43,7 +43,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var expected = new DoubleRandomizer(new Random(Assertion.MainSeed));
             var result = new DoubleRandomizer(new Random(Assertion.SecondarySeed));
-            Assertion.AreEqual(expected, result, x => x.Double(50d));
+            Assertion.AreNotEqual(expected, result, x => x.Double(50d));
         }
 
         [Test]
@@ -59,7 +59,7 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var expected = new DoubleRandomizer(new Random(Assertion.MainSeed));
             var result = new DoubleRandomizer(new Random(Assertion.SecondarySeed));
-            Assertion.AreEqual(expected, result, x => x.Double(1, 50d));
+            Assertion.AreNotEqual(expected, result, x => x.Double(1, 50d));
         }
 
         [Test]
