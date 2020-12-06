@@ -14,6 +14,41 @@ namespace Sharpy.Builder.Tests.Implementations
         private static readonly IFloatProvider FloatProvider = new FloatRandomizer(new Random());
 
         [Test]
+        public void No_Arg_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(i => new FloatRandomizer(new Random(i)), x => x.Float());
+        }
+
+        [Test]
+        public void No_Arg_Is_Not_Deterministic_With_Different_Seed()
+        {
+            Assertion.IsNotDeterministic(i => new FloatRandomizer(new Random(i)), x => x.Float());
+        }
+
+        [Test]
+        public void Max_Arg_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(i => new FloatRandomizer(new Random(i)), x => x.Float(50));
+        }
+
+        [Test]
+        public void Max_Arg_Is_Not_Deterministic_With_Different_Seed()
+        {
+            Assertion.IsNotDeterministic(i => new FloatRandomizer(new Random(i)), x => x.Float(50));
+        }
+
+        [Test]
+        public void Min_Max_Arg_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(i => new FloatRandomizer(new Random(i)), x => x.Float(0, 50));
+        }
+
+        [Test]
+        public void Min_Max_Arg_Is_Not_Deterministic_With_Different_Seed()
+        {
+            Assertion.IsNotDeterministic(i => new FloatRandomizer(new Random(i)), x => x.Float(0, 50));
+        }
+        [Test]
         public void No_Arg_All_Values_Are_Between_Zero_And_MaxValue()
         {
             var floats = new float[Assertion.Amount];

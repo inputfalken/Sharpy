@@ -12,6 +12,41 @@ namespace Sharpy.Builder.Tests.Implementations
         private static readonly IIntegerProvider IntegerProvider = new IntegerRandomizer(new Random());
 
         [Test]
+        public void No_Arg_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(i => new IntegerRandomizer(new Random(i)), x => x.Integer());
+        }
+
+        [Test]
+        public void No_Arg_Is_Not_Deterministic_With_Different_Seed()
+        {
+            Assertion.IsNotDeterministic(i => new IntegerRandomizer(new Random(i)), x => x.Integer());
+        }
+
+        [Test]
+        public void Max_Arg_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(i => new IntegerRandomizer(new Random(i)), x => x.Integer(50));
+        }
+
+        [Test]
+        public void Max_Arg_Is_Not_Deterministic_With_Different_Seed()
+        {
+            Assertion.IsNotDeterministic(i => new IntegerRandomizer(new Random(i)), x => x.Integer(50));
+        }
+
+        [Test]
+        public void Min_Max_Arg_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(i => new IntegerRandomizer(new Random(i)), x => x.Integer(0, 50));
+        }
+
+        [Test]
+        public void Min_Max_Arg_Is_Not_Deterministic_With_Different_Seed()
+        {
+            Assertion.IsNotDeterministic(i => new IntegerRandomizer(new Random(i)), x => x.Integer(0, 50));
+        }
+        [Test]
         public void No_Arg_All_Values_Are_Between_Zero_And_MaxValue()
         {
             var ints = new int[Assertion.Amount];

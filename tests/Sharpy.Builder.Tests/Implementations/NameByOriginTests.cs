@@ -10,6 +10,48 @@ namespace Sharpy.Builder.Tests.Implementations
     public class NameByOriginTests
     {
         [Test]
+        public void FirstName_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(i => new NameByOrigin(new Random(i)), x => x.FirstName());
+        }
+
+        [Test]
+        public void Male_Arg_FirstName_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(i => new NameByOrigin(new Random(i)), x => x.FirstName(Gender.Male));
+        }
+
+        [Test]
+        public void Female_Arg_FirstName_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(i => new NameByOrigin(new Random(i)), x => x.FirstName(Gender.Female));
+        }
+
+        [Test]
+        public void FirstName_Is_Not_Deterministic_With_Different_Seed()
+        {
+            Assertion.IsNotDeterministic(i => new NameByOrigin(new Random(i)), x => x.FirstName());
+        }
+
+        [Test]
+        public void Male_Arg_FirstName_Is_Not_Deterministic_With_Different_Seed()
+        {
+            Assertion.IsNotDeterministic(i => new NameByOrigin(new Random(i)), x => x.FirstName(Gender.Male));
+        }
+
+        [Test]
+        public void Female_Arg_FirstName_Is_Not_Deterministic_With_Different_Seed()
+        {
+            Assertion.IsNotDeterministic(i => new NameByOrigin(new Random(i)), x => x.FirstName(Gender.Female));
+        }
+
+        [Test]
+        public void LastName_Is_Deterministic_With_Same_Seed()
+        {
+            Assertion.IsDeterministic(i => new NameByOrigin(new Random(i)), x => x.LastName());
+        }
+
+        [Test]
         public void All_Origins_Are_Supported()
         {
             var values = Enum.GetValues(typeof(Origin));
@@ -21,7 +63,8 @@ namespace Sharpy.Builder.Tests.Implementations
         public void Female_First_Name_Not_Null_Or_White_Space()
         {
             var builder = new NameByOrigin();
-            var names = Enumerable.Range(0, Assertion.Amount / 1000).Select(i => builder.FirstName(Gender.Female)).ToList();
+            var names = Enumerable.Range(0, Assertion.Amount / 1000).Select(i => builder.FirstName(Gender.Female))
+                .ToList();
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
         }
@@ -48,7 +91,8 @@ namespace Sharpy.Builder.Tests.Implementations
         public void Male_First_Name_Not_Null_Or_White_Space()
         {
             var builder = new NameByOrigin();
-            var names = Enumerable.Range(0, Assertion.Amount / 1000).Select(i => builder.FirstName(Gender.Male)).ToList();
+            var names = Enumerable.Range(0, Assertion.Amount / 1000).Select(i => builder.FirstName(Gender.Male))
+                .ToList();
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
             Assert.IsFalse(names.All(string.IsNullOrWhiteSpace));
         }

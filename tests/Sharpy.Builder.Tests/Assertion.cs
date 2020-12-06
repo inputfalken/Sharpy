@@ -11,14 +11,14 @@ namespace Sharpy.Builder.Tests
         private const int SecondarySeed = MainSeed + 1;
         public const int Amount = 100000;
 
-        public static void IsDeterministic<T, TResult>(Func<int, T> factory, Func<T, TResult> fn)
+        public static void IsDeterministic<T, TResult>(Func<int, T> factory, Func<T, TResult> fn, int amount = Amount)
         {
-            Assert.AreEqual(EnumerableFactory(factory(MainSeed), fn), EnumerableFactory(factory(MainSeed), fn));
+            Assert.AreEqual(EnumerableFactory(factory(MainSeed), fn, amount), EnumerableFactory(factory(MainSeed), fn, amount));
         }
 
-        public static void IsNotDeterministic<T, TResult>(Func<int, T> factory, Func<T, TResult> fn)
+        public static void IsNotDeterministic<T, TResult>(Func<int, T> factory, Func<T, TResult> fn, int amount = Amount)
         {
-            Assert.AreNotEqual(EnumerableFactory(factory(MainSeed), fn), EnumerableFactory(factory(SecondarySeed), fn));
+            Assert.AreNotEqual(EnumerableFactory(factory(MainSeed), fn, amount), EnumerableFactory(factory(SecondarySeed), fn, amount));
         }
 
         public static void AssertNotAllValuesAreTheSame<T>(this IEnumerable<T> collection)
@@ -48,7 +48,7 @@ namespace Sharpy.Builder.Tests
                 Assert.IsNotEmpty(grouping);
         }
 
-        private static IEnumerable<TResult> EnumerableFactory<T, TResult>(this T source, Func<T, TResult> fn)
+        private static IEnumerable<TResult> EnumerableFactory<T, TResult>(this T source, Func<T, TResult> fn, int amount = Amount)
         {
             for (var i = 0; i < Amount; i++)
                 yield return fn(source);

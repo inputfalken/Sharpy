@@ -21,7 +21,7 @@ namespace Sharpy.Builder.Tests.Implementations
         }
 
         [Test]
-        public void Two_Arguments_Is_Deterministic_With_DifferentSeed()
+        public void Two_Arguments_Is_Deterministic_With_Different_Seed()
         {
             Assertion.IsNotDeterministic(i => new ElementRandomizer(new Random(i)), x => x.FromArgument(1, 2));
         }
@@ -33,7 +33,7 @@ namespace Sharpy.Builder.Tests.Implementations
         }
 
         [Test]
-        public void Three_Arguments_Is_Deterministic_With_DifferentSeed()
+        public void Three_Arguments_Is_Deterministic_With_Different_Seed()
         {
             Assertion.IsNotDeterministic(i => new ElementRandomizer(new Random(i)), x => x.FromArgument(1, 2, 3));
         }
@@ -45,7 +45,7 @@ namespace Sharpy.Builder.Tests.Implementations
         }
 
         [Test]
-        public void Four_Arguments_Is_Deterministic_With_DifferentSeed()
+        public void Four_Arguments_Is_Deterministic_With_Different_Seed()
         {
             Assertion.IsNotDeterministic(i => new ElementRandomizer(new Random(i)), x => x.FromArgument(1, 2, 3, 4));
         }

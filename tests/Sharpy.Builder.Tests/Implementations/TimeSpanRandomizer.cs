@@ -12,6 +12,41 @@ namespace Sharpy.Builder.Tests.Implementations
         private static readonly ITimeSpanProvider TimeSpanProvider = new TimeSpanRandomizer(new Random());
 
         [Test]
+        public void No_Arg_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(i => new TimeSpanRandomizer(new Random(i)), x => x.TimeSpan());
+        }
+
+        [Test]
+        public void No_Arg_Is_Not_Deterministic_With_Different_Seed()
+        {
+            Assertion.IsNotDeterministic(i => new TimeSpanRandomizer(new Random(i)), x => x.TimeSpan());
+        }
+
+        [Test]
+        public void Max_Arg_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(i => new TimeSpanRandomizer(new Random(i)), x => x.TimeSpan(TimeSpan.MaxValue.Subtract(TimeSpan.FromDays(5))));
+        }
+
+        [Test]
+        public void Max_Arg_Is_Not_Deterministic_With_Different_Seed()
+        {
+            Assertion.IsNotDeterministic(i => new TimeSpanRandomizer(new Random(i)), x => x.TimeSpan(TimeSpan.MaxValue.Subtract(TimeSpan.FromDays(5))));
+        }
+
+        [Test]
+        public void Min_Max_Arg_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(i => new TimeSpanRandomizer(new Random(i)), x => x.TimeSpan(TimeSpan.MaxValue.Subtract(TimeSpan.FromDays(20)), TimeSpan.MaxValue.Subtract(TimeSpan.FromDays(5))));
+        }
+
+        [Test]
+        public void Min_Max_Arg_Is_Not_Deterministic_With_Different_Seed()
+        {
+            Assertion.IsNotDeterministic(i => new TimeSpanRandomizer(new Random(i)), x => x.TimeSpan(TimeSpan.MaxValue.Subtract(TimeSpan.FromDays(20)), TimeSpan.MaxValue.Subtract(TimeSpan.FromDays(5))));
+        }
+        [Test]
         public void No_Arg_All_Values_Are_Between_Zero_And_MaxValue()
         {
             var timeSpans = new TimeSpan[Assertion.Amount];

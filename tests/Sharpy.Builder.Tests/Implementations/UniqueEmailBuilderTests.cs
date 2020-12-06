@@ -20,6 +20,42 @@ namespace Sharpy.Builder.Tests.Implementations
         }
 
         [Test]
+        public void No_Arg_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(
+                i => new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(i)),
+                x => x.Mail()
+            );
+        }
+
+        [Test]
+        public void No_Arg_Is_Not_Deterministic_With_Different_Seed()
+        {
+            Assertion.IsNotDeterministic(
+                i => new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(i)),
+                x => x.Mail()
+            );
+        }
+
+        [Test]
+        public void One_Arg_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(
+                i => new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(i)),
+                x => x.Mail("foobar")
+            );
+        }
+
+        [Test]
+        public void One_Arg_Is_Not_Deterministic_With_Different_Seed()
+        {
+            Assertion.IsNotDeterministic(
+                i => new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(i)),
+                x => x.Mail("foobar")
+            );
+        }
+
+        [Test]
         public void Mail_No_Arg_Does_Not_start_With_AT_One_Domain()
         {
             var uniqueEmailBuilder = new UniqueEmailBuilder(new List<string> {"hotmail.com"}, new Random());
@@ -62,7 +98,8 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             var uniqueEmailBuilder = new UniqueEmailBuilder(new List<string> {"hotmail.com"}, new Random());
             Assert.IsFalse(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
-            for (var i = 0; i < Assertion.Amount; i++) Assert.IsTrue(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
+            for (var i = 0; i < Assertion.Amount; i++)
+                Assert.IsTrue(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
         }
 
         [Test]
@@ -73,7 +110,8 @@ namespace Sharpy.Builder.Tests.Implementations
             Assert.IsFalse(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
             Assert.IsFalse(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
             Assert.IsFalse(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
-            for (var i = 0; i < Assertion.Amount; i++) Assert.IsTrue(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
+            for (var i = 0; i < Assertion.Amount; i++)
+                Assert.IsTrue(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
         }
 
         [Test]
@@ -83,7 +121,8 @@ namespace Sharpy.Builder.Tests.Implementations
                 new UniqueEmailBuilder(new List<string> {"hotmail.com", "google.com"}, new Random());
             Assert.IsFalse(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
             Assert.IsFalse(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
-            for (var i = 0; i < Assertion.Amount; i++) Assert.IsTrue(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
+            for (var i = 0; i < Assertion.Amount; i++)
+                Assert.IsTrue(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
         }
 
         [Test]
