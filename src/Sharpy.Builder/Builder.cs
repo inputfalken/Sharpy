@@ -93,13 +93,13 @@ namespace Sharpy.Builder
         }
 
         /// <inheritdoc />
-        public char Char(char max)
+        public char Char(in char max)
         {
             return _charProvider.Char(max);
         }
 
         /// <inheritdoc />
-        public char Char(char min, char max)
+        public char Char(in char min, in char max)
         {
             return _charProvider.Char(min, max);
         }
@@ -111,25 +111,25 @@ namespace Sharpy.Builder
         }
 
         /// <inheritdoc />
-        public DateTimeOffset DateTimeOffset(DateTimeOffset max)
+        public DateTimeOffset DateTimeOffset(in DateTimeOffset max)
         {
             return _dateTimeOffsetProvider.DateTimeOffset(max);
         }
 
         /// <inheritdoc />
-        public DateTimeOffset DateTimeOffset(DateTimeOffset min, DateTimeOffset max)
+        public DateTimeOffset DateTimeOffset(in DateTimeOffset min, in DateTimeOffset max)
         {
             return _dateTimeOffsetProvider.DateTimeOffset(min, max);
         }
 
         /// <inheritdoc />
-        public DateTime DateTimeFromAge(int age)
+        public DateTime DateTimeFromAge(in int age)
         {
             return _dateTimeProvider.DateTimeFromAge(age);
         }
 
         /// <inheritdoc />
-        public DateTime DateTimeFromYear(int year)
+        public DateTime DateTimeFromYear(in int year)
         {
             return _dateTimeProvider.DateTimeFromYear(year);
         }
@@ -141,25 +141,25 @@ namespace Sharpy.Builder
         }
 
         /// <inheritdoc />
-        public DateTime DateTime(DateTime max)
+        public DateTime DateTime(in DateTime max)
         {
             return _dateTimeProvider.DateTime(max);
         }
 
         /// <inheritdoc />
-        public DateTime DateTime(DateTime min, DateTime max)
+        public DateTime DateTime(in DateTime min, in DateTime max)
         {
             return _dateTimeProvider.DateTime(min, max);
         }
 
         /// <inheritdoc />
-        public decimal Decimal(decimal max)
+        public decimal Decimal(in decimal max)
         {
             return _decimalProvider.Decimal(max);
         }
 
         /// <inheritdoc />
-        public decimal Decimal(decimal min, decimal max)
+        public decimal Decimal(in decimal min, in decimal max)
         {
             return _decimalProvider.Decimal(min, max);
         }
@@ -177,61 +177,61 @@ namespace Sharpy.Builder
         }
 
         /// <inheritdoc />
-        public double Double(double max)
+        public double Double(in double max)
         {
             return _doubleProvider.Double(max);
         }
 
         /// <inheritdoc />
-        public double Double(double min, double max)
+        public double Double(in double min, in double max)
         {
             return _doubleProvider.Double(min, max);
         }
 
         /// <inheritdoc />
-        public T FromArgument<T>(T first, T second)
+        public T FromArgument<T>(in T first, in T second)
         {
             return _elementProvider.FromArgument(first, second);
         }
 
         /// <inheritdoc />
-        public T FromArgument<T>(T first, T second, T third)
+        public T FromArgument<T>(in T first, in T second, in T third)
         {
             return _elementProvider.FromArgument(first, second, third);
         }
 
         /// <inheritdoc />
-        public T FromArgument<T>(T first, T second, T third, T fourth)
+        public T FromArgument<T>(in T first, in T second, in T third, in T fourth)
         {
             return _elementProvider.FromArgument(first, second, third, fourth);
         }
 
         /// <inheritdoc />
-        public T FromArgument<T>(T first, T second, T third, T fourth, T fifth)
+        public T FromArgument<T>(in T first, in T second, in T third, in T fourth, in T fifth)
         {
             return _elementProvider.FromArgument(first, second, third, fourth, fifth);
         }
 
         /// <inheritdoc />
-        public T FromArgument<T>(T first, T second, T third, T fourth, T fifth, params T[] additional)
+        public T FromArgument<T>(in T first, in T second, in T third, in T fourth, in T fifth, params T[] additional)
         {
             return _elementProvider.FromArgument(first, second, third, fourth, fifth, additional);
         }
 
         /// <inheritdoc />
-        public T FromList<T>(IReadOnlyList<T> list)
+        public T FromList<T>(in IReadOnlyList<T> list)
         {
             return _elementProvider.FromList(list);
         }
 
         /// <inheritdoc />
-        public T FromSpan<T>(ReadOnlySpan<T> span)
+        public T FromSpan<T>(in ReadOnlySpan<T> span)
         {
             return _elementProvider.FromSpan(span);
         }
 
         /// <inheritdoc />
-        public T FromSpan<T>(Span<T> span)
+        public T FromSpan<T>(in Span<T> span)
         {
             return _elementProvider.FromSpan(span);
         }
@@ -293,13 +293,13 @@ namespace Sharpy.Builder
 
 
         /// <inheritdoc />
-        public float Float(float min, float max)
+        public float Float(in float min, in float max)
         {
             return _floatProvider.Float(min, max);
         }
 
         /// <inheritdoc />
-        public float Float(float max)
+        public float Float(in float max)
         {
             return _floatProvider.Float(max);
         }
@@ -317,19 +317,19 @@ namespace Sharpy.Builder
         }
 
         /// <inheritdoc />
-        public string Guid(GuidFormat format)
+        public string Guid(in GuidFormat format)
         {
             return _guidProvider.Guid(format);
         }
 
         /// <inheritdoc />
-        public int Int(int max)
+        public int Int(in int max)
         {
             return _intProvider.Int(max);
         }
 
         /// <inheritdoc />
-        public int Int(int min, int max)
+        public int Int(in int min, in int max)
         {
             return _intProvider.Int(min, max);
         }
@@ -341,13 +341,13 @@ namespace Sharpy.Builder
         }
 
         /// <inheritdoc />
-        public long Long(long min, long max)
+        public long Long(in long min, in long max)
         {
             return _longProvider.Long(min, max);
         }
 
         /// <inheritdoc />
-        public long Long(long max)
+        public long Long(in long max)
         {
             return _longProvider.Long(max);
         }
@@ -365,7 +365,7 @@ namespace Sharpy.Builder
         }
 
         /// <inheritdoc />
-        public string FirstName(Gender gender)
+        public string FirstName(in Gender gender)
         {
             return _nameProvider.FirstName(gender);
         }
@@ -383,13 +383,13 @@ namespace Sharpy.Builder
         }
 
         /// <inheritdoc />
-        public TimeSpan TimeSpan(TimeSpan max)
+        public TimeSpan TimeSpan(in TimeSpan max)
         {
             return _timeSpanProvider.TimeSpan(max);
         }
 
         /// <inheritdoc />
-        public TimeSpan TimeSpan(TimeSpan min, TimeSpan max)
+        public TimeSpan TimeSpan(in TimeSpan min, in TimeSpan max)
         {
             return _timeSpanProvider.TimeSpan(min, max);
         }

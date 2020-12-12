@@ -21,13 +21,13 @@ namespace Sharpy.Builder.Implementation
         }
 
         ///<inheritdoc />
-        public DateTimeOffset DateTimeOffset(DateTimeOffset max)
+        public DateTimeOffset DateTimeOffset(in DateTimeOffset max)
         {
             return DateTimeOffset(System.DateTimeOffset.MinValue, max);
         }
 
         ///<inheritdoc />
-        public DateTimeOffset DateTimeOffset(DateTimeOffset min, DateTimeOffset max)
+        public DateTimeOffset DateTimeOffset(in DateTimeOffset min, in DateTimeOffset max)
         {
             return _random.DateTimeOffset(min, max);
         }

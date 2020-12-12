@@ -21,13 +21,13 @@ namespace Sharpy.Builder.Implementation
         }
 
         /// <inheritdoc />
-        public int Int(int max)
+        public int Int(in int max)
         {
             return _random.Next(max);
         }
 
         /// <inheritdoc />
-        public int Int(int min, int max)
+        public int Int(in int min, in int max)
         {
             if (max < min)
                 throw new ArgumentOutOfRangeException($"{nameof(max)} must be > {nameof(min)}");

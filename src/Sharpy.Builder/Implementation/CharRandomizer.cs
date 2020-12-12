@@ -21,13 +21,13 @@ namespace Sharpy.Builder.Implementation
         }
 
         /// <inheritdoc />
-        public char Char(char max)
+        public char Char(in char max)
         {
             return Char(char.MinValue, max);
         }
 
         /// <inheritdoc />
-        public char Char(char min, char max)
+        public char Char(in char min, in char max)
         {
             return _random.Char(min, max);
         }

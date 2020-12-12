@@ -22,25 +22,25 @@ namespace Sharpy.Builder.Implementation
 
 
         /// <inheritdoc />
-        public T FromArgument<T>(T first, T second, T third)
+        public T FromArgument<T>(in T first, in T second, in T third)
         {
             return _random.Argument(first, second, third);
         }
 
         /// <inheritdoc />
-        public T FromArgument<T>(T first, T second, T third, T fourth)
+        public T FromArgument<T>(in T first, in T second, in T third, in T fourth)
         {
             return _random.Argument(first, second, third, fourth);
         }
 
         /// <inheritdoc />
-        public T FromArgument<T>(T first, T second, T third, T fourth, T fifth)
+        public T FromArgument<T>(in T first, in T second, in T third, in T fourth, in  T fifth)
         {
             return _random.Argument(first, second, third, fourth, fifth);
         }
 
         /// <inheritdoc />
-        public T FromArgument<T>(T first, T second, T third, T fourth, T fifth, params T[] additional)
+        public T FromArgument<T>(in T first, in T second, in T third, in T fourth, in T fifth, params T[] additional)
         {
             return _random.Argument(first, second, third, fourth, fifth, additional);
         }
@@ -60,7 +60,7 @@ namespace Sharpy.Builder.Implementation
         /// <returns>
         ///     One of the arguments supplied.
         /// </returns>
-        public T FromArgument<T>(T first, T second)
+        public T FromArgument<T>(in T first, in T second)
         {
             return _random.Argument(first, second);
         }
@@ -77,19 +77,19 @@ namespace Sharpy.Builder.Implementation
         /// <returns>
         ///     One of the elements inside argument <paramref name="list" />.
         /// </returns>
-        public T FromList<T>(IReadOnlyList<T> list)
+        public T FromList<T>(in IReadOnlyList<T> list)
         {
             return _random.ListElement(list);
         }
 
         /// <inheritdoc />
-        public T FromSpan<T>(ReadOnlySpan<T> span)
+        public T FromSpan<T>(in ReadOnlySpan<T> span)
         {
             return _random.SpanElement(span);
         }
 
         /// <inheritdoc />
-        public T FromSpan<T>(Span<T> span)
+        public T FromSpan<T>(in Span<T> span)
         {
             return _random.SpanElement(span);
         }

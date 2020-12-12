@@ -22,13 +22,13 @@ namespace Sharpy.Builder.Implementation
 
 
         /// <inheritdoc />
-        public TimeSpan TimeSpan(TimeSpan max)
+        public TimeSpan TimeSpan(in TimeSpan max)
         {
             return TimeSpan(System.TimeSpan.Zero, max);
         }
 
         /// <inheritdoc />
-        public TimeSpan TimeSpan(TimeSpan min, TimeSpan max)
+        public TimeSpan TimeSpan(in TimeSpan min, in TimeSpan max)
         {
             return _random.TimeSpan(min, max);
         }

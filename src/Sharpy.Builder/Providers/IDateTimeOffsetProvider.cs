@@ -18,7 +18,7 @@ namespace Sharpy.Builder.Providers
         /// <param name="max">
         ///     The exclusive maximum bound.
         /// </param>
-        DateTimeOffset DateTimeOffset(DateTimeOffset max);
+        DateTimeOffset DateTimeOffset(in DateTimeOffset max);
 
         /// <summary>
         ///     Provides a System.DateTimeOffset between <paramref name="min" /> and <paramref name="max" />.
@@ -29,6 +29,6 @@ namespace Sharpy.Builder.Providers
         /// <param name="max">
         ///     The exclusive maximum bound.
         /// </param>
-        DateTimeOffset DateTimeOffset(DateTimeOffset min, DateTimeOffset max);
+        DateTimeOffset DateTimeOffset(in DateTimeOffset min, in DateTimeOffset max);
     }
 }

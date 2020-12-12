@@ -11,7 +11,7 @@ namespace Sharpy.Builder.Providers
         /// <param name="max">
         ///     The exclusive maximum bound.
         /// </param>
-        decimal Decimal(decimal max);
+        decimal Decimal(in decimal max);
 
         /// <summary>
         ///     Provides a System.Int32 between <paramref name="min" /> and <paramref name="max" />.
@@ -22,7 +22,7 @@ namespace Sharpy.Builder.Providers
         /// <param name="max">
         ///     The exclusive maximum bound.
         /// </param>
-        decimal Decimal(decimal min, decimal max);
+        decimal Decimal(in decimal min, in decimal max);
 
         /// <summary>
         ///     Provides a System.Int32 between 0 and System.Int32.MaxValue.

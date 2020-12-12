@@ -65,7 +65,7 @@ namespace Sharpy.Builder.Implementation
         private static IEnumerable<NameModel> Names => Data.GetNames;
 
         /// <inheritdoc />
-        public string FirstName(Gender gender)
+        public string FirstName(in Gender gender)
         {
             return Name(
                 gender == Gender.Male ? NameType.MaleFirst : NameType.FemaleFirst);

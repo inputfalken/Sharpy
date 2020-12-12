@@ -23,7 +23,7 @@ namespace Sharpy.Builder.Providers
         /// <returns>
         ///     One of the elements from the arguments.
         /// </returns>
-        T FromArgument<T>(T first, T second);
+        T FromArgument<T>(in T first, in T second);
 
         /// <summary>
         ///     Returns one of the arguments.
@@ -43,7 +43,7 @@ namespace Sharpy.Builder.Providers
         /// <returns>
         ///     One of the elements from the arguments.
         /// </returns>
-        T FromArgument<T>(T first, T second, T third);
+        T FromArgument<T>(in T first, in T second, in T third);
 
         /// <summary>
         ///     Returns one of the arguments.
@@ -66,7 +66,7 @@ namespace Sharpy.Builder.Providers
         /// <returns>
         ///     One of the elements from the arguments.
         /// </returns>
-        T FromArgument<T>(T first, T second, T third, T fourth);
+        T FromArgument<T>(in T first, in T second, in T third, in T fourth);
 
         /// <summary>
         ///     Returns one of the arguments.
@@ -92,7 +92,7 @@ namespace Sharpy.Builder.Providers
         /// <returns>
         ///     One of the elements from the arguments.
         /// </returns>
-        T FromArgument<T>(T first, T second, T third, T fourth, T fifth);
+        T FromArgument<T>(in T first, in T second, in T third, in T fourth, in T fifth);
 
         /// <summary>
         ///     Returns one of the arguments.
@@ -121,7 +121,7 @@ namespace Sharpy.Builder.Providers
         /// <returns>
         ///     One of the elements from the arguments.
         /// </returns>
-        T FromArgument<T>(T first, T second, T third, T fourth, T fifth, params T[] additional);
+        T FromArgument<T>(in T first, in T second, in T third, in T fourth, in T fifth, params T[] additional);
 
 
         /// <summary>
@@ -130,7 +130,7 @@ namespace Sharpy.Builder.Providers
         /// <typeparam name="T">
         ///     The generic type of the elements in argument <paramref name="list" />.
         /// </typeparam>
-        T FromList<T>(IReadOnlyList<T> list);
+        T FromList<T>(in IReadOnlyList<T> list);
 
         /// <summary>
         ///     Provides an element from the <paramref name="span" />.
@@ -138,7 +138,7 @@ namespace Sharpy.Builder.Providers
         /// <typeparam name="T">
         ///     The generic type of the elements in argument <paramref name="span" />.
         /// </typeparam>
-        T FromSpan<T>(ReadOnlySpan<T> span);
+        T FromSpan<T>(in ReadOnlySpan<T> span);
 
         /// <summary>
         ///     Provides an element from the <paramref name="span" />.
@@ -146,6 +146,6 @@ namespace Sharpy.Builder.Providers
         /// <typeparam name="T">
         ///     The generic type of the elements in argument <paramref name="span" />.
         /// </typeparam>
-        T FromSpan<T>(Span<T> span);
+        T FromSpan<T>(in Span<T> span);
     }
 }

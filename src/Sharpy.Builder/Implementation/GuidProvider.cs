@@ -6,14 +6,14 @@ namespace Sharpy.Builder.Implementation
     /// <inheritdoc />
     public sealed class GuidProvider : IGuidProvider
     {
-        /// <inheritdoc cref="IGuidProvider.Guid()" />
+        /// <inheritdoc/>
         public Guid Guid()
         {
             return System.Guid.NewGuid();
         }
 
-        /// <inheritdoc cref="IGuidProvider.Guid(GuidFormat)" />
-        public string Guid(GuidFormat format)
+        /// <inheritdoc/>
+        public string Guid(in GuidFormat format)
         {
             return Guid().ToString(char.ToString((char) format));
         }

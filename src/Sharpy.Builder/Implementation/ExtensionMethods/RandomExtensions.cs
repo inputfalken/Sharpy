@@ -26,7 +26,11 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <returns>
         ///     A randomized System.Decimal within <paramref name="min" /> and <paramref name="max" />.
         /// </returns>
-        public static decimal Decimal(this Random random, decimal min, decimal max)
+        public static decimal Decimal(
+            this Random random,
+            in decimal min,
+            in decimal max
+        )
         {
             static decimal NextDecimal(Random random)
             {
@@ -53,7 +57,8 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
 
             return random switch
             {
-                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max."),
+                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min),
+                    $"Can not be greater than {nameof(max)}."),
                 _ when min == max => min,
                 _ => NextDecimal(random) * (max - min) + min
             };
@@ -77,11 +82,16 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <returns>
         ///     A randomized System.Single within <paramref name="min" /> and <paramref name="max" />.
         /// </returns>
-        public static float Float(this Random random, float min, float max)
+        public static float Float(
+            this Random random,
+            in float min,
+            in float max
+        )
         {
             var res = random switch
             {
-                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max."),
+                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min),
+                    $"Can not be greater than {nameof(max)}."),
                 _ when min == max => min,
                 _ => (float) (random.NextDouble() * (max - min) + min)
             };
@@ -107,11 +117,16 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <returns>
         ///     A randomized System.Double within <paramref name="min" /> and <paramref name="max" />.
         /// </returns>
-        public static double Double(this Random random, double min, double max)
+        public static double Double(
+            this Random random,
+            in double min,
+            in double max
+        )
         {
             var res = random switch
             {
-                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max."),
+                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min),
+                    $"Can not be greater than {nameof(max)}."),
                 _ when min == max => min,
                 _ => random.NextDouble() * (max - min) + min
             };
@@ -151,7 +166,10 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <returns>
         ///     A randomized <typeparamref name="T" /> from the <paramref name="list" />.
         /// </returns>
-        public static T ListElement<T>(this Random random, IReadOnlyList<T> list)
+        public static T ListElement<T>(
+            this Random random,
+            in IReadOnlyList<T> list
+        )
         {
             return (random, list) switch
             {
@@ -179,7 +197,10 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <returns>
         ///     A randomized <typeparamref name="T" /> from the <paramref name="span" />.
         /// </returns>
-        public static T SpanElement<T>(this Random random, ReadOnlySpan<T> span)
+        public static T SpanElement<T>(
+            this Random random,
+            in ReadOnlySpan<T> span
+        )
         {
             return random switch
             {
@@ -208,7 +229,10 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <returns>
         ///     A randomized <typeparamref name="T" /> from the <paramref name="span" />.
         /// </returns>
-        public static T SpanElement<T>(this Random random, Span<T> span)
+        public static T SpanElement<T>(
+            this Random random,
+            in Span<T> span
+        )
         {
             return random switch
             {
@@ -236,7 +260,11 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <returns>
         ///     A randomized argument.
         /// </returns>
-        public static T Argument<T>(this Random random, T first, T second)
+        public static T Argument<T>(
+            this Random random,
+            in T first,
+            in T second
+        )
         {
             return random switch
             {
@@ -270,7 +298,12 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <returns>
         ///     A randomized argument.
         /// </returns>
-        public static T Argument<T>(this Random random, T first, T second, T third)
+        public static T Argument<T>(
+            this Random random,
+            in T first,
+            in T second,
+            in T third
+        )
         {
             return random switch
             {
@@ -308,7 +341,13 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <returns>
         ///     A randomized argument.
         /// </returns>
-        public static T Argument<T>(this Random random, T first, T second, T third, T fourth)
+        public static T Argument<T>(
+            this Random random,
+            in T first,
+            in T second,
+            in T third,
+            in T fourth
+        )
         {
             return random switch
             {
@@ -350,7 +389,14 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <returns>
         ///     A randomized argument.
         /// </returns>
-        public static T Argument<T>(this Random random, T first, T second, T third, T fourth, T fifth)
+        public static T Argument<T>(
+            this Random random,
+            in T first,
+            in T second,
+            in T third,
+            in T fourth,
+            in T fifth
+        )
         {
             return random switch
             {
@@ -396,8 +442,15 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <returns>
         ///     A randomized argument.
         /// </returns>
-        public static T Argument<T>(this Random random, T first, T second, T third, T fourth, T fifth,
-            params T[] additional)
+        public static T Argument<T>(
+            this Random random,
+            in T first,
+            in T second,
+            in T third,
+            in T fourth,
+            in T fifth,
+            params T[] additional
+        )
         {
             return random switch
             {
@@ -431,7 +484,11 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <returns>
         ///     A randomized System.Long within <paramref name="min" /> and <paramref name="max" />.
         /// </returns>
-        public static long Long(this Random random, long min, long max)
+        public static long Long(
+            this Random random,
+            in long min,
+            in long max
+        )
         {
             static long NextLong(Random random, long min, long max)
             {
@@ -455,7 +512,8 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
 
             return random switch
             {
-                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max."),
+                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min),
+                    $"Can not be greater than {nameof(max)}."),
                 _ when min == max => min,
                 _ => NextLong(random, min, max)
             };
@@ -479,11 +537,16 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <returns>
         ///     A randomized System.TimeSpan within <paramref name="min" /> and <paramref name="max" />.
         /// </returns>
-        public static TimeSpan TimeSpan(this Random random, TimeSpan min, TimeSpan max)
+        public static TimeSpan TimeSpan(
+            this Random random,
+            in TimeSpan min,
+            in TimeSpan max
+        )
         {
             return random switch
             {
-                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max."),
+                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min),
+                    $"Can not be greater than {nameof(max)}."),
                 _ when min == max => min,
                 _ => System.TimeSpan.FromMilliseconds(
                         random.Double(min.TotalMilliseconds, max.TotalMilliseconds)
@@ -513,11 +576,16 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <returns>
         ///     A randomized System.DateTime within <paramref name="min" /> and <paramref name="max" />.
         /// </returns>
-        public static DateTime DateTime(this Random random, DateTime min, DateTime max)
+        public static DateTime DateTime(
+            this Random random,
+            in DateTime min,
+            in DateTime max
+        )
         {
             return random switch
             {
-                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max."),
+                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min),
+                    $"Can not be greater than {nameof(max)}."),
                 _ when min == max => min,
                 _ => new DateTime(random.Long(min.Ticks, max.Ticks))
             };
@@ -541,7 +609,11 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <returns>
         ///     A randomized System.DateTimeOffset within <paramref name="min" /> and <paramref name="max" />.
         /// </returns>
-        public static DateTimeOffset DateTimeOffset(this Random random, DateTimeOffset min, DateTimeOffset max)
+        public static DateTimeOffset DateTimeOffset(
+            this Random random,
+            in DateTimeOffset min,
+            in DateTimeOffset max
+        )
         {
             var dateTime = DateTime(random, min.DateTime, max.DateTime);
             var offset = System.DateTimeOffset.Now.Offset;
@@ -569,11 +641,16 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         /// <returns>
         ///     A randomized System.Char within <paramref name="min" /> and <paramref name="max" />.
         /// </returns>
-        public static char Char(this Random random, char min, char max)
+        public static char Char(
+            this Random random,
+            in char min,
+            in char max
+        )
         {
             return random switch
             {
-                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max."),
+                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min),
+                    $"Can not be greater than {nameof(max)}."),
                 _ when min == max => min,
                 _ => (char) random.Next(min, max + 1)
             };
