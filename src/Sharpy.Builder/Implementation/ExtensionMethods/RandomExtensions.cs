@@ -53,7 +53,7 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
 
             return random switch
             {
-                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max."),
+                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), $"Can not be greater than {nameof(max)}."),
                 _ when min == max => min,
                 _ => NextDecimal(random) * (max - min) + min
             };
@@ -81,7 +81,7 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         {
             var res = random switch
             {
-                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max."),
+                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), $"Can not be greater than {nameof(max)}."),
                 _ when min == max => min,
                 _ => (float) (random.NextDouble() * (max - min) + min)
             };
@@ -111,7 +111,7 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         {
             var res = random switch
             {
-                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max."),
+                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), $"Can not be greater than {nameof(max)}."),
                 _ when min == max => min,
                 _ => random.NextDouble() * (max - min) + min
             };
@@ -455,7 +455,7 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
 
             return random switch
             {
-                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max."),
+                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), $"Can not be greater than {nameof(max)}."),
                 _ when min == max => min,
                 _ => NextLong(random, min, max)
             };
@@ -483,7 +483,7 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         {
             return random switch
             {
-                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max."),
+                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), $"Can not be greater than {nameof(max)}."),
                 _ when min == max => min,
                 _ => System.TimeSpan.FromMilliseconds(
                         random.Double(min.TotalMilliseconds, max.TotalMilliseconds)
@@ -517,7 +517,7 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         {
             return random switch
             {
-                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max."),
+                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), $"Can not be greater than {nameof(max)}."),
                 _ when min == max => min,
                 _ => new DateTime(random.Long(min.Ticks, max.Ticks))
             };
@@ -573,7 +573,7 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
         {
             return random switch
             {
-                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), "Can not be greater than max."),
+                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min), $"Can not be greater than {nameof(max)}."),
                 _ when min == max => min,
                 _ => (char) random.Next(min, max + 1)
             };
