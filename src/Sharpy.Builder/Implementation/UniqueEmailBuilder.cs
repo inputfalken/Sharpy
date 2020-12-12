@@ -26,20 +26,27 @@ namespace Sharpy.Builder.Implementation
 
         public string Mail(string firstName, string secondName)
         {
+            var first = BuildChars(firstName, false);
+            var second = BuildChars(secondName, true);
+
             return UniqueEmailFactory(
-                new StringBuilder()
-                    .Append(BuildChars(firstName, true))
-                    .Append(BuildChars(secondName, false))
+                new StringBuilder(firstName.Length + second.Length)
+                    .Append(first)
+                    .Append(second)
             );
         }
 
         public string Mail(string firstName, string secondName, string thirdName)
         {
+            var first = BuildChars(firstName, false);
+            var second = BuildChars(secondName, false);
+            var third = BuildChars(thirdName, true);
+
             return UniqueEmailFactory(
-                new StringBuilder()
-                    .Append(BuildChars(firstName, false))
-                    .Append(BuildChars(secondName, false))
-                    .Append(BuildChars(thirdName, true))
+                new StringBuilder(first.Length + second.Length + third.Length)
+                    .Append(first)
+                    .Append(second)
+                    .Append(third)
             );
         }
 
@@ -83,7 +90,11 @@ namespace Sharpy.Builder.Implementation
 
         public string Mail(string name)
         {
-            return UniqueEmailFactory(new StringBuilder().Append(BuildChars(name, true)));
+            var first = BuildChars(name, true);
+            return UniqueEmailFactory(
+                new StringBuilder(first.Length)
+                    .Append(first)
+            );
         }
 
         /// <summary>
@@ -99,9 +110,7 @@ namespace Sharpy.Builder.Implementation
         {
             var stringBuilder = new StringBuilder();
             for (var i = 0; i < names.Length; i++)
-            {
                 stringBuilder.Append(BuildChars(names[i], i == names.Length - 1));
-            }
 
             return UniqueEmailFactory(stringBuilder);
         }
