@@ -50,6 +50,107 @@ namespace Sharpy.Builder.Implementation
             );
         }
 
+        public string Mail(string firstName, string secondName, string thirdName, string fourthName)
+        {
+            var first = BuildChars(firstName, false);
+            var second = BuildChars(secondName, false);
+            var third = BuildChars(thirdName, false);
+            var fourth = BuildChars(fourthName, true);
+
+            return UniqueEmailFactory(
+                new StringBuilder(first.Length + second.Length + third.Length + fourth.Length)
+                    .Append(first)
+                    .Append(second)
+                    .Append(third)
+                    .Append(fourth)
+            );
+        }
+
+        public string Mail(string firstName, string secondName, string thirdName, string fourthName, string fifthName)
+        {
+            var first = BuildChars(firstName, false);
+            var second = BuildChars(secondName, false);
+            var third = BuildChars(thirdName, false);
+            var fourth = BuildChars(fourthName, false);
+            var fifth = BuildChars(fifthName, true);
+
+            return UniqueEmailFactory(
+                new StringBuilder(first.Length + second.Length + third.Length + fourth.Length + fifth.Length)
+                    .Append(first)
+                    .Append(second)
+                    .Append(third)
+                    .Append(fourth)
+                    .Append(fifth)
+            );
+        }
+
+        public string Mail(string name)
+        {
+            var first = BuildChars(name, true);
+            return UniqueEmailFactory(
+                new StringBuilder(first.Length)
+                    .Append(first)
+            );
+        }
+
+        public string Mail(
+            string firstName,
+            string secondName,
+            string thirdName,
+            string fourthName,
+            string fifthName,
+            params string[] names
+        )
+        {
+            var isEmpty = names.Length == 0;
+            var first = BuildChars(firstName, false);
+            var second = BuildChars(secondName, false);
+            var third = BuildChars(thirdName, false);
+            var fourth = BuildChars(fourthName, false);
+            var fifth = BuildChars(fifthName, isEmpty);
+
+            var sb = new StringBuilder(first.Length + second.Length + third.Length + fourth.Length + fifth.Length)
+                .Append(first)
+                .Append(second)
+                .Append(third)
+                .Append(fourth)
+                .Append(fifth);
+
+            if (isEmpty)
+                return UniqueEmailFactory(sb);
+
+            for (var i = 0; i < names.Length; i++)
+                sb.Append(BuildChars(names[i], i == names.Length - 1));
+
+            return UniqueEmailFactory(sb);
+        }
+
+        public string Mail(string[] names)
+        {
+            if (names.Length == 0)
+                throw new ArgumentException("Can not be empty.", nameof(names));
+
+            var stringBuilder = new StringBuilder();
+            for (var i = 0; i < names.Length; i++)
+                stringBuilder.Append(BuildChars(names[i], i == names.Length - 1));
+
+            return UniqueEmailFactory(stringBuilder);
+        }
+
+        /// <summary>
+        ///     Creates an email with a randomized user name.
+        /// </summary>
+        /// <returns></returns>
+        public string Mail()
+        {
+            while (true)
+            {
+                var randomItem = Random.ListElement(Data.GetUserNames);
+                if (randomItem.Length < 4) continue;
+                return Mail(randomItem);
+            }
+        }
+
         private string UniqueEmailFactory(StringBuilder builder)
         {
             const int limit = 2;
@@ -88,35 +189,11 @@ namespace Sharpy.Builder.Implementation
             }
         }
 
-        public string Mail(string name)
-        {
-            var first = BuildChars(name, true);
-            return UniqueEmailFactory(
-                new StringBuilder(first.Length)
-                    .Append(first)
-            );
-        }
-
-        /// <summary>
-        ///     Creates an email by joining <paramref name="names" /> with common separator characters.
-        /// </summary>
-        /// <param name="names">
-        ///     The names to be joined.
-        /// </param>
-        /// <returns>
-        ///     A string representing a email address.
-        /// </returns>
-        public string Mail(params string[] names)
-        {
-            var stringBuilder = new StringBuilder();
-            for (var i = 0; i < names.Length; i++)
-                stringBuilder.Append(BuildChars(names[i], i == names.Length - 1));
-
-            return UniqueEmailFactory(stringBuilder);
-        }
-
         private char[] BuildChars(string name, bool skipSeparator)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException($"Invalid string value '{name}'.", nameof(name));
+
             _separatorEnumerator.MoveNext();
             var arr = new char[
                 skipSeparator
@@ -132,20 +209,6 @@ namespace Sharpy.Builder.Implementation
 
             arr[^1] = _separatorEnumerator.Current;
             return arr;
-        }
-
-        /// <summary>
-        ///     Creates an email with a randomized user name.
-        /// </summary>
-        /// <returns></returns>
-        public string Mail()
-        {
-            while (true)
-            {
-                var randomItem = Random.ListElement(Data.GetUserNames);
-                if (randomItem.Length < 4) continue;
-                return Mail(randomItem);
-            }
         }
 
         private static IEnumerable<char> Infinite()

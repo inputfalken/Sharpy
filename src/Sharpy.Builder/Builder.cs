@@ -237,7 +237,7 @@ namespace Sharpy.Builder
         }
 
         /// <inheritdoc />
-        public string Mail(params string[] names)
+        public string Mail(string[] names)
         {
             return _emailProvider.Mail(names);
         }
@@ -264,6 +264,31 @@ namespace Sharpy.Builder
         public string Mail(string firstName, string secondName, string thirdName)
         {
             return _emailProvider.Mail(firstName, secondName, thirdName);
+        }
+
+        ///<inheritdoc />
+        public string Mail(string firstName, string secondName, string thirdName, string fourthName)
+        {
+            return _emailProvider.Mail(firstName, secondName, thirdName, fourthName);
+        }
+
+        ///<inheritdoc />
+        public string Mail(string firstName, string secondName, string thirdName, string fourthName, string fifthName)
+        {
+            return _emailProvider.Mail(firstName, secondName, thirdName, fourthName, fifthName);
+        }
+
+        ///<inheritdoc />
+        public string Mail(
+            string firstName,
+            string secondName,
+            string thirdName,
+            string fourthName,
+            string fifthName,
+            params string[] names
+        )
+        {
+            return _emailProvider.Mail(firstName, secondName, thirdName, fourthName, fifthName, names);
         }
 
 
