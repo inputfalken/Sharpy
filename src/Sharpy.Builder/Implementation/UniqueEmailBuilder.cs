@@ -102,12 +102,14 @@ namespace Sharpy.Builder.Implementation
             params string[] names
         )
         {
-            var isEmpty = names.Length == 0;
+            if (names.Length == 0)
+                return Mail(firstName, secondName, thirdName, fourthName, fifthName);
+            
             var first = BuildChars(firstName, false);
             var second = BuildChars(secondName, false);
             var third = BuildChars(thirdName, false);
             var fourth = BuildChars(fourthName, false);
-            var fifth = BuildChars(fifthName, isEmpty);
+            var fifth = BuildChars(fifthName, false);
 
             var sb = new StringBuilder(first.Length + second.Length + third.Length + fourth.Length + fifth.Length)
                 .Append(first)
@@ -116,8 +118,6 @@ namespace Sharpy.Builder.Implementation
                 .Append(fourth)
                 .Append(fifth);
 
-            if (isEmpty)
-                return UniqueEmailFactory(sb);
 
             for (var i = 0; i < names.Length; i++)
                 sb.Append(BuildChars(names[i], i == names.Length - 1));
