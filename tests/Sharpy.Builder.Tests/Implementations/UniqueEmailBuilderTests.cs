@@ -21,78 +21,57 @@ namespace Sharpy.Builder.Tests.Implementations
         }
 
         [Test]
-        public void No_Arg_Is_Deterministic_With_Seed()
-        {
-            Assertion.IsDeterministic(
-                i => new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(i)),
-                x => x.Mail()
-            );
-        }
-
-        [Test]
-        public void No_Arg_Produces_Valid_Emails()
+        public void No_Arg_One_Domain_Produces_Valid_Emails()
         {
             var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random());
             for (var i = 0; i < Assertion.Amount; i++)
-            {
                 Assert.DoesNotThrow(() => new MailAddress(uniqueEmailBuilder.Mail()));
-            }
         }
 
         [Test]
-        public void One_Arg_Produces_Valid_Emails()
+        public void One_Arg_One_Domain_Produces_Valid_Emails()
         {
             var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random());
             for (var i = 0; i < Assertion.Amount; i++)
-            {
                 Assert.DoesNotThrow(() => new MailAddress(uniqueEmailBuilder.Mail(MailUserName)));
-            }
         }
 
         [Test]
-        public void Two_Arg_Produces_Valid_Emails()
+        public void Two_Arg_One_Domain_Produces_Valid_Emails()
         {
             var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random());
             for (var i = 0; i < Assertion.Amount; i++)
-            {
                 Assert.DoesNotThrow(() => new MailAddress(uniqueEmailBuilder.Mail(MailUserName, "foo")));
-            }
         }
 
         [Test]
-        public void Three_Arg_Produces_Valid_Emails()
+        public void Three_Arg_One_Domain_Produces_Valid_Emails()
         {
             var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random());
             for (var i = 0; i < Assertion.Amount; i++)
-            {
                 Assert.DoesNotThrow(() => new MailAddress(uniqueEmailBuilder.Mail(MailUserName, "foo", "bar")));
-            }
         }
 
         [Test]
-        public void Four_Arg_Produces_Valid_Emails()
+        public void Four_Arg_One_Domain_Produces_Valid_Emails()
         {
             var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random());
             for (var i = 0; i < Assertion.Amount; i++)
-            {
                 Assert.DoesNotThrow(() =>
                     new MailAddress(uniqueEmailBuilder.Mail(MailUserName, "foo", "bar", "john")));
-            }
         }
 
         [Test]
-        public void Five_Arg_Produces_Valid_Emails()
+        public void Five_Arg_One_Domain_Produces_Valid_Emails()
         {
             var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random());
             for (var i = 0; i < Assertion.Amount; i++)
-            {
                 Assert.DoesNotThrow(() =>
                     new MailAddress(uniqueEmailBuilder.Mail(MailUserName, "foo", "bar", "john", "doe")));
-            }
         }
 
         [Test]
-        public void No_Arg_Is_Not_Deterministic_With_Different_Seed()
+        public void No_Arg_One_Domain_Is_Deterministic_With_Seed()
         {
             Assertion.IsNotDeterministic(
                 i => new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(i)),
@@ -101,20 +80,83 @@ namespace Sharpy.Builder.Tests.Implementations
         }
 
         [Test]
-        public void One_Arg_Is_Deterministic_With_Seed()
+        public void No_Arg_One_Domain_Is_Not_Deterministic_With_Different_Seed()
         {
-            Assertion.IsDeterministic(
+            Assertion.IsNotDeterministic(
                 i => new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(i)),
-                x => x.Mail("foobar")
+                x => x.Mail()
             );
         }
 
         [Test]
-        public void One_Arg_Is_Not_Deterministic_With_Different_Seed()
+        public void One_Arg_One_Domain_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(
+                i => new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(i)),
+                x => x.Mail("foo")
+            );
+        }
+
+        [Test]
+        public void One_Arg_One_Domain_Is_Not_Deterministic_With_Different_Seed()
         {
             Assertion.IsNotDeterministic(
                 i => new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(i)),
-                x => x.Mail("foobar")
+                x => x.Mail("foo")
+            );
+        }
+
+        [Test]
+        public void Two_Arg_One_Domain_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(
+                i => new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(i)),
+                x => x.Mail("foo", "bar")
+            );
+        }
+
+        [Test]
+        public void Two_Arg_One_Domain_Is_Not_Deterministic_With_Different_Seed()
+        {
+            Assertion.IsNotDeterministic(
+                i => new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(i)),
+                x => x.Mail("foo", "bar")
+            );
+        }
+
+        [Test]
+        public void Three_Arg_One_Domain_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(
+                i => new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(i)),
+                x => x.Mail("foo", "bar", "john")
+            );
+        }
+
+        [Test]
+        public void Three_Arg_One_Domain_Is_Not_Deterministic_With_Different_Seed()
+        {
+            Assertion.IsNotDeterministic(
+                i => new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(i)),
+                x => x.Mail("foo", "bar", "john")
+            );
+        }
+
+        [Test]
+        public void Four_Arg_One_Domain_Is_Deterministic_With_Seed()
+        {
+            Assertion.IsDeterministic(
+                i => new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(i)),
+                x => x.Mail("foo", "bar", "john", "doe")
+            );
+        }
+
+        [Test]
+        public void Four_Arg_One_Domain_Is_Not_Deterministic_With_Different_Seed()
+        {
+            Assertion.IsNotDeterministic(
+                i => new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(i)),
+                x => x.Mail("foo", "bar", "john", "doe")
             );
         }
 

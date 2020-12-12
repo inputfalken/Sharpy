@@ -248,6 +248,24 @@ namespace Sharpy.Builder
             return _emailProvider.Mail();
         }
 
+        ///<inheritdoc />
+        public string Mail(string name)
+        {
+            return _emailProvider.Mail(name);
+        }
+
+        ///<inheritdoc />
+        public string Mail(string firstName, string secondName)
+        {
+            return _emailProvider.Mail(firstName, secondName);
+        }
+
+        ///<inheritdoc />
+        public string Mail(string firstName, string secondName, string thirdName)
+        {
+            return _emailProvider.Mail(firstName, secondName, thirdName);
+        }
+
 
         /// <inheritdoc />
         public float Float(float min, float max)

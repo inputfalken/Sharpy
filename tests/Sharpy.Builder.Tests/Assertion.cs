@@ -13,8 +13,9 @@ namespace Sharpy.Builder.Tests
 
         public static void IsDeterministic<T, TResult>(Func<int, T> factory, Func<T, TResult> fn, int amount = Amount)
         {
-            Assert.AreEqual(EnumerableFactory(factory(MainSeed), fn, amount),
-                EnumerableFactory(factory(MainSeed), fn, amount));
+            var expected = EnumerableFactory(factory(MainSeed), fn, amount);
+            var actual = EnumerableFactory(factory(MainSeed), fn, amount);
+            Assert.AreEqual(expected, actual);
         }
 
         public static void IsNotDeterministic<T, TResult>(Func<int, T> factory, Func<T, TResult> fn,
