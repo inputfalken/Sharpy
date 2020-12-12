@@ -15,7 +15,7 @@ namespace Sharpy.Builder.Providers
         /// <summary>
         ///     Provides a System.Guid in the in the format specified from <paramref name="format" />.
         /// </summary>
-        string Guid(GuidFormat format);
+        string Guid(in GuidFormat format);
     }
 
     /// <summary>

@@ -16,7 +16,7 @@ namespace Sharpy.Builder.Providers
         /// <param name="max">
         ///     The exclusive maximum bound.
         /// </param>
-        double Double(double max);
+        double Double(in double max);
 
         /// <summary>
         ///     Provides a System.Double between <paramref name="min" /> and <paramref name="max" />.
@@ -27,6 +27,6 @@ namespace Sharpy.Builder.Providers
         /// <param name="max">
         ///     The exclusive maximum bound.
         /// </param>
-        double Double(double min, double max);
+        double Double(in double min, in double max);
     }
 }

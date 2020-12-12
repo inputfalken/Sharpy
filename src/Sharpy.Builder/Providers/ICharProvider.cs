@@ -16,7 +16,7 @@ namespace Sharpy.Builder.Providers
         /// <param name="max">
         ///     The inclusive maximum bound.
         /// </param>
-        char Char(char max);
+        char Char(in char max);
 
         /// <summary>
         ///     Provides a System.Char between <paramref name="min" /> and <paramref name="max" />.
@@ -27,6 +27,6 @@ namespace Sharpy.Builder.Providers
         /// <param name="max">
         ///     The inclusive maximum bound.
         /// </param>
-        char Char(char min, char max);
+        char Char(in char min, in char max);
     }
 }

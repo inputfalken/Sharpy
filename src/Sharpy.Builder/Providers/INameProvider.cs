@@ -16,7 +16,7 @@ namespace Sharpy.Builder.Providers
         /// <returns>
         ///     A string representing a first name and taking the argument <see cref="Gender" /> to account.
         /// </returns>
-        string FirstName(Gender gender);
+        string FirstName(in Gender gender);
 
         /// <summary>
         ///     Provides a string representing a first name.

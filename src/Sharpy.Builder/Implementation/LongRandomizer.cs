@@ -20,13 +20,13 @@ namespace Sharpy.Builder.Implementation
         }
 
         /// <inheritdoc />
-        public long Long(long min, long max)
+        public long Long(in long min, in long max)
         {
             return _random.Long(min, max);
         }
 
         /// <inheritdoc />
-        public long Long(long max)
+        public long Long(in long max)
         {
             return Long(0, max);
         }

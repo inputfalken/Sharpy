@@ -10,12 +10,12 @@ namespace Sharpy.Builder.Providers
         /// <summary>
         ///     Provides a System.DateTime by <paramref name="age" />.
         /// </summary>
-        DateTime DateTimeFromAge(int age);
+        DateTime DateTimeFromAge(in int age);
 
         /// <summary>
         ///     Provides a System.DateTime by <paramref name="year" />.
         /// </summary>
-        DateTime DateTimeFromYear(int year);
+        DateTime DateTimeFromYear(in int year);
 
         /// <summary>
         ///     Provides a DateTime between DateTime.MinVale and DateTime.MaxValue.
@@ -28,7 +28,7 @@ namespace Sharpy.Builder.Providers
         /// <param name="max">
         ///     The exclusive maximum bound.
         /// </param>
-        DateTime DateTime(DateTime max);
+        DateTime DateTime(in DateTime max);
 
         /// <summary>
         ///     Provides a System.DateTime between <paramref name="min" /> and <paramref name="max" />.
@@ -39,6 +39,6 @@ namespace Sharpy.Builder.Providers
         /// <param name="max">
         ///     The exclusive maximum bound.
         /// </param>
-        DateTime DateTime(DateTime min, DateTime max);
+        DateTime DateTime(in DateTime min, in DateTime max);
     }
 }

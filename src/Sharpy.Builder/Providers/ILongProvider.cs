@@ -14,7 +14,7 @@ namespace Sharpy.Builder.Providers
         /// <param name="max">
         ///     The exclusive maximum bound.
         /// </param>
-        long Long(long min, long max);
+        long Long(in long min, in long max);
 
         /// <summary>
         ///     Provides a System.Int64 between 0 and <paramref name="max" />.
@@ -22,7 +22,7 @@ namespace Sharpy.Builder.Providers
         /// <param name="max">
         ///     The exclusive maximum bound.
         /// </param>
-        long Long(long max);
+        long Long(in long max);
 
         /// <summary>
         ///     Provides a System.Int64 between 0 and System.Int64.MaxValue.

@@ -14,7 +14,7 @@ namespace Sharpy.Builder.Providers
         /// <param name="max">
         ///     The exclusive maximum bound.
         /// </param>
-        float Float(float min, float max);
+        float Float(in float min, in float max);
 
         /// <summary>
         ///     Provides a System.Single between 0 and <paramref name="max" />.
@@ -22,7 +22,7 @@ namespace Sharpy.Builder.Providers
         /// <param name="max">
         ///     The exclusive maximum bound.
         /// </param>
-        float Float(float max);
+        float Float(in float max);
 
         /// <summary>
         ///     Provides a System.Single between 0 and System.Single.MaxValue.
