@@ -9,21 +9,28 @@ namespace Sharpy.Builder.Implementation
     /// <summary>
     ///     Builds unique email addresses.
     /// </summary>
-    public sealed class UniqueEmailBuilder : UniqueRandomizer<string>, IEmailProvider
+    public sealed class UniqueEmailBuilder : IEmailProvider
     {
+        private readonly Random _random;
+
         /// <summary>
         ///     Contains the email providers with saved state.
         /// </summary>
         private readonly IEnumerator<string> _domainsEnumerator;
 
+        private readonly ISet<string> _set;
+
         private readonly IEnumerator<char> _separatorEnumerator;
 
-        internal UniqueEmailBuilder(IEnumerable<string> providers, Random random) : base(random)
+        internal UniqueEmailBuilder(IEnumerable<string> providers, Random random)
         {
+            _random = random;
             _domainsEnumerator = providers.GetEnumerator();
             _separatorEnumerator = Infinite().GetEnumerator();
+            _set = new HashSet<string>();
         }
 
+        /// <inheritdoc />
         public string Mail(string firstName, string secondName)
         {
             var first = BuildChars(firstName, false);
@@ -36,6 +43,7 @@ namespace Sharpy.Builder.Implementation
             );
         }
 
+        /// <inheritdoc />
         public string Mail(string firstName, string secondName, string thirdName)
         {
             var first = BuildChars(firstName, false);
@@ -50,6 +58,7 @@ namespace Sharpy.Builder.Implementation
             );
         }
 
+        /// <inheritdoc />
         public string Mail(string firstName, string secondName, string thirdName, string fourthName)
         {
             var first = BuildChars(firstName, false);
@@ -66,6 +75,7 @@ namespace Sharpy.Builder.Implementation
             );
         }
 
+        /// <inheritdoc />
         public string Mail(string firstName, string secondName, string thirdName, string fourthName, string fifthName)
         {
             var first = BuildChars(firstName, false);
@@ -84,6 +94,7 @@ namespace Sharpy.Builder.Implementation
             );
         }
 
+        /// <inheritdoc />
         public string Mail(string name)
         {
             var first = BuildChars(name, true);
@@ -93,18 +104,19 @@ namespace Sharpy.Builder.Implementation
             );
         }
 
+        /// <inheritdoc />
         public string Mail(
             string firstName,
             string secondName,
             string thirdName,
             string fourthName,
             string fifthName,
-            params string[] names
+            params string[] additional
         )
         {
-            if (names.Length == 0)
+            if (additional.Length == 0)
                 return Mail(firstName, secondName, thirdName, fourthName, fifthName);
-            
+
             var first = BuildChars(firstName, false);
             var second = BuildChars(secondName, false);
             var third = BuildChars(thirdName, false);
@@ -119,12 +131,13 @@ namespace Sharpy.Builder.Implementation
                 .Append(fifth);
 
 
-            for (var i = 0; i < names.Length; i++)
-                sb.Append(BuildChars(names[i], i == names.Length - 1));
+            for (var i = 0; i < additional.Length; i++)
+                sb.Append(BuildChars(additional[i], i == additional.Length - 1));
 
             return UniqueEmailFactory(sb);
         }
 
+        /// <inheritdoc />
         public string Mail(string[] names)
         {
             if (names.Length == 0)
@@ -137,15 +150,12 @@ namespace Sharpy.Builder.Implementation
             return UniqueEmailFactory(stringBuilder);
         }
 
-        /// <summary>
-        ///     Creates an email with a randomized user name.
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc />
         public string Mail()
         {
             while (true)
             {
-                var randomItem = Random.ListElement(Data.GetUserNames);
+                var randomItem = _random.ListElement(Data.GetUserNames);
                 if (randomItem.Length < 4) continue;
                 return Mail(randomItem);
             }
@@ -167,16 +177,17 @@ namespace Sharpy.Builder.Implementation
                         var length = nameAndAtLength + domain.Length;
                         var chars = new char[length];
 
+                        
                         for (var i = 0; i < length; i++)
-                            if (i < builder.Length) chars[i] = builder[i];
+                            if (i < builder.Length) chars[i] = char.ToLower(builder[i]);
                             else if (i == builder.Length) chars[i] = '@';
-                            else chars[i] = domain[i - nameAndAtLength];
+                            else chars[i] = char.ToLower(domain[i - nameAndAtLength]);
 
                         var email = new string(chars, 0, chars.Length);
 
-                        if (HashSet.Contains(email))
+                        if (_set.Contains(email))
                             continue;
-                        HashSet.Add(email);
+                        _set.Add(email);
                         return email;
                     }
 
@@ -185,7 +196,7 @@ namespace Sharpy.Builder.Implementation
                 }
 
                 // If emails are duplicated, we append numbers to the last element in names.
-                builder.Append(Random.Next(10));
+                builder.Append(_random.Next(10));
             }
         }
 

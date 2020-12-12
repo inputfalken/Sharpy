@@ -285,10 +285,10 @@ namespace Sharpy.Builder
             string thirdName,
             string fourthName,
             string fifthName,
-            params string[] names
+            params string[] additional
         )
         {
-            return _emailProvider.Mail(firstName, secondName, thirdName, fourthName, fifthName, names);
+            return _emailProvider.Mail(firstName, secondName, thirdName, fourthName, fifthName, additional);
         }
 
 
