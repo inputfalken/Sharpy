@@ -237,7 +237,7 @@ namespace Sharpy.Builder
         }
 
         /// <inheritdoc />
-        public string Mail(string[] names)
+        public string Mail(in string[] names)
         {
             return _emailProvider.Mail(names);
         }
@@ -249,42 +249,42 @@ namespace Sharpy.Builder
         }
 
         ///<inheritdoc />
-        public string Mail(string name)
+        public string Mail(in string name)
         {
             return _emailProvider.Mail(name);
         }
 
         ///<inheritdoc />
-        public string Mail(string firstName, string secondName)
+        public string Mail(in string firstName, in string secondName)
         {
             return _emailProvider.Mail(firstName, secondName);
         }
 
         ///<inheritdoc />
-        public string Mail(string firstName, string secondName, string thirdName)
+        public string Mail(in string firstName, in string secondName, in string thirdName)
         {
             return _emailProvider.Mail(firstName, secondName, thirdName);
         }
 
         ///<inheritdoc />
-        public string Mail(string firstName, string secondName, string thirdName, string fourthName)
+        public string Mail(in string firstName, in string secondName, in string thirdName, in string fourthName)
         {
             return _emailProvider.Mail(firstName, secondName, thirdName, fourthName);
         }
 
         ///<inheritdoc />
-        public string Mail(string firstName, string secondName, string thirdName, string fourthName, string fifthName)
+        public string Mail(in string firstName, in string secondName, in string thirdName, in string fourthName, in string fifthName)
         {
             return _emailProvider.Mail(firstName, secondName, thirdName, fourthName, fifthName);
         }
 
         ///<inheritdoc />
         public string Mail(
-            string firstName,
-            string secondName,
-            string thirdName,
-            string fourthName,
-            string fifthName,
+            in string firstName,
+            in string secondName,
+            in string thirdName,
+            in string fourthName,
+            in string fifthName,
             params string[] additional
         )
         {

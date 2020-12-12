@@ -31,7 +31,7 @@ namespace Sharpy.Builder.Implementation
         }
 
         /// <inheritdoc />
-        public string Mail(string firstName, string secondName)
+        public string Mail(in string firstName, in string secondName)
         {
             var first = BuildChars(firstName, false);
             var second = BuildChars(secondName, true);
@@ -44,7 +44,7 @@ namespace Sharpy.Builder.Implementation
         }
 
         /// <inheritdoc />
-        public string Mail(string firstName, string secondName, string thirdName)
+        public string Mail(in string firstName, in string secondName, in string thirdName)
         {
             var first = BuildChars(firstName, false);
             var second = BuildChars(secondName, false);
@@ -59,7 +59,7 @@ namespace Sharpy.Builder.Implementation
         }
 
         /// <inheritdoc />
-        public string Mail(string firstName, string secondName, string thirdName, string fourthName)
+        public string Mail(in string firstName, in string secondName, in string thirdName, in string fourthName)
         {
             var first = BuildChars(firstName, false);
             var second = BuildChars(secondName, false);
@@ -76,7 +76,7 @@ namespace Sharpy.Builder.Implementation
         }
 
         /// <inheritdoc />
-        public string Mail(string firstName, string secondName, string thirdName, string fourthName, string fifthName)
+        public string Mail(in string firstName, in string secondName, in string thirdName, in string fourthName, in string fifthName)
         {
             var first = BuildChars(firstName, false);
             var second = BuildChars(secondName, false);
@@ -95,7 +95,7 @@ namespace Sharpy.Builder.Implementation
         }
 
         /// <inheritdoc />
-        public string Mail(string name)
+        public string Mail(in string name)
         {
             var first = BuildChars(name, true);
             return UniqueEmailFactory(
@@ -106,11 +106,11 @@ namespace Sharpy.Builder.Implementation
 
         /// <inheritdoc />
         public string Mail(
-            string firstName,
-            string secondName,
-            string thirdName,
-            string fourthName,
-            string fifthName,
+            in string firstName,
+            in string secondName,
+            in string thirdName,
+            in string fourthName,
+            in string fifthName,
             params string[] additional
         )
         {
@@ -138,7 +138,7 @@ namespace Sharpy.Builder.Implementation
         }
 
         /// <inheritdoc />
-        public string Mail(string[] names)
+        public string Mail(in string[] names)
         {
             if (names.Length == 0)
                 throw new ArgumentException("Can not be empty.", nameof(names));
@@ -161,7 +161,7 @@ namespace Sharpy.Builder.Implementation
             }
         }
 
-        private string UniqueEmailFactory(StringBuilder builder)
+        private string UniqueEmailFactory(in StringBuilder builder)
         {
             const int limit = 2;
             while (true)
@@ -200,7 +200,7 @@ namespace Sharpy.Builder.Implementation
             }
         }
 
-        private char[] BuildChars(string name, bool skipSeparator)
+        private char[] BuildChars(in string name, in bool skipSeparator)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException($"Invalid string value '{name}'.", nameof(name));

@@ -14,7 +14,7 @@
         /// <returns>
         ///  A formatted email address.
         /// </returns>
-        string Mail(string[] names);
+        string Mail(in string[] names);
 
         /// <summary>
         ///  Provides a System.String that represents an email address.
@@ -33,7 +33,7 @@
         /// <returns>
         ///  A formatted email address.
         /// </returns>
-        string Mail(string name);
+        string Mail(in string name);
 
         /// <summary>
         ///  Provides a System.String that represents an email address built from the arguments.
@@ -47,7 +47,7 @@
         /// <returns>
         ///  A formatted email address.
         /// </returns>
-        string Mail(string firstName, string secondName);
+        string Mail(in string firstName, in string secondName);
 
         /// <summary>
         ///  Provides a System.String that represents an email address built from the arguments.
@@ -64,7 +64,7 @@
         /// <returns>
         ///  A formatted email address.
         /// </returns>
-        string Mail(string firstName, string secondName, string thirdName);
+        string Mail(in string firstName, in string secondName, in string thirdName);
 
         /// <summary>
         ///  Provides a System.String that represents an email address built from the arguments.
@@ -84,7 +84,7 @@
         /// <returns>
         ///  A formatted email address.
         /// </returns>
-        string Mail(string firstName, string secondName, string thirdName, string fourthName);
+        string Mail(in string firstName, in string secondName, in string thirdName, in string fourthName);
 
         /// <summary>
         ///  Provides a System.String that represents an email address built from the arguments.
@@ -107,7 +107,7 @@
         /// <returns>
         ///  A formatted email address.
         /// </returns>
-        string Mail(string firstName, string secondName, string thirdName, string fourthName, string fifthName);
+        string Mail(in string firstName, in string secondName, in string thirdName, in string fourthName, in string fifthName);
 
         /// <summary>
         ///  Provides a System.String that represents an email address built from the arguments.
@@ -134,11 +134,11 @@
         ///  A formatted email address.
         /// </returns>
         string Mail(
-            string firstName,
-            string secondName,
-            string thirdName,
-            string fourthName,
-            string fifthName,
+            in string firstName,
+            in string secondName,
+            in string thirdName,
+            in string fourthName,
+            in string fifthName,
             params string[] additional
         );
     }
