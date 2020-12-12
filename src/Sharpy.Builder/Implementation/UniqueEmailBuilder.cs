@@ -54,10 +54,17 @@ namespace Sharpy.Builder.Implementation
                 {
                     if (_domainsEnumerator.MoveNext())
                     {
-                        var email = new StringBuilder(builder.ToString())
-                            .Append('@')
-                            .Append(_domainsEnumerator.Current)
-                            .ToString();
+                        var domain = _domainsEnumerator.Current;
+                        var nameAndAtLength = builder.Length + 1;
+                        var length = nameAndAtLength + domain.Length;
+                        var chars = new char[length];
+
+                        for (var i = 0; i < length; i++)
+                            if (i < builder.Length) chars[i] = builder[i];
+                            else if (i == builder.Length) chars[i] = '@';
+                            else chars[i] = domain[i - nameAndAtLength];
+
+                        var email = new string(chars, 0, chars.Length);
 
                         if (HashSet.Contains(email))
                             continue;
