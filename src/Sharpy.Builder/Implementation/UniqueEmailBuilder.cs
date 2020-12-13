@@ -217,26 +217,15 @@ namespace Sharpy.Builder.Implementation
             return email;
         }
 
-        private char[] BuildChars(in string name, in bool skipSeparator)
+        private string BuildChars(in string name, in bool skipSeparator)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException($"Invalid string value '{name}'.", nameof(name));
 
+            if (skipSeparator) return name;
             _separatorEnumerator.MoveNext();
-            char[] arr = new char[
-                skipSeparator
-                    ? name.Length
-                    : name.Length + 1
-            ];
+            return name + _separatorEnumerator.Current;
 
-            for (var i = 0; i < name.Length; i++)
-                arr[i] = name[i];
-
-            if (skipSeparator)
-                return arr;
-
-            arr[^1] = _separatorEnumerator.Current;
-            return arr;
         }
 
         private static IEnumerable<T> Infinite<T>(IReadOnlyList<T> list)
