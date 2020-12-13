@@ -31,6 +31,7 @@ namespace Sharpy.Builder.Tests.Implementations
                 Assert.DoesNotThrow(() =>
                 {
                     var res = new MailAddress(uniqueEmailBuilder.Mail(MailUserName));
+                    Assert.AreEqual(i == 0 ? MailUserName : $"{MailUserName}{i}", res.User);
                     Assert.AreEqual(GMail, res.Host);
                 });
         }
