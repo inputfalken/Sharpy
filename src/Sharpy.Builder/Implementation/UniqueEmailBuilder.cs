@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Sharpy.Builder.Implementation.ExtensionMethods;
 using Sharpy.Builder.Providers;
@@ -16,18 +17,19 @@ namespace Sharpy.Builder.Implementation
         /// <summary>
         ///     Contains the email providers with saved state.
         /// </summary>
-        private readonly IEnumerator<string> _domainsEnumerator;
+        private readonly IEnumerator<string> _infiniteDomainEnumerator;
 
-        private readonly ISet<string> _set;
+        private static readonly char[] Separators = {'.', '_', '-'};
+        private readonly IDictionary<string, int> _dictionary;
 
         private readonly IEnumerator<char> _separatorEnumerator;
 
-        internal UniqueEmailBuilder(IEnumerable<string> providers, Random random)
+        internal UniqueEmailBuilder(IReadOnlyList<string> providers, Random random)
         {
             _random = random;
-            _domainsEnumerator = providers.GetEnumerator();
-            _separatorEnumerator = Infinite().GetEnumerator();
-            _set = new HashSet<string>();
+            _infiniteDomainEnumerator = Infinite(providers).GetEnumerator();
+            _separatorEnumerator = Infinite(Separators).GetEnumerator();
+            _dictionary = new Dictionary<string, int>();
         }
 
         /// <inheritdoc />
@@ -76,7 +78,8 @@ namespace Sharpy.Builder.Implementation
         }
 
         /// <inheritdoc />
-        public string Mail(in string firstName, in string secondName, in string thirdName, in string fourthName, in string fifthName)
+        public string Mail(in string firstName, in string secondName, in string thirdName, in string fourthName,
+            in string fifthName)
         {
             var first = BuildChars(firstName, false);
             var second = BuildChars(secondName, false);
@@ -163,41 +166,37 @@ namespace Sharpy.Builder.Implementation
 
         private string UniqueEmailFactory(in StringBuilder builder)
         {
-            const int limit = 2;
-            while (true)
+            while (_infiniteDomainEnumerator.MoveNext())
             {
-                var resets = 0;
+                var domain = _infiniteDomainEnumerator.Current;
+                var nameAndAtLength = builder.Length + 1;
+                var length = nameAndAtLength + domain.Length;
+                char[] chars = new char[length];
 
-                while (resets < limit)
+                for (var i = 0; i < length; i++)
+                    if (i < builder.Length)
+                        chars[i] = char.ToLower(builder[i]);
+                    else if (i == builder.Length)
+                        chars[i] = '@';
+                    else
+                        chars[i] = char.ToLower(domain[i - nameAndAtLength]);
+
+                string email = new string(chars, 0, chars.Length);
+
+                if (_dictionary.TryGetValue(email, out var count))
                 {
-                    if (_domainsEnumerator.MoveNext())
-                    {
-                        var domain = _domainsEnumerator.Current;
-                        var nameAndAtLength = builder.Length + 1;
-                        var length = nameAndAtLength + domain.Length;
-                        var chars = new char[length];
-
-                        
-                        for (var i = 0; i < length; i++)
-                            if (i < builder.Length) chars[i] = char.ToLower(builder[i]);
-                            else if (i == builder.Length) chars[i] = '@';
-                            else chars[i] = char.ToLower(domain[i - nameAndAtLength]);
-
-                        var email = new string(chars, 0, chars.Length);
-
-                        if (_set.Contains(email))
-                            continue;
-                        _set.Add(email);
-                        return email;
-                    }
-
-                    _domainsEnumerator.Reset();
-                    resets++;
+                    _dictionary[email] = ++count;
+                    // On duplicated emails, we append a random number as well as the count to ensure we do not loop more than twice.
+                    builder.Append(_random.Next(10) + count);
                 }
-
-                // If emails are duplicated, we append numbers to the last element in names.
-                builder.Append(_random.Next(10));
+                else
+                {
+                    _dictionary.Add(email, 0);
+                    return email;
+                }
             }
+
+            throw new InvalidOperationException("Infinite sequence should never get here");
         }
 
         private char[] BuildChars(in string name, in bool skipSeparator)
@@ -206,7 +205,7 @@ namespace Sharpy.Builder.Implementation
                 throw new ArgumentException($"Invalid string value '{name}'.", nameof(name));
 
             _separatorEnumerator.MoveNext();
-            var arr = new char[
+            char[] arr = new char[
                 skipSeparator
                     ? name.Length
                     : name.Length + 1
@@ -220,6 +219,17 @@ namespace Sharpy.Builder.Implementation
 
             arr[^1] = _separatorEnumerator.Current;
             return arr;
+        }
+
+        private static IEnumerable<T> Infinite<T>(IReadOnlyList<T> list)
+        {
+            while (true)
+            {
+                foreach (var element in list)
+                {
+                    yield return element;
+                }
+            }
         }
 
         private static IEnumerable<char> Infinite()
