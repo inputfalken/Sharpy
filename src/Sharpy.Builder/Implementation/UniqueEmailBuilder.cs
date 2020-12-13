@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using Sharpy.Builder.Implementation.ExtensionMethods;
 using Sharpy.Builder.Providers;
@@ -167,26 +166,16 @@ namespace Sharpy.Builder.Implementation
         private string UniqueEmailFactory(in StringBuilder builder)
         {
             _infiniteDomainEnumerator.MoveNext();
-            
-            var domain = _infiniteDomainEnumerator.Current;
-            var nameAndAtLength = builder.Length + 1;
-            var length = nameAndAtLength + domain.Length;
-            char[] chars = new char[length];
 
-            for (var i = 0; i < length; i++)
-                if (i < builder.Length)
-                    chars[i] = char.ToLower(builder[i]);
-                else if (i == builder.Length)
-                    chars[i] = '@';
-                else
-                    chars[i] = char.ToLower(domain[i - nameAndAtLength]);
-
-            string email = new string(chars, 0, chars.Length);
+            string email = builder
+                .Append('@')
+                .Append(_infiniteDomainEnumerator.Current)
+                .ToString();
 
             if (_dictionary.TryGetValue(email, out var count))
             {
                 _dictionary[email] = ++count;
-                // On duplicated emails, we append the count number to ensure that we do not loop more than twice.
+                // On duplicated emails, we append the count number to ensure that we do not get duplicated emails.
                 return email.Insert(builder.Length, count.ToString());
             }
 
