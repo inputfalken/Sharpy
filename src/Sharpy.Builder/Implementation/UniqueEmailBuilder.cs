@@ -36,12 +36,11 @@ namespace Sharpy.Builder.Implementation
         /// <inheritdoc />
         public string Mail(in string firstName, in string secondName)
         {
-            var first = BuildSeparatedString(firstName, false);
-            var second = BuildSeparatedString(secondName, true);
+            var first = BuildSeparatedString(firstName);
             const int includedSeparatorLength = 1;
 
-            var emailLength = firstName.Length
-                              + second.Length
+            var emailLength = first.Length
+                              + secondName.Length
                               + AtLength
                               + includedSeparatorLength
                               + _infiniteDomainEnumerator.Current.Length;
@@ -49,21 +48,20 @@ namespace Sharpy.Builder.Implementation
             return UniqueEmailFactory(
                 new StringBuilder(emailLength, emailLength)
                     .Append(first)
-                    .Append(second)
+                    .Append(secondName)
             );
         }
 
         /// <inheritdoc />
         public string Mail(in string firstName, in string secondName, in string thirdName)
         {
-            var first = BuildSeparatedString(firstName, false);
-            var second = BuildSeparatedString(secondName, false);
-            var third = BuildSeparatedString(thirdName, true);
+            var first = BuildSeparatedString(firstName);
+            var second = BuildSeparatedString(secondName);
             const int includedSeparatorLength = 2;
 
             var emailLength = first.Length
                               + second.Length
-                              + third.Length
+                              + thirdName.Length
                               + AtLength
                               + includedSeparatorLength
                               + _infiniteDomainEnumerator.Current.Length;
@@ -72,22 +70,21 @@ namespace Sharpy.Builder.Implementation
                 new StringBuilder(emailLength, emailLength)
                     .Append(first)
                     .Append(second)
-                    .Append(third)
+                    .Append(thirdName)
             );
         }
 
         /// <inheritdoc />
         public string Mail(in string firstName, in string secondName, in string thirdName, in string fourthName)
         {
-            var first = BuildSeparatedString(firstName, false);
-            var second = BuildSeparatedString(secondName, false);
-            var third = BuildSeparatedString(thirdName, false);
-            var fourth = BuildSeparatedString(fourthName, true);
+            var first = BuildSeparatedString(firstName);
+            var second = BuildSeparatedString(secondName);
+            var third = BuildSeparatedString(thirdName);
             const int includedSeparatorLength = 3;
             var emailLength = first.Length
                               + second.Length
                               + third.Length
-                              + fourth.Length
+                              + fourthName.Length
                               + AtLength
                               + includedSeparatorLength
                               + _infiniteDomainEnumerator.Current.Length;
@@ -97,7 +94,7 @@ namespace Sharpy.Builder.Implementation
                     .Append(first)
                     .Append(second)
                     .Append(third)
-                    .Append(fourth)
+                    .Append(fourthName)
             );
         }
 
@@ -105,18 +102,17 @@ namespace Sharpy.Builder.Implementation
         public string Mail(in string firstName, in string secondName, in string thirdName, in string fourthName,
             in string fifthName)
         {
-            var first = BuildSeparatedString(firstName, false);
-            var second = BuildSeparatedString(secondName, false);
-            var third = BuildSeparatedString(thirdName, false);
-            var fourth = BuildSeparatedString(fourthName, false);
-            var fifth = BuildSeparatedString(fifthName, true);
+            var first = BuildSeparatedString(firstName);
+            var second = BuildSeparatedString(secondName);
+            var third = BuildSeparatedString(thirdName);
+            var fourth = BuildSeparatedString(fourthName);
 
             const int includedSeparatorLength = 4;
             var emailLength = first.Length
                               + second.Length
                               + third.Length
                               + fourth.Length
-                              + fifth.Length
+                              + fifthName.Length
                               + AtLength
                               + includedSeparatorLength
                               + _infiniteDomainEnumerator.Current.Length;
@@ -126,21 +122,20 @@ namespace Sharpy.Builder.Implementation
                     .Append(second)
                     .Append(third)
                     .Append(fourth)
-                    .Append(fifth)
+                    .Append(fifthName)
             );
         }
 
         /// <inheritdoc />
         public string Mail(in string name)
         {
-            var first = BuildSeparatedString(name, true);
-            var emailLength = first.Length
+            var emailLength = name.Length
                               + AtLength
                               + _infiniteDomainEnumerator.Current.Length;
 
             return UniqueEmailFactory(
                 new StringBuilder(emailLength, emailLength)
-                    .Append(first)
+                    .Append(name)
             );
         }
 
@@ -157,11 +152,11 @@ namespace Sharpy.Builder.Implementation
             if (additional.Length == 0)
                 return Mail(firstName, secondName, thirdName, fourthName, fifthName);
 
-            var first = BuildSeparatedString(firstName, false);
-            var second = BuildSeparatedString(secondName, false);
-            var third = BuildSeparatedString(thirdName, false);
-            var fourth = BuildSeparatedString(fourthName, false);
-            var fifth = BuildSeparatedString(fifthName, false);
+            var first = BuildSeparatedString(firstName);
+            var second = BuildSeparatedString(secondName);
+            var third = BuildSeparatedString(thirdName);
+            var fourth = BuildSeparatedString(fourthName);
+            var fifth = BuildSeparatedString(fifthName);
             var includedSeparatorLength = 5 + additional.Length;
 
             // We can not know the final string length due to the array without looping through it.
@@ -184,7 +179,7 @@ namespace Sharpy.Builder.Implementation
 
 
             for (var i = 0; i < additional.Length; i++)
-                sb.Append(BuildSeparatedString(additional[i], i == additional.Length - 1));
+                sb.Append(i == additional.Length - 1 ? additional[i] : BuildSeparatedString(additional[i]));
 
             return UniqueEmailFactory(sb);
         }
@@ -197,16 +192,17 @@ namespace Sharpy.Builder.Implementation
 
             // We can not know the final string length due to the array without looping through it.
             var minimumEmailLength = AtLength + _infiniteDomainEnumerator.Current.Length + names.Length;
-            
-            var stringBuilder = new StringBuilder(minimumEmailLength);
-            for (var i = 0; i < names.Length; i++)
-                stringBuilder.Append(BuildSeparatedString(names[i], i == names.Length - 1));
 
-            return UniqueEmailFactory(stringBuilder);
+            var sb = new StringBuilder(minimumEmailLength);
+            for (var i = 0; i < names.Length; i++)
+                sb.Append(i == names.Length - 1 ? names[i] : BuildSeparatedString(names[i]));
+
+            return UniqueEmailFactory(sb);
         }
 
         private string UniqueEmailFactory(in StringBuilder builder)
         {
+            var atIndex = builder.Length;
             string email = builder
                 .Append('@')
                 .Append(_infiniteDomainEnumerator.Current)
@@ -217,7 +213,7 @@ namespace Sharpy.Builder.Implementation
                 _dictionary[email] = ++count;
                 // On duplicated emails, we append the count number to ensure that we do not get duplicated emails.
                 _infiniteDomainEnumerator.MoveNext();
-                return email.Insert(builder.Length, count.ToString());
+                return email.Insert(atIndex, count.ToString());
             }
 
             _dictionary.Add(email, 0);
@@ -225,14 +221,9 @@ namespace Sharpy.Builder.Implementation
             return email;
         }
 
-        private string BuildSeparatedString(in string name, in bool skipSeparator)
+        private string BuildSeparatedString(in string name)
         {
-            if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException($"Invalid string value '{name}'.", nameof(name));
-            
-            if (skipSeparator) return name;
             _separatorEnumerator.MoveNext();
-
             return string.Concat(name, _separatorEnumerator.Current);
         }
 

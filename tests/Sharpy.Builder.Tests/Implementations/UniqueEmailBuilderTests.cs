@@ -22,23 +22,6 @@ namespace Sharpy.Builder.Tests.Implementations
         }
 
         [Test]
-        public void Testi()
-        {
-            var startNew = Stopwatch.StartNew();
-            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"});
-
-            var emails = new string[2_000_000] ;
-            for (int i = 0; i < 2_000_000; i++)
-            {
-                emails[i] = uniqueEmailBuilder.Mail("john", "doe");
-            }
-
-            var elapsed = startNew.Elapsed;
-            
-            return;
-        }
-
-        [Test]
         public void One_Arg_One_Domain_Produces_Valid_Emails()
         {
             var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"});
@@ -186,22 +169,6 @@ namespace Sharpy.Builder.Tests.Implementations
         {
             Assert.Throws<ArgumentException>(() =>
                 new UniqueEmailBuilder(new[] {"gmail.com"}).Mail(Array.Empty<string>())
-            );
-        }
-
-        [Test]
-        public void One_Arg_Empty_String_Throws()
-        {
-            Assert.Throws<ArgumentException>(() =>
-                new UniqueEmailBuilder(new[] {"gmail.com"}).Mail(string.Empty)
-            );
-        }
-
-        [Test]
-        public void Two_Arg_Empty_String_Throws()
-        {
-            Assert.Throws<ArgumentException>(() =>
-                new UniqueEmailBuilder(new[] {"gmail.com"}).Mail(MailUserName, string.Empty)
             );
         }
 
