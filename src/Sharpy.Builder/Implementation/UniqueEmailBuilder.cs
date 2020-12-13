@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Sharpy.Builder.Implementation.ExtensionMethods;
 using Sharpy.Builder.Providers;
 
 namespace Sharpy.Builder.Implementation
@@ -21,13 +20,11 @@ namespace Sharpy.Builder.Implementation
         /// </summary>
         private readonly IEnumerator<string> _infiniteDomainEnumerator;
 
-        private readonly Random _random;
 
         private readonly IEnumerator<char> _separatorEnumerator;
 
-        internal UniqueEmailBuilder(IReadOnlyList<string> providers, Random random)
+        internal UniqueEmailBuilder(IReadOnlyList<string> providers)
         {
-            _random = random;
             _infiniteDomainEnumerator = Infinite(providers).GetEnumerator();
             _separatorEnumerator = Infinite(Separators).GetEnumerator();
             _dictionary = new Dictionary<string, int>();
@@ -206,17 +203,6 @@ namespace Sharpy.Builder.Implementation
                 stringBuilder.Append(BuildSeparatedString(names[i], i == names.Length - 1));
 
             return UniqueEmailFactory(stringBuilder);
-        }
-
-        /// <inheritdoc />
-        public string Mail()
-        {
-            while (true)
-            {
-                var randomItem = _random.ListElement(Data.GetUserNames);
-                if (randomItem.Length < 4) continue;
-                return Mail(randomItem);
-            }
         }
 
         private string UniqueEmailFactory(in StringBuilder builder)
