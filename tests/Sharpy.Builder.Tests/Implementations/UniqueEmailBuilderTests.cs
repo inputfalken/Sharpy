@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Mail;
 using NUnit.Framework;
@@ -20,6 +21,22 @@ namespace Sharpy.Builder.Tests.Implementations
                 .ToList();
         }
 
+        [Test]
+        public void Testi()
+        {
+            var startNew = Stopwatch.StartNew();
+            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random());
+
+            var emails = new string[2_000_000] ;
+            for (int i = 0; i < 2_000_000; i++)
+            {
+                emails[i] = uniqueEmailBuilder.Mail("john", "doe");
+            }
+
+            var elapsed = startNew.Elapsed;
+            
+            return;
+        }
         [Test]
         public void No_Arg_One_Domain_Produces_Valid_Emails()
         {

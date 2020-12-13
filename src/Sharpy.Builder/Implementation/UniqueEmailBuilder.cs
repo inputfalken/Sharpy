@@ -166,37 +166,32 @@ namespace Sharpy.Builder.Implementation
 
         private string UniqueEmailFactory(in StringBuilder builder)
         {
-            while (_infiniteDomainEnumerator.MoveNext())
-            {
-                var domain = _infiniteDomainEnumerator.Current;
-                var nameAndAtLength = builder.Length + 1;
-                var length = nameAndAtLength + domain.Length;
-                char[] chars = new char[length];
+            _infiniteDomainEnumerator.MoveNext();
+            
+            var domain = _infiniteDomainEnumerator.Current;
+            var nameAndAtLength = builder.Length + 1;
+            var length = nameAndAtLength + domain.Length;
+            char[] chars = new char[length];
 
-                for (var i = 0; i < length; i++)
-                    if (i < builder.Length)
-                        chars[i] = char.ToLower(builder[i]);
-                    else if (i == builder.Length)
-                        chars[i] = '@';
-                    else
-                        chars[i] = char.ToLower(domain[i - nameAndAtLength]);
-
-                string email = new string(chars, 0, chars.Length);
-
-                if (_dictionary.TryGetValue(email, out var count))
-                {
-                    _dictionary[email] = ++count;
-                    // On duplicated emails, we append a random number as well as the count to ensure we do not loop more than twice.
-                    builder.Append(_random.Next(10) + count);
-                }
+            for (var i = 0; i < length; i++)
+                if (i < builder.Length)
+                    chars[i] = char.ToLower(builder[i]);
+                else if (i == builder.Length)
+                    chars[i] = '@';
                 else
-                {
-                    _dictionary.Add(email, 0);
-                    return email;
-                }
+                    chars[i] = char.ToLower(domain[i - nameAndAtLength]);
+
+            string email = new string(chars, 0, chars.Length);
+
+            if (_dictionary.TryGetValue(email, out var count))
+            {
+                _dictionary[email] = ++count;
+                // On duplicated emails, we append the count number to ensure that we do not loop more than twice.
+                return email.Insert(builder.Length, count.ToString());
             }
 
-            throw new InvalidOperationException("Infinite sequence should never get here");
+            _dictionary.Add(email, 0);
+            return email;
         }
 
         private char[] BuildChars(in string name, in bool skipSeparator)
@@ -229,16 +224,6 @@ namespace Sharpy.Builder.Implementation
                 {
                     yield return element;
                 }
-            }
-        }
-
-        private static IEnumerable<char> Infinite()
-        {
-            while (true)
-            {
-                yield return '.';
-                yield return '_';
-                yield return '-';
             }
         }
     }
