@@ -18,6 +18,8 @@ namespace Sharpy.Builder.Implementation
         /// </summary>
         private readonly IEnumerator<string> _infiniteDomainEnumerator;
 
+        private const int AtLength = 1;
+
         private static readonly char[] Separators = {'.', '_', '-'};
         private readonly IDictionary<string, int> _dictionary;
 
@@ -38,7 +40,11 @@ namespace Sharpy.Builder.Implementation
             var second = BuildChars(secondName, true);
 
             return UniqueEmailFactory(
-                new StringBuilder(firstName.Length + second.Length)
+                new StringBuilder(
+                        firstName.Length
+                        + second.Length
+                        + AtLength
+                    )
                     .Append(first)
                     .Append(second)
             );
@@ -52,7 +58,12 @@ namespace Sharpy.Builder.Implementation
             var third = BuildChars(thirdName, true);
 
             return UniqueEmailFactory(
-                new StringBuilder(first.Length + second.Length + third.Length)
+                new StringBuilder(
+                        first.Length
+                        + second.Length
+                        + third.Length
+                        + AtLength
+                    )
                     .Append(first)
                     .Append(second)
                     .Append(third)
@@ -68,7 +79,13 @@ namespace Sharpy.Builder.Implementation
             var fourth = BuildChars(fourthName, true);
 
             return UniqueEmailFactory(
-                new StringBuilder(first.Length + second.Length + third.Length + fourth.Length)
+                new StringBuilder(
+                        first.Length
+                        + second.Length
+                        + third.Length
+                        + fourth.Length
+                        + AtLength
+                    )
                     .Append(first)
                     .Append(second)
                     .Append(third)
@@ -87,7 +104,14 @@ namespace Sharpy.Builder.Implementation
             var fifth = BuildChars(fifthName, true);
 
             return UniqueEmailFactory(
-                new StringBuilder(first.Length + second.Length + third.Length + fourth.Length + fifth.Length)
+                new StringBuilder(
+                        first.Length
+                        + second.Length
+                        + third.Length
+                        + fourth.Length
+                        + fifth.Length
+                        + AtLength
+                    )
                     .Append(first)
                     .Append(second)
                     .Append(third)
@@ -101,7 +125,10 @@ namespace Sharpy.Builder.Implementation
         {
             var first = BuildChars(name, true);
             return UniqueEmailFactory(
-                new StringBuilder(first.Length)
+                new StringBuilder(
+                        first.Length
+                        + AtLength
+                    )
                     .Append(first)
             );
         }
@@ -125,7 +152,14 @@ namespace Sharpy.Builder.Implementation
             var fourth = BuildChars(fourthName, false);
             var fifth = BuildChars(fifthName, false);
 
-            var sb = new StringBuilder(first.Length + second.Length + third.Length + fourth.Length + fifth.Length)
+            var sb = new StringBuilder(
+                    first.Length
+                    + second.Length
+                    + third.Length
+                    + fourth.Length
+                    + fifth.Length
+                    + AtLength
+                )
                 .Append(first)
                 .Append(second)
                 .Append(third)
