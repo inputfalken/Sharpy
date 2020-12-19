@@ -1,4 +1,4 @@
-name: Publish Sharpy to NuGet
+name: Publish Random.Extensions to NuGet
 on: [push]
 
 jobs:
@@ -35,9 +35,9 @@ jobs:
         uses: rohith/publish-nuget@v2
         with:
           # Filepath of the project to be packaged, relative to root of repository
-          PROJECT_FILE_PATH: ./src/Sharpy/Sharpy.csproj
+          PROJECT_FILE_PATH: ./src/Random.Extensions/Random.Extensions.csproj
           # NuGet package id, used for version detection & defaults to project name
-          PACKAGE_NAME: Sharpy
+          PACKAGE_NAME: Random.Extensions
           # Filepath with version info, relative to root of repository & defaults to PROJECT_FILE_PATH
           # VERSION_FILE_PATH: Directory.Build.props
           # Regex pattern to extract version info in a capturing group
