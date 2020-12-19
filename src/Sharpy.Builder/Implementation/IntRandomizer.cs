@@ -1,4 +1,5 @@
 ﻿using System;
+using Sharpy.Builder.Implementation.ExtensionMethods;
 using Sharpy.Builder.Providers;
 
 namespace Sharpy.Builder.Implementation
@@ -23,21 +24,19 @@ namespace Sharpy.Builder.Implementation
         /// <inheritdoc />
         public int Int(in int max)
         {
-            return _random.Next(max);
+            return Int(0, max);
         }
 
         /// <inheritdoc />
         public int Int(in int min, in int max)
         {
-            if (max < min)
-                throw new ArgumentOutOfRangeException($"{nameof(max)} must be > {nameof(min)}");
-            return _random.Next(min, max);
+            return _random.Int(min, max);
         }
 
         /// <inheritdoc />
         public int Int()
         {
-            return _random.Next();
+            return Int(0, int.MaxValue);
         }
     }
 }

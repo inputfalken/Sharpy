@@ -9,6 +9,35 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
     internal static class RandomExtensions
     {
         /// <summary>
+        ///     Randomizes a System.Int32 within <paramref name="min" /> and <paramref name="max" />.
+        /// </summary>
+        /// <param name="random">
+        ///     The System.Random to randomize with.
+        /// </param>
+        /// <param name="min">
+        ///     The minimum inclusive value.
+        /// </param>
+        /// <param name="max">
+        ///     The maximum exclusive value.
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <paramref name="min" /> is greater than <paramref name="max" />.
+        /// </exception>
+        /// <returns>
+        ///     A randomized System.Int32 within <paramref name="min" /> and <paramref name="max" />.
+        /// </returns>
+        public static int Int(this Random random, in int min, in int max)
+        {
+            return random switch
+            {
+                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min),
+                    $"Can not be greater than {nameof(max)}."),
+                _ when min == max => min,
+                _ => random.Next(min, max)
+            };
+        }
+
+        /// <summary>
         ///     Randomizes a System.Decimal within <paramref name="min" /> and <paramref name="max" />.
         /// </summary>
         /// <param name="random">
@@ -461,7 +490,7 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
                     -3 => third,
                     -2 => second,
                     -1 => first,
-                    {} x => additional[x]
+                    { } x => additional[x]
                 }
             };
         }
@@ -552,8 +581,8 @@ namespace Sharpy.Builder.Implementation.ExtensionMethods
                         random.Double(min.TotalMilliseconds, max.TotalMilliseconds)
                     ) switch
                     {
-                        {} x when x == max => x.Subtract(System.TimeSpan.FromTicks(1)),
-                        {} x => x
+                        { } x when x == max => x.Subtract(System.TimeSpan.FromTicks(1)),
+                        { } x => x
                     }
             };
         }
