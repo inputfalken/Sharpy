@@ -6,7 +6,7 @@ namespace Random.Extensions
     /// <summary>
     ///     Contains a set of static extension method on System.Random.
     /// </summary>
-    internal static class Random
+    public static class Random
     {
         /// <summary>
         ///     Randomizes a System.Int32 within <paramref name="min" /> and <paramref name="max" />.
