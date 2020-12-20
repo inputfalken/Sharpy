@@ -11,6 +11,11 @@ namespace Sharpy.Builder.Tests.Implementations
     public class UniqueEmailBuilderTests
     {
         private const string MailUserName = "test";
+        private const string GMail = "gmail.com";
+        private const string HotMail = "hotmail.com";
+        private const string Yahoo = "yahoo.com";
+        private const string OutLook = "outlook.com";
+        private static readonly string[] Providers = {GMail, HotMail, Yahoo, OutLook};
 
         private static List<string> FindDuplicates(IEnumerable<string> enumerable)
         {
@@ -21,81 +26,114 @@ namespace Sharpy.Builder.Tests.Implementations
         }
 
         [Test]
-        public void No_Arg_One_Domain_Produces_Valid_Emails()
+        public void Providers_Are_Circulated()
         {
-            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random());
-            for (var i = 0; i < Assertion.Amount; i++)
-                Assert.DoesNotThrow(() => new MailAddress(uniqueEmailBuilder.Mail()));
+            var uniqueEmailBuilder = new UniqueEmailBuilder(Providers);
+
+            Assert.AreEqual(GMail, new MailAddress(uniqueEmailBuilder.Mail(MailUserName)).Host);
+            Assert.AreEqual(HotMail, new MailAddress(uniqueEmailBuilder.Mail(MailUserName)).Host);
+            Assert.AreEqual(Yahoo, new MailAddress(uniqueEmailBuilder.Mail(MailUserName)).Host);
+            Assert.AreEqual(OutLook, new MailAddress(uniqueEmailBuilder.Mail(MailUserName)).Host);
+            
+            // Resets due to all providers been iterated
+            Assert.AreEqual(GMail, new MailAddress(uniqueEmailBuilder.Mail(MailUserName)).Host);
+            Assert.AreEqual(HotMail, new MailAddress(uniqueEmailBuilder.Mail(MailUserName)).Host);
+            Assert.AreEqual(Yahoo, new MailAddress(uniqueEmailBuilder.Mail(MailUserName)).Host);
+            Assert.AreEqual(OutLook, new MailAddress(uniqueEmailBuilder.Mail(MailUserName)).Host);
         }
 
         [Test]
         public void One_Arg_One_Domain_Produces_Valid_Emails()
         {
-            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random());
+            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {GMail});
             for (var i = 0; i < Assertion.Amount; i++)
-                Assert.DoesNotThrow(() => new MailAddress(uniqueEmailBuilder.Mail(MailUserName)));
+                Assert.DoesNotThrow(() =>
+                {
+                    var res = new MailAddress(uniqueEmailBuilder.Mail(MailUserName));
+                    Assert.AreEqual(i == 0 ? MailUserName : $"{MailUserName}{i}", res.User);
+                    Assert.AreEqual(GMail, res.Host);
+                });
         }
 
         [Test]
         public void Two_Arg_One_Domain_Produces_Valid_Emails()
         {
-            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random());
+            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {GMail});
             for (var i = 0; i < Assertion.Amount; i++)
-                Assert.DoesNotThrow(() => new MailAddress(uniqueEmailBuilder.Mail(MailUserName, "foo")));
+                Assert.DoesNotThrow(() =>
+                {
+                    var res = new MailAddress(uniqueEmailBuilder.Mail(MailUserName, "foo"));
+                    Assert.AreEqual(GMail, res.Host);
+                });
         }
 
         [Test]
         public void Three_Arg_One_Domain_Produces_Valid_Emails()
         {
-            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random());
+            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {GMail});
             for (var i = 0; i < Assertion.Amount; i++)
-                Assert.DoesNotThrow(() => new MailAddress(uniqueEmailBuilder.Mail(MailUserName, "foo", "bar")));
+                Assert.DoesNotThrow(() =>
+                {
+                    var res = new MailAddress(uniqueEmailBuilder.Mail(MailUserName, "foo", "bar"));
+                    Assert.AreEqual(GMail, res.Host);
+                });
         }
 
         [Test]
         public void Four_Arg_One_Domain_Produces_Valid_Emails()
         {
-            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random());
+            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {GMail});
             for (var i = 0; i < Assertion.Amount; i++)
                 Assert.DoesNotThrow(() =>
-                    new MailAddress(uniqueEmailBuilder.Mail(MailUserName, "foo", "bar", "john")));
+                {
+                    var res = new MailAddress(uniqueEmailBuilder.Mail(MailUserName, "foo", "bar", "john"));
+                    Assert.AreEqual(GMail, res.Host);
+                });
         }
 
         [Test]
         public void Five_Arg_One_Domain_Produces_Valid_Emails()
         {
-            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random());
+            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {GMail});
             for (var i = 0; i < Assertion.Amount; i++)
                 Assert.DoesNotThrow(() =>
-                    new MailAddress(uniqueEmailBuilder.Mail(MailUserName, "foo", "bar", "john", "doe")));
+                {
+                    var res = new MailAddress(uniqueEmailBuilder.Mail(MailUserName, "foo", "bar", "john", "doe"));
+                    Assert.AreEqual(GMail, res.Host);
+                });
         }
 
         [Test]
         public void Six_Arg_One_Domain_Produces_Valid_Emails()
         {
-            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random());
+            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {GMail});
             for (var i = 0; i < Assertion.Amount; i++)
                 Assert.DoesNotThrow(() =>
-                    new MailAddress(uniqueEmailBuilder.Mail(MailUserName, "foo", "bar", "john", "doe", "test")));
+                {
+                    var res = new MailAddress(
+                        uniqueEmailBuilder.Mail(MailUserName, "foo", "bar", "john", "doe", "test"));
+                    Assert.AreEqual(GMail, res.Host);
+                });
         }
 
         [Test]
         public void Seven_Arg_One_Domain_Produces_Valid_Emails()
         {
-            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random());
+            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {GMail});
             for (var i = 0; i < Assertion.Amount; i++)
                 Assert.DoesNotThrow(() =>
                 {
-                    new MailAddress(uniqueEmailBuilder.Mail(MailUserName, "foo", "bar", "john", "doe", "test",
+                    var res = new MailAddress(uniqueEmailBuilder.Mail(MailUserName, "foo", "bar", "john", "doe", "test",
                         "testi"));
+                    Assert.AreEqual(GMail, res.Host);
                 });
         }
 
         [Test]
         public void One_Arg_Acts_Same_As_Array_OverLoad()
         {
-            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(10));
-            var uniqueEmailBuilder2 = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(10));
+            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {GMail});
+            var uniqueEmailBuilder2 = new UniqueEmailBuilder(new[] {GMail});
 
             var first = MailUserName + 1;
             for (var i = 0; i < Assertion.Amount; i++)
@@ -108,8 +146,8 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void Two_Arg_Acts_Same_As_Array_OverLoad()
         {
-            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(10));
-            var uniqueEmailBuilder2 = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(10));
+            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {GMail});
+            var uniqueEmailBuilder2 = new UniqueEmailBuilder(new[] {GMail});
 
             var first = MailUserName + 1;
             var second = MailUserName + 2;
@@ -123,8 +161,8 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void Three_Arg_Acts_Same_As_Array_OverLoad()
         {
-            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(10));
-            var uniqueEmailBuilder2 = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(10));
+            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {GMail});
+            var uniqueEmailBuilder2 = new UniqueEmailBuilder(new[] {GMail});
 
             var first = MailUserName + 1;
             var second = MailUserName + 2;
@@ -139,8 +177,8 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void Four_Arg_Acts_Same_As_Array_OverLoad()
         {
-            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(10));
-            var uniqueEmailBuilder2 = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(10));
+            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {GMail});
+            var uniqueEmailBuilder2 = new UniqueEmailBuilder(new[] {GMail});
 
             var first = MailUserName + 1;
             var second = MailUserName + 2;
@@ -156,8 +194,8 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void Five_Arg_Acts_Same_As_Array_OverLoad()
         {
-            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(10));
-            var uniqueEmailBuilder2 = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(10));
+            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {GMail});
+            var uniqueEmailBuilder2 = new UniqueEmailBuilder(new[] {GMail});
 
             var first = MailUserName + 1;
             var second = MailUserName + 2;
@@ -175,31 +213,15 @@ namespace Sharpy.Builder.Tests.Implementations
         public void Empty_Array_Throws()
         {
             Assert.Throws<ArgumentException>(() =>
-                new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(10)).Mail(Array.Empty<string>())
-            );
-        }
-
-        [Test]
-        public void One_Arg_Empty_String_Throws()
-        {
-            Assert.Throws<ArgumentException>(() =>
-                new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(10)).Mail(string.Empty)
-            );
-        }
-
-        [Test]
-        public void Two_Arg_Empty_String_Throws()
-        {
-            Assert.Throws<ArgumentException>(() =>
-                new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(10)).Mail(MailUserName, string.Empty)
+                new UniqueEmailBuilder(new[] {GMail}).Mail(Array.Empty<string>())
             );
         }
 
         [Test]
         public void Six_Arg_Acts_Same_As_Array_OverLoad()
         {
-            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(10));
-            var uniqueEmailBuilder2 = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(10));
+            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {GMail});
+            var uniqueEmailBuilder2 = new UniqueEmailBuilder(new[] {GMail});
 
             var first = MailUserName + 1;
             var second = MailUserName + 2;
@@ -217,8 +239,8 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void Seven_Arg_Acts_Same_As_Array_OverLoad()
         {
-            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(10));
-            var uniqueEmailBuilder2 = new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(10));
+            var uniqueEmailBuilder = new UniqueEmailBuilder(new[] {GMail});
+            var uniqueEmailBuilder2 = new UniqueEmailBuilder(new[] {GMail});
 
             var first = MailUserName + 1;
             var second = MailUserName + 2;
@@ -235,137 +257,9 @@ namespace Sharpy.Builder.Tests.Implementations
         }
 
         [Test]
-        public void No_Arg_One_Domain_Is_Deterministic_With_Seed()
-        {
-            Assertion.IsNotDeterministic(
-                i => new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(i)),
-                x => x.Mail()
-            );
-        }
-
-        [Test]
-        public void No_Arg_One_Domain_Is_Not_Deterministic_With_Different_Seed()
-        {
-            Assertion.IsNotDeterministic(
-                i => new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(i)),
-                x => x.Mail()
-            );
-        }
-
-        [Test]
-        public void One_Arg_One_Domain_Is_Deterministic_With_Seed()
-        {
-            Assertion.IsDeterministic(
-                i => new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(i)),
-                x => x.Mail("foo")
-            );
-        }
-
-        [Test]
-        public void One_Arg_One_Domain_Is_Not_Deterministic_With_Different_Seed()
-        {
-            Assertion.IsNotDeterministic(
-                i => new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(i)),
-                x => x.Mail("foo")
-            );
-        }
-
-        [Test]
-        public void Two_Arg_One_Domain_Is_Deterministic_With_Seed()
-        {
-            Assertion.IsDeterministic(
-                i => new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(i)),
-                x => x.Mail("foo", "bar")
-            );
-        }
-
-        [Test]
-        public void Two_Arg_One_Domain_Is_Not_Deterministic_With_Different_Seed()
-        {
-            Assertion.IsNotDeterministic(
-                i => new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(i)),
-                x => x.Mail("foo", "bar")
-            );
-        }
-
-        [Test]
-        public void Three_Arg_One_Domain_Is_Deterministic_With_Seed()
-        {
-            Assertion.IsDeterministic(
-                i => new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(i)),
-                x => x.Mail("foo", "bar", "john")
-            );
-        }
-
-        [Test]
-        public void Three_Arg_One_Domain_Is_Not_Deterministic_With_Different_Seed()
-        {
-            Assertion.IsNotDeterministic(
-                i => new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(i)),
-                x => x.Mail("foo", "bar", "john")
-            );
-        }
-
-        [Test]
-        public void Four_Arg_One_Domain_Is_Deterministic_With_Seed()
-        {
-            Assertion.IsDeterministic(
-                i => new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(i)),
-                x => x.Mail("foo", "bar", "john", "doe")
-            );
-        }
-
-        [Test]
-        public void Four_Arg_One_Domain_Is_Not_Deterministic_With_Different_Seed()
-        {
-            Assertion.IsNotDeterministic(
-                i => new UniqueEmailBuilder(new[] {"gmail.com"}, new Random(i)),
-                x => x.Mail("foo", "bar", "john", "doe")
-            );
-        }
-
-        [Test]
-        public void Mail_No_Arg_Does_Not_start_With_AT_One_Domain()
-        {
-            var uniqueEmailBuilder = new UniqueEmailBuilder(new List<string> {"hotmail.com"}, new Random());
-            var mails = new List<string>();
-            for (var i = 0; i < Assertion.Amount; i++) mails.Add(uniqueEmailBuilder.Mail());
-            Assert.IsTrue(mails.All(s => s.IndexOf('@') > 1));
-        }
-
-        [Test]
-        public void Mail_No_Arg_Is_Unique_One_Domain()
-        {
-            var uniqueEmailBuilder = new UniqueEmailBuilder(new List<string> {"hotmail.com"}, new Random());
-            var mails = new List<string>();
-            for (var i = 0; i < Assertion.Amount; i++) mails.Add(uniqueEmailBuilder.Mail());
-            Assert.IsTrue(FindDuplicates(mails).Count == 0);
-        }
-
-        [Test]
-        public void Mail_No_Arg_Is_Unique_Three_Domain()
-        {
-            var uniqueEmailBuilder =
-                new UniqueEmailBuilder(new List<string> {"hotmail.com", "gmail.com", "foo.com"}, new Random());
-            var mails = new List<string>();
-            for (var i = 0; i < Assertion.Amount; i++) mails.Add(uniqueEmailBuilder.Mail());
-            Assert.IsTrue(FindDuplicates(mails).Count == 0);
-        }
-
-        [Test]
-        public void Mail_No_Arg_Is_Unique_Two_Domain()
-        {
-            var uniqueEmailBuilder =
-                new UniqueEmailBuilder(new List<string> {"hotmail.com", "gmail.com"}, new Random());
-            var mails = new List<string>();
-            for (var i = 0; i < Assertion.Amount; i++) mails.Add(uniqueEmailBuilder.Mail());
-            Assert.IsTrue(FindDuplicates(mails).Count == 0);
-        }
-
-        [Test]
         public void Mail_With_Arg_Append_Number_If_Mail_Is_Duplicated_One_Domain()
         {
-            var uniqueEmailBuilder = new UniqueEmailBuilder(new List<string> {"hotmail.com"}, new Random());
+            var uniqueEmailBuilder = new UniqueEmailBuilder(new List<string> {HotMail});
             Assert.IsFalse(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
             for (var i = 0; i < Assertion.Amount; i++)
                 Assert.IsTrue(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
@@ -375,7 +269,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void Mail_With_Arg_Append_Number_If_Mail_Is_Duplicated_Three_Domain()
         {
             var uniqueEmailBuilder =
-                new UniqueEmailBuilder(new List<string> {"hotmail.com", "google.com", "yahoo.com"}, new Random());
+                new UniqueEmailBuilder(new List<string> {HotMail, GMail, Yahoo});
             Assert.IsFalse(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
             Assert.IsFalse(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
             Assert.IsFalse(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
@@ -387,7 +281,7 @@ namespace Sharpy.Builder.Tests.Implementations
         public void Mail_With_Arg_Append_Number_If_Mail_Is_Duplicated_Two_Domain()
         {
             var uniqueEmailBuilder =
-                new UniqueEmailBuilder(new List<string> {"hotmail.com", "google.com"}, new Random());
+                new UniqueEmailBuilder(new List<string> {HotMail, GMail});
             Assert.IsFalse(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
             Assert.IsFalse(uniqueEmailBuilder.Mail(MailUserName).Any(char.IsDigit));
             for (var i = 0; i < Assertion.Amount; i++)
@@ -397,7 +291,7 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void Mail_With_Arg_Does_Not_start_With_AT_One_Domain()
         {
-            var uniqueEmailBuilder = new UniqueEmailBuilder(new List<string> {"hotmail.com"}, new Random());
+            var uniqueEmailBuilder = new UniqueEmailBuilder(new List<string> {HotMail});
             var mails = new List<string>();
             for (var i = 0; i < Assertion.Amount; i++) mails.Add(uniqueEmailBuilder.Mail(MailUserName));
             Assert.IsTrue(mails.All(s => s.IndexOf('@') > 1));
@@ -406,9 +300,10 @@ namespace Sharpy.Builder.Tests.Implementations
         [Test]
         public void Mail_With_Arg_Is_Unique_One_Domain()
         {
-            var uniqueEmailBuilder = new UniqueEmailBuilder(new List<string> {"hotmail.com"}, new Random());
-            var mails = new List<string>();
-            for (var i = 0; i < Assertion.Amount; i++) mails.Add(uniqueEmailBuilder.Mail(MailUserName));
+            var uniqueEmailBuilder = new UniqueEmailBuilder(new List<string> {HotMail});
+            var mails = new string[Assertion.Amount];
+            for (var i = 0; i < Assertion.Amount; i++) 
+                mails[i] = uniqueEmailBuilder.Mail(MailUserName);
             Assert.IsTrue(FindDuplicates(mails).Count == 0);
         }
 
@@ -416,9 +311,11 @@ namespace Sharpy.Builder.Tests.Implementations
         public void Mail_With_Arg_Is_Unique_Three_Domain()
         {
             var uniqueEmailBuilder =
-                new UniqueEmailBuilder(new List<string> {"hotmail.com", "gmail.com", "foo.com"}, new Random());
-            var mails = new List<string>();
-            for (var i = 0; i < Assertion.Amount; i++) mails.Add(uniqueEmailBuilder.Mail(MailUserName));
+                new UniqueEmailBuilder(new List<string> {HotMail, GMail, "foo.com"});
+            var mails = new string[Assertion.Amount];
+            for (var i = 0; i < Assertion.Amount; i++) 
+                mails[i] = uniqueEmailBuilder.Mail(MailUserName);
+            
             Assert.IsTrue(FindDuplicates(mails).Count == 0);
         }
 
@@ -426,18 +323,20 @@ namespace Sharpy.Builder.Tests.Implementations
         public void Mail_With_Arg_Is_Unique_Two_Domain()
         {
             var uniqueEmailBuilder =
-                new UniqueEmailBuilder(new List<string> {"hotmail.com", "gmail.com"}, new Random());
-            var mails = new List<string>();
-            for (var i = 0; i < Assertion.Amount; i++) mails.Add(uniqueEmailBuilder.Mail(MailUserName));
+                new UniqueEmailBuilder(new List<string> {HotMail, GMail});
+            var mails = new string[Assertion.Amount];
+            for (var i = 0; i < Assertion.Amount; i++) 
+                mails[i] = uniqueEmailBuilder.Mail(MailUserName);
             Assert.IsTrue(FindDuplicates(mails).Count == 0);
         }
 
         [Test]
         public void Mail_With_Arg_Use_Argument_One_Domain()
         {
-            var uniqueEmailBuilder = new UniqueEmailBuilder(new List<string> {"hotmail.com"}, new Random());
-            var mails = new List<string>();
-            for (var i = 0; i < Assertion.Amount; i++) mails.Add(uniqueEmailBuilder.Mail(MailUserName));
+            var uniqueEmailBuilder = new UniqueEmailBuilder(new List<string> {HotMail});
+            var mails = new string[Assertion.Amount];
+            for (var i = 0; i < Assertion.Amount; i++) 
+                mails[i] = uniqueEmailBuilder.Mail(MailUserName);
             Assert.IsTrue(mails.All(s => s.Split('@')[0].StartsWith(MailUserName)));
         }
 
@@ -445,9 +344,10 @@ namespace Sharpy.Builder.Tests.Implementations
         public void Mail_With_Arg_Use_Argument_Three_Domain()
         {
             var uniqueEmailBuilder =
-                new UniqueEmailBuilder(new List<string> {"hotmail.com", "gmail.com", "foo.com"}, new Random());
-            var mails = new List<string>();
-            for (var i = 0; i < Assertion.Amount; i++) mails.Add(uniqueEmailBuilder.Mail(MailUserName));
+                new UniqueEmailBuilder(new List<string> {HotMail, GMail, "foo.com"});
+            var mails = new string[Assertion.Amount];
+            for (var i = 0; i < Assertion.Amount; i++) 
+                mails[i] = uniqueEmailBuilder.Mail(MailUserName);
             Assert.IsTrue(mails.All(s => s.Split('@')[0].StartsWith(MailUserName)));
         }
 
@@ -455,9 +355,10 @@ namespace Sharpy.Builder.Tests.Implementations
         public void Mail_With_Arg_Use_Argument_Two_Domain()
         {
             var uniqueEmailBuilder =
-                new UniqueEmailBuilder(new List<string> {"hotmail.com", "gmail.com"}, new Random());
-            var mails = new List<string>();
-            for (var i = 0; i < Assertion.Amount; i++) mails.Add(uniqueEmailBuilder.Mail(MailUserName));
+                new UniqueEmailBuilder(new List<string> {HotMail, GMail});
+            var mails = new string[Assertion.Amount];
+            for (var i = 0; i < Assertion.Amount; i++) 
+                mails[i] = uniqueEmailBuilder.Mail(MailUserName);
             Assert.IsTrue(mails.All(s => s.Split('@')[0].StartsWith(MailUserName)));
         }
     }

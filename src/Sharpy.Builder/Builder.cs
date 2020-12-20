@@ -243,12 +243,6 @@ namespace Sharpy.Builder
         }
 
         ///<inheritdoc />
-        public string Mail()
-        {
-            return _emailProvider.Mail();
-        }
-
-        ///<inheritdoc />
         public string Mail(in string name)
         {
             return _emailProvider.Mail(name);

@@ -17,14 +17,6 @@
         string Mail(in string[] names);
 
         /// <summary>
-        ///  Provides a System.String that represents an email address.
-        /// </summary>
-        /// <returns>
-        ///  A formatted email address.
-        /// </returns>
-        string Mail();
-
-        /// <summary>
         ///  Provides a System.String that represents an email address built from <paramref name="name"/>.
         /// </summary>
         /// <param name="name">

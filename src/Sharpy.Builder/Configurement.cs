@@ -32,8 +32,7 @@ namespace Sharpy.Builder
             DateTimeProvider = new DateTimeRandomizer(Random);
             UserNameProvider = new UserNameRandomizer(Random);
             MailProvider = new UniqueEmailBuilder(
-                new[] {"gmail.com", "live.com", "outlook.com", "hotmail.com", "yahoo.com"},
-                Random
+                new[] {"gmail.com", "live.com", "outlook.com", "hotmail.com", "yahoo.com"}
             );
             ListElementPicker = new ElementRandomizer(Random);
             BoolProvider = new BoolRandomizer(Random);
