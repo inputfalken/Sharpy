@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 using RandomExtended;
 
@@ -13,7 +14,7 @@ namespace RandomExtensions.Tests
             public void Is_Deterministic_With_Seed()
             {
                 Assertion.IsDeterministic(
-                    i => new System.Random(i),
+                    i => new Random(i),
                     x => x.Bool()
                 );
             }
@@ -22,7 +23,7 @@ namespace RandomExtensions.Tests
             public void Is_Not_Deterministic_With_Different_Seed()
             {
                 Assertion.IsNotDeterministic(
-                    i => new System.Random(i),
+                    i => new Random(i),
                     x => x.Bool()
                 );
             }
@@ -31,7 +32,7 @@ namespace RandomExtensions.Tests
             public void Values_Are_Distributed()
             {
                 Assertion.IsDistributed(
-                    new System.Random(Assertion.MainSeed),
+                    new Random(Assertion.MainSeed),
                     x => x.Bool(),
                     grouping => Assert.AreEqual(2, grouping.Count)
                 );

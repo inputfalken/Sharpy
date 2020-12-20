@@ -24,7 +24,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharpy.ReactiveBuilder.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomExtended", "src\RandomExtended\RandomExtended.csproj", "{A830E118-0FAA-4738-B196-3C7FEAC07D3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomExtensions.Tests", "tests\RandomExtensions.Tests\RandomExtensions.Tests.csproj", "{7282445F-6F02-41CA-8BC6-2D5A413AD985}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomExtended.Tests", "tests\RandomExtended.Tests\RandomExtended.Tests.csproj", "{7282445F-6F02-41CA-8BC6-2D5A413AD985}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
