@@ -77,7 +77,7 @@ namespace Random.Extensions.Tests
             const decimal max = 100;
             const decimal min = max;
 
-            Assert.DoesNotThrow(() => Random.Decimal(min, max));
+            Assertion.DoesNotThrow(() => Random.Decimal(min, max));
         }
 
         [Test]
@@ -90,9 +90,19 @@ namespace Random.Extensions.Tests
         }
 
         [Test]
-        public void MinValue_And_Max_Does_Not_Throw()
+        public void MinValue_And_MaxValue_Does_Not_Throw()
         {
-            Assert.DoesNotThrow(() => Random.Decimal(decimal.MinValue, decimal.MaxValue));
+            Assertion.DoesNotThrow(() => Random.Decimal(decimal.MinValue, decimal.MaxValue));
+        }
+        
+        [Test]
+        public void MinValue_And_MaxValue_Does_Not_Produce_Same_Values()
+        {
+            Assertion.IsDistributed(
+                Random,
+                x => x.Decimal(decimal.MinValue, decimal.MaxValue),
+                _ => { }
+            );
         }
     }
 }

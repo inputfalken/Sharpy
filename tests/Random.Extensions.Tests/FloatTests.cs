@@ -78,7 +78,7 @@ namespace Random.Extensions.Tests
             const float max = 100;
             const float min = max;
 
-            Assert.DoesNotThrow(() => Random.Float(min, max));
+            Assertion.DoesNotThrow(() => Random.Float(min, max));
         }
 
         [Test]
@@ -91,9 +91,19 @@ namespace Random.Extensions.Tests
         }
 
         [Test]
-        public void MinValue_And_Max_Does_Not_Throw()
+        public void MinValue_And_MaxValue_Does_Not_Throw()
         {
-            Assert.DoesNotThrow(() => Random.Float(float.MinValue, float.MaxValue));
+            Assertion.DoesNotThrow(() => Random.Float(float.MinValue, float.MaxValue));
+        }
+
+        [Test]
+        public void MinValue_And_MaxValue_Does_Not_Produce_Same_Values()
+        {
+            Assertion.IsDistributed(
+                Random,
+                x => x.Float(float.MinValue, float.MaxValue),
+                _ => { }
+            );
         }
     }
 }

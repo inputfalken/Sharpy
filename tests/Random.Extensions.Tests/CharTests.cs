@@ -158,7 +158,7 @@ namespace Random.Extensions.Tests
             const char max = 'h';
             const char min = max;
 
-            Assert.DoesNotThrow(() => Random.Char(min, max));
+            Assertion.DoesNotThrow(() => Random.Char(min, max));
         }
 
         [Test]
@@ -171,9 +171,15 @@ namespace Random.Extensions.Tests
         }
 
         [Test]
-        public void MinValue_And_Max_Does_Not_Throw()
+        public void MinValue_And_MaxValue_Does_Not_Throw()
         {
-            Assert.DoesNotThrow(() => Random.Char(char.MinValue, char.MaxValue));
+            Assertion.DoesNotThrow(() => Random.Char(char.MinValue, char.MaxValue));
+        }
+
+        [Test]
+        public void MinValue_And_MaxValue_Does_Not_Produce_Same_Values()
+        {
+            Assertion.IsDistributed(Random, x => x.Char(char.MinValue, char.MaxValue), _ => {});
         }
     }
 }

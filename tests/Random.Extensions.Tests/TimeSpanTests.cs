@@ -83,7 +83,7 @@ namespace Random.Extensions.Tests
             var max = TimeSpan.FromDays(1);
             var min = max;
 
-            Assert.DoesNotThrow(() => Random.TimeSpan(min, max));
+            Assertion.DoesNotThrow(() => Random.TimeSpan(min, max));
         }
 
         [Test]
@@ -98,7 +98,17 @@ namespace Random.Extensions.Tests
         [Test]
         public void MinValue_And_Max_Does_Not_Throw()
         {
-            Assert.DoesNotThrow(() => Random.TimeSpan(TimeSpan.MinValue, TimeSpan.MaxValue));
+            Assertion.DoesNotThrow(() => Random.TimeSpan(TimeSpan.MinValue, TimeSpan.MaxValue));
+        }
+
+        [Test]
+        public void MinValue_And_MaxValue_Does_Not_Produce_Same_Values()
+        {
+            Assertion.IsDistributed(
+                Random,
+                x => x.TimeSpan(TimeSpan.MinValue, TimeSpan.MaxValue),
+                _ => { }
+            );
         }
     }
 }

@@ -80,7 +80,7 @@ namespace Random.Extensions.Tests
             const double max = 100;
             const double min = max;
 
-            Assert.DoesNotThrow(() => Random.Double(min, max));
+            Assertion.DoesNotThrow(() => Random.Double(min, max));
         }
 
         [Test]
@@ -91,10 +91,21 @@ namespace Random.Extensions.Tests
 
             Assert.Throws<ArgumentOutOfRangeException>(() => Random.Double(min, max));
         }
+
         [Test]
-        public void MinValue_And_Max_Does_Not_Throw()
+        public void MinValue_And_MaxValue_Does_Not_Throw()
         {
-            Assert.DoesNotThrow(() => Random.Double(double.MinValue, double.MaxValue));
+            Assertion.DoesNotThrow(() => Random.Double(double.MinValue, double.MaxValue));
+        }
+
+        [Test]
+        public void MinValue_And_MaxValue_Does_Not_Produce_Same_Values()
+        {
+            Assertion.IsDistributed(
+                Random,
+                x => x.Double(double.MinValue, double.MaxValue),
+                _ => { }
+            );
         }
     }
 }

@@ -225,7 +225,7 @@ namespace Random.Extensions.Tests
             var min = max;
 
 
-            Assert.DoesNotThrow(() => Random.DateTime(min, max));
+            Assertion.DoesNotThrow(() => Random.DateTime(min, max));
         }
 
         [Test]
@@ -238,9 +238,19 @@ namespace Random.Extensions.Tests
         }
 
         [Test]
-        public void MinValue_And_Max_Does_Not_Throw()
+        public void MinValue_And_MaxValue_Does_Not_Throw()
         {
-            Assert.DoesNotThrow(() => Random.DateTime(DateTime.MinValue, DateTime.MaxValue));
+            Assertion.DoesNotThrow(() => Random.DateTime(DateTime.MinValue, DateTime.MaxValue));
+        }
+
+        [Test]
+        public void MinValue_And_MaxValue_Does_Not_Produce_Same_Values()
+        {
+            Assertion.IsDistributed(
+                Random,
+                x => x.DateTime(DateTime.MinValue, DateTime.MaxValue),
+                _ => { }
+            );
         }
     }
 }

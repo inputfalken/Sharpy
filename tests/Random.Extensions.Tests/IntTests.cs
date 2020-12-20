@@ -59,16 +59,26 @@ namespace Random.Extensions.Tests
             const int max = 100;
             const int min = max;
 
-            Assert.DoesNotThrow(() => Random.Int(min, max));
+            Assertion.DoesNotThrow(() => Random.Int(min, max));
         }
 
         [Test]
-        public void Min_Greater_Than_Max_Does_Throw()
+        public void MinValue_And_MaxValue_Does_Not_Throw()
         {
             const int max = 100;
             const int min = max + 1;
 
             Assert.Throws<ArgumentOutOfRangeException>(() => Random.Int(min, max));
+        }
+
+        [Test]
+        public void MinValue_And_MaxValue_Does_Not_Produce_Same_Values()
+        {
+            Assertion.IsDistributed(
+                Random,
+                x => x.Int(int.MinValue, int.MaxValue),
+                _ => { }
+            );
         }
     }
 }

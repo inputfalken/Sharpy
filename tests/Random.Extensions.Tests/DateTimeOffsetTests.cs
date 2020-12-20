@@ -39,19 +39,19 @@ namespace Random.Extensions.Tests
         public void Does_Not_Throw_When_OffSet_Is_Out_Of_Range()
         {
             // MinValue
-            Assert.DoesNotThrow(() =>
+            Assertion.DoesNotThrow(() =>
                 Random.DateTimeOffset(
                     DateTimeOffset.MinValue,
                     DateTimeOffset.MinValue.AddMinutes(1)
                 )
             );
-            Assert.DoesNotThrow(() =>
+            Assertion.DoesNotThrow(() =>
                 Random.DateTimeOffset(
                     DateTimeOffset.MinValue,
                     DateTimeOffset.MinValue.AddSeconds(1)
                 )
             );
-            Assert.DoesNotThrow(() =>
+            Assertion.DoesNotThrow(() =>
                 Random.DateTimeOffset(
                     DateTimeOffset.MinValue,
                     DateTimeOffset.MinValue.AddMilliseconds(1)
@@ -59,19 +59,19 @@ namespace Random.Extensions.Tests
             );
 
             // MaxValue
-            Assert.DoesNotThrow(() =>
+            Assertion.DoesNotThrow(() =>
                 Random.DateTimeOffset(
                     DateTimeOffset.MaxValue.AddMinutes(-1),
                     DateTimeOffset.MaxValue
                 )
             );
-            Assert.DoesNotThrow(() =>
+            Assertion.DoesNotThrow(() =>
                 Random.DateTimeOffset(
                     DateTimeOffset.MaxValue.AddSeconds(-1),
                     DateTimeOffset.MaxValue
                 )
             );
-            Assert.DoesNotThrow(() =>
+            Assertion.DoesNotThrow(() =>
                 Random.DateTimeOffset(
                     DateTimeOffset.MaxValue.AddMilliseconds(-1),
                     DateTimeOffset.MaxValue
@@ -275,10 +275,20 @@ namespace Random.Extensions.Tests
         }
 
         [Test]
-        public void MinValue_And_Max_Does_Not_Throw()
+        public void MinValue_And_MaxValue_Does_Not_Throw()
         {
-            Assert.DoesNotThrow(() =>
+            Assertion.DoesNotThrow(() =>
                 Random.DateTimeOffset(DateTimeOffset.MinValue, DateTimeOffset.MaxValue));
+        }
+
+        [Test]
+        public void MinValue_And_MaxValue_Does_Not_Produce_Same_Values()
+        {
+            Assertion.IsDistributed(
+                Random,
+                x => x.DateTimeOffset(DateTimeOffset.MinValue, DateTimeOffset.MaxValue),
+                _ => { }
+            );
         }
     }
 }
