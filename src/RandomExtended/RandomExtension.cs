@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 
-namespace Random.Extensions
+namespace RandomExtended
 {
     /// <summary>
     ///     Contains a set of static extension method on System.Random.
     /// </summary>
-    public static class Random
+    public static class RandomExtension
     {
         /// <summary>
         ///     Randomizes a System.Int32 within <paramref name="min" /> and <paramref name="max" />.

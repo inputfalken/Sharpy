@@ -1,24 +1,25 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
+using RandomExtended;
 
-namespace Random.Extensions.Tests
+namespace RandomExtensions.Tests
 {
     [TestFixture]
     public class CharTests
     {
-        private static readonly System.Random Random = new();
+        private static readonly Random Random = new();
 
         [Test]
         public void Min_Max_Arg_Is_Deterministic_With_Seed()
         {
-            Assertion.IsDeterministic(i => new System.Random(i), x => x.Char('a', 'z'));
+            Assertion.IsDeterministic(i => new Random(i), x => x.Char('a', 'z'));
         }
 
         [Test]
         public void Min_Max_Arg_Is_Not_Deterministic_With_Different_Seed()
         {
-            Assertion.IsNotDeterministic(i => new System.Random(i), x => x.Char('a', 'z'));
+            Assertion.IsNotDeterministic(i => new Random(i), x => x.Char('a', 'z'));
         }
 
 

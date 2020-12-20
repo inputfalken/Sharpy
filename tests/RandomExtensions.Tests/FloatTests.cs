@@ -1,25 +1,26 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
+using RandomExtended;
 
-namespace Random.Extensions.Tests
+namespace RandomExtensions.Tests
 {
     [TestFixture]
     public class FloatTests
     {
         private const float MaxSupportedPrecision = 0.100_00f;
-        private static readonly System.Random Random = new();
+        private static readonly Random Random = new();
 
         [Test]
         public void Min_Max_Arg_Is_Deterministic_With_Seed()
         {
-            Assertion.IsDeterministic(i => new System.Random(i), x => x.Float(0, 50));
+            Assertion.IsDeterministic(i => new Random(i), x => x.Float(0, 50));
         }
 
         [Test]
         public void Min_Max_Arg_Is_Not_Deterministic_With_Different_Seed()
         {
-            Assertion.IsNotDeterministic(i => new System.Random(i), x => x.Float(0, 50));
+            Assertion.IsNotDeterministic(i => new Random(i), x => x.Float(0, 50));
         }
 
         [Test]

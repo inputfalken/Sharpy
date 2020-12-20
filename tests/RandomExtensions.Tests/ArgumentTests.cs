@@ -1,6 +1,7 @@
 using NUnit.Framework;
+using RandomExtended;
 
-namespace Random.Extensions.Tests
+namespace RandomExtensions.Tests
 {
     [TestFixture]
     public class ArgumentTests

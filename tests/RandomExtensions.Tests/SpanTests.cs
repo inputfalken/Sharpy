@@ -1,13 +1,14 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
+using RandomExtended;
 
-namespace Random.Extensions.Tests
+namespace RandomExtensions.Tests
 {
     [TestFixture]
     public class SpanTests
     {
-        private static readonly System.Random Random = new();
+        private static readonly Random Random = new();
 
         [Test]
         public void Span_One_Element_All_Values_Are_The_Same()

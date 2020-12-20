@@ -2,26 +2,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using RandomExtended;
 
-namespace Random.Extensions.Tests
+namespace RandomExtensions.Tests
 {
     [TestFixture]
-    public class DateTimeOffsetTests
+    public class DateTimeTests
     {
-        private static readonly System.Random Random = new();
-
-        private static readonly DateTimeOffset BaseTime = DateTime.SpecifyKind(
-            new DateTime(2020, 10, 20, 22, 50, 30, 20),
-            DateTimeKind.Utc
-        );
+        private static readonly Random Random = new();
+        private static readonly DateTime BaseTime = new(2020, 10, 20, 22, 50, 30, 20);
 
         [Test]
         public void Min_Max_Arg_Is_Deterministic_With_Seed()
         {
             var max = BaseTime.AddYears(1);
             Assertion.IsDeterministic(
-                i => new System.Random(i),
-                x => x.DateTimeOffset(BaseTime, max)
+                i => new Random(i),
+                x => x.DateTime(BaseTime, max)
             );
         }
 
@@ -30,62 +27,19 @@ namespace Random.Extensions.Tests
         {
             var max = BaseTime.AddYears(1);
             Assertion.IsNotDeterministic(
-                i => new System.Random(i),
-                x => x.DateTimeOffset(BaseTime, max)
+                i => new Random(i),
+                x => x.DateTime(BaseTime, max)
             );
         }
 
-        [Test]
-        public void Does_Not_Throw_When_OffSet_Is_Out_Of_Range()
-        {
-            // MinValue
-            Assertion.DoesNotThrow(() =>
-                Random.DateTimeOffset(
-                    DateTimeOffset.MinValue,
-                    DateTimeOffset.MinValue.AddMinutes(1)
-                )
-            );
-            Assertion.DoesNotThrow(() =>
-                Random.DateTimeOffset(
-                    DateTimeOffset.MinValue,
-                    DateTimeOffset.MinValue.AddSeconds(1)
-                )
-            );
-            Assertion.DoesNotThrow(() =>
-                Random.DateTimeOffset(
-                    DateTimeOffset.MinValue,
-                    DateTimeOffset.MinValue.AddMilliseconds(1)
-                )
-            );
-
-            // MaxValue
-            Assertion.DoesNotThrow(() =>
-                Random.DateTimeOffset(
-                    DateTimeOffset.MaxValue.AddMinutes(-1),
-                    DateTimeOffset.MaxValue
-                )
-            );
-            Assertion.DoesNotThrow(() =>
-                Random.DateTimeOffset(
-                    DateTimeOffset.MaxValue.AddSeconds(-1),
-                    DateTimeOffset.MaxValue
-                )
-            );
-            Assertion.DoesNotThrow(() =>
-                Random.DateTimeOffset(
-                    DateTimeOffset.MaxValue.AddMilliseconds(-1),
-                    DateTimeOffset.MaxValue
-                )
-            );
-        }
 
         [Test]
-        public void DateTimeOffset_MinDateTimeOffset_MaxDateTimeOffset__Adding_Years()
+        public void DateTime_MinDateTime_MaxDateTime__Adding_Years()
         {
-            var list = new List<DateTimeOffset>();
+            var list = new List<DateTime>();
             var baseTimeTwoYearsLater = BaseTime.AddYears(2);
             for (var i = 0; i < Assertion.Amount; i++)
-                list.Add(Random.DateTimeOffset(BaseTime, baseTimeTwoYearsLater));
+                list.Add(Random.DateTime(BaseTime, baseTimeTwoYearsLater));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoYearsLater),
@@ -95,12 +49,12 @@ namespace Random.Extensions.Tests
 
 
         [Test]
-        public void DateTimeOffset_MinDateTimeOffset_MaxDateTimeOffset__Subtracting_Years()
+        public void DateTime_MinDateTime_MaxDateTime__Subtracting_Years()
         {
-            var list = new List<DateTimeOffset>();
+            var list = new List<DateTime>();
             var baseTimeTwoYearsAgo = BaseTime.AddYears(-2);
             for (var i = 0; i < Assertion.Amount; i++)
-                list.Add(Random.DateTimeOffset(baseTimeTwoYearsAgo, BaseTime));
+                list.Add(Random.DateTime(baseTimeTwoYearsAgo, BaseTime));
 
             Assert.IsTrue(
                 list.All(time => time < BaseTime),
@@ -109,12 +63,12 @@ namespace Random.Extensions.Tests
         }
 
         [Test]
-        public void DateTimeOffset_MinDateTimeOffset_MaxDateTimeOffset__Adding_Months()
+        public void DateTime_MinDateTime_MaxDateTime__Adding_Months()
         {
-            var list = new List<DateTimeOffset>();
+            var list = new List<DateTime>();
             var baseTimeTwoMonthsLater = BaseTime.AddMonths(2);
             for (var i = 0; i < Assertion.Amount; i++)
-                list.Add(Random.DateTimeOffset(BaseTime, baseTimeTwoMonthsLater));
+                list.Add(Random.DateTime(BaseTime, baseTimeTwoMonthsLater));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoMonthsLater),
@@ -123,12 +77,12 @@ namespace Random.Extensions.Tests
         }
 
         [Test]
-        public void DateTimeOffset_MinDateTimeOffset_MaxDateTimeOffset__Subtracting_Months()
+        public void DateTime_MinDateTime_MaxDateTime__Subtracting_Months()
         {
-            var list = new List<DateTimeOffset>();
+            var list = new List<DateTime>();
             var baseTimeTwoMonthsAgo = BaseTime.AddMonths(-2);
             for (var i = 0; i < Assertion.Amount; i++)
-                list.Add(Random.DateTimeOffset(baseTimeTwoMonthsAgo, BaseTime));
+                list.Add(Random.DateTime(baseTimeTwoMonthsAgo, BaseTime));
 
             Assert.IsTrue(
                 list.All(time => time < BaseTime),
@@ -141,12 +95,12 @@ namespace Random.Extensions.Tests
         }
 
         [Test]
-        public void DateTimeOffset_MinDateTimeOffset_MaxDateTimeOffset__Adding_Days()
+        public void DateTime_MinDateTime_MaxDateTime__Adding_Days()
         {
-            var list = new List<DateTimeOffset>();
+            var list = new List<DateTime>();
             var baseTimeTwoDaysLater = BaseTime.AddDays(2);
             for (var i = 0; i < Assertion.Amount; i++)
-                list.Add(Random.DateTimeOffset(BaseTime, baseTimeTwoDaysLater));
+                list.Add(Random.DateTime(BaseTime, baseTimeTwoDaysLater));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoDaysLater),
@@ -155,12 +109,12 @@ namespace Random.Extensions.Tests
         }
 
         [Test]
-        public void DateTimeOffset_MinDateTimeOffset_MaxDateTimeOffset__Subtracting_Days()
+        public void DateTime_MinDateTime_MaxDateTime__Subtracting_Days()
         {
-            var list = new List<DateTimeOffset>();
+            var list = new List<DateTime>();
             var baseTimeTwoDaysAgo = BaseTime.AddDays(-2);
             for (var i = 0; i < Assertion.Amount; i++)
-                list.Add(Random.DateTimeOffset(baseTimeTwoDaysAgo, BaseTime));
+                list.Add(Random.DateTime(baseTimeTwoDaysAgo, BaseTime));
 
             Assert.IsTrue(
                 list.All(time => time < BaseTime), "list.All(time => time < BaseTime)"
@@ -172,12 +126,12 @@ namespace Random.Extensions.Tests
         }
 
         [Test]
-        public void DateTimeOffset_MinDateTimeOffset_MaxDateTimeOffset__Adding_Minutes()
+        public void DateTime_MinDateTime_MaxDateTime__Adding_Minutes()
         {
-            var list = new List<DateTimeOffset>();
+            var list = new List<DateTime>();
             var baseTimeTwoMinutesLater = BaseTime.AddMinutes(2);
             for (var i = 0; i < Assertion.Amount; i++)
-                list.Add(Random.DateTimeOffset(BaseTime, baseTimeTwoMinutesLater));
+                list.Add(Random.DateTime(BaseTime, baseTimeTwoMinutesLater));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoMinutesLater),
@@ -186,12 +140,12 @@ namespace Random.Extensions.Tests
         }
 
         [Test]
-        public void DateTimeOffset_MinDateTimeOffset_MaxDateTimeOffset__Subtracting_Minutes()
+        public void DateTime_MinDateTime_MaxDateTime__Subtracting_Minutes()
         {
-            var list = new List<DateTimeOffset>();
+            var list = new List<DateTime>();
             var baseTimeTwoMinutesBefore = BaseTime.AddMinutes(-2);
             for (var i = 0; i < Assertion.Amount; i++)
-                list.Add(Random.DateTimeOffset(baseTimeTwoMinutesBefore, BaseTime));
+                list.Add(Random.DateTime(baseTimeTwoMinutesBefore, BaseTime));
 
             Assert.IsTrue(
                 list.All(time => time < BaseTime),
@@ -205,12 +159,12 @@ namespace Random.Extensions.Tests
         }
 
         [Test]
-        public void DateTimeOffset_MinDateTimeOffset_MaxDateTimeOffset__Adding_Seconds()
+        public void DateTime_MinDateTime_MaxDateTime__Adding_Seconds()
         {
-            var list = new List<DateTimeOffset>();
+            var list = new List<DateTime>();
             var baseTimeTwoSecondsLater = BaseTime.AddSeconds(2);
             for (var i = 0; i < Assertion.Amount; i++)
-                list.Add(Random.DateTimeOffset(BaseTime, baseTimeTwoSecondsLater));
+                list.Add(Random.DateTime(BaseTime, baseTimeTwoSecondsLater));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoSecondsLater),
@@ -219,12 +173,12 @@ namespace Random.Extensions.Tests
         }
 
         [Test]
-        public void DateTimeOffset_MinDateTimeOffset_MaxDateTimeOffset__Subtracting_Seconds()
+        public void DateTime_MinDateTime_MaxDateTime__Subtracting_Seconds()
         {
-            var list = new List<DateTimeOffset>();
+            var list = new List<DateTime>();
             var baseTimeTwoSecondsAgo = BaseTime.AddSeconds(-2);
             for (var i = 0; i < Assertion.Amount; i++)
-                list.Add(Random.DateTimeOffset(baseTimeTwoSecondsAgo, BaseTime));
+                list.Add(Random.DateTime(baseTimeTwoSecondsAgo, BaseTime));
 
             Assert.IsTrue(
                 list.All(time => time < BaseTime),
@@ -237,12 +191,12 @@ namespace Random.Extensions.Tests
         }
 
         [Test]
-        public void DateTimeOffset_MinDateTimeOffset_MaxDateTimeOffset__Adding_MilliSeconds()
+        public void DateTime_MinDateTime_MaxDateTime__Adding_MilliSeconds()
         {
-            var list = new List<DateTimeOffset>();
+            var list = new List<DateTime>();
             var baseTimeTwoMillisecondsLater = BaseTime.AddMilliseconds(2);
             for (var i = 0; i < Assertion.Amount; i++)
-                list.Add(Random.DateTimeOffset(BaseTime, baseTimeTwoMillisecondsLater));
+                list.Add(Random.DateTime(BaseTime, baseTimeTwoMillisecondsLater));
 
             Assert.IsTrue(
                 list.All(time => time < baseTimeTwoMillisecondsLater),
@@ -251,12 +205,12 @@ namespace Random.Extensions.Tests
         }
 
         [Test]
-        public void DateTimeOffset_MinDateTimeOffset_MaxDateTimeOffset__Subtracting_Milliseconds()
+        public void DateTime_MinDateTime_MaxDateTime__Subtracting_Milliseconds()
         {
-            var list = new List<DateTimeOffset>();
+            var list = new List<DateTime>();
             var baseTimeTwoMiliSecondsBefore = BaseTime.AddMilliseconds(-2);
             for (var i = 0; i < Assertion.Amount; i++)
-                list.Add(Random.DateTimeOffset(baseTimeTwoMiliSecondsBefore, BaseTime));
+                list.Add(Random.DateTime(baseTimeTwoMiliSecondsBefore, BaseTime));
 
             Assert.IsTrue(list.All(time => time < BaseTime));
             Assert.IsTrue(
@@ -266,19 +220,28 @@ namespace Random.Extensions.Tests
         }
 
         [Test]
+        public void Min_Equal_To_Max_Does_Not_Throw()
+        {
+            var max = DateTime.Now;
+            var min = max;
+
+
+            Assertion.DoesNotThrow(() => Random.DateTime(min, max));
+        }
+
+        [Test]
         public void Min_Greater_Than_Max_Does_Throw()
         {
-            var max = DateTimeOffset.Now;
+            var max = DateTime.Now;
             var min = max.AddMilliseconds(1);
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => Random.DateTimeOffset(min, max));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Random.DateTime(min, max));
         }
 
         [Test]
         public void MinValue_And_MaxValue_Does_Not_Throw()
         {
-            Assertion.DoesNotThrow(() =>
-                Random.DateTimeOffset(DateTimeOffset.MinValue, DateTimeOffset.MaxValue));
+            Assertion.DoesNotThrow(() => Random.DateTime(DateTime.MinValue, DateTime.MaxValue));
         }
 
         [Test]
@@ -286,7 +249,7 @@ namespace Random.Extensions.Tests
         {
             Assertion.IsDistributed(
                 Random,
-                x => x.DateTimeOffset(DateTimeOffset.MinValue, DateTimeOffset.MaxValue),
+                x => x.DateTime(DateTime.MinValue, DateTime.MaxValue),
                 _ => { }
             );
         }

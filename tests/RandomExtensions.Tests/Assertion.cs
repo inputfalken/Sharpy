@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 
-namespace Random.Extensions.Tests
+namespace RandomExtensions.Tests
 {
     public static class Assertion
     {

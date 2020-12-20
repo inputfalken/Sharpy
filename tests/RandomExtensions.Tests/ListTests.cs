@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using RandomExtended;
 
-namespace Random.Extensions.Tests
+namespace RandomExtensions.Tests
 {
     [TestFixture]
     public class ListTests
     {
-        private static readonly System.Random Random = new();
+        private static readonly Random Random = new();
 
         [Test]
         public void Array_One_Element_All_Values_Are_The_Same()

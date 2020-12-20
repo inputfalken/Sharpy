@@ -1,4 +1,4 @@
-namespace Random.Extensions
+namespace RandomExtended
 {
     // TODO add overloads for this struct where you can specify inclusive or exclusive operations.
     internal readonly struct Clusivity<T>
