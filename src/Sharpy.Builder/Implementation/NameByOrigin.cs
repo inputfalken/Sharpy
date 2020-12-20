@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using RandomExtended;
 using Sharpy.Builder.Enums;
 using Sharpy.Builder.Implementation.DataObjects;
-using Sharpy.Builder.Implementation.ExtensionMethods;
 using Sharpy.Builder.Providers;
 
 namespace Sharpy.Builder.Implementation

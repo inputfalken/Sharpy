@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Sharpy.Builder.Implementation.ExtensionMethods;
+using RandomExtended;
 using Sharpy.Builder.Providers;
 
 namespace Sharpy.Builder.Implementation

@@ -1,5 +1,5 @@
 using System;
-using Sharpy.Builder.Implementation.ExtensionMethods;
+using RandomExtended;
 using Sharpy.Builder.Providers;
 
 namespace Sharpy.Builder.Implementation

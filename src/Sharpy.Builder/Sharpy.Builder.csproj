@@ -1,37 +1,38 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <RepositoryType>git</RepositoryType>
-    <Description>A builder class offering various of data types representing common items such as names.</Description>
-    <PackageProjectUrl>https://github.com/inputfalken/Sharpy</PackageProjectUrl>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/inputfalken/Sharpy/master/License.txt</PackageLicenseUrl>
-    <RepositoryUrl>https://github.com/inputfalken/Sharpy</RepositoryUrl>
-    <PackageTags>Builder Data</PackageTags>
-    <Version>0.2.0</Version>
-    <LangVersion>9</LangVersion>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <Optimize>false</Optimize>
-    <DocumentationFile>
-    </DocumentationFile>
-    <DefineConstants>DEBUG;TRACE;NETSTANDARD2_0;NETSTANDARD2_0</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <Optimize>true</Optimize>
-    <DocumentationFile>bin\Release\netstandard2.0\Sharpy.Builder.xml</DocumentationFile>
-    <DefineConstants>RELEASE;NETSTANDARD2_0;RELEASE;NETSTANDARD2_0</DefineConstants>
-  </PropertyGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Data\NamesByOrigin.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Data\usernames.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="5.0.0" />
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <RepositoryType>git</RepositoryType>
+        <Description>A builder class offering various of data types representing common items such as names.</Description>
+        <PackageProjectUrl>https://github.com/inputfalken/Sharpy</PackageProjectUrl>
+        <PackageLicenseUrl>https://raw.githubusercontent.com/inputfalken/Sharpy/master/License.txt</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/inputfalken/Sharpy</RepositoryUrl>
+        <PackageTags>Builder Data</PackageTags>
+        <Version>0.2.0</Version>
+        <LangVersion>9</LangVersion>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <Optimize>false</Optimize>
+        <DocumentationFile>
+        </DocumentationFile>
+        <DefineConstants>DEBUG;TRACE;NETSTANDARD2_0;NETSTANDARD2_0</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <Optimize>true</Optimize>
+        <DocumentationFile>bin\Release\netstandard2.0\Sharpy.Builder.xml</DocumentationFile>
+        <DefineConstants>RELEASE;NETSTANDARD2_0;RELEASE;NETSTANDARD2_0</DefineConstants>
+    </PropertyGroup>
+    <ItemGroup>
+        <EmbeddedResource Include="Data\NamesByOrigin.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <EmbeddedResource Include="Data\usernames.txt">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </EmbeddedResource>
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="System.Text.Json" Version="5.0.0"/>
+        <PackageReference Include="RandomExtended" Version="0.1.0" PrivateAssets="Compile"/>
+    </ItemGroup>
 </Project>
