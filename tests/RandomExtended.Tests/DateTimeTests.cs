@@ -13,6 +13,17 @@ namespace RandomExtensions.Tests
         private static readonly DateTime BaseTime = new(2020, 10, 20, 22, 50, 30, 20);
 
         [Test]
+        public void Is_Distributed()
+        {
+            var max = BaseTime.AddYears(1);
+            Assertion.IsDistributed(
+                Random,
+                x => x.DateTime(BaseTime, max),
+                x => Assert.IsTrue(x.Count > Assertion.Amount / 2, "x.Count > Assertion.Amount / 2")
+            );
+        }
+
+        [Test]
         public void Min_Max_Arg_Is_Deterministic_With_Seed()
         {
             var max = BaseTime.AddYears(1);

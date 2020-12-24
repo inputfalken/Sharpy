@@ -37,10 +37,7 @@ namespace RandomExtensions.Tests
 
         public static void DoesNotThrow(TestDelegate action)
         {
-            for (var i = 0; i < Amount; i++)
-            {
-                Assert.DoesNotThrow(action);
-            }
+            for (var i = 0; i < Amount; i++) Assert.DoesNotThrow(action);
         }
 
         public static void IsDistributed<T, TResult>(

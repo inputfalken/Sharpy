@@ -32,19 +32,19 @@ namespace RandomExtensions.Tests
         [Test]
         public void Three_Arguments_Is_Deterministic_With_Different_Seed()
         {
-            Assertion.IsNotDeterministic(i => (new Random(i)), x => x.Argument(1, 2, 3));
+            Assertion.IsNotDeterministic(i => new Random(i), x => x.Argument(1, 2, 3));
         }
 
         [Test]
         public void Four_Arguments_Is_Deterministic_With_Seed()
         {
-            Assertion.IsDeterministic(i => (new Random(i)), x => x.Argument(1, 2, 3, 4));
+            Assertion.IsDeterministic(i => new Random(i), x => x.Argument(1, 2, 3, 4));
         }
 
         [Test]
         public void Four_Arguments_Is_Deterministic_With_Different_Seed()
         {
-            Assertion.IsNotDeterministic(i => (new Random(i)), x => x.Argument(1, 2, 3, 4));
+            Assertion.IsNotDeterministic(i => new Random(i), x => x.Argument(1, 2, 3, 4));
         }
 
         [Test]

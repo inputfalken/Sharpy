@@ -180,7 +180,7 @@ namespace RandomExtensions.Tests
         [Test]
         public void MinValue_And_MaxValue_Does_Not_Produce_Same_Values()
         {
-            Assertion.IsDistributed(Random, x => x.Char(char.MinValue, char.MaxValue), _ => {});
+            Assertion.IsDistributed(Random, x => x.Char(char.MinValue, char.MaxValue), _ => { });
         }
     }
 }

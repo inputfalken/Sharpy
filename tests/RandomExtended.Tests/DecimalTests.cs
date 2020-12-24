@@ -12,6 +12,16 @@ namespace RandomExtensions.Tests
         private static readonly Random Random = new();
 
         [Test]
+        public void Is_Distributed()
+        {
+            Assertion.IsDistributed(
+                Random,
+                x => x.Decimal(decimal.MinValue, decimal.MaxValue),
+                x => Assert.IsTrue(x.Count > Assertion.Amount / 2, "x.Count > Assertion.Amount / 2")
+            );
+        }
+
+        [Test]
         public void Min_Max_Arg_Is_Deterministic_With_Seed()
         {
             Assertion.IsDeterministic(i => new Random(i), x => x.Decimal(0, decimal.MaxValue));
@@ -95,7 +105,7 @@ namespace RandomExtensions.Tests
         {
             Assertion.DoesNotThrow(() => Random.Decimal(decimal.MinValue, decimal.MaxValue));
         }
-        
+
         [Test]
         public void MinValue_And_MaxValue_Does_Not_Produce_Same_Values()
         {
