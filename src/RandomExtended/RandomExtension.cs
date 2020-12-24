@@ -26,7 +26,7 @@ namespace RandomExtended
         /// <returns>
         ///     A randomized System.Int32 within <paramref name="min" /> and <paramref name="max" />.
         /// </returns>
-        public static int Int(this System.Random random, in int min, in int max)
+        public static int Int(this Random random, in int min, in int max)
         {
             return random switch
             {
@@ -56,14 +56,14 @@ namespace RandomExtended
         ///     A randomized System.Decimal within <paramref name="min" /> and <paramref name="max" />.
         /// </returns>
         public static decimal Decimal(
-            this System.Random random,
+            this Random random,
             in decimal min,
             in decimal max
         )
         {
-            static decimal NextDecimal(System.Random random)
+            static decimal NextDecimal(Random random)
             {
-                static int NextInt32(System.Random random)
+                static int NextInt32(Random random)
                 {
                     var firstBits = random.Next(0, 1 << 4) << 28;
                     var lastBits = random.Next(0, 1 << 28);
@@ -115,7 +115,7 @@ namespace RandomExtended
         ///     A randomized System.Single within <paramref name="min" /> and <paramref name="max" />.
         /// </returns>
         public static float Float(
-            this System.Random random,
+            this Random random,
             in float min,
             in float max
         )
@@ -153,7 +153,7 @@ namespace RandomExtended
         ///     A randomized System.Double within <paramref name="min" /> and <paramref name="max" />.
         /// </returns>
         public static double Double(
-            this System.Random random,
+            this Random random,
             in double min,
             in double max
         )
@@ -181,7 +181,7 @@ namespace RandomExtended
         /// <returns>
         ///     A randomized System.Boolean.
         /// </returns>
-        public static bool Bool(this System.Random random)
+        public static bool Bool(this Random random)
         {
             return random.Next(2) != 0;
         }
@@ -205,7 +205,7 @@ namespace RandomExtended
         ///     A randomized <typeparamref name="T" /> from the <paramref name="list" />.
         /// </returns>
         public static T ListElement<T>(
-            this System.Random random,
+            this Random random,
             in IReadOnlyList<T> list
         )
         {
@@ -236,7 +236,7 @@ namespace RandomExtended
         ///     A randomized <typeparamref name="T" /> from the <paramref name="span" />.
         /// </returns>
         public static T SpanElement<T>(
-            this System.Random random,
+            this Random random,
             in ReadOnlySpan<T> span
         )
         {
@@ -268,7 +268,7 @@ namespace RandomExtended
         ///     A randomized <typeparamref name="T" /> from the <paramref name="span" />.
         /// </returns>
         public static T SpanElement<T>(
-            this System.Random random,
+            this Random random,
             in Span<T> span
         )
         {
@@ -299,7 +299,7 @@ namespace RandomExtended
         ///     A randomized argument.
         /// </returns>
         public static T Argument<T>(
-            this System.Random random,
+            this Random random,
             in T first,
             in T second
         )
@@ -337,7 +337,7 @@ namespace RandomExtended
         ///     A randomized argument.
         /// </returns>
         public static T Argument<T>(
-            this System.Random random,
+            this Random random,
             in T first,
             in T second,
             in T third
@@ -380,7 +380,7 @@ namespace RandomExtended
         ///     A randomized argument.
         /// </returns>
         public static T Argument<T>(
-            this System.Random random,
+            this Random random,
             in T first,
             in T second,
             in T third,
@@ -428,7 +428,7 @@ namespace RandomExtended
         ///     A randomized argument.
         /// </returns>
         public static T Argument<T>(
-            this System.Random random,
+            this Random random,
             in T first,
             in T second,
             in T third,
@@ -481,7 +481,7 @@ namespace RandomExtended
         ///     A randomized argument.
         /// </returns>
         public static T Argument<T>(
-            this System.Random random,
+            this Random random,
             in T first,
             in T second,
             in T third,
@@ -523,12 +523,12 @@ namespace RandomExtended
         ///     A randomized System.Long within <paramref name="min" /> and <paramref name="max" />.
         /// </returns>
         public static long Long(
-            this System.Random random,
+            this Random random,
             in long min,
             in long max
         )
         {
-            static long NextLong(System.Random random, long min, long max)
+            static long NextLong(Random random, long min, long max)
             {
                 //Working with ulong so that modulo works correctly with values > long.MaxValue
                 var uRange = (ulong) (max - min);
@@ -576,7 +576,7 @@ namespace RandomExtended
         ///     A randomized System.TimeSpan within <paramref name="min" /> and <paramref name="max" />.
         /// </returns>
         public static TimeSpan TimeSpan(
-            this System.Random random,
+            this Random random,
             in TimeSpan min,
             in TimeSpan max
         )
@@ -615,7 +615,7 @@ namespace RandomExtended
         ///     A randomized System.DateTime within <paramref name="min" /> and <paramref name="max" />.
         /// </returns>
         public static DateTime DateTime(
-            this System.Random random,
+            this Random random,
             in DateTime min,
             in DateTime max
         )
@@ -648,7 +648,7 @@ namespace RandomExtended
         ///     A randomized System.DateTimeOffset within <paramref name="min" /> and <paramref name="max" />.
         /// </returns>
         public static DateTimeOffset DateTimeOffset(
-            this System.Random random,
+            this Random random,
             in DateTimeOffset min,
             in DateTimeOffset max
         )
@@ -680,7 +680,7 @@ namespace RandomExtended
         ///     A randomized System.Char within <paramref name="min" /> and <paramref name="max" />.
         /// </returns>
         public static char Char(
-            this System.Random random,
+            this Random random,
             in char min,
             in char max
         )
