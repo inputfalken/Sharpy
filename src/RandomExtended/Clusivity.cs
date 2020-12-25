@@ -1,21 +1,52 @@
 namespace RandomExtended
 {
-    // TODO add overloads for this struct where you can specify inclusive or exclusive operations.
-    internal readonly struct Clusivity<T>
+    /// <summary>
+    /// Specifies an inclusive or exclusive operation to be used for <typeparamref name="T"/>.
+    /// </summary>
+    /// <typeparam name="T">
+    /// The type of the value.
+    /// </typeparam>
+    public readonly struct Clusivity<T>
     {
-        public enum Rule
-        {
-            Exclusive = 0,
-            Inclusive = 1
-        }
+        /// <summary>
+        /// Gets the <see cref="Value"/>.
+        /// </summary>
+        public T Value { get; }
 
-        public readonly T Element { get; }
-        public readonly Rule RuleSet { get; }
+        /// <summary>
+        /// Gets the <see cref="Rule"/>
+        /// </summary>
+        public Rule Rule { get; }
 
-        public Clusivity(in T element, in Rule rule)
+        /// <summary>
+        /// Creates a <see cref="Clusivity{T}"/>.
+        /// </summary>
+        /// <param name="value">
+        /// Sets <see cref="Value"/>.
+        /// </param>
+        /// <param name="rule">
+        /// Sets <see cref="Rule"/>.
+        /// </param>
+        public Clusivity(in T value, in Rule rule)
         {
-            Element = element;
-            RuleSet = rule;
+            Value = value;
+            Rule = rule;
         }
+    }
+
+    /// <summary>
+    /// Specifies an <see cref="Inclusive"/> or <see cref="Exclusive"/> behaviour.
+    /// </summary>
+    public enum Rule
+    {
+        /// <summary>
+        /// Specifies an <see cref="Exclusive"/> behaviour.
+        /// </summary>
+        Exclusive = 0,
+
+        /// <summary>
+        /// Specifies an <see cref="Inclusive"/> behaviour.
+        /// </summary>
+        Inclusive = 1
     }
 }

@@ -38,6 +38,53 @@ namespace RandomExtended
         }
 
         /// <summary>
+        ///     Randomizes a System.Int32 within <paramref name="min" /> and <paramref name="max" />.
+        /// </summary>
+        /// <param name="random">
+        ///     The System.Random to randomize with.
+        /// </param>
+        /// <param name="min">
+        ///     The minimum value whose clusivity is specified by <see cref="Clusivity{T}"/>.
+        /// </param>
+        /// <param name="max">
+        ///     The maximum value whose clusivity is specified by <see cref="Clusivity{T}"/>.
+        /// </param>
+        /// <returns>
+        ///     A randomized System.Int32 within <paramref name="min" /> and <paramref name="max" />.
+        /// </returns>
+        public static int Int(this Random random, in Clusivity<int> min, in Clusivity<int> max)
+        {
+            // inclusive min value by default, exclusive max value by default
+            var res = random.Int(min.Value, max.Value);
+
+            // If one side is inclusive while the other side is exclusive, the inclusive value has presidence.
+            return (min, max) switch
+            {
+                {
+                    min: {Rule: Rule.Exclusive, Value: { } minValue},
+                    max: {Rule: Rule.Exclusive, Value: { } maxValue}
+                } when maxValue - minValue < 2 => throw new ArgumentException(
+                    "There must be at least 2 numbers in range from the difference."
+                ),
+                {
+                    min: {Rule: Rule.Exclusive, Value: { } value},
+                    max: {Rule: Rule.Exclusive}
+                } => res == value ? res + 1 : res,
+                {
+                    min: {Rule: Rule.Inclusive},
+                    max: {Rule: Rule.Inclusive, Value: { } value}
+                } => value - 1 == res && random.Bool()
+                    ? value
+                    : res,
+                {
+                    min: {Rule: Rule.Exclusive},
+                    max: {Rule: Rule.Inclusive, Value: { } value}
+                } => value - 1 == res ? value : res,
+                _ => res
+            };
+        }
+
+        /// <summary>
         ///     Randomizes a System.Decimal within <paramref name="min" /> and <paramref name="max" />.
         /// </summary>
         /// <param name="random">
@@ -686,6 +733,40 @@ namespace RandomExtended
                 _ when min == max => min,
                 _ => (char) random.Next(min, max + 1)
             };
+        }
+
+        /// <summary>
+        /// Creates a <see cref="Clusivity{T}"/> whose value will be resolved in a inclusive manner.
+        /// </summary>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        /// <typeparam name="T">
+        /// The type of the value.
+        /// </typeparam>
+        /// <returns>
+        /// A <see cref="Clusivity{T}"/> with inclusive behaviour.
+        /// </returns>
+        public static Clusivity<T> Inclusive<T>(in T value)
+        {
+            return new(value, Rule.Inclusive);
+        }
+
+        /// <summary>
+        /// Creates a <see cref="Clusivity{T}"/> whose value will be resolved in a exclusive manner.
+        /// </summary>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        /// <typeparam name="T">
+        /// The type of the value.
+        /// </typeparam>
+        /// <returns>
+        /// A <see cref="Clusivity{T}"/> with exclusive behaviour.
+        /// </returns>
+        public static Clusivity<T> Exclusive<T>(in T value)
+        {
+            return new(value, Rule.Exclusive);
         }
     }
 }
