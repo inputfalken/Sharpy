@@ -44,43 +44,46 @@ namespace RandomExtended
         ///     The System.Random to randomize with.
         /// </param>
         /// <param name="min">
-        ///     The minimum value whose clusivity is specified by <see cref="Clusivity{T}"/>.
+        ///     The minimum value.
         /// </param>
         /// <param name="max">
-        ///     The maximum value whose clusivity is specified by <see cref="Clusivity{T}"/>.
+        ///     The maximum value.
         /// </param>
+        /// <param name="minRule">
+        /// Sets the behaviour for <see cref="min"/>.
+        /// </param>
+        /// <param name="maxRule">
+        /// Sets the behaviour for <see cref="max"/>.
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <paramref name="min" /> is greater than <paramref name="max" />.
+        /// </exception>
         /// <returns>
         ///     A randomized System.Int32 within <paramref name="min" /> and <paramref name="max" />.
         /// </returns>
-        public static int Int(this Random random, in Clusivity<int> min, in Clusivity<int> max)
+        public static int Int(
+            this Random random,
+            in int min,
+            in int max,
+            in Rule minRule,
+            in Rule maxRule
+        )
         {
-            // inclusive min value by default, exclusive max value by default
-            var res = random.Int(min.Value, max.Value);
+            var value = random.Int(min, max);
 
-            // If one side is inclusive while the other side is exclusive, the inclusive value has presidence.
-            return (min, max) switch
+            return (min: minRule, max: maxRule) switch
             {
-                {
-                    min: {Rule: Rule.Exclusive, Value: { } minValue},
-                    max: {Rule: Rule.Exclusive, Value: { } maxValue}
-                } when maxValue - minValue < 2 => throw new ArgumentException(
-                    "There must be at least 2 numbers in range from the difference."
+                {min: Rule.Exclude, max: Rule.Exclude} when max - min < 2 => throw new ArgumentException(
+                    $"The difference between {nameof(max)} and {nameof(min)} ({nameof(max)} - {nameof(min)}) greater or equal to 2."
                 ),
-                {
-                    min: {Rule: Rule.Exclusive, Value: { } value},
-                    max: {Rule: Rule.Exclusive}
-                } => res == value ? res + 1 : res,
-                {
-                    min: {Rule: Rule.Inclusive},
-                    max: {Rule: Rule.Inclusive, Value: { } value}
-                } => value - 1 == res && random.Bool()
-                    ? value
-                    : res,
-                {
-                    min: {Rule: Rule.Exclusive},
-                    max: {Rule: Rule.Inclusive, Value: { } value}
-                } => value - 1 == res ? value : res,
-                _ => res
+                {min: Rule.Exclude, max: Rule.Exclude} => value == min ? value + 1 : value,
+                {min: Rule.Include, max : Rule.Exclude} => value,
+                {min: Rule.Include, max : Rule.Include} => max - 1 == value && random.Bool()
+                    ? max
+                    : value,
+
+                {min: Rule.Exclude, max : Rule.Include} => max - 1 == value ? max : value,
+                _ => throw new ArgumentOutOfRangeException()
             };
         }
 
@@ -733,40 +736,6 @@ namespace RandomExtended
                 _ when min == max => min,
                 _ => (char) random.Next(min, max + 1)
             };
-        }
-
-        /// <summary>
-        /// Creates a <see cref="Clusivity{T}"/> whose value will be resolved in a inclusive manner.
-        /// </summary>
-        /// <param name="value">
-        /// The value.
-        /// </param>
-        /// <typeparam name="T">
-        /// The type of the value.
-        /// </typeparam>
-        /// <returns>
-        /// A <see cref="Clusivity{T}"/> with inclusive behaviour.
-        /// </returns>
-        public static Clusivity<T> Inclusive<T>(in T value)
-        {
-            return new(value, Rule.Inclusive);
-        }
-
-        /// <summary>
-        /// Creates a <see cref="Clusivity{T}"/> whose value will be resolved in a exclusive manner.
-        /// </summary>
-        /// <param name="value">
-        /// The value.
-        /// </param>
-        /// <typeparam name="T">
-        /// The type of the value.
-        /// </typeparam>
-        /// <returns>
-        /// A <see cref="Clusivity{T}"/> with exclusive behaviour.
-        /// </returns>
-        public static Clusivity<T> Exclusive<T>(in T value)
-        {
-            return new(value, Rule.Exclusive);
         }
     }
 }
