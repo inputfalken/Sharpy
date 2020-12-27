@@ -58,6 +58,9 @@ namespace RandomExtended
         /// <exception cref="ArgumentOutOfRangeException">
         ///     When <paramref name="min" /> is greater than <paramref name="max" />.
         /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <see cref="minRule"/> and is <see cref="maxRule"/> is <see cref="Rule.Exclude"/> and the subtraction difference between <see cref="min"/> and <see cref="max"/> is lesser than 2.
+        /// </exception>
         /// <returns>
         ///     A randomized System.Int32 within <paramref name="min" /> and <paramref name="max" />.
         /// </returns>
@@ -73,7 +76,7 @@ namespace RandomExtended
 
             return (min: minRule, max: maxRule) switch
             {
-                {min: Rule.Exclude, max: Rule.Exclude} when max - min < 2 => throw new ArgumentException(
+                {min: Rule.Exclude, max: Rule.Exclude} when max - min < 2 => throw new ArgumentOutOfRangeException(
                     $"The difference between {nameof(max)} and {nameof(min)} ({nameof(max)} - {nameof(min)}) greater or equal to 2."
                 ),
                 {min: Rule.Exclude, max: Rule.Exclude} => value == min ? value + 1 : value,

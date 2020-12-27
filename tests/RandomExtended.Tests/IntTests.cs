@@ -35,10 +35,10 @@ namespace RandomExtensions.Tests
         [Test]
         public void MinRule_Exclusive__MaxRule_Exclusive()
         {
-            Assert.Throws<ArgumentException>(() => Random.Int(1, 2, Rule.Exclude, Rule.Exclude));
-            Assert.Throws<ArgumentException>(() => Random.Int(2, 3, Rule.Exclude, Rule.Exclude));
-            Assert.Throws<ArgumentException>(() => Random.Int(3, 4, Rule.Exclude, Rule.Exclude));
-            Assert.Throws<ArgumentException>(() => Random.Int(1, 1, Rule.Exclude, Rule.Exclude));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Random.Int(1, 2, Rule.Exclude, Rule.Exclude));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Random.Int(2, 3, Rule.Exclude, Rule.Exclude));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Random.Int(3, 4, Rule.Exclude, Rule.Exclude));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Random.Int(1, 1, Rule.Exclude, Rule.Exclude));
             Assert.DoesNotThrow(() => Random.Int(1, 3, Rule.Exclude, Rule.Exclude));
 
             // The only viable number to randomize is 2 with these numbers.
