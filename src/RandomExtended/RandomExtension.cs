@@ -690,6 +690,32 @@ namespace RandomExtended
             };
         }
 
+        public static TimeSpan TimeSpan(
+            this Random random,
+            in TimeSpan min,
+            in TimeSpan max,
+            Rule rule
+        )
+        {
+            var value = TimeSpan(random, min, max);
+            
+            
+            return rule switch
+            {
+                Rule.Exclusive when max.Subtract(min) < System.TimeSpan.FromTicks(2) => throw new ArgumentOutOfRangeException(
+                    $"The difference between {nameof(max)} and {nameof(min)} ({nameof(max)} - {nameof(min)}) greater or equal to 2."
+                ),
+                Rule.Exclusive => value == min ? value + 1 : value,
+                Rule.InclusiveExclusive => value,
+                Rule.Inclusive => max - 1 == value && random.Bool()
+                    ? max
+                    : value,
+
+                Rule.ExclusiveInclusive => max - 1 == value ? max : value,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
+
         /// <summary>
         ///     Randomizes a System.DateTime within <paramref name="min" /> and <paramref name="max" />.
         /// </summary>
