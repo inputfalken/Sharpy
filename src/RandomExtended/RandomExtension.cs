@@ -50,16 +50,17 @@ namespace RandomExtended
         ///     The maximum value.
         /// </param>
         /// <param name="minRule">
-        /// Sets the behaviour for <see cref="min"/>.
+        ///     Sets the behaviour for <see cref="min" />.
         /// </param>
         /// <param name="maxRule">
-        /// Sets the behaviour for <see cref="max"/>.
+        ///     Sets the behaviour for <see cref="max" />.
         /// </param>
         /// <exception cref="ArgumentOutOfRangeException">
         ///     When <paramref name="min" /> is greater than <paramref name="max" />.
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///     When <see cref="minRule"/> and is <see cref="maxRule"/> is <see cref="Rule.Exclude"/> and the subtraction difference between <see cref="min"/> and <see cref="max"/> is lesser than 2.
+        ///     When <see cref="minRule" /> and is <see cref="maxRule" /> is <see cref="Rule.Exclude" /> and the subtraction
+        ///     difference between <see cref="min" /> and <see cref="max" /> is lesser than 2.
         /// </exception>
         /// <returns>
         ///     A randomized System.Int32 within <paramref name="min" /> and <paramref name="max" />.
@@ -73,6 +74,60 @@ namespace RandomExtended
         )
         {
             var value = random.Int(min, max);
+
+            return (min: minRule, max: maxRule) switch
+            {
+                {min: Rule.Exclude, max: Rule.Exclude} when max - min < 2 => throw new ArgumentOutOfRangeException(
+                    $"The difference between {nameof(max)} and {nameof(min)} ({nameof(max)} - {nameof(min)}) greater or equal to 2."
+                ),
+                {min: Rule.Exclude, max: Rule.Exclude} => value == min ? value + 1 : value,
+                {min: Rule.Include, max : Rule.Exclude} => value,
+                {min: Rule.Include, max : Rule.Include} => max - 1 == value && random.Bool()
+                    ? max
+                    : value,
+
+                {min: Rule.Exclude, max : Rule.Include} => max - 1 == value ? max : value,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
+
+        /// <summary>
+        ///     Randomizes a System.Int64 within <paramref name="min" /> and <paramref name="max" />.
+        /// </summary>
+        /// <param name="random">
+        ///     The System.Random to randomize with.
+        /// </param>
+        /// <param name="min">
+        ///     The minimum value.
+        /// </param>
+        /// <param name="max">
+        ///     The maximum value.
+        /// </param>
+        /// <param name="minRule">
+        ///     Sets the behaviour for <see cref="min" />.
+        /// </param>
+        /// <param name="maxRule">
+        ///     Sets the behaviour for <see cref="max" />.
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <paramref name="min" /> is greater than <paramref name="max" />.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <see cref="minRule" /> and is <see cref="maxRule" /> is <see cref="Rule.Exclude" /> and the subtraction
+        ///     difference between <see cref="min" /> and <see cref="max" /> is lesser than 2.
+        /// </exception>
+        /// <returns>
+        ///     A randomized System.Int64 within <paramref name="min" /> and <paramref name="max" />.
+        /// </returns>
+        public static long Long(
+            this Random random,
+            in long min,
+            in long max,
+            in Rule minRule,
+            in Rule maxRule
+        )
+        {
+            var value = random.Long(min, max);
 
             return (min: minRule, max: maxRule) switch
             {
