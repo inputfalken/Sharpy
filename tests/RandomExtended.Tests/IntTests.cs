@@ -33,83 +33,83 @@ namespace RandomExtensions.Tests
         }
 
         [Test]
-        public void MinRule_Exclusive__MaxRule_Exclusive()
+        public void Exclusive()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => Random.Int(1, 2, Rule.Exclude, Rule.Exclude));
-            Assert.Throws<ArgumentOutOfRangeException>(() => Random.Int(2, 3, Rule.Exclude, Rule.Exclude));
-            Assert.Throws<ArgumentOutOfRangeException>(() => Random.Int(3, 4, Rule.Exclude, Rule.Exclude));
-            Assert.Throws<ArgumentOutOfRangeException>(() => Random.Int(1, 1, Rule.Exclude, Rule.Exclude));
-            Assert.DoesNotThrow(() => Random.Int(1, 3, Rule.Exclude, Rule.Exclude));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Random.Int(1, 2, Rule.Exclusive));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Random.Int(2, 3, Rule.Exclusive));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Random.Int(3, 4, Rule.Exclusive));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Random.Int(1, 1, Rule.Exclusive));
+            Assert.DoesNotThrow(() => Random.Int(1, 3, Rule.Exclusive));
 
             // The only viable number to randomize is 2 with these numbers.
             for (var i = 0; i < Assertion.Amount; i++)
-                Assert.AreEqual(2, Random.Int(1, 3, Rule.Exclude, Rule.Exclude));
+                Assert.AreEqual(2, Random.Int(1, 3, Rule.Exclusive));
         }
 
         [Test]
-        public void MinRule_Inclusive__MaxRule_Inclusive()
+        public void Inclusive()
         {
             Assertion.IsDistributed(
                 Random,
-                x => x.Int(int.MaxValue - 1, int.MaxValue, Rule.Include, Rule.Include),
+                x => x.Int(int.MaxValue - 1, int.MaxValue, Rule.Inclusive),
                 x => Assert.True(x.Count == 2, "x.Count == 2")
             );
 
             for (var i = 0; i < Assertion.Amount; i++)
-                Assert.AreEqual(1, Random.Int(1, 1, Rule.Include, Rule.Include));
+                Assert.AreEqual(1, Random.Int(1, 1, Rule.Inclusive));
         }
 
         [Test]
-        public void MinRule_Inclusive__MaxRule_Exclusive()
+        public void InclusiveExclusive()
         {
             Assert.AreEqual(
                 int.MaxValue,
-                Random.Int(int.MaxValue, int.MaxValue, Rule.Include, Rule.Exclude),
+                Random.Int(int.MaxValue, int.MaxValue, Rule.InclusiveExclusive),
                 "Can return maxValue"
             );
             
-            Assert.AreEqual(1, Random.Int(1, 1, Rule.Include, Rule.Exclude));
-            Assert.AreEqual(1, Random.Int(1, 2, Rule.Include, Rule.Exclude));
-            Assert.AreEqual(2, Random.Int(2, 3, Rule.Include, Rule.Exclude));
-            Assert.AreEqual(3, Random.Int(3, 4, Rule.Include, Rule.Exclude));
+            Assert.AreEqual(1, Random.Int(1, 1, Rule.InclusiveExclusive));
+            Assert.AreEqual(1, Random.Int(1, 2, Rule.InclusiveExclusive));
+            Assert.AreEqual(2, Random.Int(2, 3, Rule.InclusiveExclusive));
+            Assert.AreEqual(3, Random.Int(3, 4, Rule.InclusiveExclusive));
         }
 
         [Test]
-        public void MinRule_Exclusive__MaxRule_Inclusive()
+        public void ExclusiveInclusive()
         {
             Assert.AreEqual(
                 int.MaxValue,
-                Random.Int(int.MaxValue, int.MaxValue, Rule.Exclude, Rule.Include),
+                Random.Int(int.MaxValue, int.MaxValue, Rule.ExclusiveInclusive),
                 "Can return maxValue"
             );
 
             Assert.AreEqual(
                 int.MaxValue,
-                Random.Int(int.MaxValue - 1, int.MaxValue, Rule.Exclude, Rule.Include),
+                Random.Int(int.MaxValue - 1, int.MaxValue, Rule.ExclusiveInclusive),
                 "Can return maxValue"
             );
 
-            Assert.AreEqual(1, Random.Int(1, 1, Rule.Exclude, Rule.Include));
-            Assert.AreEqual(2, Random.Int(1, 2, Rule.Exclude, Rule.Include));
-            Assert.AreEqual(3, Random.Int(2, 3, Rule.Exclude, Rule.Include));
-            Assert.AreEqual(4, Random.Int(3, 4, Rule.Exclude, Rule.Include));
+            Assert.AreEqual(1, Random.Int(1, 1, Rule.ExclusiveInclusive));
+            Assert.AreEqual(2, Random.Int(1, 2, Rule.ExclusiveInclusive));
+            Assert.AreEqual(3, Random.Int(2, 3, Rule.ExclusiveInclusive));
+            Assert.AreEqual(4, Random.Int(3, 4, Rule.ExclusiveInclusive));
 
 
             Assertion.IsDistributed(
                 Random,
-                x => x.Int(1, 3, Rule.Exclude, Rule.Include),
+                x => x.Int(1, 3, Rule.ExclusiveInclusive),
                 x => Assert.True(x.Count == 2, "x.Count == 2")
             );
 
             Assertion.IsDistributed(
                 Random,
-                x => x.Int(1, 4, Rule.Exclude, Rule.Include),
+                x => x.Int(1, 4, Rule.ExclusiveInclusive),
                 x => Assert.True(x.Count == 3, "x.Count == 3")
             );
 
             Assertion.IsDistributed(
                 Random,
-                x => x.Int(1, 5, Rule.Exclude, Rule.Include),
+                x => x.Int(1, 5, Rule.ExclusiveInclusive),
                 x => Assert.True(x.Count == 4, "x.Count == 4")
             );
         }

@@ -49,17 +49,14 @@ namespace RandomExtended
         /// <param name="max">
         ///     The maximum value.
         /// </param>
-        /// <param name="minRule">
-        ///     Sets the behaviour for <see cref="min" />.
-        /// </param>
-        /// <param name="maxRule">
-        ///     Sets the behaviour for <see cref="max" />.
+        /// <param name="rule">
+        ///     Sets the behaviour whether to use inclusive or exclusive logic.
         /// </param>
         /// <exception cref="ArgumentOutOfRangeException">
         ///     When <paramref name="min" /> is greater than <paramref name="max" />.
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///     When <see cref="minRule" /> and is <see cref="maxRule" /> is <see cref="Rule.Exclude" /> and the subtraction
+        ///     When <paramref name="rule"/> is <see cref="Rule.Exclusive"/> and the subtraction
         ///     difference between <see cref="min" /> and <see cref="max" /> is lesser than 2.
         /// </exception>
         /// <returns>
@@ -69,24 +66,23 @@ namespace RandomExtended
             this Random random,
             in int min,
             in int max,
-            in Rule minRule,
-            in Rule maxRule
+            in Rule rule
         )
         {
             var value = random.Int(min, max);
 
-            return (min: minRule, max: maxRule) switch
+            return rule switch
             {
-                {min: Rule.Exclude, max: Rule.Exclude} when max - min < 2 => throw new ArgumentOutOfRangeException(
+                Rule.Exclusive when max - min < 2 => throw new ArgumentOutOfRangeException(
                     $"The difference between {nameof(max)} and {nameof(min)} ({nameof(max)} - {nameof(min)}) greater or equal to 2."
                 ),
-                {min: Rule.Exclude, max: Rule.Exclude} => value == min ? value + 1 : value,
-                {min: Rule.Include, max : Rule.Exclude} => value,
-                {min: Rule.Include, max : Rule.Include} => max - 1 == value && random.Bool()
+                Rule.Exclusive => value == min ? value + 1 : value,
+                Rule.InclusiveExclusive => value,
+                Rule.Inclusive => max - 1 == value && random.Bool()
                     ? max
                     : value,
 
-                {min: Rule.Exclude, max : Rule.Include} => max - 1 == value ? max : value,
+                Rule.ExclusiveInclusive => max - 1 == value ? max : value,
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
@@ -103,17 +99,14 @@ namespace RandomExtended
         /// <param name="max">
         ///     The maximum value.
         /// </param>
-        /// <param name="minRule">
-        ///     Sets the behaviour for <see cref="min" />.
-        /// </param>
-        /// <param name="maxRule">
-        ///     Sets the behaviour for <see cref="max" />.
+        /// <param name="rule">
+        ///     Sets the behaviour whether to use inclusive or exclusive logic.
         /// </param>
         /// <exception cref="ArgumentOutOfRangeException">
         ///     When <paramref name="min" /> is greater than <paramref name="max" />.
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///     When <see cref="minRule" /> and is <see cref="maxRule" /> is <see cref="Rule.Exclude" /> and the subtraction
+        ///     When <paramref name="rule"/> is <see cref="Rule.Exclusive"/> and the subtraction
         ///     difference between <see cref="min" /> and <see cref="max" /> is lesser than 2.
         /// </exception>
         /// <returns>
@@ -123,24 +116,23 @@ namespace RandomExtended
             this Random random,
             in long min,
             in long max,
-            in Rule minRule,
-            in Rule maxRule
+            in Rule rule
         )
         {
             var value = random.Long(min, max);
 
-            return (min: minRule, max: maxRule) switch
+            return rule switch
             {
-                {min: Rule.Exclude, max: Rule.Exclude} when max - min < 2 => throw new ArgumentOutOfRangeException(
+                Rule.Exclusive when max - min < 2 => throw new ArgumentOutOfRangeException(
                     $"The difference between {nameof(max)} and {nameof(min)} ({nameof(max)} - {nameof(min)}) greater or equal to 2."
                 ),
-                {min: Rule.Exclude, max: Rule.Exclude} => value == min ? value + 1 : value,
-                {min: Rule.Include, max : Rule.Exclude} => value,
-                {min: Rule.Include, max : Rule.Include} => max - 1 == value && random.Bool()
+                Rule.Exclusive => value == min ? value + 1 : value,
+                Rule.InclusiveExclusive => value,
+                Rule.Inclusive => max - 1 == value && random.Bool()
                     ? max
                     : value,
 
-                {min: Rule.Exclude, max : Rule.Include} => max - 1 == value ? max : value,
+                Rule.ExclusiveInclusive => max - 1 == value ? max : value,
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
