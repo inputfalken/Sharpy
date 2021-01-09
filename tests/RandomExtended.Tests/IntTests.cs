@@ -49,6 +49,12 @@ namespace RandomExtensions.Tests
         [Test]
         public void Inclusive()
         {
+            Assert.AreEqual(
+                int.MaxValue,
+                Random.Int(int.MaxValue, int.MaxValue, Rule.Inclusive),
+                "Can return maxValue"
+            );
+            
             Assertion.IsDistributed(
                 Random,
                 x => x.Int(int.MaxValue - 1, int.MaxValue, Rule.Inclusive),

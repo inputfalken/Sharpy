@@ -74,14 +74,13 @@ namespace RandomExtended
             return rule switch
             {
                 Rule.Exclusive when max - min < 2 => throw new ArgumentOutOfRangeException(
-                    $"The difference between {nameof(max)} and {nameof(min)} ({nameof(max)} - {nameof(min)}) greater or equal to 2."
+                    $"The difference between {nameof(max)} and {nameof(min)} ({nameof(max)} - {nameof(min)}) must begreater or equal to 2."
                 ),
                 Rule.Exclusive => value == min ? value + 1 : value,
                 Rule.InclusiveExclusive => value,
                 Rule.Inclusive => max - 1 == value && random.Bool()
                     ? max
                     : value,
-
                 Rule.ExclusiveInclusive => max - 1 == value ? max : value,
                 _ => throw new ArgumentOutOfRangeException()
             };
@@ -124,7 +123,7 @@ namespace RandomExtended
             return rule switch
             {
                 Rule.Exclusive when max - min < 2 => throw new ArgumentOutOfRangeException(
-                    $"The difference between {nameof(max)} and {nameof(min)} ({nameof(max)} - {nameof(min)}) greater or equal to 2."
+                    $"The difference between {nameof(max)} and {nameof(min)} ({nameof(max)} - {nameof(min)}) must be greater or equal to 2."
                 ),
                 Rule.Exclusive => value == min ? value + 1 : value,
                 Rule.InclusiveExclusive => value,
@@ -690,28 +689,55 @@ namespace RandomExtended
             };
         }
 
+        private static readonly TimeSpan OneTick = System.TimeSpan.FromTicks(1);
+        private static readonly TimeSpan TwoTicks = System.TimeSpan.FromTicks(2);
+
+        /// <summary>
+        ///     Randomizes a System.TimeSpan within <paramref name="min" /> and <paramref name="max" />.
+        /// </summary>
+        /// <param name="random">
+        ///     The System.Random to randomize with.
+        /// </param>
+        /// <param name="min">
+        ///     The minimum value.
+        /// </param>
+        /// <param name="max">
+        ///     The maximum value.
+        /// </param>
+        /// <param name="rule">
+        ///     Sets the behaviour whether to use inclusive or exclusive logic.
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <paramref name="min" /> is greater than <paramref name="max" />.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <paramref name="rule"/> is <see cref="Rule.Exclusive"/> and the subtraction
+        ///     difference between <see cref="min" /> and <see cref="max" /> is lesser than 2 ticks ('00:00:00.0000002').
+        /// </exception>
+        /// <returns>
+        ///     A randomized System.TimeSpan within <paramref name="min" /> and <paramref name="max" />.
+        /// </returns>
         public static TimeSpan TimeSpan(
             this Random random,
             in TimeSpan min,
             in TimeSpan max,
-            Rule rule
+            in Rule rule
         )
         {
             var value = TimeSpan(random, min, max);
-            
-            
+
             return rule switch
             {
-                Rule.Exclusive when max.Subtract(min) < System.TimeSpan.FromTicks(2) => throw new ArgumentOutOfRangeException(
-                    $"The difference between {nameof(max)} and {nameof(min)} ({nameof(max)} - {nameof(min)}) greater or equal to 2."
-                ),
-                Rule.Exclusive => value == min ? value + 1 : value,
+                Rule.Exclusive when max - min < TwoTicks => throw new
+                    ArgumentOutOfRangeException(
+                        $"The difference between {nameof(max)} and {nameof(min)} ({nameof(max)} - {nameof(min)}) must be greater or equal to '{TwoTicks}'."
+                    ),
+                Rule.Exclusive => value == min ? value + OneTick : value,
                 Rule.InclusiveExclusive => value,
-                Rule.Inclusive => max - 1 == value && random.Bool()
+                Rule.Inclusive => max - OneTick == value && random.Bool()
                     ? max
                     : value,
-
-                Rule.ExclusiveInclusive => max - 1 == value ? max : value,
+                Rule.ExclusiveInclusive => max - OneTick == value ? max : value,
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
