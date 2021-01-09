@@ -586,13 +586,7 @@ namespace RandomExtended
                 _ when min > max => throw new ArgumentOutOfRangeException(nameof(min),
                     $"Can not be greater than {nameof(max)}."),
                 _ when min == max => min,
-                _ => System.TimeSpan.FromMilliseconds(
-                        random.Double(min.TotalMilliseconds, max.TotalMilliseconds)
-                    ) switch
-                    {
-                        { } x when x == max => x.Subtract(System.TimeSpan.FromTicks(1)),
-                        { } x => x
-                    }
+                _ => System.TimeSpan.FromTicks(random.Long(min.Ticks, max.Ticks))
             };
         }
 

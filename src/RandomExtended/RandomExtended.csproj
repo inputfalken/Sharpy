@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
         <PackageTags>Builder Data</PackageTags>
-        <Version>0.1.0</Version>
+        <Version>0.1.1</Version>
         <Description>Contains extension methods for System.Random.</Description>
         <LangVersion>9</LangVersion>
         <Nullable>enable</Nullable>
