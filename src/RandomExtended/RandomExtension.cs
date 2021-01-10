@@ -776,6 +776,56 @@ namespace RandomExtended
         }
 
         /// <summary>
+        ///     Randomizes a System.DateTime within <paramref name="min" /> and <paramref name="max" />.
+        /// </summary>
+        /// <param name="random">
+        ///     The System.Random to randomize with.
+        /// </param>
+        /// <param name="min">
+        ///     The minimum value.
+        /// </param>
+        /// <param name="max">
+        ///     The maximum value.
+        /// </param>
+        /// <param name="rule">
+        ///     Sets the behaviour whether to use inclusive or exclusive logic.
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <paramref name="min" /> is greater than <paramref name="max" />.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <paramref name="rule"/> is <see cref="Rule.Exclusive"/> and the subtraction
+        ///     difference between <see cref="min" /> and <see cref="max" /> is lesser than 2 ticks.
+        /// </exception>
+        /// <returns>
+        ///     A randomized System.DateTime within <paramref name="min" /> and <paramref name="max" />.
+        /// </returns>
+        public static DateTime DateTime(
+            this Random random,
+            in DateTime min,
+            in DateTime max,
+            in Rule rule
+        )
+        {
+            var value = DateTime(random, min, max);
+
+            return rule switch
+            {
+                Rule.Exclusive when max.Ticks - min.Ticks < 2 => throw new
+                    ArgumentOutOfRangeException(
+                        $"The ticks difference between {nameof(max)} and {nameof(min)} ({nameof(max)} - {nameof(min)}) must be greater or equal to '2'."
+                    ),
+                Rule.Exclusive => value.Ticks == min.Ticks ? value.AddTicks(1) : value,
+                Rule.InclusiveExclusive => value,
+                Rule.Inclusive => max.Ticks - 1 == value.Ticks && random.Bool()
+                    ? max
+                    : value,
+                Rule.ExclusiveInclusive => max.Ticks - 1 == value.Ticks ? max : value,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
+
+        /// <summary>
         ///     Randomizes a System.DateTimeOffset within <paramref name="min" /> and <paramref name="max" />.
         /// </summary>
         /// <param name="random">

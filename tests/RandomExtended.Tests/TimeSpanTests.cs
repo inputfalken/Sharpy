@@ -21,7 +21,7 @@ namespace RandomExtensions.Tests
                 Random.TimeSpan(TimeSpan.FromTicks(3), TimeSpan.FromTicks(4), Rule.Exclusive));
             Assert.Throws<ArgumentOutOfRangeException>(() =>
                 Random.TimeSpan(TimeSpan.FromTicks(1), TimeSpan.FromTicks(1), Rule.Exclusive));
-            Assert.DoesNotThrow(() => Random.Int(1, 3, Rule.Exclusive));
+            Assert.DoesNotThrow(() => Random.TimeSpan(TimeSpan.FromTicks(1), TimeSpan.FromTicks(3), Rule.Exclusive));
 
             // The only viable tick to randomize is 2 with these values.
             for (var i = 0; i < Assertion.Amount; i++)
