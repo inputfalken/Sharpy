@@ -840,6 +840,9 @@ namespace RandomExtended
         /// <exception cref="ArgumentOutOfRangeException">
         ///     When <paramref name="min" /> is greater than <paramref name="max" />.
         /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     When the offset from <see paramref="min"/> and <see paramref="max"/> do not match.
+        /// </exception>
         /// <returns>
         ///     A randomized System.DateTimeOffset within <paramref name="min" /> and <paramref name="max" />.
         /// </returns>
@@ -849,12 +852,64 @@ namespace RandomExtended
             in DateTimeOffset max
         )
         {
-            var dateTime = DateTime(random, min.DateTime, max.DateTime);
-            var offset = System.DateTimeOffset.Now.Offset;
+            if (min.Offset != max.Offset)
+                throw new ArgumentException($"The offset do not match min ({min.Offset}) max ({max.Offset}).");
 
-            return dateTime.TimeOfDay < offset
-                ? dateTime.Add(offset)
-                : dateTime;
+            return new(Long(random, min.Ticks, max.Ticks), min.Offset);
+        }
+
+
+        /// <summary>
+        ///     Randomizes a System.DateTimeOffset within <paramref name="min" /> and <paramref name="max" />.
+        /// </summary>
+        /// <param name="random">
+        ///     The System.Random to randomize with.
+        /// </param>
+        /// <param name="min">
+        ///     The minimum inclusive value.
+        /// </param>
+        /// <param name="max">
+        ///     The maximum exclusive value.
+        /// </param>
+        /// <param name="rule">
+        ///     Sets the behaviour whether to use inclusive or exclusive logic.
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <paramref name="min" /> is greater than <paramref name="max" />.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     When the offset from <see paramref="min"/> and <see paramref="max"/> do not match.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <paramref name="rule"/> is <see cref="Rule.Exclusive"/> and the subtraction
+        ///     difference between <see cref="min" /> and <see cref="max" /> is lesser than 2 ticks.
+        /// </exception>
+        /// <returns>
+        ///     A randomized System.DateTimeOffset within <paramref name="min" /> and <paramref name="max" />.
+        /// </returns>
+        public static DateTimeOffset DateTimeOffset(
+            this Random random,
+            in DateTimeOffset min,
+            in DateTimeOffset max,
+            Rule rule
+        )
+        {
+            var value = DateTimeOffset(random, min, max);
+
+            return rule switch
+            {
+                Rule.Exclusive when max.Ticks - min.Ticks < 2 => throw new
+                    ArgumentOutOfRangeException(
+                        $"The ticks difference between {nameof(max)} and {nameof(min)} ({nameof(max)} - {nameof(min)}) must be greater or equal to '2'."
+                    ),
+                Rule.Exclusive => value.Ticks == min.Ticks ? value.AddTicks(1) : value,
+                Rule.InclusiveExclusive => value,
+                Rule.Inclusive => max.Ticks - 1 == value.Ticks && random.Bool()
+                    ? max
+                    : value,
+                Rule.ExclusiveInclusive => max.Ticks - 1 == value.Ticks ? max : value,
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
 
         /// <summary>

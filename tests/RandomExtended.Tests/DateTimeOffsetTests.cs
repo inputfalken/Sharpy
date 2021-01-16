@@ -27,6 +27,112 @@ namespace RandomExtensions.Tests
             );
         }
 
+        private static DateTimeOffset Factory(long ticks)
+        {
+            var nowOffset = DateTimeOffset.Now.Offset;
+            return new DateTimeOffset(nowOffset.Ticks + ticks, nowOffset);
+        }
+
+        [Test]
+        public void Exclusive()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                Random.DateTimeOffset(Factory(1), Factory(2), Rule.Exclusive));
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                Random.DateTimeOffset(Factory(2), Factory(3), Rule.Exclusive));
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                Random.DateTimeOffset(Factory(3), Factory(4), Rule.Exclusive));
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                Random.DateTimeOffset(Factory(1), Factory(1), Rule.Exclusive));
+            Assert.DoesNotThrow(() => Random.DateTime(new DateTime(1), new DateTime(3), Rule.Exclusive));
+
+            // The only viable tick to randomize is 2 with these values.
+            for (var i = 0; i < Assertion.Amount; i++)
+                Assert.AreEqual(Factory(2), Random.DateTimeOffset(Factory(1), Factory(3), Rule.Exclusive));
+        }
+
+        [Test]
+        public void Inclusive()
+        {
+            Assert.AreEqual(
+                DateTimeOffset.MaxValue,
+                Random.DateTimeOffset(DateTimeOffset.MaxValue, DateTimeOffset.MaxValue, Rule.Inclusive),
+                "Can return maxValue"
+            );
+            Assertion.IsDistributed(
+                Random,
+                x => x.DateTimeOffset(DateTimeOffset.MaxValue.AddTicks(-1), DateTimeOffset.MaxValue, Rule.Inclusive),
+                x => Assert.True(x.Count == 2, "x.Count == 2")
+            );
+
+            for (var i = 0; i < Assertion.Amount; i++)
+                Assert.AreEqual(Factory(1),
+                    Random.DateTimeOffset(Factory(1), Factory(1), Rule.Inclusive));
+        }
+
+        [Test]
+        public void InclusiveExclusive()
+        {
+            Assert.AreEqual(
+                DateTimeOffset.MaxValue,
+                Random.DateTimeOffset(DateTimeOffset.MaxValue, DateTimeOffset.MaxValue, Rule.InclusiveExclusive),
+                "Can return maxValue"
+            );
+
+            Assert.AreEqual(Factory(1),
+                Random.DateTimeOffset(Factory(1), Factory(1), Rule.InclusiveExclusive));
+            Assert.AreEqual(Factory(1),
+                Random.DateTimeOffset(Factory(1), Factory(2), Rule.InclusiveExclusive));
+            Assert.AreEqual(Factory(2),
+                Random.DateTimeOffset(Factory(2), Factory(3), Rule.InclusiveExclusive));
+            Assert.AreEqual(Factory(3),
+                Random.DateTimeOffset(Factory(3), Factory(4), Rule.InclusiveExclusive));
+        }
+
+        [Test]
+        public void ExclusiveInclusive()
+        {
+            Assert.AreEqual(
+                DateTimeOffset.MaxValue,
+                Random.DateTimeOffset(DateTimeOffset.MaxValue, DateTimeOffset.MaxValue, Rule.ExclusiveInclusive),
+                "Can return maxValue"
+            );
+
+            Assert.AreEqual(
+                DateTimeOffset.MaxValue,
+                Random.DateTimeOffset(DateTimeOffset.MaxValue.AddTicks(-1), DateTimeOffset.MaxValue, Rule.ExclusiveInclusive),
+                "Can return maxValue"
+            );
+
+            Assert.AreEqual(Factory(1),
+                Random.DateTimeOffset(Factory(1), Factory(1), Rule.ExclusiveInclusive));
+            Assert.AreEqual(Factory(2),
+                Random.DateTimeOffset(Factory(1), Factory(2), Rule.ExclusiveInclusive));
+            Assert.AreEqual(Factory(3),
+                Random.DateTimeOffset(Factory(2), Factory(3), Rule.ExclusiveInclusive));
+            Assert.AreEqual(Factory(4),
+                Random.DateTimeOffset(Factory(3), Factory(4), Rule.ExclusiveInclusive));
+
+
+            Assertion.IsDistributed(
+                Random,
+                x => x.DateTimeOffset(Factory(1), Factory(3), Rule.ExclusiveInclusive),
+                x => Assert.True(x.Count == 2, "x.Count == 2")
+            );
+
+            Assertion.IsDistributed(
+                Random,
+                x => x.DateTimeOffset(Factory(1), Factory(4), Rule.ExclusiveInclusive),
+                x => Assert.True(x.Count == 3, "x.Count == 3")
+            );
+
+            Assertion.IsDistributed(
+                Random,
+                x => x.DateTimeOffset(Factory(1), Factory(5), Rule.ExclusiveInclusive),
+                x => Assert.True(x.Count == 4, "x.Count == 4")
+            );
+        }
+
         [Test]
         public void Min_Max_Arg_Is_Deterministic_With_Seed()
         {
