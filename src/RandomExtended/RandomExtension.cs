@@ -8,6 +8,9 @@ namespace RandomExtended
     /// </summary>
     public static class RandomExtension
     {
+        private static readonly TimeSpan OneTick = System.TimeSpan.FromTicks(1);
+        private static readonly TimeSpan TwoTicks = System.TimeSpan.FromTicks(2);
+
         /// <summary>
         ///     Randomizes a System.Int32 within <paramref name="min" /> and <paramref name="max" />.
         /// </summary>
@@ -56,7 +59,7 @@ namespace RandomExtended
         ///     When <paramref name="min" /> is greater than <paramref name="max" />.
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///     When <paramref name="rule"/> is <see cref="Rule.Exclusive"/> and the subtraction
+        ///     When <paramref name="rule" /> is <see cref="Rule.Exclusive" /> and the subtraction
         ///     difference between <see cref="min" /> and <see cref="max" /> is lesser than 2.
         /// </exception>
         /// <returns>
@@ -105,7 +108,7 @@ namespace RandomExtended
         ///     When <paramref name="min" /> is greater than <paramref name="max" />.
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///     When <paramref name="rule"/> is <see cref="Rule.Exclusive"/> and the subtraction
+        ///     When <paramref name="rule" /> is <see cref="Rule.Exclusive" /> and the subtraction
         ///     difference between <see cref="min" /> and <see cref="max" /> is lesser than 2.
         /// </exception>
         /// <returns>
@@ -689,9 +692,6 @@ namespace RandomExtended
             };
         }
 
-        private static readonly TimeSpan OneTick = System.TimeSpan.FromTicks(1);
-        private static readonly TimeSpan TwoTicks = System.TimeSpan.FromTicks(2);
-
         /// <summary>
         ///     Randomizes a System.TimeSpan within <paramref name="min" /> and <paramref name="max" />.
         /// </summary>
@@ -711,7 +711,7 @@ namespace RandomExtended
         ///     When <paramref name="min" /> is greater than <paramref name="max" />.
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///     When <paramref name="rule"/> is <see cref="Rule.Exclusive"/> and the subtraction
+        ///     When <paramref name="rule" /> is <see cref="Rule.Exclusive" /> and the subtraction
         ///     difference between <see cref="min" /> and <see cref="max" /> is lesser than 2 ticks ('00:00:00.0000002').
         /// </exception>
         /// <returns>
@@ -794,7 +794,7 @@ namespace RandomExtended
         ///     When <paramref name="min" /> is greater than <paramref name="max" />.
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///     When <paramref name="rule"/> is <see cref="Rule.Exclusive"/> and the subtraction
+        ///     When <paramref name="rule" /> is <see cref="Rule.Exclusive" /> and the subtraction
         ///     difference between <see cref="min" /> and <see cref="max" /> is lesser than 2 ticks.
         /// </exception>
         /// <returns>
@@ -841,7 +841,7 @@ namespace RandomExtended
         ///     When <paramref name="min" /> is greater than <paramref name="max" />.
         /// </exception>
         /// <exception cref="ArgumentException">
-        ///     When the offset from <see paramref="min"/> and <see paramref="max"/> do not match.
+        ///     When the offset from <see paramref="min" /> and <see paramref="max" /> do not match.
         /// </exception>
         /// <returns>
         ///     A randomized System.DateTimeOffset within <paramref name="min" /> and <paramref name="max" />.
@@ -855,7 +855,7 @@ namespace RandomExtended
             if (min.Offset != max.Offset)
                 throw new ArgumentException($"The offset do not match min ({min.Offset}) max ({max.Offset}).");
 
-            return new(Long(random, min.Ticks, max.Ticks), min.Offset);
+            return new DateTimeOffset(Long(random, min.Ticks, max.Ticks), min.Offset);
         }
 
 
@@ -878,10 +878,10 @@ namespace RandomExtended
         ///     When <paramref name="min" /> is greater than <paramref name="max" />.
         /// </exception>
         /// <exception cref="ArgumentException">
-        ///     When the offset from <see paramref="min"/> and <see paramref="max"/> do not match.
+        ///     When the offset from <see paramref="min" /> and <see paramref="max" /> do not match.
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///     When <paramref name="rule"/> is <see cref="Rule.Exclusive"/> and the subtraction
+        ///     When <paramref name="rule" /> is <see cref="Rule.Exclusive" /> and the subtraction
         ///     difference between <see cref="min" /> and <see cref="max" /> is lesser than 2 ticks.
         /// </exception>
         /// <returns>
@@ -943,6 +943,41 @@ namespace RandomExtended
                 _ when min == max => min,
                 _ => (char) random.Next(min, max + 1)
             };
+        }
+
+        /// <summary>
+        ///     Randomizes a System.Char within <paramref name="min" /> and <paramref name="max" />.
+        /// </summary>
+        /// <param name="random">
+        ///     The System.Random to randomize with.
+        /// </param>
+        /// <param name="min">
+        ///     The minimum value.
+        /// </param>
+        /// <param name="max">
+        ///     The maximum value.
+        /// </param>
+        /// <param name="rule">
+        ///     Sets the behaviour whether to use inclusive or exclusive logic.
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <paramref name="min" /> is greater than <paramref name="max" />.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <paramref name="rule" /> is <see cref="Rule.Exclusive" /> and the subtraction
+        ///     difference between <see cref="min" /> and <see cref="max" /> is lesser than 2.
+        /// </exception>
+        /// <returns>
+        ///     A randomized System.Char within <paramref name="min" /> and <paramref name="max" />.
+        /// </returns>
+        public static char Char(
+            this Random random,
+            in char min,
+            in char max,
+            Rule rule
+        )
+        {
+            return (char) Int(random, min, max, rule);
         }
     }
 }

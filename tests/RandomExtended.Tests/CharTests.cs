@@ -22,6 +22,98 @@ namespace RandomExtensions.Tests
             Assertion.IsNotDeterministic(i => new Random(i), x => x.Char('a', 'z'));
         }
 
+        public static char Factory(int i)
+        {
+            return (char) i;
+        }
+
+        [Test]
+        public void Exclusive()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => Random.Char(Factory(1), Factory(2), Rule.Exclusive));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Random.Char(Factory(2), Factory(3), Rule.Exclusive));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Random.Char(Factory(3), Factory(4), Rule.Exclusive));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Random.Char(Factory(1), Factory(1), Rule.Exclusive));
+            Assert.DoesNotThrow(() => Random.Char(Factory(1), Factory(3), Rule.Exclusive));
+
+            // The only viable number to randomize is 2 with these numbers.
+            for (var i = 0; i < Assertion.Amount; i++)
+                Assert.AreEqual(2, Random.Char(Factory(1), Factory(3), Rule.Exclusive));
+        }
+
+        [Test]
+        public void Inclusive()
+        {
+            Assert.AreEqual(
+                char.MaxValue,
+                Random.Int(char.MaxValue, char.MaxValue, Rule.Inclusive),
+                "Can return maxValue"
+            );
+
+            Assertion.IsDistributed(
+                Random,
+                x => x.Char((char) (char.MaxValue - 1), char.MaxValue, Rule.Inclusive),
+                x => Assert.True(x.Count == 2, "x.Count == 2")
+            );
+
+            for (var i = 0; i < Assertion.Amount; i++)
+                Assert.AreEqual(Factory(1), Random.Int(Factory(1), Factory(1), Rule.Inclusive));
+        }
+
+        [Test]
+        public void InclusiveExclusive()
+        {
+            Assert.AreEqual(
+                char.MaxValue,
+                Random.Char(char.MaxValue, char.MaxValue, Rule.InclusiveExclusive),
+                "Can return maxValue"
+            );
+
+            Assert.AreEqual(Factory(1), Random.Char(Factory(1), Factory(1), Rule.InclusiveExclusive));
+            Assert.AreEqual(Factory(1), Random.Char(Factory(1), Factory(2), Rule.InclusiveExclusive));
+            Assert.AreEqual(Factory(2), Random.Char(Factory(2), Factory(2), Rule.InclusiveExclusive));
+            Assert.AreEqual(Factory(3), Random.Char(Factory(3), Factory(4), Rule.InclusiveExclusive));
+        }
+
+        [Test]
+        public void ExclusiveInclusive()
+        {
+            Assert.AreEqual(
+                char.MaxValue,
+                Random.Char(char.MaxValue, char.MaxValue, Rule.ExclusiveInclusive),
+                "Can return maxValue"
+            );
+
+            Assert.AreEqual(
+                char.MaxValue,
+                Random.Char((char) (char.MaxValue - 1), char.MaxValue, Rule.ExclusiveInclusive),
+                "Can return maxValue"
+            );
+
+            Assert.AreEqual(Factory(1), Random.Char(Factory(1), Factory(1), Rule.ExclusiveInclusive));
+            Assert.AreEqual(Factory(2), Random.Char(Factory(1), Factory(2), Rule.ExclusiveInclusive));
+            Assert.AreEqual(Factory(3), Random.Char(Factory(2), Factory(3), Rule.ExclusiveInclusive));
+            Assert.AreEqual(Factory(4), Random.Char(Factory(3), Factory(4), Rule.ExclusiveInclusive));
+
+
+            Assertion.IsDistributed(
+                Random,
+                x => x.Char(Factory(1), Factory(3), Rule.ExclusiveInclusive),
+                x => Assert.True(x.Count == 2, "x.Count == 2")
+            );
+
+            Assertion.IsDistributed(
+                Random,
+                x => x.Char(Factory(1), Factory(4), Rule.ExclusiveInclusive),
+                x => Assert.True(x.Count == 3, "x.Count == 3")
+            );
+
+            Assertion.IsDistributed(
+                Random,
+                x => x.Char(Factory(1), Factory(5), Rule.ExclusiveInclusive),
+                x => Assert.True(x.Count == 4, "x.Count == 4")
+            );
+        }
 
         [Test]
         public void All_Values_Are_Between_Min_And_Max()
