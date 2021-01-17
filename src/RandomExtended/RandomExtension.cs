@@ -186,7 +186,6 @@ namespace RandomExtended
                 Rule.Inclusive => max - 1 == value && random.Bool()
                     ? max
                     : value,
-
                 Rule.ExclusiveInclusive => max - 1 == value ? max : value,
                 _ => throw new ArgumentOutOfRangeException()
             };
@@ -685,13 +684,7 @@ namespace RandomExtended
             in TimeSpan max
         )
         {
-            return random switch
-            {
-                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min),
-                    $"Can not be greater than {nameof(max)}."),
-                _ when min == max => min,
-                _ => System.TimeSpan.FromTicks(random.Long(min.Ticks, max.Ticks))
-            };
+            return System.TimeSpan.FromTicks(random.Long(min.Ticks, max.Ticks));
         }
 
         /// <summary>
@@ -726,22 +719,7 @@ namespace RandomExtended
             in Rule rule
         )
         {
-            var value = TimeSpan(random, min, max);
-
-            return rule switch
-            {
-                Rule.Exclusive when max - min < TwoTicks => throw new
-                    ArgumentOutOfRangeException(
-                        $"The difference between {nameof(max)} and {nameof(min)} ({nameof(max)} - {nameof(min)}) must be greater or equal to '{TwoTicks}'."
-                    ),
-                Rule.Exclusive => value == min ? value + OneTick : value,
-                Rule.InclusiveExclusive => value,
-                Rule.Inclusive => max - OneTick == value && random.Bool()
-                    ? max
-                    : value,
-                Rule.ExclusiveInclusive => max - OneTick == value ? max : value,
-                _ => throw new ArgumentOutOfRangeException()
-            };
+            return System.TimeSpan.FromTicks(random.Long(min.Ticks, max.Ticks, rule));
         }
 
         /// <summary>
@@ -768,13 +746,7 @@ namespace RandomExtended
             in DateTime max
         )
         {
-            return random switch
-            {
-                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min),
-                    $"Can not be greater than {nameof(max)}."),
-                _ when min == max => min,
-                _ => new DateTime(random.Long(min.Ticks, max.Ticks))
-            };
+            return new(random.Long(min.Ticks, max.Ticks));
         }
 
         /// <summary>
@@ -809,22 +781,7 @@ namespace RandomExtended
             in Rule rule
         )
         {
-            var value = DateTime(random, min, max);
-
-            return rule switch
-            {
-                Rule.Exclusive when max.Ticks - min.Ticks < 2 => throw new
-                    ArgumentOutOfRangeException(
-                        $"The ticks difference between {nameof(max)} and {nameof(min)} ({nameof(max)} - {nameof(min)}) must be greater or equal to '2'."
-                    ),
-                Rule.Exclusive => value.Ticks == min.Ticks ? value.AddTicks(1) : value,
-                Rule.InclusiveExclusive => value,
-                Rule.Inclusive => max.Ticks - 1 == value.Ticks && random.Bool()
-                    ? max
-                    : value,
-                Rule.ExclusiveInclusive => max.Ticks - 1 == value.Ticks ? max : value,
-                _ => throw new ArgumentOutOfRangeException()
-            };
+            return new(random.Long(min.Ticks, max.Ticks, rule));
         }
 
         /// <summary>
@@ -896,22 +853,7 @@ namespace RandomExtended
             Rule rule
         )
         {
-            var value = DateTimeOffset(random, min, max);
-
-            return rule switch
-            {
-                Rule.Exclusive when max.Ticks - min.Ticks < 2 => throw new
-                    ArgumentOutOfRangeException(
-                        $"The ticks difference between {nameof(max)} and {nameof(min)} ({nameof(max)} - {nameof(min)}) must be greater or equal to '2'."
-                    ),
-                Rule.Exclusive => value.Ticks == min.Ticks ? value.AddTicks(1) : value,
-                Rule.InclusiveExclusive => value,
-                Rule.Inclusive => max.Ticks - 1 == value.Ticks && random.Bool()
-                    ? max
-                    : value,
-                Rule.ExclusiveInclusive => max.Ticks - 1 == value.Ticks ? max : value,
-                _ => throw new ArgumentOutOfRangeException()
-            };
+            return new(Long(random, min.Ticks, max.Ticks, rule), min.Offset);
         }
 
         /// <summary>
@@ -938,13 +880,7 @@ namespace RandomExtended
             in char max
         )
         {
-            return random switch
-            {
-                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min),
-                    $"Can not be greater than {nameof(max)}."),
-                _ when min == max => min,
-                _ => (char) random.Next(min, max + 1)
-            };
+            return (char) random.Int(min, max + 1);
         }
 
         /// <summary>
