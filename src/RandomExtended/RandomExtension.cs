@@ -8,9 +8,6 @@ namespace RandomExtended
     /// </summary>
     public static class RandomExtension
     {
-        private static readonly TimeSpan OneTick = System.TimeSpan.FromTicks(1);
-        private static readonly TimeSpan TwoTicks = System.TimeSpan.FromTicks(2);
-
         /// <summary>
         ///     Randomizes a System.Int32 within <paramref name="min" /> and <paramref name="max" />.
         /// </summary>
