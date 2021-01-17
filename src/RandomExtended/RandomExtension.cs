@@ -90,6 +90,59 @@ namespace RandomExtended
         }
 
         /// <summary>
+        ///     Randomizes a System.Long within <paramref name="min" /> and <paramref name="max" />.
+        /// </summary>
+        /// <param name="random">
+        ///     The System.Random to randomize with.
+        /// </param>
+        /// <param name="min">
+        ///     The minimum inclusive value.
+        /// </param>
+        /// <param name="max">
+        ///     The maximum exclusive value.
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <paramref name="min" /> is greater than <paramref name="max" />.
+        /// </exception>
+        /// <returns>
+        ///     A randomized System.Long within <paramref name="min" /> and <paramref name="max" />.
+        /// </returns>
+        public static long Long(
+            this Random random,
+            in long min,
+            in long max
+        )
+        {
+            static long NextLong(Random random, long min, long max)
+            {
+                //Working with ulong so that modulo works correctly with values > long.MaxValue
+                var uRange = (ulong) (max - min);
+
+                //Prevent a modulo bias; see http://stackoverflow.com/a/10984975/238419
+                //for more information.
+                //In the worst case, the expected number of calls is 2 (though usually it's
+                //much closer to 1) so this loop doesn't really hurt performance at all.
+                ulong ulongRand;
+                do
+                {
+                    var buf = new byte[8];
+                    random.NextBytes(buf);
+                    ulongRand = (ulong) BitConverter.ToInt64(buf, 0);
+                } while (ulongRand > ulong.MaxValue - (ulong.MaxValue % uRange + 1) % uRange);
+
+                return (long) (ulongRand % uRange) + min;
+            }
+
+            return random switch
+            {
+                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min),
+                    $"Can not be greater than {nameof(max)}."),
+                _ when min == max => min,
+                _ => NextLong(random, min, max)
+            };
+        }
+
+        /// <summary>
         ///     Randomizes a System.Int64 within <paramref name="min" /> and <paramref name="max" />.
         /// </summary>
         /// <param name="random">
@@ -603,59 +656,6 @@ namespace RandomExtended
                     -1 => first,
                     { } x => additional[x]
                 }
-            };
-        }
-
-        /// <summary>
-        ///     Randomizes a System.Long within <paramref name="min" /> and <paramref name="max" />.
-        /// </summary>
-        /// <param name="random">
-        ///     The System.Random to randomize with.
-        /// </param>
-        /// <param name="min">
-        ///     The minimum inclusive value.
-        /// </param>
-        /// <param name="max">
-        ///     The maximum exclusive value.
-        /// </param>
-        /// <exception cref="ArgumentOutOfRangeException">
-        ///     When <paramref name="min" /> is greater than <paramref name="max" />.
-        /// </exception>
-        /// <returns>
-        ///     A randomized System.Long within <paramref name="min" /> and <paramref name="max" />.
-        /// </returns>
-        public static long Long(
-            this Random random,
-            in long min,
-            in long max
-        )
-        {
-            static long NextLong(Random random, long min, long max)
-            {
-                //Working with ulong so that modulo works correctly with values > long.MaxValue
-                var uRange = (ulong) (max - min);
-
-                //Prevent a modulo bias; see http://stackoverflow.com/a/10984975/238419
-                //for more information.
-                //In the worst case, the expected number of calls is 2 (though usually it's
-                //much closer to 1) so this loop doesn't really hurt performance at all.
-                ulong ulongRand;
-                do
-                {
-                    var buf = new byte[8];
-                    random.NextBytes(buf);
-                    ulongRand = (ulong) BitConverter.ToInt64(buf, 0);
-                } while (ulongRand > ulong.MaxValue - (ulong.MaxValue % uRange + 1) % uRange);
-
-                return (long) (ulongRand % uRange) + min;
-            }
-
-            return random switch
-            {
-                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min),
-                    $"Can not be greater than {nameof(max)}."),
-                _ when min == max => min,
-                _ => NextLong(random, min, max)
             };
         }
 
