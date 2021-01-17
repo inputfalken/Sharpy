@@ -279,14 +279,15 @@ namespace RandomExtended
             {
                 _ when min > max => throw new ArgumentOutOfRangeException(nameof(min),
                     $"Can not be greater than {nameof(max)}."),
-                _ when min == max => min,
-                _ when min == float.MinValue && max == float.MaxValue => random.Bool()
+                _ when Math.Abs(min - max) < float.Epsilon => min,
+                _ when Math.Abs(min - float.MinValue) < float.Epsilon &&
+                       Math.Abs(max - float.MaxValue) < float.Epsilon => random.Bool()
                     ? (float) random.NextDouble() * min
                     : (float) random.NextDouble() * max,
                 _ => (float) (random.NextDouble() * (max - min) + min)
             };
 
-            return res == max ? min : res;
+            return Math.Abs(res - max) < float.Epsilon ? min : res;
         }
 
         /// <summary>
@@ -317,14 +318,15 @@ namespace RandomExtended
             {
                 _ when min > max => throw new ArgumentOutOfRangeException(nameof(min),
                     $"Can not be greater than {nameof(max)}."),
-                _ when min == max => min,
-                _ when min == double.MinValue && max == double.MaxValue => random.Bool()
+                _ when Math.Abs(min - max) < double.Epsilon => min,
+                _ when Math.Abs(min - double.MinValue) < double.Epsilon &&
+                       Math.Abs(max - double.MaxValue) < double.Epsilon => random.Bool()
                     ? random.NextDouble() * min
                     : random.NextDouble() * max,
                 _ => random.NextDouble() * (max - min) + min
             };
 
-            return res == max ? min : res;
+            return Math.Abs(res - max) < double.Epsilon ? min : res;
         }
 
         /// <summary>
