@@ -32,7 +32,7 @@
         </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="System.Text.Json" Version="5.0.0"/>
+        <PackageReference Include="System.Text.Json" Version="5.0.1"/>
         <PackageReference Include="RandomExtended" Version="0.1.1" PrivateAssets="Compile"/>
     </ItemGroup>
 </Project>
