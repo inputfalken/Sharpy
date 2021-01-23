@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RandomExtended
 {
@@ -701,6 +702,26 @@ namespace RandomExtended
         public static T Enum<T>(this Random random) where T : struct, Enum
         {
             return random.ListElement(System.Enum.GetValues<T>());
+        }
+
+        /// <summary>
+        /// Sorts the <paramref name="enumerable"/> in a random order.
+        /// </summary>
+        /// <param name="random">
+        ///     The System.Random to randomize with.
+        /// </param>
+        /// <param name="enumerable">
+        /// The System.Collections.IEnumerable to randomize the order with.
+        /// </param>
+        /// <typeparam name="T">
+        /// The type in <paramref name="enumerable"/>.
+        /// </typeparam>
+        /// <returns>
+        /// A System.Linq.IOrderedEnumerable with a randomized order.
+        /// </returns>
+        public static IOrderedEnumerable<T> Sort<T>(this Random random, IEnumerable<T> enumerable)
+        {
+            return enumerable.OrderBy(_ => random.Next());
         }
     }
 }
