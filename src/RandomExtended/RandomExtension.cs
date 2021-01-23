@@ -687,5 +687,20 @@ namespace RandomExtended
                 _ => (char) random.Next(min, max + 1)
             };
         }
+
+        /// <summary>
+        ///     Randomizes an enum from <typeparamref name="T"/>
+        /// </summary>
+        /// <param name="random">
+        ///     The System.Random to randomize with.
+        /// </param>
+        /// <typeparam name="T">
+        /// Type of the System.Enum
+        /// </typeparam>
+        /// <returns></returns>
+        public static T Enum<T>(this Random random) where T : struct, Enum
+        {
+            return random.ListElement(System.Enum.GetValues<T>());
+        }
     }
 }
