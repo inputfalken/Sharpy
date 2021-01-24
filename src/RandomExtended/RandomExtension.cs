@@ -363,11 +363,11 @@ namespace RandomExtended
             in IReadOnlyList<T> list
         )
         {
-            return (random, list) switch
+            return list switch
             {
-                {Item2: {Count: 0}} => throw new ArgumentException("List can not be empty.", nameof(list)),
-                {Item2: {Count: 1} x} => x[0],
-                _ => list[random.Next(list.Count)]
+                {Count: 0} => throw new ArgumentException("List can not be empty.", nameof(list)),
+                {Count: 1} x => x[0],
+                { } x => x[random.Next(list.Count)]
             };
         }
 
@@ -394,11 +394,11 @@ namespace RandomExtended
             in ReadOnlySpan<T> span
         )
         {
-            return random switch
+            return span switch
             {
-                _ when span.Length == 0 => throw new ArgumentException("Span can not be empty.", nameof(span)),
-                _ when span.Length == 1 => span[0],
-                _ => span[random.Next(span.Length)]
+                {Length: 0} => throw new ArgumentException("Span can not be empty.", nameof(span)),
+                {Length: 1} => span[0],
+                { } x => x[random.Next(span.Length)]
             };
         }
 
@@ -426,11 +426,11 @@ namespace RandomExtended
             in Span<T> span
         )
         {
-            return random switch
+            return span switch
             {
-                _ when span.Length == 0 => throw new ArgumentException("Span can not be empty.", nameof(span)),
-                _ when span.Length == 1 => span[0],
-                _ => span[random.Next(span.Length)]
+                {Length: 0} => throw new ArgumentException("Span can not be empty.", nameof(span)),
+                {Length: 1} => span[0],
+                { } x => x[random.Next(span.Length)]
             };
         }
 
@@ -458,14 +458,11 @@ namespace RandomExtended
             in T second
         )
         {
-            return random switch
+            return random.Next(0, 2) switch
             {
-                _ => random.Next(0, 2) switch
-                {
-                    1 => second,
-                    0 => first,
-                    _ => throw new IndexOutOfRangeException()
-                }
+                1 => second,
+                0 => first,
+                _ => throw new IndexOutOfRangeException()
             };
         }
 
@@ -497,15 +494,12 @@ namespace RandomExtended
             in T third
         )
         {
-            return random switch
+            return random.Next(0, 3) switch
             {
-                _ => random.Next(0, 3) switch
-                {
-                    2 => third,
-                    1 => second,
-                    0 => first,
-                    _ => throw new IndexOutOfRangeException()
-                }
+                2 => third,
+                1 => second,
+                0 => first,
+                _ => throw new IndexOutOfRangeException()
             };
         }
 
@@ -541,16 +535,13 @@ namespace RandomExtended
             in T fourth
         )
         {
-            return random switch
+            return random.Next(0, 4) switch
             {
-                _ => random.Next(0, 4) switch
-                {
-                    3 => fourth,
-                    2 => third,
-                    1 => second,
-                    0 => first,
-                    _ => throw new IndexOutOfRangeException()
-                }
+                3 => fourth,
+                2 => third,
+                1 => second,
+                0 => first,
+                _ => throw new IndexOutOfRangeException()
             };
         }
 
@@ -590,17 +581,14 @@ namespace RandomExtended
             in T fifth
         )
         {
-            return random switch
+            return random.Next(0, 5) switch
             {
-                _ => random.Next(0, 5) switch
-                {
-                    4 => fifth,
-                    3 => fourth,
-                    2 => third,
-                    1 => second,
-                    0 => first,
-                    _ => throw new IndexOutOfRangeException()
-                }
+                4 => fifth,
+                3 => fourth,
+                2 => third,
+                1 => second,
+                0 => first,
+                _ => throw new IndexOutOfRangeException()
             };
         }
 
@@ -644,17 +632,14 @@ namespace RandomExtended
             params T[] additional
         )
         {
-            return random switch
+            return random.Next(-5, additional.Length) switch
             {
-                _ => random.Next(-5, additional.Length) switch
-                {
-                    -5 => fifth,
-                    -4 => fourth,
-                    -3 => third,
-                    -2 => second,
-                    -1 => first,
-                    { } x => additional[x]
-                }
+                -5 => fifth,
+                -4 => fourth,
+                -3 => third,
+                -2 => second,
+                -1 => first,
+                { } x => additional[x]
             };
         }
 
@@ -809,10 +794,9 @@ namespace RandomExtended
             in DateTimeOffset max
         )
         {
-            if (min.Offset != max.Offset)
-                throw new ArgumentException($"The offset do not match min ({min.Offset}) max ({max.Offset}).");
-
-            return new DateTimeOffset(Long(random, min.Ticks, max.Ticks), min.Offset);
+            return min.Offset != max.Offset
+                ? throw new ArgumentException($"The offset do not match min ({min.Offset}) max ({max.Offset}).")
+                : new DateTimeOffset(Long(random, min.Ticks, max.Ticks), min.Offset);
         }
 
 
@@ -851,7 +835,9 @@ namespace RandomExtended
             Rule rule
         )
         {
-            return new(Long(random, min.Ticks, max.Ticks, rule), min.Offset);
+            return min.Offset != max.Offset
+                ? throw new ArgumentException($"The offset do not match min ({min.Offset}) max ({max.Offset}).")
+                : new DateTimeOffset(Long(random, min.Ticks, max.Ticks, rule), min.Offset);
         }
 
         /// <summary>
