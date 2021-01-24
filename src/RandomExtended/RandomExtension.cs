@@ -925,7 +925,9 @@ namespace RandomExtended
         /// <typeparam name="T">
         /// Type of the System.Enum
         /// </typeparam>
-        /// <returns></returns>
+        /// <returns>
+        /// A randomized <typeparamref name="T"/> enum.
+        /// </returns>
         public static T Enum<T>(this Random random) where T : struct, Enum
         {
             return random.ListElement(System.Enum.GetValues<T>());
