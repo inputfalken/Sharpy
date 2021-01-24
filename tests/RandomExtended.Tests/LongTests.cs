@@ -21,6 +21,94 @@ namespace RandomExtensions.Tests
         }
 
         [Test]
+        public void Exclusive()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => Random.Long(1, 2, Rule.Exclusive));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Random.Long(2, 3, Rule.Exclusive));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Random.Long(3, 4, Rule.Exclusive));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Random.Long(1, 1, Rule.Exclusive));
+            Assert.DoesNotThrow(() => Random.Long(1, 3, Rule.Exclusive));
+
+            // The only viable number to randomize is 2 with these numbers.
+            for (var i = 0; i < Assertion.Amount; i++)
+                Assert.AreEqual(2, Random.Long(1, 3, Rule.Exclusive));
+        }
+
+        [Test]
+        public void Inclusive()
+        {
+            Assert.AreEqual(
+                long.MaxValue,
+                Random.Long(long.MaxValue, long.MaxValue, Rule.Inclusive),
+                "Can return maxValue"
+            );
+            
+            Assertion.IsDistributed(
+                Random,
+                x => x.Int(int.MaxValue - 1, int.MaxValue, Rule.Inclusive),
+                x => Assert.True(x.Count == 2, "x.Count == 2")
+            );
+
+            for (var i = 0; i < Assertion.Amount; i++)
+                Assert.AreEqual(1, Random.Long(1, 1, Rule.Inclusive));
+        }
+
+        [Test]
+        public void InclusiveExclusive()
+        {
+            Assert.AreEqual(
+                int.MaxValue,
+                Random.Long(int.MaxValue, int.MaxValue, Rule.InclusiveExclusive),
+                "Can return maxValue"
+            );
+
+            Assert.AreEqual(1, Random.Long(1, 1, Rule.InclusiveExclusive));
+            Assert.AreEqual(1, Random.Long(1, 2, Rule.InclusiveExclusive));
+            Assert.AreEqual(2, Random.Long(2, 3, Rule.InclusiveExclusive));
+            Assert.AreEqual(3, Random.Long(3, 4, Rule.InclusiveExclusive));
+        }
+
+        [Test]
+        public void ExclusiveInclusive()
+        {
+            Assert.AreEqual(
+                int.MaxValue,
+                Random.Long(int.MaxValue, int.MaxValue, Rule.ExclusiveInclusive),
+                "Can return maxValue"
+            );
+
+            Assert.AreEqual(
+                int.MaxValue,
+                Random.Long(int.MaxValue - 1, int.MaxValue, Rule.ExclusiveInclusive),
+                "Can return maxValue"
+            );
+
+            Assert.AreEqual(1, Random.Long(1, 1, Rule.ExclusiveInclusive));
+            Assert.AreEqual(2, Random.Long(1, 2, Rule.ExclusiveInclusive));
+            Assert.AreEqual(3, Random.Long(2, 3, Rule.ExclusiveInclusive));
+            Assert.AreEqual(4, Random.Long(3, 4, Rule.ExclusiveInclusive));
+
+
+            Assertion.IsDistributed(
+                Random,
+                x => x.Int(1, 3, Rule.ExclusiveInclusive),
+                x => Assert.True(x.Count == 2, "x.Count == 2")
+            );
+
+            Assertion.IsDistributed(
+                Random,
+                x => x.Int(1, 4, Rule.ExclusiveInclusive),
+                x => Assert.True(x.Count == 3, "x.Count == 3")
+            );
+
+            Assertion.IsDistributed(
+                Random,
+                x => x.Int(1, 5, Rule.ExclusiveInclusive),
+                x => Assert.True(x.Count == 4, "x.Count == 4")
+            );
+        }
+
+        [Test]
         public void Min_Max_Arg_Is_Deterministic_With_Seed()
         {
             Assertion.IsDeterministic(i => new Random(i), x => x.Long(0, 50));

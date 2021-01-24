@@ -39,6 +39,157 @@ namespace RandomExtended
         }
 
         /// <summary>
+        ///     Randomizes a System.Int32 within <paramref name="min" /> and <paramref name="max" />.
+        /// </summary>
+        /// <param name="random">
+        ///     The System.Random to randomize with.
+        /// </param>
+        /// <param name="min">
+        ///     The minimum value.
+        /// </param>
+        /// <param name="max">
+        ///     The maximum value.
+        /// </param>
+        /// <param name="rule">
+        ///     Sets the behaviour whether to use inclusive or exclusive logic.
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <paramref name="min" /> is greater than <paramref name="max" />.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <paramref name="rule" /> is <see cref="Rule.Exclusive" /> and the subtraction
+        ///     difference between <see cref="min" /> and <see cref="max" /> is lesser than 2.
+        /// </exception>
+        /// <returns>
+        ///     A randomized System.Int32 within <paramref name="min" /> and <paramref name="max" />.
+        /// </returns>
+        public static int Int(
+            this Random random,
+            in int min,
+            in int max,
+            in Rule rule
+        )
+        {
+            var value = random.Int(min, max);
+
+            return rule switch
+            {
+                Rule.Exclusive when max - min < 2 => throw new ArgumentOutOfRangeException(
+                    $"The difference between {nameof(max)} and {nameof(min)} ({nameof(max)} - {nameof(min)}) must begreater or equal to 2."
+                ),
+                Rule.Exclusive => value == min ? value + 1 : value,
+                Rule.InclusiveExclusive => value,
+                Rule.Inclusive => max - 1 == value && random.Bool()
+                    ? max
+                    : value,
+                Rule.ExclusiveInclusive => max - 1 == value ? max : value,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
+
+        /// <summary>
+        ///     Randomizes a System.Long within <paramref name="min" /> and <paramref name="max" />.
+        /// </summary>
+        /// <param name="random">
+        ///     The System.Random to randomize with.
+        /// </param>
+        /// <param name="min">
+        ///     The minimum inclusive value.
+        /// </param>
+        /// <param name="max">
+        ///     The maximum exclusive value.
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <paramref name="min" /> is greater than <paramref name="max" />.
+        /// </exception>
+        /// <returns>
+        ///     A randomized System.Long within <paramref name="min" /> and <paramref name="max" />.
+        /// </returns>
+        public static long Long(
+            this Random random,
+            in long min,
+            in long max
+        )
+        {
+            static long NextLong(Random random, long min, long max)
+            {
+                //Working with ulong so that modulo works correctly with values > long.MaxValue
+                var uRange = (ulong) (max - min);
+
+                //Prevent a modulo bias; see http://stackoverflow.com/a/10984975/238419
+                //for more information.
+                //In the worst case, the expected number of calls is 2 (though usually it's
+                //much closer to 1) so this loop doesn't really hurt performance at all.
+                ulong ulongRand;
+                do
+                {
+                    var buf = new byte[8];
+                    random.NextBytes(buf);
+                    ulongRand = (ulong) BitConverter.ToInt64(buf, 0);
+                } while (ulongRand > ulong.MaxValue - (ulong.MaxValue % uRange + 1) % uRange);
+
+                return (long) (ulongRand % uRange) + min;
+            }
+
+            return random switch
+            {
+                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min),
+                    $"Can not be greater than {nameof(max)}."),
+                _ when min == max => min,
+                _ => NextLong(random, min, max)
+            };
+        }
+
+        /// <summary>
+        ///     Randomizes a System.Int64 within <paramref name="min" /> and <paramref name="max" />.
+        /// </summary>
+        /// <param name="random">
+        ///     The System.Random to randomize with.
+        /// </param>
+        /// <param name="min">
+        ///     The minimum value.
+        /// </param>
+        /// <param name="max">
+        ///     The maximum value.
+        /// </param>
+        /// <param name="rule">
+        ///     Sets the behaviour whether to use inclusive or exclusive logic.
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <paramref name="min" /> is greater than <paramref name="max" />.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <paramref name="rule" /> is <see cref="Rule.Exclusive" /> and the subtraction
+        ///     difference between <see cref="min" /> and <see cref="max" /> is lesser than 2.
+        /// </exception>
+        /// <returns>
+        ///     A randomized System.Int64 within <paramref name="min" /> and <paramref name="max" />.
+        /// </returns>
+        public static long Long(
+            this Random random,
+            in long min,
+            in long max,
+            in Rule rule
+        )
+        {
+            var value = random.Long(min, max);
+
+            return rule switch
+            {
+                Rule.Exclusive when max - min < 2 => throw new ArgumentOutOfRangeException(
+                    $"The difference between {nameof(max)} and {nameof(min)} ({nameof(max)} - {nameof(min)}) must be greater or equal to 2."
+                ),
+                Rule.Exclusive => value == min ? value + 1 : value,
+                Rule.InclusiveExclusive => value,
+                Rule.Inclusive => max - 1 == value && random.Bool()
+                    ? max
+                    : value,
+                Rule.ExclusiveInclusive => max - 1 == value ? max : value,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
+
+        /// <summary>
         ///     Randomizes a System.Decimal within <paramref name="min" /> and <paramref name="max" />.
         /// </summary>
         /// <param name="random">
@@ -125,14 +276,15 @@ namespace RandomExtended
             {
                 _ when min > max => throw new ArgumentOutOfRangeException(nameof(min),
                     $"Can not be greater than {nameof(max)}."),
-                _ when min == max => min,
-                _ when min == float.MinValue && max == float.MaxValue => random.Bool()
+                _ when Math.Abs(min - max) < float.Epsilon => min,
+                _ when Math.Abs(min - float.MinValue) < float.Epsilon &&
+                       Math.Abs(max - float.MaxValue) < float.Epsilon => random.Bool()
                     ? (float) random.NextDouble() * min
                     : (float) random.NextDouble() * max,
                 _ => (float) (random.NextDouble() * (max - min) + min)
             };
 
-            return res == max ? min : res;
+            return Math.Abs(res - max) < float.Epsilon ? min : res;
         }
 
         /// <summary>
@@ -163,14 +315,15 @@ namespace RandomExtended
             {
                 _ when min > max => throw new ArgumentOutOfRangeException(nameof(min),
                     $"Can not be greater than {nameof(max)}."),
-                _ when min == max => min,
-                _ when min == double.MinValue && max == double.MaxValue => random.Bool()
+                _ when Math.Abs(min - max) < double.Epsilon => min,
+                _ when Math.Abs(min - double.MinValue) < double.Epsilon &&
+                       Math.Abs(max - double.MaxValue) < double.Epsilon => random.Bool()
                     ? random.NextDouble() * min
                     : random.NextDouble() * max,
                 _ => random.NextDouble() * (max - min) + min
             };
 
-            return res == max ? min : res;
+            return Math.Abs(res - max) < double.Epsilon ? min : res;
         }
 
         /// <summary>
@@ -210,11 +363,11 @@ namespace RandomExtended
             in IReadOnlyList<T> list
         )
         {
-            return (random, list) switch
+            return list switch
             {
-                {Item2: {Count: 0}} => throw new ArgumentException("List can not be empty.", nameof(list)),
-                {Item2: {Count: 1} x} => x[0],
-                _ => list[random.Next(list.Count)]
+                {Count: 0} => throw new ArgumentException("List can not be empty.", nameof(list)),
+                {Count: 1} x => x[0],
+                { } x => x[random.Next(list.Count)]
             };
         }
 
@@ -241,11 +394,11 @@ namespace RandomExtended
             in ReadOnlySpan<T> span
         )
         {
-            return random switch
+            return span switch
             {
-                _ when span.Length == 0 => throw new ArgumentException("Span can not be empty.", nameof(span)),
-                _ when span.Length == 1 => span[0],
-                _ => span[random.Next(span.Length)]
+                {Length: 0} => throw new ArgumentException("Span can not be empty.", nameof(span)),
+                {Length: 1} => span[0],
+                { } x => x[random.Next(span.Length)]
             };
         }
 
@@ -273,11 +426,11 @@ namespace RandomExtended
             in Span<T> span
         )
         {
-            return random switch
+            return span switch
             {
-                _ when span.Length == 0 => throw new ArgumentException("Span can not be empty.", nameof(span)),
-                _ when span.Length == 1 => span[0],
-                _ => span[random.Next(span.Length)]
+                {Length: 0} => throw new ArgumentException("Span can not be empty.", nameof(span)),
+                {Length: 1} => span[0],
+                { } x => x[random.Next(span.Length)]
             };
         }
 
@@ -305,14 +458,11 @@ namespace RandomExtended
             in T second
         )
         {
-            return random switch
+            return random.Next(0, 2) switch
             {
-                _ => random.Next(0, 2) switch
-                {
-                    1 => second,
-                    0 => first,
-                    _ => throw new IndexOutOfRangeException()
-                }
+                1 => second,
+                0 => first,
+                _ => throw new IndexOutOfRangeException()
             };
         }
 
@@ -344,15 +494,12 @@ namespace RandomExtended
             in T third
         )
         {
-            return random switch
+            return random.Next(0, 3) switch
             {
-                _ => random.Next(0, 3) switch
-                {
-                    2 => third,
-                    1 => second,
-                    0 => first,
-                    _ => throw new IndexOutOfRangeException()
-                }
+                2 => third,
+                1 => second,
+                0 => first,
+                _ => throw new IndexOutOfRangeException()
             };
         }
 
@@ -388,16 +535,13 @@ namespace RandomExtended
             in T fourth
         )
         {
-            return random switch
+            return random.Next(0, 4) switch
             {
-                _ => random.Next(0, 4) switch
-                {
-                    3 => fourth,
-                    2 => third,
-                    1 => second,
-                    0 => first,
-                    _ => throw new IndexOutOfRangeException()
-                }
+                3 => fourth,
+                2 => third,
+                1 => second,
+                0 => first,
+                _ => throw new IndexOutOfRangeException()
             };
         }
 
@@ -437,17 +581,14 @@ namespace RandomExtended
             in T fifth
         )
         {
-            return random switch
+            return random.Next(0, 5) switch
             {
-                _ => random.Next(0, 5) switch
-                {
-                    4 => fifth,
-                    3 => fourth,
-                    2 => third,
-                    1 => second,
-                    0 => first,
-                    _ => throw new IndexOutOfRangeException()
-                }
+                4 => fifth,
+                3 => fourth,
+                2 => third,
+                1 => second,
+                0 => first,
+                _ => throw new IndexOutOfRangeException()
             };
         }
 
@@ -491,70 +632,14 @@ namespace RandomExtended
             params T[] additional
         )
         {
-            return random switch
+            return random.Next(-5, additional.Length) switch
             {
-                _ => random.Next(-5, additional.Length) switch
-                {
-                    -5 => fifth,
-                    -4 => fourth,
-                    -3 => third,
-                    -2 => second,
-                    -1 => first,
-                    { } x => additional[x]
-                }
-            };
-        }
-
-        /// <summary>
-        ///     Randomizes a System.Long within <paramref name="min" /> and <paramref name="max" />.
-        /// </summary>
-        /// <param name="random">
-        ///     The System.Random to randomize with.
-        /// </param>
-        /// <param name="min">
-        ///     The minimum inclusive value.
-        /// </param>
-        /// <param name="max">
-        ///     The maximum exclusive value.
-        /// </param>
-        /// <exception cref="ArgumentOutOfRangeException">
-        ///     When <paramref name="min" /> is greater than <paramref name="max" />.
-        /// </exception>
-        /// <returns>
-        ///     A randomized System.Long within <paramref name="min" /> and <paramref name="max" />.
-        /// </returns>
-        public static long Long(
-            this Random random,
-            in long min,
-            in long max
-        )
-        {
-            static long NextLong(Random random, long min, long max)
-            {
-                //Working with ulong so that modulo works correctly with values > long.MaxValue
-                var uRange = (ulong) (max - min);
-
-                //Prevent a modulo bias; see http://stackoverflow.com/a/10984975/238419
-                //for more information.
-                //In the worst case, the expected number of calls is 2 (though usually it's
-                //much closer to 1) so this loop doesn't really hurt performance at all.
-                ulong ulongRand;
-                do
-                {
-                    var buf = new byte[8];
-                    random.NextBytes(buf);
-                    ulongRand = (ulong) BitConverter.ToInt64(buf, 0);
-                } while (ulongRand > ulong.MaxValue - (ulong.MaxValue % uRange + 1) % uRange);
-
-                return (long) (ulongRand % uRange) + min;
-            }
-
-            return random switch
-            {
-                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min),
-                    $"Can not be greater than {nameof(max)}."),
-                _ when min == max => min,
-                _ => NextLong(random, min, max)
+                -5 => fifth,
+                -4 => fourth,
+                -3 => third,
+                -2 => second,
+                -1 => first,
+                { } x => additional[x]
             };
         }
 
@@ -582,13 +667,42 @@ namespace RandomExtended
             in TimeSpan max
         )
         {
-            return random switch
-            {
-                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min),
-                    $"Can not be greater than {nameof(max)}."),
-                _ when min == max => min,
-                _ => System.TimeSpan.FromTicks(random.Long(min.Ticks, max.Ticks))
-            };
+            return System.TimeSpan.FromTicks(random.Long(min.Ticks, max.Ticks));
+        }
+
+        /// <summary>
+        ///     Randomizes a System.TimeSpan within <paramref name="min" /> and <paramref name="max" />.
+        /// </summary>
+        /// <param name="random">
+        ///     The System.Random to randomize with.
+        /// </param>
+        /// <param name="min">
+        ///     The minimum value.
+        /// </param>
+        /// <param name="max">
+        ///     The maximum value.
+        /// </param>
+        /// <param name="rule">
+        ///     Sets the behaviour whether to use inclusive or exclusive logic.
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <paramref name="min" /> is greater than <paramref name="max" />.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <paramref name="rule" /> is <see cref="Rule.Exclusive" /> and the subtraction
+        ///     difference between <see cref="min" /> and <see cref="max" /> is lesser than 2 ticks ('00:00:00.0000002').
+        /// </exception>
+        /// <returns>
+        ///     A randomized System.TimeSpan within <paramref name="min" /> and <paramref name="max" />.
+        /// </returns>
+        public static TimeSpan TimeSpan(
+            this Random random,
+            in TimeSpan min,
+            in TimeSpan max,
+            in Rule rule
+        )
+        {
+            return System.TimeSpan.FromTicks(random.Long(min.Ticks, max.Ticks, rule));
         }
 
         /// <summary>
@@ -615,13 +729,42 @@ namespace RandomExtended
             in DateTime max
         )
         {
-            return random switch
-            {
-                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min),
-                    $"Can not be greater than {nameof(max)}."),
-                _ when min == max => min,
-                _ => new DateTime(random.Long(min.Ticks, max.Ticks))
-            };
+            return new(random.Long(min.Ticks, max.Ticks));
+        }
+
+        /// <summary>
+        ///     Randomizes a System.DateTime within <paramref name="min" /> and <paramref name="max" />.
+        /// </summary>
+        /// <param name="random">
+        ///     The System.Random to randomize with.
+        /// </param>
+        /// <param name="min">
+        ///     The minimum value.
+        /// </param>
+        /// <param name="max">
+        ///     The maximum value.
+        /// </param>
+        /// <param name="rule">
+        ///     Sets the behaviour whether to use inclusive or exclusive logic.
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <paramref name="min" /> is greater than <paramref name="max" />.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <paramref name="rule" /> is <see cref="Rule.Exclusive" /> and the subtraction
+        ///     difference between <see cref="min" /> and <see cref="max" /> is lesser than 2 ticks.
+        /// </exception>
+        /// <returns>
+        ///     A randomized System.DateTime within <paramref name="min" /> and <paramref name="max" />.
+        /// </returns>
+        public static DateTime DateTime(
+            this Random random,
+            in DateTime min,
+            in DateTime max,
+            in Rule rule
+        )
+        {
+            return new(random.Long(min.Ticks, max.Ticks, rule));
         }
 
         /// <summary>
@@ -639,6 +782,9 @@ namespace RandomExtended
         /// <exception cref="ArgumentOutOfRangeException">
         ///     When <paramref name="min" /> is greater than <paramref name="max" />.
         /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     When the offset from <see paramref="min" /> and <see paramref="max" /> do not match.
+        /// </exception>
         /// <returns>
         ///     A randomized System.DateTimeOffset within <paramref name="min" /> and <paramref name="max" />.
         /// </returns>
@@ -648,12 +794,50 @@ namespace RandomExtended
             in DateTimeOffset max
         )
         {
-            var dateTime = DateTime(random, min.DateTime, max.DateTime);
-            var offset = System.DateTimeOffset.Now.Offset;
+            return min.Offset != max.Offset
+                ? throw new ArgumentException($"The offset do not match min ({min.Offset}) max ({max.Offset}).")
+                : new DateTimeOffset(Long(random, min.Ticks, max.Ticks), min.Offset);
+        }
 
-            return dateTime.TimeOfDay < offset
-                ? dateTime.Add(offset)
-                : dateTime;
+
+        /// <summary>
+        ///     Randomizes a System.DateTimeOffset within <paramref name="min" /> and <paramref name="max" />.
+        /// </summary>
+        /// <param name="random">
+        ///     The System.Random to randomize with.
+        /// </param>
+        /// <param name="min">
+        ///     The minimum inclusive value.
+        /// </param>
+        /// <param name="max">
+        ///     The maximum exclusive value.
+        /// </param>
+        /// <param name="rule">
+        ///     Sets the behaviour whether to use inclusive or exclusive logic.
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <paramref name="min" /> is greater than <paramref name="max" />.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     When the offset from <see paramref="min" /> and <see paramref="max" /> do not match.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <paramref name="rule" /> is <see cref="Rule.Exclusive" /> and the subtraction
+        ///     difference between <see cref="min" /> and <see cref="max" /> is lesser than 2 ticks.
+        /// </exception>
+        /// <returns>
+        ///     A randomized System.DateTimeOffset within <paramref name="min" /> and <paramref name="max" />.
+        /// </returns>
+        public static DateTimeOffset DateTimeOffset(
+            this Random random,
+            in DateTimeOffset min,
+            in DateTimeOffset max,
+            Rule rule
+        )
+        {
+            return min.Offset != max.Offset
+                ? throw new ArgumentException($"The offset do not match min ({min.Offset}) max ({max.Offset}).")
+                : new DateTimeOffset(Long(random, min.Ticks, max.Ticks, rule), min.Offset);
         }
 
         /// <summary>
@@ -680,13 +864,42 @@ namespace RandomExtended
             in char max
         )
         {
-            return random switch
-            {
-                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min),
-                    $"Can not be greater than {nameof(max)}."),
-                _ when min == max => min,
-                _ => (char) random.Next(min, max + 1)
-            };
+            return (char) random.Int(min, max + 1);
+        }
+
+        /// <summary>
+        ///     Randomizes a System.Char within <paramref name="min" /> and <paramref name="max" />.
+        /// </summary>
+        /// <param name="random">
+        ///     The System.Random to randomize with.
+        /// </param>
+        /// <param name="min">
+        ///     The minimum value.
+        /// </param>
+        /// <param name="max">
+        ///     The maximum value.
+        /// </param>
+        /// <param name="rule">
+        ///     Sets the behaviour whether to use inclusive or exclusive logic.
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <paramref name="min" /> is greater than <paramref name="max" />.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <paramref name="rule" /> is <see cref="Rule.Exclusive" /> and the subtraction
+        ///     difference between <see cref="min" /> and <see cref="max" /> is lesser than 2.
+        /// </exception>
+        /// <returns>
+        ///     A randomized System.Char within <paramref name="min" /> and <paramref name="max" />.
+        /// </returns>
+        public static char Char(
+            this Random random,
+            in char min,
+            in char max,
+            Rule rule
+        )
+        {
+            return (char) Int(random, min, max, rule);
         }
 
         /// <summary>
@@ -698,7 +911,9 @@ namespace RandomExtended
         /// <typeparam name="T">
         /// Type of the System.Enum
         /// </typeparam>
-        /// <returns></returns>
+        /// <returns>
+        /// A randomized <typeparamref name="T"/> enum.
+        /// </returns>
         public static T Enum<T>(this Random random) where T : struct, Enum
         {
             return random.ListElement(System.Enum.GetValues<T>());

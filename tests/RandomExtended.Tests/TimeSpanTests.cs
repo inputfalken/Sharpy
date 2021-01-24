@@ -11,6 +11,103 @@ namespace RandomExtensions.Tests
         private static readonly Random Random = new();
 
         [Test]
+        public void Exclusive()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                Random.TimeSpan(TimeSpan.FromTicks(1), TimeSpan.FromTicks(2), Rule.Exclusive));
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                Random.TimeSpan(TimeSpan.FromTicks(2), TimeSpan.FromTicks(3), Rule.Exclusive));
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                Random.TimeSpan(TimeSpan.FromTicks(3), TimeSpan.FromTicks(4), Rule.Exclusive));
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                Random.TimeSpan(TimeSpan.FromTicks(1), TimeSpan.FromTicks(1), Rule.Exclusive));
+            Assert.DoesNotThrow(() => Random.TimeSpan(TimeSpan.FromTicks(1), TimeSpan.FromTicks(3), Rule.Exclusive));
+
+            // The only viable tick to randomize is 2 with these values.
+            for (var i = 0; i < Assertion.Amount; i++)
+                Assert.AreEqual(TimeSpan.FromTicks(2),
+                    Random.TimeSpan(TimeSpan.FromTicks(1), TimeSpan.FromTicks(3), Rule.Exclusive));
+        }
+
+        [Test]
+        public void Inclusive()
+        {
+            Assert.AreEqual(
+                TimeSpan.MaxValue,
+                Random.TimeSpan(TimeSpan.MaxValue, TimeSpan.MaxValue, Rule.Inclusive),
+                "Can return maxValue"
+            );
+            Assertion.IsDistributed(
+                Random,
+                x => x.TimeSpan(TimeSpan.MaxValue - TimeSpan.FromTicks(1), TimeSpan.MaxValue, Rule.Inclusive),
+                x => Assert.True(x.Count == 2, "x.Count == 2")
+            );
+
+            for (var i = 0; i < Assertion.Amount; i++)
+                Assert.AreEqual(TimeSpan.FromTicks(1),
+                    Random.TimeSpan(TimeSpan.FromTicks(1), TimeSpan.FromTicks(1), Rule.Inclusive));
+        }
+
+        [Test]
+        public void InclusiveExclusive()
+        {
+            Assert.AreEqual(
+                TimeSpan.MaxValue,
+                Random.TimeSpan(TimeSpan.MaxValue, TimeSpan.MaxValue, Rule.InclusiveExclusive),
+                "Can return maxValue"
+            );
+
+            Assert.AreEqual(TimeSpan.FromTicks(1),
+                Random.TimeSpan(TimeSpan.FromTicks(1), TimeSpan.FromTicks(1), Rule.InclusiveExclusive));
+            Assert.AreEqual(TimeSpan.FromTicks(1),
+                Random.TimeSpan(TimeSpan.FromTicks(1), TimeSpan.FromTicks(2), Rule.InclusiveExclusive));
+            Assert.AreEqual(TimeSpan.FromTicks(2),
+                Random.TimeSpan(TimeSpan.FromTicks(2), TimeSpan.FromTicks(3), Rule.InclusiveExclusive));
+            Assert.AreEqual(TimeSpan.FromTicks(3),
+                Random.TimeSpan(TimeSpan.FromTicks(3), TimeSpan.FromTicks(4), Rule.InclusiveExclusive));
+        }
+
+        [Test]
+        public void ExclusiveInclusive()
+        {
+            Assert.AreEqual(
+                TimeSpan.MaxValue,
+                Random.TimeSpan(TimeSpan.MaxValue, TimeSpan.MaxValue, Rule.ExclusiveInclusive),
+                "Can return maxValue"
+            );
+
+            Assert.AreEqual(
+                TimeSpan.MaxValue,
+                Random.TimeSpan(TimeSpan.MaxValue - TimeSpan.FromTicks(1), TimeSpan.MaxValue, Rule.ExclusiveInclusive),
+                "Can return maxValue"
+            );
+
+            Assert.AreEqual(TimeSpan.FromTicks(1), Random.TimeSpan(TimeSpan.FromTicks(1), TimeSpan.FromTicks(1), Rule.ExclusiveInclusive));
+            Assert.AreEqual(TimeSpan.FromTicks(2), Random.TimeSpan(TimeSpan.FromTicks(1), TimeSpan.FromTicks(2), Rule.ExclusiveInclusive));
+            Assert.AreEqual(TimeSpan.FromTicks(3), Random.TimeSpan(TimeSpan.FromTicks(2), TimeSpan.FromTicks(3), Rule.ExclusiveInclusive));
+            Assert.AreEqual(TimeSpan.FromTicks(4), Random.TimeSpan(TimeSpan.FromTicks(3), TimeSpan.FromTicks(4), Rule.ExclusiveInclusive));
+
+
+            Assertion.IsDistributed(
+                Random,
+                x => x.TimeSpan(TimeSpan.FromTicks(1), TimeSpan.FromTicks(3), Rule.ExclusiveInclusive),
+                x => Assert.True(x.Count == 2, "x.Count == 2")
+            );
+
+            Assertion.IsDistributed(
+                Random,
+                x => x.TimeSpan(TimeSpan.FromTicks(1), TimeSpan.FromTicks(4), Rule.ExclusiveInclusive),
+                x => Assert.True(x.Count == 3, "x.Count == 3")
+            );
+
+            Assertion.IsDistributed(
+                Random,
+                x => x.TimeSpan(TimeSpan.FromTicks(1), TimeSpan.FromTicks(5), Rule.ExclusiveInclusive),
+                x => Assert.True(x.Count == 4, "x.Count == 4")
+            );
+        }
+
+        [Test]
         public void Is_Distributed()
         {
             Assertion.IsDistributed(

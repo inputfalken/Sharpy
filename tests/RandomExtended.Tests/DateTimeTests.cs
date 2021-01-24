@@ -24,6 +24,98 @@ namespace RandomExtensions.Tests
         }
 
         [Test]
+        public void Exclusive()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                Random.DateTime(new DateTime(1), new DateTime(2), Rule.Exclusive));
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                Random.DateTime(new DateTime(2), new DateTime(3), Rule.Exclusive));
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                Random.DateTime(new DateTime(3), new DateTime(4), Rule.Exclusive));
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                Random.DateTime(new DateTime(1), new DateTime(1), Rule.Exclusive));
+            Assert.DoesNotThrow(() => Random.DateTime(new DateTime(1), new DateTime(3), Rule.Exclusive));
+
+            // The only viable tick to randomize is 2 with these values.
+            for (var i = 0; i < Assertion.Amount; i++)
+                Assert.AreEqual(new DateTime(2), Random.DateTime(new DateTime(1), new DateTime(3), Rule.Exclusive));
+        }
+
+        [Test]
+        public void Inclusive()
+        {
+            Assert.AreEqual(
+                DateTime.MaxValue,
+                Random.DateTime(DateTime.MaxValue, DateTime.MaxValue, Rule.Inclusive),
+                "Can return maxValue"
+            );
+            Assertion.IsDistributed(
+                Random,
+                x => x.DateTime(DateTime.MaxValue.AddTicks(-1), DateTime.MaxValue, Rule.Inclusive),
+                x => Assert.True(x.Count == 2, "x.Count == 2")
+            );
+
+            for (var i = 0; i < Assertion.Amount; i++)
+                Assert.AreEqual(new DateTime(1),
+                    Random.DateTime(new DateTime(1), new DateTime(1), Rule.Inclusive));
+        }
+
+        [Test]
+        public void InclusiveExclusive()
+        {
+            Assert.AreEqual(
+                DateTime.MaxValue,
+                Random.DateTime(DateTime.MaxValue, DateTime.MaxValue, Rule.InclusiveExclusive),
+                "Can return maxValue"
+            );
+
+            Assert.AreEqual(new DateTime(1), Random.DateTime(new DateTime(1), new DateTime(1), Rule.InclusiveExclusive));
+            Assert.AreEqual(new DateTime(1), Random.DateTime(new DateTime(1), new DateTime(2), Rule.InclusiveExclusive));
+            Assert.AreEqual(new DateTime(2), Random.DateTime(new DateTime(2), new DateTime(3), Rule.InclusiveExclusive));
+            Assert.AreEqual(new DateTime(3), Random.DateTime(new DateTime(3), new DateTime(4), Rule.InclusiveExclusive));
+        }
+
+        [Test]
+        public void ExclusiveInclusive()
+        {
+            Assert.AreEqual(
+                DateTime.MaxValue,
+                Random.DateTime(DateTime.MaxValue, DateTime.MaxValue, Rule.ExclusiveInclusive),
+                "Can return maxValue"
+            );
+
+            Assert.AreEqual(
+                DateTime.MaxValue,
+                Random.DateTime(DateTime.MaxValue.AddTicks(-1), DateTime.MaxValue, Rule.ExclusiveInclusive),
+                "Can return maxValue"
+            );
+
+            Assert.AreEqual(new DateTime(1), Random.DateTime(new DateTime(1), new DateTime(1), Rule.ExclusiveInclusive));
+            Assert.AreEqual(new DateTime(2), Random.DateTime(new DateTime(1), new DateTime(2), Rule.ExclusiveInclusive));
+            Assert.AreEqual(new DateTime(3), Random.DateTime(new DateTime(2), new DateTime(3), Rule.ExclusiveInclusive));
+            Assert.AreEqual(new DateTime(4), Random.DateTime(new DateTime(3), new DateTime(4), Rule.ExclusiveInclusive));
+
+
+            Assertion.IsDistributed(
+                Random,
+                x => x.DateTime(new DateTime(1), new DateTime(3), Rule.ExclusiveInclusive),
+                x => Assert.True(x.Count == 2, "x.Count == 2")
+            );
+
+            Assertion.IsDistributed(
+                Random,
+                x => x.DateTime(new DateTime(1), new DateTime(4), Rule.ExclusiveInclusive),
+                x => Assert.True(x.Count == 3, "x.Count == 3")
+            );
+
+            Assertion.IsDistributed(
+                Random,
+                x => x.DateTime(new DateTime(1), new DateTime(5), Rule.ExclusiveInclusive),
+                x => Assert.True(x.Count == 4, "x.Count == 4")
+            );
+        }
+
+        [Test]
         public void Min_Max_Arg_Is_Deterministic_With_Seed()
         {
             var max = BaseTime.AddYears(1);
