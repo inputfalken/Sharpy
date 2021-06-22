@@ -10,6 +10,59 @@ namespace RandomExtended
     public static class RandomExtension
     {
         /// <summary>
+        ///     Randomizes a System.Int16 within <paramref name="min" /> and <paramref name="max" />.
+        /// </summary>
+        /// <param name="random">
+        ///     The System.Random to randomize with.
+        /// </param>
+        /// <param name="min">
+        ///     The minimum inclusive value.
+        /// </param>
+        /// <param name="max">
+        ///     The maximum exclusive value.
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <paramref name="min" /> is greater than <paramref name="max" />.
+        /// </exception>
+        /// <returns>
+        ///     A randomized System.Int16 within <paramref name="min" /> and <paramref name="max" />.
+        /// </returns>
+        public static short Short(this Random random, in short min, in short max)
+        {
+            return (short) random.Int(min, max);
+        }
+        
+        /// <summary>
+        ///     Randomizes a System.Int16 within <paramref name="min" /> and <paramref name="max" />.
+        /// </summary>
+        /// <param name="random">
+        ///     The System.Random to randomize with.
+        /// </param>
+        /// <param name="min">
+        ///     The minimum value.
+        /// </param>
+        /// <param name="max">
+        ///     The maximum value.
+        /// </param>
+        /// <param name="rule">
+        ///     Sets the behaviour whether to use inclusive or exclusive logic.
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <paramref name="min" /> is greater than <paramref name="max" />.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     When <paramref name="rule" /> is <see cref="Rule.Exclusive" /> and the subtraction
+        ///     difference between <see cref="min" /> and <see cref="max" /> is lesser than 2.
+        /// </exception>
+        /// <returns>
+        ///     A randomized System.Int16 within <paramref name="min" /> and <paramref name="max" />.
+        /// </returns>
+        public static short Short(this Random random, in short min, in short max, in Rule rule)
+        {
+            return (short) random.Int(min, max, in rule);
+        }
+
+        /// <summary>
         ///     Randomizes a System.Int32 within <paramref name="min" /> and <paramref name="max" />.
         /// </summary>
         /// <param name="random">
