@@ -75,7 +75,7 @@ namespace RandomExtended
             return rule switch
             {
                 Rule.Exclusive when max - min < 2 => throw new ArgumentOutOfRangeException(
-                    $"The difference between {nameof(max)} and {nameof(min)} ({nameof(max)} - {nameof(min)}) must begreater or equal to 2."
+                    $"The difference between {nameof(max)} and {nameof(min)} ({nameof(max)} - {nameof(min)}) must be greater or equal to 2."
                 ),
                 Rule.Exclusive => value == min ? value + 1 : value,
                 Rule.InclusiveExclusive => value,
