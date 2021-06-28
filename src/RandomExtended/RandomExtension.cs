@@ -1008,7 +1008,7 @@ namespace RandomExtended
         /// <returns>
         /// An infinite <see cref="IEnumerable{T}"/> whose values is based on the return type of <paramref name="selector"/>.
         /// </returns>
-        public static IEnumerable<TResult> Enumerable<TResult>(this Random random, Func<Random, TResult> selector)
+        public static IEnumerable<TResult> InfiniteEnumerable<TResult>(this Random random, Func<Random, TResult> selector)
         {
             while (true)
             {
