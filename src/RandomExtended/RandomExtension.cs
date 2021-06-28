@@ -31,7 +31,7 @@ namespace RandomExtended
         {
             return (short) random.Int(min, max);
         }
-        
+
         /// <summary>
         ///     Randomizes a System.Int16 within <paramref name="min" /> and <paramref name="max" />.
         /// </summary>
@@ -990,6 +990,30 @@ namespace RandomExtended
         public static IOrderedEnumerable<T> Sort<T>(this Random random, IEnumerable<T> enumerable)
         {
             return enumerable.OrderBy(_ => random.Next());
+        }
+
+
+        /// <summary>
+        ///     Creates an infinite <see cref="IEnumerable{T}"/> by invoking the <paramref name="selector"/> function repeatedly.
+        /// </summary>
+        /// <param name="random">
+        ///     The System.Random to randomize with.
+        /// </param>
+        /// <param name="selector">
+        ///     The function.
+        /// </param>
+        /// <typeparam name="TResult">
+        /// The value returned from the <paramref name="selector"/>.
+        /// </typeparam>
+        /// <returns>
+        /// An infinite <see cref="IEnumerable{T}"/> whose values is based on the return type of <paramref name="selector"/>.
+        /// </returns>
+        public static IEnumerable<TResult> Enumerable<TResult>(this Random random, Func<Random, TResult> selector)
+        {
+            while (true)
+            {
+                yield return selector(random);
+            }
         }
     }
 }
