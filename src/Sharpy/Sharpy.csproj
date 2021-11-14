@@ -29,6 +29,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Sharpy.Builder" Version="0.2.0" />
-    <PackageReference Include="Sharpy.Core" Version="0.5.0" />
+    <PackageReference Include="Sharpy.Core" Version="0.6.0" />
   </ItemGroup>
 </Project>
