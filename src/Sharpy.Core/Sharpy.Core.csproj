@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Authors>Robert Andersson</Authors>
     <Description>A generator api with fluent syntax.</Description>
     <Version>0.5.0</Version>
