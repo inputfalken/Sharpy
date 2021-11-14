@@ -12,20 +12,20 @@ namespace Sharpy.ReactiveBuilder.Tests
         [Test]
         public void Not_Null()
         {
-            Assert.NotNull(new Builder.Builder().Observable(b => b.Integer()));
+            Assert.NotNull(new Builder.Builder().Observable(b => b.Int()));
         }
 
         [Test]
         public void Not_Null_With_Counter()
         {
-            Assert.NotNull(new Builder.Builder().Observable((b, i) => b.Integer()));
+            Assert.NotNull(new Builder.Builder().Observable((b, i) => b.Int()));
         }
 
         [Test]
         public void Null_Builder_Throws()
         {
             Builder.Builder builder = null;
-            Assert.Throws<ArgumentNullException>(() => builder.Observable(b => b.Integer()));
+            Assert.Throws<ArgumentNullException>(() => builder.Observable(b => b.Int()));
         }
 
         [Test]
@@ -43,7 +43,7 @@ namespace Sharpy.ReactiveBuilder.Tests
         }
 
         [Test]
-        public void Building_Integers()
+        public void Building_Ints()
         {
             const int seed = 20;
             var builder = new Builder.Builder(seed);
@@ -51,9 +51,9 @@ namespace Sharpy.ReactiveBuilder.Tests
             const int total = 2000;
             const int max = 1000;
             const int min = 100;
-            for (var i = 0; i < total; i++) expected.Add(builder.Integer(min, max));
+            for (var i = 0; i < total; i++) expected.Add(builder.Int(min, max));
             var result = new Builder.Builder(seed)
-                .Observable(b => b.Integer(min, max))
+                .Observable(b => b.Int(min, max))
                 .Take(total)
                 .ToListObservable();
             Assert.IsTrue(result.SequenceEqual(expected));
