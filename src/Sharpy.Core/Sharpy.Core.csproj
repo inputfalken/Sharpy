@@ -3,7 +3,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Authors>Robert Andersson</Authors>
     <Description>A generator api with fluent syntax.</Description>
-    <Version>0.6.0</Version>
+    <Version>0.6.1</Version>
     <PackageProjectUrl>https://github.com/inputfalken/Sharpy/tree/master</PackageProjectUrl>
     <PackageLicenseUrl>https://raw.githubusercontent.com/inputfalken/Sharpy/master/License.txt</PackageLicenseUrl>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
