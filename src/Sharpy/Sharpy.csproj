@@ -7,7 +7,7 @@
 
       For info please visit project page.</Description>
     <PackageProjectUrl>https://github.com/inputfalken/Sharpy/tree/master</PackageProjectUrl>
-    <Version>4.2.1</Version>
+    <Version>5.0.0</Version>
     <PackageLicenseUrl>https://raw.githubusercontent.com/inputfalken/Sharpy/master/License.txt</PackageLicenseUrl>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/inputfalken/Sharpy/tree/master</RepositoryUrl>
