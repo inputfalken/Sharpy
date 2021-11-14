@@ -29,7 +29,7 @@ namespace Sharpy.Builder.Implementation
         /// <inheritdoc />
         public char Char(in char min, in char max)
         {
-            return _random.Char(min, max);
+            return _random.Char(in min, in max);
         }
     }
 }

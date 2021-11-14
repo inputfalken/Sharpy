@@ -28,13 +28,13 @@ namespace Sharpy.Builder.Implementation
         /// <inheritdoc />
         public double Double(in double max)
         {
-            return Double(0, max);
+            return Double(0, in max);
         }
 
         /// <inheritdoc />
         public double Double(in double min, in double max)
         {
-            return _random.Double(min, max);
+            return _random.Double(in min, in max);
         }
     }
 }

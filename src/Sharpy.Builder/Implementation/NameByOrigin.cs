@@ -67,8 +67,7 @@ namespace Sharpy.Builder.Implementation
         /// <inheritdoc />
         public string FirstName(in Gender gender)
         {
-            return Name(
-                gender == Gender.Male ? NameType.MaleFirst : NameType.FemaleFirst);
+            return Name(gender == Gender.Male ? NameType.MaleFirst : NameType.FemaleFirst);
         }
 
         /// <inheritdoc />

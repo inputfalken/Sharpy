@@ -17,13 +17,13 @@ namespace Sharpy.Builder.Implementation
         /// <inheritdoc />
         public float Float(in float min, in float max)
         {
-            return _random.Float(min, max);
+            return _random.Float(in min, in max);
         }
 
         /// <inheritdoc />
         public float Float(in float max)
         {
-            return _random.Float(0, max);
+            return _random.Float(0, in max);
         }
 
         /// <inheritdoc />

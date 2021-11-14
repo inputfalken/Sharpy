@@ -48,19 +48,19 @@ namespace Sharpy.Builder.Implementation
         /// <inheritdoc />
         public DateTime DateTime()
         {
-            return DateTime(MinValue, MaxValue);
+            return DateTime(in MinValue, in MaxValue);
         }
 
         /// <inheritdoc />
         public DateTime DateTime(in DateTime max)
         {
-            return DateTime(MinValue, max);
+            return DateTime(in MinValue, in max);
         }
 
         /// <inheritdoc />
         public DateTime DateTime(in DateTime min, in DateTime max)
         {
-            return _random.DateTime(min, max);
+            return _random.DateTime(in min, in max);
         }
     }
 }

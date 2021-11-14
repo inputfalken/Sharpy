@@ -12,7 +12,7 @@ namespace Sharpy.Builder.Implementation
     {
         private const int AtLength = 1;
 
-        private static readonly char[] Separators = {'.', '_', '-'};
+        private static readonly char[] Separators = { '.', '_', '-' };
         private readonly IDictionary<string, int> _dictionary;
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace Sharpy.Builder.Implementation
         /// <inheritdoc />
         public string Mail(in string firstName, in string secondName)
         {
-            var first = BuildSeparatedString(firstName);
+            var first = BuildSeparatedString(in firstName);
             const int includedSeparatorLength = 1;
 
             var emailLength = first.Length
@@ -55,8 +55,8 @@ namespace Sharpy.Builder.Implementation
         /// <inheritdoc />
         public string Mail(in string firstName, in string secondName, in string thirdName)
         {
-            var first = BuildSeparatedString(firstName);
-            var second = BuildSeparatedString(secondName);
+            var first = BuildSeparatedString(in firstName);
+            var second = BuildSeparatedString(in secondName);
             const int includedSeparatorLength = 2;
 
             var emailLength = first.Length
@@ -77,9 +77,9 @@ namespace Sharpy.Builder.Implementation
         /// <inheritdoc />
         public string Mail(in string firstName, in string secondName, in string thirdName, in string fourthName)
         {
-            var first = BuildSeparatedString(firstName);
-            var second = BuildSeparatedString(secondName);
-            var third = BuildSeparatedString(thirdName);
+            var first = BuildSeparatedString(in firstName);
+            var second = BuildSeparatedString(in secondName);
+            var third = BuildSeparatedString(in thirdName);
             const int includedSeparatorLength = 3;
             var emailLength = first.Length
                               + second.Length
@@ -102,10 +102,10 @@ namespace Sharpy.Builder.Implementation
         public string Mail(in string firstName, in string secondName, in string thirdName, in string fourthName,
             in string fifthName)
         {
-            var first = BuildSeparatedString(firstName);
-            var second = BuildSeparatedString(secondName);
-            var third = BuildSeparatedString(thirdName);
-            var fourth = BuildSeparatedString(fourthName);
+            var first = BuildSeparatedString(in firstName);
+            var second = BuildSeparatedString(in secondName);
+            var third = BuildSeparatedString(in thirdName);
+            var fourth = BuildSeparatedString(in fourthName);
 
             const int includedSeparatorLength = 4;
             var emailLength = first.Length
@@ -150,13 +150,13 @@ namespace Sharpy.Builder.Implementation
         )
         {
             if (additional.Length == 0)
-                return Mail(firstName, secondName, thirdName, fourthName, fifthName);
+                return Mail(in firstName, in secondName, in thirdName, in fourthName, in fifthName);
 
-            var first = BuildSeparatedString(firstName);
-            var second = BuildSeparatedString(secondName);
-            var third = BuildSeparatedString(thirdName);
-            var fourth = BuildSeparatedString(fourthName);
-            var fifth = BuildSeparatedString(fifthName);
+            var first = BuildSeparatedString(in firstName);
+            var second = BuildSeparatedString(in secondName);
+            var third = BuildSeparatedString(in thirdName);
+            var fourth = BuildSeparatedString(in fourthName);
+            var fifth = BuildSeparatedString(in fifthName);
             var includedSeparatorLength = 5 + additional.Length;
 
             // We can not know the final string length due to the array without looping through it.
@@ -195,7 +195,7 @@ namespace Sharpy.Builder.Implementation
 
             var sb = new StringBuilder(minimumEmailLength);
             for (var i = 0; i < names.Length; i++)
-                sb.Append(i == names.Length - 1 ? names[i] : BuildSeparatedString(names[i]));
+                sb.Append(i == names.Length - 1 ? names[i] : BuildSeparatedString(in names[i]));
 
             return UniqueEmailFactory(sb);
         }

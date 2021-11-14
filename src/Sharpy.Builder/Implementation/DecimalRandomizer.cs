@@ -17,7 +17,7 @@ namespace Sharpy.Builder.Implementation
         /// <inheritdoc />
         public decimal Decimal(in decimal max)
         {
-            return Decimal(0, max);
+            return Decimal(0, in max);
         }
 
         /// <inheritdoc />
@@ -29,7 +29,7 @@ namespace Sharpy.Builder.Implementation
         /// <inheritdoc />
         public decimal Decimal(in decimal min, in decimal max)
         {
-            return _random.Decimal(min, max);
+            return _random.Decimal(in min, in max);
         }
     }
 }

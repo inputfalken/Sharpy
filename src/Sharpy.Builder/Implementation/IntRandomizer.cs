@@ -24,13 +24,13 @@ namespace Sharpy.Builder.Implementation
         /// <inheritdoc />
         public int Int(in int max)
         {
-            return Int(0, max);
+            return Int(0, in max);
         }
 
         /// <inheritdoc />
         public int Int(in int min, in int max)
         {
-            return _random.Int(min, max);
+            return _random.Int(in min, in max);
         }
 
         /// <inheritdoc />
