@@ -29,9 +29,9 @@ namespace RandomExtended
         /// </returns>
         public static short Short(this Random random, in short min, in short max)
         {
-            return (short) random.Int(min, max);
+            return (short)random.Int(min, max);
         }
-        
+
         /// <summary>
         ///     Randomizes a System.Int16 within <paramref name="min" /> and <paramref name="max" />.
         /// </summary>
@@ -59,7 +59,7 @@ namespace RandomExtended
         /// </returns>
         public static short Short(this Random random, in short min, in short max, in Rule rule)
         {
-            return (short) random.Int(min, max, in rule);
+            return (short)random.Int(min, max, in rule);
         }
 
         /// <summary>
@@ -164,33 +164,7 @@ namespace RandomExtended
             in long max
         )
         {
-            static long NextLong(Random random, long min, long max)
-            {
-                //Working with ulong so that modulo works correctly with values > long.MaxValue
-                var uRange = (ulong) (max - min);
-
-                //Prevent a modulo bias; see http://stackoverflow.com/a/10984975/238419
-                //for more information.
-                //In the worst case, the expected number of calls is 2 (though usually it's
-                //much closer to 1) so this loop doesn't really hurt performance at all.
-                ulong ulongRand;
-                do
-                {
-                    var buf = new byte[8];
-                    random.NextBytes(buf);
-                    ulongRand = (ulong) BitConverter.ToInt64(buf, 0);
-                } while (ulongRand > ulong.MaxValue - (ulong.MaxValue % uRange + 1) % uRange);
-
-                return (long) (ulongRand % uRange) + min;
-            }
-
-            return random switch
-            {
-                _ when min > max => throw new ArgumentOutOfRangeException(nameof(min),
-                    $"Can not be greater than {nameof(max)}."),
-                _ when min == max => min,
-                _ => NextLong(random, min, max)
-            };
+            return random.NextInt64(min, max);
         }
 
         /// <summary>
@@ -332,9 +306,9 @@ namespace RandomExtended
                 _ when Math.Abs(min - max) < float.Epsilon => min,
                 _ when Math.Abs(min - float.MinValue) < float.Epsilon &&
                        Math.Abs(max - float.MaxValue) < float.Epsilon => random.Bool()
-                    ? (float) random.NextDouble() * min
-                    : (float) random.NextDouble() * max,
-                _ => (float) (random.NextDouble() * (max - min) + min)
+                    ? random.NextSingle() * min
+                    : random.NextSingle() * max,
+                _ => random.NextSingle() * (max - min) + min
             };
 
             return Math.Abs(res - max) < float.Epsilon ? min : res;
@@ -418,8 +392,8 @@ namespace RandomExtended
         {
             return list switch
             {
-                {Count: 0} => throw new ArgumentException("List can not be empty.", nameof(list)),
-                {Count: 1} x => x[0],
+                { Count: 0 } => throw new ArgumentException("List can not be empty.", nameof(list)),
+                { Count: 1 } x => x[0],
                 { } x => x[random.Next(list.Count)]
             };
         }
@@ -449,9 +423,9 @@ namespace RandomExtended
         {
             return span switch
             {
-                {Length: 0} => throw new ArgumentException("Span can not be empty.", nameof(span)),
-                {Length: 1} => span[0],
-                { } x => x[random.Next(span.Length)]
+                { Length: 0 } => throw new ArgumentException("Span can not be empty.", nameof(span)),
+                { Length: 1 } => span[0],
+                var x => x[random.Next(span.Length)]
             };
         }
 
@@ -481,9 +455,9 @@ namespace RandomExtended
         {
             return span switch
             {
-                {Length: 0} => throw new ArgumentException("Span can not be empty.", nameof(span)),
-                {Length: 1} => span[0],
-                { } x => x[random.Next(span.Length)]
+                { Length: 0 } => throw new ArgumentException("Span can not be empty.", nameof(span)),
+                { Length: 1 } => span[0],
+                var x => x[random.Next(span.Length)]
             };
         }
 
@@ -692,7 +666,7 @@ namespace RandomExtended
                 -3 => third,
                 -2 => second,
                 -1 => first,
-                { } x => additional[x]
+                var x => additional[x]
             };
         }
 
@@ -917,7 +891,7 @@ namespace RandomExtended
             in char max
         )
         {
-            return (char) random.Int(min, max + 1);
+            return (char)random.Int(min, max + 1);
         }
 
         /// <summary>
@@ -952,7 +926,7 @@ namespace RandomExtended
             Rule rule
         )
         {
-            return (char) Int(random, min, max, rule);
+            return (char)Int(random, min, max, rule);
         }
 
         /// <summary>
