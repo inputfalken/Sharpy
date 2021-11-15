@@ -33,6 +33,6 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="System.Text.Json" Version="6.0.0"/>
-        <PackageReference Include="RandomExtended" Version="0.4.0" PrivateAssets="Compile"/>
+        <PackageReference Include="RandomExtended" Version="0.4.1" PrivateAssets="Compile"/>
     </ItemGroup>
 </Project>
