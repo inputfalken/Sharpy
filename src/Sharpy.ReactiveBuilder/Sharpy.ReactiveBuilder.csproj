@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <RepositoryType>git</RepositoryType>
@@ -23,6 +23,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Sharpy.Builder" Version="0.3.1" />
-    <PackageReference Include="system.reactive" Version="5.0.0" />
+    <PackageReference Include="system.reactive" Version="6.0.0" />
   </ItemGroup>
 </Project>
